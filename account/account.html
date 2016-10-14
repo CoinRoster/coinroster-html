@@ -1,0 +1,660 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | My Account</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+</head>
+<body>
+<!--#include virtual="/ssi/nav.html" -->
+<div id="centering_container">
+    <div id="body_container">
+        
+        <div id="page_title">
+            My Account 
+        </div>
+        
+        <div style="margin-bottom:40px;">
+            <table id="balance_wrapper_table">
+                <tr>
+                    <td width="1" style="padding-right:60px;">
+                        <table id="balance_table">
+                            <tr>
+                                <td id="btc_balance" class="balance_field">
+                                    0.00000000
+                                </td>
+                                <td style="padding-right:0">
+                                    BTC
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="rc_balance" class="balance_field" style="padding-bottom:24px">
+                                    0.00000000
+                                </td>
+                                <td style="padding-right:0;padding-bottom:24px">
+                                    RC
+                                </td>
+                            </tr>
+                            <tr style="border-top:1px solid white;">
+                                <td id="available_balance" class="balance_field" style="padding-top:24px;">
+                                    0.00000000
+                                </td>
+                                <td style="padding-right:0;padding-top:24px;">
+                                    Available
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <!--<td>
+                        <table id="balance_table">
+                            <tr>
+                                <td>
+                                    <a class="link">Deposit BTC</a>
+                                </td>
+                                <td>
+                                    <a class="link">Withdraw BTC</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>-->
+                </tr>
+            </table>
+        </div>
+        
+        <div class="subwindow hidden_subwindow" toggle="Transactions">
+            <div class="subwindow_heading">
+                Transactions
+            </div>
+            <br/>
+            <br/>
+            <div id="transaction_report_table"></div>
+        </div>
+                
+        <div class="subwindow hidden_subwindow" toggle="Contests">
+            <div class="subwindow_heading">
+                Contests
+            </div>
+            <br/>
+            <br/>
+            <div id="contest_report_table">
+                Coming in 2016!
+            </div>
+        </div>
+        
+        <div id="add_email_subwindow" class="subwindow hidden_subwindow" toggle="Add email address">
+            <div id="add_email_message" class="subwindow_heading">
+                Add email address
+            </div>
+            <br/>
+            <div class="input_padding disclaimer">
+                By default, we will only send you emails about activity in your account such as 
+                <br/>
+                transaction records. Your email will also be used if you ever need to recover
+                <br/>
+                your account. We will not sell or share your email address with a third party.
+                <br/>
+                <br/>
+                We have a weekly newsletter featuring news updates from the world of bitcoin,
+                <br/>
+                gaming, and sports. To sign up, please click here:
+            </div>
+            <label id="newsletter_label" class="checkbox_label">
+                <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
+                Sign up for our newsletter
+            </label>
+            <form onsubmit="return add_email_address();">
+                <div class="input_padding">
+                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="text_button auto_width">Submit</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="manage_email_subwindow" class="subwindow hidden_subwindow" toggle="Manage e-mail">
+            <div id="manage_email_message" class="subwindow_heading">
+                Manage e-mail
+            </div>
+            <br/>
+            <br/>
+            <div id="manage_email">
+                <span id="email_on_file"></span>
+                <span id="verified_unverified"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="verification_button">
+                    <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
+                    &nbsp;&nbsp;&nbsp;
+                </span>
+                <span id="verification_message">
+                    Verification Sent!
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+                <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
+            </div>
+            <div id="change_email" style="display:none">
+                <form onsubmit="return change_email_address();">
+                    <span id="change_email_message">New e-mail address:</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="text_button auto_width">Submit</button>
+                    &nbsp;&nbsp;&nbsp;
+                <button class="text_button auto_width" onclick="hide('change_email');show('manage_email');return false;">Cancel</button>
+                </form>
+            </div>
+            <br/>
+            <hr noshade>
+            <br/>
+            <span id="subscribe_unsubscribe_message"></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
+        </div>
+        
+        <div class="subwindow hidden_subwindow" toggle="Change password">
+            <div id="change_password_message" class="subwindow_heading">
+                Change password
+            </div>
+            <br/>
+            <br/>
+            <form onsubmit="return change_password();">
+                <input type="password" style="position:absolute;top:-1000px;"/>
+                <input id="old_password" type="password" class="input_style" placeholder="Old password" />
+                &nbsp;&nbsp;&nbsp;
+                <input id="new_password" type="password" class="input_style" placeholder="New password" />
+                &nbsp;&nbsp;&nbsp;
+                <input id="confirm_password" type="password" class="input_style" placeholder="Confirm new password" />
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="text_button auto_width">Submit</button>
+            </form>
+        </div>
+        
+        <div class="subwindow hidden_subwindow" toggle="Invite a friend">
+            <div id="referral_message" class="subwindow_heading">
+                Invite a friend
+            </div>
+            <br/>
+            <form onsubmit="return send_referral();">
+                <div class="input_padding">
+                    From:&nbsp;&nbsp;&nbsp;
+                    <input id="referrer" type="text" class="input_style" />
+                </div>
+                Your friend's email:
+                &nbsp;&nbsp;&nbsp;
+                <input id="referral_email_address" type="text" placeholder="Email address"  class="input_style email_input" />
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="text_button auto_width">Submit</button>
+            </form>
+        </div>
+        
+        <!--<div class="subwindow hidden_subwindow" toggle="Give us feedback">
+            <div class="subwindow_heading">
+                Give us feedback
+            </div>
+            <br/>
+            <br/>
+            <form onsubmit="return email();">
+                <input id="email" type="text" class="input_style note_input" placeholder="Note" />
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" class="text_button auto_width">Submit</button>
+            </form>
+        </div>-->
+        
+    </div>
+</div>
+<script>
+
+//--------------------------------------------------------------------------------------------------
+    
+    // HELPER FUNCTIONS
+        
+    function set_focus(_id)
+        {
+        setTimeout(function()
+            {
+            id(_id).focus();
+            },100);
+        }
+    
+//--------------------------------------------------------------------------------------------------
+    
+    id("referrer").value = session.username;
+    
+//--------------------------------------------------------------------------------------------------
+    
+    // GET ACCOUNT DATA
+    
+    var account_data = api({
+        method: "get_account_details",
+        args: {}
+    });
+    
+    if (account_data.status === "1")
+        {
+        var 
+        
+        btc_balance = account_data.btc_balance,
+        rc_balance = account_data.rc_balance,
+        ext_address = account_data.ext_address,
+        email_address = account_data.email_address,
+        email_ver_flag = account_data.email_ver_flag,
+        newsletter_flag = account_data.newsletter_flag;
+
+        id("btc_balance").innerHTML = btc_balance;
+        id("rc_balance").innerHTML = rc_balance;
+        id("available_balance").innerHTML = (parseFloat(btc_balance) + parseFloat(rc_balance)).toFixed(8);
+        
+        if (typeof email_address === "undefined") destroy("manage_email_subwindow");
+        else 
+            {
+            destroy("add_email_subwindow");
+            id("email_on_file").innerHTML = email_address; 
+            if (email_ver_flag === "1")
+                {
+                id("verified_unverified").innerHTML = "&nbsp;&nbsp;(verified)";
+                id("email_on_file").style.color = "rgb(139,215,255)";
+                id("verified_unverified").style.color = "rgb(139,215,255)";
+                hide("verification_button");
+                }
+            else
+                {
+                id("verified_unverified").innerHTML = "&nbsp;&nbsp;(unverified)";
+                id("email_on_file").style.color = "orange";
+                id("verified_unverified").style.color = "orange";
+                }
+            update_subscription_view(newsletter_flag);
+            }
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // APPLY EXPAND/COLLAPSE FUNCTIONALITY TO SUBWINDOWS
+    
+    (function(subwindows)
+        {
+        for (var i=0; i<subwindows.length; i++)
+            {
+            var 
+
+            subwindow_toggle = document.createElement("div");
+            subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
+            subwindow_toggle.className = "subwindow clickable_subwindow";
+            subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
+                {
+                return function()
+                    {
+                    /*if (typeof window.subwindow !== "undefined")
+                        {
+                        window.subwindow.style.display = "none";
+                        window.subwindow_toggle.style.display = "block";
+                        }
+                    window.subwindow = subwindow;
+                    window.subwindow_toggle = subwindow_toggle;*/
+                    subwindow.style.display = "block";
+                    subwindow_toggle.style.display = "none";
+                    };
+                })(subwindows[i], subwindow_toggle);
+
+            var 
+
+            hide_button = document.createElement("div");
+            hide_button.className = "hide_button";
+            hide_button.innerHTML = "hide";
+            hide_button.onclick =  (function(subwindow, subwindow_toggle) 
+                {
+                return function()
+                    {
+                    subwindow.style.display = "none";
+                    subwindow_toggle.style.display = "block";
+                    };
+                })(subwindows[i], subwindow_toggle);
+
+            subwindows[i].appendChild(hide_button);
+            subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
+            }
+        })(document.getElementsByClassName("hidden_subwindow"));
+
+//--------------------------------------------------------------------------------------------------
+    
+    // CHANGE PASSWORD
+    
+    function change_password_error(message)
+        {
+        id("change_password_message").innerHTML = message;
+        id("change_password_message").style.color = "orange";
+        id("new_password").value = "";
+        id("confirm_password").value = "";
+        }
+
+    function change_password()
+        {
+        var old_password = id("old_password").value,
+        new_password = id("new_password").value,
+        confirm_password = id("confirm_password").value;
+
+        if (old_password === "")
+            {
+            change_password_error("Enter your old password");
+            set_focus("old_password");
+            return false;
+            }
+
+        if (old_password.length < 8) 
+            {
+            change_password_error("Old password must be 8 characters or longer");
+            id("old_password").value = "";
+            set_focus("old_password");
+            return false;
+            }
+            
+        if (new_password === "")
+            {
+            change_password_error("Enter new password");
+            set_focus("new_password");
+            return false;
+            }
+            
+        if (new_password.length < 8) 
+            {
+            change_password_error("New password must be 8 characters or longer");
+            set_focus("new_password");
+            return false;
+            }
+
+        if (new_password !== confirm_password)
+            {
+            change_password_error("The passwords you typed<br/>do not match");
+            set_focus("new_password");
+            return false;
+            }
+        
+        var call = api({
+            method: "change_password",
+            args: {
+                old_password: old_password,
+                new_password: new_password
+            }
+        });
+
+        if (call !== null)
+            {
+            if (call.status === "1")
+                {
+                id("change_password_message").innerHTML = "Your password has been updated.";
+                id("change_password_message").style.color = "rgb(0,255,50)";
+                id("old_password").value = "";
+                id("new_password").value = "";
+                id("confirm_password").value = "";
+                id("confirm_password").blur();
+                }
+            else change_password_error("Not authorized");
+            return false;
+            }
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // ADD EMAIL ADDRESS
+    
+    function add_email_error(message)
+        {
+        id("add_email_message").innerHTML = message;
+        id("add_email_message").style.color = "orange";
+        }
+
+    function add_email_address()
+        {
+        var new_email_address = id("new_email_address").value,
+        newsletter_flag = id("newsletter_checkbox").checked ? 1 : 0;
+
+        if (validate_email(new_email_address) === false)
+            {
+            add_email_error("Invalid email address");
+            return false;
+            }
+
+        var call = api({
+            method: "add_email_address",
+            args: {
+                email_address: new_email_address,
+                newsletter_flag: newsletter_flag
+            }
+        });
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // CHANGE EMAIL ADDRESS
+    
+    function change_email_error(message)
+        {
+        id("change_email_message").innerHTML = message;
+        id("change_email_message").style.color = "orange";
+        }
+
+    function change_email_address()
+        {
+        var new_email_address = id("new_email_address").value;
+
+        if (new_email_address === id("email_on_file").innerHTML)
+            {
+            change_email_error("Email address is on file");
+            return false;
+            }
+        if (validate_email(new_email_address) === false)
+            {
+            change_email_error("Invalid email address");
+            return false;
+            }
+
+        var call = api({
+            method: "change_email_address",
+            args: {
+                email_address: new_email_address
+            }
+        });
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // TOGGLE NEWSLETTER SUBSCRIPTION
+    
+    function update_subscription_view(newsletter_flag)
+        {
+        id("subscribe_unsubscribe_message").current_state = newsletter_flag;
+        if (newsletter_flag === "1")
+            {
+            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are</span> subscribed to our newsletter";
+            id("subscribe_unsubscribe_button").innerHTML = "Unsubscribe";
+            }
+        else
+            {
+            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are not</span> subscribed to our newsletter"; 
+            id("subscribe_unsubscribe_button").innerHTML = "Subscribe";
+            }
+        }
+
+    function toggle_subscription()
+        {
+        var current_flag_state = id("subscribe_unsubscribe_message").current_state;
+ 
+        var call = api({
+            method: "toggle_newsletter_flag",
+            args: {
+                current_flag_state: current_flag_state
+            }
+        });
+
+        if (call.status === "1") 
+            {
+            var newsletter_flag = call.newsletter_flag;
+            update_subscription_view(newsletter_flag);
+            }
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // RE-SEND EMAIL VERIFICATION
+
+    function resend_verification()
+        {
+        var call = api({
+            method: "send_email_verification",
+            args: {}
+        });
+        if (call.status === "1")
+            {
+            hide("verification_button");
+            id("verification_message").style.display = "inline-block"; // don't use show() - must be inline
+            }
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // SEND REFERRAL
+
+    function referral_email_error(message)
+        {
+        id("referral_message").innerHTML = message;
+        id("referral_message").style.color = "orange";
+        }
+
+    function send_referral()
+        {
+        var 
+        
+        referrer = id("referrer").value,
+        referral_email_address = id("referral_email_address").value;
+
+        if (referrer === "")
+            {
+            referral_email_error("Please enter your name");
+            return false;
+            }
+        if (validate_email(referral_email_address) === false)
+            {
+            referral_email_error("Invalid email address");
+            return false;
+            }
+
+        var call = api({
+            method: "send_referral",
+            args: {
+                referrer: referrer,
+                email_address: referral_email_address,
+                referral_program: "1"
+            }
+        });
+
+        id("referral_email_address").value = "";
+        referral_email_error("Invitation sent!");
+        return false;
+        }
+
+//--------------------------------------------------------------------------------------------------
+
+    // TRANSACTION REPORT
+
+    function new_table(parent)
+        {
+        var parent_element = id(parent);
+        parent_element.innerHTML = "";
+        var table = document.createElement("table");
+        parent_element.appendChild(table);
+        return table;
+        }
+        
+    var 
+    
+    number_of_transactions,
+    transaction_report_array = [];
+    
+    transaction_report();
+    
+    function transaction_report()
+        {
+        var 
+        
+        start_date_ms = 0, 
+        end_date_ms = 9999999999999;
+
+        var call = api({
+            method: "transaction_report",
+            args: {
+                start_date_ms: start_date_ms,
+                end_date_ms: end_date_ms,
+                request_source: "account_panel"
+            }
+        });
+        
+        if (call.status === "1") 
+            {
+            transaction_report_array = call.transaction_report;
+            number_of_transactions = transaction_report_array.length;
+            populate_transaction_report_table();
+            }
+        }
+        
+    function populate_transaction_report_table()
+        {
+        function new_row(table, row_index, data)
+            {
+            var row = table.insertRow(row_index),
+            array = [row];
+            for (var i=0; i<data.length; i++)
+                {
+                var cell = row.insertCell(i); 
+                cell.innerHTML = data[i];
+                array.push(cell);
+                }
+                
+            array[3].style.textAlign = "right";
+            
+            return array;
+            }
+       
+        var table = new_table("transaction_report_table"),
+        row_count = 0;
+
+        if (number_of_transactions > 0)
+            {
+            // create rows:
+
+            for (var i=number_of_transactions-1; i>=0; i--)
+                {
+                var transaction_item = transaction_report_array[i],
+
+                created = transaction_item.created,
+                trans_type = transaction_item.trans_type,
+                amount = transaction_item.amount,
+                from_currency = transaction_item.from_currency,
+                memo = transaction_item.memo,
+                
+                created_date = dateconv_ms_to_string(created),
+                created_time = dateconv_ms_to_time(created);
+
+                new_row(table, row_count++, [
+                    created_date + " at " + created_time,
+                    trans_type,
+                    amount,
+                    from_currency
+                    //memo
+                ]);
+                }
+                
+            /*var header = new_row(table, 0, [
+                "Created",
+                "Transaction",
+                "Amount",
+                "Currency",
+                "Memo"
+            ]);
+            
+            // style headers:
+
+            for (var i=1; i<header.length; i++) header[i].className = "header_cell";*/
+            }
+        else id("transaction_report_table").innerHTML = "No transactions found";
+        }
+</script>
+</body>
+</html>
