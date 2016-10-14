@@ -6,7 +6,6 @@
     <!--#include virtual="/ssi/head.html" -->
 </head>
 <body>
-<!--#include virtual="/ssi/auto_login.html" -->
 <!--#include virtual="/ssi/carousel.html" -->
 <table id="landing_center">
     <tr>
@@ -15,14 +14,14 @@
                 <h1>
                     CoinRoster
                 </h1>
-                <div id="message" class="vertical_spacing"></div>
+                <div id="auth_message" class="vertical_spacing"></div>
                 <div>
                     <form onsubmit="return login();">
                         <div class="input_padding">
-                            <input placeholder="Username" label="false" id="login_username" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input placeholder="Username" label="false" id="username" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
                         </div>
                         <div class="input_padding">
-                            <input placeholder="Password" label="false" id="login_password" type="password" class="input_style">
+                            <input placeholder="Password" label="false" id="password" type="password" class="input_style">
                         </div>
                         <button id="login_button" class="text_button" type="submit">Log in</button>
                     </form>
@@ -33,28 +32,31 @@
 </table>
 <script type="text/javascript">
     
-    var 
-    
-    search_variable = location.search.split("?")[1],
-    email_ver_key;
-    
-    if (typeof search_variable === "undefined") email_ver_key = "";
-    else email_ver_key = search_variable;
-
-    if (email_ver_key === "") id("message").innerHTML = "Please log in";
-    else
+    (function() // automatically submit email verification if token is present
         {
-        var call = api({
-            method: "verify_email",
-            args: {
-                email_ver_key: email_ver_key
-            }
-        });
+        var 
+    
+        search_variable = location.search.split("?")[1],
+        email_ver_key;
 
-        if (call.status === "1") id("message").innerHTML = "Your e-mail has been verified";
-        else id("message").innerHTML = "Something went wrong, please log in.";
-        }
-        
+        if (typeof search_variable === "undefined") email_ver_key = "";
+        else email_ver_key = search_variable;
+
+        if (email_ver_key === "") set_auth_message("Please log in", "white");
+        else
+            {
+            var call = api({
+                method: "VerifyEmail",
+                args: {
+                    email_ver_key: email_ver_key
+                }
+            });
+
+            if (call.status === "1") set_auth_message("Your e-mail has been verified", "white");
+            else set_auth_message("Something went wrong, please log in.", "white");
+            }
+        })();
+    
 </script>
 </body>
 </html>

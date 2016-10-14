@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
-    <!--#include virtual="/ssi/head.html" -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--#include virtual="/ssi/head.html" -->
 </head>
 <body>
 <!--#include virtual="/ssi/auto_login.html" -->
@@ -16,10 +16,9 @@
                     CoinRoster
                 </h1>
                 <div class="vertical_spacing">
-                    <span id="message" style="color:orange">
-                        <p>
-                            Enter your email address
-                        </p>
+                    <span id="auth_message">
+                        Enter your email address
+                        <br/>
                         to reset your password.
                     </span>
                 </div>
@@ -54,7 +53,7 @@
                     <br/>
                     using this method, please email
                     <br/>
-                    admin@coinroster.com
+                    management@coinroster.com
                     <br/>
                     <br/>
                     <a id="reset_password" href="/">Back to login screen</a>
@@ -63,38 +62,5 @@
         </td>
     </tr>
 </table>
-<script type="text/javascript">
-
-    function send_password_reset()
-        {
-        var email_address = id("email_address").value;
-
-        if (email_address === "") return false;
-        
-        if (validate_email(email_address) === false)
-            {
-            id("message").innerHTML = "Invalid email address";
-            return false;
-            }
-
-        setTimeout(function()
-            {
-            var call = api({
-                method: "send_password_reset",
-                args: {
-                    email_address: email_address
-                }
-            });
-            if (call.status === "1")
-                {
-                hide("initial_container");
-                show("submitted_container");
-                }
-            },100);
-            
-        return false;
-        }
-
-</script>
 </body>
 </html>

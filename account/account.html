@@ -157,7 +157,7 @@
             <br/>
             <br/>
             <form onsubmit="return change_password();">
-                <input type="password" style="position:absolute;top:-1000px;"/>
+                <input type="password" style="position:absolute;top:-5000px;"/>
                 <input id="old_password" type="password" class="input_style" placeholder="Old password" />
                 &nbsp;&nbsp;&nbsp;
                 <input id="new_password" type="password" class="input_style" placeholder="New password" />
@@ -185,36 +185,11 @@
                 <button type="submit" class="text_button auto_width">Submit</button>
             </form>
         </div>
-        
-        <!--<div class="subwindow hidden_subwindow" toggle="Give us feedback">
-            <div class="subwindow_heading">
-                Give us feedback
-            </div>
-            <br/>
-            <br/>
-            <form onsubmit="return email();">
-                <input id="email" type="text" class="input_style note_input" placeholder="Note" />
-                &nbsp;&nbsp;&nbsp;
-                <button type="submit" class="text_button auto_width">Submit</button>
-            </form>
-        </div>-->
-        
+
     </div>
 </div>
 <script>
 
-//--------------------------------------------------------------------------------------------------
-    
-    // HELPER FUNCTIONS
-        
-    function set_focus(_id)
-        {
-        setTimeout(function()
-            {
-            id(_id).focus();
-            },100);
-        }
-    
 //--------------------------------------------------------------------------------------------------
     
     id("referrer").value = session.username;
@@ -224,7 +199,7 @@
     // GET ACCOUNT DATA
     
     var account_data = api({
-        method: "get_account_details",
+        method: "GetAccountDetails",
         args: {}
     });
     
@@ -368,7 +343,7 @@
             }
         
         var call = api({
-            method: "change_password",
+            method: "ChangePassword",
             args: {
                 old_password: old_password,
                 new_password: new_password
@@ -413,7 +388,7 @@
             }
 
         var call = api({
-            method: "add_email_address",
+            method: "AddEmailAddress",
             args: {
                 email_address: new_email_address,
                 newsletter_flag: newsletter_flag
@@ -447,7 +422,7 @@
             }
 
         var call = api({
-            method: "change_email_address",
+            method: "ChangeEmailAddress",
             args: {
                 email_address: new_email_address
             }
@@ -478,7 +453,7 @@
         var current_flag_state = id("subscribe_unsubscribe_message").current_state;
  
         var call = api({
-            method: "toggle_newsletter_flag",
+            method: "ChangeNewsletterFlag",
             args: {
                 current_flag_state: current_flag_state
             }
@@ -498,7 +473,7 @@
     function resend_verification()
         {
         var call = api({
-            method: "send_email_verification",
+            method: "SendEmailVerification",
             args: {}
         });
         if (call.status === "1")
@@ -537,7 +512,7 @@
             }
 
         var call = api({
-            method: "send_referral",
+            method: "SendReferral",
             args: {
                 referrer: referrer,
                 email_address: referral_email_address,
@@ -578,7 +553,7 @@
         end_date_ms = 9999999999999;
 
         var call = api({
-            method: "transaction_report",
+            method: "TransactionReport",
             args: {
                 start_date_ms: start_date_ms,
                 end_date_ms: end_date_ms,

@@ -179,41 +179,19 @@
         {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-            
-    function login()
+       
+    function set_focus(_id)
         {
-        var
-        
-        username = id("login_username").value,
-        password = id("login_password").value;
-
-        if (username === "" || password === "") return false;
-
         setTimeout(function()
             {
-            var call = api({
-                method: "login",
-                args: {
-                    username: username,
-                    password: password
-                }
-            });
-            if (call.status === "1") location = "/account";
-            else
-                {
-                id("message").innerHTML = "<ul><li>Invalid Credentials!</li></ul>";
-                id("message").style.color = "red";
-                id("login_username").value = "";
-                id("login_password").value = "";
-                }
+            id(_id).focus();
             },100);
-        return false;
         }
-      
+
     function logout()
         {
-        api({method: "logout", args: {}});
+        api({method: "Logout", args: {}});
         location  = "/";
         }
 
-    var session = api({method: "get_session_details", args: {}});
+    var session = api({method: "GetSessionDetails", args: {}});

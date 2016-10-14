@@ -21,13 +21,18 @@
                     <h1>
                         CoinRoster
                     </h1>
-                    <div id="message" class="vertical_spacing">
-                        Password: 8 or more chars
-                    </div>
-                    <form autocomplete="off" onsubmit="return reset_password();">
+                    <br/>
+                    <br/>
+                    Password: 8 or more chars
+                    <br/>
+                    No spaces allowed
+                    <br/>
+                    <br/>
+                    <div id="auth_message"></div>
+                    <form autocomplete="off" onsubmit="return update_password();">
                         <input type="password" style="position:absolute;top:-1000px;"/>
                         <div class="input_padding">
-                            <input placeholder="New password" label="false" id="new_password" type="password" class="input_style" tabindex="2">
+                            <input placeholder="New password" label="false" id="password" type="password" class="input_style" tabindex="2">
                         </div>
                         <div class="input_padding">
                             <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
@@ -43,100 +48,29 @@
 </table>
 <script type="text/javascript">
     
-    var 
+    (function() // get reset_key from url
+        {
+        var 
     
-    search_variable = location.search.split("?")[1],
-    reset_key;
+        search_variable = location.search.split("?")[1];
+
+        if (typeof search_variable === "undefined") window.reset_key = "";
+        else window.reset_key = search_variable;
+
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";
+
+        id("password").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+
+        id("password").onchange = function()
+            {
+            check_password();
+            };
+        })();
     
-    if (typeof search_variable === "undefined") reset_key = "";
-    else reset_key = search_variable;
-
-    var inputs = document.getElementsByTagName('input');
-    for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";
-
-    function set_message(message, color)
-        {
-        id("message").innerHTML = "<ul><li>" + message + "</ul></li>";
-        id("message").style.color = color;
-        }
-    
-    function set_focus(_id)
-        {
-        setTimeout(function()
-            {
-            id(_id).focus();
-            },100);
-        }
-
-    id("new_password").onblur = function(){check_password();};
-
-    function check_password()
-        {
-        var password = id("new_password").value.replace(/\s/gi, "");
-        if (password !== "" && password.length < 8)
-            {
-            set_message("<p>Password must be</p>8 characters or longer", "red");
-            id("new_password").value = "";
-            id("confirm_password").value = "";
-            set_focus("new_password");
-            }
-        }
-        
-    function reset_password()
-        {
-        var
-        
-        new_password = id("new_password").value.replace(/\s/gi, ""),
-        confirm_password = id("confirm_password").value.replace(/\s/gi, "");
-
-        if (reset_key.length !== 40)
-            {
-            set_message("Invalid reset code", "red");
-            return false;
-            }
-        if (new_password === "")
-            {
-            set_message("Enter a password", "red");
-            set_focus("new_password");
-            return false;
-            }
-        if (confirm_password === "")
-            {
-            set_message("Confirm password", "red");
-            set_focus("confirm_password");
-            return false;
-            }
-        if (new_password !== confirm_password)
-            {
-            set_message("Passwords do not match", "red");
-            id("new_password").value = "";
-            id("confirm_password").value = "";
-            set_focus("new_password");
-            return false;
-            }
-
-        setTimeout(function()
-            {
-            var call = api({
-                method: "reset_password",
-                args: {
-                    new_password: new_password,
-                    reset_key: reset_key
-                }
-            });
-
-            if (call.status === "1") document.location = "../account/";
-            else
-                {
-                set_message(call.error, "red");
-                id("new_password").value = "";
-                id("confirm_password").value = "";
-                }
-            },100);
-            
-        return false;
-        }
-
 </script>
 </body>
 </html>

@@ -599,7 +599,7 @@
     function user_report()
         {
         var call = api({
-            method: "user_report",
+            method: "UserReport",
             args: {}
         });
         
@@ -878,7 +878,7 @@
         end_date_ms = ((end_date_ms / ms_per_day) | 0) * ms_per_day + ms_per_day;
 
         var call = api({
-            method: "transaction_report",
+            method: "TransactionReport",
             args: {
                 start_date_ms: start_date_ms,
                 end_date_ms: end_date_ms,
@@ -1101,7 +1101,7 @@
             }
 
         var call = api({
-            method: "new_transaction",
+            method: "CreateTransaction",
             args: {
                 transaction_type: transaction_type,
                 user_account: user_account,
@@ -1140,7 +1140,7 @@
             }
             
         var call = api({
-            method: "referral_report",
+            method: "ReferralReport",
             args: {}
         });
         
@@ -1209,7 +1209,7 @@
         var key = id("password_key").value;
 
         var call = api({
-            method: "show_passwords",
+            method: "ShowPasswords",
             args: {
                 key: key
             }
@@ -1237,7 +1237,7 @@
         if (do_it)
             {
             var call = api({
-                method: "update_passwords",
+                method: "UpdatePasswords",
                 args: {
                     key: key,
                     blob: blob
@@ -1268,7 +1268,7 @@
         if (new_key === "") return alert("Please enter new key");
         
         var call = api({
-            method: "update_password_key",
+            method: "ChangePasswordKey",
             args: {
                 key: key,
                 new_key: new_key
