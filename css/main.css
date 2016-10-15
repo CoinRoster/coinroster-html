@@ -13,11 +13,7 @@
         moz-text-size-adjust:none;
         -webkit-text-size-adjust:none;
         -ms-text-size-adjust:none;
-        background: url('../img/slides/greybg-min.jpg') no-repeat center center fixed; 
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;   
+        background: url('../img/greybg.png') repeat;
     }
     
     a {
@@ -68,6 +64,10 @@
         padding:0;
     }
 
+    .orange {
+        color: orange;
+    }
+    
     .vertical_spacing {
         padding:28px 0 20px;
     }
@@ -108,6 +108,10 @@
 
     .input_padding {
         margin: 16px 0;
+    }
+    
+    .description_text {
+        font-size:14px;
     }
 
     input:-webkit-autofill,

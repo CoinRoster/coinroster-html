@@ -18,7 +18,16 @@
         var _el = document.getElementById(_id);
         _el.parentNode.removeChild(_el);
         }
-        
+            
+    function new_table(parent)
+        {
+        var parent_element = id(parent);
+        parent_element.innerHTML = "";
+        var table = document.createElement("table");
+        parent_element.appendChild(table);
+        return table;
+        }
+
     function api(call)  
         {
         var xhr = new XMLHttpRequest();
@@ -187,7 +196,13 @@
             id(_id).focus();
             },100);
         }
-
+ 
+    Array.prototype.contains = function(value) 
+        {
+        for (var i=0; i<this.length; i++) if (this[i] === value) return true;
+        return false;
+        };
+ 
     function logout()
         {
         api({method: "Logout", args: {}});

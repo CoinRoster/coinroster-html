@@ -18,7 +18,7 @@
             <table id="balance_wrapper_table">
                 <tr>
                     <td width="1" style="padding-right:60px;">
-                        <table id="balance_table">
+                        <table class="balance_table">
                             <tr>
                                 <td id="btc_balance" class="balance_field">
                                     0.00000000
@@ -45,8 +45,8 @@
                             </tr>
                         </table>
                     </td>
-                    <!--<td>
-                        <table id="balance_table">
+                    <td>
+                        <table class="deposit_withdraw_table">
                             <tr>
                                 <td>
                                     <a class="link">Deposit BTC</a>
@@ -56,7 +56,7 @@
                                 </td>
                             </tr>
                         </table>
-                    </td>-->
+                    </td>
                 </tr>
             </table>
         </div>
@@ -86,12 +86,14 @@
                 Add email address
             </div>
             <br/>
-            <div class="input_padding disclaimer">
-                By default, we will only send you emails about activity in your account such as 
-                <br/>
-                transaction records. Your email will also be used if you ever need to recover
-                <br/>
-                your account. We will not sell or share your email address with a third party.
+            <div class="input_padding description_text">
+                <span class="orange">
+                    We will only send you emails about activity in your account. Your email will also
+                    <br/>
+                    be used if you ever need to recover your password. We will not sell or share your
+                    <br/>
+                    email address with a third party.
+                </span>
                 <br/>
                 <br/>
                 We have a weekly newsletter featuring news updates from the world of bitcoin,
@@ -168,11 +170,23 @@
             </form>
         </div>
         
-        <div class="subwindow hidden_subwindow" toggle="Invite a friend">
+        <div class="subwindow hidden_subwindow" toggle="Invite a friend and be rewarded!">
             <div id="referral_message" class="subwindow_heading">
                 Invite a friend
             </div>
             <br/>
+            <div class="input_padding description_text">
+                    At CoinRoster we reward users for referrals. Our current offer is:
+                    <br/>
+                    <br/>
+                <span class="orange">
+                    You will receive 1% on all contest entries made by the account you refer. 
+                    <br/>
+                    These bonuses will be credited to your account in RosterCoins.
+                </span>
+                <br/>
+                <br/>
+            </div>
             <form onsubmit="return send_referral();">
                 <div class="input_padding">
                     From:&nbsp;&nbsp;&nbsp;
@@ -257,13 +271,13 @@
                 {
                 return function()
                     {
-                    /*if (typeof window.subwindow !== "undefined")
+                    if (typeof window.subwindow !== "undefined")
                         {
                         window.subwindow.style.display = "none";
                         window.subwindow_toggle.style.display = "block";
                         }
                     window.subwindow = subwindow;
-                    window.subwindow_toggle = subwindow_toggle;*/
+                    window.subwindow_toggle = subwindow_toggle;
                     subwindow.style.display = "block";
                     subwindow_toggle.style.display = "none";
                     };

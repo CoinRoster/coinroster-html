@@ -26,7 +26,7 @@
         color:rgb(139,215,255);
         cursor:pointer;
         text-decoration:none;
-        font-size:12px;
+        font-size:14px;
         padding: 24px;
     }
 
@@ -46,11 +46,16 @@
         vertical-align:top;
     }
 
-    #balance_table td {
+    .deposit_withdraw_table td {
+        padding: 18px 18px 0 0;
+    }
+    
+    .balance_table td {
         padding: 12px 20px 12px 0;
         height:20px;
         vertical-align:bottom !important;
         font-size:20px;
+        white-space:nowrap;
     }
 
     .balance_field {

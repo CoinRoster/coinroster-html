@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Admin Panel</title>
+    <!--#include virtual="/ssi/head_admin.html" -->
+</head>
+<body>   
+<input type="password" style="position:absolute;top:-1000px;"/>
+<div id="header"></div>
+<!--#include virtual="/ssi/nav.html" -->
+<div id="nav"></div>
+<div id="pane_0" class="pane" tab_text="User Report">
+    <div class="content_header">
+        <div class="content_header_title">
+            <span id="number_of_users"></span>
+            Users
+        </div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Sort:
+                </td>
+                <td>
+                    <select id="user_report_sort_selector" class="input_style chosen-select" style="width:150px">
+                        <option selected>Recently Joined</option>
+                        <option>Username</option>
+                        <option>BTC High to Low</option>
+                        <option>RC High to Low</option>
+                        <option>Last Login</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="checkbox" id="simple_user_report_checkbox" value="value">
+                    <label for="simple_user_report_checkbox">Simple Report</label>
+                </td>
+                <td>
+                    <input type="checkbox" name="checkbox" id="exclude_internals_checkbox" value="value">
+                    <label for="exclude_internals_checkbox">Exclude Internal Accounts</label>
+                </td>
+                <!--<td>
+                    with keywords:
+                </td>
+                <td>
+                    <input id="search_bar" class="search input_style text_input" placeholder="Enter keywords..." style="width:300px">
+                </td>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="sort_user_report();">Go!</button>
+                </td>-->
+            </tr>
+        </table>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('user_report_table');"/>
+    </div>
+    <div class="content_body">
+        <div id="user_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_1" class="pane" tab_text="Transaction report">
+    <div class="content_header" style="height:155px">
+        <div class="content_header_title">Transaction Report</div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Date Range:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input tcal" id="transaction_date_start_tcal">
+                </td>
+                <td>
+                    to
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input tcal" id="transaction_date_end_tcal">
+                </td>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="transaction_report();">Go!</button>
+                </td>
+            </tr>
+        </table>
+        <table class="settings" style="top:108px">
+            <tr>
+                <td>
+                    Filter by transaction type:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="transaction_type_selector" class="input_style chosen-select" style="width:210px">
+                        <option></option>
+                        <option>BTC-DEPOSIT</option>
+                        <option>BTC-WITHDRAWAL</option>
+                        <option>RC-DEPOSIT</option>
+                        <option>RC-WITHDRAWAL</option>
+                    </select>
+                </td>
+                <td>
+                    Filter by user:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="user_filter_selector" class="input_style chosen-select user_selector" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('transaction_report_table');"/>
+    </div>
+    <div class="content_body" style="top:156px">
+        <div id="transaction_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_2" class="pane" tab_text="New Transaction">
+    <div class="content_header">
+        <div class="content_header_title">New Transaction</div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Transaction Type:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="new_trans_selector" class="input_style chosen-select" style="width:300px">
+                        <option></option>
+                        <option>BTC-DEPOSIT</option>
+                        <option>BTC-WITHDRAWAL</option>
+                        <option>RC-DEPOSIT</option>
+                        <option>RC-WITHDRAWAL</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_0" class="content_body new_trans_window">
+        <!-- NOTHING SELECTED -->
+    </div>
+    <div id="new_trans_view_1" class="content_body new_trans_window">
+        <!-- BTC-DEPOSIT -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">BTC-DEPOSIT</span>
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_btc_liability
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_2" class="content_body new_trans_window">
+        <!-- BTC-WITHDRAWAL -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">BTC-WITHDRAWAL</span>
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td class="grey_cell">
+                    internal_btc_liability
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_3" class="content_body new_trans_window">
+        <!-- RC-DEPOSIT -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">RC-DEPOSIT</span>
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_rc_liability
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    RC
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Amount (RC):
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_4" class="content_body new_trans_window">
+        <!-- RC-WITHDRAWAL -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">RC-WITHDRAWAL</span>
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    RC
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td class="grey_cell">
+                    internal_rc_liability
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Amount (RC):
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_3" class="pane" tab_text="Pending Referrals">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Pending Referrals
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('referral_report_table');"/>
+    </div>
+    <div class="content_body" style="top:68px">
+        <div id="referral_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_4" class="pane" tab_text="Cash Register">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Manage Cash Register
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings">
+            <tr>
+                <td>
+                    Cash register address:
+                </td>
+                <td>
+                    <input id="cash_register_address" type="text" class="input_style text_input" style="width:300px">
+                </td>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_cash_register_address();">Update address</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_5" class="pane" tab_text="Passwords">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Passwords
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <input id="password_key" placeholder="Enter current key" type="password" class="input_style text_input transaction_memo" style="width:500px">
+        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="show_passwords();">Show Passwords</button>
+        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_passwords();">Update Passwords</button>
+        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="clear_fields();">Reset Form</button>
+        <br/>
+        <br/>
+        <input id="new_password_key" placeholder="Enter new key (only needed if changing the key)" type="password" class="input_style text_input transaction_memo" style="width:300px">
+        <input id="confirm_password_key" placeholder="Re-Enter new key" type="password" class="input_style text_input transaction_memo" style="width:300px">
+        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="change_key();">Change Key</button>
+        <br/>
+        <br/>
+        <textarea id="password_textarea" rows="40" cols="150"></textarea> 
+    </div>
+</div>
+<script type="text/javascript" src="js/accounting.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+</body>
+</html>
