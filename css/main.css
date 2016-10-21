@@ -20,11 +20,16 @@
         outline:none;
     }
     
+    .lucida {
+        font-weight: normal;
+        font-family: "Lucida Console", Monaco, monospace;
+    }
+    
     table {
         border-collapse:collapse;
     }
 
-    #landing_center {
+    .landing_center {
         position:absolute;
         border-collapse:collapse;
         top:0;
@@ -32,19 +37,19 @@
         height:100%;
     }
 
-    #landing_center td {
+    .landing_center td {
         color:white;
         text-align:center;
         vertical-align:middle;
     }
 
-    #landing_center ul {
+    .landing_center ul {
         margin:0;
         padding:0;
         cursor:default;
     }
 
-    #landing_center li {
+    .landing_center li {
         display:inline-block;
         vertical-align: middle;
         padding:4px;
@@ -60,6 +65,11 @@
 
     h1 {
         font-size: 28px;
+        margin:0;
+        padding:0;
+    }
+    
+    h2 {
         margin:0;
         padding:0;
     }

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div id="initial_container">
+                <div class="vertical_spacing">
+                    <h1>
+                        Withdraw BTC
+                    </h1>
+                    <br/>
+                    <br/>
+                    Your available balance is:
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2 id="btc_balance" class="lucida"></h2>
+                </div>
+                <div>
+                    <form onsubmit="return go_to_confirm();">
+                        <div class="input_padding">
+                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
+                        <button class="text_button" type="submit">Continue</button>
+                    </form>
+                </div>
+            </div>
+            <div id="confirm_container" style="display:none">
+                <span style="font-size:14px;">
+                    <span style="color:orange">
+                        Please check your inbox for a 
+                        <br/>
+                        password reset link. The link will 
+                        <br/>
+                        be valid for one hour.
+                    </span>
+                    <br/>
+                    <br/>
+                    For security reasons, we do not 
+                    <br/>
+                    indicate whether or not you entered
+                    <br/>
+                    a valid and verified email address.
+                    <br/>
+                    <br/>
+                    If you cannot reset your password
+                    <br/>
+                    using this method, please email
+                    <br/>
+                    management@coinroster.com
+                    <br/>
+                    <br/>
+                    <a id="reset_password" href="/">Back to login screen</a>
+                </span>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+        
+    var btc_balance = get_btc_balance();
+
+    id("btc_balance").innerHTML = btc_balance;
+    
+    id("amount_to_withdraw").onchange = function()
+        {
+        this.value = toBTC(this.value);
+        };
+
+    function go_to_confirm()
+        {
+        var amount_to_withdraw = id("amount_to_withdraw").value;
+        
+        var clear_amount = function()
+            {
+            id("amount_to_withdraw").value = "";
+            };
+
+        if (amount_to_withdraw === "") 
+            {
+            show_simple_modal("Please enter an amount to withdraw", "good", null);
+            return false;
+            }
+        
+        var btc_balance = +get_btc_balance();
+        
+        if (amount_to_withdraw > btc_balance) 
+            {
+            show_simple_modal("Insufficient funds", "bad", null);
+            return false;
+            }
+        
+        hide("initial_container");
+        show("confirm_container");
+                
+        return false;
+        }
+
+    function get_btc_balance()
+        {
+        var account_data = api({ method: "GetAccountDetails", args: {} });
+        if (account_data.status === "1") return account_data.btc_balance;
+        else return "ERROR";
+        }
+        
+</script>
+</body>
+</html>

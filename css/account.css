@@ -51,17 +51,17 @@
     }
     
     .balance_table td {
+        font-weight: normal;
+        font-family: "Lucida Console", Monaco, monospace;
         padding: 12px 20px 12px 0;
         height:20px;
-        vertical-align:bottom !important;
+        vertical-align:middle !important;
         font-size:20px;
         white-space:nowrap;
     }
 
     .balance_field {
         text-align:right;
-        font-weight: normal;
-        font-family: "Lucida Console", Monaco, monospace;
     }
 
     #balance_button_table td {

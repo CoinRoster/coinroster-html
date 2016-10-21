@@ -7,6 +7,7 @@
 </head>
 <body>
 <!--#include virtual="/ssi/nav.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
         
@@ -21,7 +22,7 @@
                         <table class="balance_table">
                             <tr>
                                 <td id="btc_balance" class="balance_field">
-                                    0.00000000
+                                    
                                 </td>
                                 <td style="padding-right:0">
                                     BTC
@@ -29,7 +30,7 @@
                             </tr>
                             <tr>
                                 <td id="rc_balance" class="balance_field" style="padding-bottom:24px">
-                                    0.00000000
+                                    
                                 </td>
                                 <td style="padding-right:0;padding-bottom:24px">
                                     RC
@@ -37,10 +38,10 @@
                             </tr>
                             <tr style="border-top:1px solid white;">
                                 <td id="available_balance" class="balance_field" style="padding-top:24px;">
-                                    0.00000000
+                                    
                                 </td>
                                 <td style="padding-right:0;padding-top:24px;">
-                                    Available
+                                    TOTAL
                                 </td>
                             </tr>
                         </table>
@@ -49,10 +50,10 @@
                         <table class="deposit_withdraw_table">
                             <tr>
                                 <td>
-                                    <a class="link">Deposit BTC</a>
+                                    <a class="link" onclick="deposit();">Deposit BTC</a>
                                 </td>
                                 <td>
-                                    <a class="link">Withdraw BTC</a>
+                                    <a class="link" onclick="withdraw();">Withdraw BTC</a>
                                 </td>
                             </tr>
                         </table>
@@ -212,10 +213,7 @@
     
     // GET ACCOUNT DATA
     
-    var account_data = api({
-        method: "GetAccountDetails",
-        args: {}
-    });
+    var account_data = api({ method: "GetAccountDetails", args: {} });
     
     if (account_data.status === "1")
         {
@@ -543,15 +541,6 @@
 
     // TRANSACTION REPORT
 
-    function new_table(parent)
-        {
-        var parent_element = id(parent);
-        parent_element.innerHTML = "";
-        var table = document.createElement("table");
-        parent_element.appendChild(table);
-        return table;
-        }
-        
     var 
     
     number_of_transactions,
@@ -644,6 +633,30 @@
             }
         else id("transaction_report_table").innerHTML = "No transactions found";
         }
+
+//--------------------------------------------------------------------------------------------------
+
+    function deposit()
+        {
+        
+        }
+        
+    function withdraw()
+        {
+        var account_data = api({ method: "GetAccountDetails", args: {} });
+        
+        if (account_data.status === "1")
+            {
+            var 
+            
+            btc_balance_string = account_data.btc_balance,
+            btc_balance_num = +btc_balance_string;
+            if (+btc_balance_num === 0) show_simple_modal("Your BTC balance is 0", "bad", null);
+            else location = "withdraw.html";
+            }
+        else alert("cannot get account data");
+        }
+        
 </script>
 </body>
 </html>

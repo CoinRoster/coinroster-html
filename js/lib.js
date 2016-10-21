@@ -2,15 +2,19 @@
         {
         return document.getElementById(_id);
         }
-                
-    function show(_id)
+        
+    function show(_id, override)
         {
-        return id(_id).style.display = "block";
+        var display_type = "block";
+        if (typeof override !== "undefined") display_type = override;
+        if (typeof _id === "string") id(_id).style.display = display_type;
+        else _id.style.display = display_type;
         }
-                        
+        
     function hide(_id)
         {
-        return id(_id).style.display = "none";
+        if (typeof _id === "string") id(_id).style.display = "none";
+        else _id.style.display = "none";
         }
         
     function destroy(_id)
@@ -184,6 +188,33 @@
         return Number(num.replace(/[^0-9\.]+/g,""));
         }
         
+    function toBTC(raw_value)
+        {
+        var 
+        
+        input_value = raw_value.toString().replace(/[^0-9$.]/g, ''),
+        allow_decimal = true,
+        output_value = "",
+        decimal_limit = input_value.length;
+
+        for (var i=0; i<decimal_limit; i++)
+            {
+            var char = input_value.charAt(i);
+            if (char === ".")
+                {
+                if (allow_decimal)
+                    {
+                    decimal_limit = i + 9;
+                    output_value += char;
+                    allow_decimal = false;
+                    }
+                }
+            else output_value += char;
+            }
+        
+        return output_value;
+        }
+    
     function commas(x) 
         {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

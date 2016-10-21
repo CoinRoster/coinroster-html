@@ -422,7 +422,8 @@
                 amount = transaction_item.amount,
                 from_currency = transaction_item.from_currency,
                 to_currency = transaction_item.to_currency,
-                memo = transaction_item.memo;
+                memo = transaction_item.memo,
+                pending_flag = transaction_item.pending_flag;
 
                 if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
                 if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
@@ -439,6 +440,8 @@
                     created_by = get_username_for_id(created_by);
                     from_account = get_username_for_id(from_account);
                     to_account = get_username_for_id(to_account);
+                    
+                    var pending = pending_flag === "1" ? "YES" : "";
 
                     new_row(table, row_count++, [
                         transaction_id,
@@ -451,7 +454,8 @@
                         amount,
                         from_currency,
                         to_currency,
-                        memo
+                        memo,
+                        pending
                     ]);
                     }
                 }
@@ -470,7 +474,8 @@
                 "Amount",
                 "From Currency",
                 "To Currency",
-                "Memo"
+                "Memo",
+                "Pending"
             ]);
             // style headers:
 
