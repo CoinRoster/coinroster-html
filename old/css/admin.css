@@ -1,0 +1,207 @@
+    html,body {
+        margin:0;
+        padding:0;
+    }
+    
+    body {
+        font-size:12px;
+        font-family:Arial,sans-serif;
+        overflow:hidden;
+    }
+        
+    .input_style {
+        border-radius:5px;
+        padding:4px 8px;
+        border:1px solid rgb(170,170,170);
+        outline:0;
+        cursor:pointer;
+    }
+
+    .input_style::-ms-clear {display: none; width:0; height:0;}
+        
+    .text_input {
+        cursor: auto;
+    }
+    
+    option {
+        white-space: nowrap;
+    }
+
+    /*------------------------------------------------------------*/
+    
+    #header {
+        top:0;
+        left:0;
+        right:0;
+        height:64px;
+        position:absolute;
+        background: rgb(50,55,60);
+        border-bottom:1px solid black;
+        text-align:center;
+    }
+
+    #logo {
+        top:0px;
+        left:0px;
+        position:absolute;
+    }
+    
+    #search_table {
+        position:absolute;
+        top:16px;
+        right:16px;
+    }
+    
+    /*------------------------------------------------------------*/
+
+    #nav {
+        position:absolute;
+        top:65px;
+        width:100%;
+        height:37px;
+        overflow:hidden;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAlCAMAAAC09nObAAAAOVBMVEVtd4JncHxeZ3RVXmxYYW9aY3FibHhrdX9kbnpSXGphandbZXJocn1QWWhVX21faHVweoQzN0CHjpZTYeibAAAAKklEQVR4Xh3BhREAIADEsOKu+w8L9wmXjZC0qyFr1MrC/k0DXifuLzo4Dyj2ASN/dr/5AAAAAElFTkSuQmCC') repeat-x;
+    }
+
+    .link {
+        margin:0;
+        cursor:pointer;
+        font-size:14px;
+        font-weight:bold;
+        padding:10px 15px;
+        color:white;
+        text-decoration:none;
+        display:inline-block;
+        border-left:1px solid rgb(135,142,150);
+        border-right:1px solid rgb(51,55,64);
+    }
+    
+    .link:hover, .selected {
+        border-left: 1px solid rgb(134,179,211);
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAlCAMAAAC09nObAAAAM1BMVEVXir1knMdhmMVdkcJPgLhUhrxRg7pglcRbj8BNfbdjm8ZdksJnn8k0UHdLerVYjL+Gs9NjQZhvAAAAKklEQVR4XjXDhw0AIACEQOy97D+t5qNcYNMxVG2v9DTclWXxCxLFS5HJOCIvAO4hY8x8AAAAAElFTkSuQmCC') repeat-x;
+    }
+    
+    /*------------------------------------------------------------*/
+
+    .content_wrapper {
+        position:absolute;
+        top:102px;
+        left:0;
+        right:0;
+        bottom:0;
+        display:none;
+    }
+    
+    .content_header {
+        position:relative;
+        height:111px;
+        border-bottom:1px solid rgb(51,55,64);
+        background:rgb(215,220,225);
+    }    
+    
+    .content_header_title {
+        font-size:20px;
+        padding:22px 16px;
+    }
+    
+    .content_body {
+        position:absolute;
+        top:112px;
+        left:0;
+        right:0;
+        bottom:0;
+        padding:16px;
+        -ms-overflow-y:scroll;
+        -ms-overflow-x:auto;
+        -ms-overflow-style:scrollbar;
+        overflow-y:scroll;
+        overflow-x:auto;
+        overflow-style:scrollbar;
+    }
+    
+    /*------------------------------------------------------------*/
+    
+    .settings {
+        border-collapse:collapse;
+        position:absolute;
+        top:65px;
+        left:16px;
+    }
+    
+    .settings td {
+        font-size:14px;
+        padding-right: 16px;
+    }
+    
+    .hidden {
+        display:none;
+    }
+
+    /*------------------------------------------------------------*/
+
+    .null_icon {
+        line-height:19px;
+    }
+    
+    .expand {
+        line-height:20px;
+        background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAABBVBMVEUAAABo2FQvtFofp1przmhq2VVm2FRq2VUfp1tBwl0gp1tp2VRq2VZr2ldBwV9UzVsfqFti1ldExF1q2VVm2FE/wlxMyF9QyV9Yzltf01lgzV9gzFw1uV1ExV5d1Fdlz2BDwFn///9q2lYhqFxMyV5k11Vs2lhEw14fqFsKn0sGnklc1kYnqmBSy2AqrGNPyltUzllWyVs+xFNW00FO0EQxvENj105q2VVT0kha01Q9yzEAkzYAkzgAkjYptUZFyEoks0lIx1xnx2ZfzVlbzFYYpFcwt1YZoldJr3Ygp1tlxnBmzV9VvmhIx1xIyF1r2ldr2lds2lZq2lZIx1xKyF1r2ldn2FVu2Gi4AAAASnRSTlMAyijN/f329vb2/c/29v729vbPKCjK9vb29vb29vb29vb//////////////////////////////////////////////////////obve20AAADvSURBVBjTbcrJbsIwFIXhAhGkgqrQeW6ph8QJIUMBQ+d0VlslioT8/o/CuRaLLPg3x/eTtza339AdqtezoxsHwK4sNWWMnVJ2gaUmLWdhOKPFAdzBo9LhEIUVWcei1vL2jnBaSRyEbSGMkRaDtDJCtIEDIeaTyT3hk5rOhRgAT98/hrUWiyvguePU8ffvGnjmvNXx598BnqRpHb/ZDXA3SV6e1SPBgwoU8/uEcRwnniIMxgy5wGPOeRS9WmSjNR4tecR5RqgY1Ccscl7keZ5540+G8Be4V3i27MuH+WzUAjYPvW3b5UXfdV3WagI3tAJ6bjGzeIqaawAAAABJRU5ErkJggg==") no-repeat;
+    }
+
+    .collapse {
+        line-height:20px;
+        background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAtFBMVEUAAAD9TT79Uz/2NDX6Qzr+Uj/PJSr+VUD6Qjb9VkD9Uz78SDz9QznNICbPJivOIif1KC74OTbzIyf4PDjOJCrrNTP/////UT//Uj73Ky/PJivOJyz9TT75ODX8NifJDBHPJSrpLC78Rzv8PjT6Pzf8OS3uMDLOMDXkGRj5KST2MTLmKC70LTHMHyTuRkD/Uz/2MDL/Uj72MTLPJiv1LjH1MDL1LzL/UT/1LjHPJiv2MTL/Uj7zQBwAAAAAFnRSTlMA9sH29vb29iH+xPb2I87ExPbG9vb26XOKUQAAALBJREFUGNNtzNkOgjAQhWFB2d03SinKjiJaL4rv/2ieSiRtwp+Zi35pZjada3qOkme6QJ9zgiEEK+M+0COhFuFAJ2RaoSOR61+5BbQ0QgbQYKy6jFWMSQzy4qxU5IHEolTxVSyBCx2b7IdlpeIzPQEPSXK/Xcfi2AbuElTH/yg9AuctSjKK55AtsZe1UAXf0VBGU4rBArdRV8O6/oGDcjZAdy8+Qoiuj7JGXlivZpN9AbGFIH/Mey6WAAAAAElFTkSuQmCC") no-repeat;
+    }
+
+    .drilldown {
+        line-height:20px;
+        background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUAQMAAAC3R49OAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABJJREFUCNdjQAf8/0GYRDEEAAD9ygZVXfCwBgAAAABJRU5ErkJggg==") no-repeat;
+    }
+
+    .popup {
+        line-height:20px;
+        background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUAQMAAAC3R49OAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAADpJREFUCNdjgAHG/w0MzP8PMDAzALEdBMvLHWCwB9LGZUCcAMQMQAxUYwhUayDBAMb2PxgY5D/AjQEA/AgSaWSALM8AAAAASUVORK5CYII=") no-repeat;
+    }
+
+    /*------------------------------------------------------------*/
+    
+    .report_table table {
+        width:100%;
+        border-collapse:collapse;
+        padding-bottom:16px;
+        display:block;
+    }
+    
+    .report_table td {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size:13px;
+        border:1px solid gray;
+        padding:5px 8px;
+        white-space: nowrap;
+        margin: 10px;
+    }
+    
+    .header_cell {
+        border-top: 1px solid white !important;
+        border-left: 1px solid white !important;
+        border-right: 1px solid white !important;
+        font-weight:bold !important;
+        font-family:sans-serif !important;
+    }
+
+    .excel_button {
+        position:absolute;
+        right:16px;
+        bottom:16px;
+        cursor:pointer;
+    }
+    
+    /*------------------------------------------------------------*/
+    
+    .new_trans_window {
+        visibility:hidden;
+    }
+
+    .grey_cell {
+        color: rgb(120,120,120);
+    }

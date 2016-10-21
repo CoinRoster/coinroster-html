@@ -1,0 +1,155 @@
+    @font-face {
+        font-family: gotham_medium;
+        src: url(../fonts/Gotham/Gotham-Medium.otf);
+    }
+
+    body {
+        font-family: 'gotham_medium', sans-serif;
+        padding:0;
+        margin:0;
+        color:white;
+        font-size:16px;
+        background:rgb(60,62,64);
+        moz-text-size-adjust:none;
+        -webkit-text-size-adjust:none;
+        -ms-text-size-adjust:none;
+        background: url('../img/slides/greybg-min.jpg') no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;   
+    }
+    
+    a {
+        outline:none;
+    }
+    
+    table {
+        border-collapse:collapse;
+    }
+
+    #landing_center {
+        position:absolute;
+        border-collapse:collapse;
+        top:0;
+        width:100%;
+        height:100%;
+    }
+
+    #landing_center td {
+        color:white;
+        text-align:center;
+        vertical-align:middle;
+    }
+
+    #landing_center ul {
+        margin:0;
+        padding:0;
+        cursor:default;
+    }
+
+    #landing_center li {
+        display:inline-block;
+        vertical-align: middle;
+        padding:4px;
+        cursor:default;
+    }
+
+    #c_logo {
+        width:50px;
+        height:50px;
+        background-image: url('../img/c_logo.png'); 
+        background-size:50px 50px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin:0;
+        padding:0;
+    }
+
+    .vertical_spacing {
+        padding:28px 0 20px;
+    }
+
+    .input_style, .text_button {
+        font-family: 'gotham_medium', sans-serif;
+        font-size:14px;
+        border-radius:8px;
+    } 
+
+    .input_style {
+        border-width:0;
+        padding:10px;
+        outline:0;
+        cursor:auto;
+        width:200px;
+    }
+
+    .text_button {
+        display:inline-block;
+        border:1px solid white;
+        padding: 8px 10px;
+        background:none;
+        color:white;
+        cursor:pointer;
+        width:220px;
+        text-align:left;
+        text-decoration:none;
+    }
+    
+    .a_button {
+        width:198px !important; /* text_button width - text_button padding-right, paddingileft - 2 for borders */
+    }
+
+    .text_button:hover {
+        background:rgba(255,255,255,0.2);
+    }
+
+    .input_padding {
+        margin: 16px 0;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+    }
+    
+    /* protected pages */
+    
+    #page_title {
+        font-size:24px;
+        margin: 40px 0;
+    }
+    
+    #centering_container {
+        position:relative;
+        width:980px;
+        margin:0 auto;
+    }
+    
+    #body_container {
+        padding:10px 20px;
+    }
+    
+    #login_signup_table td {
+        padding: 10px 10px 10px 0;
+    }
+    
+    #login_signup_table input {
+        width: 150px !important;
+    }
+    
+    #reset_password {
+        text-decoration:none;
+        display:block;
+        padding:15px 15px 18px;
+        color:rgb(139,215,255);
+        font-size:13px;
+    }
+    
+    #reset_password:hover {
+        text-decoration:underline;
+    }

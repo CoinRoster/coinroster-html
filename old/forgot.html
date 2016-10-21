@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<!--#include virtual="/ssi/auto_login.html" -->
+<!--#include virtual="/ssi/carousel.html" -->
+<table id="landing_center">
+    <tr>
+        <td>
+            <div id="initial_container">
+                <h1>
+                    CoinRoster
+                </h1>
+                <div class="vertical_spacing">
+                    <span id="message" style="color:orange">
+                        <p>
+                            Enter your email address
+                        </p>
+                        to reset your password.
+                    </span>
+                </div>
+                <div>
+                    <form onsubmit="return send_password_reset();">
+                        <div class="input_padding">
+                            <input placeholder="Email Address" label="false" id="email_address" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
+                        <button id="login_button" class="text_button" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="submitted_container" style="display:none">
+                <span style="font-size:14px;">
+                    <span style="color:orange">
+                        Please check your inbox for a 
+                        <br/>
+                        password reset link. The link will 
+                        <br/>
+                        be valid for one hour.
+                    </span>
+                    <br/>
+                    <br/>
+                    For security reasons, we do not 
+                    <br/>
+                    indicate whether or not you entered
+                    <br/>
+                    a valid and verified email address.
+                    <br/>
+                    <br/>
+                    If you cannot reset your password
+                    <br/>
+                    using this method, please email
+                    <br/>
+                    admin@coinroster.com
+                    <br/>
+                    <br/>
+                    <a id="reset_password" href="/">Back to login screen</a>
+                </span>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    function send_password_reset()
+        {
+        var email_address = id("email_address").value;
+
+        if (email_address === "") return false;
+        
+        if (validate_email(email_address) === false)
+            {
+            id("message").innerHTML = "Invalid email address";
+            return false;
+            }
+
+        setTimeout(function()
+            {
+            var call = api({
+                method: "send_password_reset",
+                args: {
+                    email_address: email_address
+                }
+            });
+            if (call.status === "1")
+                {
+                hide("initial_container");
+                show("submitted_container");
+                }
+            },100);
+            
+        return false;
+        }
+
+</script>
+</body>
+</html>
