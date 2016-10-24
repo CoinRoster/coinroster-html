@@ -79,7 +79,7 @@
             <br/>
             <br/>
             <div id="contest_report_table">
-                Coming in 2016!
+                Coming in 2017!
             </div>
         </div>
         
@@ -96,32 +96,11 @@
                 came from you and can credit your account.
                 <br/>
                 <br/>
-                By default, we will only let you change your connected wallet address if you  
-                <br/>
-                have withdrawn all of your Bitcoins back to that address. With this security  
-                <br/>
-                measure in place, a hacker with full control of your account would <i>not</i> be able
-                <br/>
-                to withdraw your Bitcoins to a new wallet.
-                <br/>
-                <br/>
-                <span class="orange">
-                    If you want, you can remove this security measure and be free to change your
-                    <br/>
-                    wallet address at any time. Click here
-                    <input id="remove_wallet_security_checkbox" type="checkbox" name="checkbox" value="value">
-                    to <u>REMOVE</u> this security measure at
-                    <br/>
-                    your own risk.
-                    <br/>
-                    <br/>
-                </span>
             </div>
             <form onsubmit="return update_ext_address('add_ext_address');">
                 <div class="input_padding">
                     <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="60"/>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="submit" class="text_button auto_width">Connect wallet</button>
+                    <button type="submit" class="text_button auto_width add_left_margin">Connect wallet</button>
                 </div>
             </form>
         </div>
@@ -134,25 +113,74 @@
             <br/>
             <div id="display_ext_address">
                 <span id="ext_address" class="blue"></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <button id="change_ext_address_button" class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
-                <span id="must_withdraw_bitcon" class="orange" style="display:none">
-                    <br/>
-                    <br/>
-                    You must withdraw all Bitcoin from this account in order to change your wallet address.
-                </span>
+                <button id="change_ext_address_button" class="text_button auto_width add_left_margin" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
             </div>
             <div id="change_ext_address" style="display:none">
                 <form onsubmit="return update_ext_address('new_ext_address');">
                     New wallet address:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="60"/>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="submit" class="text_button auto_width">Submit</button>
-                    &nbsp;&nbsp;&nbsp;
-                <button class="text_button auto_width" onclick="hide('change_ext_address');show('display_ext_address');return false;">Cancel</button>
+                    <input id="new_ext_address" type="text" class="input_style email_input add_left_margin" placeholder="wallet address" maxlength="60"/>
+                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+                <button class="text_button auto_width add_left_margin" onclick="hide('change_ext_address');show('display_ext_address');return false;">Cancel</button>
                 </form>
             </div>
+            <br/>
+            <hr noshade>
+            <br/>
+            <span id="must_withdraw_bitcon" style="display:none">
+                <span class="orange">
+                    Wallet security is ENABLED
+                </span>
+                <br/>
+                <br/>
+                You must withdraw all Bitcoin from this account in order to change your wallet address.
+            </span>
+            <span id="security_is_enabled" style="display:none">
+                <span class="blue">
+                    Wallet security is ENABLED
+                </span>
+                <br/>
+                <br/>
+                With security enabled, you will NOT be able to change your wallet address if
+                <br/>
+                there are Bitcoins in your CoinRoster account. This is meant to stop a hacker 
+                <br/>
+                from withdrawing your Bitcoins to a new wallet.
+                <br/>
+                <br/>
+                If you want, you can click the button below to DISABLE this security measure. 
+                <br/>
+                You will be free to change your wallet address at any time. 
+                <br/>
+                <br/>
+                <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
+                <br/>
+                <br/>
+                <br/>
+                <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
+            </span>
+            <span id="enable_security" style="display:none">
+                <span class="orange">
+                    Wallet security is DISABLED
+                </span>
+                <br/>
+                <br/>
+                With security disabled, you can change your wallet address at any time.
+                <br/>
+                <br/>
+                If you would like to enable wallet security and prevent wallet changes while
+                <br/>
+                there are Bitcoins in your account, please click here:
+                <br/>
+                <br/>
+                <span id="your_next_opportunity" style="display:none">
+                    Your next opportunity to disable wallet security will be after you withdraw
+                    <br/>
+                    all Bitcoins in your account to your connected wallet.
+                    <br/>
+                    <br/>
+                </span>
+                <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
+            </span>
         </div>
         
         <div id="add_email_subwindow" class="subwindow hidden_subwindow" toggle="Add email address">
@@ -181,8 +209,7 @@
             <form onsubmit="return add_email_address();">
                 <div class="input_padding">
                     <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="submit" class="text_button auto_width">Submit</button>
+                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
                 </div>
             </form>
         </div>
@@ -196,34 +223,27 @@
             <div id="manage_email">
                 <span id="email_on_file"></span>
                 <span id="verified_unverified"></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span id="verification_button">
-                    <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
-                    &nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="text_button auto_width add_left_margin" onclick="resend_verification();">Re-send verification</button>
                 </span>
                 <span id="verification_message">
                     Verification Sent!
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
-                <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
+                <button class="text_button auto_width add_left_margin" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
             </div>
             <div id="change_email" style="display:none">
                 <form onsubmit="return change_email_address();">
                     <span id="change_email_message">New e-mail address:</span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
-                    &nbsp;&nbsp;&nbsp;
-                    <button type="submit" class="text_button auto_width">Submit</button>
-                    &nbsp;&nbsp;&nbsp;
-                <button class="text_button auto_width" onclick="hide('change_email');show('manage_email');return false;">Cancel</button>
+                    <input id="new_email_address" type="text" class="input_style email_input add_left_margin" placeholder="e-mail address" maxlength="60"/>
+                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+                    <button class="text_button auto_width add_left_margin" onclick="hide('change_email');show('manage_email');return false;">Cancel</button>
                 </form>
             </div>
             <br/>
             <hr noshade>
             <br/>
             <span id="subscribe_unsubscribe_message"></span>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
+            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width add_left_margin" onclick="toggle_subscription();"></button>
         </div>
         
         <div class="subwindow hidden_subwindow" toggle="Change password">
@@ -235,12 +255,9 @@
             <form onsubmit="return change_password();">
                 <input type="password" style="position:absolute;top:-5000px;"/>
                 <input id="old_password" type="password" class="input_style" placeholder="Old password" />
-                &nbsp;&nbsp;&nbsp;
-                <input id="new_password" type="password" class="input_style" placeholder="New password" />
-                &nbsp;&nbsp;&nbsp;
-                <input id="confirm_password" type="password" class="input_style" placeholder="Confirm new password" />
-                &nbsp;&nbsp;&nbsp;
-                <button type="submit" class="text_button auto_width">Submit</button>
+                <input id="new_password" type="password" class="input_style add_left_margin" placeholder="New password" />
+                <input id="confirm_password" type="password" class="input_style add_left_margin" placeholder="Confirm new password" />
+                <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
             </form>
         </div>
         
@@ -263,14 +280,12 @@
             </div>
             <form onsubmit="return send_referral();">
                 <div class="input_padding">
-                    From:&nbsp;&nbsp;&nbsp;
-                    <input id="referrer" type="text" class="input_style" />
+                    From:
+                    <input id="referrer" type="text" class="input_style add_left_margin" />
                 </div>
                 Your friend's email:
-                &nbsp;&nbsp;&nbsp;
-                <input id="referral_email_address" type="text" placeholder="Email address"  class="input_style email_input" />
-                &nbsp;&nbsp;&nbsp;
-                <button type="submit" class="text_button auto_width">Submit</button>
+                <input id="referral_email_address" type="text" placeholder="Email address" class="input_style email_input add_left_margin" />
+                <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
             </form>
         </div>
 
@@ -307,8 +322,28 @@
         if (typeof ext_address === "undefined") destroy("manage_ext_address_subwindow");
         else
             {
-            id("ext_address").innerHTML = ext_address;
             destroy("add_ext_address_subwindow");
+            id("ext_address").innerHTML = ext_address;
+            if (ext_address_secure_flag === "1")
+                {
+                if (+btc_balance > 0)
+                    {
+                    hide("change_ext_address_button");
+                    show("must_withdraw_bitcon");
+                    }
+                else
+                    {
+                    show("security_is_enabled");
+                    }
+                }
+            else if (ext_address_secure_flag === "0")
+                {
+                show("enable_security");
+                if (+btc_balance > 0)
+                    {
+                    show("your_next_opportunity");
+                    }
+                }
             }
             
         if (typeof email_address === "undefined") destroy("manage_email_subwindow");
@@ -331,12 +366,6 @@
                 }
             update_subscription_view(newsletter_flag);
             }
-        
-        if (ext_address_secure_flag === "1" && +btc_balance > 0)
-            {
-            hide("change_ext_address_button");
-            show("must_withdraw_bitcon");
-            }
         }
 
 //--------------------------------------------------------------------------------------------------
@@ -358,7 +387,7 @@
         {
         var btc_balance = get_btc_balance();
         
-        if (+btc_balance === 0) show_simple_modal("Your BTC balance is 0", "bad", null);
+        if (+btc_balance === 0) show_simple_modal("You have no BTC to withdraw", "bad", null);
         else location = "withdraw.html";
         }
         
@@ -517,23 +546,29 @@
 
     function update_ext_address(_id)
         {
-        var 
-        
-        ext_address = id(_id).value,
-        ext_address_secure_flag = 1;
-        
-        if (_id === "add_ext_address") ext_address_secure_flag = id("remove_wallet_security_checkbox").checked ? 0 : 1;
+        var ext_address = id(_id).value;
 
-        var call = api({
+        api({
             method: "UpdateExtAddress",
             args: {
                 ext_address: ext_address,
-                update_for_active_user: true,
-                ext_address_secure_flag: ext_address_secure_flag
+                update_for_active_user: true
             }
         });
         }
-
+        
+    function update_ext_address_security(ext_address_secure_flag)
+        {
+        api({
+            method: "UpdateExtAddressSecurity",
+            args: {
+                ext_address_secure_flag: ext_address_secure_flag
+            }
+        });
+        
+        location.reload();
+        }
+        
 //--------------------------------------------------------------------------------------------------
     
     // ADD EMAIL ADDRESS
@@ -555,7 +590,7 @@
             return false;
             }
 
-        var call = api({
+        api({
             method: "AddEmailAddress",
             args: {
                 email_address: new_email_address,
@@ -589,7 +624,7 @@
             return false;
             }
 
-        var call = api({
+        api({
             method: "ChangeEmailAddress",
             args: {
                 email_address: new_email_address
@@ -757,7 +792,7 @@
             return false;
             }
 
-        var call = api({
+        api({
             method: "SendReferral",
             args: {
                 referrer: referrer,

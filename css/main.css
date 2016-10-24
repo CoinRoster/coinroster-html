@@ -15,22 +15,8 @@
         -ms-text-size-adjust:none;
         background: url('../img/greybg.png') repeat;
     }
-    
-    a:link {
-        color: rgb(139,215,255);
-        text-decoration:none;
-        outline:none;
-    }
+
     a:visited {
-        color: rgb(139,215,255);
-        outline:none;
-    }
-    a:hover {
-        color: rgb(139,215,255);
-        text-decoration:underline;
-        outline:none;
-    }
-    a:active {
         color: rgb(139,215,255);
         outline:none;
     }
@@ -106,11 +92,11 @@
     }
 
     .orange {
-        color: orange;
+        color: orange !important;
     }
     
     .blue {
-        color: rgb(139,215,255);
+        color: rgb(139,215,255) !important;
     }
     
     .vertical_spacing {

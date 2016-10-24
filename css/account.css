@@ -102,6 +102,10 @@
         width:600px !important;
     }
 
+    .add_left_margin {
+        margin-left:20px;
+    }
+    
     #newsletter_checkbox {
         cursor:pointer;
     }

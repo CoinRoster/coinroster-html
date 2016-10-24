@@ -86,7 +86,6 @@
             set_focus("password");
             return;
             }
-        else set_auth_message("", "");
         }
         
     function create_account()
