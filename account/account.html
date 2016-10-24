@@ -4,6 +4,7 @@
     <title>CoinRoster | My Account</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi/nav.html" -->
@@ -79,6 +80,78 @@
             <br/>
             <div id="contest_report_table">
                 Coming in 2016!
+            </div>
+        </div>
+        
+        <div id="add_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="Connect a Bitcoin wallet">
+            <div class="subwindow_heading">
+                Connect a Bitcoin wallet
+            </div>
+            <br/>
+            <div class="input_padding description_text">
+                To make deposits to CoinRoster, we need to know the public address of your
+                <br/>
+                Bitcoin wallet. This way, when funds come in from your wallet, we know they
+                <br/>
+                came from you and can credit your account.
+                <br/>
+                <br/>
+                By default, we will only let you change your connected wallet address if you  
+                <br/>
+                have withdrawn all of your Bitcoins back to that address. With this security  
+                <br/>
+                measure in place, a hacker with full control of your account would <i>not</i> be able
+                <br/>
+                to withdraw your Bitcoins to a new wallet.
+                <br/>
+                <br/>
+                <span class="orange">
+                    If you want, you can remove this security measure and be free to change your
+                    <br/>
+                    wallet address at any time. Click here
+                    <input id="remove_wallet_security_checkbox" type="checkbox" name="checkbox" value="value">
+                    to <u>REMOVE</u> this security measure at
+                    <br/>
+                    your own risk.
+                    <br/>
+                    <br/>
+                </span>
+            </div>
+            <form onsubmit="return update_ext_address('add_ext_address');">
+                <div class="input_padding">
+                    <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="60"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="text_button auto_width">Connect wallet</button>
+                </div>
+            </form>
+        </div>
+        
+        <div id="manage_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="Your Bitcoin wallet">
+            <div class="subwindow_heading">
+                Your Bitcoin wallet
+            </div>
+            <br/>
+            <br/>
+            <div id="display_ext_address">
+                <span id="ext_address" class="blue"></span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="change_ext_address_button" class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
+                <span id="must_withdraw_bitcon" class="orange" style="display:none">
+                    <br/>
+                    <br/>
+                    You must withdraw all Bitcoin from this account in order to change your wallet address.
+                </span>
+            </div>
+            <div id="change_ext_address" style="display:none">
+                <form onsubmit="return update_ext_address('new_ext_address');">
+                    New wallet address:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="60"/>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="text_button auto_width">Submit</button>
+                    &nbsp;&nbsp;&nbsp;
+                <button class="text_button auto_width" onclick="hide('change_ext_address');show('display_ext_address');return false;">Cancel</button>
+                </form>
             </div>
         </div>
         
@@ -224,12 +297,20 @@
         ext_address = account_data.ext_address,
         email_address = account_data.email_address,
         email_ver_flag = account_data.email_ver_flag,
-        newsletter_flag = account_data.newsletter_flag;
+        newsletter_flag = account_data.newsletter_flag,
+        ext_address_secure_flag = account_data.ext_address_secure_flag;
 
         id("btc_balance").innerHTML = btc_balance;
         id("rc_balance").innerHTML = rc_balance;
         id("available_balance").innerHTML = (parseFloat(btc_balance) + parseFloat(rc_balance)).toFixed(8);
         
+        if (typeof ext_address === "undefined") destroy("manage_ext_address_subwindow");
+        else
+            {
+            id("ext_address").innerHTML = ext_address;
+            destroy("add_ext_address_subwindow");
+            }
+            
         if (typeof email_address === "undefined") destroy("manage_email_subwindow");
         else 
             {
@@ -250,8 +331,37 @@
                 }
             update_subscription_view(newsletter_flag);
             }
+        
+        if (ext_address_secure_flag === "1" && +btc_balance > 0)
+            {
+            hide("change_ext_address_button");
+            show("must_withdraw_bitcon");
+            }
         }
 
+//--------------------------------------------------------------------------------------------------
+
+    // DEPOSIT AND WITHDRAWAL HANDLERS
+    
+    function deposit()
+        {
+        var ext_address = get_ext_address();
+        
+        if (typeof ext_address === "undefined") show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
+            {
+            id("add_ext_address_subwindow_toggle").click();
+            });
+        else location = "deposit.html";
+        }
+        
+    function withdraw()
+        {
+        var btc_balance = get_btc_balance();
+        
+        if (+btc_balance === 0) show_simple_modal("Your BTC balance is 0", "bad", null);
+        else location = "withdraw.html";
+        }
+        
 //--------------------------------------------------------------------------------------------------
     
     // APPLY EXPAND/COLLAPSE FUNCTIONALITY TO SUBWINDOWS
@@ -260,11 +370,15 @@
         {
         for (var i=0; i<subwindows.length; i++)
             {
+            //alert(subwindows[i].id);
             var 
 
             subwindow_toggle = document.createElement("div");
             subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
             subwindow_toggle.className = "subwindow clickable_subwindow";
+            
+            if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
+
             subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
                 {
                 return function()
@@ -301,81 +415,123 @@
         })(document.getElementsByClassName("hidden_subwindow"));
 
 //--------------------------------------------------------------------------------------------------
+
+    // TRANSACTION REPORT
+
+    var 
     
-    // CHANGE PASSWORD
+    number_of_transactions,
+    transaction_report_array = [];
     
-    function change_password_error(message)
+    transaction_report();
+    
+    function transaction_report()
         {
-        id("change_password_message").innerHTML = message;
-        id("change_password_message").style.color = "orange";
-        id("new_password").value = "";
-        id("confirm_password").value = "";
-        }
-
-    function change_password()
-        {
-        var old_password = id("old_password").value,
-        new_password = id("new_password").value,
-        confirm_password = id("confirm_password").value;
-
-        if (old_password === "")
-            {
-            change_password_error("Enter your old password");
-            set_focus("old_password");
-            return false;
-            }
-
-        if (old_password.length < 8) 
-            {
-            change_password_error("Old password must be 8 characters or longer");
-            id("old_password").value = "";
-            set_focus("old_password");
-            return false;
-            }
-            
-        if (new_password === "")
-            {
-            change_password_error("Enter new password");
-            set_focus("new_password");
-            return false;
-            }
-            
-        if (new_password.length < 8) 
-            {
-            change_password_error("New password must be 8 characters or longer");
-            set_focus("new_password");
-            return false;
-            }
-
-        if (new_password !== confirm_password)
-            {
-            change_password_error("The passwords you typed<br/>do not match");
-            set_focus("new_password");
-            return false;
-            }
+        var 
         
+        start_date_ms = 0, 
+        end_date_ms = 9999999999999;
+
         var call = api({
-            method: "ChangePassword",
+            method: "TransactionReport",
             args: {
-                old_password: old_password,
-                new_password: new_password
+                start_date_ms: start_date_ms,
+                end_date_ms: end_date_ms,
+                request_source: "account_panel"
             }
         });
-
-        if (call !== null)
+        
+        if (call.status === "1") 
             {
-            if (call.status === "1")
-                {
-                id("change_password_message").innerHTML = "Your password has been updated.";
-                id("change_password_message").style.color = "rgb(0,255,50)";
-                id("old_password").value = "";
-                id("new_password").value = "";
-                id("confirm_password").value = "";
-                id("confirm_password").blur();
-                }
-            else change_password_error("Not authorized");
-            return false;
+            transaction_report_array = call.transaction_report;
+            number_of_transactions = transaction_report_array.length;
+            populate_transaction_report_table();
             }
+        }
+        
+    function populate_transaction_report_table()
+        {
+        function new_row(table, row_index, data)
+            {
+            var row = table.insertRow(row_index),
+            array = [row];
+            for (var i=0; i<data.length; i++)
+                {
+                var cell = row.insertCell(i); 
+                cell.innerHTML = data[i];
+                array.push(cell);
+                }
+                
+            array[3].style.textAlign = "right";
+            
+            return array;
+            }
+       
+        var table = new_table("transaction_report_table"),
+        row_count = 0;
+
+        if (number_of_transactions > 0)
+            {
+            // create rows:
+
+            for (var i=number_of_transactions-1; i>=0; i--)
+                {
+                var transaction_item = transaction_report_array[i],
+
+                created = transaction_item.created,
+                trans_type = transaction_item.trans_type,
+                amount = transaction_item.amount,
+                from_currency = transaction_item.from_currency,
+                memo = transaction_item.memo,
+                
+                created_date = dateconv_ms_to_string(created),
+                created_time = dateconv_ms_to_time(created);
+
+                new_row(table, row_count++, [
+                    created_date + " at " + created_time,
+                    trans_type,
+                    amount,
+                    from_currency
+                    //memo
+                ]);
+                }
+                
+            /*var header = new_row(table, 0, [
+                "Created",
+                "Transaction",
+                "Amount",
+                "Currency",
+                "Memo"
+            ]);
+            
+            // style headers:
+
+            for (var i=1; i<header.length; i++) header[i].className = "header_cell";*/
+            }
+        else id("transaction_report_table").innerHTML = "No transactions found";
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
+    // CONNECT BITCOIN WALLET
+
+    function update_ext_address(_id)
+        {
+        var 
+        
+        ext_address = id(_id).value,
+        ext_address_secure_flag = 1;
+        
+        if (_id === "add_ext_address") ext_address_secure_flag = id("remove_wallet_security_checkbox").checked ? 0 : 1;
+
+        var call = api({
+            method: "UpdateExtAddress",
+            args: {
+                ext_address: ext_address,
+                update_for_active_user: true,
+                ext_address_secure_flag: ext_address_secure_flag
+            }
+        });
         }
 
 //--------------------------------------------------------------------------------------------------
@@ -497,6 +653,84 @@
 
 //--------------------------------------------------------------------------------------------------
     
+    // CHANGE PASSWORD
+    
+    function change_password_error(message)
+        {
+        id("change_password_message").innerHTML = message;
+        id("change_password_message").style.color = "orange";
+        id("new_password").value = "";
+        id("confirm_password").value = "";
+        }
+
+    function change_password()
+        {
+        var old_password = id("old_password").value,
+        new_password = id("new_password").value,
+        confirm_password = id("confirm_password").value;
+
+        if (old_password === "")
+            {
+            change_password_error("Enter your old password");
+            set_focus("old_password");
+            return false;
+            }
+
+        if (old_password.length < 8) 
+            {
+            change_password_error("Old password must be 8 characters or longer");
+            id("old_password").value = "";
+            set_focus("old_password");
+            return false;
+            }
+            
+        if (new_password === "")
+            {
+            change_password_error("Enter new password");
+            set_focus("new_password");
+            return false;
+            }
+            
+        if (new_password.length < 8) 
+            {
+            change_password_error("New password must be 8 characters or longer");
+            set_focus("new_password");
+            return false;
+            }
+
+        if (new_password !== confirm_password)
+            {
+            change_password_error("The passwords you typed<br/>do not match");
+            set_focus("new_password");
+            return false;
+            }
+        
+        var call = api({
+            method: "ChangePassword",
+            args: {
+                old_password: old_password,
+                new_password: new_password
+            }
+        });
+
+        if (call !== null)
+            {
+            if (call.status === "1")
+                {
+                id("change_password_message").innerHTML = "Your password has been updated.";
+                id("change_password_message").style.color = "rgb(0,255,50)";
+                id("old_password").value = "";
+                id("new_password").value = "";
+                id("confirm_password").value = "";
+                id("confirm_password").blur();
+                }
+            else change_password_error("Not authorized");
+            return false;
+            }
+        }
+
+//--------------------------------------------------------------------------------------------------
+    
     // SEND REFERRAL
 
     function referral_email_error(message)
@@ -537,126 +771,6 @@
         return false;
         }
 
-//--------------------------------------------------------------------------------------------------
-
-    // TRANSACTION REPORT
-
-    var 
-    
-    number_of_transactions,
-    transaction_report_array = [];
-    
-    transaction_report();
-    
-    function transaction_report()
-        {
-        var 
-        
-        start_date_ms = 0, 
-        end_date_ms = 9999999999999;
-
-        var call = api({
-            method: "TransactionReport",
-            args: {
-                start_date_ms: start_date_ms,
-                end_date_ms: end_date_ms,
-                request_source: "account_panel"
-            }
-        });
-        
-        if (call.status === "1") 
-            {
-            transaction_report_array = call.transaction_report;
-            number_of_transactions = transaction_report_array.length;
-            populate_transaction_report_table();
-            }
-        }
-        
-    function populate_transaction_report_table()
-        {
-        function new_row(table, row_index, data)
-            {
-            var row = table.insertRow(row_index),
-            array = [row];
-            for (var i=0; i<data.length; i++)
-                {
-                var cell = row.insertCell(i); 
-                cell.innerHTML = data[i];
-                array.push(cell);
-                }
-                
-            array[3].style.textAlign = "right";
-            
-            return array;
-            }
-       
-        var table = new_table("transaction_report_table"),
-        row_count = 0;
-
-        if (number_of_transactions > 0)
-            {
-            // create rows:
-
-            for (var i=number_of_transactions-1; i>=0; i--)
-                {
-                var transaction_item = transaction_report_array[i],
-
-                created = transaction_item.created,
-                trans_type = transaction_item.trans_type,
-                amount = transaction_item.amount,
-                from_currency = transaction_item.from_currency,
-                memo = transaction_item.memo,
-                
-                created_date = dateconv_ms_to_string(created),
-                created_time = dateconv_ms_to_time(created);
-
-                new_row(table, row_count++, [
-                    created_date + " at " + created_time,
-                    trans_type,
-                    amount,
-                    from_currency
-                    //memo
-                ]);
-                }
-                
-            /*var header = new_row(table, 0, [
-                "Created",
-                "Transaction",
-                "Amount",
-                "Currency",
-                "Memo"
-            ]);
-            
-            // style headers:
-
-            for (var i=1; i<header.length; i++) header[i].className = "header_cell";*/
-            }
-        else id("transaction_report_table").innerHTML = "No transactions found";
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    function deposit()
-        {
-        
-        }
-        
-    function withdraw()
-        {
-        var account_data = api({ method: "GetAccountDetails", args: {} });
-        
-        if (account_data.status === "1")
-            {
-            var 
-            
-            btc_balance_string = account_data.btc_balance,
-            btc_balance_num = +btc_balance_string;
-            if (+btc_balance_num === 0) show_simple_modal("Your BTC balance is 0", "bad", null);
-            else location = "withdraw.html";
-            }
-        else alert("cannot get account data");
-        }
-        
 </script>
 </body>
 </html>

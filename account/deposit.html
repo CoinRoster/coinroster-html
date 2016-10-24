@@ -14,20 +14,18 @@
             <div id="initial_container">
                 <div class="vertical_spacing">
                     <h1>
-                        Withdraw BTC
+                        Deposit BTC
                     </h1>
                     <br/>
                     <br/>
-                    Your available balance is:
+                    How much would you
                     <br/>
-                    <br/>
-                    <br/>
-                    <h2 id="btc_balance" class="lucida"></h2>
+                    like to deposit?
                 </div>
                 <div>
                     <form onsubmit="return go_to_review();">
                         <div class="input_padding">
-                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
                         </div>
                         <button class="text_button" type="submit">Continue</button>
                     </form>
@@ -40,20 +38,20 @@
                     </h1>
                     <br/>
                     <br/>
-                    Amount to withdraw:
+                    Amount to deposit:
                     <br/>
                     <br/>
                     <br/>
-                    <h2 id="review_amount_to_withdraw" class="lucida"></h2>
+                    <h2 id="review_amount_to_deposit" class="lucida"></h2>
                     <br/>
                     <br/>
-                    To:<span class="link" onclick="show_ext_address();">wallet on file</span>
+                    From:<span class="link" onclick="show_ext_address();">wallet on file</span>
                     <br/>
                     <br/>
                 </div>
                 <div>
                     <form onsubmit="return go_to_confirm();">
-                        <button id="submit_withdrawal_button" class="text_button" type="submit">Submit withdrawal</button>
+                        <button id="submit_deposit_button" class="text_button" type="submit">Submit withdrawal</button>
                     </form>
                 </div>
             </div>
@@ -72,6 +70,7 @@
                     <br/>
                     <br/>
                     <span style="font-size:14px;">
+                        
                         One of our administrators will
                         <br/>
                         process the withdrawal shortly.
@@ -93,52 +92,42 @@
     </tr>
 </table>
 <script type="text/javascript">
-        
-    var btc_balance = get_btc_balance();
-
-    id("btc_balance").innerHTML = btc_balance;
-    
-    id("amount_to_withdraw").onchange = function()
+      
+    id("amount_to_deposit").onchange = function()
         {
         this.value = toBTC(this.value);
         };
         
     var focus_to_input = function()
         {
-        id("amount_to_withdraw").focus();
+        id("amount_to_deposit").focus();
         };
         
     focus_to_input();
             
     function go_to_review()
         {
-        var amount_to_withdraw = id("amount_to_withdraw").value;
+        var amount_to_deposit = id("amount_to_deposit").value;
 
-        if (amount_to_withdraw === "") 
+        if (amount_to_deposit === "") 
             {
-            show_simple_modal("Please enter an amount to withdraw", "good", focus_to_input);
+            show_simple_modal("Please enter an amount to deposit", "good", focus_to_input);
             return false;
             }
             
-        if (parseFloat(amount_to_withdraw) === 0.0) 
+        if (parseFloat(amount_to_deposit) === 0.0) 
             {
-            show_simple_modal("Cannot withdraw 0.0000000", "bad", focus_to_input);
+            show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
             return false;
             }
         
-        var btc_balance = +get_btc_balance();
-        
-        if (parseFloat(amount_to_withdraw) > btc_balance) 
-            {
-            show_simple_modal("Insufficient funds", "bad", focus_to_input);
-            return false;
-            }
-            
-        id("review_amount_to_withdraw").innerHTML = amount_to_withdraw;
+        id("review_amount_to_deposit").innerHTML = amount_to_deposit;
 
         hide("initial_container");
         show("review_container");
-      
+        
+        id("submit_deposit_button").focus();
+                
         return false;
         }
     
@@ -152,12 +141,12 @@
         
     function go_to_confirm()
         {
-        var amount_to_withdraw = id("amount_to_withdraw").value;
+        var amount_to_deposit = id("amount_to_deposit").value;
         
         var user_withdrawal = api({ 
             method: "UserWithdrawal", 
             args: {
-                amount_to_withdraw: amount_to_withdraw
+                amount_to_deposit: amount_to_deposit
             } 
         });
         if (user_withdrawal.status === "1")
@@ -166,6 +155,7 @@
             show("confirmation_container");
             }
         else show_simple_modal(user_withdrawal.error, "bad", null);
+        
         
         return false;
         }

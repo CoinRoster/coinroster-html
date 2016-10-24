@@ -1,5 +1,6 @@
     var 
 
+    simple_modal_open = false,
     simple_modal_shade = id("simple_modal_shade"),
     simple_modal_centering_container = id("simple_modal_centering_container"),
     simple_modal_close = id("simple_modal_close"),
@@ -10,11 +11,29 @@
         hide_simple_modal();
         };
 
-    simple_modal_centering_container.onclick = function() 
+    simple_modal_centering_container.onclick = function(e) 
         {
-        hide_simple_modal();
+        if (e.target.id === "") hide_simple_modal();
         };
-
+   
+    function close_on_enter(e)
+        {
+        if (simple_modal_open && e.keyCode === 13)
+            {
+            hide_simple_modal();
+            e.preventDefault();
+            }
+        }
+        
+    if (window.addEventListener) 
+        {
+        window.addEventListener('keydown', close_on_enter, false); 
+        } 
+    else if (window.attachEvent)  
+        {
+        window.attachEvent('onkeydown', close_on_enter);
+        }
+        
     function show_simple_modal(modal_text, good_bad, callback)
         {
         id("simple_modal_text").innerHTML = modal_text;
@@ -34,6 +53,8 @@
             
         show(simple_modal_shade);
         show(simple_modal_centering_container, "table");
+        
+        simple_modal_open = true;
         }
         
     function hide_simple_modal()
@@ -45,4 +66,6 @@
             simple_modal_callback();
             simple_modal_callback = null;
             }
+        simple_modal_open = false;
         }
+     

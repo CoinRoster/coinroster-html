@@ -212,7 +212,7 @@
             else output_value += char;
             }
         
-        return output_value;
+        return (+output_value).toFixed(8);
         }
     
     function commas(x) 
