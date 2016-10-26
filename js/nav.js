@@ -5,23 +5,22 @@
         if (session.user_level === "1") show_cells("ssi_header_admin_wrapper");
         show_cells("ssi_header_a_active");
         
-        var url = window.location.pathname.split("/");
+        var 
         
-        for (var i=url.length-1; i>=0; i--)
+        url = window.location.pathname.split("/"),
+        target = url[url.length - 1],
+        index_of_dot = target.indexOf(".");
+
+        if (index_of_dot > -1) target = target.substring(0, index_of_dot);
+
+        if (target === "") target = url[url.length - 2];
+        
+        tab_id = "ssi_header_" + target;
+        
+        if (id(tab_id) !== null) 
             {
-            var 
-
-            tab_id = "ssi_header_" + url[i],
-            index_of_dot = tab_id.indexOf(".");
-
-            if (index_of_dot > -1) tab_id = tab_id.substring(0, index_of_dot);
-
-            if (id(tab_id) !== null) 
-                {
-                id(tab_id).className = "ssi_header_active_tab";
-                id(tab_id).onclick = "";
-                break;
-                }
+            id(tab_id).className = "ssi_header_active_tab";
+            id(tab_id).onclick = "";
             }
         }
     else show_cells("ssi_header_a_inactive");

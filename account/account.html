@@ -127,7 +127,7 @@
             <hr noshade>
             <br/>
             <span id="must_withdraw_bitcon" style="display:none">
-                <span class="orange">
+                <span class="blue">
                     Wallet security is ENABLED
                 </span>
                 <br/>
@@ -232,12 +232,12 @@
                 <button class="text_button auto_width add_left_margin" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
             </div>
             <div id="change_email" style="display:none">
-                <form onsubmit="return change_email_address();">
+                <form onsubmit="return change_email_address();" style="display:inline-block">
                     <span id="change_email_message">New e-mail address:</span>
                     <input id="new_email_address" type="text" class="input_style email_input add_left_margin" placeholder="e-mail address" maxlength="60"/>
                     <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
-                    <button class="text_button auto_width add_left_margin" onclick="hide('change_email');show('manage_email');return false;">Cancel</button>
                 </form>
+                <button class="text_button auto_width add_left_margin" onclick="cancel_change_email();" style="display:inline-block">Cancel</button>
             </div>
             <br/>
             <hr noshade>
@@ -291,6 +291,7 @@
 
     </div>
 </div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script>
 
 //--------------------------------------------------------------------------------------------------
@@ -374,9 +375,9 @@
     
     function deposit()
         {
-        var ext_address = get_ext_address();
-        
-        if (typeof ext_address === "undefined") show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
+        var ext_address = get_ext_address(true);
+
+        if (ext_address === "") show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
             {
             id("add_ext_address_subwindow_toggle").click();
             });
@@ -435,6 +436,7 @@
                     {
                     subwindow.style.display = "none";
                     subwindow_toggle.style.display = "block";
+                    reset_error_messages();
                     };
                 })(subwindows[i], subwindow_toggle);
 
@@ -443,6 +445,13 @@
             }
         })(document.getElementsByClassName("hidden_subwindow"));
 
+    function reset_error_messages()
+        {
+        change_password_error("Change password", "white");
+        referral_email_error("Refer a friend", "white");
+        change_email_error("New e-mail address:", "white");
+        }
+        
 //--------------------------------------------------------------------------------------------------
 
     // TRANSACTION REPORT
@@ -603,10 +612,10 @@
     
     // CHANGE EMAIL ADDRESS
     
-    function change_email_error(message)
+    function change_email_error(message, color)
         {
         id("change_email_message").innerHTML = message;
-        id("change_email_message").style.color = "orange";
+        id("change_email_message").style.color = color;
         }
 
     function change_email_address()
@@ -615,12 +624,12 @@
 
         if (new_email_address === id("email_on_file").innerHTML)
             {
-            change_email_error("Email address is on file");
+            change_email_error("Email address is on file", "orange");
             return false;
             }
         if (validate_email(new_email_address) === false)
             {
-            change_email_error("Invalid email address");
+            change_email_error("Invalid email address", "orange");
             return false;
             }
 
@@ -632,6 +641,13 @@
         });
         }
 
+    function cancel_change_email()
+        {
+        change_email_error("New e-mail address:", "white");
+        hide('change_email');
+        show('manage_email');
+        return false;
+        }
 //--------------------------------------------------------------------------------------------------
     
     // TOGGLE NEWSLETTER SUBSCRIPTION
@@ -690,10 +706,10 @@
     
     // CHANGE PASSWORD
     
-    function change_password_error(message)
+    function change_password_error(message, color)
         {
         id("change_password_message").innerHTML = message;
-        id("change_password_message").style.color = "orange";
+        id("change_password_message").style.color = color;
         id("new_password").value = "";
         id("confirm_password").value = "";
         }
@@ -706,14 +722,14 @@
 
         if (old_password === "")
             {
-            change_password_error("Enter your old password");
+            change_password_error("Enter your old password", "orange");
             set_focus("old_password");
             return false;
             }
 
         if (old_password.length < 8) 
             {
-            change_password_error("Old password must be 8 characters or longer");
+            change_password_error("Old password must be 8 characters or longer", "orange");
             id("old_password").value = "";
             set_focus("old_password");
             return false;
@@ -721,21 +737,21 @@
             
         if (new_password === "")
             {
-            change_password_error("Enter new password");
+            change_password_error("Enter new password", "orange");
             set_focus("new_password");
             return false;
             }
             
         if (new_password.length < 8) 
             {
-            change_password_error("New password must be 8 characters or longer");
+            change_password_error("New password must be 8 characters or longer", "orange");
             set_focus("new_password");
             return false;
             }
 
         if (new_password !== confirm_password)
             {
-            change_password_error("The passwords you typed<br/>do not match");
+            change_password_error("The passwords you typed<br/>do not match", "orange");
             set_focus("new_password");
             return false;
             }
@@ -752,14 +768,11 @@
             {
             if (call.status === "1")
                 {
-                id("change_password_message").innerHTML = "Your password has been updated.";
-                id("change_password_message").style.color = "rgb(0,255,50)";
-                id("old_password").value = "";
-                id("new_password").value = "";
+                change_password_error("Your password has been updated", "rgb(0,255,50)");
                 id("confirm_password").value = "";
                 id("confirm_password").blur();
                 }
-            else change_password_error("Not authorized");
+            else change_password_error("Not authorized", "orange");
             return false;
             }
         }
@@ -768,10 +781,10 @@
     
     // SEND REFERRAL
 
-    function referral_email_error(message)
+    function referral_email_error(message, color)
         {
         id("referral_message").innerHTML = message;
-        id("referral_message").style.color = "orange";
+        id("referral_message").style.color = color;
         }
 
     function send_referral()
@@ -783,12 +796,12 @@
 
         if (referrer === "")
             {
-            referral_email_error("Please enter your name");
+            referral_email_error("Please enter your name", "orange");
             return false;
             }
         if (validate_email(referral_email_address) === false)
             {
-            referral_email_error("Invalid email address");
+            referral_email_error("Invalid email address", "orange");
             return false;
             }
 
@@ -802,7 +815,7 @@
         });
 
         id("referral_email_address").value = "";
-        referral_email_error("Invitation sent!");
+        referral_email_error("Invitation sent!", "rgb(0,255,106)");
         return false;
         }
 

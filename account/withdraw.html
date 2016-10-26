@@ -27,7 +27,7 @@
                 <div>
                     <form onsubmit="return go_to_review();">
                         <div class="input_padding">
-                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
                         </div>
                         <button class="text_button" type="submit">Continue</button>
                     </form>
@@ -92,17 +92,13 @@
         </td>
     </tr>
 </table>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
         
     var btc_balance = get_btc_balance();
 
     id("btc_balance").innerHTML = btc_balance;
-    
-    id("amount_to_withdraw").onchange = function()
-        {
-        this.value = toBTC(this.value);
-        };
-        
+
     var focus_to_input = function()
         {
         id("amount_to_withdraw").focus();
@@ -144,9 +140,9 @@
     
     function show_ext_address()
         {
-        var ext_address = get_ext_address();
+        var ext_address = get_ext_address(true);
         
-        if (typeof ext_address === "undefined") show_simple_modal("You do not have a wallet address on file with us.<br/><br/>Funds will be returned to the original deposit wallet.", "good", null);
+        if (ext_address === "") show_simple_modal("You do not have a wallet address on file with us.<br/><br/>Funds will be returned to the original deposit wallet.", "good", null);
         else show_simple_modal("Funds will be sent to:<br/><br/><div style=\"font-size:12px;max-width:100%;word-break:break-all\">" + ext_address + "</div>", "good", null);
         }
         

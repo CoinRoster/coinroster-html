@@ -99,6 +99,14 @@
         color: rgb(139,215,255) !important;
     }
     
+    .green {
+        color: rgb(0,255,106) !important;
+    }
+    
+    .white {
+        color: white !important;
+    }
+    
     .vertical_spacing {
         padding:28px 0 20px;
     }

@@ -5,9 +5,14 @@
         else return "DATA ERROR";
         }
     
-    function get_ext_address()
+    function get_ext_address(get_for_active_user)
         {
-        var account_data = api({ method: "GetAccountDetails", args: {} });
-        if (account_data.status === "1") return account_data.ext_address;
+        var call = api({ 
+            method: "GetExtAddress", 
+            args: {
+                get_for_active_user: get_for_active_user
+            } 
+        });
+        if (call.status === "1") return call.ext_address;
         else return "DATA ERROR";
         }

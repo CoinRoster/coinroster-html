@@ -2,110 +2,112 @@
 <html>
 <head>
     <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
+<!--#include virtual="/ssi/nav.html" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<table class="landing_center">
-    <tr>
-        <td>
-            <div id="initial_container">
-                <div class="vertical_spacing">
-                    <h1>
-                        Deposit BTC
-                    </h1>
-                    <br/>
-                    <br/>
-                    How much would you
-                    <br/>
-                    like to deposit?
-                </div>
-                <div>
-                    <form onsubmit="return go_to_review();">
-                        <div class="input_padding">
-                            <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
-                        </div>
-                        <button class="text_button" type="submit">Continue</button>
-                    </form>
-                </div>
+<div id="centering_container">
+    <div id="body_container">
+        <div id="initial_container">
+            <div id="page_title">
+                Deposit BTC
             </div>
-            <div id="review_container" style="display:none">
-                <div class="vertical_spacing">
-                    <h1>
-                        Review
-                    </h1>
-                    <br/>
-                    <br/>
-                    Amount to deposit:
-                    <br/>
-                    <br/>
-                    <br/>
-                    <h2 id="review_amount_to_deposit" class="lucida"></h2>
-                    <br/>
-                    <br/>
-                    From:<span class="link" onclick="show_ext_address();">wallet on file</span>
-                    <br/>
-                    <br/>
-                </div>
-                <div>
-                    <form onsubmit="return go_to_confirm();">
-                        <button id="submit_deposit_button" class="text_button" type="submit">Submit withdrawal</button>
-                    </form>
-                </div>
+            <br/>
+            Your wallet address:
+            <br/>
+            <br/>
+            <div class="input_padding description_text">
+                <span id="user_ext_address" class="blue"></span>
             </div>
-            <div id="confirmation_container" style="display:none">
-                <div class="vertical_spacing">
-                    <h1>
-                        Confirmation
-                    </h1>
+            <br/>
+            <br/>
+            Our wallet address:
+            <br/>
+            <br/>
+            <div class="input_padding description_text">
+                <span id="cash_register_ext_address" class="blue"></span>
+            </div><br/>
+            <br/>
+            <span class="orange">
+                How much would you like to deposit?
+            </span>
+            <br/>
+            <br/>
+            <div class="input_padding description_text">
+                <form onsubmit="return submit_pending_deposit();">
+                    <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <div class="add_left_margin" style="display:inline-block">
+                        BTC
+                    </div>
                     <br/>
                     <br/>
-                    <span style="color:orange">
-                        We have received your
-                        <br/>
-                        withdrawal request!
-                    </span>
-                    <br/>
-                    <br/>
-                    <span style="font-size:14px;">
-                        
-                        One of our administrators will
-                        <br/>
-                        process the withdrawal shortly.
-                        <br/>
-                        <br/>
-                        You will receive a confirmation
-                        <br/>
-                        email when the funds have been
-                        <br/>
-                        sent to your Bitcoin wallet.
-                        <br/>
-                        <br/>
-                        <br/>
-                        <a href="/account">Back to account</a>
-                    </span>
-                </div>
+                    <button class="text_button" type="submit">Continue</button>
+                </form>
             </div>
-        </td>
-    </tr>
-</table>
+        </div>
+        <div id="confirmation_container" style="display:none">
+            <div id="page_title">
+                Deposit BTC
+            </div>
+            <br/>
+            <span class="orange">
+                Please initiate a deposit from your wallet
+                <br/>
+                <br/>
+                We will credit your account as soon as the funds arrive
+            </span>
+            <br/>
+            <br/>
+            <div class="input_padding description_text">
+                Deposit amount:
+                <br/>
+                <br/>
+                <br/>
+                <h2 id="amount_to_deposit_confirm" class="lucida"></h2><br/>
+                <br/>
+                From:
+                <br/>
+                <br/>
+                <span id="user_ext_address_confirm" class="blue"></span>
+                <br/>
+                <br/>
+                <br/>
+                To:
+                <br/>
+                <br/>
+                <span id="cash_register_ext_address_confirm" class="blue"></span>
+                <br/>
+                <br/>
+                <br/>
+                <a class="text_button a_button" href="/account.html" style="color:white">Back to account</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
-      
-    id("amount_to_deposit").onchange = function()
-        {
-        this.value = toBTC(this.value);
-        };
-        
+
     var focus_to_input = function()
         {
         id("amount_to_deposit").focus();
         };
         
     focus_to_input();
-            
-    function go_to_review()
+
+    var
+    
+    user_ext_address = get_ext_address(true),
+    cash_register_ext_address = get_ext_address(false);
+    
+    id("user_ext_address").innerHTML = user_ext_address;
+    id("user_ext_address_confirm").innerHTML = user_ext_address;
+    id("cash_register_ext_address").innerHTML = cash_register_ext_address;
+    id("cash_register_ext_address_confirm").innerHTML = cash_register_ext_address;
+    
+    function submit_pending_deposit()
         {
         var amount_to_deposit = id("amount_to_deposit").value;
 
@@ -120,46 +122,23 @@
             show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
             return false;
             }
-        
-        id("review_amount_to_deposit").innerHTML = amount_to_deposit;
 
-        hide("initial_container");
-        show("review_container");
-        
-        id("submit_deposit_button").focus();
-                
-        return false;
-        }
-    
-    function show_ext_address()
-        {
-        var ext_address = get_ext_address();
-        
-        if (typeof ext_address === "undefined") show_simple_modal("You do not have a wallet address on file with us.<br/><br/>Funds will be returned to the original deposit wallet.", "good", null);
-        else show_simple_modal("Funds will be sent to:<br/><br/><div style=\"font-size:12px;max-width:100%;word-break:break-all\">" + ext_address + "</div>", "good", null);
-        }
-        
-    function go_to_confirm()
-        {
-        var amount_to_deposit = id("amount_to_deposit").value;
-        
-        var user_withdrawal = api({ 
-            method: "UserWithdrawal", 
+        var user_deposit = api({ 
+            method: "UserDeposit", 
             args: {
                 amount_to_deposit: amount_to_deposit
             } 
         });
-        if (user_withdrawal.status === "1")
+        if (user_deposit.status === "1")
             {
-            hide("review_container");
+            id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
+            hide("initial_container");
             show("confirmation_container");
             }
-        else show_simple_modal(user_withdrawal.error, "bad", null);
-        
-        
+        else show_simple_modal(user_deposit.error, "bad", null);
+      
         return false;
         }
-
 </script>
 </body>
 </html>

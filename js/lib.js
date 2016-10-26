@@ -17,6 +17,17 @@
         else _id.style.display = "none";
         }
         
+    function get_inputs_with_attribute(attribute)
+        {
+        var matching_inputs = [];
+        var all_inputs = document.getElementsByTagName('input');
+        for (var i=0, limit=all_inputs.length; i<limit; i++)
+            {
+            if (all_inputs[i].getAttribute(attribute) !== null) matching_inputs.push(all_inputs[i]);
+            }
+        return matching_inputs;
+        }
+
     function destroy(_id)
         {
         var _el = document.getElementById(_id);
