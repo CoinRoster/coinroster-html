@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>CoinRoster | Admin Panel</title>
+    <script type="text/javascript" src="js/error.js"></script>
     <!--#include virtual="/ssi/head_admin.html" -->
 </head>
 <body>   
@@ -396,31 +397,109 @@
 <div id="pane_4" class="pane" tab_text="Cash Register">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
-            Manage Cash Register
+            Cash Register
         </div>
     </div>
     <div class="content_body" style="top:68px">
+        <h3>
+            Cash register wallet address:
+        </h3>
+        <br/>
         <table>
             <tr>
                 <td>
-                    Operator email:&nbsp;&nbsp;
-                </td>
-                <td>
-                    <input id="cash_register_email" type="text" class="input_style text_input" style="width:300px">
-                </td>
-                <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_cash_register_address();">Update e-mail</button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Public wallet:&nbsp;&nbsp;
-                </td>
-                <td>
-                    <input id="cash_register_address" type="text" class="input_style text_input" style="width:300px">
+                    <input id="cash_register_address" type="text" class="input_style text_input" maxlength="35" style="width:300px">
                 </td>
                 <td>
                     <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_cash_register_address();">Update address</button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <h3>
+            Pending withdrawals:
+        </h3>
+        <br/>
+        <div id="pending_withdrawal_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <h3>
+            Pending deposits:
+        </h3>
+        <br/>
+        <div id="pending_deposit_table" class="report_table"></div>
+    </div>
+    <div id="pending_deposit_window" class="content_body" style="top:68px;display:none;background:white">
+        <div id="pending_deposit_user_id" style="display:none"></div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td style="font-weight:bold">
+                    BTC-DEPOSIT
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Pending deposit ID:
+                </td>
+                <td id="pending_deposit_transaction_id" style="font-weight:bold">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_btc_liability
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td id="pending_deposit_username" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Intended amount (BTC):
+                </td>
+                <td id="pending_deposit_intended_amount" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Received amount (BTC):
+                </td>
+                <td>
+                    <input id="pending_deposit_received_amount" type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td id="pending_deposit_memo" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr style="height:20px"></tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="finalize_pending_deposit();">Submit Transaction</button>
+                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="hide('pending_deposit_window');">Cancel</button>
                 </td>
             </tr>
         </table>

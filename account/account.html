@@ -99,7 +99,7 @@
             </div>
             <form onsubmit="return update_ext_address('add_ext_address');">
                 <div class="input_padding">
-                    <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="60"/>
+                    <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35"/>
                     <button type="submit" class="text_button auto_width add_left_margin">Connect wallet</button>
                 </div>
             </form>
@@ -521,9 +521,12 @@
                 amount = transaction_item.amount,
                 from_currency = transaction_item.from_currency,
                 memo = transaction_item.memo,
+                pending_flag = transaction_item.pending_flag,
                 
                 created_date = dateconv_ms_to_string(created),
                 created_time = dateconv_ms_to_time(created);
+        
+                if (pending_flag === "1") trans_type += " (transfer pending)";
 
                 new_row(table, row_count++, [
                     created_date + " at " + created_time,

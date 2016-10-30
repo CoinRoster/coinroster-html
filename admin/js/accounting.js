@@ -12,7 +12,7 @@
                 referral_report();
                 break;
             case 4: /* Cash Register */
-                get_cash_register_address();
+                get_cash_register();
             }
         }
 
@@ -124,19 +124,6 @@
         
     function sort_user_report()
         {
-        function new_row(table, row_index, data)
-            {
-            var row = table.insertRow(row_index),
-            array = [row];
-            for (var i=0; i<data.length; i++)
-                {
-                var cell = row.insertCell(i); 
-                cell.innerHTML = data[i];
-                array.push(cell);
-                }
-            return array;
-            }
-               
         var 
 
         simple_user_report = simple_user_report_checkbox.checked,
@@ -374,20 +361,6 @@
         
     function populate_transaction_report_table()
         {
-        function new_row(table, row_index, data)
-            {
-            var row = table.insertRow(row_index),
-            array = [row];
-            for (var i=0; i<data.length; i++)
-                {
-                var cell = row.insertCell(i); 
-                cell.innerHTML = data[i];
-                array.push(cell);
-                }
-            array[8].style.textAlign = "right";
-            return array;
-            }
-       
         var table = new_table("transaction_report_table"),
         row_count = 0,
         there_are_rows = false;
@@ -443,7 +416,7 @@
                     
                     var pending = pending_flag === "1" ? "YES" : "";
 
-                    new_row(table, row_count++, [
+                    var row = new_row(table, row_count++, [
                         transaction_id,
                         created_date,
                         created_time,
@@ -457,6 +430,9 @@
                         memo,
                         pending
                     ]);
+                    
+                    row[1].style.textAlign = "right";
+                    row[8].style.textAlign = "right";
                     }
                 }
             }
@@ -480,6 +456,9 @@
             // style headers:
 
             for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+            
+            header[1].style.textAlign = "center";
+            header[8].style.textAlign = "right";
             }
         else id("transaction_report_table").innerHTML = "No transactions match your criteria";
         }
@@ -614,20 +593,7 @@
     function referral_report()
         {
         if (referral_report_array !== null) return;
-        
-        function new_row(table, row_index, data)
-            {
-            var row = table.insertRow(row_index),
-            array = [row];
-            for (var i=0; i<data.length; i++)
-                {
-                var cell = row.insertCell(i); 
-                cell.innerHTML = data[i];
-                array.push(cell);
-                }
-            return array;
-            }
-            
+          
         var call = api({
             method: "ReferralReport",
             args: {}
@@ -693,6 +659,13 @@
 
     // Cash Register
     
+    function get_cash_register()
+        {
+        get_cash_register_address();
+        get_pending_withdrawals();
+        get_pending_deposits();
+        }
+    
     function get_cash_register_address()
         {
         var call = api({
@@ -739,6 +712,221 @@
                 }
             else alert("Problem while updating cash register");
             }
+        }
+            
+    function get_pending_withdrawals()
+        {
+        var call = api({ method: "GetPendingWithdrawals", args: {} });
+        
+        if (call.status === "1")
+            {
+            var
+            
+            pending_withdrawal_array = call.pending_withdrawals,
+            number_of_transactions = pending_withdrawal_array.length,
+            table = new_table("pending_withdrawal_table"),
+            row_count = 0;
+    
+            if (number_of_transactions > 0)
+                {
+                for (var i=0; i<number_of_transactions; i++)
+                    {
+                    var transaction_item = pending_withdrawal_array[i],
+
+                    transaction_id = transaction_item.transaction_id,
+                    created = transaction_item.created,
+                    created_date = dateconv_ms_to_string(created),
+                    created_time = dateconv_ms_to_time(created),
+                    trans_type = transaction_item.trans_type,
+                    from_account = transaction_item.from_account,
+                    amount = transaction_item.amount,
+                    from_currency = transaction_item.from_currency,
+                    ext_address = transaction_item.ext_address;
+
+                    from_account = get_username_for_id(from_account);
+                    
+                    amount = toBTC(amount);
+                    
+                    if (typeof ext_address === "undefined") ext_address = "n/a";
+
+                    var row = new_row(table, row_count++, [
+                        transaction_id,
+                        created_date,
+                        created_time,
+                        trans_type,
+                        from_account,
+                        amount,
+                        from_currency,
+                        ext_address,
+                        "<button onclick=\"finalize_pending_withdrawal(" + transaction_id + "," + amount + ",'" + ext_address + "')\">Bitcoins have been sent</button>"
+                    ]);
+
+                    row[1].style.textAlign = "right";
+                    row[6].style.textAlign = "right";
+                    }
+                
+                var header = new_row(table, 0, [
+                    "#",
+                    "Date",
+                    "Time",
+                    "Type",
+                    "From",
+                    "Amount",
+                    "Currency",
+                    "Send to",
+                    "Action"
+                ]);
+                // style headers:
+
+                for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+       
+                header[1].style.textAlign = "center";
+                header[6].style.textAlign = "right";
+                }
+            else id("pending_withdrawal_table").innerHTML = "None";
+            }
+        else id("pending_withdrawal_table").innerHTML = "Error getting transactions";
+        }
+    
+    function get_pending_deposits()
+        {
+        var call = api({ method: "GetPendingDeposits", args: {} });
+        
+        if (call.status === "1")
+            {
+            var
+            
+            pending_deposit_array = call.pending_deposits,
+            number_of_transactions = pending_deposit_array.length,
+            table = new_table("pending_deposit_table"),
+            row_count = 0;
+    
+            if (number_of_transactions > 0)
+                {
+                for (var i=0; i<number_of_transactions; i++)
+                    {
+                    var transaction_item = pending_deposit_array[i],
+
+                    transaction_id = transaction_item.transaction_id,
+                    created = transaction_item.created,
+                    created_date = dateconv_ms_to_string(created),
+                    created_time = dateconv_ms_to_time(created),
+                    user_id = transaction_item.created_by,
+                    username = get_username_for_id(user_id),
+                    ext_address = transaction_item.ext_address,
+                    cash_register_address = transaction_item.cash_register_address,
+                    amount = transaction_item.amount;
+
+                    amount = toBTC(amount);
+                    
+                    if (typeof ext_address === "undefined") ext_address = "n/a";
+
+                    var row = new_row(table, row_count++, [
+                        transaction_id,
+                        created_date,
+                        created_time,
+                        username,
+                        amount,
+                        ext_address,
+                        cash_register_address,
+                        "<button onclick=\"populate_pending_deposit(" + transaction_id + "," + amount + ",'" + user_id + "')\">Complete deposit</button>"
+                    ]);
+
+                    row[1].style.textAlign = "right";
+                    row[5].style.textAlign = "right";
+                    }
+                
+                var header = new_row(table, 0, [
+                    "#",
+                    "Date",
+                    "Time",
+                    "User",
+                    "Amount",
+                    "User wallet",
+                    "Cash register",
+                    "Action"
+                ]);
+                // style headers:
+
+                for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+       
+                header[1].style.textAlign = "center";
+                header[5].style.textAlign = "right";
+                }
+            else id("pending_deposit_table").innerHTML = "None";
+            }
+        else id("pending_deposit_table").innerHTML = "Error getting transactions";        
+        }
+    
+    function finalize_pending_withdrawal(transaction_id, amount, ext_address)
+        {
+        var funds_sent = confirm("Are you sure you have sent\n\n" + toBTC(amount) + "\n\nto\n\n" + ext_address + "\n\n?");
+        if (funds_sent)
+            {
+            var call = api({ 
+                method: "FinalizePendingWithdrawal", 
+                args: {
+                    transaction_id: transaction_id
+                } 
+            });
+
+            if (call.status === "1")
+                {
+                alert("Transaction created! Reloading panel.");
+                location.reload();
+                }
+            else alert("Error: " + call.error);
+            }
+        }
+        
+    function populate_pending_deposit(transaction_id, amount, user_id)
+        {
+        id("pending_deposit_transaction_id").innerHTML = transaction_id;
+        id("pending_deposit_username").innerHTML = get_username_for_id(user_id);
+        id("pending_deposit_user_id").innerHTML = user_id;
+        id("pending_deposit_intended_amount").innerHTML = toBTC(amount);
+        id("pending_deposit_memo").innerHTML = "Completed pending deposit #" + transaction_id;
+        show("pending_deposit_window");
+        }
+        
+    function finalize_pending_deposit()
+        {
+        var 
+        
+        transaction_type = "BTC-DEPOSIT",
+        user_account = id("pending_deposit_user_id").innerHTML,
+        transaction_amount = id("pending_deposit_received_amount").value,
+        transaction_memo = id("pending_deposit_memo").innerHTML;
+
+        if (user_account === "") return alert("No user selected");
+        
+        if (transaction_amount === "") return alert("Please enter an amount");
+        transaction_amount = Number(transaction_amount);
+        if (isNaN(transaction_amount)) return alert("Amount is not a number");
+        if (transaction_amount <= 0) return alert("Amount cannot be less than or equal to 0");
+
+        var call = api({
+            method: "CreateTransaction",
+            args: {
+                transaction_type: transaction_type,
+                user_account: user_account,
+                amount: transaction_amount,
+                memo: transaction_memo
+            }
+        });
+        
+        if (call.status === "1") 
+            {
+            api({ 
+                method: "FinalizePendingDeposit", 
+                args: {
+                    transaction_id: id("pending_deposit_transaction_id").innerHTML
+                } 
+            });
+            alert("Transaction created! Reloading panel.");
+            location.reload();
+            }
+        else alert("Error: " + call.error);
         }
         
 /*----------------------------------------------------------------------*/

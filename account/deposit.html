@@ -16,20 +16,42 @@
                 Deposit BTC
             </div>
             <br/>
-            Your wallet address:
+            <span class="orange">
+                You must initiate deposits from your Bitcoin wallet
+            </span>
             <br/>
             <br/>
             <div class="input_padding description_text">
-                <span id="user_ext_address" class="blue"></span>
+                Please use the form below to tell us how much you intend to deposit. 
+                There is nothing binding about it - it just helps us speedily process incoming Bitcoin transfers.
+                <br/>
+                <br/>
+                We will credit your account as soon as funds arrive.
             </div>
             <br/>
             <br/>
-            Our wallet address:
+            <span class="orange">
+                Transfer instructions
+            </span>
             <br/>
             <br/>
             <div class="input_padding description_text">
-                <span id="cash_register_ext_address" class="blue"></span>
-            </div><br/>
+                Make sure to send funds from your connected wallet to our public wallet.
+                <br/>
+                <br/>
+                <br/>
+                From:
+                <br/>
+                <br/>
+                <span id="user_ext_address" class="blue"></span>
+                <br/>
+                <br/>
+                To:
+                <br/>
+                <br/>
+                <span id="cash_register_address" class="blue"></span>
+            </div>
+            <br/>
             <br/>
             <span class="orange">
                 How much would you like to deposit?
@@ -78,7 +100,7 @@
                 To:
                 <br/>
                 <br/>
-                <span id="cash_register_ext_address_confirm" class="blue"></span>
+                <span id="cash_register_address_confirm" class="blue"></span>
                 <br/>
                 <br/>
                 <br/>
@@ -100,12 +122,12 @@
     var
     
     user_ext_address = get_ext_address(true),
-    cash_register_ext_address = get_ext_address(false);
+    cash_register_address = get_ext_address(false);
     
     id("user_ext_address").innerHTML = user_ext_address;
     id("user_ext_address_confirm").innerHTML = user_ext_address;
-    id("cash_register_ext_address").innerHTML = cash_register_ext_address;
-    id("cash_register_ext_address_confirm").innerHTML = cash_register_ext_address;
+    id("cash_register_address").innerHTML = cash_register_address;
+    id("cash_register_address_confirm").innerHTML = cash_register_address;
     
     function submit_pending_deposit()
         {
@@ -126,7 +148,9 @@
         var user_deposit = api({ 
             method: "UserDeposit", 
             args: {
-                amount_to_deposit: amount_to_deposit
+                amount_to_deposit: amount_to_deposit,
+                user_ext_address: user_ext_address,
+                cash_register_address: cash_register_address
             } 
         });
         if (user_deposit.status === "1")

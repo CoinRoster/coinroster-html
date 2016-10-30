@@ -42,7 +42,20 @@
         parent_element.appendChild(table);
         return table;
         }
-
+        
+    function new_row(table, row_index, data)
+        {
+        var row = table.insertRow(row_index),
+        array = [row];
+        for (var i=0; i<data.length; i++)
+            {
+            var cell = row.insertCell(i); 
+            cell.innerHTML = data[i];
+            array.push(cell);
+            }
+        return array;
+        }
+        
     function api(call)  
         {
         var xhr = new XMLHttpRequest();

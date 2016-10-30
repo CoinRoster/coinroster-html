@@ -47,7 +47,7 @@
                     <h2 id="review_amount_to_withdraw" class="lucida"></h2>
                     <br/>
                     <br/>
-                    To:<span class="link" onclick="show_ext_address();">wallet on file</span>
+                    To:<span class="link" onclick="show_ext_address();">connected wallet</span>
                     <br/>
                     <br/>
                 </div>
@@ -71,20 +71,24 @@
                     </span>
                     <br/>
                     <br/>
+                    Transaction ID: <span id="transaction_id"></span>
+                    <br/>
+                    <br/>
                     <span style="font-size:14px;">
                         One of our administrators will
                         <br/>
                         process the withdrawal shortly.
                         <br/>
                         <br/>
-                        You will receive a confirmation
-                        <br/>
-                        email when the funds have been
-                        <br/>
-                        sent to your Bitcoin wallet.
-                        <br/>
-                        <br/>
-                        <br/>
+                        <span id="email_confirmation">
+                            You will receive a confirmation
+                            <br/>
+                            email when the funds have been
+                            <br/>
+                            sent to your Bitcoin wallet.
+                            <br/>
+                            <br/>
+                        </span>
                         <a href="/account">Back to account</a>
                     </span>
                 </div>
@@ -159,6 +163,8 @@
         if (user_withdrawal.status === "1")
             {
             hide("review_container");
+            id("transaction_id").innerHTML = user_withdrawal.transaction_id;
+            
             show("confirmation_container");
             }
         else show_simple_modal(user_withdrawal.error, "bad", null);
