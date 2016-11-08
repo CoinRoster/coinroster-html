@@ -449,7 +449,8 @@
         {
         change_password_error("Change password", "white");
         referral_email_error("Refer a friend", "white");
-        change_email_error("New e-mail address:", "white");
+        if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
+        if (id("manage_email_subwindow")) change_email_error("New e-mail address:", "white");
         }
         
 //--------------------------------------------------------------------------------------------------
