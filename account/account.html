@@ -527,7 +527,7 @@
                 created_date = dateconv_ms_to_string(created),
                 created_time = dateconv_ms_to_time(created);
         
-                if (pending_flag === "1") trans_type += " (transfer pending)";
+                if (pending_flag === "1") trans_type += " (pending)";
 
                 new_row(table, row_count++, [
                     created_date + " at " + created_time,

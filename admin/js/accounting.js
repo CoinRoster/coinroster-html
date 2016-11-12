@@ -770,7 +770,7 @@
                     "Date",
                     "Time",
                     "Type",
-                    "From",
+                    "User",
                     "Amount",
                     "Currency",
                     "Send to",
@@ -811,12 +811,16 @@
                     created = transaction_item.created,
                     created_date = dateconv_ms_to_string(created),
                     created_time = dateconv_ms_to_time(created),
-                    user_id = transaction_item.created_by,
-                    username = get_username_for_id(user_id),
+                    trans_type = transaction_item.trans_type,
+                    to_account = transaction_item.to_account,
+                    amount = transaction_item.amount,
+                    to_currency = transaction_item.to_currency,
                     ext_address = transaction_item.ext_address,
-                    cash_register_address = transaction_item.cash_register_address,
-                    amount = transaction_item.amount;
+                    
+                    user_id = to_account;
 
+                    to_account = get_username_for_id(to_account);
+                    
                     amount = toBTC(amount);
                     
                     if (typeof ext_address === "undefined") ext_address = "n/a";
@@ -825,25 +829,27 @@
                         transaction_id,
                         created_date,
                         created_time,
-                        username,
+                        trans_type,
+                        to_account,
                         amount,
+                        to_currency,
                         ext_address,
-                        cash_register_address,
                         "<button onclick=\"populate_pending_deposit(" + transaction_id + "," + amount + ",'" + user_id + "')\">Complete deposit</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
-                    row[5].style.textAlign = "right";
+                    row[6].style.textAlign = "right";
                     }
                 
                 var header = new_row(table, 0, [
                     "#",
                     "Date",
                     "Time",
+                    "Type",
                     "User",
                     "Amount",
-                    "User wallet",
-                    "Cash register",
+                    "Currency",
+                    "Funds from",
                     "Action"
                 ]);
                 // style headers:
@@ -851,7 +857,7 @@
                 for (var i=1; i<header.length; i++) header[i].className = "header_cell";
        
                 header[1].style.textAlign = "center";
-                header[5].style.textAlign = "right";
+                header[6].style.textAlign = "right";
                 }
             else id("pending_deposit_table").innerHTML = "None";
             }
@@ -893,7 +899,6 @@
         {
         var 
         
-        transaction_type = "BTC-DEPOSIT",
         user_account = id("pending_deposit_user_id").innerHTML,
         transaction_amount = id("pending_deposit_received_amount").value,
         transaction_memo = id("pending_deposit_memo").innerHTML;
@@ -905,24 +910,17 @@
         if (isNaN(transaction_amount)) return alert("Amount is not a number");
         if (transaction_amount <= 0) return alert("Amount cannot be less than or equal to 0");
 
-        var call = api({
-            method: "CreateTransaction",
+        var call = api({ 
+            method: "FinalizePendingDeposit", 
             args: {
-                transaction_type: transaction_type,
-                user_account: user_account,
-                amount: transaction_amount,
+                transaction_id: id("pending_deposit_transaction_id").innerHTML,
+                received_amount: transaction_amount,
                 memo: transaction_memo
-            }
+            } 
         });
         
         if (call.status === "1") 
             {
-            api({ 
-                method: "FinalizePendingDeposit", 
-                args: {
-                    transaction_id: id("pending_deposit_transaction_id").innerHTML
-                } 
-            });
             alert("Transaction created! Reloading panel.");
             location.reload();
             }
