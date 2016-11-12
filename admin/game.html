@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>CoinRoster | Admin Panel</title>
+    <script type="text/javascript" src="js/error.js"></script>
     <!--#include virtual="/ssi/head_admin.html" -->
 </head>
 <body>   
@@ -9,16 +10,245 @@
 <div id="header"></div>
 <!--#include virtual="/ssi/nav.html" -->
 <div id="nav"></div>
-<div id="pane_0" class="pane" tab_text="Tab 1">
-    <div class="content_header">
+<div id="pane_0" class="pane" tab_text="Open Pools">
+    <div class="content_header" style="height:67px">
         <div class="content_header_title">
-            Header
+            <span id="number_of_contests"></span>
+            Pools
         </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('open_contest_table');"/>
     </div>
-    <div class="content_body">
-        Body
+    <div class="content_body" style="top:68px">
+        <div id="open_contest_table" class="report_table"></div>
     </div>
 </div>
+<div id="pane_1" class="pane" tab_text="Create Pool">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Create Pool
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <h3>
+            Contest Details
+        </h3>
+        <br/>
+        <table class="form_table">
+            <tr>
+                <td>
+                    Category
+                </td>
+                <td colSpan="2">
+                    <select data-placeholder="Select" id="category_selector" class="input_style chosen-select" style="width:155px">
+                        <option>DFS</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sub-category
+                </td>
+                <td colSpan="2">
+                    <select data-placeholder="Select" id="sub_category_selector" class="input_style chosen-select" style="width:155px">
+                        <option>GOLF</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td colSpan="2">
+                    <input id="pool_title_input" type="text" class="input_style text_input" style="width:650px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Description
+                </td>
+                <td colSpan="2">
+                    <textarea id="pool_description_textarea" rows="6" cols="100"></textarea> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Registration deadline:
+                </td>
+                <td width="1">
+                    <input type="text" class="input_style text_input tcal" id="registration_deadline_tcal">
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
+                        <option value="0">12:00 AM</option>
+                        <option value="1">1:00 AM</option>
+                        <option value="2">2:00 AM</option>
+                        <option value="3">3:00 AM</option>
+                        <option value="4">4:00 AM</option>
+                        <option value="5">5:00 AM</option>
+                        <option value="6">6:00 AM</option>
+                        <option value="7">7:00 AM</option>
+                        <option value="8">8:00 AM</option>
+                        <option value="9">9:00 AM</option>
+                        <option value="10">10:00 AM</option>
+                        <option value="11">11:00 AM</option>
+                        <option value="12">12:00 AM</option>
+                        <option value="13">1:00 PM</option>
+                        <option value="14">2:00 PM</option>
+                        <option value="15">3:00 PM</option>
+                        <option value="16">4:00 PM</option>
+                        <option value="17">5:00 PM</option>
+                        <option value="18" selected>6:00 PM</option>
+                        <option value="19">7:00 PM</option>
+                        <option value="20">8:00 PM</option>
+                        <option value="21">9:00 PM</option>
+                        <option value="22">10:00 PM</option>
+                        <option value="23">11:00 PM</option>
+                    </select>
+                    EST
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Rake
+                </td>
+                <td colSpan="2">
+                    <input id="rake_input" type="text" class="input_style text_input"> %
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cost per entry
+                </td>
+                <td colSpan="2">
+                    <input id="cost_per_entry_input" btc-input="true" type="text" class="input_style text_input"> BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Game type
+                </td>
+                <td colSpan="2">
+                    <select data-placeholder="Select" id="game_type_selector" class="input_style chosen-select" style="width:155px">
+                        <option></option>
+                        <option>HEADS-UP</option>
+                        <option>DOUBLE-UP</option>
+                        <option>JACKPOT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Min users
+                </td>
+                <td colSpan="2">
+                    <input id="min_users_input" type="text" class="input_style text_input">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Max users
+                </td>
+                <td colSpan="2">
+                    <input id="max_users_input" type="text" class="input_style text_input"> (leave blank for no max)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Entries per user
+                </td>
+                <td colSpan="2">
+                    <select data-placeholder="Select" id="entries_per_user_selector" class="input_style chosen-select" style="width:155px">
+                        <option>UNLIMITED</option>
+                        <option>ONE-ONLY</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div id="create_jackpot_pay_table" style="display:none">
+            <h3>
+                Jackpot Pay Table
+            </h3>
+            <table class="form_table">
+                <tr>
+                    <td>
+                        Number of payouts
+                    </td>
+                    <td>
+                        <input id="number_of_payouts_input" type="text" class="input_style text_input">
+                    </td>
+                    <td>
+                        <button type="button" class="input_style" onclick="create_jackpot_pay_table();">Apply</button>
+                    </td>
+                </tr>
+            </table>
+            <div id="jackpot_pay_table" class="report_table"></div>
+            <div id="validate_pay_table_button" style="display:none">
+                <button type="button" class="input_style" onclick="validate_jackpot_pay_table();">Check total allocation</button>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <h3>
+            Player Pricing
+        </h3>
+        <br/>
+        <table class="form_table">
+            <tr>
+                <td>
+                    Salary Cap ($)
+                </td>
+                <td colspan="2">
+                    <input id="salary_cap_input" type="text" class="input_style text_input">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Odds source
+                </td>
+                <td>
+                    <select id="odds_url_selector" class="input_style chosen-select" style="width:150px">
+                        <option selected value="http://www.vegasinsider.com/golf/odds/futures/">Vegas Insider</option>
+                        <option value="manual">Manual</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="scrape_player_odds();">Go</button>
+                </td>
+            </tr>
+            <tr id="number_of_players_row" style="display:none">
+                <td>
+                    Number of players
+                </td>
+                <td>
+                    <input id="number_of_players_input" type="text" class="input_style text_input">
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="create_manual_player_table();">Apply</button>
+                </td>
+            </tr>
+            <tr id="multiplier_row" style="display:none">
+                <td>
+                    Multiplier ($)
+                </td>
+                <td>
+                    <input id="odds_multiplier_input" type="text" class="input_style text_input">
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="price_players();">Price Players</button>
+                </td>
+            </tr>
+        </table>
+        <div id="player_odds_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <button type="button" class="input_style" onclick="create_pool();">Create Pool</button>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
 </body>

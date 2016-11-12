@@ -23,6 +23,11 @@
         cursor: auto;
     }
     
+    button.input_style {
+        padding: 3px 8px;
+        background: rgb(230,240,255);
+    }
+    
     option {
         white-space: nowrap;
     }
@@ -128,9 +133,9 @@
         left:16px;
     }
     
-    .settings td {
+    .settings td, .form_table td {
         font-size:14px;
-        padding-right: 16px;
+        padding: 0 16px 16px 0;
     }
     
     .hidden {

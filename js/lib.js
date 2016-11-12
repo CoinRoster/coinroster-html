@@ -107,7 +107,30 @@
 
         return (hours + ':' + minutes + ':' + seconds);
         }
+        
+    function dateconv_date_start_time(d)
+        {
+        var 
+        
+        date = new Date(d),
+        date_string = dateconv_ms_to_string(date),
+        date_ms = Date.parse(date_string);
+        
+        return date_ms;
+        }
     
+    function dateconv_get_gmt_date(d)
+        {
+        var 
+        
+        date = new Date(d),
+        date_string = dateconv_ms_to_string(date),
+        date_ms = Date.parse(date_string),
+        offset = date.getTimezoneOffset() * 60000;
+        
+        return date_ms + offset;
+        }
+        
     function timeSince(ms) 
         {
         var seconds = Math.floor((new Date().getTime() - ms) / 1000);
@@ -170,11 +193,13 @@
 
     function selectorValue(selector)
         {
+        if (typeof selector === "string") selector = id(selector);
         return selector.options[selector.selectedIndex].value;
         }
         
     function selectorHTML(selector)
         {
+        if (typeof selector === "string") selector = id(selector);
         return selector.options[selector.selectedIndex].innerHTML;
         }
 
@@ -244,6 +269,20 @@
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
        
+    function get_ordinal_suffix(i) 
+        {
+        var 
+        
+        j = i % 10,
+        k = i % 100;
+
+        if (j === 1 && k !== 11) return "st";
+        if (j === 2 && k !== 12) return "nd";
+        if (j === 3 && k !== 13) return "rd";
+        
+        return "th";
+        }
+        
     function set_focus(_id)
         {
         setTimeout(function()

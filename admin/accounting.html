@@ -45,7 +45,7 @@
                     <input id="search_bar" class="search input_style text_input" placeholder="Enter keywords..." style="width:300px">
                 </td>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="sort_user_report();">Go!</button>
+                    <button type="button" class="input_style" onclick="sort_user_report();">Go!</button>
                 </td>-->
             </tr>
         </table>
@@ -73,7 +73,7 @@
                     <input type="text" class="input_style text_input tcal" id="transaction_date_end_tcal">
                 </td>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="transaction_report();">Go!</button>
+                    <button type="button" class="input_style" onclick="transaction_report();">Go!</button>
                 </td>
             </tr>
         </table>
@@ -141,7 +141,6 @@
                     <span class="new_transaction_type" style="font-weight:bold">BTC-DEPOSIT</span>
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     From:
@@ -150,7 +149,6 @@
                     internal_btc_liability
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     To:
@@ -167,7 +165,6 @@
                     BTC
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Amount (BTC):
@@ -176,7 +173,6 @@
                     <input type="text" btc-input="true" class="input_style text_input transaction_amount">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Memo:
@@ -185,10 +181,9 @@
                     <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
                 </td>
             </tr>
         </table>
@@ -204,7 +199,6 @@
                     <span class="new_transaction_type" style="font-weight:bold">BTC-WITHDRAWAL</span>
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     From:
@@ -221,7 +215,6 @@
                     BTC
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     To:
@@ -230,7 +223,6 @@
                     internal_btc_liability
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Amount (BTC):
@@ -239,7 +231,6 @@
                     <input type="text" btc-input="true" class="input_style text_input transaction_amount">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Memo:
@@ -248,10 +239,9 @@
                     <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
                 </td>
             </tr>
         </table>
@@ -267,7 +257,6 @@
                     <span class="new_transaction_type" style="font-weight:bold">RC-DEPOSIT</span>
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     From:
@@ -276,7 +265,6 @@
                     internal_rc_liability
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     To:
@@ -293,7 +281,6 @@
                     RC
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Amount (RC):
@@ -302,7 +289,6 @@
                     <input type="text" btc-input="true" class="input_style text_input transaction_amount">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Memo:
@@ -311,10 +297,9 @@
                     <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
                 </td>
             </tr>
         </table>
@@ -330,7 +315,6 @@
                     <span class="new_transaction_type" style="font-weight:bold">RC-WITHDRAWAL</span>
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     From:
@@ -347,7 +331,6 @@
                     RC
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     To:
@@ -356,7 +339,6 @@
                     internal_rc_liability
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Amount (RC):
@@ -365,7 +347,6 @@
                     <input type="text" btc-input="true" class="input_style text_input transaction_amount">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Memo:
@@ -374,10 +355,9 @@
                     <input type="text" class="input_style text_input transaction_memo" maxlength="60" style="width:330px">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="submit_new_trans();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
                 </td>
             </tr>
         </table>
@@ -411,7 +391,7 @@
                     <input id="cash_register_address" type="text" class="input_style text_input" maxlength="35" style="width:300px">
                 </td>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_cash_register_address();">Update address</button>
+                    <button type="button" class="input_style" onclick="update_cash_register_address();">Update address</button>
                 </td>
             </tr>
         </table>
@@ -441,7 +421,6 @@
                     BTC-DEPOSIT
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Pending deposit ID:
@@ -450,7 +429,6 @@
                     <!-- POPULATED BY JAVASCRIPT -->
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     From:
@@ -459,7 +437,6 @@
                     internal_btc_liability
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     To:
@@ -468,7 +445,6 @@
                     <!-- POPULATED BY JAVASCRIPT -->
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Intended amount (BTC):
@@ -477,7 +453,6 @@
                     <!-- POPULATED BY JAVASCRIPT -->
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Received amount (BTC):
@@ -486,7 +461,6 @@
                     <input id="pending_deposit_received_amount" type="text" btc-input="true" class="input_style text_input transaction_amount">
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
                     Memo:
@@ -495,11 +469,10 @@
                     <!-- POPULATED BY JAVASCRIPT -->
                 </td>
             </tr>
-            <tr style="height:20px"></tr>
             <tr>
                 <td>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="finalize_pending_deposit();">Submit Transaction</button>
-                    <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="hide('pending_deposit_window');">Cancel</button>
+                    <button type="button" class="input_style" onclick="finalize_pending_deposit();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="hide('pending_deposit_window');">Cancel</button>
                 </td>
             </tr>
         </table>
@@ -513,14 +486,14 @@
     </div>
     <div class="content_body" style="top:68px">
         <input id="password_key" placeholder="Enter current key" type="password" class="input_style text_input transaction_memo" style="width:500px">
-        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="show_passwords();">Show Passwords</button>
-        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="update_passwords();">Update Passwords</button>
-        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="clear_fields();">Reset Form</button>
+        <button type="button" class="input_style" onclick="show_passwords();">Show Passwords</button>
+        <button type="button" class="input_style" onclick="update_passwords();">Update Passwords</button>
+        <button type="button" class="input_style" onclick="clear_fields();">Reset Form</button>
         <br/>
         <br/>
         <input id="new_password_key" placeholder="Enter new key (only needed if changing the key)" type="password" class="input_style text_input transaction_memo" style="width:300px">
         <input id="confirm_password_key" placeholder="Re-Enter new key" type="password" class="input_style text_input transaction_memo" style="width:300px">
-        <button type="button" class="input_style" style="background:rgb(168,243,201)" onclick="change_key();">Change Key</button>
+        <button type="button" class="input_style" onclick="change_key();">Change Key</button>
         <br/>
         <br/>
         <textarea id="password_textarea" rows="40" cols="150"></textarea> 
