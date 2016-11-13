@@ -3,12 +3,194 @@
         {
         switch(selection)
             {
+            case 0: /* Create Pool */
+                pool_report();
+                break;
             case 1: /* Create Pool */
                 initialize_registration_deadline();
                 break;
             }
         }
+                     
+/*----------------------------------------------------------------------*/
+
+    // contest report
+    
+    var 
+    
+    pool_report_array = [],
+    number_of_pools;
+    
+    function pool_report()
+        {
+        var call = api({ method: "PoolReport", args: {} });
+        
+        var pool_report = call.pool_report;
+        number_of_pools = pool_report.length;
+
+        for (var i=0; i<number_of_pools; i++)
+            {
+            var pool_item = pool_report[i],
+                    
+            id = pool_item.id,
+            created = pool_item.created,
+            created_by = pool_item.created_by,
+            category = pool_item.category,
+            sub_category = pool_item.sub_category,
+            title = pool_item.title,
+            description = pool_item.description,
+            settlement_type = pool_item.settlement_type,
+            pay_table = pool_item.pay_table,
+            odds_table = pool_item.odds_table,
+            rake = pool_item.rake,
+            salary_cap = pool_item.salary_cap,
+            cost_per_entry = pool_item.cost_per_entry,
+            min_users = pool_item.min_users,
+            max_users = pool_item.max_users,
+            entries_per_user = pool_item.entries_per_user,
+            registration_deadline = pool_item.registration_deadline,
+            status = pool_item.status;
+  
+            pool_report_array.push([
+                id,
+                created,
+                created_by,
+                category,
+                sub_category,
+                title,
+                description,
+                settlement_type,
+                pay_table,
+                odds_table,
+                rake,
+                salary_cap,
+                cost_per_entry,
+                min_users,
+                max_users,
+                entries_per_user,
+                registration_deadline,
+                status
+            ]);
+            
+            
+            }
+            
+        populate_pool_report_table();
+        }
+        
+    function populate_pool_report_table()
+        {
+        var table = new_table("pool_report_table"),
+        row_count = 0,
+        right_align_array = [1,7,8,9,10,11,12];
+
+        for (var i=0; i<number_of_pools; i++)
+            {
+            var pool_item = pool_report_array[i],
+                    
+            id = pool_item[0],
+            created = pool_item[1],
+            created_by = pool_item[2],
+            category = pool_item[3],
+            sub_category = pool_item[4],
+            title = pool_item[5],
+            description = pool_item[6],
+            settlement_type = pool_item[7],
+            pay_table = pool_item[8],
+            odds_table = pool_item[9],
+            rake = pool_item[10],
+            salary_cap = pool_item[11],
+            cost_per_entry = pool_item[12],
+            min_users = pool_item[13],
+            max_users = pool_item[14],
+            entries_per_user = pool_item[15],
+            
+            registration_deadline = pool_item[16],
+            registration_deadline_date = dateconv_ms_to_string(registration_deadline),
+            registration_deadline_time = dateconv_ms_to_time(registration_deadline),
+            registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
+            
+            status = pool_item[17],
+            status_string = "";
+    
+            switch (status)
+                {
+                case 1:
+                    status_string = "Reg open";
+                    break;
+                case 2:
+                    status_string = "In play";
+                    break;
+                case 3:
+                    status_string = "Settled";
+                    break;
+                case 4:
+                    status_string = "Cancelled";
+                    break;
+                }
                 
+            if (max_users === 0) max_users = "UMLIMITED";
+            if (entries_per_user === 0) entries_per_user = "UMLIMITED";
+            
+            cost_per_entry = toBTC(cost_per_entry);
+            
+            salary_cap = commas(salary_cap);
+            
+            if (settlement_type !== "JACKPOT") pay_table = "";
+    
+            created = dateconv_ms_to_string(created);
+
+            var row = new_row(table, row_count++, [
+                id,
+                created,
+                created_by,
+                category,
+                sub_category,
+                settlement_type,
+                rake,
+                salary_cap,
+                cost_per_entry,
+                min_users,
+                max_users,
+                entries_per_user,
+                registration_deadline_string,
+                status_string,
+                title,
+                description,
+                pay_table,
+                odds_table
+            ]);
+            
+            right_align(row, right_align_array);
+            }
+            
+        var header = new_row(table, 0, [
+            "Id",
+            "Created",
+            "Created by",
+            "Category",
+            "Sub category",
+            "Settlement type",
+            "Rake",
+            "Salary cap",
+            "Cost per entry",
+            "Min users",
+            "Max users",
+            "Entries per user",
+            "Registration deadline",
+            "Status",
+            "Title",
+            "Description",
+            "Pay table",
+            "Odds table"
+        ]);
+        // style headers:
+
+        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+        
+        right_align(header, right_align_array);
+        }
+    
 /*----------------------------------------------------------------------*/
 
     // Initialize registration deadline calendar

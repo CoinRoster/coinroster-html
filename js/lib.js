@@ -290,6 +290,14 @@
             id(_id).focus();
             },100);
         }
+        
+    function right_align(row, index_array)
+        {
+        index_array.forEach(function(index) 
+            {
+            row[index].style.textAlign = "right";
+            });
+        }
  
     Array.prototype.contains = function(value) 
         {

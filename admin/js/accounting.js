@@ -172,7 +172,7 @@
         
         // sort report:
         
-        switch(user_report_sort_selector.selectedIndex)
+        switch (user_report_sort_selector.selectedIndex)
             {
             case 0: // Created date
                 user_report_array.sort(function(a, b)
