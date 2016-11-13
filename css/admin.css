@@ -28,6 +28,11 @@
         background: rgb(230,240,255);
     }
     
+    .huge_button {
+        font-size: 20px;
+        padding: 10px 20px !important;
+    }
+    
     option {
         white-space: nowrap;
     }

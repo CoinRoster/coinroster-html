@@ -350,6 +350,7 @@
         id("player_odds_table").innerHTML = "";
         hide("multiplier_row");
         hide("number_of_players_row");
+        hide("add_player_button");
         
         var url = selectorValue("odds_url_selector");
         
@@ -390,7 +391,7 @@
         
         populate_player_pricing_table();
         }
-        
+
     function populate_player_pricing_table()
         {
         player_odds_table = new_table("player_odds_table");
@@ -410,7 +411,8 @@
             new_row(player_odds_table, row_count++, [
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_odds + "\">",
-                ""
+                "",
+                "<button type=\"button\" class=\"input_style\" onclick=\"remove_player(this);\">Remove player</button>"
             ]);
             }
             
@@ -421,8 +423,26 @@
         ]);
             
         for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-        }
         
+        show("add_player_button");
+        }
+     
+    function remove_player(button)
+        {
+        var i = button.parentNode.parentNode.rowIndex;
+        player_odds_table.deleteRow(i);
+        }
+                
+    function add_player()
+        {
+        new_row(player_odds_table, -1, [
+            "<input type=\"text\" class=\"input_style text_input\">",
+            "<input type=\"text\" class=\"input_style text_input\">",
+            "",
+            "<button type=\"button\" class=\"input_style\" onclick=\"remove_player(this);\">Remove player</button>"
+        ]);
+        }
+           
     function price_players()
         {
         var 
