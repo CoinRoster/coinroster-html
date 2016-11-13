@@ -36,15 +36,15 @@
     
     var 
     
-    game_type_selector = id("game_type_selector"),
+    settlement_type_selector = id("settlement_type_selector"),
     entries_per_user_selector = id("entries_per_user_selector"); 
     
-    game_type_selector.onchange = function()
+    settlement_type_selector.onchange = function()
         {
-        var game_type = selectorHTML(game_type_selector);
+        var settlement_type = selectorHTML(settlement_type_selector);
         id("min_users_input").readOnly = false;
         id("max_users_input").readOnly = false;
-        switch (game_type)
+        switch (settlement_type)
             {
             case "HEADS-UP" :
                 id("min_users_input").readOnly = true;
@@ -83,7 +83,7 @@
             {
             hide("validate_pay_table_button");
             id("jackpot_pay_table").innerHTML = "";
-            return alert("Number of payouts must be 3 or greater");
+            return alert("Pay table must have at least 3 ranks");
             }
 
         for (var i=0; i<number_of_payouts; i++)
@@ -328,11 +328,11 @@
         
         if (cost_per_entry === "") return alert("Please enter a cost per entry");
         
-        // check for game type
+        // check for settlement type
         
-        var game_type = selectorHTML("game_type_selector");
+        var settlement_type = selectorHTML("settlement_type_selector");
         
-        if (game_type === "") return alert("Please choose a game type");
+        if (settlement_type === "") return alert("Please choose a settlement type");
         
         // make sure min users and max users are correct
         
@@ -352,8 +352,9 @@
             {
             if (isNaN(max_users)) return alert("Max users must be a number");
             if (max_users < 2) return alert("Max users cannot be less than 2");
-            if (game_type !== "HEADS-UP" && +max_users === 2) return alert("You entered max users 2 but didn't choose HEADS-UP");
+            if (settlement_type !== "HEADS-UP" && +max_users === 2) return alert("You entered max users 2 but didn't choose HEADS-UP");
             }
+        else max_users = 0;
 
         // check for entries_per_user
         
@@ -363,7 +364,7 @@
         
         var pay_table = [];
         
-        if (game_type === "JACKPOT")
+        if (settlement_type === "JACKPOT")
             {
             if (typeof jackpot_pay_table === "undefined") return alert("Please enter jackpot pay table");
             
@@ -377,7 +378,7 @@
                 {
                 pay_table.push({
                     rank: i,
-                    payout: rows[i].querySelector("input").value
+                    payout: +rows[i].querySelector("input").value
                 });
                 }
             }
@@ -397,7 +398,7 @@
         var 
         
         player_rows = player_odds_table.rows,
-        player_table = [];
+        odds_table = [];
         
         for (var i=1; i<player_rows.length; i++)
             {
@@ -405,12 +406,16 @@
                     
             name = cells[0].querySelector("input").value,
             odds = cells[1].querySelector("input").value,
-            price = fromCurrency(cells[2].innerHTML);
+            price = cells[2].innerHTML;
     
             if (name === "" || odds === "" || price === "") return alert("Player table is incomplete");
-            if (+price === 0) return alert("Invalid price or odds for " + name);
             
-            player_table.push({
+            price = fromCurrency(price);
+            
+            if (price === 0) return alert("Invalid price or odds for " + name);
+            if (price > salary_cap) return alert("Odds table row " + i + ": price cannot be greater than salary cap");
+            
+            odds_table.push({
                 name: name,
                 odds: odds,
                 price: price
@@ -418,7 +423,7 @@
             }
         
         // submit
-        
+
         var call = api({
             method: "CreatePool",
             args: {
@@ -429,21 +434,21 @@
                 registration_deadline: registration_deadline,
                 rake: rake,
                 cost_per_entry: cost_per_entry,
-                game_type: game_type,
+                settlement_type: settlement_type,
                 min_users: min_users,
                 max_users: max_users,
                 entries_per_user: entries_per_user,
                 pay_table: pay_table,
                 salary_cap: salary_cap,
-                player_table: player_table
+                odds_table: odds_table
             }
         });
 
         if (call.status === "1") 
             {
-            show("multiplier_row", "table-row");
-            player_odds_array = call.player_odds_array;
-            populate_player_pricing_table();
+            alert("Pool created! Reloading panel.");
+            location.reload();
             }
+        else alert("Error: " + call.error);
         }
     
