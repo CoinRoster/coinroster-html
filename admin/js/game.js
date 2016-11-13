@@ -110,7 +110,7 @@
         var 
         
         rows = jackpot_pay_table.rows,
-        total_payout = 0;
+        total_payout = 0;        
 
         for (var i=1; i<rows.length; i++)
             {
@@ -129,6 +129,11 @@
             if (payout >= 100)
                 {
                 alert("Rank " + i + ": payout cannot be 100% or greater");
+                return false;
+                }
+            if (+payout === 0)
+                {
+                alert("Rank " + i + ": payout cannot be 0%");
                 return false;
                 }
                 
