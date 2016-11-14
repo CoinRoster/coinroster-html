@@ -407,7 +407,7 @@
                     
             player_name = player_item.name,
             player_odds = player_item.odds;
-    
+        
             new_row(player_odds_table, row_count++, [
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_odds + "\">",
@@ -458,16 +458,8 @@
             player_odds = row.cells[1].querySelector("input").value,
             player_price;
             
-            if (multiplier !== "")
-                {
-                if (player_odds.indexOf("/") !== -1)
-                    {
-                    var odds = player_odds.split("/");
-                    player_price = +multiplier * (+odds[1] / +odds[0]);
-                    }
-                else player_price = +multiplier * +player_odds;
-                }
-                
+            if (multiplier !== "") player_price = +multiplier * (player_odds - 1);
+
             row.cells[2].innerHTML = "$" + toCurrency(player_price);
             }
         }
