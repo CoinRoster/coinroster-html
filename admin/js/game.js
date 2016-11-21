@@ -345,19 +345,20 @@
     player_odds_array,
     player_odds_table;
     
-    function scrape_player_odds()
+    function scrape_player_odds(scrape)
         {
         id("player_odds_table").innerHTML = "";
         hide("multiplier_row");
         hide("number_of_players_row");
         hide("add_player_button");
         
-        var url = selectorValue("odds_url_selector");
-        
-        if (url === "manual") show("number_of_players_row", "table-row");
-        else
+        if (scrape)
             {
-            var call = api({
+            var 
+            
+            url = id("odds_url_input").value,
+                    
+            call = api({
                 method: "ScrapePlayerOdds",
                 args: {
                     url: url
@@ -371,6 +372,7 @@
                 populate_player_pricing_table();
                 }
             }
+        else show("number_of_players_row", "table-row");
         }
         
     function create_manual_player_table()
@@ -458,7 +460,7 @@
             player_odds = row.cells[1].querySelector("input").value,
             player_price;
             
-            if (multiplier !== "") player_price = +multiplier * (player_odds - 1);
+            if (multiplier !== "") player_price = +multiplier * (1 / player_odds);
 
             row.cells[2].innerHTML = "$" + toCurrency(player_price);
             }

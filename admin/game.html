@@ -202,16 +202,29 @@
             </tr>
             <tr>
                 <td>
+                    Odds Source e.g.
+                </td>
+                <td colspan="2">
+                    http://www.vegasinsider.com/golf/odds/futures/
+                    <br/>
+                    https://www.skybet.com/golf/dp-world-championship/event/20010937
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Odds source
                 </td>
-                <td>
-                    <select id="odds_url_selector" class="input_style chosen-select" style="width:150px">
-                        <option selected value="http://www.vegasinsider.com/golf/odds/futures/">Vegas Insider</option>
-                        <option value="manual">Manual</option>
-                    </select>
+                <td colSpan="2">
+                    <input id="odds_url_input" type="text" class="input_style text_input" style="width:650px">
                 </td>
                 <td>
-                    <button type="button" class="input_style" onclick="scrape_player_odds();">Go</button>
+                    <button type="button" class="input_style" onclick="scrape_player_odds(true);">Scrape</button>
+                </td>
+                <td>
+                    or
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="scrape_player_odds(false);">Manual Entry</button>
                 </td>
             </tr>
             <tr id="number_of_players_row" style="display:none">
