@@ -48,6 +48,7 @@
             min_users = pool_item.min_users,
             max_users = pool_item.max_users,
             entries_per_user = pool_item.entries_per_user,
+            roster_size = pool_item.roster_size,
             registration_deadline = pool_item.registration_deadline,
             status = pool_item.status;
   
@@ -68,6 +69,7 @@
                 min_users,
                 max_users,
                 entries_per_user,
+                roster_size,
                 registration_deadline,
                 status
             ]);
@@ -82,7 +84,7 @@
         {
         var table = new_table("pool_report_table"),
         row_count = 0,
-        right_align_array = [1,7,8,9,10,11,12];
+        right_align_array = [1,7,8,9,10,11,12,13];
 
         for (var i=0; i<number_of_pools; i++)
             {
@@ -104,13 +106,14 @@
             min_users = pool_item[13],
             max_users = pool_item[14],
             entries_per_user = pool_item[15],
+            roster_size = pool_item[16],
             
-            registration_deadline = pool_item[16],
+            registration_deadline = pool_item[17],
             registration_deadline_date = dateconv_ms_to_string(registration_deadline),
             registration_deadline_time = dateconv_ms_to_time(registration_deadline),
             registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
             
-            status = pool_item[17],
+            status = pool_item[18],
             status_string = "";
     
             switch (status)
@@ -131,6 +134,7 @@
                 
             if (max_users === 0) max_users = "UMLIMITED";
             if (entries_per_user === 0) entries_per_user = "UMLIMITED";
+            if (roster_size === 0) roster_size = "VARIABLE";
             
             cost_per_entry = toBTC(cost_per_entry);
             
@@ -153,6 +157,7 @@
                 min_users,
                 max_users,
                 entries_per_user,
+                roster_size,
                 registration_deadline_string,
                 status_string,
                 title,
@@ -177,6 +182,7 @@
             "Min users",
             "Max users",
             "Entries per user",
+            "Roster size",
             "Registration deadline",
             "Status",
             "Title",
@@ -556,6 +562,15 @@
         
         var entries_per_user = selectorHTML("entries_per_user_selector");
         
+        // check for roster_size
+        
+        var roster_size = id("roster_size_input").value;
+        
+        if (roster_size === "") roster_size = 0;
+
+        if (isNaN(roster_size)) return alert("Invalid roster size");
+        if (roster_size < 0) return alert("Roster size cannot be negative");
+        
         // if jackpot, validate pay table
         
         var pay_table = [];
@@ -634,6 +649,7 @@
                 min_users: min_users,
                 max_users: max_users,
                 entries_per_user: entries_per_user,
+                roster_size: roster_size,
                 pay_table: pay_table,
                 salary_cap: salary_cap,
                 odds_table: odds_table

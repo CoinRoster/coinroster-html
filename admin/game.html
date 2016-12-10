@@ -103,6 +103,7 @@
                         <option value="22">10:00 PM</option>
                         <option value="23">11:00 PM</option>
                     </select>
+                    &nbsp;&nbsp;
                     EST
                 </td>
             </tr>
@@ -111,7 +112,9 @@
                     Rake
                 </td>
                 <td colSpan="2">
-                    <input id="rake_input" type="text" class="input_style text_input"> %
+                    <input id="rake_input" type="text" class="input_style text_input">
+                    &nbsp;&nbsp;
+                    %
                 </td>
             </tr>
             <tr>
@@ -119,7 +122,9 @@
                     Cost per entry
                 </td>
                 <td colSpan="2">
-                    <input id="cost_per_entry_input" btc-input="true" type="text" class="input_style text_input"> BTC
+                    <input id="cost_per_entry_input" btc-input="true" type="text" class="input_style text_input">
+                    &nbsp;&nbsp;
+                    BTC
                 </td>
             </tr>
             <tr>
@@ -148,7 +153,9 @@
                     Max users
                 </td>
                 <td colSpan="2">
-                    <input id="max_users_input" type="text" class="input_style text_input"> (leave blank for no max)
+                    <input id="max_users_input" type="text" class="input_style text_input">
+                    &nbsp;&nbsp;
+                    (leave blank for no max)
                 </td>
             </tr>
             <tr>
@@ -160,6 +167,16 @@
                         <option>UNLIMITED</option>
                         <option>ONE-ONLY</option>
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Roster size
+                </td>
+                <td colSpan="2">
+                    <input id="roster_size_input" type="text" class="input_style text_input">
+                    &nbsp;&nbsp;
+                    (leave blank for no fixed roster size)
                 </td>
             </tr>
         </table>
@@ -207,7 +224,7 @@
                 <td colspan="2">
                     http://www.vegasinsider.com/golf/odds/futures/
                     <br/>
-                    https://www.skybet.com/golf/dp-world-championship/event/20010937
+                    https://www.skybet.com/golf/&nbsp;&nbsp;&nbsp;&nbsp;[event url?]&nbsp;&nbsp;&nbsp;&nbsp;/event/20010937
                 </td>
             </tr>
             <tr>
@@ -233,8 +250,7 @@
                 </td>
                 <td>
                     <input id="number_of_players_input" type="text" class="input_style text_input">
-                </td>
-                <td>
+                    &nbsp;&nbsp;
                     <button type="button" class="input_style" onclick="create_manual_player_table();">Apply</button>
                 </td>
             </tr>
@@ -244,8 +260,7 @@
                 </td>
                 <td>
                     <input id="odds_multiplier_input" type="text" class="input_style text_input">
-                </td>
-                <td>
+                    &nbsp;&nbsp;
                     <button type="button" class="input_style" onclick="price_players();">Price Players</button>
                 </td>
             </tr>
