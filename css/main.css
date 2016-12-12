@@ -137,6 +137,10 @@
         text-decoration:none;
     }
     
+    .auto_width {
+        width:auto !important;
+    }
+    
     .a_button {
         width:198px !important; /* text_button width - text_button padding-right, paddingileft - 2 for borders */
     }

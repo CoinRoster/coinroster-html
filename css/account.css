@@ -18,10 +18,6 @@
         background:rgb(130,134,138);
     }
 
-    .auto_width {
-        width:auto !important;
-    }
-
     .underline {
         text-decoration:underline;
     }

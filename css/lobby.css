@@ -1,4 +1,4 @@
-    .pool_table {
+    .pool_table, .player_table {
         width: 100%;
         border-collapse: collapse;
     }
@@ -10,10 +10,9 @@
     
     .pool_table td {
         text-align:right;
-        padding: 5px 15px;
+        padding: 10px 15px;
     }
     .pool_table td:first-child {
-        text-align: left;
         color: orange;
         cursor: pointer;
     }
@@ -29,4 +28,67 @@
     }
     .pool_table tr:first-child td:first-child:hover {
         text-decoration: none;
+    }
+    
+    .pool_detail_table td {
+        padding-bottom: 20px;
+        padding-right: 30px;
+    }
+    
+    .pay_table td:first-child {
+        padding-right: 30px;
+    }
+    .pay_table td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .payout_info_link {
+        cursor: pointer;
+        font-size: 13px;
+    }    
+    .payout_info_link:hover {
+        text-decoration: underline;
+    }
+    
+    #enter_pool {
+        width: calc(100% - 4px);
+        background: rgb(100,104,108);
+        border: 2px solid rgb(44,46,48);
+    }
+    
+    #salary_cap_container {
+        display: inline-block;
+    }
+    #remaining_players_container {
+        display: none;
+    }
+    
+    #player_table_container, #roster_table_container, #player_table_header, #roster_table_header {
+        width: calc(50% - 30px);
+        display: inline-block;
+        margin-left: 20px;
+    }
+    #player_table_header, #roster_table_header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    #player_table_container, #roster_table_container {
+        height: 400px;
+        background: rgb(80,84,88);
+        display: inline-block;
+        overflow-y: scroll;
+    }
+    
+    .player_table tr {
+        border-bottom: 1px solid rgb(100,104,108);
+    }
+    .player_table td {
+        padding: 10px;
+    }
+    
+    #submit_button_container {
+        width: calc(100% - 40px);
+        padding: 20px;
+        text-align: right;
     }

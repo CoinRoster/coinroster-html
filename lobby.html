@@ -4,6 +4,7 @@
     <title>CoinRoster | Lobby</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi/nav.html" -->
@@ -38,28 +39,32 @@
     
             if (number_of_pools === 0)
                 {
-                
+                var row = new_row(id("dfs_golf_table"), -1, [
+                    "No open pools. Please check back soon."
+                ]);
+                row[1].style.textAlign = "left";
                 }
             else
                 {
                 var header = new_row(id("dfs_golf_table"), -1, [
                     "Pool",
-                    "Entry",
+                    "Game type",
+                    "Entry fee",
                     "Live at",
                     ""
                 ]);
                 
                 header[0].style.background = "none";
                 header[0].style.border = "none";
+                
                 for (var i=1; i<header.length; i++)
                     {
-                    if (i === 1) 
-                        {
-                        header[i].style.color = "white";
-                        }
                     header[i].style.fontSize = "14px";
                     header[i].style.paddingBottom = "10px";
                     }
+                    
+                header[1].style.textAlign = "left";
+                header[2].style.textAlign = "left";
 
                 for (var i=0; i<number_of_pools; i++)
                     {
@@ -70,8 +75,9 @@
 
                     category = pool_item.category,
                     sub_category = pool_item.sub_category,
-                    category_string = category.toLowerCase() + "_" + sub_category.toLowerCase(),
-                    table_id = category_string + "_table",
+                    category_string = category.toLowerCase(),
+                    sub_category_string = category.toLowerCase() + "_" + sub_category.toLowerCase(),
+                    table_id = sub_category_string + "_table",
                     table = id(table_id),
 
                     title = pool_item.title,
@@ -126,10 +132,12 @@
                         {
                         var row = new_row(table, -1, [
                             title,
+                            settlement_type + "<br/><div id=\"payout_info_" + pool_id + "\" class=\"payout_info_link blue\">Payout info</div>",
                             cost_per_entry + " BTC",
                             registration_deadline_string,
                             "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_pool('" + category_string + "'," + pool_id + ",'" + button_string + "')\">" + button_string + "</button>"
                         ]);
+                        
                         row[1].onclick = (function(category_string, pool_id, button_string)
                             {
                             return function()
@@ -137,6 +145,10 @@
                                 redirect_to_pool(category_string, pool_id, button_string);
                                 }
                             })(category_string, pool_id, button_string);
+                        row[1].style.textAlign = "left";
+                        row[2].style.textAlign = "left";
+                            
+                        bind_payout_window(id("payout_info_" + pool_id), settlement_type, pay_table, entries_per_user);
                         }
                     }
                 }
