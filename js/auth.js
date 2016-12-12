@@ -13,18 +13,17 @@
 
         if (username === "" || password === "") return false;
 
-        setTimeout(function()
+        api({
+            method: "Login",
+            args: {
+                username: username,
+                password: password
+            }
+        }, function(call)
             {
-            var call = api({
-                method: "Login",
-                args: {
-                    username: username,
-                    password: password
-                }
-            });
             if (call.status === "1") 
                 {
-                location = "/account";
+                location = "/";
                 }
             else
                 {
@@ -33,7 +32,7 @@
                 id("username").value = "";
                 id("password").value = "";
                 }
-            },100);
+            });
         return false;
         }
         
@@ -49,23 +48,21 @@
             return;
             }
             
-        setTimeout(function()
+        api({
+            method: "CheckUsername",
+            args: {
+                username: username
+            }
+        }, function(call)
             {
-            var call = api({
-                method: "CheckUsername",
-                args: {
-                    username: username
-                }
-            });
-
             if (call.status === "1") set_auth_message("Username is available", "rgb(0,255,106)");
             else
                 {
                 set_auth_message(call.error, "red");
                 id("username").value = "";
                 set_focus("username");
-                }   
-            },10);
+                }
+            });
         }
 
     function check_password()
@@ -125,21 +122,19 @@
             set_focus("password");
             return false;
             }
-
-        setTimeout(function()
+            
+        api({
+            method: "CreateUser",
+            args: {
+                username: username,
+                password: password,
+                referral_key: window.referral_key
+            }
+        }, function(call)
             {
-            var call = api({
-                method: "CreateUser",
-                args: {
-                    username: username,
-                    password: password,
-                    referral_key: window.referral_key
-                }
-            });
-
             if (call !== null)
                 {
-                if (call.user_was_created === "1") document.location = "../account/?first_login=true";
+                if (call.user_was_created === "1") location = "/";
                 else
                     {
                     if (call.invalid_credentials === "1") set_auth_message("Invalid credentials", "red");
@@ -152,8 +147,8 @@
                     set_focus("username");
                     }
                 }
-            },100);
-            
+            });
+       
         return false;
         }
         
@@ -168,22 +163,21 @@
             id("auth_message").innerHTML = "Invalid email address";
             return false;
             }
-
-        setTimeout(function()
+            
+        api({
+            method: "SendPasswordReset",
+            args: {
+                email_address: email_address
+            }
+        }, function(call)
             {
-            var call = api({
-                method: "SendPasswordReset",
-                args: {
-                    email_address: email_address
-                }
-            });
             if (call.status === "1")
                 {
                 hide("initial_container");
                 show("submitted_container");
                 }
-            },100);
-            
+            });
+        
         return false;
         }
         
@@ -219,26 +213,24 @@
             set_focus("password");
             return false;
             }
-
-        setTimeout(function()
+            
+        api({
+            method: "UpdatePassword",
+            args: {
+                password: password,
+                reset_key: window.reset_key
+            }
+        }, function(call)
             {
-            var call = api({
-                method: "UpdatePassword",
-                args: {
-                    password: password,
-                    reset_key: window.reset_key
-                }
-            });
-
-            if (call.status === "1") document.location = "../account/";
+            if (call.status === "1") location.reload();
             else
                 {
                 set_auth_message(call.error, "red");
                 id("password").value = "";
                 id("confirm_password").value = "";
                 }
-            },100);
-            
+            });
+        
         return false;
         }
 

@@ -92,7 +92,7 @@
         
     var btc_balance = get_btc_balance();
 
-    id("btc_balance").innerHTML = btc_balance;
+    id("btc_balance").innerHTML = toBTC(btc_balance);
 
     var focus_to_input = function()
         {
@@ -138,28 +138,30 @@
         var ext_address = get_ext_address(true);
         
         if (ext_address === "") show_simple_modal("You do not have a wallet address on file with us.<br/><br/>Funds will be returned to the original deposit wallet.", "good", null);
-        else show_simple_modal("Funds will be sent to:<br/><br/><div style=\"font-size:12px;max-width:100%;word-break:break-all\">" + ext_address + "</div>", "good", null);
+        else show_simple_modal("Funds will be sent to:<br/><br/><div style=\"font-size:11px;max-width:100%;word-break:break-all\">" + ext_address + "</div>", "good", null);
         }
         
     function go_to_confirm()
         {
         var amount_to_withdraw = id("amount_to_withdraw").value;
         
-        var user_withdrawal = api({ 
+        api({ 
             method: "UserWithdrawal", 
             args: {
                 amount_to_withdraw: amount_to_withdraw
             } 
-        });
-        if (user_withdrawal.status === "1")
+        }, function(call)
             {
-            hide("review_container");
-            id("transaction_id").innerHTML = user_withdrawal.transaction_id;
+            if (call.status === "1")
+                {
+                hide("review_container");
+                id("transaction_id").innerHTML = call.transaction_id;
+
+                show("confirmation_container");
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
             
-            show("confirmation_container");
-            }
-        else show_simple_modal(user_withdrawal.error, "bad", null);
-        
         return false;
         }
 

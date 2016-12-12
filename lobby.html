@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Lobby</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+</head>
+<body>
+<!--#include virtual="/ssi/nav.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="centering_container">
+    <div id="body_container">
+        <div id="page_title">
+            Lobby
+        </div>
+        <br/>
+        Golf DFS
+        <br/>
+        <br/>
+        <br/>
+        <table id="dfs_golf_table" class="pool_table"></table>
+    </div>
+</div>
+<script>
+
+    function init()
+        {
+        api({ 
+            method: "PoolReport", 
+            args: {} 
+        }, function(call)
+            {
+            var 
+            
+            pool_report = call.pool_report,
+            pool_report_array = [],
+            number_of_pools = pool_report.length;
+    
+            if (number_of_pools === 0)
+                {
+                
+                }
+            else
+                {
+                var header = new_row(id("dfs_golf_table"), -1, [
+                    "Pool",
+                    "Entry",
+                    "Live at",
+                    ""
+                ]);
+                
+                header[0].style.background = "none";
+                header[0].style.border = "none";
+                for (var i=1; i<header.length; i++)
+                    {
+                    if (i === 1) 
+                        {
+                        header[i].style.color = "white";
+                        }
+                    header[i].style.fontSize = "14px";
+                    header[i].style.paddingBottom = "10px";
+                    }
+
+                for (var i=0; i<number_of_pools; i++)
+                    {
+                    var pool_item = pool_report[i],
+
+                    pool_id = pool_item.id,
+                    created = pool_item.created,
+
+                    category = pool_item.category,
+                    sub_category = pool_item.sub_category,
+                    category_string = category.toLowerCase() + "_" + sub_category.toLowerCase(),
+                    table_id = category_string + "_table",
+                    table = id(table_id),
+
+                    title = pool_item.title,
+                    description = pool_item.description,
+                    settlement_type = pool_item.settlement_type,
+                    pay_table = pool_item.pay_table,
+                    odds_table = pool_item.odds_table,
+                    salary_cap = pool_item.salary_cap,
+                    cost_per_entry = pool_item.cost_per_entry,
+                    min_users = pool_item.min_users,
+                    max_users = pool_item.max_users,
+                    entries_per_user = pool_item.entries_per_user,
+                    roster_size = pool_item.roster_size,
+                    
+                    registration_deadline = pool_item.registration_deadline,
+                    registration_deadline_date = dateconv_ms_to_string(registration_deadline),
+                    registration_deadline_time = dateconv_ms_to_time(registration_deadline),
+                    registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
+                    
+                    status = pool_item.status,
+                    status_string,
+                    
+                    button_string,
+                    
+                    show_pool = false;
+            
+                    switch (status)
+                        {
+                        case 1:
+                            show_pool = true;
+                            button_string = "Enter";
+                            status_string = "Reg open";
+                            break;
+                        case 2:
+                            show_pool = true;
+                            button_string = "View";
+                            status_string = "In play";
+                            registration_deadline_string = "In play";
+                            break;
+                        /*case 3:
+                            status_string = "Settled";
+                            break;
+                        case 4:
+                            status_string = "Under-subscribed";
+                            break;
+                        case 5:
+                            status_string = "Cancelled";
+                            break;*/
+                        }
+                        
+                    if (show_pool)
+                        {
+                        var row = new_row(table, -1, [
+                            title,
+                            cost_per_entry + " BTC",
+                            registration_deadline_string,
+                            "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_pool('" + category_string + "'," + pool_id + ",'" + button_string + "')\">" + button_string + "</button>"
+                        ]);
+                        row[1].onclick = (function(category_string, pool_id, button_string)
+                            {
+                            return function()
+                                {
+                                redirect_to_pool(category_string, pool_id, button_string);
+                                }
+                            })(category_string, pool_id, button_string);
+                        }
+                    }
+                }
+            });
+        }
+        
+    function redirect_to_pool(category_string, pool_id, button_string)
+        {
+        if (typeof window.session !== "undefined") location = "lobby/" + category_string + ".html?id=" + pool_id;
+        else show_simple_modal("You must log in to " + button_string.toLowerCase() + " this pool", "good", function()
+            {
+            location = "login.html";
+            });
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+</body>
+</html>

@@ -294,85 +294,8 @@
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script>
 
-//--------------------------------------------------------------------------------------------------
-    
-    id("referrer").value = session.username;
-    
-//--------------------------------------------------------------------------------------------------
-    
-    // GET ACCOUNT DATA
-    
-    var account_data = api({ method: "GetAccountDetails", args: {} });
-    
-    if (account_data.status === "1")
-        {
-        var 
-        
-        btc_balance = account_data.btc_balance,
-        rc_balance = account_data.rc_balance,
-        ext_address = account_data.ext_address,
-        email_address = account_data.email_address,
-        email_ver_flag = account_data.email_ver_flag,
-        newsletter_flag = account_data.newsletter_flag,
-        ext_address_secure_flag = account_data.ext_address_secure_flag;
-
-        id("btc_balance").innerHTML = btc_balance;
-        id("rc_balance").innerHTML = rc_balance;
-        id("available_balance").innerHTML = (parseFloat(btc_balance) + parseFloat(rc_balance)).toFixed(8);
-        
-        if (typeof ext_address === "undefined") destroy("manage_ext_address_subwindow");
-        else
-            {
-            destroy("add_ext_address_subwindow");
-            id("ext_address").innerHTML = ext_address;
-            if (ext_address_secure_flag === "1")
-                {
-                if (+btc_balance > 0)
-                    {
-                    hide("change_ext_address_button");
-                    show("must_withdraw_bitcon");
-                    }
-                else
-                    {
-                    show("security_is_enabled");
-                    }
-                }
-            else if (ext_address_secure_flag === "0")
-                {
-                show("enable_security");
-                if (+btc_balance > 0)
-                    {
-                    show("your_next_opportunity");
-                    }
-                }
-            }
-            
-        if (typeof email_address === "undefined") destroy("manage_email_subwindow");
-        else 
-            {
-            destroy("add_email_subwindow");
-            id("email_on_file").innerHTML = email_address; 
-            if (email_ver_flag === "1")
-                {
-                id("verified_unverified").innerHTML = "&nbsp;&nbsp;(verified)";
-                id("email_on_file").style.color = "rgb(139,215,255)";
-                id("verified_unverified").style.color = "rgb(139,215,255)";
-                hide("verification_button");
-                }
-            else
-                {
-                id("verified_unverified").innerHTML = "&nbsp;&nbsp;(unverified)";
-                id("email_on_file").style.color = "orange";
-                id("verified_unverified").style.color = "orange";
-                }
-            update_subscription_view(newsletter_flag);
-            }
-        }
-
-//--------------------------------------------------------------------------------------------------
-
     // DEPOSIT AND WITHDRAWAL HANDLERS
-    
+
     function deposit()
         {
         var ext_address = get_ext_address(true);
@@ -383,67 +306,16 @@
             });
         else location = "deposit.html";
         }
-        
+
     function withdraw()
         {
         var btc_balance = get_btc_balance();
-        
+
         if (+btc_balance === 0) show_simple_modal("You have no BTC to withdraw", "bad", null);
         else location = "withdraw.html";
         }
-        
+
 //--------------------------------------------------------------------------------------------------
-    
-    // APPLY EXPAND/COLLAPSE FUNCTIONALITY TO SUBWINDOWS
-    
-    (function(subwindows)
-        {
-        for (var i=0; i<subwindows.length; i++)
-            {
-            //alert(subwindows[i].id);
-            var 
-
-            subwindow_toggle = document.createElement("div");
-            subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
-            subwindow_toggle.className = "subwindow clickable_subwindow";
-            
-            if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
-
-            subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
-                {
-                return function()
-                    {
-                    if (typeof window.subwindow !== "undefined")
-                        {
-                        window.subwindow.style.display = "none";
-                        window.subwindow_toggle.style.display = "block";
-                        }
-                    window.subwindow = subwindow;
-                    window.subwindow_toggle = subwindow_toggle;
-                    subwindow.style.display = "block";
-                    subwindow_toggle.style.display = "none";
-                    };
-                })(subwindows[i], subwindow_toggle);
-
-            var 
-
-            hide_button = document.createElement("div");
-            hide_button.className = "hide_button";
-            hide_button.innerHTML = "hide";
-            hide_button.onclick =  (function(subwindow, subwindow_toggle) 
-                {
-                return function()
-                    {
-                    subwindow.style.display = "none";
-                    subwindow_toggle.style.display = "block";
-                    reset_error_messages();
-                    };
-                })(subwindows[i], subwindow_toggle);
-
-            subwindows[i].appendChild(hide_button);
-            subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
-            }
-        })(document.getElementsByClassName("hidden_subwindow"));
 
     function reset_error_messages()
         {
@@ -452,109 +324,177 @@
         if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
         if (id("manage_email_subwindow")) change_email_error("New e-mail address:", "white");
         }
+
+//--------------------------------------------------------------------------------------------------
+
+    // POPULATE ACCOUNT DATA
+    
+    function populate_account_data()
+        {
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+
+                btc_balance = call.btc_balance,
+                rc_balance = call.rc_balance,
+                ext_address = call.ext_address,
+                email_address = call.email_address,
+                email_ver_flag = call.email_ver_flag,
+                newsletter_flag = call.newsletter_flag,
+                ext_address_secure_flag = call.ext_address_secure_flag;
+
+                id("btc_balance").innerHTML = toBTC(btc_balance);
+                id("rc_balance").innerHTML = toBTC(rc_balance);
+                id("available_balance").innerHTML = toBTC(btc_balance + rc_balance);
+
+                if (ext_address === "") destroy("manage_ext_address_subwindow");
+                else
+                    {
+                    destroy("add_ext_address_subwindow");
+                    id("ext_address").innerHTML = ext_address;
+                    if (ext_address_secure_flag === 1)
+                        {
+                        if (btc_balance > 0)
+                            {
+                            hide("change_ext_address_button");
+                            show("must_withdraw_bitcon");
+                            }
+                        else
+                            {
+                            show("security_is_enabled");
+                            }
+                        }
+                    else if (ext_address_secure_flag === 0)
+                        {
+                        show("enable_security");
+                        if (btc_balance > 0)
+                            {
+                            show("your_next_opportunity");
+                            }
+                        }
+                    }
+
+                if (email_address === "") destroy("manage_email_subwindow");
+                else 
+                    {
+                    destroy("add_email_subwindow");
+                    id("email_on_file").innerHTML = email_address; 
+                    if (email_ver_flag === 1)
+                        {
+                        id("verified_unverified").innerHTML = "&nbsp;&nbsp;(verified)";
+                        id("email_on_file").style.color = "rgb(139,215,255)";
+                        id("verified_unverified").style.color = "rgb(139,215,255)";
+                        hide("verification_button");
+                        }
+                    else
+                        {
+                        id("verified_unverified").innerHTML = "&nbsp;&nbsp;(unverified)";
+                        id("email_on_file").style.color = "orange";
+                        id("verified_unverified").style.color = "orange";
+                        }
+                    update_subscription_view(newsletter_flag);
+                    }
+                }
+            });
+        }
         
 //--------------------------------------------------------------------------------------------------
 
     // TRANSACTION REPORT
 
-    var 
-    
-    number_of_transactions,
-    transaction_report_array = [];
-    
-    transaction_report();
-    
     function transaction_report()
         {
         var 
-        
+
         start_date_ms = 0, 
         end_date_ms = 9999999999999;
 
-        var call = api({
+        api({
             method: "TransactionReport",
             args: {
                 start_date_ms: start_date_ms,
                 end_date_ms: end_date_ms,
                 request_source: "account_panel"
             }
-        });
-        
-        if (call.status === "1") 
+        }, function(call)
             {
-            transaction_report_array = call.transaction_report;
-            number_of_transactions = transaction_report_array.length;
-            populate_transaction_report_table();
-            }
-        }
-        
-    function populate_transaction_report_table()
-        {
-        function new_row(table, row_index, data)
-            {
-            var row = table.insertRow(row_index),
-            array = [row];
-            for (var i=0; i<data.length; i++)
+            if (call.status === "1") 
                 {
-                var cell = row.insertCell(i); 
-                cell.innerHTML = data[i];
-                array.push(cell);
+                var
+                transaction_report_array = call.transaction_report,
+                number_of_transactions = transaction_report_array.length;
+                function new_row(table, row_index, data)
+                    {
+                    var row = table.insertRow(row_index),
+                    array = [row];
+                    for (var i=0; i<data.length; i++)
+                        {
+                        var cell = row.insertCell(i); 
+                        cell.innerHTML = data[i];
+                        array.push(cell);
+                        }
+
+                    array[3].style.textAlign = "right";
+
+                    return array;
+                    }
+
+                var table = new_table("transaction_report_table"),
+                row_count = 0;
+
+                if (number_of_transactions > 0)
+                    {
+                    // create rows:
+
+                    for (var i=number_of_transactions-1; i>=0; i--)
+                        {
+                        var transaction_item = transaction_report_array[i],
+
+                        created = transaction_item.created,
+                        trans_type = transaction_item.trans_type,
+                        amount = transaction_item.amount,
+                        from_currency = transaction_item.from_currency,
+                        memo = transaction_item.memo,
+                        pending_flag = transaction_item.pending_flag,
+
+                        created_date = dateconv_ms_to_string(created),
+                        created_time = dateconv_ms_to_time(created);
+
+                        if (pending_flag === "1") trans_type += " (pending)";
+
+                        new_row(table, row_count++, [
+                            created_date + " at " + created_time,
+                            trans_type,
+                            amount,
+                            from_currency
+                            //memo
+                        ]);
+                        }
+
+                    /*var header = new_row(table, 0, [
+                        "Created",
+                        "Transaction",
+                        "Amount",
+                        "Currency",
+                        "Memo"
+                    ]);
+
+                    // style headers:
+
+                    for (var i=1; i<header.length; i++) header[i].className = "header_cell";*/
+                    }
+                else id("transaction_report_table").innerHTML = "No transactions found";
                 }
-                
-            array[3].style.textAlign = "right";
-            
-            return array;
-            }
-       
-        var table = new_table("transaction_report_table"),
-        row_count = 0;
-
-        if (number_of_transactions > 0)
-            {
-            // create rows:
-
-            for (var i=number_of_transactions-1; i>=0; i--)
-                {
-                var transaction_item = transaction_report_array[i],
-
-                created = transaction_item.created,
-                trans_type = transaction_item.trans_type,
-                amount = transaction_item.amount,
-                from_currency = transaction_item.from_currency,
-                memo = transaction_item.memo,
-                pending_flag = transaction_item.pending_flag,
-                
-                created_date = dateconv_ms_to_string(created),
-                created_time = dateconv_ms_to_time(created);
-        
-                if (pending_flag === "1") trans_type += " (pending)";
-
-                new_row(table, row_count++, [
-                    created_date + " at " + created_time,
-                    trans_type,
-                    amount,
-                    from_currency
-                    //memo
-                ]);
-                }
-                
-            /*var header = new_row(table, 0, [
-                "Created",
-                "Transaction",
-                "Amount",
-                "Currency",
-                "Memo"
-            ]);
-            
-            // style headers:
-
-            for (var i=1; i<header.length; i++) header[i].className = "header_cell";*/
-            }
-        else id("transaction_report_table").innerHTML = "No transactions found";
+            });
         }
 
 //--------------------------------------------------------------------------------------------------
-    
+
     // CONNECT BITCOIN WALLET
 
     function update_ext_address(_id)
@@ -567,9 +507,12 @@
                 ext_address: ext_address,
                 update_for_active_user: true
             }
-        });
+        }, function()
+            {
+            location.reload();
+            });
         }
-        
+
     function update_ext_address_security(ext_address_secure_flag)
         {
         api({
@@ -577,21 +520,28 @@
             args: {
                 ext_address_secure_flag: ext_address_secure_flag
             }
-        });
-        
-        location.reload();
+        }, function()
+            {
+            location.reload();
+            });
         }
-        
+
 //--------------------------------------------------------------------------------------------------
-    
-    // ADD EMAIL ADDRESS
-    
+
+    // ADD / CHANGE / MANAGE EMAIL ADDRESS
+
     function add_email_error(message)
         {
         id("add_email_message").innerHTML = message;
         id("add_email_message").style.color = "orange";
         }
 
+    function change_email_error(message, color)
+        {
+        id("change_email_message").innerHTML = message;
+        id("change_email_message").style.color = color;
+        }
+        
     function add_email_address()
         {
         var new_email_address = id("new_email_address").value,
@@ -609,17 +559,10 @@
                 email_address: new_email_address,
                 newsletter_flag: newsletter_flag
             }
-        });
-        }
-
-//--------------------------------------------------------------------------------------------------
-    
-    // CHANGE EMAIL ADDRESS
-    
-    function change_email_error(message, color)
-        {
-        id("change_email_message").innerHTML = message;
-        id("change_email_message").style.color = color;
+        }, function()
+            {
+            location.reload();
+            });
         }
 
     function change_email_address()
@@ -642,7 +585,10 @@
             args: {
                 email_address: new_email_address
             }
-        });
+        }, function()
+            {
+            location.reload();
+            });
         }
 
     function cancel_change_email()
@@ -652,14 +598,30 @@
         show('manage_email');
         return false;
         }
+
+    function resend_verification()
+        {
+        api({
+            method: "SendEmailVerification",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                hide("verification_button");
+                id("verification_message").style.display = "inline-block"; // don't use show() - must be inline
+                }
+            });
+        }
+
 //--------------------------------------------------------------------------------------------------
-    
+
     // TOGGLE NEWSLETTER SUBSCRIPTION
-    
+
     function update_subscription_view(newsletter_flag)
         {
         id("subscribe_unsubscribe_message").current_state = newsletter_flag;
-        if (newsletter_flag === "1")
+        if (newsletter_flag === 1)
             {
             id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are</span> subscribed to our newsletter";
             id("subscribe_unsubscribe_button").innerHTML = "Unsubscribe";
@@ -674,42 +636,26 @@
     function toggle_subscription()
         {
         var current_flag_state = id("subscribe_unsubscribe_message").current_state;
- 
-        var call = api({
+
+        api({
             method: "ChangeNewsletterFlag",
             args: {
                 current_flag_state: current_flag_state
             }
-        });
-
-        if (call.status === "1") 
+        }, function(call)
             {
-            var newsletter_flag = call.newsletter_flag;
-            update_subscription_view(newsletter_flag);
-            }
+            if (call.status === "1") 
+                {
+                var newsletter_flag = call.newsletter_flag;
+                update_subscription_view(newsletter_flag);
+                }
+            });
         }
 
 //--------------------------------------------------------------------------------------------------
-    
-    // RE-SEND EMAIL VERIFICATION
 
-    function resend_verification()
-        {
-        var call = api({
-            method: "SendEmailVerification",
-            args: {}
-        });
-        if (call.status === "1")
-            {
-            hide("verification_button");
-            id("verification_message").style.display = "inline-block"; // don't use show() - must be inline
-            }
-        }
-
-//--------------------------------------------------------------------------------------------------
-    
     // CHANGE PASSWORD
-    
+
     function change_password_error(message, color)
         {
         id("change_password_message").innerHTML = message;
@@ -738,14 +684,14 @@
             set_focus("old_password");
             return false;
             }
-            
+
         if (new_password === "")
             {
             change_password_error("Enter new password", "orange");
             set_focus("new_password");
             return false;
             }
-            
+
         if (new_password.length < 8) 
             {
             change_password_error("New password must be 8 characters or longer", "orange");
@@ -759,30 +705,31 @@
             set_focus("new_password");
             return false;
             }
-        
-        var call = api({
+
+        api({
             method: "ChangePassword",
             args: {
                 old_password: old_password,
                 new_password: new_password
             }
-        });
-
-        if (call !== null)
+        }, function(call)
             {
-            if (call.status === "1")
+            if (call !== null)
                 {
-                change_password_error("Your password has been updated", "rgb(0,255,50)");
-                id("confirm_password").value = "";
-                id("confirm_password").blur();
+                if (call.status === "1")
+                    {
+                    change_password_error("Your password has been updated", "rgb(0,255,50)");
+                    id("confirm_password").value = "";
+                    id("confirm_password").blur();
+                    }
+                else change_password_error("Not authorized", "orange");
                 }
-            else change_password_error("Not authorized", "orange");
-            return false;
-            }
+            });
+        return false;
         }
 
 //--------------------------------------------------------------------------------------------------
-    
+
     // SEND REFERRAL
 
     function referral_email_error(message, color)
@@ -794,7 +741,7 @@
     function send_referral()
         {
         var 
-        
+
         referrer = id("referrer").value,
         referral_email_address = id("referral_email_address").value;
 
@@ -816,13 +763,77 @@
                 email_address: referral_email_address,
                 referral_program: "1"
             }
-        });
+        }, function()
+            {
+            id("referral_email_address").value = "";
+            referral_email_error("Invitation sent!", "rgb(0,255,106)");
+            });
 
-        id("referral_email_address").value = "";
-        referral_email_error("Invitation sent!", "rgb(0,255,106)");
         return false;
         }
 
+//--------------------------------------------------------------------------------------------------
+
+    // INIT FUNCTION
+
+    function init()
+        {
+        id("referrer").value = session.username;
+        
+        populate_account_data();
+        transaction_report();
+        
+        (function(subwindows)
+            {
+            for (var i=0; i<subwindows.length; i++)
+                {
+                //alert(subwindows[i].id);
+                var 
+
+                subwindow_toggle = document.createElement("div");
+                subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
+                subwindow_toggle.className = "subwindow clickable_subwindow";
+
+                if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
+
+                subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
+                    {
+                    return function()
+                        {
+                        if (typeof window.subwindow !== "undefined")
+                            {
+                            window.subwindow.style.display = "none";
+                            window.subwindow_toggle.style.display = "block";
+                            }
+                        window.subwindow = subwindow;
+                        window.subwindow_toggle = subwindow_toggle;
+                        subwindow.style.display = "block";
+                        subwindow_toggle.style.display = "none";
+                        };
+                    })(subwindows[i], subwindow_toggle);
+
+                var 
+
+                hide_button = document.createElement("div");
+                hide_button.className = "hide_button";
+                hide_button.innerHTML = "hide";
+                hide_button.onclick =  (function(subwindow, subwindow_toggle) 
+                    {
+                    return function()
+                        {
+                        subwindow.style.display = "none";
+                        subwindow_toggle.style.display = "block";
+                        reset_error_messages();
+                        };
+                    })(subwindows[i], subwindow_toggle);
+
+                subwindows[i].appendChild(hide_button);
+                subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
+                }
+            })(document.getElementsByClassName("hidden_subwindow"));
+        }
+        
 </script>
+<script type="text/javascript" src="/js/nav.js"></script>
 </body>
 </html>

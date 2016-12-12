@@ -78,7 +78,7 @@
             referral_program = user_item.referral_program,
             referrer_username = user_item.referrer_username;
     
-            if (user_level === "2")
+            if (user_level === 2)
                 {
                 if (username === "internal_btc_liability") internal_btc_liability_key = user_id;
                 else if (username === "internal_btc_asset") internal_btc_asset_key = user_id;
@@ -220,8 +220,8 @@
             //user_id = user_item[1], * not used here
             username = user_item[2],
             user_level = user_item[3],
-            btc_balance = user_item[4],
-            rc_balance = user_item[5],
+            btc_balance = toBTC(user_item[4]),
+            rc_balance = toBTC(user_item[5]),
             email_address = user_item[6],
             email_ver_flag = user_item[7],
             newsletter_flag = user_item[8],
@@ -231,21 +231,21 @@
     
             created = dateconv_ms_to_string(created);
     
-            if (user_level === "1") user_level = "admin";
-            else if (user_level === "2") 
+            if (user_level === 1) user_level = "admin";
+            else if (user_level === 2) 
                 {
                 user_level = "internal";
                 if (exclude_internal_accounts) show_row = false;
                 }
             else user_level = "normal";
             
-            if (email_ver_flag === "1") email_ver_flag = "yes";
+            if (email_ver_flag === 1) email_ver_flag = "yes";
             else email_ver_flag = "";
             
-            if (newsletter_flag === "1") newsletter_flag = "yes";
+            if (newsletter_flag === 1) newsletter_flag = "yes";
             else newsletter_flag = "";
 
-            if (last_login === "0") last_login = "";
+            if (last_login === 0) last_login = "";
             else last_login = timeSince(last_login);
     
             if (show_row) 
@@ -501,7 +501,7 @@
             username = user_item[2],
             user_level = user_item[3];
 
-            if (user_level !== "2")
+            if (user_level !== 2)
                 {
                 var option = document.createElement("option");
                 option.value = user_id;

@@ -99,7 +99,7 @@
                 <br/>
                 <br/>
                 <br/>
-                <a class="text_button a_button" href="/account.html" style="color:white">Back to account</a>
+                <a class="text_button a_button" href="/account" style="color:white">Back to account</a>
             </div>
         </div>
     </div>
@@ -140,22 +140,24 @@
             return false;
             }
 
-        var user_deposit = api({ 
+        api({ 
             method: "UserDeposit", 
             args: {
                 amount_to_deposit: amount_to_deposit,
                 user_ext_address: user_ext_address,
                 cash_register_address: cash_register_address
             } 
-        });
-        if (user_deposit.status === "1")
+        }, function(call)
             {
-            id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
-            hide("initial_container");
-            show("confirmation_container");
-            }
-        else show_simple_modal(user_deposit.error, "bad", null);
-      
+            if (call.status === "1")
+                {
+                id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
+                hide("initial_container");
+                show("confirmation_container");
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        
         return false;
         }
 </script>

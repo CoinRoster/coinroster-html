@@ -1,0 +1,32 @@
+    .pool_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .pool_table tr {
+        border: 2px solid rgb(44,46,48);
+        background: rgb(100,104,108);
+    }
+    
+    .pool_table td {
+        text-align:right;
+        padding: 5px 15px;
+    }
+    .pool_table td:first-child {
+        text-align: left;
+        color: orange;
+        cursor: pointer;
+    }
+    .pool_table td:first-child:hover {
+        text-decoration: underline;
+    }
+    
+    /* cancel out css for header cell (first row) */
+    
+    .pool_table tr:first-child td {
+        cursor: default;
+        color: white;
+    }
+    .pool_table tr:first-child td:first-child:hover {
+        text-decoration: none;
+    }

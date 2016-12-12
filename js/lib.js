@@ -56,13 +56,25 @@
         return array;
         }
         
-    function api(call)  
+    function api(call, callback)  
         {
+        var async = false;
+        if (typeof callback !== "undefined") async = true;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "../" + call.method + ".api", false);
-        xhr.send(encodeURIComponent(JSON.stringify(call.args)));
-        var output = JSON.parse(xhr.responseText);
-        return output;
+        if (async)
+            {
+            xhr.onreadystatechange = function()
+                {
+                if (xhr.readyState === 4) callback(JSON.parse(xhr.responseText));
+                };
+            xhr.send(encodeURIComponent(JSON.stringify(call.args)));
+            }
+        else
+            {
+            xhr.send(encodeURIComponent(JSON.stringify(call.args)));
+            return JSON.parse(xhr.responseText);
+            }
         }
 
     function get_cookie(name) 
@@ -311,4 +323,4 @@
         location  = "/";
         }
 
-    var session = api({method: "GetSessionDetails", args: {}});
+    //var session = api({method: "GetSessionDetails", args: {}});

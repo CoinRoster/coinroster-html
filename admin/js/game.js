@@ -50,7 +50,8 @@
             entries_per_user = pool_item.entries_per_user,
             roster_size = pool_item.roster_size,
             registration_deadline = pool_item.registration_deadline,
-            status = pool_item.status;
+            status = pool_item.status,
+            odds_source = pool_item.odds_source;
   
             pool_report_array.push([
                 id,
@@ -71,7 +72,8 @@
                 entries_per_user,
                 roster_size,
                 registration_deadline,
-                status
+                status,
+                odds_source
             ]);
             
             
@@ -114,7 +116,9 @@
             registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
             
             status = pool_item[18],
-            status_string = "";
+            status_string = "",
+            
+            odds_source = pool_item[19];
     
             switch (status)
                 {
@@ -128,6 +132,9 @@
                     status_string = "Settled";
                     break;
                 case 4:
+                    status_string = "Under-subscribed";
+                    break;
+                case 5:
                     status_string = "Cancelled";
                     break;
                 }
@@ -163,7 +170,8 @@
                 title,
                 description,
                 pay_table,
-                odds_table
+                odds_table,
+                odds_source
             ]);
             
             right_align(row, right_align_array);
@@ -188,7 +196,8 @@
             "Title",
             "Description",
             "Pay table",
-            "Odds table"
+            "Odds table",
+            "Odds source"
         ]);
         // style headers:
 
@@ -362,7 +371,7 @@
             {
             var 
             
-            url = id("odds_url_input").value,
+            url = id("odds_url_input").value.trim(),
                     
             call = api({
                 method: "ScrapePlayerOdds",
@@ -609,6 +618,7 @@
         var 
         
         player_rows = player_odds_table.rows,
+        player_name_table = [],
         odds_table = [];
         
         for (var i=1; i<player_rows.length; i++)
@@ -626,12 +636,19 @@
             if (price === 0) return alert("Invalid price or odds for " + name);
             if (price > salary_cap) return alert("Odds table row " + i + ": price cannot be greater than salary cap");
             
+            if (player_name_table.contains(name)) return alert("Duplicate player: " + name);
+            else player_name_table.push(name);
+            
             odds_table.push({
+                id: i,
                 name: name,
                 odds: odds,
                 price: price
             });
             }
+            
+        var odds_source = id("odds_url_input").value.trim();
+        if (odds_source === "") odds_source = "manual";
         
         // submit
 
@@ -652,7 +669,8 @@
                 roster_size: roster_size,
                 pay_table: pay_table,
                 salary_cap: salary_cap,
-                odds_table: odds_table
+                odds_table: odds_table,
+                odds_source: odds_source
             }
         });
 
