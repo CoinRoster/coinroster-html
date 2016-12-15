@@ -1,36 +1,46 @@
-    .pool_table, .player_table {
+    .contest_category_title {
+        font-size: 18px;
+        padding-top: 10px;
+    }
+
+    .contest_table, .player_table {
         width: 100%;
         border-collapse: collapse;
     }
+    .contest_table {
+        margin-bottom: 30px;
+    }
 
-    .pool_table tr {
+    .contest_table tr {
         border: 2px solid rgb(44,46,48);
         background: rgb(100,104,108);
     }
     
-    .pool_table td {
+    .contest_table td {
         text-align:right;
         padding: 10px 15px;
+        font-size: 14px;
     }
-    .pool_table td:first-child {
+    .contest_table td:first-child {
         color: orange;
         cursor: pointer;
+        font-size: 16px;
     }
-    .pool_table td:first-child:hover {
+    .contest_table td:first-child:hover {
         text-decoration: underline;
     }
     
     /* cancel out css for header cell (first row) */
     
-    .pool_table tr:first-child td {
+    .contest_table tr:first-child td {
         cursor: default;
         color: white;
     }
-    .pool_table tr:first-child td:first-child:hover {
+    .contest_table tr:first-child td:first-child:hover {
         text-decoration: none;
     }
     
-    .pool_detail_table td {
+    .contest_detail_table td {
         padding-bottom: 20px;
         padding-right: 30px;
     }
@@ -50,7 +60,7 @@
         text-decoration: underline;
     }
     
-    #enter_pool {
+    #enter_contest {
         width: calc(100% - 4px);
         background: rgb(100,104,108);
         border: 2px solid rgb(44,46,48);

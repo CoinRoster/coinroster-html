@@ -49,6 +49,10 @@
         border-bottom:1px solid black;
         text-align:center;
     }
+    
+    #ssi_header {
+        background: rgb(50,55,60) !important;
+    }
 
     #logo {
         top:0px;

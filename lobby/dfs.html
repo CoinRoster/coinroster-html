@@ -13,11 +13,11 @@
 <div id="centering_container">
     <div id="body_container">
         <div id="page_title" class="orange"></div>
-        <span id="pool_description"></span>
+        <span id="contest_description"></span>
         <br/>
         <br/>
         <br/>
-        <table class="pool_detail_table">
+        <table class="contest_detail_table">
             <tr>
                 <td>
                     Category:
@@ -47,7 +47,7 @@
             </tr>
         </table>
         <br/>
-        <div id="enter_pool" style="display:none">
+        <div id="enter_contest" style="display:none">
             <div id="player_table_header">
                 <div id="salary_cap_container">
                     Remaining salary:&nbsp;&nbsp;&nbsp;&nbsp;<span id="salary_cap" class="green"></span>
@@ -69,7 +69,7 @@
             </div>
         </div>
         <div id="no_entry" style="display:none">
-            This pool is not open for registration.
+            This contest is not open for registration.
         </div>
     </div>
 </div>
@@ -77,16 +77,16 @@
 
     function init()
         {
-        var pool_id = get_url_param("id");
+        var contest_id = get_url_param("id");
         
-        window.pool_id = pool_id;
+        window.contest_id = contest_id;
         
-        if (pool_id !== null)
+        if (contest_id !== null)
             {
             api({
-                method: "GetPoolDetails",
+                method: "GetContestDetails",
                 args: {
-                    pool_id: pool_id
+                    contest_id: contest_id
                 }
             }, function(call)
                 {
@@ -106,13 +106,13 @@
                     min_users = call.min_users,
                     max_users = call.max_users,
                     entries_per_user = call.entries_per_user,
-                    pool_status = call.pool_status,
+                    contest_status = call.contest_status,
                     roster_size = call.roster_size;
             
                     window.cost_per_entry = cost_per_entry;
             
                     id("page_title").innerHTML = title;
-                    id("pool_description").innerHTML = description;
+                    id("contest_description").innerHTML = description;
                     
                     id("category").innerHTML = category + " / " + sub_category;
                     id("settlement_type").innerHTML = settlement_type;
@@ -120,7 +120,7 @@
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table, entries_per_user);
                     
-                    if (pool_status === 1 /* and other criteria met */)
+                    if (contest_status === 1 /* and other criteria met */)
                         {
                         id("submit_roster_button").innerHTML = "Submit roster (" + cost_per_entry + " BTC)";
                         initialize_entry_UI(JSON.parse(odds_table), salary_cap, roster_size);
@@ -133,12 +133,12 @@
                 else show_simple_modal(call.error, "bad", null);
                 });
             }
-        else show_simple_modal("No pool ID supplied", "bad", null);
+        else show_simple_modal("No contest ID supplied", "bad", null);
         }
         
     function initialize_entry_UI(odds_table, salary_cap, roster_size)
         {
-        show("enter_pool");
+        show("enter_contest");
         
         id("salary_cap").innerHTML = "$" + toCurrency(salary_cap);
         
@@ -258,11 +258,7 @@
         }
         
     function submit_roster()
-        {
-        var btc_balance = get_btc_balance();
-        
-        if (window.cost_per_entry > btc_balance) return show_simple_modal("You have insufficient funds in your account:<br/><br/>" + btc_balance + " BTC", "bad", null);
-        
+        {     
         var remaining_players = id("remaining_players").innerHTML;
         
         if (remaining_players !== "")
@@ -290,25 +286,51 @@
             var row = rows[i],
                     
             player_id = row.player_id,
+            //name = row.name,
             price = row.price;
     
             roster.push({
                 id: player_id,
+                //name: name,
                 price: price
             });
             }
             
-        api({
-            method: "CreateEntry",
-            args: {
-                pool_id: window.pool_id,
-                roster: roster
-            }
+        var use_rc = true;
+            
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
         }, function(call)
             {
             if (call.status === "1")
                 {
+                var 
                 
+                btc_balance = call.btc_balance,
+                rc_balance = call.rc_balance,
+                available_balance = btc_balance;
+        
+                if (use_rc) available_balance += rc_balance;
+         
+                if (window.cost_per_entry > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                
+                api({
+                    method: "CreateEntryDFS",
+                    args: {
+                        contest_id: window.contest_id,
+                        number_of_entries: 1,
+                        use_rc: true,
+                        roster: roster
+                    }
+                }, function(call)
+                    {
+                    if (call.status === "1")
+                        {
+                        alert("No errors");
+                        }
+                    else alert(call.error);
+                    });
                 }
             });
         }

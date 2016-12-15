@@ -1,4 +1,3 @@
-
 <!-- SSI Include: /ssi/nav.html -->
 <link type="text/css" rel="stylesheet" href="/css/nav.css" />
 <div id="ssi_header">
@@ -13,19 +12,10 @@
                         <a id="ssi_header_lobby" class="ssi_header_a_style" onclick="location='/';">Lobby</a>
                     </td>
                     <td width="1" class="ssi_header_a_active">
-                        <a id="ssi_header_account" class="ssi_header_a_style" onclick="location='/account';">Account</a>
+                        <a id="ssi_header_contests" class="ssi_header_a_style" onclick="location='/contests';">My Contests</a>
                     </td>
                     <td width="1" class="ssi_header_a_active">
-                        <a id="ssi_header_faq" class="ssi_header_a_style" onclick="location='/faq.html';">FAQ</a>
-                    </td>
-                    <td width="1" class="ssi_header_admin_wrapper">
-                        &bull;
-                    </td>
-                    <td width="1" class="ssi_header_admin_wrapper">
-                        <a id="ssi_header_accounting" class="ssi_header_a_style" onclick="location='/admin/accounting.html';">Accounting</a>
-                    </td>
-                    <td width="1" class="ssi_header_admin_wrapper">
-                        <a id="ssi_header_game" class="ssi_header_a_style" onclick="location='/admin/game.html';">Game</a>
+                        <a id="ssi_header_account" class="ssi_header_a_style" onclick="location='/account';">My Account</a>
                     </td>
                     <td width="1" class="ssi_header_a_inactive">
                         <a class="ssi_header_a_style" onclick="location = '/login.html'">Log In</a>
@@ -33,13 +23,21 @@
                     <td width="1" class="ssi_header_a_inactive">
                         <a class="ssi_header_a_style" onclick="location='/signup.html';">Sign Up</a>
                     </td>
-                    <td>
+                    <td width="1" class="ssi_header_a_active ssi_header_a_inactive">
+                        <a id="ssi_header_faq" class="ssi_header_a_style" onclick="location='/faq.html';">FAQ</a>
                     </td>
+                    <td width="1" class="ssi_header_a_active">
+                        <a id="ssi_header_feedback" class="ssi_header_a_style" onclick="location='/faq.html';">Feedback</a>
+                    </td>
+                    <td><!-- blank cell for spacing --></td>
                     <td width="1" class="ssi_header_a_active" style="padding-right:0">
                         <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAllBMVEUAAAD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQByQTQSAAAAMXRSTlMA6f18vbj59t7a1KhfNh7LrpNDEfHt4cacUzsC5bOIZzIsCgUDj0wUDgejg3Vua1knkHVdbwAAAZhJREFUWMOl1Ndu4zAQheFR781WseLenb7n/V9uF9gAkWUymRG/+5+QSA5JZ/mcbxel23VuUvXXI4nt120T+PY/fmCF1U3av0YY8uNe1lcBRtpU0m/xyNrx+7yGQif4ASjNuP28hpJHTBeo+XPicQCzfyihwT3JAhoO8UTQqHj9soVGQiynFTRK5heE0FgQTwyNjekpvBFPYngPzG/iJzT+EE+m6a0Dd5wD3TXgcjmjIN9FOyOuzNZsAdexVY8S3wIKn8T3pOhXB+I7RapRlPjAgz1J3Jpx75LMG0Z2JHMI7/sXkrrUd0eQk5iHgTXJrTEQLsX9vDHaQ1q+4875RDJ9jTvBVvT5qWdhpHHTZ+YczKrCgoJVnJ9+z2cbN4KOHXvOj2vk7+V3rVsjSee6R2Dj2mCo185emUdg6x6WyD9iiHTpddhnJcQWu0FvYYIwoy/XFSaxvmb8mGAi7//dvPiYyN6OXg6x6EhEmY/peiI6w4BHRCEM+DfKbZiYUQ8jDr3CSEIvMOKSByMxFTASUgsjDRWBZSCI/wLhXH48GGwlPQAAAABJRU5ErkJggg=="/>
                     </td>
                     <td width="1" class="ssi_header_a_active" style="padding-left:0">
                         <a id="ssi_header_username" class="ssi_header_a_style"></a>
+                    </td>
+                    <td width="1" class="ssi_header_admin_wrapper">
+                        <a class="ssi_header_a_style" onclick="location='/admin/';">Admin</a>
                     </td>
                     <td width="1" class="ssi_header_a_active">
                         <a class="ssi_header_a_style" onclick="logout();">Logout</a>

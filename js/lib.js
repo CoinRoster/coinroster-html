@@ -249,8 +249,11 @@
         return Number(num.replace(/[^0-9\.]+/g,""));
         }
         
-    function toBTC(raw_value)
+    function toBTC(raw_value, preserve_sign)
         {
+        var is_negative = false;
+        if (preserve_sign && raw_value < 0) is_negative = true;
+        
         var 
         
         input_value = raw_value.toString().replace(/[^0-9$.]/g, ''),
@@ -273,7 +276,7 @@
             else output_value += char;
             }
         
-        return (+output_value).toFixed(8);
+        return (is_negative ? "-" : "") + (+output_value).toFixed(8);
         }
     
     function commas(x) 

@@ -14,12 +14,15 @@
         <div id="page_title">
             Lobby
         </div>
-        <br/>
-        Golf DFS
-        <br/>
-        <br/>
-        <br/>
-        <table id="dfs_golf_table" class="pool_table"></table>
+        <div class="contest_category_title">
+            Daily Fantasy Sports / Golf
+        </div>
+        <hr noshade>
+        <table id="dfs_golf_table" class="contest_table"></table>
+        <div class="contest_category_title">
+            Pari-mutuels
+        </div>
+        <hr noshade>
     </div>
 </div>
 <script>
@@ -27,27 +30,27 @@
     function init()
         {
         api({ 
-            method: "PoolReport", 
+            method: "ContestReport", 
             args: {} 
         }, function(call)
             {
             var 
             
-            pool_report = call.pool_report,
-            pool_report_array = [],
-            number_of_pools = pool_report.length;
+            contest_report = call.contest_report,
+            contest_report_array = [],
+            number_of_contests = contest_report.length;
     
-            if (number_of_pools === 0)
+            if (number_of_contests === 0)
                 {
                 var row = new_row(id("dfs_golf_table"), -1, [
-                    "No open pools. Please check back soon."
+                    "No open contests. Please check back soon."
                 ]);
                 row[1].style.textAlign = "left";
                 }
             else
                 {
                 var header = new_row(id("dfs_golf_table"), -1, [
-                    "Pool",
+                    "Contest",
                     "Game type",
                     "Entry fee",
                     "Live at",
@@ -66,53 +69,53 @@
                 header[1].style.textAlign = "left";
                 header[2].style.textAlign = "left";
 
-                for (var i=0; i<number_of_pools; i++)
+                for (var i=0; i<number_of_contests; i++)
                     {
-                    var pool_item = pool_report[i],
+                    var contest_item = contest_report[i],
 
-                    pool_id = pool_item.id,
-                    created = pool_item.created,
+                    contest_id = contest_item.id,
+                    created = contest_item.created,
 
-                    category = pool_item.category,
-                    sub_category = pool_item.sub_category,
+                    category = contest_item.category,
+                    sub_category = contest_item.sub_category,
                     category_string = category.toLowerCase(),
                     sub_category_string = category.toLowerCase() + "_" + sub_category.toLowerCase(),
                     table_id = sub_category_string + "_table",
                     table = id(table_id),
 
-                    title = pool_item.title,
-                    description = pool_item.description,
-                    settlement_type = pool_item.settlement_type,
-                    pay_table = pool_item.pay_table,
-                    odds_table = pool_item.odds_table,
-                    salary_cap = pool_item.salary_cap,
-                    cost_per_entry = pool_item.cost_per_entry,
-                    min_users = pool_item.min_users,
-                    max_users = pool_item.max_users,
-                    entries_per_user = pool_item.entries_per_user,
-                    roster_size = pool_item.roster_size,
+                    title = contest_item.title,
+                    description = contest_item.description,
+                    settlement_type = contest_item.settlement_type,
+                    pay_table = contest_item.pay_table,
+                    odds_table = contest_item.odds_table,
+                    salary_cap = contest_item.salary_cap,
+                    cost_per_entry = contest_item.cost_per_entry,
+                    min_users = contest_item.min_users,
+                    max_users = contest_item.max_users,
+                    entries_per_user = contest_item.entries_per_user,
+                    roster_size = contest_item.roster_size,
                     
-                    registration_deadline = pool_item.registration_deadline,
+                    registration_deadline = contest_item.registration_deadline,
                     registration_deadline_date = dateconv_ms_to_string(registration_deadline),
                     registration_deadline_time = dateconv_ms_to_time(registration_deadline),
-                    registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
+                    registration_deadline_string = registration_deadline_date + "<br/>" + registration_deadline_time,
                     
-                    status = pool_item.status,
+                    status = contest_item.status,
                     status_string,
                     
                     button_string,
                     
-                    show_pool = false;
+                    show_contest = false;
             
                     switch (status)
                         {
                         case 1:
-                            show_pool = true;
+                            show_contest = true;
                             button_string = "Enter";
                             status_string = "Reg open";
                             break;
                         case 2:
-                            show_pool = true;
+                            show_contest = true;
                             button_string = "View";
                             status_string = "In play";
                             registration_deadline_string = "In play";
@@ -128,37 +131,37 @@
                             break;*/
                         }
                         
-                    if (show_pool)
+                    if (show_contest)
                         {
                         var row = new_row(table, -1, [
                             title,
-                            settlement_type + "<br/><div id=\"payout_info_" + pool_id + "\" class=\"payout_info_link blue\">Payout info</div>",
+                            settlement_type + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link blue\">Payout info</div>",
                             cost_per_entry + " BTC",
                             registration_deadline_string,
-                            "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_pool('" + category_string + "'," + pool_id + ",'" + button_string + "')\">" + button_string + "</button>"
+                            "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_contest('" + category_string + "'," + contest_id + ",'" + button_string + "')\">" + button_string + "</button>"
                         ]);
                         
-                        row[1].onclick = (function(category_string, pool_id, button_string)
+                        row[1].onclick = (function(category_string, contest_id, button_string)
                             {
                             return function()
                                 {
-                                redirect_to_pool(category_string, pool_id, button_string);
+                                redirect_to_contest(category_string, contest_id, button_string);
                                 }
-                            })(category_string, pool_id, button_string);
+                            })(category_string, contest_id, button_string);
                         row[1].style.textAlign = "left";
                         row[2].style.textAlign = "left";
                             
-                        bind_payout_window(id("payout_info_" + pool_id), settlement_type, pay_table, entries_per_user);
+                        bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table, entries_per_user);
                         }
                     }
                 }
             });
         }
         
-    function redirect_to_pool(category_string, pool_id, button_string)
+    function redirect_to_contest(category_string, contest_id, button_string)
         {
-        if (typeof window.session !== "undefined") location = "lobby/" + category_string + ".html?id=" + pool_id;
-        else show_simple_modal("You must log in to " + button_string.toLowerCase() + " this pool", "good", function()
+        if (typeof window.session !== "undefined") location = "lobby/" + category_string + ".html?id=" + contest_id;
+        else show_simple_modal("You must log in to " + button_string.toLowerCase() + " this contest", "good", function()
             {
             location = "login.html";
             });

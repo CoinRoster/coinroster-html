@@ -10,21 +10,21 @@
 <div id="header"></div>
 <!--#include virtual="/ssi/nav.html" -->
 <div id="nav"></div>
-<div id="pane_0" class="pane" tab_text="Pool Report">
+<div id="pane_0" class="pane" tab_text="Contest Report">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
-            Pools
+            Contests
         </div>
-        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('pool_report_table');"/>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('contest_report_table');"/>
     </div>
     <div class="content_body" style="top:68px">
-        <div id="pool_report_table" class="report_table"></div>
+        <div id="contest_report_table" class="report_table"></div>
     </div>
 </div>
-<div id="pane_1" class="pane" tab_text="Create Pool">
+<div id="pane_1" class="pane" tab_text="Create DFS Contest">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
-            Create Pool
+            Create DFS Contest
         </div>
     </div>
     <div class="content_body" style="top:68px">
@@ -38,9 +38,7 @@
                     Category
                 </td>
                 <td colSpan="2">
-                    <select data-placeholder="Select" id="category_selector" class="input_style chosen-select" style="width:155px">
-                        <option>DFS</option>
-                    </select>
+                    DFS
                 </td>
             </tr>
             <tr>
@@ -58,7 +56,7 @@
                     Title
                 </td>
                 <td colSpan="2">
-                    <input id="pool_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
+                    <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
                 </td>
             </tr>
             <tr>
@@ -66,7 +64,7 @@
                     Description
                 </td>
                 <td colSpan="2">
-                    <textarea id="pool_description_textarea" rows="6" cols="100"></textarea> 
+                    <textarea id="contest_description_textarea" rows="6" cols="100"></textarea> 
                 </td>
             </tr>
             <tr>
@@ -270,7 +268,7 @@
         <br/>
         <br/>
         <br/>
-        <button type="button" class="input_style huge_button" onclick="create_pool();">Create Pool</button>
+        <button type="button" class="input_style huge_button" onclick="create_contest();">Create Contest</button>
         <br/>
         <br/>
         <br/>

@@ -24,7 +24,9 @@
             nav.appendChild(nav_node);
             nav_nodes[i] = nav_node;
             }
-        change_nav_selection(0);
+            
+        if (location.hash !== "") change_nav_selection(+location.hash.slice(1));
+        else change_nav_selection(0);
 
         function change_nav_selection(selection)
             {
@@ -42,6 +44,7 @@
                     allow_single_deselect: true
                 });
                 nav_selection = selection;
+                location.hash = selection;
 
                 action_on_tab_change(selection);
                 }

@@ -220,8 +220,8 @@
             //user_id = user_item[1], * not used here
             username = user_item[2],
             user_level = user_item[3],
-            btc_balance = toBTC(user_item[4]),
-            rc_balance = toBTC(user_item[5]),
+            btc_balance = toBTC(user_item[4], true),
+            rc_balance = toBTC(user_item[5], true),
             email_address = user_item[6],
             email_ver_flag = user_item[7],
             newsletter_flag = user_item[8],

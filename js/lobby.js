@@ -4,8 +4,7 @@ function bind_payout_window(element, settlement_type, pay_table, entries_per_use
         {
         return function()
             {
-            var payout_info = "Payout info<br/><br/>";
-            payout_info += "<div style=\"font-size:14px;text-align:left!important\">";
+            var payout_info = "<div style=\"font-size:14px;text-align:left!important\">";
             switch (settlement_type)
                 {
                 case "HEADS-UP" :

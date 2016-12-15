@@ -3,10 +3,10 @@
         {
         switch(selection)
             {
-            case 0: /* Create Pool */
-                pool_report();
+            case 0: /* Create Contest */
+                contest_report();
                 break;
-            case 1: /* Create Pool */
+            case 1: /* Create Contest */
                 initialize_registration_deadline();
                 break;
             }
@@ -18,42 +18,42 @@
     
     var 
     
-    pool_report_array = [],
-    number_of_pools;
+    contest_report_array = [],
+    number_of_contests;
     
-    function pool_report()
+    function contest_report()
         {
-        var call = api({ method: "PoolReport", args: {} });
+        var call = api({ method: "ContestReport", args: {} });
         
-        var pool_report = call.pool_report;
-        number_of_pools = pool_report.length;
+        var contest_report = call.contest_report;
+        number_of_contests = contest_report.length;
 
-        for (var i=0; i<number_of_pools; i++)
+        for (var i=0; i<number_of_contests; i++)
             {
-            var pool_item = pool_report[i],
+            var contest_item = contest_report[i],
                     
-            id = pool_item.id,
-            created = pool_item.created,
-            created_by = pool_item.created_by,
-            category = pool_item.category,
-            sub_category = pool_item.sub_category,
-            title = pool_item.title,
-            description = pool_item.description,
-            settlement_type = pool_item.settlement_type,
-            pay_table = pool_item.pay_table,
-            odds_table = pool_item.odds_table,
-            rake = pool_item.rake,
-            salary_cap = pool_item.salary_cap,
-            cost_per_entry = pool_item.cost_per_entry,
-            min_users = pool_item.min_users,
-            max_users = pool_item.max_users,
-            entries_per_user = pool_item.entries_per_user,
-            roster_size = pool_item.roster_size,
-            registration_deadline = pool_item.registration_deadline,
-            status = pool_item.status,
-            odds_source = pool_item.odds_source;
+            id = contest_item.id,
+            created = contest_item.created,
+            created_by = contest_item.created_by,
+            category = contest_item.category,
+            sub_category = contest_item.sub_category,
+            title = contest_item.title,
+            description = contest_item.description,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            odds_table = contest_item.odds_table,
+            rake = contest_item.rake,
+            salary_cap = contest_item.salary_cap,
+            cost_per_entry = contest_item.cost_per_entry,
+            min_users = contest_item.min_users,
+            max_users = contest_item.max_users,
+            entries_per_user = contest_item.entries_per_user,
+            roster_size = contest_item.roster_size,
+            registration_deadline = contest_item.registration_deadline,
+            status = contest_item.status,
+            odds_source = contest_item.odds_source;
   
-            pool_report_array.push([
+            contest_report_array.push([
                 id,
                 created,
                 created_by,
@@ -79,46 +79,46 @@
             
             }
             
-        populate_pool_report_table();
+        populate_contest_report_table();
         }
         
-    function populate_pool_report_table()
+    function populate_contest_report_table()
         {
-        var table = new_table("pool_report_table"),
+        var table = new_table("contest_report_table"),
         row_count = 0,
         right_align_array = [1,7,8,9,10,11,12,13];
 
-        for (var i=0; i<number_of_pools; i++)
+        for (var i=0; i<number_of_contests; i++)
             {
-            var pool_item = pool_report_array[i],
+            var contest_item = contest_report_array[i],
                     
-            id = pool_item[0],
-            created = pool_item[1],
-            created_by = pool_item[2],
-            category = pool_item[3],
-            sub_category = pool_item[4],
-            title = pool_item[5],
-            description = pool_item[6],
-            settlement_type = pool_item[7],
-            pay_table = pool_item[8],
-            odds_table = pool_item[9],
-            rake = pool_item[10],
-            salary_cap = pool_item[11],
-            cost_per_entry = pool_item[12],
-            min_users = pool_item[13],
-            max_users = pool_item[14],
-            entries_per_user = pool_item[15],
-            roster_size = pool_item[16],
+            id = contest_item[0],
+            created = contest_item[1],
+            created_by = contest_item[2],
+            category = contest_item[3],
+            sub_category = contest_item[4],
+            title = contest_item[5],
+            description = contest_item[6],
+            settlement_type = contest_item[7],
+            pay_table = contest_item[8],
+            odds_table = contest_item[9],
+            rake = contest_item[10],
+            salary_cap = contest_item[11],
+            cost_per_entry = contest_item[12],
+            min_users = contest_item[13],
+            max_users = contest_item[14],
+            entries_per_user = contest_item[15],
+            roster_size = contest_item[16],
             
-            registration_deadline = pool_item[17],
+            registration_deadline = contest_item[17],
             registration_deadline_date = dateconv_ms_to_string(registration_deadline),
             registration_deadline_time = dateconv_ms_to_time(registration_deadline),
             registration_deadline_string = registration_deadline_date + " at " + registration_deadline_time,
             
-            status = pool_item[18],
+            status = contest_item[18],
             status_string = "",
             
-            odds_source = pool_item[19];
+            odds_source = contest_item[19];
     
             switch (status)
                 {
@@ -483,24 +483,24 @@
         
 /*----------------------------------------------------------------------*/
 
-    // Validate and create pool
+    // Validate and create contest
     
-    function create_pool()
+    function create_contest()
         {
         var
         
-        category = selectorHTML("category_selector"),
+        category = "DFS",
         sub_category = selectorHTML("sub_category_selector");
 
         // check for title
         
-        var title = id("pool_title_input").value;
+        var title = id("contest_title_input").value;
         
         if (title === "") return alert("Please enter a title");
         
         // check for description
         
-        var description = id("pool_description_textarea").value;
+        var description = id("contest_description_textarea").value;
         
         if (description === "") return alert("Please enter a description");
         
@@ -653,7 +653,7 @@
         // submit
 
         var call = api({
-            method: "CreatePool",
+            method: "CreateContest",
             args: {
                 category: category,
                 sub_category: sub_category,
@@ -676,7 +676,7 @@
 
         if (call.status === "1") 
             {
-            alert("Pool created! Reloading panel.");
+            alert("Contest created! Reloading panel.");
             location.reload();
             }
         else alert("Error: " + call.error);
