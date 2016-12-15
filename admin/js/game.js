@@ -51,7 +51,9 @@
             roster_size = contest_item.roster_size,
             registration_deadline = contest_item.registration_deadline,
             status = contest_item.status,
-            odds_source = contest_item.odds_source;
+            odds_source = contest_item.odds_source,
+            number_of_entries = contest_item.number_of_entries,
+            total_value = Number(toBTC(number_of_entries * cost_per_entry));
   
             contest_report_array.push([
                 id,
@@ -64,7 +66,7 @@
                 settlement_type,
                 pay_table,
                 odds_table,
-                rake,
+                rake + " BTC",
                 salary_cap,
                 cost_per_entry,
                 min_users,
@@ -73,7 +75,9 @@
                 roster_size,
                 registration_deadline,
                 status,
-                odds_source
+                odds_source,
+                number_of_entries,
+                total_value + " BTC"
             ]);
             
             
@@ -118,7 +122,10 @@
             status = contest_item[18],
             status_string = "",
             
-            odds_source = contest_item[19];
+            odds_source = contest_item[19],
+            
+            number_of_entries = contest_item[20],
+            total_value = contest_item[21];
     
             switch (status)
                 {
@@ -161,6 +168,8 @@
                 rake,
                 salary_cap,
                 cost_per_entry,
+                number_of_entries,
+                total_value,
                 min_users,
                 max_users,
                 entries_per_user,
@@ -187,6 +196,8 @@
             "Rake",
             "Salary cap",
             "Cost per entry",
+            "Entries",
+            "Total value",
             "Min users",
             "Max users",
             "Entries per user",

@@ -45,6 +45,14 @@
                     <span id="cost_per_entry" class="orange"></span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Number of entries
+                </td>
+                <td>
+                    <input id="number_of_entries_input" type="text" class="input_style text_input" value="1">
+                </td>
+            </tr>
         </table>
         <br/>
         <div id="enter_contest" style="display:none">
@@ -297,6 +305,10 @@
             }
             
         var use_rc = true;
+        
+        var number_of_entries = id("number_of_entries_input").value | 0;
+        
+        if (number_of_entries <= 0) return show_simple_modal("Invalid number of entries", "bad", null);
             
         api({ 
             method: "GetAccountDetails", 
@@ -313,13 +325,13 @@
         
                 if (use_rc) available_balance += rc_balance;
          
-                if (window.cost_per_entry > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                if (window.cost_per_entry * number_of_entries > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
                 
                 api({
                     method: "CreateEntryDFS",
                     args: {
                         contest_id: window.contest_id,
-                        number_of_entries: 1,
+                        number_of_entries: number_of_entries,
                         use_rc: true,
                         roster: roster
                     }

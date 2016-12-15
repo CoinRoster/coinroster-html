@@ -52,7 +52,9 @@
                 var header = new_row(id("dfs_golf_table"), -1, [
                     "Contest",
                     "Game type",
+                    "Entries",
                     "Entry fee",
+                    "Total Pool",
                     "Live at",
                     ""
                 ]);
@@ -95,6 +97,9 @@
                     entries_per_user = contest_item.entries_per_user,
                     roster_size = contest_item.roster_size,
                     
+                    number_of_entries = contest_item.number_of_entries,
+                    value = Number(toBTC(number_of_entries * cost_per_entry)),
+                    
                     registration_deadline = contest_item.registration_deadline,
                     registration_deadline_date = dateconv_ms_to_string(registration_deadline),
                     registration_deadline_time = dateconv_ms_to_time(registration_deadline),
@@ -136,7 +141,9 @@
                         var row = new_row(table, -1, [
                             title,
                             settlement_type + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link blue\">Payout info</div>",
+                            number_of_entries,
                             cost_per_entry + " BTC",
+                            value + " BTC",
                             registration_deadline_string,
                             "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_contest('" + category_string + "'," + contest_id + ",'" + button_string + "')\">" + button_string + "</button>"
                         ]);
