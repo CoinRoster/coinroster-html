@@ -30,15 +30,16 @@
         font-family: "Lucida Console", Monaco, monospace;
     }
     
-    .link {
+    .link, .inline_link {
         color:rgb(139,215,255);
         cursor:pointer;
         text-decoration:none;
+    }
+    .link {
         font-size:14px;
         padding: 24px;
     }
-
-    .link:hover, .hide_button:hover {
+    .link:hover, .inline_link:hover, .hide_button:hover {
         text-decoration:underline;
     }
 

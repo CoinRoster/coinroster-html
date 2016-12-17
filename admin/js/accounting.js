@@ -396,10 +396,12 @@
                 from_currency = transaction_item.from_currency,
                 to_currency = transaction_item.to_currency,
                 memo = transaction_item.memo,
-                pending_flag = transaction_item.pending_flag;
+                pending_flag = transaction_item.pending_flag,
+                contest_id = transaction_item.contest_id;
 
                 if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
                 if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
+                if (contest_id === 0) contest_id = "";
 
                 if (show_row)
                     {
@@ -422,6 +424,7 @@
                         created_time,
                         created_by,
                         trans_type,
+                        contest_id,
                         from_account,
                         to_account,
                         amount,
@@ -432,7 +435,8 @@
                     ]);
                     
                     row[1].style.textAlign = "right";
-                    row[8].style.textAlign = "right";
+                    row[6].style.textAlign = "right";
+                    row[9].style.textAlign = "right";
                     }
                 }
             }
@@ -445,6 +449,7 @@
                 "Time",
                 "Created By",
                 "Type",
+                "Contest",
                 "From",
                 "To",
                 "Amount",
@@ -458,7 +463,8 @@
             for (var i=1; i<header.length; i++) header[i].className = "header_cell";
             
             header[1].style.textAlign = "center";
-            header[8].style.textAlign = "right";
+            header[6].style.textAlign = "right";
+            header[9].style.textAlign = "right";
             }
         else id("transaction_report_table").innerHTML = "No transactions match your criteria";
         }

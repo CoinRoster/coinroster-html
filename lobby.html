@@ -52,8 +52,8 @@
                 var header = new_row(id("dfs_golf_table"), -1, [
                     "Contest",
                     "Game type",
-                    "Entries",
                     "Entry fee",
+                    "Entries",
                     "Total Pool",
                     "Live at",
                     ""
@@ -141,8 +141,8 @@
                         var row = new_row(table, -1, [
                             title,
                             settlement_type + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link blue\">Payout info</div>",
-                            number_of_entries,
                             cost_per_entry + " BTC",
+                            number_of_entries,
                             value + " BTC",
                             registration_deadline_string,
                             "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_contest('" + category_string + "'," + contest_id + ",'" + button_string + "')\">" + button_string + "</button>"

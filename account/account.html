@@ -428,7 +428,7 @@
                         array.push(cell);
                         }
 
-                    array[3].style.textAlign = "right";
+                    array[4].style.textAlign = "right";
 
                     return array;
                     }
@@ -449,20 +449,35 @@
                         amount = transaction_item.amount,
                         from_currency = transaction_item.from_currency,
                         memo = transaction_item.memo,
+                        memo_link = "<a class=\"inline_link\">Memo</a>",
                         pending_flag = transaction_item.pending_flag,
 
                         created_date = dateconv_ms_to_string(created),
                         created_time = dateconv_ms_to_time(created);
 
                         if (pending_flag === "1") trans_type += " (pending)";
+                        
+                        if (memo === "") memo_link = "";
 
-                        new_row(table, row_count++, [
+                        var row = new_row(table, row_count++, [
                             created_date + " at " + created_time,
                             trans_type,
+                            memo_link,
                             amount,
                             from_currency
                             //memo
                         ]);
+                        
+                        if (memo !== "")
+                            {
+                            row[3].onclick = (function(memo)
+                                {
+                                return function()
+                                    {
+                                    show_simple_modal(memo, "good", null);
+                                    }
+                                })(memo);
+                            }
                         }
 
                     /*var header = new_row(table, 0, [
