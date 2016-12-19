@@ -14,13 +14,45 @@
         <div id="page_title">
             My Contests
         </div>
+        <table id="entry_report_table"></table>
     </div>
 </div>
 <script>
 
     function init()
         {
-        
+        api({
+            method: "EntryReport",
+            args: {
+                request_source: "contests.html"
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var entry_report = call.entry_report;
+                
+                var table = id("entry_report_table");
+                
+                for (var i=0; i<entry_report.length; i++)
+                    {
+                    var entry_item = entry_report[i],
+                            
+                    entry_id = entry_item.id,
+                    contest_id = entry_item.contest_id,
+                    contest_title = entry_item.contest_title,
+                    amount = entry_item.amount,
+                    roster = entry_item.entry_data,
+                    
+                    row = new_row(table, -1, [
+                        entry_id,
+                        contest_title,
+                        amount,
+                        roster
+                    ]);
+                    }
+                }
+            });
         }
         
 </script>

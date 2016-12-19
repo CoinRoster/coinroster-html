@@ -428,7 +428,8 @@
                         array.push(cell);
                         }
 
-                    array[4].style.textAlign = "right";
+                    array[1].style.textAlign = "right";
+                    array[5].style.textAlign = "right";
 
                     return array;
                     }
@@ -444,6 +445,7 @@
                         {
                         var transaction_item = transaction_report_array[i],
 
+                        transaction_id = transaction_item.transaction_id,
                         created = transaction_item.created,
                         trans_type = transaction_item.trans_type,
                         amount = transaction_item.amount,
@@ -460,6 +462,7 @@
                         if (memo === "") memo_link = "";
 
                         var row = new_row(table, row_count++, [
+                            transaction_id,
                             created_date + " at " + created_time,
                             trans_type,
                             memo_link,
@@ -470,7 +473,7 @@
                         
                         if (memo !== "")
                             {
-                            row[3].onclick = (function(memo)
+                            row[4].onclick = (function(memo)
                                 {
                                 return function()
                                     {

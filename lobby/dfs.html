@@ -339,7 +339,10 @@
                     {
                     if (call.status === "1")
                         {
-                        alert("No errors");
+                        return show_simple_modal("You have successfully entered " + number_of_entries + " roster" + (number_of_entries > 1 ? "s" : ""), "good", function()
+                            {
+                            location.reload();
+                            });
                         }
                     else alert(call.error);
                     });
