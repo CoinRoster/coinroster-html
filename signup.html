@@ -11,7 +11,8 @@
     <meta name="rating" content="General" />
 </head>
 <body>
-<!--include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
 <table class="landing_center">
     <tr>
         <td>
@@ -21,26 +22,24 @@
                         CoinRoster
                     </h1>
                     <br/>
-                    <br/>
-                    Username: 4 to 40 chars
-                    <br/>
-                    Password: 8 or more chars
-                    <br/>
-                    No spaces allowed
-                    <br/>
-                    <br/>
-                    <div id="auth_message"></div>
                     <form autocomplete="off" onsubmit="return create_account();">
                         <input type="password" style="position:absolute;top:-1000px;"/>
+                        <div id="email_input_container" class="input_padding">
+                            <span id="email_label" class="input_label">Email address</span>
+                            <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
                         <div class="input_padding">
+                            <span id="username_label" class="input_label">Username - 4 chars or longer</span>
                             <input placeholder="Username" label="false" id="username" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
                         </div>
                         <div class="input_padding">
+                            <span id="password_label" class="input_label">Password - 8 chars or longer</span>
                             <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="2">
                         </div>
-                        <div class="input_padding">
+                        <!--<div class="input_padding">
+                            <span id="confirm_password_label" class="input_label">Confirm password</span>
                             <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
-                        </div>
+                        </div>-->
                         <div class="input_padding">
                             <button class="text_button" style="color:orange;" type="submit" tabindex="4">Create account</button>
                         </div>
@@ -58,8 +57,23 @@
 
         search_variable = location.search.split("?")[1];
 
-        if (typeof search_variable === "undefined") window.referral_key = "";
-        else window.referral_key = search_variable;
+        if (typeof search_variable === "undefined") 
+            {
+            window.referral_key = "";
+            id("email_address").onkeyup = function()
+                {
+                this.value = this.value.replace(/\s/g, "");
+                };
+            id("email_address").onchange = function()
+                {
+                check_email();
+                };
+            }
+        else 
+            {
+            destroy("email_input_container");
+            window.referral_key = search_variable;
+            }
 
         var inputs = document.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";

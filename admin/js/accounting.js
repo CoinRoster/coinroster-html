@@ -230,15 +230,25 @@
             last_login = user_item[11];
     
             created = dateconv_ms_to_string(created);
-    
-            if (user_level === 1) user_level = "admin";
-            else if (user_level === 2) 
-                {
-                user_level = "internal";
-                if (exclude_internal_accounts) show_row = false;
-                }
-            else user_level = "normal";
             
+            switch (user_level)
+                {
+                case 0:
+                    user_level = "normal";
+                    break;
+                case 1:
+                    user_level = "admin";
+                    break;
+                case 2:
+                    user_level = "internal";
+                    break;
+                case 3:
+                    user_level = "unverified";
+                    break;
+                default:
+                    user_level = "unknown level";
+                }
+    
             if (email_ver_flag === 1) email_ver_flag = "yes";
             else email_ver_flag = "";
             

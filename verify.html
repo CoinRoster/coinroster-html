@@ -6,7 +6,7 @@
     <!--#include virtual="/ssi/head.html" -->
 </head>
 <body>
-<!--include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/carousel.html" -->
 <table class="landing_center">
     <tr>
         <td>
@@ -42,7 +42,7 @@
         if (typeof search_variable === "undefined") email_ver_key = "";
         else email_ver_key = search_variable;
 
-        if (email_ver_key === "") set_auth_message("Please log in", "white");
+        if (email_ver_key === "") set_auth_message("auth_message", "Please log in", "white");
         else
             {
             var call = api({

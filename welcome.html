@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h2 class="orange">
+                    Welcome to CoinRoster!
+                </h2>
+                <br/>
+                <br/>
+                To use the site you must verify your email:
+                <br/>
+                <br/>
+                <div id="email_on_file" class="blue">email@something.com</div>
+                <div class="input_padding description_text">
+                    We will only send you emails about activity 
+                    <br/>
+                    in your account. Your email can also be used
+                    <br/>
+                    if you ever need to recover your password. 
+                    <br/>
+                    <br/>
+                    We will not sell or share your email address 
+                    <br/>
+                    with a third party.
+                </div>
+                <br/>
+                <button type="submit" class="text_button auto_width add_left_margin" onclick="resend_verification();">Re-send email verification</button>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    (function()
+        {
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1") id("email_on_file").innerHTML = call.email_address;
+            else location = "/";
+            });
+        })();
+        
+    function resend_verification()
+        {
+        api({
+            method: "SendEmailVerification",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("Verification has been sent!", "good", function()
+                    {
+                    location = "/";
+                    });
+                }
+            });
+        }
+</script>
+</body>
+</html>

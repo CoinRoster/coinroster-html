@@ -1,7 +1,7 @@
-    function set_auth_message(message, color)
+    function set_auth_message(_id, message, color)
         {
-        id("auth_message").innerHTML = message;
-        id("auth_message").style.color = color;
+        id(_id).innerHTML = message;
+        id(_id).style.color = color;
         }
         
     function login()
@@ -28,7 +28,7 @@
             else
                 {
                 id("auth_message").innerHTML = "Invalid Credentials!";
-                id("auth_message").style.color = "red";
+                id("auth_message").style.color = "orange";
                 id("username").value = "";
                 id("password").value = "";
                 }
@@ -42,7 +42,7 @@
         if (username === "") return;
         if (username.length < 4)
             {
-            set_auth_message("Username must be<br/>4 characters or longer", "red");
+            set_auth_message("username_label", "Username - 4 chars or longer", "orange");
             id("username").value = "";
             set_focus("username");
             return;
@@ -55,14 +55,20 @@
             }
         }, function(call)
             {
-            if (call.status === "1") set_auth_message("Username is available", "rgb(0,255,106)");
+            if (call.status === "1") set_auth_message("username_label", "Username is available", "rgb(0,255,106)");
             else
                 {
-                set_auth_message(call.error, "red");
+                set_auth_message("username_label", call.error, "orange");
                 id("username").value = "";
                 set_focus("username");
                 }
             });
+        }
+        
+    function check_email()
+        {
+        if (validate_email(id("email_address").value)) set_auth_message("email_label", "Email address", "rgb(0,255,106)");
+        else set_auth_message("email_label", "Invalid email address", "orange");
         }
 
     function check_password()
@@ -73,79 +79,84 @@
         auth_message = "";
 
         if (password === "") auth_message = "Enter a password";
-        else if (password !== "" && password.length < 8) auth_message = "Password must be<br/>8 characters or longer";
+        else if (password !== "" && password.length < 8) auth_message = "Password - 8 chars or longer";
         
         if (auth_message !== "")
             {
-            set_auth_message(auth_message, "red");
+            set_auth_message("password_label", auth_message, "orange");
             id("password").value = "";
-            id("confirm_password").value = "";
+            //id("confirm_password").value = "";
             set_focus("password");
             return;
             }
+        else set_auth_message("password_label", "Password", "rgb(0,255,106)");
         }
         
     function create_account()
         {
-        var username = id("username").value,
-        password = id("password").value,
-        confirm_password = id("confirm_password").value;
+        var 
+        
+        referral_key = window.referral_key,
+        email_address,
+        username = id("username").value,
+        password = id("password").value;
+        //confirm_password = id("confirm_password").value
 
-        /*if (window.referral_key.length !== 40)
+        if (referral_key === "")
             {
-            set_auth_message("Invalid referral code", "red");
-            return false;
-            }*/
+            email_address = id("email_address").value;
+            if (email_address === "")
+                {
+                set_auth_message("email_label", "Enter an email address", "orange");
+                set_focus("email_address");
+                return false;
+                }
+            }
+
         if (username === "")
             {
-            set_auth_message("Enter a username", "red");
+            set_auth_message("username_label", "Enter a username", "orange");
             set_focus("username");
             return false;
             }
         if (password === "")
             {
-            set_auth_message("Enter a password", "red");
+            set_auth_message("password_label", "Enter a password", "orange");
             set_focus("password");
             return false;
             }
-        if (confirm_password === "")
+        /*if (confirm_password === "")
             {
-            set_auth_message("Confirm password", "red");
+            set_auth_message("Confirm password", "orange");
             set_focus("confirm_password");
             return false;
             }
         if (password !== confirm_password)
             {
-            set_auth_message("Passwords do not match", "red");
+            set_auth_message("Passwords do not match", "orange");
             id("password").value = "";
             id("confirm_password").value = "";
             set_focus("password");
             return false;
-            }
+            }*/
             
         api({
             method: "CreateUser",
             args: {
+                email_address: email_address,
                 username: username,
                 password: password,
                 referral_key: window.referral_key
             }
         }, function(call)
             {
-            if (call !== null)
+            if (call.status === "1") location = "/";
+            else
                 {
-                if (call.user_was_created === "1") location = "/";
-                else
+                show_simple_modal(call.error_message, "bad", function()
                     {
-                    if (call.invalid_credentials === "1") set_auth_message("Invalid credentials", "red");
-                    else if (call.username_exists === "1") set_auth_message(username + " is taken", "red");
-                    else if (call.invalid_referrer === "1") set_auth_message("Invalid referral code", "red");
-                    else set_auth_message("Problem with account creation", "red");
-                    id("username").value = "";
-                    id("password").value = "";
-                    id("confirm_password").value = "";
-                    set_focus("username");
-                    }
+                    location.reload();
+                    });
                 }
             });
        
@@ -190,24 +201,24 @@
 
         if (window.reset_key.length !== 40)
             {
-            set_auth_message("Invalid reset code", "red");
+            set_auth_message("Invalid reset code", "orange");
             return false;
             }
         if (password === "")
             {
-            set_auth_message("Enter a password", "red");
+            set_auth_message("Enter a password", "orange");
             set_focus("password");
             return false;
             }
         if (confirm_password === "")
             {
-            set_auth_message("Confirm password", "red");
+            set_auth_message("Confirm password", "orange");
             set_focus("confirm_password");
             return false;
             }
         if (password !== confirm_password)
             {
-            set_auth_message("Passwords do not match", "red");
+            set_auth_message("Passwords do not match", "orange");
             id("password").value = "";
             id("confirm_password").value = "";
             set_focus("password");
@@ -225,7 +236,7 @@
             if (call.status === "1") location.reload();
             else
                 {
-                set_auth_message(call.error, "red");
+                set_auth_message(call.error, "orange");
                 id("password").value = "";
                 id("confirm_password").value = "";
                 }

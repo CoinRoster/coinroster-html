@@ -125,6 +125,14 @@
         cursor:auto;
         width:200px;
     }
+    
+    .input_label {
+        font-size:11px;
+        display:block;
+        width:210px;
+        margin:0 auto 5px;
+        text-align:left;
+    }
 
     .text_button {
         display:inline-block;
