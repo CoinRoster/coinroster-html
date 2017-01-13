@@ -12,36 +12,36 @@
 </head>
 <body>
 <!--#include virtual="/ssi/auto_login.html" -->
-<!--#include virtual="/ssi/carousel.html" -->
+<!--include virtual="/ssi/carousel.html" -->
 <table class="landing_center">
     <tr>
         <td>
             <div>
-                <div>
-                    <h1>
+                <h1 class="logo_font">
+                    <a href="/" class="logo_link">
                         CoinRoster
-                    </h1>
-                    <br/>
-                    <br/>
-                    Password: 8 or more chars
-                    <br/>
-                    No spaces allowed
-                    <br/>
-                    <br/>
-                    <div id="auth_message"></div>
-                    <form autocomplete="off" onsubmit="return update_password();">
-                        <input type="password" style="position:absolute;top:-1000px;"/>
-                        <div class="input_padding">
-                            <input placeholder="New password" label="false" id="password" type="password" class="input_style" tabindex="2">
-                        </div>
-                        <div class="input_padding">
-                            <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
-                        </div>
-                        <div class="input_padding">
-                            <button class="text_button" style="color:orange;" type="submit" tabindex="4">Reset Password</button>
-                        </div>
-                    </form>
-                </div>
+                    </a>
+                </h1>
+                <br/>
+                <br/>
+                Password: 8 or more chars
+                <br/>
+                No spaces allowed
+                <br/>
+                <br/>
+                <div id="auth_message"></div>
+                <form autocomplete="off" onsubmit="return update_password();">
+                    <input type="password" style="position:absolute;top:-1000px;"/>
+                    <div class="input_padding">
+                        <input placeholder="New password" label="false" id="password" type="password" class="input_style" tabindex="2">
+                    </div>
+                    <div class="input_padding">
+                        <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
+                    </div>
+                    <div class="input_padding">
+                        <button class="text_button" style="color:orange;" type="submit" tabindex="4">Reset Password</button>
+                    </div>
+                </form>
             </div>
         </td>
     </tr>
@@ -72,5 +72,6 @@
         })();
     
 </script>
+<!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

@@ -11,29 +11,33 @@
     <tr>
         <td>
             <div>
-                <h2 class="orange">
-                    Welcome to CoinRoster!
-                </h2>
+                <h1 class="logo_font">
+                    <a href="/" class="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <br/>
+                <span class="orange">
+                    Please verify your email.
+                </span>
                 <br/>
                 <br/>
-                To use the site you must verify your email:
-                <br/>
-                <br/>
-                <div id="email_on_file" class="blue">email@something.com</div>
-                <div class="input_padding description_text">
-                    We will only send you emails about activity 
+                <div class="description_text">
+                    We will only send you emails about  
                     <br/>
-                    in your account. Your email can also be used
+                    activity in your account. We will not
                     <br/>
-                    if you ever need to recover your password. 
+                    sell or share your email address with
                     <br/>
-                    <br/>
-                    We will not sell or share your email address 
-                    <br/>
-                    with a third party.
+                    a third party.
                 </div>
                 <br/>
-                <button type="submit" class="text_button auto_width add_left_margin" onclick="resend_verification();">Re-send email verification</button>
+                <button type="submit" class="text_button auto_width" style="text-align:center" onclick="resend_verification();">
+                    Re-send email verification to
+                    <br/>
+                    <br/>
+                    <div id="email_on_file" class="blue">email@something.com</div>
+                </button>
             </div>
         </td>
     </tr>
@@ -69,5 +73,6 @@
             });
         }
 </script>
+<!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

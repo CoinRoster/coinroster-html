@@ -27,8 +27,8 @@
                 }
             else
                 {
-                id("auth_message").innerHTML = "Invalid Credentials!";
-                id("auth_message").style.color = "orange";
+                set_auth_message("username_label", "Invalid credentials", "orange");
+                set_auth_message("password_label", "Invalid credentials", "orange");
                 id("username").value = "";
                 id("password").value = "";
                 }
@@ -201,24 +201,24 @@
 
         if (window.reset_key.length !== 40)
             {
-            set_auth_message("Invalid reset code", "orange");
+            set_auth_message("auth_message", "Invalid reset code", "orange");
             return false;
             }
         if (password === "")
             {
-            set_auth_message("Enter a password", "orange");
+            set_auth_message("auth_message", "Enter a password", "orange");
             set_focus("password");
             return false;
             }
         if (confirm_password === "")
             {
-            set_auth_message("Confirm password", "orange");
+            set_auth_message("auth_message", "Confirm password", "orange");
             set_focus("confirm_password");
             return false;
             }
         if (password !== confirm_password)
             {
-            set_auth_message("Passwords do not match", "orange");
+            set_auth_message("auth_message", "Passwords do not match", "orange");
             id("password").value = "";
             id("confirm_password").value = "";
             set_focus("password");
@@ -236,7 +236,7 @@
             if (call.status === "1") location.reload();
             else
                 {
-                set_auth_message(call.error, "orange");
+                set_auth_message("auth_message", call.error, "orange");
                 id("password").value = "";
                 id("confirm_password").value = "";
                 }

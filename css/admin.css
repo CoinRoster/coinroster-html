@@ -50,6 +50,10 @@
         text-align:center;
     }
     
+    #ssi_logo_container, #ssi_subnav {
+        display:none;
+    }
+    
     #ssi_header {
         background: rgb(50,55,60) !important;
     }

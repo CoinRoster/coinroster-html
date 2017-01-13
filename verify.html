@@ -11,8 +11,10 @@
     <tr>
         <td>
             <div>
-                <h1>
-                    CoinRoster
+                <h1 class="logo_font">
+                    <a href="/" class="logo_link">
+                        CoinRoster
+                    </a>
                 </h1>
                 <div id="auth_message" class="vertical_spacing"></div>
                 <div>
@@ -52,11 +54,12 @@
                 }
             });
 
-            if (call.status === "1") set_auth_message("Your e-mail has been verified", "white");
-            else set_auth_message("Something went wrong, please log in.", "white");
+            if (call.status === "1") set_auth_message("auth_message", "Your e-mail has been verified", "white");
+            else set_auth_message("auth_message", "Something went wrong, please log in.", "white");
             }
         })();
     
 </script>
+<!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

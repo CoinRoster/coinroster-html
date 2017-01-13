@@ -1,18 +1,27 @@
+    #ssi_logo_container {
+        padding: 10px 0 0;
+        width: 100%;
+        text-align: center;
+    }
+
     #ssi_header {
-        background: black;
-        position:relative;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url('../img/header.png');
+        position: relative;
     }
     
-    #ssi_header_inner {
+    .ssi_header_inner {
         padding: 10px 0;
         color: white;
     }
     
-    #ssi_header_table {
+    .ssi_header_table {
         width:100%;
     }
 
-    #ssi_header_table td {
+    .ssi_header_table td {
         padding:0 10px;
         font-size:14px;
         white-space:nowrap;
@@ -30,26 +39,42 @@
         display:none;
     }
     
-    #ssi_header_username {
-        color: orange;
-        cursor: default;
-        text-decoration:none !important;
-    }
-    
-    .ssi_header_a_style {
+    .ssi_header_a {
         color:white;
         text-decoration:none;
         cursor:pointer;
         padding:10px;
     }
-    
-    .ssi_header_a_style:hover {
+        
+    .ssi_header_a:hover {
         color: white;
         text-decoration:underline;
+    }
+    
+    .ssi_subnav_a {
+        color: rgb(190,190,190) !important;
     }
     
     .ssi_header_active_tab {
         text-decoration:underline;
         cursor:default;
         padding:10px;
+    }
+    
+    #ssi_header_account_link {
+        cursor: pointer;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAllBMVEUAAAD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQByQTQSAAAAMXRSTlMA6f18vbj59t7a1KhfNh7LrpNDEfHt4cacUzsC5bOIZzIsCgUDj0wUDgejg3Vua1knkHVdbwAAAZhJREFUWMOl1Ndu4zAQheFR781WseLenb7n/V9uF9gAkWUymRG/+5+QSA5JZ/mcbxel23VuUvXXI4nt120T+PY/fmCF1U3av0YY8uNe1lcBRtpU0m/xyNrx+7yGQif4ASjNuP28hpJHTBeo+XPicQCzfyihwT3JAhoO8UTQqHj9soVGQiynFTRK5heE0FgQTwyNjekpvBFPYngPzG/iJzT+EE+m6a0Dd5wD3TXgcjmjIN9FOyOuzNZsAdexVY8S3wIKn8T3pOhXB+I7RapRlPjAgz1J3Jpx75LMG0Z2JHMI7/sXkrrUd0eQk5iHgTXJrTEQLsX9vDHaQ1q+4875RDJ9jTvBVvT5qWdhpHHTZ+YczKrCgoJVnJ9+z2cbN4KOHXvOj2vk7+V3rVsjSee6R2Dj2mCo185emUdg6x6WyD9iiHTpddhnJcQWu0FvYYIwoy/XFSaxvmb8mGAi7//dvPiYyN6OXg6x6EhEmY/peiI6w4BHRCEM+DfKbZiYUQ8jDr3CSEIvMOKSByMxFTASUgsjDRWBZSCI/wLhXH48GGwlPQAAAABJRU5ErkJggg==");
+        background-size: 16px 16px;
+        background-position: 5px 1px;
+        background-repeat: no-repeat;
+        padding-left: 0 !important;
+    }
+    
+    #ssi_header_account_link:hover #ssi_header_account {
+        text-decoration:underline;
+    }
+    
+    #ssi_header_account {
+        padding-left: 33px;
+        color: orange !important;
     }

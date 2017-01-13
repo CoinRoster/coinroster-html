@@ -9,7 +9,7 @@
                 {
                 window.session = call;
                 
-                id("ssi_header_username").innerHTML = call.username;
+                id("ssi_header_account").innerHTML = call.username;
 
                 if (call.user_level === "1") show_cells("ssi_header_admin_wrapper");
                 show_cells("ssi_header_a_active");

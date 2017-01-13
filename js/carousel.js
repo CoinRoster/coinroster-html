@@ -1,48 +1,24 @@
     (function(){
-        
+
         var 
 
-        fade_timeout = 1000,
-        number_of_slides = 5,
-        interval_direction = 0,
-        photo_index = number_of_slides;
+        fade_speed = 2000,
+        fade_interval = 6000,
+
+        current_slide = 1,
+        number_of_slides = document.getElementsByClassName("slide").length;
 
         setInterval(function()
             {
-            if (interval_direction === 0) 
+            current_slide++;
+            if (current_slide > number_of_slides)
                 {
-                $("#carousel_bg_" + photo_index).fadeOut(fade_timeout);
-                photo_index--;
+                for (var i=2; i<number_of_slides; i++) document.getElementById("slide_" + i).style.opacity = 0;
+                $('#slide_' + number_of_slides).fadeTo(fade_speed, 0);
+                current_slide = 1;
                 }
-            else 
-                {
-                $("#carousel_bg_" + photo_index).fadeIn(fade_timeout);
+            else $('#slide_' + current_slide).fadeTo(fade_speed, 1);
+            }, 
+        fade_interval);
 
-                setTimeout(function()
-                    {
-                    for (var i=1; i<photo_index; i++)
-                        {
-                        $("#carousel_bg_" + i).fadeIn(1);
-                        }
-                    }, fade_timeout);
-
-                interval_direction = 0;
-                }
-
-            if (photo_index === 1)
-                {
-                if (interval_direction) interval_direction = 0;
-                else interval_direction = 1;
-                photo_index = number_of_slides;
-                }
-            }, 7000);
-            
-        setTimeout(function()
-            {
-            for (var i=4; i>=1; i--)
-                {
-                id("carousel_bg_" + i).className += " carousel_bg_" + i;
-                }
-            }, 2000);
-
-        })();
+    })();

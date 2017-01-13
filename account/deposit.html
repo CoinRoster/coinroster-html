@@ -112,54 +112,60 @@
         id("amount_to_deposit").focus();
         };
         
-    focus_to_input();
-
-    var
-    
-    user_ext_address = get_ext_address(true),
-    cash_register_address = get_ext_address(false);
-    
-    id("user_ext_address").innerHTML = user_ext_address;
-    id("user_ext_address_confirm").innerHTML = user_ext_address;
-    id("cash_register_address").innerHTML = cash_register_address;
-    id("cash_register_address_confirm").innerHTML = cash_register_address;
-    
-    function submit_pending_deposit()
+    function init()
         {
-        var amount_to_deposit = id("amount_to_deposit").value;
+        focus_to_input();
 
-        if (amount_to_deposit === "") 
-            {
-            show_simple_modal("Please enter an amount to deposit", "good", focus_to_input);
-            return false;
-            }
-            
-        if (parseFloat(amount_to_deposit) === 0.0) 
-            {
-            show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
-            return false;
-            }
+        var
 
-        api({ 
-            method: "UserDeposit", 
-            args: {
-                amount_to_deposit: amount_to_deposit,
-                user_ext_address: user_ext_address,
-                cash_register_address: cash_register_address
-            } 
-        }, function(call)
+        user_ext_address = get_ext_address(true),
+        cash_register_address = get_ext_address(false);
+
+        id("user_ext_address").innerHTML = user_ext_address;
+        id("user_ext_address_confirm").innerHTML = user_ext_address;
+        id("cash_register_address").innerHTML = cash_register_address;
+        id("cash_register_address_confirm").innerHTML = cash_register_address;
+
+        function submit_pending_deposit()
             {
-            if (call.status === "1")
+            var amount_to_deposit = id("amount_to_deposit").value;
+
+            if (amount_to_deposit === "") 
                 {
-                id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
-                hide("initial_container");
-                show("confirmation_container");
+                show_simple_modal("Please enter an amount to deposit", "good", focus_to_input);
+                return false;
                 }
-            else show_simple_modal(call.error, "bad", null);
-            });
-        
-        return false;
+
+            if (parseFloat(amount_to_deposit) === 0.0) 
+                {
+                show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
+                return false;
+                }
+
+            api({ 
+                method: "UserDeposit", 
+                args: {
+                    amount_to_deposit: amount_to_deposit,
+                    user_ext_address: user_ext_address,
+                    cash_register_address: cash_register_address
+                } 
+            }, function(call)
+                {
+                if (call.status === "1")
+                    {
+                    id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
+                    hide("initial_container");
+                    show("confirmation_container");
+                    }
+                else show_simple_modal(call.error, "bad", null);
+                });
+
+            return false;
+            }
         }
+        
 </script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

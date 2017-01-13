@@ -2,6 +2,16 @@
         font-family: gotham_medium;
         src: url(../fonts/Gotham/Gotham-Medium.otf);
     }
+    
+    @font-face {
+        font-family: 'logo_font';
+        src: url('../fonts/Hemi-Head/hemi-head.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'ubuntu_fantasy';
+        src: url('../fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('truetype');
+    }
 
     body {
         font-family: 'gotham_medium', sans-serif;
@@ -28,6 +38,37 @@
     .lucida {
         font-weight: normal;
         font-family: "Lucida Console", Monaco, monospace;
+    }
+    
+    .logo_font {
+        font-family: 'logo_font', sans-serif;
+    }
+    
+    .ubuntu_font {
+        font-family: 'ubuntu_fantasy', sans-serif;
+    }
+    
+    .logo_link {
+        text-decoration: none !important;
+        color: white !important;
+        display:inline-block;
+    }
+    
+    #bitcoin_logo, #bitcoin_fantasy {
+        display: inline-block;
+        height: 20px;
+        vertical-align: middle;
+    }
+    #bitcoin_logo {
+        padding-left:5px;
+        padding-right:0px;
+    }
+    #bitcoin_fantasy {
+        font-weight: normal;
+        font-size:15px;
+        margin:0;
+        padding:0;
+        padding-top:2px;
     }
     
     .link, .inline_link {
@@ -102,6 +143,10 @@
     
     .green {
         color: rgb(0,255,106) !important;
+    }
+    
+    .teal {
+        color: rgb(129,243,217) !important;
     }
     
     .white {
