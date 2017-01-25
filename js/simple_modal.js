@@ -39,7 +39,7 @@
         id("simple_modal_text").innerHTML = modal_text;
         
         var border_color = "";
-        if (good_bad === "good") border_color = "rgb(139,215,255)";
+        if (good_bad === "good") border_color = cr_teal;
         else if (good_bad === "bad") border_color = "orange";
         id("simple_modal_window").style.borderColor = border_color;
         

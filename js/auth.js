@@ -55,7 +55,7 @@
             }
         }, function(call)
             {
-            if (call.status === "1") set_auth_message("username_label", "Username is available", "rgb(0,255,106)");
+            if (call.status === "1") set_auth_message("username_label", "Username is available", cr_teal);
             else
                 {
                 set_auth_message("username_label", call.error, "orange");
@@ -67,7 +67,7 @@
         
     function check_email()
         {
-        if (validate_email(id("email_address").value)) set_auth_message("email_label", "Email address", "rgb(0,255,106)");
+        if (validate_email(id("email_address").value)) set_auth_message("email_label", "Email address", cr_teal);
         else set_auth_message("email_label", "Invalid email address", "orange");
         }
 
@@ -89,7 +89,7 @@
             set_focus("password");
             return;
             }
-        else set_auth_message("password_label", "Password", "rgb(0,255,106)");
+        else set_auth_message("password_label", "Password", cr_teal);
         }
         
     function create_account()

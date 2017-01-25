@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Refer a friend</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/nav.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="centering_container">
+    <div id="body_container">
+        <div id="initial_container">
+            <div id="page_title">
+                Refer a friend and earn cash!
+            </div>
+            <div class="input_padding description_text">
+                Receive 50% of the rake on all contest entries made by the account you refer.
+                <br/>
+                <br/>
+                These bonuses will be credited to your account in RosterCoins.
+                <br/>
+                <br/>
+                <br/>
+                <form onsubmit="return send_referral();">
+                    <div class="input_padding">
+                        From:
+                        <input id="referrer" type="text" class="input_style add_left_margin" />
+                    </div>
+                    To:
+                    <input id="referral_email_address" type="text" placeholder="Email address" class="input_style email_input add_left_margin" />
+                    <br/>
+                    <br/>
+                    <br/>
+                    <button type="submit" class="text_button auto_width">Send referral!</button>
+                    <span id="referral_message" class="add_left_margin"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript">
+
+    function init()
+        {
+        id("referrer").value = session.username;
+        }
+        
+//--------------------------------------------------------------------------------------------------
+
+    // SEND REFERRAL
+
+    function referral_email_error(message, color)
+        {
+        id("referral_message").innerHTML = message;
+        id("referral_message").style.color = color;
+        }
+
+    function send_referral()
+        {
+        var 
+
+        referrer = id("referrer").value,
+        referral_email_address = id("referral_email_address").value;
+
+        if (referrer === "")
+            {
+            referral_email_error("Please enter your name", "orange");
+            return false;
+            }
+        if (validate_email(referral_email_address) === false)
+            {
+            referral_email_error("Invalid email address", "orange");
+            return false;
+            }
+
+        api({
+            method: "SendReferral",
+            args: {
+                referrer: referrer,
+                email_address: referral_email_address,
+                referral_program: "1"
+            }
+        }, function()
+            {
+            id("referral_email_address").value = "";
+            referral_email_error("Invitation sent!", cr_teal);
+            });
+
+        return false;
+        }
+
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

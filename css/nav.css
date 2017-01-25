@@ -40,7 +40,7 @@
     }
     
     .ssi_header_a {
-        color:white;
+        color: white;
         text-decoration:none;
         cursor:pointer;
         padding:10px;
@@ -56,6 +56,7 @@
     }
     
     .ssi_header_active_tab {
+        color: white !important;
         text-decoration:underline;
         cursor:default;
         padding:10px;

@@ -174,13 +174,19 @@
         
         switch (user_report_sort_selector.selectedIndex)
             {
-            case 0: // Created date
+            case 0: // Last Login
+                user_report_array.sort(function(a, b)
+                    {
+                    return b[11] - a[11];
+                    });
+                break;
+            case 1: // Created date
                 user_report_array.sort(function(a, b)
                     {
                     return b[0] - a[0];
                     });
                 break;
-            case 1: // AlphaNumeric
+            case 2: // AlphaNumeric
                 user_report_array.sort(function(a, b)
                     {
                     a = a[2].toLowerCase();
@@ -188,22 +194,16 @@
                     return (a === b ? 0 : (a < b ? -1 : 1));
                     });
                 break;
-            case 2: // BTC Balance High to Low
+            case 3: // BTC Balance High to Low
                 user_report_array.sort(function(a, b)
                     {
                     return b[4] - a[4];
                     });
                 break;
-            case 3: // RC Balance High to Low
+            case 4: // RC Balance High to Low
                 user_report_array.sort(function(a, b)
                     {
                     return b[5] - a[5];
-                    });
-                break;
-            case 4: // Last Login
-                user_report_array.sort(function(a, b)
-                    {
-                    return b[11] - a[11];
                     });
                 break;
             }

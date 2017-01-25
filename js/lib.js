@@ -339,3 +339,5 @@
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
+        
+    var cr_teal = "rgb(129,243,217)";

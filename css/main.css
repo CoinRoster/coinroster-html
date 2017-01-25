@@ -26,13 +26,9 @@
         background: url('../img/greybg.png') repeat;
     }
 
-    a:visited {
-        color: rgb(139,215,255);
-        outline:none;
-    }
-
-    a {
-        outline:none;
+    a, a:visited, a:hover, a:active {
+        outline: none;
+        color: inherit;
     }
     
     .lucida {
@@ -72,7 +68,7 @@
     }
     
     .link, .inline_link {
-        color:rgb(139,215,255);
+        color:rgb(129,243,217);
         cursor:pointer;
         text-decoration:none;
     }
@@ -138,7 +134,8 @@
     }
     
     .blue {
-        color: rgb(139,215,255) !important;
+        /*color: rgb(139,215,255) !important;*/
+        color: rgb(129,243,217) !important;
     }
     
     .green {
@@ -247,7 +244,6 @@
         text-decoration:none;
         display:block;
         padding:15px 15px 18px;
-        color:rgb(139,215,255);
         font-size:13px;
     }
     

@@ -101,7 +101,7 @@
             <br/>
             <br/>
             <div id="display_ext_address">
-                <span id="ext_address" class="blue"></span>
+                <span id="ext_address" class="teal"></span>
                 <button id="change_ext_address_button" class="text_button auto_width add_left_margin" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
             </div>
             <div id="change_ext_address" style="display:none">
@@ -116,7 +116,7 @@
             <hr noshade>
             <br/>
             <span id="must_withdraw_bitcon" style="display:none">
-                <span class="blue">
+                <span class="teal">
                     Wallet security is ENABLED
                 </span>
                 <br/>
@@ -124,7 +124,7 @@
                 You must withdraw all Bitcoin from this account in order to change your wallet address.
             </span>
             <span id="security_is_enabled" style="display:none">
-                <span class="blue">
+                <span class="teal">
                     Wallet security is ENABLED
                 </span>
                 <br/>
@@ -250,33 +250,9 @@
             </form>
         </div>
         
-        <div class="subwindow hidden_subwindow" toggle="Invite a friend and be rewarded!">
-            <div id="referral_message" class="subwindow_heading">
-                Invite a friend
-            </div>
-            <br/>
-            <div class="input_padding description_text">
-                    At CoinRoster we reward users for referrals. Our current offer is:
-                    <br/>
-                    <br/>
-                <span class="orange">
-                    You will receive 1% on all contest entries made by the account you refer. 
-                    <br/>
-                    These bonuses will be credited to your account in RosterCoins.
-                </span>
-                <br/>
-                <br/>
-            </div>
-            <form onsubmit="return send_referral();">
-                <div class="input_padding">
-                    From:
-                    <input id="referrer" type="text" class="input_style add_left_margin" />
-                </div>
-                Your friend's email:
-                <input id="referral_email_address" type="text" placeholder="Email address" class="input_style email_input add_left_margin" />
-                <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
-            </form>
-        </div>
+        <a class="subwindow clickable_subwindow link_subwindow" href="refer.html">
+            Refer a friend and earn cash!
+        </a>
 
     </div>
 </div>
@@ -309,7 +285,6 @@
     function reset_error_messages()
         {
         change_password_error("Change password", "white");
-        referral_email_error("Refer a friend", "white");
         if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
         if (id("manage_email_subwindow")) change_email_error("New e-mail address:", "white");
         }
@@ -376,8 +351,8 @@
                     if (email_ver_flag === 1)
                         {
                         id("verified_unverified").innerHTML = "&nbsp;&nbsp;(verified)";
-                        id("email_on_file").style.color = "rgb(139,215,255)";
-                        id("verified_unverified").style.color = "rgb(139,215,255)";
+                        id("email_on_file").style.color = cr_teal;
+                        id("verified_unverified").style.color = cr_teal;
                         hide("verification_button");
                         }
                     else
@@ -725,7 +700,7 @@
                 {
                 if (call.status === "1")
                     {
-                    change_password_error("Your password has been updated", "rgb(0,255,50)");
+                    change_password_error("Your password has been updated", cr_teal);
                     id("confirm_password").value = "";
                     id("confirm_password").blur();
                     }
@@ -737,56 +712,10 @@
 
 //--------------------------------------------------------------------------------------------------
 
-    // SEND REFERRAL
-
-    function referral_email_error(message, color)
-        {
-        id("referral_message").innerHTML = message;
-        id("referral_message").style.color = color;
-        }
-
-    function send_referral()
-        {
-        var 
-
-        referrer = id("referrer").value,
-        referral_email_address = id("referral_email_address").value;
-
-        if (referrer === "")
-            {
-            referral_email_error("Please enter your name", "orange");
-            return false;
-            }
-        if (validate_email(referral_email_address) === false)
-            {
-            referral_email_error("Invalid email address", "orange");
-            return false;
-            }
-
-        api({
-            method: "SendReferral",
-            args: {
-                referrer: referrer,
-                email_address: referral_email_address,
-                referral_program: "1"
-            }
-        }, function()
-            {
-            id("referral_email_address").value = "";
-            referral_email_error("Invitation sent!", "rgb(0,255,106)");
-            });
-
-        return false;
-        }
-
-//--------------------------------------------------------------------------------------------------
-
     // INIT FUNCTION
 
     function init()
         {
-        id("referrer").value = session.username;
-        
         populate_account_data();
         transaction_report();
         
