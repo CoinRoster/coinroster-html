@@ -28,7 +28,6 @@
 
     a, a:visited, a:hover, a:active {
         outline: none;
-        color: inherit;
     }
     
     .lucida {
@@ -68,9 +67,9 @@
     }
     
     .link, .inline_link {
-        color:rgb(129,243,217);
-        cursor:pointer;
-        text-decoration:none;
+        color: rgb(129,243,217);
+        cursor: pointer;
+        text-decoration: none;
     }
     .link {
         font-size:14px;

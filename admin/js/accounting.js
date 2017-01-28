@@ -24,11 +24,7 @@
     
     number_of_users,
     user_report_array = [],
-    
-    internal_btc_liability_id = "",
-    internal_btc_asset_id = "",
-    internal_rc_liability_id = "",
-    
+
     user_report_sort_selector = id("user_report_sort_selector"),
     simple_user_report_checkbox = id("simple_user_report_checkbox"),
     exclude_internals_checkbox = id("exclude_internals_checkbox"); 
@@ -77,14 +73,7 @@
             newsletter_flag = user_item.newsletter_flag,
             referral_program = user_item.referral_program,
             referrer_username = user_item.referrer_username;
-    
-            if (user_level === 2)
-                {
-                if (username === "internal_btc_liability") internal_btc_liability_key = user_id;
-                else if (username === "internal_btc_asset") internal_btc_asset_key = user_id;
-                else if (username === "internal_rc_liability") internal_rc_liability_key = user_id;
-                }
-    
+        
             if (email_address === "") 
                 {
                 email_address = "";
@@ -407,7 +396,8 @@
                 to_currency = transaction_item.to_currency,
                 memo = transaction_item.memo,
                 pending_flag = transaction_item.pending_flag,
-                contest_id = transaction_item.contest_id;
+                contest_id = transaction_item.contest_id,
+                cancelled_flag = transaction_item.cancelled_flag;
 
                 if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
                 if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
@@ -426,7 +416,10 @@
                     from_account = get_username_for_id(from_account);
                     to_account = get_username_for_id(to_account);
                     
-                    var pending = pending_flag === "1" ? "YES" : "";
+                    var 
+                    
+                    pending = pending_flag === "1" ? "YES" : "",
+                    cancelled = cancelled_flag === 1 ? "YES" : "";
 
                     var row = new_row(table, row_count++, [
                         transaction_id,
@@ -441,7 +434,8 @@
                         from_currency,
                         to_currency,
                         memo,
-                        pending
+                        pending,
+                        cancelled
                     ]);
                     
                     row[1].style.textAlign = "right";
@@ -466,7 +460,8 @@
                 "From Currency",
                 "To Currency",
                 "Memo",
-                "Pending"
+                "Pending",
+                "Cancelled"
             ]);
             // style headers:
 
@@ -790,7 +785,7 @@
                     "Amount",
                     "Currency",
                     "Send to",
-                    "Action"
+                    "Actions"
                 ]);
                 // style headers:
 
@@ -850,11 +845,17 @@
                         amount,
                         to_currency,
                         ext_address,
-                        "<button onclick=\"populate_pending_deposit(" + transaction_id + "," + amount + ",'" + user_id + "')\">Complete deposit</button>"
+                        "<button onclick=\"populate_pending_deposit(" + transaction_id + "," + amount + ",'" + user_id + "')\">Complete deposit</button>" + 
+                        "&nbsp;" +
+                        "<button onclick=\"cancel_pending_deposit(" + transaction_id + ")\">Canel transaction</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
                     row[6].style.textAlign = "right";
+                    
+                    // highlight if older than 30 days:
+                    
+                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
                     }
                 
                 var header = new_row(table, 0, [
@@ -907,7 +908,7 @@
         id("pending_deposit_username").innerHTML = get_username_for_id(user_id);
         id("pending_deposit_user_id").innerHTML = user_id;
         id("pending_deposit_intended_amount").innerHTML = toBTC(amount);
-        id("pending_deposit_memo").innerHTML = "Completed pending deposit #" + transaction_id;
+        id("pending_deposit_memo").innerHTML = "Completed pending deposit (Trans #" + transaction_id + ")";
         show("pending_deposit_window");
         }
         
@@ -943,6 +944,27 @@
         else alert("Error: " + call.error);
         }
         
+    function cancel_pending_deposit(transaction_id)
+        {
+        var do_cancel = confirm("Are you sure you want to cancel pending deposit #" + transaction_id + "?");
+        if (do_cancel)
+            {
+            api({ 
+                method: "CancelPendingDeposit", 
+                args: {
+                    transaction_id: transaction_id
+                } 
+            }, function(call)
+                {
+                if (call.status === "1") 
+                    {
+                    alert("Transaction cancelled! Reloading panel.")
+                    location.reload();
+                    }
+                else alert(call.error);
+                });
+            }
+        }
 /*----------------------------------------------------------------------*/
 
     // Passwords

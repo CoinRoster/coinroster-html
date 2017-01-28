@@ -102,6 +102,13 @@
         password = id("password").value;
         //confirm_password = id("confirm_password").value
 
+        if (username === "")
+            {
+            set_auth_message("username_label", "Enter a username", "orange");
+            set_focus("username");
+            return false;
+            }
+            
         if (referral_key === "")
             {
             email_address = id("email_address").value;
@@ -113,12 +120,6 @@
                 }
             }
 
-        if (username === "")
-            {
-            set_auth_message("username_label", "Enter a username", "orange");
-            set_focus("username");
-            return false;
-            }
         if (password === "")
             {
             set_auth_message("password_label", "Enter a password", "orange");

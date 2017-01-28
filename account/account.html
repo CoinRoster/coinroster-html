@@ -13,7 +13,7 @@
     <div id="body_container">
         
         <div id="page_title">
-            My Account 
+            My Account
         </div>
         
         <div style="margin-bottom:40px;">
@@ -23,7 +23,7 @@
                         <table class="balance_table">
                             <tr>
                                 <td id="btc_balance" class="balance_field">
-                                    
+                                    <!-- POPULATED BY JAVASCRIPT -->
                                 </td>
                                 <td style="padding-right:0">
                                     BTC
@@ -31,7 +31,7 @@
                             </tr>
                             <tr>
                                 <td id="rc_balance" class="balance_field" style="padding-bottom:24px">
-                                    
+                                    <!-- POPULATED BY JAVASCRIPT -->
                                 </td>
                                 <td style="padding-right:0;padding-bottom:24px">
                                     RC
@@ -426,7 +426,7 @@
                         amount = transaction_item.amount,
                         from_currency = transaction_item.from_currency,
                         memo = transaction_item.memo,
-                        memo_link = "<a class=\"inline_link\">Memo</a>",
+                        memo_link = "<a class=\"memo_link teal\">Memo</a>",
                         pending_flag = transaction_item.pending_flag,
 
                         created_date = dateconv_ms_to_string(created),
@@ -716,6 +716,8 @@
 
     function init()
         {
+        //id("page_title").innerHTML = "Welcome, " + window.session.username;
+        
         populate_account_data();
         transaction_report();
         
@@ -767,6 +769,16 @@
                 subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
                 }
             })(document.getElementsByClassName("hidden_subwindow"));
+            
+        var hash = location.hash.slice(1);
+        switch(hash)
+            {
+            case "add_wallet" :
+                id("add_ext_address_subwindow_toggle").click();
+                break;
+            default :
+                // do nothing
+            }
         }
         
 </script>
