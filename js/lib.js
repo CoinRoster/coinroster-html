@@ -214,6 +214,11 @@
         if (typeof selector === "string") selector = id(selector);
         return selector.options[selector.selectedIndex].innerHTML;
         }
+        
+    function toCode(value)
+        {
+        return value.replace(/[^a-z0-9]/gi, '').toUpperCase();
+        }
 
     function toCurrency(num)
         {

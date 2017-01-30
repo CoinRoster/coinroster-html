@@ -1,4 +1,19 @@
-    html,body {
+    @font-face {
+        font-family: gotham_medium;
+        src: url(../fonts/Gotham/Gotham-Medium.otf);
+    }
+    
+    @font-face {
+        font-family: 'logo_font';
+        src: url('../fonts/Hemi-Head/hemi-head.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'ubuntu_fantasy';
+        src: url('../fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('truetype');
+    }
+
+    html, body {
         margin:0;
         padding:0;
     }
@@ -222,4 +237,53 @@
 
     .grey_cell {
         color: rgb(120,120,120);
+    }
+        
+    /*------------------------------------------------------------*/
+
+    /* styling for tile preview in game.html/Create Sub-Category */
+    
+    #tile_preview_container {
+        background: url('../img/greybg.png') repeat;
+        width: 600px;
+        height: 400px;
+        position: relative;
+    }
+    
+    .teal {
+        color: rgb(129,243,217) !important;
+    }
+    
+    .sub_category_item {
+        position: absolute;
+        left: 189px;
+        top: 100px;
+        cursor: pointer;
+    }
+    
+    .sub_category_item:hover .sub_category_tile {
+        border: 1px solid white;
+    }
+    
+    .sub_category_tile {
+        width: 220px;
+        height: 150px;
+        background: rgb(74,78,82);
+        border: 1px solid rgb(44,46,48);
+    }
+    
+    .sub_category_details {
+        width: 220px;
+        text-align: center;
+        font-family: 'gotham_medium', sans-serif;
+    }
+    
+    .sub_category_title {
+        padding: 10px 0;
+        font-size: 16px;
+    }
+    
+    .sub_category_open_contests {
+        color: rgb(210,210,210);
+        font-size: 13px;
     }

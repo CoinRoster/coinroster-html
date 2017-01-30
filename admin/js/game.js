@@ -6,7 +6,16 @@
             case 0: /* Create Contest */
                 contest_report();
                 break;
-            case 1: /* Create Contest */
+            case 1: /* Manage Categories */
+                populate_category_report();
+                break;
+            case 2: /* Create Category */
+                // nothing to do
+                break;
+            case 3: /* Create Sub-Category */
+                populate_category_selector("create_sub_category__category_selector");
+                break;
+            case 4: /* Create Contest */
                 initialize_registration_deadline();
                 break;
             }
@@ -79,8 +88,6 @@
                 number_of_entries,
                 total_value + " BTC"
             ]);
-            
-            
             }
             
         populate_contest_report_table();
@@ -216,7 +223,189 @@
         
         right_align(header, right_align_array);
         }
+          
+/*----------------------------------------------------------------------*/
+
+    // Category report
     
+    function get_category_report()
+        {
+        var call = api({
+            method: "CategoryReport",
+            args: {}
+        });
+        
+        if (call.status === "1") return call.category_report;
+        else return null;
+        }
+    
+    function populate_category_report()
+        {
+        var categories = get_category_report();
+        
+        for (var i=0; i<categories.length; i++)
+            {
+            var category = categories[i];
+            alert(category.code + " - " + category.description);
+            }
+        }
+        
+    function populate_category_selector(selector_id)
+        {
+        var 
+        
+        selector = id(selector_id),
+        categories = get_category_report();
+        
+        for (var i=0; i<categories.length; i++)
+            {
+            var 
+
+            category = categories[i],
+
+            code = category.code,
+            description = category.description;
+
+            var option = document.createElement("option");
+            option.value = code;
+            option.innerHTML = "[" + code + "] " + description;
+            selector.appendChild(option);
+            }
+            
+        $(selector).trigger("chosen:updated");
+        }
+          
+/*----------------------------------------------------------------------*/
+
+    // Create category
+    
+    var create_category_code_input = id("create_category_code_input");
+    
+    create_category_code_input.onblur = function()
+        {
+        create_category_code_input.value = toCode(create_category_code_input.value)
+        }
+    
+    function create_category()
+        {
+        var 
+        
+        code = id("create_category_code_input").value,
+        description = id("create_category_description_input").value,
+        active_flag = +selectorValue("create_category_active_flag_selector");
+
+        if (code === "") return alert("Enter a code");
+        if (description === "") return alert("Enter a description");
+
+        api({
+            method: "CreateCategory",
+            args: {
+                code: code,
+                description: description,
+                active_flag: active_flag
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                alert("Category created! Reloading panel.");
+                location.reload();
+                }
+            else alert(call.error);
+            });
+        }
+        
+    var create_sub_category_code_input = id("create_sub_category_code_input");
+    
+    create_sub_category_code_input.onblur = function()
+        {
+        create_sub_category_code_input.value = toCode(create_sub_category_code_input.value)
+        }
+        
+    id("create_sub_category_description_input").onblur = function()
+        {
+        var description = id("create_sub_category_description_input").value;
+        if (description === "") description = "--";
+        document.getElementsByClassName("sub_category_title")[0].innerHTML = description;
+        };
+        
+    id("create_sub_category_tile_image").addEventListener('change', function()
+        {
+        upload_file(this, "new_portfolio_item_image_preview", "image preview");
+        }, false);
+        
+    function upload_file(input, preview_id, instructions)
+        {
+        var reader = new FileReader();
+        reader.onloadend = function(e)
+            {
+            var
+            
+            file_name = e.target.file_name,
+            file_data = this.result,
+            byte_size = file_data.byteLength,
+            file_data_base64 = arraybuffer_to_base64(file_data, byte_size);
+                
+            var css = ".sub_category_tile { background-position: center;background-repeat: no-repeat;background-size: cover; background-image: url('data:image/png;base64," + file_data_base64 + "'); }",
+            head = document.head || document.getElementsByTagName('head')[0],
+            style = document.createElement('style');
+
+            style.type = 'text/css';
+            if (style.styleSheet){
+              style.styleSheet.cssText = css;
+            } else {
+              style.appendChild(document.createTextNode(css));
+            }
+
+            head.appendChild(style);
+    
+            /*id(preview_id).innerHTML += "Uploading...";
+
+            var call = api({
+                method: "file_upload", 
+                args: {
+                    file_name: file_name,
+                    file_data_base64: file_data_base64
+                } 
+            }, true);
+            
+            if (call.status === "1")
+                {
+                if (instructions === "image preview") id(preview_id).innerHTML="<img src='" + domain + call.file_path + "' />";
+                else if (instructions === "append preview")
+                    {
+                    id(preview_id).innerHTML = "";
+                    
+                    var 
+                    
+                    image_link = domain + call.file_path,
+                    image_upload_table = id("image_upload_table");
+            
+                    new_row(image_upload_table, 0, [
+                        "<img class='image_preview' src='" + image_link + "' />",
+                        "<input value='" + image_link + "' style='width:600px'/>"
+                    ]);
+                    }
+                else id(preview_id).innerHTML = "<a href='" + domain + call.file_path + "'>" + file_name + "</a>";
+                id(preview_id).file_path = call.file_path;
+                }*/
+            };
+        reader.file_name = input.files[0].name;
+        reader.readAsArrayBuffer(input.files[0]);
+        }
+        
+    function arraybuffer_to_base64(buffer, byte_size) 
+        {
+        var 
+        
+        binary = '',
+        bytes = new Uint8Array(buffer);
+
+        for (var i=0; i<byte_size; i++) binary += String.fromCharCode(bytes[i]);
+        
+        return window.btoa(binary);
+        }
+        
 /*----------------------------------------------------------------------*/
 
     // Initialize registration deadline calendar
@@ -692,4 +881,4 @@
             }
         else alert("Error: " + call.error);
         }
-    
+      
