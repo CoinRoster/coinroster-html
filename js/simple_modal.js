@@ -42,6 +42,7 @@
         if (good_bad === "good") border_color = cr_teal;
         else if (good_bad === "bad") border_color = "orange";
         id("simple_modal_window").style.borderColor = border_color;
+        id("simple_modal_centering_container").style.top = window.pageYOffset + "px";
         
         if (callback !== null)
             {
@@ -68,4 +69,3 @@
             }
         simple_modal_open = false;
         }
-     

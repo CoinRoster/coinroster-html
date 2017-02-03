@@ -270,6 +270,9 @@
         height: 150px;
         background: rgb(74,78,82);
         border: 1px solid rgb(44,46,48);
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:cover;
     }
     
     .sub_category_details {
@@ -278,12 +281,12 @@
         font-family: 'gotham_medium', sans-serif;
     }
     
-    .sub_category_title {
+    .sub_category_description {
         padding: 10px 0;
         font-size: 16px;
     }
     
-    .sub_category_open_contests {
+    .sub_category_detail {
         color: rgb(210,210,210);
         font-size: 13px;
     }

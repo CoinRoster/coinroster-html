@@ -23,7 +23,14 @@
             {
             if (call.status === "1") 
                 {
-                location = "/";
+                var hash = location.hash.slice(1);
+                if (hash.indexOf("redirect") !== -1)
+                    {
+                    var target = hash.split("=")[1];
+                    if (typeof target !== "undefined") return window.location = decodeURIComponent(target);
+                    }
+                // fail over to:
+                window.location = "/";
                 }
             else
                 {
@@ -246,3 +253,21 @@
         return false;
         }
 
+    function resend_verification(new_location)
+        {
+        api({
+            method: "SendEmailVerification",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var action = null;
+                if (new_location !== "") action = function()
+                    {
+                    window.location = new_location;
+                    };
+                show_simple_modal("Verification has been sent!", "good", action);
+                }
+            });
+        }

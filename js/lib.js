@@ -215,6 +215,21 @@
         return selector.options[selector.selectedIndex].innerHTML;
         }
         
+    function selectByHTML(selector, match)
+        {
+        if (typeof selector === "string") selector = id(selector);
+        var options = selector.options;
+        for (var i=0; i<options.length; i++)
+            {
+            if (options[i].innerHTML == match)
+                {
+                selector.selectedIndex = i;
+                return true;
+                }
+            }
+        return false;
+        }
+
     function toCode(value)
         {
         return value.replace(/[^a-z0-9]/gi, '').toUpperCase();
@@ -282,6 +297,11 @@
             }
         
         return (is_negative ? "-" : "") + (+output_value).toFixed(8);
+        }
+        
+    function toBTC_trimmed(value)
+        {
+        return (+toBTC(value)).toString();
         }
     
     function commas(x) 

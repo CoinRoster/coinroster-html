@@ -32,11 +32,11 @@
                     a third party.
                 </div>
                 <br/>
-                <button type="submit" class="text_button auto_width" style="text-align:center" onclick="resend_verification();">
+                <button type="submit" class="text_button auto_width" style="text-align:center" onclick="resend_verification('/');">
                     Re-send email verification to
                     <br/>
                     <br/>
-                    <div id="email_on_file" class="teal">email@something.com</div>
+                    <div id="email_on_file" class="teal"></div>
                 </button>
             </div>
         </td>
@@ -56,22 +56,6 @@
             });
         })();
         
-    function resend_verification()
-        {
-        api({
-            method: "SendEmailVerification",
-            args: {}
-        }, function(call)
-            {
-            if (call.status === "1")
-                {
-                show_simple_modal("Verification has been sent!", "good", function()
-                    {
-                    location = "/";
-                    });
-                }
-            });
-        }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>

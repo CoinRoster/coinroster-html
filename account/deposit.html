@@ -11,24 +11,19 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
+        <br/>
+        <hr noshade size="1"/>
+        <h3 class="section_header">Deposit BTC</h3>
         <div id="initial_container">
-            <div id="page_title">
-                Deposit BTC
-            </div>
             <div class="input_padding description_text">
                 Please use the form below to tell us how much you intend to deposit.
                 <br/>
                 <br/>
                 We will credit your account within 24 hours of receiving the funds.
-            </div>
-            <br/>
-            <span class="orange">
-                Transfer instructions
-            </span>
-            <br/>
-            <br/>
-            <div class="input_padding description_text">
-                Please transfer funds from your connected wallet:
+                <br/>
+                <br/>
+                <br/>
+                Transfer funds from your connected wallet:
                 <br/>
                 <br/>
                 <span id="user_ext_address" class="teal"></span>
@@ -47,7 +42,7 @@
             <br/>
             <div class="input_padding description_text">
                 <form onsubmit="return submit_pending_deposit();">
-                    <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="light_on_dark_input teal" style="width:160px" autocorrect="off" autocapitalize="off" spellcheck="false">
                     <div class="add_left_margin" style="display:inline-block">
                         BTC
                     </div>
@@ -58,11 +53,7 @@
             </div>
         </div>
         <div id="confirmation_container" style="display:none">
-            <div id="page_title">
-                Deposit BTC
-            </div>
-            <br/>
-            <span class="orange">
+            <span class="input_padding description_text orange">
                 Please initiate a deposit from your wallet
                 <br/>
                 <br/>

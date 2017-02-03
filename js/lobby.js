@@ -1,6 +1,6 @@
-function bind_payout_window(element, settlement_type, pay_table, entries_per_user)
+function bind_payout_window(element, settlement_type, pay_table)
     {
-    element.onclick = (function(settlement_type, raw_pay_table, entries_per_user)
+    element.onclick = (function(settlement_type, raw_pay_table)
         {
         return function()
             {
@@ -34,8 +34,22 @@ function bind_payout_window(element, settlement_type, pay_table, entries_per_use
                     payout_info += "</table>";
                     payout_info += "</div>";
                     break;
+                case "PARI-MUTUEL" :
+                    payout_info += "This is a pari-mutuel pool. The entire pot will be distributed pro-rata to those who choose the correct option.";
+                    break;
                 }
             show_simple_modal(payout_info, "good", null);
-            }
-        })(settlement_type, pay_table, entries_per_user);
+            };
+        })(settlement_type, pay_table);
+    }
+    
+function settlement_type_string(settlement_type)
+    {
+    switch (settlement_type)
+        {
+        case "JACKPOT" : return "Jackpot";
+        case "HEADS-UP" : return "Heads up";
+        case "DOUBLE-UP" : return "Double-up";
+        case "PARI-MUTUEL" : return "Pari-mutuel";
+        }
     }

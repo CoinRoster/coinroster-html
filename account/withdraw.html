@@ -13,9 +13,7 @@
         <td>
             <div id="initial_container">
                 <div class="vertical_spacing">
-                    <h1>
-                        Withdraw BTC
-                    </h1>
+                    <h2 class="section_header" style="padding:0">Withdraw BTC</h2>
                     <br/>
                     <br/>
                     Your available balance is:
@@ -27,7 +25,7 @@
                 <div>
                     <form onsubmit="return go_to_review();">
                         <div class="input_padding">
-                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="light_on_dark_input teal" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC
                         </div>
                         <button class="text_button" type="submit">Continue</button>
                     </form>
@@ -35,9 +33,7 @@
             </div>
             <div id="review_container" style="display:none">
                 <div class="vertical_spacing">
-                    <h1>
-                        Review
-                    </h1>
+                    <h2 class="section_header" style="padding:0">Review</h2>
                     <br/>
                     <br/>
                     Amount to withdraw:
@@ -47,21 +43,19 @@
                     <h2 id="review_amount_to_withdraw" class="lucida"></h2>
                     <br/>
                     <br/>
-                    To:<span class="link" onclick="show_ext_address();">connected wallet</span>
+                    To:&nbsp;&nbsp;&nbsp;<span class="inline_link" onclick="show_ext_address();">connected wallet</span>
                     <br/>
                     <br/>
                 </div>
                 <div>
                     <form onsubmit="return go_to_confirm();">
-                        <button id="submit_withdrawal_button" class="text_button" type="submit">Submit withdrawal</button>
+                        <button id="submit_withdrawal_button" class="text_button auto_width" type="submit">Submit withdrawal</button>
                     </form>
                 </div>
             </div>
             <div id="confirmation_container" style="display:none">
                 <div class="vertical_spacing">
-                    <h1>
-                        Confirmation
-                    </h1>
+                    <h2 class="section_header" style="padding:0">Confirmation</h2>
                     <br/>
                     <br/>
                     <span style="color:orange">

@@ -31,15 +31,13 @@
 
                 if (target === "") target = url[url.length - 2];
                 }
-
-            tab_id = "ssi_header_" + target;
-
-            if (id(tab_id) !== null) 
+                
+            if (pathname.indexOf("/admin/") !== 0) 
                 {
-                id(tab_id).className = "ssi_header_active_tab";
-                id(tab_id).onclick = "";
+                tab_id = "ssi_header_" + target;
+                if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
                 }
-                    
+                
             init();
             }
         });

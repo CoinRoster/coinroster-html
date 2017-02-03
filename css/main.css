@@ -65,6 +65,12 @@
         padding:0;
         padding-top:2px;
     }
+        
+    .section_header {
+        padding: 5px 0;
+        font-family: 'ubuntu_fantasy', sans-serif;
+        font-weight: normal;
+    }
     
     .link, .inline_link {
         color: rgb(129,243,217);
@@ -131,6 +137,9 @@
     .orange {
         color: orange !important;
     }
+    .orange_border {
+        border-color: orange !important;
+    }
     
     .blue {
         /*color: rgb(139,215,255) !important;*/
@@ -149,11 +158,28 @@
         color: white !important;
     }
     
+    .light_on_dark_input::-webkit-input-placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+    .light_on_dark_input:-ms-input-placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+    .light_on_dark_input::-moz-placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+    .light_on_dark_input:-moz-placeholder {
+        color: white;
+        opacity: 0.5;
+    }
+    
     .vertical_spacing {
         padding:28px 0 20px;
     }
 
-    .input_style, .text_button {
+    .input_style, .light_on_dark_input, .text_button {
         font-family: 'gotham_medium', sans-serif;
         font-size:14px;
         border-radius:8px;
@@ -165,6 +191,16 @@
         outline:0;
         cursor:auto;
         width:200px;
+    }
+    
+    .light_on_dark_input {
+        background: none;
+        color: white;
+        border-radius: 0;
+        border: none;
+        padding: 6px 2px;
+        border-bottom: 1px solid grey;
+        outline:0;
     }
     
     .input_label {
@@ -191,6 +227,10 @@
         width:auto !important;
     }
     
+    .hidden {
+        display:none;
+    }
+    
     .a_button {
         width:198px !important; /* text_button width - text_button padding-right, paddingileft - 2 for borders */
     }
@@ -212,6 +252,13 @@
     input:-webkit-autofill:focus,
     input:-webkit-autofill:active {
         transition: background-color 5000s ease-in-out 0s;
+    }
+    
+    .account_creation_message {
+        margin-top: 17px;
+        border: 1px solid orange;
+        padding: 20px;
+        font-size: 15px;
     }
     
     /* protected pages */

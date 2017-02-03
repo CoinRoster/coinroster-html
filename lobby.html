@@ -16,29 +16,170 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
-        <div id="page_title">
-            Lobby
-        </div>
-        <div class="contest_category_title">
-            Daily Fantasy Sports / Golf
-        </div>
-        <hr noshade>
-        <table id="dfs_golf_table" class="contest_table"></table>
-        <div class="contest_category_title">
-            Pari-mutuel Pools
-        </div>
-        <hr noshade>
+        <!-- POPULATED BY JAVASCRIPT -->
     </div>
 </div>
-<script>
+<script type="text/javascript">
+    
+    var body_container = id("body_container");
+    
+    window.onhashchange = function()
+        {
+        trigger_hash_action();
+        };
 
     function init()
         {
-        api({ 
-            method: "ContestReport", 
-            args: {} 
+        if (location.hash.indexOf("#") !== -1) return trigger_hash_action();
+        
+        id("ssi_header_lobby").className = "ssi_header_active_tab";
+        
+        api({
+            method: "CategoryReport",
+            args: {
+                request_source: "lobby"
+            }
         }, function(call)
             {
+            var category_report = call.category_report;
+
+            body_container.innerHTML = "<br/>";
+
+            for (var i=0; i<category_report.length; i++)
+                {
+                var hr = document.createElement("hr");
+                hr.size = 1;
+                hr.noShade = true;
+                body_container.appendChild(hr);
+                    
+                var category = category_report[i],
+
+                category_code = category.code,
+                description = category.description,
+                position = category.position,
+                sub_categories = category.sub_categories,
+                number_of_sub_categories = sub_categories.length;
+
+                var heading = document.createElement("h3");
+                heading.className = "section_header";
+                heading.innerHTML = description;
+                body_container.appendChild(heading);
+                
+                if (number_of_sub_categories > 0)
+                    {
+                    for (var j=0; j<number_of_sub_categories; j++)
+                        {
+                        var sub_category = sub_categories[j],
+
+                        sub_category_code = sub_category.code,
+                        
+                        open_contests = sub_category.open_contests,
+                        in_play_contests = sub_category.in_play_contests,
+                        
+                        modulus = j%4,
+                        
+                        margin_class = "",
+                        open_contests_color = "";
+                
+                        if (modulus !== 3) margin_class = " sub_category_add_margin";
+                
+                        if (open_contests > 0) open_contests_color = " orange";
+                        
+                        if (open_contests === 1) open_contests = "1 open contest";
+                        else open_contests += " open contests";
+                        
+                        if (in_play_contests === 0) in_play_contests = "";
+                        else in_play_contests = in_play_contests + " in play";
+                
+                        var sub_category_item = document.createElement("a");
+                        sub_category_item.className = "sub_category_item" + margin_class;
+                        sub_category_item.href = "/lobby.html#category=" + category_code + "&sub_category=" + sub_category_code;
+                        
+                        var sub_category_tile = document.createElement("div");
+                        sub_category_tile.className = "sub_category_tile";
+                        sub_category_tile.setAttribute("style", "background-image:url('/img/lobby_tiles/" + sub_category.image_name + "')");
+                        sub_category_item.appendChild(sub_category_tile);
+                        
+                        var sub_category_details = document.createElement("div");
+                        sub_category_details.className = "sub_category_details";
+                        sub_category_item.appendChild(sub_category_details);
+                        
+                        var sub_category_description = document.createElement("div");
+                        sub_category_description.className = "sub_category_description";
+                        sub_category_description.innerHTML = sub_category.description;
+                        sub_category_details.appendChild(sub_category_description);
+                        
+                        var sub_category_open_contests = document.createElement("div");
+                        sub_category_open_contests.className = "sub_category_detail" + open_contests_color;
+                        sub_category_open_contests.innerHTML = open_contests;
+                        sub_category_details.appendChild(sub_category_open_contests);
+                        
+                        var sub_category_in_play = document.createElement("div");
+                        sub_category_in_play.className = "sub_category_detail small_text";
+                        sub_category_in_play.innerHTML =  in_play_contests;
+                        sub_category_details.appendChild(sub_category_in_play);
+                        
+                        /*sub_category_item.onclick = (function(category_code, sub_category_code)
+                            {
+                            return function()
+                                {
+                                location.hash = "category=" + category_code + "&sub_category=" + sub_category_code;
+                                };
+                            })(category_code, sub_category_code);*/
+                        
+                        body_container.appendChild(sub_category_item);
+                        }
+                    }
+                else body_container.appendChild(document.createTextNode("No sub-categories"));
+                }
+            });
+        }
+        
+    function trigger_hash_action()
+        {
+        if (location.hash.indexOf("#") === -1) init();
+        else hash_action(location.hash.slice(1));
+        }
+        
+    function hash_action(hash)
+        {
+        var 
+
+        hash_args = hash.split("&"),
+        category = hash_args[0].split("=")[1],
+        sub_category = hash_args[1].split("=")[1];
+
+        id("ssi_header_lobby").className = "ssi_header_a";
+        
+        body_container.innerHTML = "<br/>";
+        
+        var hr = document.createElement("hr");
+        hr.size = 1;
+        hr.noShade = true;
+        body_container.appendChild(hr);
+        
+        api({ 
+            method: "ContestReport", 
+            args: {
+                category: category,
+                sub_category: sub_category
+            } 
+        }, function(call)
+            {
+            var
+            
+            category_description = call.category_description,
+            sub_category_description = call.sub_category_description;
+                   
+            var heading = document.createElement("h3");
+            heading.className = "section_header";
+            heading.innerHTML = category_description + "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + sub_category_description;
+            body_container.appendChild(heading);
+
+            var table = document.createElement("table");
+            table.className = "contest_table";
+            body_container.appendChild(table);
+        
             var 
             
             contest_report = call.contest_report,
@@ -47,17 +188,17 @@
     
             if (number_of_contests === 0)
                 {
-                var row = new_row(id("dfs_golf_table"), -1, [
+                var row = new_row(table, -1, [
                     "No open contests. Please check back soon."
                 ]);
                 row[1].style.textAlign = "left";
                 }
             else
                 {
-                var header = new_row(id("dfs_golf_table"), -1, [
+                var header = new_row(table, -1, [
                     "Contest",
                     "Game type",
-                    "Entry fee",
+                    "Min entry",
                     "Entries",
                     "Prize pool",
                     "Live at",
@@ -75,108 +216,87 @@
                     
                 header[1].style.textAlign = "left";
                 header[2].style.textAlign = "left";
+                
+                var last_status = 0;
 
                 for (var i=0; i<number_of_contests; i++)
                     {
                     var contest_item = contest_report[i],
 
                     contest_id = contest_item.id,
-                    created = contest_item.created,
-
-                    category = contest_item.category,
-                    sub_category = contest_item.sub_category,
-                    category_string = category.toLowerCase(),
-                    sub_category_string = category.toLowerCase() + "_" + sub_category.toLowerCase(),
-                    table_id = sub_category_string + "_table",
-                    table = id(table_id),
+                    contest_type = contest_item.contest_type,
 
                     title = contest_item.title,
-                    description = contest_item.description,
                     settlement_type = contest_item.settlement_type,
                     pay_table = contest_item.pay_table,
-                    odds_table = contest_item.odds_table,
-                    salary_cap = contest_item.salary_cap,
                     cost_per_entry = contest_item.cost_per_entry,
-                    min_users = contest_item.min_users,
-                    max_users = contest_item.max_users,
-                    entries_per_user = contest_item.entries_per_user,
-                    roster_size = contest_item.roster_size,
                     
-                    number_of_entries = contest_item.number_of_entries,
-                    value = Number(toBTC(number_of_entries * cost_per_entry)),
+                    total_prize_pool = contest_item.total_prize_pool,
+                    number_of_entries = total_prize_pool / cost_per_entry,
                     
                     registration_deadline = contest_item.registration_deadline,
                     registration_deadline_date = dateconv_ms_to_string(registration_deadline),
                     registration_deadline_time = dateconv_ms_to_time(registration_deadline),
-                    registration_deadline_string = registration_deadline_date + "<br/>" + registration_deadline_time,
+                    registration_deadline_string = "<div style=\"white-space:nowrap\">" + registration_deadline_date + "</div>" + registration_deadline_time,
                     
                     status = contest_item.status,
                     status_string,
-                    
                     button_string,
-                    
-                    show_contest = false;
+                    button_class;
             
                     switch (status)
                         {
                         case 1:
-                            show_contest = true;
                             button_string = "Enter";
                             status_string = "Reg open";
+                            button_class = "orange orange_border";
                             break;
                         case 2:
-                            show_contest = true;
                             button_string = "View";
                             status_string = "In play";
                             registration_deadline_string = "In play";
+                            button_class = "";
+                            //continue;
                             break;
-                        /*case 3:
-                            status_string = "Settled";
-                            break;
-                        case 4:
-                            status_string = "Under-subscribed";
-                            break;
-                        case 5:
-                            status_string = "Cancelled";
-                            break;*/
                         }
                         
-                    if (show_contest)
+                    if (status !== last_status)
                         {
-                        var row = new_row(table, -1, [
-                            title,
-                            settlement_type + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>",
-                            cost_per_entry + " BTC",
-                            number_of_entries,
-                            value + " BTC",
-                            registration_deadline_string,
-                            "<button class=\"text_button\" style=\"width:auto\" onclick=\"redirect_to_contest('" + category_string + "'," + contest_id + ",'" + button_string + "')\">" + button_string + "</button>"
-                        ]);
-                        
-                        row[1].onclick = (function(category_string, contest_id, button_string)
-                            {
-                            return function()
-                                {
-                                redirect_to_contest(category_string, contest_id, button_string);
-                                }
-                            })(category_string, contest_id, button_string);
-                        row[1].style.textAlign = "left";
-                        row[2].style.textAlign = "left";
-                            
-                        bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table, entries_per_user);
+                        // will fire when status changes as rows are looped through
+                        // to make this only fire on the change to 'in play', initialize last_status = 1
                         }
+                        
+                    var game_type = settlement_type_string(settlement_type) + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>";
+                        
+                    var row = new_row(table, -1, [
+                        title,
+                        game_type,
+                        cost_per_entry + " BTC",
+                        number_of_entries,
+                        total_prize_pool + " BTC",
+                        registration_deadline_string,
+                        "<button class=\"text_button " + button_class + "\" style=\"width:auto\" onclick=\"redirect_to_contest(" + contest_id + ")\">" + button_string + "</button>"
+                    ]);
+
+                    row[1].onclick = (function(contest_id)
+                        {
+                        return function()
+                            {
+                            redirect_to_contest(contest_id);
+                            }
+                        })(contest_id);
+                    row[1].style.textAlign = "left";
+                    row[2].style.textAlign = "left";
+
+                    bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
                     }
                 }
             });
         }
-        
-    function redirect_to_contest(category_string, contest_id, button_string)
+
+    function redirect_to_contest(contest_id)
         {
-        if (typeof window.session !== "undefined") location = "lobby/" + category_string + ".html?id=" + contest_id;
-        else show_simple_modal("You must log in to " + button_string.toLowerCase() + " this contest", "good", function()
-            {
-            location = "login.html";
-            });
+        location = "/contest.html?id=" + contest_id;
         }
         
 </script>

@@ -234,9 +234,14 @@ function f_tcalOnClick ()
 
     // get position of input
     f_tcalAddClass(this, s_activeClass);
+    
+    var viewportOffset = this.getBoundingClientRect();
+    // these are relative to the viewport, i.e. the window
+    var top = viewportOffset.top + 32;
+    var left = viewportOffset.left;
 
-    var n_left = f_getPosition (this, 'Left'),
-        n_top  = f_getPosition (this, 'Top') + this.offsetHeight;
+    var n_left = left,
+        n_top  = top;
 
     var e_cal = document.getElementById(s_pfx);
     if (!e_cal) 
