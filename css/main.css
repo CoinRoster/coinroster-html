@@ -175,6 +175,10 @@
         opacity: 0.5;
     }
     
+    .right_align {
+        text-align: right;
+    }
+    
     .vertical_spacing {
         padding:28px 0 20px;
     }

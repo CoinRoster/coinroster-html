@@ -1,23 +1,35 @@
-    (function()
+    function bind_btc_input(element, callback)
         {
-        var btc_inputs = get_inputs_with_attribute("btc-input");
-
         function input_toBTC()
             {
             var btc_value = toBTC(this.value);
             if (+btc_value === 0) btc_value = "";
             this.value = btc_value;
+            if (callback !== null) callback(this);
             }
-
-        for (var i=0; i<btc_inputs.length; i++)
+        if (window.addEventListener) 
             {
-            if (window.addEventListener) 
-                {
-                btc_inputs[i].addEventListener('change', input_toBTC, false); 
-                } 
-            else if (window.attachEvent)  
-                {
-                btc_inputs[i].attachEvent('onchange', input_toBTC);
-                }
+            element.removeEventListener('change', input_toBTC);
+            element.addEventListener('change', input_toBTC, false); 
+            } 
+        else if (window.attachEvent)  
+            {
+            element.detachEvent('onchange', input_toBTC);
+            element.attachEvent('onchange', input_toBTC);
             }
+        }
+    
+    (function()
+        {
+        var btc_inputs = get_inputs_with_attribute("btc-input");
+        for (var i=0; i<btc_inputs.length; i++) bind_btc_input(btc_inputs[i], null);
         })();
+
+    /* usage:
+    
+        bind_btc_input(element, function(input)
+            {
+            do_something_else_to(input);
+            });
+    
+    */

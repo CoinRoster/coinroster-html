@@ -279,7 +279,8 @@
         input_value = raw_value.toString().replace(/[^0-9$.]/g, ''),
         allow_decimal = true,
         output_value = "",
-        decimal_limit = input_value.length;
+        decimal_limit = input_value.length,
+        first_decimal_index = 0;
 
         for (var i=0; i<decimal_limit; i++)
             {
@@ -291,12 +292,22 @@
                     decimal_limit = i + 9;
                     output_value += char;
                     allow_decimal = false;
+                    first_decimal_index = i + 1;
                     }
                 }
             else output_value += char;
             }
-        
-        return (is_negative ? "-" : "") + (+output_value).toFixed(8);
+
+        if (first_decimal_index !== 0)
+            {
+            for (var i=output_value.length-1; i>first_decimal_index; i--)
+                {
+                if (output_value.charAt(i) === '0') output_value = output_value.slice(0, -1);
+                else break;
+                }
+            }
+            
+        return (is_negative ? "-" : "") + output_value;
         }
         
     function toBTC_trimmed(value)

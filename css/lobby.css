@@ -59,7 +59,7 @@
         padding-top: 10px;
     }
 
-    .contest_table, .player_table {
+    .contest_table, .player_table, .pari_mutuel_table {
         width: 100%;
         border-collapse: collapse;
     }
@@ -67,21 +67,18 @@
         margin-bottom: 30px;
     }
 
-    .contest_table tr {
+    .contest_table tr, .pari_mutuel_table tr {
         border: 2px solid rgb(44,46,48);
         background: rgb(100,104,108);
     }
     
-    .contest_table td {
+    .contest_table td, .pari_mutuel_table td {
         text-align:right;
         padding: 10px 15px;
         font-size: 14px;
     }
     .contest_table td:first-child {
-        color: rgb(200,245,255);
-        font-family: 'ubuntu_fantasy', sans-serif;
         cursor: pointer;
-        font-size: 16px;
     }
     .contest_table td:first-child:hover {
         text-decoration: underline;
@@ -98,6 +95,11 @@
     .contest_table tr:first-child td:first-child:hover {
         text-decoration: none;
     }
+    .pari_mutuel_table tr:first-child {
+        background: none;
+        border: none;
+    }
+    
     
     .pay_table td:first-child {
         padding-right: 30px;
@@ -116,21 +118,6 @@
 
     /*------------------------------------------------------------*/
 
-    #contest_path {
-        padding: 15px 0 0;
-        color: rgb(210,210,210);
-        font-family: 'ubuntu_fantasy', sans-serif;
-        font-size: 13px;
-    }
-    
-    #contest_path a {
-        color: rgb(210,210,210) !important;
-        text-decoration: none;
-    }
-    #contest_path a:hover {
-        text-decoration: underline;
-    }
-    
     #contest_title {
         color: rgb(200,245,255) !important;
     }
@@ -196,5 +183,5 @@
     }
     
     .submit_container {
-        padding: 30px 0;
+        padding: 20px 0;
     }

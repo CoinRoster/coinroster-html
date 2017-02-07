@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="pari_mutuel_field hidden">
-            <table id="pari_mutuel_table"></table>
+            <table id="pari_mutuel_table" class="pari_mutuel_table"></table>
         </div>
         <div id="submit_button_container" class="submit_container hidden">
             <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
@@ -125,6 +125,7 @@
         <br/>
     </div>
 </div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script>
 
     function init()
@@ -153,10 +154,13 @@
                     description = call.description,
                     settlement_type = call.settlement_type,
                     cost_per_entry = call.cost_per_entry,
+                    rake = call.rake,
                     option_table = call.option_table,
                     pay_table = call.pay_table,
                     contest_status = call.contest_status;
             
+                    window.cost_per_entry = cost_per_entry;
+                    
                     id("category").innerHTML = category;
                     id("sub_category").innerHTML = sub_category;
                     
@@ -164,9 +168,9 @@
                     id("contest_description").innerHTML = description;
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
-                    id("rake").innerHTML = (call.rake * 100) + "%";
+                    id("rake").innerHTML = (rake * 100) + "%";
                     id("cost_per_entry").innerHTML = cost_per_entry + " BTC";
-                    id("prize_pool").innerHTML = Number(toBTC(call.total_prize_pool)) + " BTC";
+                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
@@ -177,12 +181,7 @@
                             var
 
                             salary_cap = call.salary_cap,
-                            min_users = call.min_users,
-                            max_users = call.max_users,
-                            entries_per_user = call.entries_per_user,
                             roster_size = call.roster_size;
-
-                            window.cost_per_entry = cost_per_entry;
 
                             initialize_roster_UI(JSON.parse(option_table), salary_cap, roster_size);
 
@@ -190,7 +189,14 @@
                             }
                         else if (contest_type === "PARI-MUTUEL")
                             {
-                            initialize_pari_mutuel_UI(JSON.parse(option_table));
+                            var 
+                            
+                            wager_grand_total = call.wager_grand_total,
+                            rake_amount = rake * wager_grand_total;
+                    
+                            wager_grand_total -= rake_amount;
+                            
+                            initialize_pari_mutuel_UI(JSON.parse(option_table), wager_grand_total);
                             }
                         if (typeof window.session !== "undefined")
                             {
@@ -258,7 +264,7 @@
             {
             if (isNaN(this.value) || this.value < 1 || this.value > 9999) this.value = 1;
             else this.value = this.value | 0;
-            id("submit_roster_button").innerHTML = "Submit roster (" + toBTC_trimmed(this.value * window.cost_per_entry) + " BTC)";
+            id("submit_roster_button").innerHTML = "Submit roster (" + toBTC(this.value * window.cost_per_entry) + " BTC)";
             };
         
         id("salary_cap").innerHTML = "$" + toCurrency(salary_cap);
@@ -283,7 +289,7 @@
 
     // initialize interface for pari-mutuel contest
      
-    function initialize_pari_mutuel_UI(option_table)
+    function initialize_pari_mutuel_UI(option_table, wager_grand_total)
         {
         var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
         
@@ -302,22 +308,80 @@
                 
         var pari_mutuel_table = id("pari_mutuel_table");
         
+        var header = new_row(pari_mutuel_table, -1, [
+            "",
+            "Outcome",
+            "Current wagers",
+            "Implied payout",
+            "Your wagers"
+        ]);
+        
+        header[2].style.textAlign = "left";
+        
         for (var i=0; i<option_table.length; i++)
             {
             var option_item = option_table[i],
                     
             option_id = option_item.id,
-            description = option_item.description;
+            description = option_item.description,
+            wager_total = option_item.wager_total,
+            implied_odds = wager_grand_total / wager_total,
+            wager_input = "<input placeholder='Enter a wager' id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>";
     
             var row = new_row(pari_mutuel_table, -1, [
                 option_id,
-                description
+                description,
+                wager_total + " BTC",
+                implied_odds.toFixed(2),
+                wager_input + " BTC"
             ]);
+            
+            row[1].width = 1;
+            row[2].style.textAlign = "left";
+            
+            bind_btc_input(id("wager_input_" + option_id), function(input)
+                {
+                if (input.value !== "")
+                    {
+                    input.value = toBTC(input.value);
+                    if (input.value < window.cost_per_entry)
+                        {
+                        show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
+                            {
+                            input.value = window.cost_per_entry;
+                            update_submit_button();
+                            });
+                        }
+                    else update_submit_button();
+                    }
+                });
             }
             
         id("submit_pari_mutuel_button").innerHTML = "Submit wagers";
         }
                      
+    function update_submit_button()
+        {
+        var 
+        
+        rows = id("pari_mutuel_table").rows,
+        wagers_total = 0;
+        
+        for (var i=1/*skip header*/; i<rows.length; i++)
+            {
+            var wager = id("wager_input_" + i).value;
+            if (wager === "") continue;
+    
+            wagers_total += +wager;
+            }
+        
+        var button_html = "Submit wagers";
+        
+        if (wagers_total !== 0) button_html = "Submit wagers (" + toBTC(wagers_total) + " BTC)";
+        
+        id("submit_pari_mutuel_button").innerHTML = button_html;
+        }
+        
 /*----------------------------------------------------------------------*/
 
     // supporting functions for roster contest
@@ -468,8 +532,6 @@
             });
             }
             
-        var use_rc = true;
-        
         var number_of_entries = id("number_of_entries_input").value | 0;
         
         if (number_of_entries <= 0) return show_simple_modal("Invalid number of entries", "bad", null);
@@ -485,7 +547,8 @@
                 
                 btc_balance = call.btc_balance,
                 rc_balance = call.rc_balance,
-                available_balance = btc_balance;
+                available_balance = btc_balance,
+                use_rc = true;
         
                 if (use_rc) available_balance += rc_balance;
          
@@ -508,7 +571,7 @@
                             window.location = "/contests";
                             });
                         }
-                    else alert(call.error);
+                    else show_simple_modal(call.error, "bad", null);
                     });
                 }
             });
@@ -520,7 +583,71 @@
     
     function submit_pari_mutuel_wagers()
         {
-        alert("submitting");
+        var 
+        
+        rows = id("pari_mutuel_table").rows,
+        wagers = [],
+        wagers_total = 0;
+        
+        for (var i=1/*skip header*/; i<rows.length; i++)
+            {
+            var cells = rows[i].cells,
+            
+            option_id = cells[0].innerHTML,
+            wager = id("wager_input_" + option_id).value;
+    
+            if (wager === "") continue;
+            
+            wager = +wager;
+            
+            wagers_total += wager;
+    
+            wagers.push({
+                id: option_id,
+                wager: wager
+            });
+            }
+        
+        if (wagers.length === 0) return show_simple_modal("Please enter at least one wager", "bad", null);
+           
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                btc_balance = call.btc_balance,
+                rc_balance = call.rc_balance,
+                available_balance = btc_balance,
+                use_rc = true;
+        
+                if (use_rc) available_balance += rc_balance;
+         
+                if (wagers_total > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                
+                api({
+                    method: "CreateEntryPariMutuel",
+                    args: {
+                        contest_id: window.contest_id,
+                        use_rc: true,
+                        wagers: wagers
+                    }
+                }, function(call)
+                    {
+                    if (call.status === "1")
+                        {
+                        return show_simple_modal("Your wagers have been submitted", "good", function()
+                            {
+                            window.location = "/contests";
+                            });
+                        }
+                    else show_simple_modal(call.error, "bad", null);
+                    });
+                }
+            });
         }
     
 </script>

@@ -35,7 +35,7 @@ function bind_payout_window(element, settlement_type, pay_table)
                     payout_info += "</div>";
                     break;
                 case "PARI-MUTUEL" :
-                    payout_info += "This is a pari-mutuel pool. The entire pot will be distributed pro-rata to those who choose the correct option.";
+                    payout_info += "This is a pari-mutuel pool. The entire pot will be distributed pro-rata to those who choose the correct outcome.";
                     break;
                 }
             show_simple_modal(payout_info, "good", null);
