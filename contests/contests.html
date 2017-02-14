@@ -5,6 +5,7 @@
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <script type="text/javascript" src="/js/account.js"></script>
+    <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi/nav.html" -->
@@ -14,7 +15,7 @@
         <br/>
         <hr noshade size="1"/>
         <h3 class="section_header">My Contests</h3>
-        <table id="entry_report_table"></table>
+        <table id="contest_report_table" class="contest_table"></table>
     </div>
 </div>
 <script>
@@ -22,37 +23,90 @@
     function init()
         {
         api({
-            method: "EntryReport",
-            args: {
-                request_source: "contests.html"
-            }
+            method: "MyContestsReport",
+            args: {}
         }, function(call)
             {
             if (call.status === "1") 
                 {
-                var entry_report = call.entry_report;
+                var user_contest_report = call.user_contest_report;
                 
-                var table = id("entry_report_table");
+                var table = id("contest_report_table");
                 
-                for (var i=0; i<entry_report.length; i++)
+                var header = new_row(table, -1, [
+                    "Contest",
+                    "Category",
+                    "Entries",
+                    "BTC",
+                    "Live at"
+                ]);
+                
+                header[0].style.background = "none";
+                header[0].style.border = "none";
+                
+                for (var i=1; i<header.length; i++)
                     {
-                    var entry_item = entry_report[i],
-                            
-                    entry_id = entry_item.id,
-                    contest_id = entry_item.contest_id,
-                    contest_title = entry_item.contest_title,
-                    amount = entry_item.amount,
-                    roster = entry_item.entry_data,
+                    header[i].style.fontSize = "14px";
+                    header[i].style.paddingBottom = "10px";
+                    }
                     
-                    row = new_row(table, -1, [
-                        entry_id,
-                        contest_title,
-                        amount,
-                        roster
+                header[1].style.textAlign = "left";
+                header[2].style.textAlign = "left";
+                
+                for (var i=0; i<user_contest_report.length; i++)
+                    {
+                    var contest_item = user_contest_report[i],
+                            
+                    contest_id = contest_item.id,
+                    category = contest_item.category,
+                    sub_category = contest_item.sub_category,
+                    category_description = contest_item.category_description,
+                    sub_category_description = contest_item.sub_category_description,
+                    title = contest_item.title,
+                    settlement_type = contest_item.settlement_type,
+                    cost_per_entry = contest_item.cost_per_entry,
+                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
+                    user_entries_count = contest_item.user_entries_count,
+                    user_entries_value = contest_item.user_entries_value,
+                    status = contest_item.status;
+            
+                    if (status === 2) registration_deadline_string = "In play";
+                    
+                    var row = new_row(table, -1, [
+                        title,
+                        category_description + " &bull; " +
+                        sub_category_description,
+                        user_entries_count,
+                        user_entries_value + " BTC",
+                        registration_deadline_string,
+                        "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">View entries</button>"
                     ]);
+                    
+                    row[1].style.textAlign = "left";
+                    row[1].onclick = (function(contest_id)
+                        {
+                        return function()
+                            {
+                            redirect_to_contest(contest_id);
+                            };
+                        })(contest_id);
+                    row[2].style.textAlign = "left";
+                    row[2].className = "contest_cell_link";
+                    row[2].onclick = (function(category, sub_category)
+                        {
+                        return function()
+                            {
+                            window.location = "/lobby.html#category=" + category + "&sub_category=" + sub_category;
+                            };
+                        })(category, sub_category);
                     }
                 }
             });
+        }
+   
+    function show_user_entries(contest_id)
+        {
+        window.location = "/contests/entries.html?contest_id=" + contest_id;
         }
         
 </script>

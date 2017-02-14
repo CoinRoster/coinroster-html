@@ -48,8 +48,9 @@
         font-size: 13px;
     }
     
-    .small_text {
+    .in_play_detail {
         font-size: 11px;
+        padding-top: 6px;
     }
 
     /*------------------------------------------------------------*/
@@ -77,10 +78,10 @@
         padding: 10px 15px;
         font-size: 14px;
     }
-    .contest_table td:first-child {
+    .contest_table td:first-child, .contest_cell_link {
         cursor: pointer;
     }
-    .contest_table td:first-child:hover {
+    .contest_table td:first-child:hover, .contest_cell_link:hover {
         text-decoration: underline;
     }
     

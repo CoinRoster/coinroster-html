@@ -309,12 +309,7 @@
             
         return (is_negative ? "-" : "") + output_value;
         }
-        
-    function toBTC_trimmed(value)
-        {
-        return (+toBTC(value)).toString();
-        }
-    
+       
     function commas(x) 
         {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -377,3 +372,27 @@
         }
         
     var cr_teal = "rgb(129,243,217)";
+    
+    // BigDecimal shortcuts
+    
+    function multiply(val1, val2, precision)
+        {
+        var result = new BigDecimal(val1.toString()).multiply(new BigDecimal(val2.toString()));
+        if (!precision) // if no precision specified
+            {
+            if (result % 1 === 0) return result | 0; // if integer, return as integer
+            return result; // else return result
+            }
+        else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
+        }
+        
+    function divide(val1, val2, precision)
+        {
+        var result = new BigDecimal(val1.toString()).divide(new BigDecimal(val2.toString()));
+        if (!precision) // if no precision specified
+            {
+            if (result % 1 === 0) return result | 0; // if integer, return as integer
+            return result; // else return result
+            }
+        else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
+        }

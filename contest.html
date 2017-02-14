@@ -25,9 +25,6 @@
                 <a class="inline_link" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
             </div>
         </div>
-        <div id="no_entry" class="account_creation_message hidden">
-            <!-- POPULATED BY JAVASCRIPT -->
-        </div>
         <br/>
         <hr noshade size="1"/>
         <h3 id="contest_title" class="section_header"></h3>
@@ -122,6 +119,9 @@
             <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
             <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
         </div>
+        <div id="no_entry" class="account_creation_message hidden">
+            <!-- POPULATED BY JAVASCRIPT -->
+        </div>
         <br/>
     </div>
 </div>
@@ -137,7 +137,7 @@
         if (contest_id !== null)
             {
             api({
-                method: "GetContestDetails",
+                method: "EntryReport",
                 args: {
                     contest_id: contest_id
                 }
@@ -168,7 +168,7 @@
                     id("contest_description").innerHTML = description;
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
-                    id("rake").innerHTML = (rake * 100) + "%";
+                    id("rake").innerHTML = multiply(rake, 100) + "%";
                     id("cost_per_entry").innerHTML = cost_per_entry + " BTC";
                     id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
                     
@@ -192,7 +192,7 @@
                             var 
                             
                             wager_grand_total = call.wager_grand_total,
-                            rake_amount = rake * wager_grand_total;
+                            rake_amount = multiply(rake, wager_grand_total);
                     
                             wager_grand_total -= rake_amount;
                             
@@ -264,7 +264,7 @@
             {
             if (isNaN(this.value) || this.value < 1 || this.value > 9999) this.value = 1;
             else this.value = this.value | 0;
-            id("submit_roster_button").innerHTML = "Submit roster (" + toBTC(this.value * window.cost_per_entry) + " BTC)";
+            id("submit_roster_button").innerHTML = "Submit roster (" + multiply(this.value, window.cost_per_entry) + " BTC)";
             };
         
         id("salary_cap").innerHTML = "$" + toCurrency(salary_cap);
@@ -325,14 +325,16 @@
             option_id = option_item.id,
             description = option_item.description,
             wager_total = option_item.wager_total,
-            implied_odds = wager_grand_total / wager_total,
             wager_input = "<input placeholder='Enter a wager' id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>";
+            
+            var implied_odds = 0;
+            if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
     
             var row = new_row(pari_mutuel_table, -1, [
                 option_id,
                 description,
                 wager_total + " BTC",
-                implied_odds.toFixed(2),
+                implied_odds,
                 wager_input + " BTC"
             ]);
             
@@ -548,11 +550,12 @@
                 btc_balance = call.btc_balance,
                 rc_balance = call.rc_balance,
                 available_balance = btc_balance,
+                total_wagers = new BigDecimal(window.cost_per_entry.toString()).multiply(new BigDecimal(number_of_entries.toString())),
                 use_rc = true;
         
                 if (use_rc) available_balance += rc_balance;
          
-                if (toBTC(window.cost_per_entry * number_of_entries) > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                if (total_wagers > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
                 
                 api({
                     method: "CreateEntryRoster",

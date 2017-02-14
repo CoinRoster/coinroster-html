@@ -124,20 +124,18 @@
             
             var 
             
-            number_of_entries,
-            total_prize_pool = contest_item.total_prize_pool;
+            total_prize_pool = contest_item.total_prize_pool,
+            number_of_entries = divide(total_prize_pool, cost_per_entry);
+            total_prize_pool += " BTC";
             
             if (settlement_type === "PARI-MUTUEL") 
                 {
-                number_of_entries = "";
                 salary_cap = "";
                 roster_size = "";
                 max_users = "";
                 entries_per_user = "";
                 odds_source = "";
                 }
-            else number_of_entries = total_prize_pool / cost_per_entry;
-            total_prize_pool += " BTC";
     
             created = dateconv_ms_to_string(created);
 
@@ -617,7 +615,7 @@
             player_odds = row.cells[1].querySelector("input").value,
             player_price;
             
-            if (multiplier !== "") player_price = +multiplier * (1 / player_odds);
+            if (multiplier !== "") player_price = multiply(multiplier, (1 / player_odds));
 
             row.cells[2].innerHTML = "$" + toCurrency(player_price);
             }
