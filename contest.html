@@ -137,7 +137,7 @@
         if (contest_id !== null)
             {
             api({
-                method: "EntryReport",
+                method: "GetContestDetails",
                 args: {
                     contest_id: contest_id
                 }
@@ -312,8 +312,8 @@
             "",
             "Outcome",
             "Current wagers",
-            "Implied payout",
-            "Your wagers"
+            "Current odds",
+            "Enter a wager"
         ]);
         
         header[2].style.textAlign = "left";
@@ -383,113 +383,6 @@
         
         id("submit_pari_mutuel_button").innerHTML = button_html;
         }
-        
-/*----------------------------------------------------------------------*/
-
-    // supporting functions for roster contest
-    
-    function add_player(player_id)
-        {
-        var row = id("player_" + player_id),
-                
-        name = row.name,
-        price = row.price,
-        
-        salary_cap = fromCurrency(id("salary_cap").innerHTML),
-        remaining_players = id("remaining_players").innerHTML,
-        
-        drafted,
-        max_players = 999,
-        show_max_players = false;
-
-        if (remaining_players.indexOf("/") !== -1)
-            {
-            remaining_players = remaining_players.split("/");
-            drafted = remaining_players[0];
-            max_players = remaining_players[1];
-            show_max_players = true;
-            }
-        else drafted = remaining_players;
-
-        if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
-        else if (price <= salary_cap)
-            {
-            id("salary_cap").innerHTML = "$" + toCurrency(salary_cap - price);
-            if (show_max_players) id("remaining_players").innerHTML = ++drafted + "/" + max_players;
-            else id("remaining_players").innerHTML = ++drafted;
-            id("player_table").deleteRow(row.rowIndex);
-            insert_player_row("roster_table", player_id, name, price);
-            }
-        else show_simple_modal("You cannot afford to draft " + name, "bad", null);
-        }
-        
-    function remove_player(player_id)
-        {
-        var row = id("player_" + player_id),
-                
-        name = row.name,
-        price = row.price,
-        
-        salary_cap = fromCurrency(id("salary_cap").innerHTML),
-        remaining_players = id("remaining_players").innerHTML;
-        
-        if (remaining_players.indexOf("/") !== -1)
-            {
-            remaining_players = remaining_players.split("/");
-            
-            var
-            
-            drafted = remaining_players[0],
-            max_players = remaining_players[1];
-    
-            id("remaining_players").innerHTML = --drafted + "/" + max_players;
-            }
-        else id("remaining_players").innerHTML = --remaining_players;
-        
-        id("salary_cap").innerHTML = "$" + toCurrency(salary_cap + price);
-        id("roster_table").deleteRow(row.rowIndex);
-        
-        insert_player_row("player_table", player_id, name, price);
-        }
-        
-    function insert_player_row(table_id, player_id, name, price)
-        {
-        var 
-        
-        table = id(table_id),
-        number_of_rows = table.rows.length,
-        row_index = -1,
-        action_button;
-
-        if (table_id === "player_table") action_button = "<button class=\"text_button auto_width\" onclick=\"add_player(" + player_id + ")\">Draft</button>";
-        else action_button = "<button class=\"text_button auto_width\" onclick=\"remove_player(" + player_id + ")\">Drop</button>";
-
-        if (number_of_rows !== 0)
-            {
-            for (var i=0; i<number_of_rows; i++)
-                {
-                var row = table.rows[i];
-                if (player_id < row.player_id)
-                    {
-                    row_index = row.rowIndex;
-                    break;
-                    }
-                }
-            }
-            
-        var row = new_row(table, row_index, [
-            "<span class=\"\">" + name + "</span>",
-            "<span class=\"green\">$" + toCurrency(price) + "</span>",
-            action_button
-        ]);
-        
-        row[0].id = "player_" + player_id;
-        row[0].player_id = player_id,
-        row[0].name = name;
-        row[0].price = price;
-
-        row[2].style.textAlign = "right";
-        }
 
 /*----------------------------------------------------------------------*/
 
@@ -497,42 +390,9 @@
     
     function submit_roster()
         {     
-        var remaining_players = id("remaining_players").innerHTML;
+        var roster = get_valid_roster();
         
-        if (remaining_players.indexOf("/") !== -1)
-            {
-            remaining_players = remaining_players.split("/");
-            
-            var
-            
-            drafted = remaining_players[0],
-            max_players = remaining_players[1];
-    
-            if (drafted !== max_players) return show_simple_modal("You must draft " + max_players + " players", "bad", null);
-            }
-            
-        var 
-        
-        rows = id("roster_table").rows,
-        number_of_players = rows.length,
-        roster = [];
-
-        if (number_of_players === 0) return show_simple_modal("You must draft at least one player", "bad", null);
-        
-        for (var i=0; i<number_of_players; i++)
-            {
-            var row = rows[i],
-                    
-            player_id = row.player_id,
-            //name = row.name,
-            price = row.price;
-    
-            roster.push({
-                id: player_id,
-                //name: name,
-                price: price
-            });
-            }
+        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
             
         var number_of_entries = id("number_of_entries_input").value | 0;
         

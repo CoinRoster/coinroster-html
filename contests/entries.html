@@ -14,8 +14,54 @@
     <div id="body_container">
         <br/>
         <hr noshade size="1"/>
-        <h3 class="section_header">My Entries</h3>
+        <a id="contest_title" class="section_header_link">
+            
+        </a>
+        <!--<h3 id="contest_title" class="section_header">My Entries</h3>-->
         <table id="entry_report_table" class="contest_table"></table>
+        <div id="edit_roster_container" class="hidden">
+            <table class="contest_detail_table">
+                <tr>
+                    <td id="editing_roster" class="orange"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Number of entries:
+                    </td>
+                    <td>
+                        <span id="number_of_entries" class="green"></span>
+                    </td>
+                    <td>
+                        Remaining salary:
+                    </td>
+                    <td>
+                        <span id="salary_cap" class="green"></span>
+                    </td>
+                    <td>
+                        Players drafted:
+                    </td>
+                    <td>
+                        <span id="remaining_players" class="green">0</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="player_table_header">
+                Available players:
+            </div><!--
+            --><div id="roster_table_header">
+                Your roster:
+            </div>
+            <div id="player_table_container">
+                <table id="player_table" class="player_table"></table>
+            </div><!--
+            --><div id="roster_table_container">
+                <table id="roster_table" class="player_table"></table>
+            </div>
+            <div id="submit_button_container" class="submit_container">
+                <button class="text_button auto_width" onclick="update_roster()">Update Roster</button>
+                <button class="text_button auto_width" onclick="cancel_edit_roster()">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -23,38 +69,252 @@
     function init()
         {
         var contest_id = get_url_param("contest_id") | 0;
-        if (contest_id === 0) id("entry_report_table").innerHTML = "invalid contest id";
+        
+        if (contest_id === 0) return id("entry_report_table").innerHTML = "invalid contest id";
+        else window.contest_id = contest_id;
+        
         api({
-            method: "EntryReport",
+            method: "GetContestDetails",
             args: {
                 contest_id: contest_id
             }
+        }, function(contest)
+            {
+            if (contest.status === "1") 
+                {
+                var contest_status = contest.contest_status;
+                
+                id("contest_title").innerHTML = contest.title;
+                id("contest_title").href = "/contest.html?id=" + contest_id;
+                
+                api({
+                    method: "EntryReport",
+                    args: {
+                        contest_id: contest_id
+                    }
+                }, function(entries)
+                    {
+                    if (entries.status === "1") 
+                        {
+                        var 
+                        
+                        entry_report = entries.entry_report,
+                        entry_count = entry_report.length;
+                        
+                        if (entry_count > 0)
+                            {
+                            var table = id("entry_report_table");
+                            table.className = "pari_mutuel_table";
+                            
+                            var option_table = JSON.parse(contest.option_table);
+                            contest.option_table = option_table;
+                    
+                            window.contest = contest;
+                            window.entries = [];
+                            
+                            switch (contest.contest_type)
+                                {
+                                case "PARI-MUTUEL" : 
+                                    {
+                                    var 
+                            
+                                    wager_grand_total = contest.wager_grand_total,
+                                    rake_amount = multiply(contest.rake, wager_grand_total),
+
+                                    descriptions = [],
+                                    implied_odds = [];
+
+                                    wager_grand_total -= rake_amount;
+                                    
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var 
+                                        
+                                        option_item = option_table[i],
+                                        option_id = option_item.id;
+                                
+                                        descriptions[option_id] = option_item.description;
+                                        implied_odds[option_id] = get_implied_odds(wager_grand_total, option_item);
+                                        }
+                                    
+                                    var header = new_row(table, -1, [
+                                        "",
+                                        "Outcome",
+                                        "My wagers",
+                                        "Current odds",
+                                        "Implied payout"
+                                    ]);
+
+                                    header[2].style.textAlign = "left";
+                                    
+                                    for (var i=0; i<entry_count; i++)
+                                        {
+                                        var entry_item = entry_report[i],
+
+                                        entry_id = entry_item.id,
+                                        amount = entry_item.amount,
+                                        option_id = entry_item.entry_data,
+                                        option_implied_odds = implied_odds[option_id],
+                                        implied_payout = multiply(option_implied_odds, amount),
+
+                                        row = new_row(table, -1, [
+                                            option_id,
+                                            descriptions[option_id],
+                                            amount + " BTC",
+                                            option_implied_odds,
+                                            implied_payout + " BTC"
+                                        ]);
+
+                                        row[1].width = "1";
+                                        row[2].style.textAlign = "left";
+                                        }
+                                    break;
+                                    }
+                                case "ROSTER" : 
+                                    {
+                                    var player_names = [];
+                                    
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var option_item = option_table[i];
+                                        player_names[option_item.id] = option_item.name;
+                                        }
+                                    
+                                    var header_content = [
+                                        "Roster ID",
+                                        "Entries",
+                                        "Amount",
+                                        "",
+                                        "Roster"
+                                    ];
+                                    
+                                    if (contest_status === 1) header_content.push("Action");
+                                    
+                                    var header = new_row(table, -1, header_content);
+
+                                    header[5].style.textAlign = "left";
+                                    
+                                    for (var i=0; i<entry_count; i++)
+                                        {
+                                        var entry_item = entry_report[i],
+
+                                        entry_id = entry_item.id,
+                                        amount = entry_item.amount,
+                                        roster = JSON.parse(entry_item.entry_data),
+                                        number_of_entries = divide(amount, contest.cost_per_entry),
+                                        roster_html = "";
+                                
+                                        entry_item.roster = roster;
+                                        entry_item.number_of_entries = number_of_entries;
+                                
+                                        window.entries[entry_id] = entry_item;
+                                        
+                                        for (var j=0; j<roster.length; j++)
+                                            {
+                                            if (j !== 0) roster_html += "<br/>";
+                                            roster_html += player_names[roster[j].id] + " ($" + toCurrency(roster[j].price) + ")";
+                                            }
+                                            
+                                        var row_content = [
+                                            entry_id,
+                                            number_of_entries,
+                                            amount + " BTC",
+                                            "",
+                                            roster_html
+                                        ];
+                                        
+                                        if (contest_status === 1) row_content.push("<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>");
+
+                                        var row = new_row(table, -1, row_content);
+
+                                        row[1].width = "1";
+                                        row[1].style.textAlign = "center";
+                                        row[2].width = "1";
+                                        row[2].style.textAlign = "center";
+                                        row[3].width = "1";
+                                        row[3].style.whiteSpace = "nowrap";
+                                        row[5].style.textAlign = "left";
+                                        }
+                                    break;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+        
+    function edit_roster(entry_id)
+        {
+        id("player_table").innerHTML = "";
+        id("roster_table").innerHTML = "";
+                    
+        var 
+        
+        contest = window.contest,
+        option_table = contest.option_table,
+        entry = window.entries[entry_id],
+        roster = entry.roster;
+
+        window.active_entry = entry_id;
+        
+        id("editing_roster").innerHTML = "Editing Roster " + entry_id;
+
+        id("number_of_entries").innerHTML = entry.number_of_entries;
+        id("salary_cap").innerHTML = "$" + toCurrency(contest.salary_cap);
+        if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
+        else id("remaining_players").innerHTML = 0;
+            
+        for (var i=0; i<option_table.length; i++)
+            {
+            var player_item = option_table[i],
+                    
+            player_id = player_item.id,
+            name = player_item.name,
+            price = player_item.price;
+    
+            insert_player_row("player_table", player_id, name, price);
+            }
+                        
+        for (var i=0; i<roster.length; i++) add_player(roster[i].id);
+        
+        show("edit_roster_container");
+        
+        id("player_table_container").scrollTop = 0;
+        id("roster_table_container").scrollTop = 0;
+                
+        window.scrollTo(0, document.body.scrollHeight);
+        }
+        
+    function cancel_edit_roster()
+        {
+        hide("edit_roster_container");
+        }
+        
+    function update_roster()
+        {
+        var roster = get_valid_roster();
+        
+        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
+
+        api({
+            method: "UpdateRoster",
+            args: {
+                contest_id: window.contest_id,
+                entry_id: window.active_entry,
+                roster: roster
+            }
         }, function(call)
             {
-            if (call.status === "1") 
+            if (call.status === "1")
                 {
-                var entry_report = call.entry_report;
-                
-                var table = id("entry_report_table");
-                
-                for (var i=0; i<entry_report.length; i++)
+                return show_simple_modal("Your roster has been updated", "good", function()
                     {
-                    var entry_item = entry_report[i],
-                            
-                    entry_id = entry_item.id,
-                    contest_id = entry_item.contest_id,
-                    contest_title = entry_item.contest_title,
-                    amount = entry_item.amount,
-                    roster = entry_item.entry_data,
-                    
-                    row = new_row(table, -1, [
-                        entry_id,
-                        contest_title,
-                        amount,
-                        roster
-                    ]);
-                    }
+                    location.reload();
+                    });
                 }
+            else show_simple_modal(call.error, "bad", null);
             });
         }
    

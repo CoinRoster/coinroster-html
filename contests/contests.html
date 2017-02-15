@@ -36,8 +36,8 @@
                 var header = new_row(table, -1, [
                     "Contest",
                     "Category",
-                    "Entries",
-                    "BTC",
+                    "My entries",
+                    //"Wager",
                     "Live at"
                 ]);
                 
@@ -76,13 +76,14 @@
                         title,
                         category_description + " &bull; " +
                         sub_category_description,
-                        user_entries_count,
+                        "<a href=\"/contests/entries.html?contest_id=" + contest_id + "\" class=\"inline_link\">" + user_entries_count + "</a> / " +
                         user_entries_value + " BTC",
                         registration_deadline_string,
                         "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">View entries</button>"
                     ]);
                     
                     row[1].style.textAlign = "left";
+                    row[1].className = "contest_cell_link";
                     row[1].onclick = (function(contest_id)
                         {
                         return function()

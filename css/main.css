@@ -66,10 +66,19 @@
         padding-top:2px;
     }
         
-    .section_header {
+    .section_header, .section_header_link {
         padding: 5px 0;
         font-family: 'ubuntu_fantasy', sans-serif;
         font-weight: normal;
+    }
+    .section_header_link {
+        font-size: 18.66px;
+        display: block;
+        padding: 15px 0;
+        text-decoration: none;
+    }
+    .section_header_link:hover {
+        text-decoration: underline;
     }
     
     .link, .inline_link {

@@ -78,10 +78,10 @@
         padding: 10px 15px;
         font-size: 14px;
     }
-    .contest_table td:first-child, .contest_cell_link {
+    .contest_cell_link {
         cursor: pointer;
     }
-    .contest_table td:first-child:hover, .contest_cell_link:hover {
+    .contest_cell_link:hover {
         text-decoration: underline;
     }
     
@@ -96,11 +96,13 @@
     .contest_table tr:first-child td:first-child:hover {
         text-decoration: none;
     }
+    .pari_mutuel_table tr:first-child td {
+        white-space: nowrap;
+    }
     .pari_mutuel_table tr:first-child {
         background: none;
         border: none;
     }
-    
     
     .pay_table td:first-child {
         padding-right: 30px;
