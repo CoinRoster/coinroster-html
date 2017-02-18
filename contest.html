@@ -28,99 +28,102 @@
         <br/>
         <hr noshade size="1"/>
         <h3 id="contest_title" class="section_header"></h3>
-        <div id="contest_description"></div>
-        <hr noshade size="1"/>
-        <table class="contest_detail_table">
-            <tr>
-                <td>
-                    Category:
-                </td>
-                <td>
-                    <span id="category" class="orange"></span>
-                </td>
-                <td id="cost_per_entry_label">
-                    Entry fee:
-                </td>
-                <td>
-                    <span id="cost_per_entry" class="orange"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Sub-category:
-                </td>
-                <td>
-                    <span id="sub_category" class="orange"></span>
-                </td>
-                <td>
-                    Prize pool:
-                </td>
-                <td>
-                    <span id="prize_pool" class="orange"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Game type:
-                </td>
-                <td>
-                    <span id="settlement_type" class="orange"></span>
-                    <span id="payout_info" class="inline_link" style="display:inline-block;padding-left:30px;padding-right:50px">Payout info</span>
-                </td>
-                <td>
-                    Rake:
-                </td>
-                <td>
-                    <span id="rake" class="orange"></span>
-                </td>
-            </tr>
-        </table>
-        <hr noshade size="1"/>
-        <table class="contest_detail_table">
-            <tr class="roster_field hidden">
-                <td>
-                    Number of entries?
-                </td>
-                <td>
-                    <input id="number_of_entries_input" type="text" class="light_on_dark_input green" value="1" style="width:42px;">
-                </td>
-                <td>
-                    Remaining salary:
-                </td>
-                <td>
-                    <span id="salary_cap" class="green"></span>
-                </td>
-                <td>
-                    Players drafted:
-                </td>
-                <td>
-                    <span id="remaining_players" class="green">0</span>
-                </td>
-            </tr>
-        </table>
-        <div class="roster_field hidden">
-            <div id="player_table_header">
-                Available players:
-            </div><!--
-            --><div id="roster_table_header">
-                Your roster:
+        <table id="invalid_contest_container" class="contest_table hidden"></table>
+        <div id="valid_contest_container">
+            <div id="contest_description"></div>
+            <hr noshade size="1"/>
+            <table class="contest_detail_table">
+                <tr>
+                    <td>
+                        Category:
+                    </td>
+                    <td>
+                        <span id="category" class="orange"></span>
+                    </td>
+                    <td id="cost_per_entry_label">
+                        Entry fee:
+                    </td>
+                    <td>
+                        <span id="cost_per_entry" class="orange"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sub-category:
+                    </td>
+                    <td>
+                        <span id="sub_category" class="orange"></span>
+                    </td>
+                    <td>
+                        Prize pool:
+                    </td>
+                    <td>
+                        <span id="prize_pool" class="orange"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Game type:
+                    </td>
+                    <td>
+                        <span id="settlement_type" class="orange"></span>
+                        <span id="payout_info" class="inline_link" style="display:inline-block;padding-left:30px;padding-right:50px">Payout info</span>
+                    </td>
+                    <td>
+                        Rake:
+                    </td>
+                    <td>
+                        <span id="rake" class="orange"></span>
+                    </td>
+                </tr>
+            </table>
+            <hr noshade size="1"/>
+            <table class="contest_detail_table">
+                <tr class="roster_field hidden">
+                    <td>
+                        Number of entries?
+                    </td>
+                    <td>
+                        <input id="number_of_entries_input" type="text" class="light_on_dark_input green" value="1" style="width:42px;">
+                    </td>
+                    <td>
+                        Remaining salary:
+                    </td>
+                    <td>
+                        <span id="salary_cap" class="green"></span>
+                    </td>
+                    <td>
+                        Players drafted:
+                    </td>
+                    <td>
+                        <span id="remaining_players" class="green">0</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="roster_field hidden">
+                <div id="player_table_header">
+                    Available players:
+                </div><!--
+                --><div id="roster_table_header">
+                    Your roster:
+                </div>
+                <div id="player_table_container">
+                    <table id="player_table" class="player_table"></table>
+                </div><!--
+                --><div id="roster_table_container">
+                    <table id="roster_table" class="player_table"></table>
+                </div>
             </div>
-            <div id="player_table_container">
-                <table id="player_table" class="player_table"></table>
-            </div><!--
-            --><div id="roster_table_container">
-                <table id="roster_table" class="player_table"></table>
+            <div class="pari_mutuel_field hidden">
+                <table id="pari_mutuel_table" class="pari_mutuel_table"></table>
             </div>
-        </div>
-        <div class="pari_mutuel_field hidden">
-            <table id="pari_mutuel_table" class="pari_mutuel_table"></table>
-        </div>
-        <div id="submit_button_container" class="submit_container hidden">
-            <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
-            <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
-        </div>
-        <div id="no_entry" class="account_creation_message hidden">
-            <!-- POPULATED BY JAVASCRIPT -->
+            <div id="submit_button_container" class="submit_container hidden">
+                <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
+                <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
+            </div>
+            <div id="no_entry" class="account_creation_message hidden">
+                <!-- POPULATED BY JAVASCRIPT -->
+            </div>
         </div>
         <br/>
     </div>
@@ -130,11 +133,11 @@
 
     function init()
         {
-        var contest_id = get_url_param("id");
+        var contest_id = get_url_param("id") | 0;
         
         window.contest_id = contest_id;
         
-        if (contest_id !== null)
+        if (contest_id !== 0)
             {
             api({
                 method: "GetContestDetails",
@@ -235,10 +238,20 @@
                         show("no_entry");
                         }
                     }
-                else show_simple_modal(call.error, "bad", null);
+                else special_no_data_message(call.error);
                 });
             }
-        else show_simple_modal("No contest ID supplied", "bad", null);
+        else special_no_data_message("Invalid contest ID");
+        }
+        
+    function special_no_data_message(message)
+        {
+        var table = id("invalid_contest_container");
+        hide("valid_contest_container");
+        show(table, "table");
+        id("contest_title").innerHTML = "Contest Page";
+        id("contest_title").id = ""; // changes color to white
+        no_data_message(table, message);
         }
                      
 /*----------------------------------------------------------------------*/
@@ -316,6 +329,8 @@
             "Enter a wager"
         ]);
         
+        header[0].style.background = "none";
+        header[0].style.border = "none";
         header[2].style.textAlign = "left";
         
         for (var i=0; i<option_table.length; i++)

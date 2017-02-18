@@ -15,8 +15,11 @@
         <br/>
         <hr noshade size="1"/>
         <a id="contest_title" class="section_header_link">
-            
+            <!-- POPULATED BY JAVASCRIPT -->
         </a>
+        <h3 id="no_data_header" class="section_header hidden">
+            My Entries
+        </h3>
         <!--<h3 id="contest_title" class="section_header">My Entries</h3>-->
         <table id="entry_report_table" class="contest_table"></table>
         <div id="edit_roster_container" class="hidden">
@@ -70,7 +73,7 @@
         {
         var contest_id = get_url_param("contest_id") | 0;
         
-        if (contest_id === 0) return id("entry_report_table").innerHTML = "invalid contest id";
+        if (contest_id === 0) return special_no_data_message("Invalid contest ID");
         else window.contest_id = contest_id;
         
         api({
@@ -99,11 +102,13 @@
                         var 
                         
                         entry_report = entries.entry_report,
-                        entry_count = entry_report.length;
+                        entry_count = entry_report.length,
                         
-                        if (entry_count > 0)
+                        table = id("entry_report_table");
+                
+                        if (entry_count === 0) no_data_message(table, "You have no entries in this contest.");
+                        else
                             {
-                            var table = id("entry_report_table");
                             table.className = "pari_mutuel_table";
                             
                             var option_table = JSON.parse(contest.option_table);
@@ -117,26 +122,14 @@
                                 case "PARI-MUTUEL" : 
                                     {
                                     var 
+                                    
+                                    user_wagers = [],
                             
                                     wager_grand_total = contest.wager_grand_total,
-                                    rake_amount = multiply(contest.rake, wager_grand_total),
-
-                                    descriptions = [],
-                                    implied_odds = [];
+                                    rake_amount = multiply(contest.rake, wager_grand_total);
 
                                     wager_grand_total -= rake_amount;
-                                    
-                                    for (var i=0; i<option_table.length; i++)
-                                        {
-                                        var 
-                                        
-                                        option_item = option_table[i],
-                                        option_id = option_item.id;
-                                
-                                        descriptions[option_id] = option_item.description;
-                                        implied_odds[option_id] = get_implied_odds(wager_grand_total, option_item);
-                                        }
-                                    
+                        
                                     var header = new_row(table, -1, [
                                         "",
                                         "Outcome",
@@ -145,21 +138,44 @@
                                         "Implied payout"
                                     ]);
 
+                                    header[0].style.background = "none";
+                                    header[0].style.border = "none";
                                     header[2].style.textAlign = "left";
+                                    
+                                    // sum all wagers by pari-mutuel option
                                     
                                     for (var i=0; i<entry_count; i++)
                                         {
                                         var entry_item = entry_report[i],
 
-                                        entry_id = entry_item.id,
-                                        amount = entry_item.amount,
                                         option_id = entry_item.entry_data,
-                                        option_implied_odds = implied_odds[option_id],
+                                        amount = entry_item.amount;
+                                
+                                        if (typeof user_wagers[option_id] === "undefined") user_wagers[option_id] = amount;
+                                        else user_wagers[option_id] += amount;
+                                        }
+                                        
+                                    // create rows for any options where user has wagers:
+                                    
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var 
+                                        
+                                        option_item = option_table[i],
+                                        option_id = option_item.id;
+                                
+                                        if (typeof user_wagers[option_id] === "undefined") continue;
+                                
+                                        var
+                                        
+                                        description = option_item.description,
+                                        amount = user_wagers[option_id],
+                                        option_implied_odds = get_implied_odds(wager_grand_total, option_item),
                                         implied_payout = multiply(option_implied_odds, amount),
-
+                                        
                                         row = new_row(table, -1, [
                                             option_id,
-                                            descriptions[option_id],
+                                            description,
                                             amount + " BTC",
                                             option_implied_odds,
                                             implied_payout + " BTC"
@@ -168,6 +184,7 @@
                                         row[1].width = "1";
                                         row[2].style.textAlign = "left";
                                         }
+                                
                                     break;
                                     }
                                 case "ROSTER" : 
@@ -192,6 +209,8 @@
                                     
                                     var header = new_row(table, -1, header_content);
 
+                                    header[0].style.background = "none";
+                                    header[0].style.border = "none";
                                     header[5].style.textAlign = "left";
                                     
                                     for (var i=0; i<entry_count; i++)
@@ -242,7 +261,16 @@
                         }
                     });
                 }
+            else special_no_data_message(contest.error);
             });
+        }
+        
+    function special_no_data_message(message)
+        {
+        var table = id("entry_report_table");
+        hide("contest_title");
+        show("no_data_header");
+        no_data_message(table, message);
         }
         
     function edit_roster(entry_id)

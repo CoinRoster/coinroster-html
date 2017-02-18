@@ -72,9 +72,9 @@
         font-weight: normal;
     }
     .section_header_link {
-        font-size: 18.66px;
+        font-size: 18.72px;
         display: block;
-        padding: 15px 0;
+        padding: 15px 0 24px;
         text-decoration: none;
     }
     .section_header_link:hover {

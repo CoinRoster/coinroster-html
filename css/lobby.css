@@ -87,7 +87,11 @@
     
     /* cancel out css for header cell (first row) */
     
-    .contest_table tr:first-child td {
+    .contest_table tr:first-child td, .pari_mutuel_table tr:first-child td {
+        white-space: nowrap;
+    }
+    
+    /*.contest_table tr:first-child td {
         cursor: default;
         color: white;
         font-family: 'gotham_medium', sans-serif;
@@ -102,7 +106,7 @@
     .pari_mutuel_table tr:first-child {
         background: none;
         border: none;
-    }
+    }*/
     
     .pay_table td:first-child {
         padding-right: 30px;

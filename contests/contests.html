@@ -29,77 +29,86 @@
             {
             if (call.status === "1") 
                 {
-                var user_contest_report = call.user_contest_report;
+                var 
                 
-                var table = id("contest_report_table");
+                user_contest_report = call.user_contest_report,
+                number_of_contests = user_contest_report.length,
                 
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Category",
-                    "My entries",
-                    //"Wager",
-                    "Live at"
-                ]);
+                table = id("contest_report_table");
                 
-                header[0].style.background = "none";
-                header[0].style.border = "none";
-                
-                for (var i=1; i<header.length; i++)
+                if (number_of_contests === 0) no_data_message(table, "You have no open or in-play contests.");
+                else
                     {
-                    header[i].style.fontSize = "14px";
-                    header[i].style.paddingBottom = "10px";
-                    }
-                    
-                header[1].style.textAlign = "left";
-                header[2].style.textAlign = "left";
-                
-                for (var i=0; i<user_contest_report.length; i++)
-                    {
-                    var contest_item = user_contest_report[i],
-                            
-                    contest_id = contest_item.id,
-                    category = contest_item.category,
-                    sub_category = contest_item.sub_category,
-                    category_description = contest_item.category_description,
-                    sub_category_description = contest_item.sub_category_description,
-                    title = contest_item.title,
-                    settlement_type = contest_item.settlement_type,
-                    cost_per_entry = contest_item.cost_per_entry,
-                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
-                    user_entries_count = contest_item.user_entries_count,
-                    user_entries_value = contest_item.user_entries_value,
-                    status = contest_item.status;
-            
-                    if (status === 2) registration_deadline_string = "In play";
-                    
-                    var row = new_row(table, -1, [
-                        title,
-                        category_description + " &bull; " +
-                        sub_category_description,
-                        "<a href=\"/contests/entries.html?contest_id=" + contest_id + "\" class=\"inline_link\">" + user_entries_count + "</a> / " +
-                        user_entries_value + " BTC",
-                        registration_deadline_string,
-                        "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">View entries</button>"
+                    var header = new_row(table, -1, [
+                        "Contest",
+                        "Category",
+                        "My entries",
+                        //"Wager",
+                        "Live at"
                     ]);
-                    
-                    row[1].style.textAlign = "left";
-                    row[1].className = "contest_cell_link";
-                    row[1].onclick = (function(contest_id)
+
+                    header[0].style.background = "none";
+                    header[0].style.border = "none";
+
+                    for (var i=1; i<header.length; i++)
                         {
-                        return function()
-                            {
-                            redirect_to_contest(contest_id);
-                            };
-                        })(contest_id);
-                    row[2].style.textAlign = "left";
-                    row[2].className = "contest_cell_link";
-                    row[2].onclick = (function(category, sub_category)
+                        header[i].style.fontSize = "14px";
+                        header[i].style.paddingBottom = "10px";
+                        }
+
+                    header[1].style.textAlign = "left";
+                    header[2].style.textAlign = "left";
+
+                    for (var i=0; i<number_of_contests; i++)
                         {
-                        return function()
+                        var contest_item = user_contest_report[i],
+
+                        contest_id = contest_item.id,
+                        category = contest_item.category,
+                        sub_category = contest_item.sub_category,
+                        category_description = contest_item.category_description,
+                        sub_category_description = contest_item.sub_category_description,
+                        title = contest_item.title,
+                        settlement_type = contest_item.settlement_type,
+                        cost_per_entry = contest_item.cost_per_entry,
+                        registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
+                        user_entries_count = contest_item.user_entries_count,
+                        user_entries_value = contest_item.user_entries_value,
+                        status = contest_item.status;
+
+                        if (status === 2) registration_deadline_string = "In play";
+
+                        var row = new_row(table, -1, [
+                            title,
+                            category_description + " &bull; " +
+                            sub_category_description,
+                            user_entries_count + " / " + user_entries_value + " BTC",
+                            registration_deadline_string,
+                            "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">View entries</button>"
+                        ]);
+                        
+                        for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
+
+                        row[1].style.textAlign = "left";
+                        row[1].className = "contest_cell_link";
+                        row[1].onclick = (function(contest_id)
                             {
-                            window.location = "/lobby.html#category=" + category + "&sub_category=" + sub_category;
-                            };
-                        })(category, sub_category);
+                            return function()
+                                {
+                                show_user_entries(contest_id);
+                                //redirect_to_contest(contest_id);
+                                };
+                            })(contest_id);
+                        row[2].style.textAlign = "left";
+                        /*row[2].className = "contest_cell_link";
+                        row[2].onclick = (function(category, sub_category)
+                            {
+                            return function()
+                                {
+                                window.location = "/lobby.html#category=" + category + "&sub_category=" + sub_category;
+                                };
+                            })(category, sub_category);*/
+                        }
                     }
                 }
             });

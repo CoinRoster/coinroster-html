@@ -1,4 +1,10 @@
         
+    function no_data_message(table, message)
+        {
+        var row = new_row(table, -1, [message]);
+        row[1].style.textAlign = "left";
+        }
+        
 /*----------------------------------------------------------------------*/
 
     // supporting functions for contests, generally

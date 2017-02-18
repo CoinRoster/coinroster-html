@@ -186,13 +186,7 @@
             contest_report_array = [],
             number_of_contests = contest_report.length;
     
-            if (number_of_contests === 0)
-                {
-                var row = new_row(table, -1, [
-                    "No open contests. Please check back soon."
-                ]);
-                row[1].style.textAlign = "left";
-                }
+            if (number_of_contests === 0) no_data_message(table, "There are no open contests in this category. Please check back soon.");
             else
                 {
                 var header = new_row(table, -1, [
