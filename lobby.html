@@ -41,96 +41,116 @@
             }
         }, function(call)
             {
-            var category_report = call.category_report;
+            var 
+            
+            category_report = call.category_report,
+            number_of_categories = category_report.length;
 
             body_container.innerHTML = "<br/>";
+            
+            if (number_of_categories > 0)
+                {
+                for (var i=0; i<number_of_categories; i++)
+                    {
+                    var hr = document.createElement("hr");
+                    hr.size = 1;
+                    hr.noShade = true;
+                    body_container.appendChild(hr);
 
-            for (var i=0; i<category_report.length; i++)
+                    var category = category_report[i],
+
+                    category_code = category.code,
+                    description = category.description,
+                    position = category.position,
+                    sub_categories = category.sub_categories,
+                    number_of_sub_categories = sub_categories.length;
+
+                    var heading = document.createElement("h3");
+                    heading.className = "section_header";
+                    heading.innerHTML = description;
+                    body_container.appendChild(heading);
+
+                    if (number_of_sub_categories > 0)
+                        {
+                        for (var j=0; j<number_of_sub_categories; j++)
+                            {
+                            var sub_category = sub_categories[j],
+
+                            sub_category_code = sub_category.code,
+
+                            open_contests = sub_category.open_contests,
+                            in_play_contests = sub_category.in_play_contests,
+
+                            modulus = j%4,
+
+                            margin_class = "",
+                            open_contests_color = "";
+
+                            if (modulus !== 3) margin_class = " sub_category_add_margin";
+
+                            if (open_contests > 0) open_contests_color = " orange";
+
+                            if (open_contests === 1) open_contests = "1 open contest";
+                            else open_contests += " open contests";
+
+                            if (in_play_contests === 0) in_play_contests = "";
+                            else in_play_contests = in_play_contests + " in play";
+
+                            var sub_category_item = document.createElement("a");
+                            sub_category_item.className = "sub_category_item" + margin_class;
+                            sub_category_item.href = "/lobby.html#category=" + category_code + "&sub_category=" + sub_category_code;
+
+                            var sub_category_tile = document.createElement("div");
+                            sub_category_tile.className = "sub_category_tile";
+                            sub_category_tile.setAttribute("style", "background-image:url('/img/lobby_tiles/" + sub_category.image_name + "')");
+                            sub_category_item.appendChild(sub_category_tile);
+
+                            var sub_category_details = document.createElement("div");
+                            sub_category_details.className = "sub_category_details";
+                            sub_category_item.appendChild(sub_category_details);
+
+                            var sub_category_description = document.createElement("div");
+                            sub_category_description.className = "sub_category_description";
+                            sub_category_description.innerHTML = sub_category.description;
+                            sub_category_details.appendChild(sub_category_description);
+
+                            var sub_category_open_contests = document.createElement("div");
+                            sub_category_open_contests.className = "sub_category_detail" + open_contests_color;
+                            sub_category_open_contests.innerHTML = open_contests;
+                            sub_category_details.appendChild(sub_category_open_contests);
+
+                            var sub_category_in_play = document.createElement("div");
+                            sub_category_in_play.className = "sub_category_detail in_play_detail";
+                            sub_category_in_play.innerHTML =  in_play_contests;
+                            sub_category_details.appendChild(sub_category_in_play);
+
+                            /*sub_category_item.onclick = (function(category_code, sub_category_code)
+                                {
+                                return function()
+                                    {
+                                    location.hash = "category=" + category_code + "&sub_category=" + sub_category_code;
+                                    };
+                                })(category_code, sub_category_code);*/
+
+                            body_container.appendChild(sub_category_item);
+                            }
+                        }
+                    else body_container.appendChild(document.createTextNode("No sub-categories"));
+                    }
+                }
+            else
                 {
                 var hr = document.createElement("hr");
                 hr.size = 1;
                 hr.noShade = true;
                 body_container.appendChild(hr);
-                    
-                var category = category_report[i],
-
-                category_code = category.code,
-                description = category.description,
-                position = category.position,
-                sub_categories = category.sub_categories,
-                number_of_sub_categories = sub_categories.length;
 
                 var heading = document.createElement("h3");
                 heading.className = "section_header";
-                heading.innerHTML = description;
+                heading.innerHTML = "Lobby";
                 body_container.appendChild(heading);
                 
-                if (number_of_sub_categories > 0)
-                    {
-                    for (var j=0; j<number_of_sub_categories; j++)
-                        {
-                        var sub_category = sub_categories[j],
-
-                        sub_category_code = sub_category.code,
-                        
-                        open_contests = sub_category.open_contests,
-                        in_play_contests = sub_category.in_play_contests,
-                        
-                        modulus = j%4,
-                        
-                        margin_class = "",
-                        open_contests_color = "";
-                
-                        if (modulus !== 3) margin_class = " sub_category_add_margin";
-                
-                        if (open_contests > 0) open_contests_color = " orange";
-                        
-                        if (open_contests === 1) open_contests = "1 open contest";
-                        else open_contests += " open contests";
-                        
-                        if (in_play_contests === 0) in_play_contests = "";
-                        else in_play_contests = in_play_contests + " in play";
-                
-                        var sub_category_item = document.createElement("a");
-                        sub_category_item.className = "sub_category_item" + margin_class;
-                        sub_category_item.href = "/lobby.html#category=" + category_code + "&sub_category=" + sub_category_code;
-                        
-                        var sub_category_tile = document.createElement("div");
-                        sub_category_tile.className = "sub_category_tile";
-                        sub_category_tile.setAttribute("style", "background-image:url('/img/lobby_tiles/" + sub_category.image_name + "')");
-                        sub_category_item.appendChild(sub_category_tile);
-                        
-                        var sub_category_details = document.createElement("div");
-                        sub_category_details.className = "sub_category_details";
-                        sub_category_item.appendChild(sub_category_details);
-                        
-                        var sub_category_description = document.createElement("div");
-                        sub_category_description.className = "sub_category_description";
-                        sub_category_description.innerHTML = sub_category.description;
-                        sub_category_details.appendChild(sub_category_description);
-                        
-                        var sub_category_open_contests = document.createElement("div");
-                        sub_category_open_contests.className = "sub_category_detail" + open_contests_color;
-                        sub_category_open_contests.innerHTML = open_contests;
-                        sub_category_details.appendChild(sub_category_open_contests);
-                        
-                        var sub_category_in_play = document.createElement("div");
-                        sub_category_in_play.className = "sub_category_detail in_play_detail";
-                        sub_category_in_play.innerHTML =  in_play_contests;
-                        sub_category_details.appendChild(sub_category_in_play);
-                        
-                        /*sub_category_item.onclick = (function(category_code, sub_category_code)
-                            {
-                            return function()
-                                {
-                                location.hash = "category=" + category_code + "&sub_category=" + sub_category_code;
-                                };
-                            })(category_code, sub_category_code);*/
-                        
-                        body_container.appendChild(sub_category_item);
-                        }
-                    }
-                else body_container.appendChild(document.createTextNode("No sub-categories"));
+                body_container.innerHTML += '<table id="contest_report_table" class="contest_table"><tr><td style="text-align:left">Contests will be posted in the next few days. Please check back soon!</td></tr></table>';
                 }
             });
         }

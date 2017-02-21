@@ -53,10 +53,13 @@
         {
         var call = api({ method: "UserReport", args: {} });
         
-        var user_report = call.user_report;
-        number_of_users = user_report.length;
+        var 
+        
+        user_report = call.user_report,
+        btc_accumulator = 0,
+        rc_accumulator = 0;
 
-        id("number_of_users").innerHTML = number_of_users;
+        number_of_users = user_report.length;
 
         for (var i=0; i<number_of_users; i++)
             {
@@ -73,6 +76,9 @@
             newsletter_flag = user_item.newsletter_flag,
             referral_program = user_item.referral_program,
             referrer_username = user_item.referrer_username;
+    
+            btc_accumulator = add(btc_accumulator, btc_balance);
+            rc_accumulator = add(rc_accumulator, rc_balance);
         
             if (email_address === "") 
                 {
@@ -101,6 +107,12 @@
                 last_login
             ]);
             }
+        var red_alert = "rgb(230,0,0)";
+        id("number_of_users").innerHTML = number_of_users + " users";
+        id("ledger_balance_btc").innerHTML = btc_accumulator + " BTC";
+        id("ledger_balance_rc").innerHTML = rc_accumulator + " RC";
+        if (btc_accumulator !== 0) id("ledger_balance_btc").style.color = red_alert;
+        if (rc_accumulator !== 0) id("ledger_balance_rc").style.color = red_alert;
         }
 
     function get_username_for_id(user_id)
@@ -209,8 +221,8 @@
             //user_id = user_item[1], * not used here
             username = user_item[2],
             user_level = user_item[3],
-            btc_balance = toBTC(user_item[4], true),
-            rc_balance = toBTC(user_item[5], true),
+            btc_balance = toBTC(user_item[4], true, true),
+            rc_balance = toBTC(user_item[5], true, true),
             email_address = user_item[6],
             email_ver_flag = user_item[7],
             newsletter_flag = user_item[8],
@@ -756,7 +768,7 @@
 
                     from_account = get_username_for_id(from_account);
                     
-                    amount = toBTC(amount);
+                    amount = toBTC(amount, true);
                     
                     if (typeof ext_address === "undefined") ext_address = "n/a";
 
@@ -832,7 +844,7 @@
 
                     to_account = get_username_for_id(to_account);
                     
-                    amount = toBTC(amount);
+                    amount = toBTC(amount, true);
                     
                     if (typeof ext_address === "undefined") ext_address = "n/a";
 
@@ -883,7 +895,7 @@
     
     function finalize_pending_withdrawal(transaction_id, amount, ext_address)
         {
-        var funds_sent = confirm("Are you sure you have sent\n\n" + toBTC(amount) + "\n\nto\n\n" + ext_address + "\n\n?");
+        var funds_sent = confirm("Are you sure you have sent\n\n" + toBTC(amount, true) + "\n\nto\n\n" + ext_address + "\n\n?");
         if (funds_sent)
             {
             var call = api({ 
@@ -907,7 +919,7 @@
         id("pending_deposit_transaction_id").innerHTML = transaction_id;
         id("pending_deposit_username").innerHTML = get_username_for_id(user_id);
         id("pending_deposit_user_id").innerHTML = user_id;
-        id("pending_deposit_intended_amount").innerHTML = toBTC(amount);
+        id("pending_deposit_intended_amount").innerHTML = toBTC(amount, true);
         id("pending_deposit_memo").innerHTML = "Completed pending deposit (Trans #" + transaction_id + ")";
         show("pending_deposit_window");
         }
@@ -916,11 +928,11 @@
         {
         var 
         
-        user_account = id("pending_deposit_user_id").innerHTML,
+        user_account_id = id("pending_deposit_user_id").innerHTML,
         transaction_amount = id("pending_deposit_received_amount").value,
         transaction_memo = id("pending_deposit_memo").innerHTML;
 
-        if (user_account === "") return alert("No user selected");
+        if (user_account_id === "") return alert("No user selected");
         
         if (transaction_amount === "") return alert("Please enter an amount");
         transaction_amount = Number(transaction_amount);
@@ -930,6 +942,7 @@
         var call = api({ 
             method: "FinalizePendingDeposit", 
             args: {
+                user_account_id: user_account_id,
                 transaction_id: id("pending_deposit_transaction_id").innerHTML,
                 received_amount: transaction_amount,
                 memo: transaction_memo
@@ -958,7 +971,7 @@
                 {
                 if (call.status === "1") 
                     {
-                    alert("Transaction cancelled! Reloading panel.")
+                    alert("Transaction cancelled! Reloading panel.");
                     location.reload();
                     }
                 else alert(call.error);

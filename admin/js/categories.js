@@ -189,9 +189,8 @@
         var 
         
         code = id("create_category_code_input").value,
-        description = id("create_category_description_input").value,
-        active_flag = +selectorValue("create_category_active_flag_selector");
-
+        description = id("create_category_description_input").value;
+    
         if (code === "") return alert("Enter a code");
         if (description === "") return alert("Enter a description");
 
@@ -200,7 +199,6 @@
             args: {
                 code: code,
                 description: description,
-                active_flag: active_flag
             }
         }, function(call)
             {

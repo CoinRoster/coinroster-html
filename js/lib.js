@@ -281,7 +281,7 @@
         return Number(num.replace(/[^0-9\.]+/g,""));
         }
         
-    function toBTC(raw_value, preserve_sign)
+    function toBTC(raw_value, full_eight, preserve_sign)
         {
         var is_negative = false;
         if (preserve_sign && raw_value < 0) is_negative = true;
@@ -318,7 +318,9 @@
                 else break;
                 }
             }
-            
+        
+        if (full_eight) output_value = (+output_value).toFixed(8);
+
         return (is_negative ? "-" : "") + output_value;
         }
        
@@ -387,6 +389,17 @@
     
     // BigDecimal shortcuts
     
+    function add(val1, val2, precision)
+        {
+        var result = new BigDecimal(val1.toString()).add(new BigDecimal(val2.toString()));
+        if (!precision) // if no precision specified
+            {
+            if (result % 1 === 0) return result | 0; // if integer, return as integer
+            return result; // else return result
+            }
+        else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
+        }
+        
     function multiply(val1, val2, precision)
         {
         var result = new BigDecimal(val1.toString()).multiply(new BigDecimal(val2.toString()));

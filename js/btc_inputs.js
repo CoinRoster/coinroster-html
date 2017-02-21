@@ -2,7 +2,7 @@
         {
         function input_toBTC()
             {
-            var btc_value = toBTC(this.value);
+            var btc_value = toBTC(this.value, true);
             if (+btc_value === 0) btc_value = "";
             this.value = btc_value;
             if (callback !== null) callback(this);
