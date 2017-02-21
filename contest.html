@@ -116,6 +116,11 @@
             </div>
             <div class="pari_mutuel_field hidden">
                 <table id="pari_mutuel_table" class="pari_mutuel_table"></table>
+                <div class="full_width_right_align">
+                    <div class="implied_odds_disclaimer">
+                        * Implied odds are rounded to two decimal places for display. Full precision is used for settlement.
+                    </div>
+                </div>
             </div>
             <div id="submit_button_container" class="submit_container hidden">
                 <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
@@ -158,7 +163,7 @@
                     settlement_type = call.settlement_type,
                     cost_per_entry = call.cost_per_entry,
                     rake = call.rake,
-                    option_table = call.option_table,
+                    option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
                     contest_status = call.contest_status;
             
@@ -177,63 +182,103 @@
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
-                    if (contest_status === 1)
+                    var contest_active = contest_status === 1;
+
+                    if (contest_type === "ROSTER")
                         {
-                        if (contest_type === "ROSTER")
-                            {
-                            var
+                        var
 
-                            salary_cap = call.salary_cap,
-                            roster_size = call.roster_size;
+                        salary_cap = call.salary_cap,
+                        roster_size = call.roster_size;
 
-                            initialize_roster_UI(JSON.parse(option_table), salary_cap, roster_size);
+                        initialize_roster_UI(contest_active, option_table, salary_cap, roster_size);
 
-                            id("number_of_entries_input").focus();
-                            }
-                        else if (contest_type === "PARI-MUTUEL")
+                        id("number_of_entries_input").focus();
+                        }
+                    else if (contest_type === "PARI-MUTUEL")
+                        {
+                        var 
+
+                        wager_grand_total = call.wager_grand_total,
+                        rake_amount = multiply(rake, wager_grand_total);
+
+                        wager_grand_total -= rake_amount;
+
+                        initialize_pari_mutuel_UI(contest_active, option_table, wager_grand_total);
+                        }
+                    if (typeof window.session !== "undefined")
+                        {
+                        if (window.session.user_level !== "3")
                             {
-                            var 
-                            
-                            wager_grand_total = call.wager_grand_total,
-                            rake_amount = multiply(rake, wager_grand_total);
-                    
-                            wager_grand_total -= rake_amount;
-                            
-                            initialize_pari_mutuel_UI(JSON.parse(option_table), wager_grand_total);
-                            }
-                        if (typeof window.session !== "undefined")
-                            {
-                            if (window.session.user_level !== "3") show("submit_button_container");
-                            else 
-                                {
-                                show("validate_email_container");
-                                api({ 
-                                    method: "GetAccountDetails", 
-                                    args: {} 
-                                }, function(call)
-                                    {
-                                    if (call.status === "1")
-                                        {
-                                        show("re_send_email_verification_container");
-                                        id("email_on_file").innerHTML = call.email_address;
-                                        }
-                                    });
-                                }
+                            if (contest_active) show("submit_button_container");
                             }
                         else 
                             {
-                            show("login_prompt_container");
-                            id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            show("validate_email_container");
+                            api({ 
+                                method: "GetAccountDetails", 
+                                args: {} 
+                            }, function(call)
+                                {
+                                if (call.status === "1")
+                                    {
+                                    show("re_send_email_verification_container");
+                                    id("email_on_file").innerHTML = call.email_address;
+                                    }
+                                });
                             }
                         }
                     else 
                         {
+                        show("login_prompt_container");
+                        id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                        }
+                        
+                    if (!contest_active)
+                        {
+                        var reason = "";
+                        switch (contest_status)
+                            {
+                            case 2 : 
+                                reason = "This contest is now in play!";
+                                break;
+                            case 3 : 
+                                reason = "This contest has been settled.";
+                                reason += "<br/><br/>";
+                                
+                                if (contest_type === "PARI-MUTUEL")
+                                    {
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var option_item = option_table[i];
+                                        if (option_item.outcome === 1)
+                                            {
+                                            reason += "The winning outcome was #" + option_item.id + " - " + option_item.description;
+                                            break;
+                                            }
+                                        }
+                                    }
+                                else if (contest_type === "ROSTER")
+                                    {
+                                    reason += "For a list of player scores <a href=\"/temp\" class=\"inline_link\">click here</a>."
+                                    } 
+                                
+                                break;
+                            case 4 : 
+                                reason = "This contest was under-subscribed.";
+                                break;
+                            case 5 : 
+                                reason = "This contest was cancelled by our admin team.";
+                                break;
+                            }
                         var registration_deadline = call.registration_deadline;
                         id("no_entry").innerHTML = [
                             "Registration for this contest closed at ",
                             dateconv_ms_to_time(registration_deadline),
                             " on ",
-                            dateconv_ms_to_string(registration_deadline)
+                            dateconv_ms_to_string(registration_deadline),
+                            "<br/><br/>",
+                            reason
                         ].join("");
                         show("no_entry");
                         }
@@ -258,7 +303,7 @@
 
     // initialize interface for roster contest
      
-    function initialize_roster_UI(option_table, salary_cap, roster_size)
+    function initialize_roster_UI(contest_active, option_table, salary_cap, roster_size)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
         
@@ -302,7 +347,7 @@
 
     // initialize interface for pari-mutuel contest
      
-    function initialize_pari_mutuel_UI(option_table, wager_grand_total)
+    function initialize_pari_mutuel_UI(contest_active, option_table, wager_grand_total)
         {
         var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
         
@@ -324,9 +369,9 @@
         var header = new_row(pari_mutuel_table, -1, [
             "",
             "Outcome",
-            "Current wagers",
-            "Current odds",
-            "Enter a wager"
+            "Wagers",
+            "Implied odds*",
+            contest_active ? "Enter a wager" : ""
         ]);
         
         header[0].style.background = "none";
@@ -342,21 +387,20 @@
             wager_total = option_item.wager_total,
             wager_input = "<input placeholder='Enter a wager' id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>";
             
-            var implied_odds = 0;
-            if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
+            var implied_odds = get_implied_odds(wager_grand_total, option_item);
     
             var row = new_row(pari_mutuel_table, -1, [
                 option_id,
                 description,
                 wager_total + " BTC",
                 implied_odds,
-                wager_input + " BTC"
+                contest_active ? (wager_input + " BTC") : ""
             ]);
             
             row[1].width = 1;
             row[2].style.textAlign = "left";
             
-            bind_btc_input(id("wager_input_" + option_id), function(input)
+            if (contest_active) bind_btc_input(id("wager_input_" + option_id), function(input)
                 {
                 if (input.value !== "")
                     {

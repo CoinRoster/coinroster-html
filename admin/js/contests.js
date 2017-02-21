@@ -11,7 +11,7 @@
         {
         switch(selection)
             {
-            case 0: /* Create Contest */
+            case 0: /* Contest Report */
                 contest_report();
                 break;
             case 1: /* Create Contest */
@@ -30,6 +30,9 @@
                         toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
                     });
                     }
+                break;
+            case 2: /* Settle Contest */
+                in_play_contest_report();
                 break;
             }
         }
@@ -653,7 +656,7 @@
         time = selectorValue("registration_deadline_time_selector"),
         registration_deadline = date + time * 60 * 60 * 1000;
 
-        if (registration_deadline - new Date().getTime() < 12 * 60 * 60 * 1000) return alert("Registration deadline must be at least 12 hours from now");
+        if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
         
         // validate rake
         
@@ -887,6 +890,137 @@
             if (call.status === "1") 
                 {
                 alert("Contest created! Reloading panel.");
+                location.reload();
+                }
+            else alert("Error: " + call.error);
+            });
+        }
+
+/*----------------------------------------------------------------------*/
+
+    function in_play_contest_report()
+        {
+        var call = api({ 
+            method: "ContestReport", 
+            args: {
+                category: "",
+                sub_category: ""
+            }  
+        });
+        
+        var 
+        
+        contest_report = call.contest_report,
+        table = new_table("in_play_contest_report_table"),
+        row_count = 0;
+
+        window.contest_type = [];
+        window.contest_title = [];
+        window.option_table = [];
+
+        for (var i=0; i<contest_report.length; i++)
+            {
+            var contest_item = contest_report[i];
+                    
+            if (contest_item.status === 2)
+                {
+                var
+                
+                id = contest_item.id,
+                created = contest_item.created,
+                created_by = contest_item.created_by,
+                category = contest_item.category,
+                sub_category = contest_item.sub_category,
+                contest_type = contest_item.contest_type,
+                title = contest_item.title,
+                settlement_type = contest_item.settlement_type,
+                option_table = contest_item.option_table;
+        
+                window.contest_type[id] = contest_type;
+                window.contest_title[id] = title;
+                window.option_table[id] = JSON.parse(option_table);
+        
+                new_row(table, row_count++, [
+                    id,
+                    dateconv_ms_to_string(created),
+                    created_by,
+                    contest_type,
+                    category,
+                    sub_category,
+                    settlement_type,
+                    title,
+                    "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_contest(" + id + ")\">Settle</button>"
+                ]);
+                }
+            }
+        }
+        
+    function settle_contest(contest_id)
+        {
+        window.contest_id_to_settle = contest_id;
+        
+        var 
+        
+        contest_type = window.contest_type[contest_id],
+        option_table = window.option_table[contest_id];
+
+        hide("in_play_contest_report");
+        show("settle_contest");
+        id("contest_type").innerHTML = contest_type;
+        id("contest_id").innerHTML = contest_id;
+        id("contest_title").innerHTML = window.contest_title[contest_id];
+        
+        if (contest_type === "PARI-MUTUEL")
+            {
+            hide("settle_roster");
+            show("settle_pari_mutuel");
+            
+            var table = new_table("pari_mutuel_outcome_table");
+            
+            for (var i=0; i<option_table.length; i++)
+                {
+                var option_item = option_table[i],
+                        
+                option_id = option_item.id,
+                description = option_item.description;
+                
+                new_row(table, -1, [
+                    "<input type=\"radio\" name=\"pari_mutuel_outcome_radio\" value=\"" + option_id + "\" />",
+                    option_id,
+                    description
+                ]);
+                }
+            }   
+        else if (contest_type === "ROSTER")
+            {
+            hide("settle_pari_mutuel");
+            show("settle_roster");
+            }
+        }
+        
+    function cancel_settle_contest()
+        {
+        hide("settle_contest");
+        show("in_play_contest_report");
+        }
+        
+    function settle_pari_mutuel_contest()
+        {
+        var winning_outcome = get_radio_selection("pari_mutuel_outcome_radio");
+        
+        if (winning_outcome === null) return alert("Please select winning outcome!");
+        
+        api({
+            method: "SettlePariMutuelContest",
+            args: {
+                contest_id: window.contest_id_to_settle,
+                winning_outcome: winning_outcome
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("Contest has been settled! Reloading panel.");
                 location.reload();
                 }
             else alert("Error: " + call.error);

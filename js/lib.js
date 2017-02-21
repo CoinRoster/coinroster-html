@@ -229,6 +229,18 @@
             }
         return false;
         }
+        
+    function get_radio_selection(name)
+        {
+        var radios = document.getElementsByName(name);
+
+        for (var i=0, length=radios.length; i<length; i++) 
+            {
+            if (radios[i].checked) return radios[i].value;
+            }
+        
+        return null;
+        }
 
     function toCode(value)
         {

@@ -22,6 +22,11 @@
         </h3>
         <!--<h3 id="contest_title" class="section_header">My Entries</h3>-->
         <table id="entry_report_table" class="contest_table"></table>
+        <div id="implied_odds_disclaimer" class="full_width_right_align hidden">
+            <div class="implied_odds_disclaimer">
+                * Implied odds are rounded to two decimal places for display. Full precision is used for settlement.
+            </div>
+        </div>
         <div id="edit_roster_container" class="hidden">
             <table class="contest_detail_table">
                 <tr>
@@ -121,6 +126,8 @@
                                 {
                                 case "PARI-MUTUEL" : 
                                     {
+                                    show("implied_odds_disclaimer");
+                                    
                                     var 
                                     
                                     user_wagers = [],
@@ -134,8 +141,8 @@
                                         "",
                                         "Outcome",
                                         "My wagers",
-                                        "Current odds",
-                                        "Implied payout"
+                                        "Implied odds*",
+                                        "Payout*"
                                     ]);
 
                                     header[0].style.background = "none";

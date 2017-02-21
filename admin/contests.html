@@ -302,6 +302,37 @@
         <br/>
     </div>
 </div>
+<div id="pane_2" class="pane" tab_text="Settle Contest">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Settle Contest
+        </div>
+    </div>
+    <div id="in_play_contest_report" class="content_body" style="top:68px">
+        <div id="in_play_contest_report_table" class="report_table"></div>
+    </div>
+    <div id="settle_contest" class="content_body hidden" style="top:68px">
+        <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
+        <br/><br/>
+        <h3 style="font-weight:normal">
+            Contest <span id="contest_id"></span> | <span id="contest_type"></span>
+        </h3>
+        <h2>
+            <span id="contest_title"></span>
+        </h2>
+        <br/>
+        <div id="settle_pari_mutuel" class="hidden">
+            Select winning outcome:
+            <br/><br/>
+            <div id="pari_mutuel_outcome_table" class="report_table"></div>
+            <br/>
+            <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+        </div>
+        <div id="settle_roster" class="hidden">
+            Settle roster
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="js/contests.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>

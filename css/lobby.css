@@ -123,6 +123,12 @@
         text-decoration: underline;
     }
 
+    .implied_odds_disclaimer {
+        padding: 5px 20px;
+        font-size: 11px;
+        color: rgb(200,200,200);
+    }
+    
     /*------------------------------------------------------------*/
 
     #contest_title {

@@ -124,6 +124,11 @@
         padding:4px;
         cursor:default;
     }
+    
+    .full_width_right_align {
+        width:100%;
+        text-align:right;
+    }
 
     #c_logo {
         width:50px;
