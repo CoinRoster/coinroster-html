@@ -42,7 +42,7 @@
                     var header = new_row(table, -1, [
                         "Contest",
                         "Category",
-                        "My entries",
+                        /*"My wagers",*/
                         //"Wager",
                         "Live at"
                     ]);
@@ -66,6 +66,7 @@
                         contest_id = contest_item.id,
                         category = contest_item.category,
                         sub_category = contest_item.sub_category,
+                        contest_type = contest_item.contest_type,
                         category_description = contest_item.category_description,
                         sub_category_description = contest_item.sub_category_description,
                         title = contest_item.title,
@@ -77,14 +78,19 @@
                         status = contest_item.status;
 
                         if (status === 2) registration_deadline_string = "In play";
-
+                        
+                        var view_string = "View ";
+                        
+                        if (contest_type === "PARI-MUTUEL") view_string += "wagers";
+                        else if (contest_type === "ROSTER") view_string += "rosters";
+                        
                         var row = new_row(table, -1, [
                             title,
                             category_description + " &bull; " +
                             sub_category_description,
-                            user_entries_count + " / " + user_entries_value + " BTC",
+                            /*user_entries_count + " / " + user_entries_value + " BTC",*/
                             registration_deadline_string,
-                            "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">View entries</button>"
+                            "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">" + view_string + "</button>"
                         ]);
                         
                         for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";

@@ -285,10 +285,10 @@
         {
         var is_negative = false;
         if (preserve_sign && raw_value < 0) is_negative = true;
-        
+
         var 
         
-        input_value = raw_value.toString().replace(/[^0-9$.]/g, ''),
+        input_value = (+raw_value).toFixed(8).toString().replace(/[^0-9$.]/g, ''),
         allow_decimal = true,
         output_value = "",
         decimal_limit = input_value.length,
@@ -310,7 +310,9 @@
             else output_value += char;
             }
 
-        if (first_decimal_index !== 0)
+        if (full_eight) output_value = (+output_value).toFixed(8);
+        
+        else if (first_decimal_index !== 0)
             {
             for (var i=output_value.length-1; i>first_decimal_index; i--)
                 {
@@ -319,8 +321,6 @@
                 }
             }
         
-        if (full_eight) output_value = (+output_value).toFixed(8);
-
         return (is_negative ? "-" : "") + output_value;
         }
        

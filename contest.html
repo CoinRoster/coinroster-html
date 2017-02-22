@@ -177,7 +177,7 @@
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
                     id("rake").innerHTML = multiply(rake, 100) + "%";
-                    id("cost_per_entry").innerHTML = cost_per_entry + " BTC";
+                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
                     id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
@@ -392,7 +392,7 @@
             var row = new_row(pari_mutuel_table, -1, [
                 option_id,
                 description,
-                wager_total + " BTC",
+                toBTC(wager_total) + " BTC",
                 implied_odds,
                 contest_active ? (wager_input + " BTC") : ""
             ]);
