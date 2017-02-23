@@ -177,8 +177,8 @@
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
                     id("rake").innerHTML = multiply(rake, 100) + "%";
-                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
-                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
+                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry, true) + " BTC";
+                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool, true) + " BTC";
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
@@ -392,7 +392,7 @@
             var row = new_row(pari_mutuel_table, -1, [
                 option_id,
                 description,
-                toBTC(wager_total) + " BTC",
+                toBTC(wager_total, true) + " BTC",
                 implied_odds,
                 contest_active ? (wager_input + " BTC") : ""
             ]);
@@ -404,7 +404,7 @@
                 {
                 if (input.value !== "")
                     {
-                    input.value = toBTC(input.value);
+                    input.value = toBTC(input.value, true);
                     if (input.value < window.cost_per_entry)
                         {
                         show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()

@@ -241,6 +241,7 @@
                     user_level = "admin";
                     break;
                 case 2:
+                    if (exclude_internal_accounts) continue;
                     user_level = "internal";
                     break;
                 case 3:

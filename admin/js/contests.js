@@ -61,7 +61,7 @@
         
         var table = new_table("contest_report_table"),
         row_count = 0,
-        right_align_array = [1,8,9,10,11,12,13,14];
+        right_align_array = [1,10,11,12,13,14,15,16,17,18];
 
         for (var i=0; i<number_of_contests; i++)
             {

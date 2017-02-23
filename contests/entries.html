@@ -142,7 +142,7 @@
                                         "Outcome",
                                         "My wagers",
                                         "Implied odds*",
-                                        "Payout*"
+                                        "Potential payout*"
                                     ]);
 
                                     header[0].style.background = "none";
@@ -183,9 +183,9 @@
                                         row = new_row(table, -1, [
                                             option_id,
                                             description,
-                                            amount + " BTC",
+                                            toBTC(amount) + " BTC",
                                             option_implied_odds,
-                                            implied_payout + " BTC"
+                                            toBTC(implied_payout) + " BTC"
                                         ]);
 
                                         row[1].width = "1";

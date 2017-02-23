@@ -213,7 +213,7 @@
                     "Contest",
                     "Game type",
                     "Min entry",
-                    "Entries",
+                    //"Entries",
                     "Prize pool",
                     "Live at",
                     ""
@@ -276,14 +276,14 @@
                         // to make this only fire on the change to 'in play', initialize last_status = 1
                         }
                         
-                    var game_type = settlement_type_string(settlement_type) + "<br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>";
+                    var game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>";
                         
                     var row = new_row(table, -1, [
                         title,
                         game_type,
-                        toBTC(cost_per_entry) + " BTC",
-                        number_of_entries,
-                        toBTC(total_prize_pool) + " BTC",
+                        toBTC(cost_per_entry, true) + " BTC",
+                        //number_of_entries, // remember to change row[4] to row[5] below
+                        toBTC(total_prize_pool, true) + " BTC",
                         registration_deadline_string,
                         "<button class=\"text_button " + button_class + "\" style=\"width:auto\" onclick=\"redirect_to_contest(" + contest_id + ")\">" + button_string + "</button>"
                     ]);
@@ -299,7 +299,7 @@
                     row[1].style.textAlign = "left";
                     row[2].style.textAlign = "left";
                     row[3].style.whiteSpace = "nowrap";
-                    row[5].style.whiteSpace = "nowrap";
+                    row[4].style.whiteSpace = "nowrap";
 
                     bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
                     }
