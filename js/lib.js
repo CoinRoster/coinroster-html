@@ -61,7 +61,7 @@
         var async = false;
         if (typeof callback !== "undefined") async = true;
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../" + call.method + ".api", false);
+        xhr.open("POST", "../" + call.method + ".api", async);
         if (async)
             {
             xhr.onreadystatechange = function()

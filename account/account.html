@@ -322,6 +322,7 @@
                 else
                     {
                     destroy("add_ext_address_subwindow");
+                    
                     id("ext_address").innerHTML = ext_address;
                     if (ext_address_secure_flag === 1)
                         {
@@ -365,6 +366,64 @@
                         }
                     update_subscription_view(newsletter_flag);
                     }
+                }
+            (function(subwindows)
+                {
+                for (var i=0; i<subwindows.length; i++)
+                    {
+                    //alert(subwindows[i].id);
+                    var 
+
+                    subwindow_toggle = document.createElement("div");
+                    subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
+                    subwindow_toggle.className = "subwindow clickable_subwindow";
+
+                    if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
+
+                    subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
+                        {
+                        return function()
+                            {
+                            if (typeof window.subwindow !== "undefined")
+                                {
+                                window.subwindow.style.display = "none";
+                                window.subwindow_toggle.style.display = "block";
+                                }
+                            window.subwindow = subwindow;
+                            window.subwindow_toggle = subwindow_toggle;
+                            subwindow.style.display = "block";
+                            subwindow_toggle.style.display = "none";
+                            };
+                        })(subwindows[i], subwindow_toggle);
+
+                    var 
+
+                    hide_button = document.createElement("div");
+                    hide_button.className = "hide_button";
+                    hide_button.innerHTML = "hide";
+                    hide_button.onclick =  (function(subwindow, subwindow_toggle) 
+                        {
+                        return function()
+                            {
+                            subwindow.style.display = "none";
+                            subwindow_toggle.style.display = "block";
+                            reset_error_messages();
+                            };
+                        })(subwindows[i], subwindow_toggle);
+
+                    subwindows[i].appendChild(hide_button);
+                    subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
+                    }
+                })(document.getElementsByClassName("hidden_subwindow"));
+
+            var hash = location.hash.slice(1);
+            switch(hash)
+                {
+                case "add_wallet" :
+                    id("add_ext_address_subwindow_toggle").click();
+                    break;
+                default :
+                    // do nothing
                 }
             });
         }
@@ -722,65 +781,6 @@
         
         populate_account_data();
         transaction_report();
-        
-        (function(subwindows)
-            {
-            for (var i=0; i<subwindows.length; i++)
-                {
-                //alert(subwindows[i].id);
-                var 
-
-                subwindow_toggle = document.createElement("div");
-                subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
-                subwindow_toggle.className = "subwindow clickable_subwindow";
-
-                if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
-
-                subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
-                    {
-                    return function()
-                        {
-                        if (typeof window.subwindow !== "undefined")
-                            {
-                            window.subwindow.style.display = "none";
-                            window.subwindow_toggle.style.display = "block";
-                            }
-                        window.subwindow = subwindow;
-                        window.subwindow_toggle = subwindow_toggle;
-                        subwindow.style.display = "block";
-                        subwindow_toggle.style.display = "none";
-                        };
-                    })(subwindows[i], subwindow_toggle);
-
-                var 
-
-                hide_button = document.createElement("div");
-                hide_button.className = "hide_button";
-                hide_button.innerHTML = "hide";
-                hide_button.onclick =  (function(subwindow, subwindow_toggle) 
-                    {
-                    return function()
-                        {
-                        subwindow.style.display = "none";
-                        subwindow_toggle.style.display = "block";
-                        reset_error_messages();
-                        };
-                    })(subwindows[i], subwindow_toggle);
-
-                subwindows[i].appendChild(hide_button);
-                subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
-                }
-            })(document.getElementsByClassName("hidden_subwindow"));
-            
-        var hash = location.hash.slice(1);
-        switch(hash)
-            {
-            case "add_wallet" :
-                id("add_ext_address_subwindow_toggle").click();
-                break;
-            default :
-                // do nothing
-            }
         }
         
 </script>
