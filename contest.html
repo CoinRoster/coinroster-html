@@ -76,6 +76,20 @@
                         <span id="rake" class="orange"></span>
                     </td>
                 </tr>
+                <tr id="registration_deadline_row">
+                    <td>
+                        Entry deadline:
+                    </td>
+                    <td>
+                        <span id="registration_deadline" class="orange"></span>
+                    </td>
+                    <td>
+                        <!-- this row is hidden if status != 1 -->
+                    </td>
+                    <td>
+                        <!-- this row is hidden if status != 1 -->
+                    </td>
+                </tr>
             </table>
             <hr noshade size="1"/>
             <table class="contest_detail_table">
@@ -160,6 +174,9 @@
                     contest_type = call.contest_type,
                     title = call.title,
                     description = call.description,
+                    registration_deadline_ms = call.registration_deadline,
+                    registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
+                    registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
                     settlement_type = call.settlement_type,
                     cost_per_entry = call.cost_per_entry,
                     rake = call.rake,
@@ -234,8 +251,11 @@
                         id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
                         }
                         
-                    if (!contest_active)
+                    if (contest_active) id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
+                    else
                         {
+                        hide("registration_deadline_row");
+                        
                         var reason = "";
                         switch (contest_status)
                             {

@@ -282,9 +282,9 @@
                     category_map[category_code] = sub_category_object;
                     }
                 }
-            });
             
-        $(category_selector).trigger("chosen:updated");
+            $(category_selector).trigger("chosen:updated");
+            });
         }
         
     category_selector.onchange = function()
