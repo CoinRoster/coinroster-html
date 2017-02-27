@@ -588,6 +588,7 @@
         
         transaction_view = id("new_trans_view_" + new_transaction_type),
         transaction_type = transaction_view.getElementsByClassName("new_transaction_type")[0].innerHTML,
+        display_as_adjustment = selectorHTML("display_as_adjustment_selector"),
         user_account = selectorValue(transaction_view.getElementsByClassName("user_selector")[0]),
         transaction_user_balance = transaction_view.getElementsByClassName("transaction_user_balance")[0].innerHTML,
         transaction_amount = transaction_view.getElementsByClassName("transaction_amount")[0].value,
@@ -606,11 +607,15 @@
             {
             if (transaction_amount > Number(transaction_user_balance)) return alert("User has insufficient funds");
             }
+            
+        if (display_as_adjustment === "Yes") display_as_adjustment = true;
+        else display_as_adjustment = false;
 
         var call = api({
             method: "CreateTransaction",
             args: {
                 transaction_type: transaction_type,
+                display_as_adjustment: display_as_adjustment,
                 user_account: user_account,
                 amount: transaction_amount,
                 memo: transaction_memo
