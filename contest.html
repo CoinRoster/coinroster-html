@@ -76,6 +76,20 @@
                         <span id="rake" class="orange"></span>
                     </td>
                 </tr>
+                <tr id="registration_deadline_row">
+                    <td>
+                        Entry deadline:
+                    </td>
+                    <td>
+                        <span id="registration_deadline" class="orange"></span>
+                    </td>
+                    <td>
+                        Countdown:
+                    </td>
+                    <td>
+                        <span id="registration_countdown" class="orange"></span>
+                    </td>
+                </tr>
             </table>
             <hr noshade size="1"/>
             <table class="contest_detail_table">
@@ -160,6 +174,9 @@
                     contest_type = call.contest_type,
                     title = call.title,
                     description = call.description,
+                    registration_deadline_ms = call.registration_deadline,
+                    registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
+                    registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
                     settlement_type = call.settlement_type,
                     cost_per_entry = call.cost_per_entry,
                     rake = call.rake,
@@ -234,8 +251,78 @@
                         id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
                         }
                         
-                    if (!contest_active)
+                    if (contest_active) 
                         {
+                        id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
+                        
+                        function update_countdown()
+                            {
+                            var countdown_string = "";
+
+                            if (new Date() > registration_deadline_ms) countdown_string = "Contest is in play!";
+                            else
+                                {
+                                var time_remaining = get_time_remaining(registration_deadline_ms),
+                                days = time_remaining.days,
+                                hours = time_remaining.hours,
+                                mins = time_remaining.minutes,
+                                secs = time_remaining.seconds;
+                        
+                                var
+                                
+                                show_hours = false,
+                                show_mins = false,
+                                show_secs = false;
+                        
+                                if (days > 0) 
+                                    {
+                                    countdown_string = days + "d ";
+                                    show_hours = true;
+                                    show_mins = true;
+                                    show_secs = true;
+                                    }
+                                else if (hours > 0) 
+                                    {
+                                    show_hours = true;
+                                    show_mins = true;
+                                    show_secs = true;
+                                    }
+                                else if (mins > 0) 
+                                    {
+                                    show_mins = true;
+                                    show_secs = true;
+                                    }
+                                else show_secs = true;
+                                    
+                                if (show_hours)
+                                    {
+                                    if (hours < 10) hours = "0" + hours;
+                                    countdown_string += hours + "h ";
+                                    }
+                                if (show_mins)
+                                    {
+                                    if (mins < 10) mins = "0" + mins;
+                                    countdown_string += mins + "m ";
+                                    }
+                                if (show_secs)
+                                    {
+                                    if (secs < 10) secs = "0" + secs;
+                                    countdown_string += secs + "s ";
+                                    }
+                                }
+                                
+                            id("registration_countdown").innerHTML = countdown_string;
+                            }
+                        setInterval(function()
+                            {
+                            update_countdown();
+                            }, 1000);
+                        update_countdown();
+                        }
+                    else
+                        {
+                        hide("registration_deadline_row");
+                        
                         var reason = "";
                         switch (contest_status)
                             {

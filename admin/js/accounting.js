@@ -75,7 +75,9 @@
             email_ver_flag = user_item.email_ver_flag,
             newsletter_flag = user_item.newsletter_flag,
             referral_program = user_item.referral_program,
-            referrer_username = user_item.referrer_username;
+            referrer_username = user_item.referrer_username,
+            free_play = user_item.free_play,
+            last_active = user_item.last_active;
     
             btc_accumulator = add(btc_accumulator, btc_balance);
             rc_accumulator = add(rc_accumulator, rc_balance);
@@ -104,7 +106,9 @@
                 newsletter_flag,
                 referral_program,
                 referrer_username,
-                last_login
+                last_login,
+                free_play,
+                last_active
             ]);
             }
         var red_alert = "rgb(230,0,0)";
@@ -149,9 +153,10 @@
         else
             {
             header = new_row(table, row_count++, [
-                "Joined",
                 "Username",
+                "Last Active",
                 "Last Login",
+                "Joined",
                 "BTC",
                 "RC",
                 "E-mail",
@@ -162,9 +167,9 @@
                 "Level"
             ]);
 
-            header[4].style.textAlign = "right";
             header[5].style.textAlign = "right";
-            header[9].style.textAlign = "right";
+            header[6].style.textAlign = "right";
+            header[10].style.textAlign = "right";
             }
 
         // style headers:
@@ -175,19 +180,25 @@
         
         switch (user_report_sort_selector.selectedIndex)
             {
-            case 0: // Last Login
+            case 0: // Last Active
+                user_report_array.sort(function(a, b)
+                    {
+                    return b[13] - a[13];
+                    });
+                break;
+            case 1: // Last Login
                 user_report_array.sort(function(a, b)
                     {
                     return b[11] - a[11];
                     });
                 break;
-            case 1: // Created date
+            case 2: // Created date
                 user_report_array.sort(function(a, b)
                     {
                     return b[0] - a[0];
                     });
                 break;
-            case 2: // AlphaNumeric
+            case 3: // AlphaNumeric
                 user_report_array.sort(function(a, b)
                     {
                     a = a[2].toLowerCase();
@@ -195,13 +206,13 @@
                     return (a === b ? 0 : (a < b ? -1 : 1));
                     });
                 break;
-            case 3: // BTC Balance High to Low
+            case 4: // BTC Balance High to Low
                 user_report_array.sort(function(a, b)
                     {
                     return b[4] - a[4];
                     });
                 break;
-            case 4: // RC Balance High to Low
+            case 5: // RC Balance High to Low
                 user_report_array.sort(function(a, b)
                     {
                     return b[5] - a[5];
@@ -228,7 +239,9 @@
             newsletter_flag = user_item[8],
             referral_program = user_item[9],
             referrer_username = user_item[10],
-            last_login = user_item[11];
+            last_login = user_item[11],
+            free_play = user_item[12],
+            last_active = user_item[13];
     
             created = dateconv_ms_to_string(created);
             
@@ -260,6 +273,9 @@
             if (last_login === 0) last_login = "";
             else last_login = timeSince(last_login);
     
+            if (last_active === 0) last_active = "";
+            else last_active = timeSince(last_active);
+            
             if (show_row) 
                 {
                 if (simple_user_report)
@@ -277,9 +293,10 @@
                 else
                     {
                     var row = new_row(table, row_count++, [
-                        created,
                         username,
+                        last_active,
                         last_login,
+                        created,
                         btc_balance,
                         rc_balance,
                         email_address,
@@ -290,9 +307,9 @@
                         user_level
                     ]);
 
-                    row[4].style.textAlign = "right";
                     row[5].style.textAlign = "right";
-                    row[9].style.textAlign = "right";
+                    row[6].style.textAlign = "right";
+                    row[10].style.textAlign = "right";
                     }
                 }
             }
