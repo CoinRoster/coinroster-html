@@ -143,6 +143,23 @@
         return date_ms + offset;
         }
         
+    function get_time_remaining(date_ms)
+        {
+        var t = date_ms - new Date().getTime();
+        var seconds = Math.floor( (t/1000) % 60 );
+        var minutes = Math.floor( (t/1000/60) % 60 );
+        var hours = Math.floor( (t/(1000*60*60)) % 24 );
+        var days = Math.floor( t/(1000*60*60*24) );
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+            };
+        }
+
+        
     function timeSince(ms) 
         {
         var seconds = Math.floor((new Date().getTime() - ms) / 1000);
