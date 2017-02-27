@@ -22,6 +22,9 @@
                     <a class="text_button a_button" href="accounting.html" style="color:white">Accounting</a>
                     <br/>
                     <br/>
+                    <a class="text_button a_button" onclick="build_lobby()" style="color:white">Build Lobby</a>
+                    <br/>
+                    <br/>
                     <a class="text_button a_button" href="categories.html" style="color:white">Categories</a>
                     <br/>
                     <br/>
@@ -31,5 +34,23 @@
         </td>
     </tr>
 </table>
+<script>
+
+    function build_lobby()
+        {
+        api({
+            method: "TriggerBuildLobby",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                alert("Lobby has been built!");
+                location = "/";
+                }
+            });
+        }
+        
+</script>
 </body>
 </html>

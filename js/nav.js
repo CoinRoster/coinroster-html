@@ -12,6 +12,7 @@
                 id("ssi_header_account").innerHTML = call.username;
 
                 if (call.user_level === "1") show_cells("ssi_header_admin_wrapper");
+                
                 show_cells("ssi_header_a_active");
                 }
             else show_cells("ssi_header_a_inactive");
@@ -37,13 +38,17 @@
                 tab_id = "ssi_header_" + target;
                 if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
                 }
-                
-            init();
             }
+        init();
         });
     
     function show_cells(class_name)
         {
         var cells = document.getElementsByClassName(class_name);
-        for (var i=0; i<cells.length; i++) cells[i].style.display = "table-cell";
+        for (var i=0; i<cells.length; i++) show(cells[i], "table-cell");
+        }
+    function hide_cells(class_name)
+        {
+        var cells = document.getElementsByClassName(class_name);
+        for (var i=0; i<cells.length; i++) hide(cells[i]);
         }

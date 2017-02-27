@@ -27,7 +27,7 @@
         white-space:nowrap;
     }
     
-    .ssi_header_a_inactive, .ssi_header_a_active {
+    .ssi_header_a_active, .ssi_header_a_inactive {
         display:none;
     }
     
