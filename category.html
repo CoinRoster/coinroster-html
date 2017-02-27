@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
+    <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
+    <meta name="keywords" content="coinroster, bitcoin, daily fantasy sports, dfs, fantasy sports" />
+    <meta name="Robots" content="index,follow,NOODP" />  
+    <meta name="googlebot" content="NOODP" />        
+    <meta name="rating" content="General" />
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/lobby.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/nav.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="centering_container">
+    <div id="body_container">
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<script type="text/javascript">
+    
+    var body_container = id("body_container");
+    
+    window.onhashchange = function()
+        {
+        trigger_hash_action();
+        };
+
+    function init()
+        {
+        if (location.hash.indexOf("#") !== -1) hash_action(location.hash.slice(1));
+        }
+        
+    function hash_action(hash)
+        {
+        var 
+
+        hash_args = hash.split("&"),
+        category = hash_args[0].split("=")[1],
+        sub_category = hash_args[1].split("=")[1];
+
+        id("ssi_header_lobby").className = "ssi_header_a";
+        
+        body_container.innerHTML = "<br/>";
+        
+        var hr = document.createElement("hr");
+        hr.size = 1;
+        hr.noShade = true;
+        body_container.appendChild(hr);
+        
+        api({ 
+            method: "ContestReport", 
+            args: {
+                category: category,
+                sub_category: sub_category
+            } 
+        }, function(call)
+            {
+            var
+            
+            category_description = call.category_description,
+            sub_category_description = call.sub_category_description;
+                   
+            var heading = document.createElement("h3");
+            heading.className = "section_header";
+            heading.innerHTML = category_description + "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + sub_category_description;
+            body_container.appendChild(heading);
+
+            var table = document.createElement("table");
+            table.className = "contest_table";
+            body_container.appendChild(table);
+        
+            var 
+            
+            contest_report = call.contest_report,
+            contest_report_array = [],
+            number_of_contests = contest_report.length;
+    
+            if (number_of_contests === 0) no_data_message(table, "There are no open contests in this category. Please check back soon.");
+            else
+                {
+                var header = new_row(table, -1, [
+                    "Contest",
+                    "Game type",
+                    "Min entry",
+                    //"Entries",
+                    "Prize pool",
+                    "Live at",
+                    ""
+                ]);
+                
+                header[0].style.background = "none";
+                header[0].style.border = "none";
+                
+                for (var i=1; i<header.length; i++)
+                    {
+                    header[i].style.fontSize = "14px";
+                    header[i].style.paddingBottom = "10px";
+                    }
+                    
+                header[1].style.textAlign = "left";
+                header[2].style.textAlign = "left";
+                
+                var last_status = 0;
+
+                for (var i=0; i<number_of_contests; i++)
+                    {
+                    var contest_item = contest_report[i],
+
+                    contest_id = contest_item.id,
+                    contest_type = contest_item.contest_type,
+
+                    title = contest_item.title,
+                    settlement_type = contest_item.settlement_type,
+                    pay_table = contest_item.pay_table,
+                    cost_per_entry = contest_item.cost_per_entry,
+                    total_prize_pool = contest_item.total_prize_pool,
+                    number_of_entries = divide(total_prize_pool, cost_per_entry) | 0,
+                    
+                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
+                    
+                    status = contest_item.status,
+                    status_string,
+                    button_string,
+                    button_class;
+            
+                    switch (status)
+                        {
+                        case 1:
+                            button_string = "Enter";
+                            status_string = "Reg open";
+                            button_class = "orange orange_border";
+                            break;
+                        case 2:
+                            button_string = "View";
+                            status_string = "In play";
+                            registration_deadline_string = "In play";
+                            button_class = "";
+                            //continue;
+                            break;
+                        }
+                        
+                    if (status !== last_status)
+                        {
+                        // will fire when status changes as rows are looped through
+                        // to make this only fire on the change to 'in play', initialize last_status = 1
+                        }
+                        
+                    var game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>";
+                        
+                    var row = new_row(table, -1, [
+                        title,
+                        game_type,
+                        toBTC(cost_per_entry, true) + " BTC",
+                        //number_of_entries, // remember to change row[4] to row[5] below
+                        toBTC(total_prize_pool, true) + " BTC",
+                        registration_deadline_string,
+                        "<button class=\"text_button " + button_class + "\" style=\"width:auto\" onclick=\"redirect_to_contest(" + contest_id + ")\">" + button_string + "</button>"
+                    ]);
+
+                    row[1].onclick = (function(contest_id)
+                        {
+                        return function()
+                            {
+                            redirect_to_contest(contest_id);
+                            }
+                        })(contest_id);
+                    row[1].className = "contest_cell_link";
+                    row[1].style.textAlign = "left";
+                    row[2].style.textAlign = "left";
+                    row[3].style.whiteSpace = "nowrap";
+                    row[4].style.whiteSpace = "nowrap";
+
+                    bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
+                    }
+                }
+            });
+        }
+
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>
