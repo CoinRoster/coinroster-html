@@ -49,6 +49,10 @@
                     disable_search_threshold: 10,
                     allow_single_deselect: false
                 });
+                $('#pane_' + selection).find('.chosen-select_allow-deselect').chosen({
+                    disable_search_threshold: 10,
+                    allow_single_deselect: true
+                });
                 nav_selection = selection;
                 location.hash = selection;
 
