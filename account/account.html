@@ -12,7 +12,6 @@
 <div id="centering_container">
     <div id="body_container">
         <br/>
-        <hr noshade size="1"/>
         <h3 class="section_header">My Account</h3>
         <div style="margin-bottom:40px;">
             <table id="balance_wrapper_table">
@@ -45,7 +44,7 @@
                             </tr>
                         </table>
                     </td>
-                    <td>
+                    <!--<td>
                         <table class="deposit_withdraw_table">
                             <tr>
                                 <td>
@@ -56,11 +55,12 @@
                                 </td>
                             </tr>
                         </table>
-                    </td>
+                    </td>-->
                 </tr>
             </table>
         </div>
-        
+    </div>
+    <div class="table_body_container">
         <a class="subwindow clickable_subwindow link_subwindow" href="/contests">
             My Contests
         </a>
@@ -103,15 +103,31 @@
             <br/>
             <br/>
             <div id="display_ext_address">
-                <span id="ext_address" class="teal"></span>
-                <button id="change_ext_address_button" class="text_button auto_width add_left_margin" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
+                <ul class="account_form">
+                    <li>
+                        <span id="ext_address" class="teal"></span>
+                    </li>
+                    <li>
+                        <button id="change_ext_address_button" class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
+                    </li>
+                </ul>
             </div>
             <div id="change_ext_address" style="display:none">
                 <form onsubmit="return update_ext_address('new_ext_address');">
-                    New wallet address:
-                    <input id="new_ext_address" type="text" class="input_style email_input add_left_margin" placeholder="wallet address" maxlength="60"/>
-                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
-                <button class="text_button auto_width add_left_margin" onclick="hide('change_ext_address');show('display_ext_address');return false;">Cancel</button>
+                    <ul class="account_form">
+                        <li>
+                            <span id="change_wallet_message">
+                                New wallet address:
+                            </span>
+                        </li>
+                        <li>
+                            <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="60"/>
+                        </li>
+                        <li>
+                            <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
+                            <button class="text_button auto_width add_left_margin" style="display:inline-block" onclick="return cancel_change_wallet();">Cancel</button>
+                        </li>
+                    </ul>
                 </form>
             </div>
             <br/>
@@ -212,43 +228,73 @@
             <br/>
             <br/>
             <div id="manage_email">
-                <span id="email_on_file"></span>
-                <span id="verified_unverified"></span>
-                <span id="verification_button">
-                    <button type="submit" class="text_button auto_width add_left_margin" onclick="resend_verification();">Re-send verification</button>
-                </span>
-                <span id="verification_message">
-                    Verification Sent!
-                </span>
-                <button class="text_button auto_width add_left_margin" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
+                <ul class="account_form">
+                    <li>
+                        <span id="email_on_file"></span>
+                        <span id="verified_unverified"></span>
+                    </li>
+                    <li>
+                        <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
+                    </li>
+                    <li id="verification_button">
+                        <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
+                    </li>
+                </ul>
             </div>
-            <div id="change_email" style="display:none">
-                <form onsubmit="return change_email_address();" style="display:inline-block">
-                    <span id="change_email_message">New e-mail address:</span>
-                    <input id="new_email_address" type="text" class="input_style email_input add_left_margin" placeholder="e-mail address" maxlength="60"/>
-                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+            <div id="change_email" class="hidden">
+                <form onsubmit="return change_email_address();">
+                    <ul class="account_form">
+                        <li>
+                            <span id="change_email_message">
+                                New e-mail address:
+                            </span>
+                        </li>
+                        <li>
+                            <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
+                        </li>
+                        <li>
+                            <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
+                            <button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
+                        </li>
+                    </ul>
                 </form>
-                <button class="text_button auto_width add_left_margin" onclick="cancel_change_email();" style="display:inline-block">Cancel</button>
             </div>
             <br/>
             <hr noshade>
             <br/>
-            <span id="subscribe_unsubscribe_message"></span>
-            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width add_left_margin" onclick="toggle_subscription();"></button>
+            <ul class="account_form">
+                <li>
+                    <span id="subscribe_unsubscribe_message"></span>
+                </li>
+                <li>
+                    <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
+                </li>
+            </ul>            
         </div>
         
         <div class="subwindow hidden_subwindow" toggle="Change password">
-            <div id="change_password_message" class="subwindow_heading">
+            <div class="subwindow_heading">
                 Change password
             </div>
             <br/>
             <br/>
+            <div id="change_password_message" class="hidden" style="padding-bottom:15px;padding-top:0;"></div>
             <form onsubmit="return change_password();">
                 <input type="password" style="position:absolute;top:-5000px;"/>
-                <input id="old_password" type="password" class="input_style" placeholder="Old password" />
-                <input id="new_password" type="password" class="input_style add_left_margin" placeholder="New password" />
-                <input id="confirm_password" type="password" class="input_style add_left_margin" placeholder="Confirm new password" />
-                <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+                <ul id="change_password_form" class="account_form">
+                    <li>
+                        <input id="old_password" type="password" class="input_style" placeholder="Old password" />
+                    </li>
+                    <li>
+                        <input id="new_password" type="password" class="input_style" placeholder="New password" />
+                    </li>
+                    <li>
+                        <input id="confirm_password" type="password" class="input_style" placeholder="Confirm new password" />
+                    </li>
+                    <li>
+                        <button type="submit" class="text_button auto_width">Submit</button>
+                    </li>
+                </ul>
             </form>
         </div>
         
@@ -286,7 +332,7 @@
 
     function reset_error_messages()
         {
-        change_password_error("Change password", "white");
+        hide("change_password_message");
         if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
         if (id("manage_email_subwindow")) change_email_error("New e-mail address:", "white");
         }
@@ -350,17 +396,17 @@
                 else 
                     {
                     destroy("add_email_subwindow");
-                    id("email_on_file").innerHTML = email_address; 
+                    id("email_on_file").innerHTML = email_address + "&nbsp;&nbsp;"; 
                     if (email_ver_flag === 1)
                         {
-                        id("verified_unverified").innerHTML = "&nbsp;&nbsp;(verified)";
+                        id("verified_unverified").innerHTML = "(verified)";
                         id("email_on_file").style.color = cr_teal;
                         id("verified_unverified").style.color = cr_teal;
-                        hide("verification_button");
+                        destroy("verification_button");
                         }
                     else
                         {
-                        id("verified_unverified").innerHTML = "&nbsp;&nbsp;(unverified)";
+                        id("verified_unverified").innerHTML = "(unverified)";
                         id("email_on_file").style.color = "orange";
                         id("verified_unverified").style.color = "orange";
                         }
@@ -371,7 +417,6 @@
                 {
                 for (var i=0; i<subwindows.length; i++)
                     {
-                    //alert(subwindows[i].id);
                     var 
 
                     subwindow_toggle = document.createElement("div");
@@ -540,9 +585,31 @@
 
     // CONNECT BITCOIN WALLET
 
+    function change_wallet_error(message, color)
+        {
+        id("change_wallet_message").innerHTML = message;
+        id("change_wallet_message").style.color = color;
+        }
+        
+    function cancel_change_wallet()
+        {
+        change_wallet_error("New wallet address:", "white");
+        hide('change_ext_address');
+        show('display_ext_address');
+        return false;
+        }
+        
     function update_ext_address(_id)
         {
         var ext_address = id(_id).value;
+        
+        if (ext_address === "")
+            {
+            change_wallet_error("Enter a new wallet address", "orange");
+            return false;
+            }
+        
+        // validate bitcoin addresses?
 
         api({
             method: "UpdateExtAddress",
@@ -554,6 +621,8 @@
             {
             location.reload();
             });
+            
+        return false;
         }
 
     function update_ext_address_security(ext_address_secure_flag)
@@ -567,6 +636,8 @@
             {
             location.reload();
             });
+            
+        return false;
         }
 
 //--------------------------------------------------------------------------------------------------
@@ -632,6 +703,8 @@
             {
             location.reload();
             });
+            
+        return false;
         }
 
     function cancel_change_email()
@@ -651,8 +724,8 @@
             {
             if (call.status === "1")
                 {
-                hide("verification_button");
-                id("verification_message").style.display = "inline-block"; // don't use show() - must be inline
+                id("verification_button").innerHTML = "Verification email has been sent";
+                id("verification_button").style.color = cr_teal;
                 }
             });
         }
@@ -701,6 +774,7 @@
 
     function change_password_error(message, color)
         {
+        show("change_password_message");
         id("change_password_message").innerHTML = message;
         id("change_password_message").style.color = color;
         id("new_password").value = "";
@@ -759,11 +833,11 @@
             {
             if (call !== null)
                 {
+                id("old_password").value = "";
                 if (call.status === "1")
                     {
-                    change_password_error("Your password has been updated", cr_teal);
-                    id("confirm_password").value = "";
                     id("confirm_password").blur();
+                    change_password_error("Your password has been updated", cr_teal);
                     }
                 else change_password_error("Not authorized", "orange");
                 }

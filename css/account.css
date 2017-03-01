@@ -67,12 +67,12 @@
     }
 
     .hidden_subwindow {
-        display:none;
-        font-size:14px;
+        display: none;
+        font-size: 14px;
     }
 
     .subwindow_heading {
-        font-size:16px !important;
+        font-size:16px;
     }
     
     .link_subwindow {
@@ -94,15 +94,18 @@
     }
 
     .email_input {
-        width:350px !important;
+        width:220px !important;
     }
 
     .note_input {
         width:600px !important;
     }
-
+    
     .add_left_margin {
         margin-left:20px;
+    }
+    .add_right_margin {
+        margin-right:20px;
     }
     
     #newsletter_checkbox {
@@ -146,4 +149,15 @@
     .memo_link:hover {
         text-decoration: underline;
         cursor: pointer;
+    }
+    
+    .account_form {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+    }
+    .account_form li {
+        display: inline-block;
+        padding: 5px 20px 5px 0;
     }

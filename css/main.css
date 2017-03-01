@@ -192,6 +192,10 @@
         opacity: 0.5;
     }
     
+    .small_text {
+        font-size: 11px;
+    }
+    
     .right_align {
         text-align: right;
     }
@@ -298,7 +302,10 @@
     #body_container { /* gets overridden in lobby.css */
         padding: 0 20px;
     }
-    
+    .table_body_container {
+        padding: 0 20px 20px 20px;
+    }
+        
     #login_signup_table td {
         padding: 10px 10px 10px 0;
     }

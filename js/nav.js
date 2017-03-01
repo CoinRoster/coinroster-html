@@ -14,8 +14,13 @@
                 if (call.user_level === "1") show_cells("ssi_header_admin_wrapper");
                 
                 show_cells("ssi_header_a_active");
+                show("ssi_mobile_nav_active");
                 }
-            else show_cells("ssi_header_a_inactive");
+            else 
+                {
+                show_cells("ssi_header_a_inactive");
+                show("ssi_mobile_nav_inactive");
+                }
             
             var pathname = window.location.pathname;
                 
