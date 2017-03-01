@@ -27,7 +27,12 @@
         vertical-align:top;
     }
 
-    .deposit_withdraw_table td {
+    #deposit_withdraw_container {
+        display:inline-block;
+        margin-bottom: 17px;
+        margin-left: 20px;
+    }
+    #deposit_withdraw_table td {
         padding: 18px 18px 0 0;
     }
     
@@ -99,6 +104,10 @@
 
     .note_input {
         width:600px !important;
+    }
+    
+    .constrain_width {
+        max-width: 600px;
     }
     
     .add_left_margin {

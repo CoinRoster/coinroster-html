@@ -91,7 +91,7 @@
     }
     .link {
         font-size:14px;
-        padding: 24px;
+        padding: 24px 36px 24px 0;
     }
     .link:hover, .inline_link:hover, .hide_button:hover {
         text-decoration:underline;

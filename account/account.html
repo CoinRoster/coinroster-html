@@ -13,7 +13,7 @@
     <div id="body_container">
         <br/>
         <h3 class="section_header">My Account</h3>
-        <div style="margin-bottom:40px;">
+        <div style="display:inline-block">
             <table id="balance_wrapper_table">
                 <tr>
                     <td width="1" style="padding-right:60px;">
@@ -44,23 +44,25 @@
                             </tr>
                         </table>
                     </td>
-                    <!--<td>
-                        <table class="deposit_withdraw_table">
-                            <tr>
-                                <td>
-                                    <a class="link" onclick="deposit();">Deposit BTC</a>
-                                </td>
-                                <td>
-                                    <a class="link" onclick="withdraw();">Withdraw BTC</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>-->
+                </tr>
+            </table>
+        </div>
+        <div id="deposit_withdraw_container">
+            <table id="deposit_withdraw_table">
+                <tr>
+                    <td>
+                        <a class="link" onclick="deposit();">Deposit BTC</a>
+                    </td>
+                    <td>
+                        <a class="link" onclick="withdraw();">Withdraw BTC</a>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="table_body_container">
+        <br/>
+        
         <a class="subwindow clickable_subwindow link_subwindow" href="/contests">
             My Contests
         </a>
@@ -79,19 +81,24 @@
                 Connect a Bitcoin wallet
             </div>
             <br/>
-            <div class="input_padding description_text">
+            <div class="input_padding description_text constrain_width">
                 To make deposits to CoinRoster, we need to know the public address of your
-                <br/>
                 Bitcoin wallet. This way, when funds come in from your wallet, we know they
-                <br/>
                 came from you and can credit your account.
                 <br/>
                 <br/>
             </div>
+            <div id="add_wallet_message" class="hidden" style="padding-bottom:15px;padding-top:0;"></div>
             <form onsubmit="return update_ext_address('add_ext_address');">
                 <div class="input_padding">
-                    <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35"/>
-                    <button type="submit" class="text_button auto_width add_left_margin">Connect wallet</button>
+                    <ul class="account_form">
+                        <li>
+                            <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35"/>
+                        </li>
+                        <li>
+                            <button type="submit" class="text_button auto_width">Connect wallet</button>
+                        </li>
+                    </ul>
                 </div>
             </form>
         </div>
@@ -112,7 +119,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="change_ext_address" style="display:none">
+            <div id="change_ext_address" class="hidden">
                 <form onsubmit="return update_ext_address('new_ext_address');">
                     <ul class="account_form">
                         <li>
@@ -133,7 +140,7 @@
             <br/>
             <hr noshade>
             <br/>
-            <span id="must_withdraw_bitcon" style="display:none">
+            <span id="must_withdraw_bitcon" class="hidden">
                 <span class="teal">
                     Wallet security is ENABLED
                 </span>
@@ -141,31 +148,27 @@
                 <br/>
                 You must withdraw all Bitcoin from this account in order to change your wallet address.
             </span>
-            <span id="security_is_enabled" style="display:none">
+            <span id="security_is_enabled" class="constrain_width hidden">
                 <span class="teal">
                     Wallet security is ENABLED
                 </span>
                 <br/>
                 <br/>
                 With security enabled, you will NOT be able to change your wallet address if
-                <br/>
-                there are Bitcoins in your CoinRoster account. This is meant to stop a hacker 
-                <br/>
+                there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
                 from withdrawing your Bitcoins to a new wallet.
                 <br/>
                 <br/>
                 If you want, you can click the button below to DISABLE this security measure. 
-                <br/>
                 You will be free to change your wallet address at any time. 
                 <br/>
                 <br/>
                 <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
                 <br/>
                 <br/>
-                <br/>
                 <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
             </span>
-            <span id="enable_security" style="display:none">
+            <span id="enable_security" class="hidden">
                 <span class="orange">
                     Wallet security is DISABLED
                 </span>
@@ -179,7 +182,7 @@
                 there are Bitcoins in your account, please click here:
                 <br/>
                 <br/>
-                <span id="your_next_opportunity" style="display:none">
+                <span id="your_next_opportunity" class="hidden">
                     Your next opportunity to disable wallet security will be after you withdraw
                     <br/>
                     all Bitcoins in your account to your connected wallet.
@@ -332,9 +335,19 @@
 
     function reset_error_messages()
         {
+        if (id("add_wallet_message")) hide("add_wallet_message");
+        if (id("change_wallet_message")) 
+            {
+            change_wallet_error("New wallet address:", "white");
+            cancel_change_wallet();
+            }
         hide("change_password_message");
         if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
-        if (id("manage_email_subwindow")) change_email_error("New e-mail address:", "white");
+        if (id("manage_email_subwindow")) 
+            {
+            change_email_error("New e-mail address:", "white");
+            cancel_change_email();
+            }
         }
 
 //--------------------------------------------------------------------------------------------------
@@ -585,17 +598,23 @@
 
     // CONNECT BITCOIN WALLET
 
+    function add_wallet_error(message, color)
+        {
+        show("add_wallet_message");
+        id("add_wallet_message").innerHTML = message;
+        id("add_wallet_message").style.color = color;
+        }
+        
     function change_wallet_error(message, color)
         {
         id("change_wallet_message").innerHTML = message;
         id("change_wallet_message").style.color = color;
         }
-        
     function cancel_change_wallet()
         {
         change_wallet_error("New wallet address:", "white");
-        hide('change_ext_address');
-        show('display_ext_address');
+        hide("change_ext_address");
+        show("display_ext_address");
         return false;
         }
         
@@ -605,7 +624,8 @@
         
         if (ext_address === "")
             {
-            change_wallet_error("Enter a new wallet address", "orange");
+            if (_id === "add_ext_address") add_wallet_error("Enter a wallet address", "orange");
+            else change_wallet_error("Enter a new wallet address", "orange");
             return false;
             }
         
@@ -710,8 +730,8 @@
     function cancel_change_email()
         {
         change_email_error("New e-mail address:", "white");
-        hide('change_email');
-        show('manage_email');
+        hide("change_email");
+        show("manage_email");
         return false;
         }
 

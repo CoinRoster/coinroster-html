@@ -14,7 +14,7 @@
         
     }
     
-    @media only screen and (min-width: 768px) and (max-width: 994px) {
+    @media only screen and (min-width: 769px) and (max-width: 994px) {
 
         /* three-wide tiles */
         
@@ -29,7 +29,7 @@
         }
         
     }
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-width: 769px) {
 
         /* showing and hiding of navigation */
         
@@ -74,6 +74,17 @@
         .sub_category_item {
             width: calc(50% - 11px);
         }
+    }
+    @media only screen and (max-width: 640px) {
+
+        /* move deposit and withdraw buttons under balances */
+
+        #deposit_withdraw_container {
+            display: block !important;
+            margin-bottom: 15px !important;
+            margin-left: 0 !important;
+        }
+    
     }
     @media only screen and (max-width: 500px) {
 
