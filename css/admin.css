@@ -85,6 +85,11 @@
         right:16px;
     }
     
+    .ssi_main_nav_bar {
+        top: 0px !important;
+        height: 64px !important;
+    }
+    
     /*------------------------------------------------------------*/
 
     #nav {

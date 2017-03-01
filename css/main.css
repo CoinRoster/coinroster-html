@@ -71,6 +71,9 @@
         font-family: 'ubuntu_fantasy', sans-serif;
         font-weight: normal;
     }
+    .section_header_override {
+        padding-top: 0;
+    }
     .section_header_link {
         font-size: 18.72px;
         display: block;
@@ -282,18 +285,18 @@
     /* protected pages */
     
     #page_title {
-        font-size:24px;
+        font-size: 24px;
         margin: 40px 0;
     }
     
-    #centering_container {
-        position:relative;
-        width:980px;
-        margin:0 auto;
+    #centering_container, .centering_container {
+        position: relative;
+        width: 980px;
+        margin: 0 auto;
     }
     
-    #body_container {
-        padding:10px 20px;
+    #body_container { /* gets overridden in lobby.css */
+        padding: 0 20px;
     }
     
     #login_signup_table td {

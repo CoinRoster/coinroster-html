@@ -1,5 +1,5 @@
     #ssi_logo_container {
-        padding: 10px 0 0;
+        padding: 20px 0;
         width: 100%;
         text-align: center;
     }
@@ -10,11 +10,21 @@
         background-size: cover;
         background-image: url('../img/header.png');
         position: relative;
+        height:142px;
     }
     
-    .ssi_header_inner {
-        padding: 10px 0;
-        color: white;
+    #ssi_mobile_nav_button, .ssi_main_nav_bar {
+        width: 100%;
+        border-top: 1px solid grey;
+        background: rgb(100,106,109); /* Old browsers */
+        background: -moz-linear-gradient(top,  rgba(100,106,109,0.6) 0%, rgba(10,14,10,0.6) 100%, rgba(10,8,9,0.6) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,  rgba(100,106,109,0.6) 0%,rgba(10,14,10,0.6) 100%,rgba(10,8,9,0.6) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,  rgba(100,106,109,0.6) 0%,rgba(10,14,10,0.6) 100%,rgba(10,8,9,0.6) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#646a6d', endColorstr='#0a0809',GradientType=0 ); /* IE6-9 */
+        position: absolute;
+        top: 96px;
+        height: 31px;
+        padding-top: 14px; 
     }
     
     .ssi_header_table {
@@ -27,8 +37,9 @@
         white-space:nowrap;
     }
     
-    .ssi_header_a_active, .ssi_header_a_inactive {
-        display:none;
+    .ssi_header_a_active, 
+    .ssi_header_a_inactive {
+        display: none;
     }
     
     #ssi_header_spacer_cell {
@@ -70,4 +81,104 @@
         background-repeat: no-repeat;
         padding-left: 24px;
         color: orange !important;
+    }
+  
+/* Mobile Nav --------------------------------------------------------------------- */
+  
+    #ssi_mobile_nav_button {
+        z-index: 2;
+        cursor: pointer;
+        display: none;
+        width: 100%;
+        font-size: 14px;
+    }
+    
+    #ssi_mobile_nav_placeholder {
+        margin: 0;
+        padding-left: 20px;
+    }
+    #ssi_mobile_nav_icon {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background-image: url('../img/menu.png');
+        background-size: 26px 23px;
+        width: 26px;
+        height: 23px;
+    }
+    #ssi_mobile_shade {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        background-color: rgba(0,0,0,0.4);
+    }
+    
+    #ssi_mobile_nav {
+        display:none;
+        position:relative;
+        top:0px;
+        left:0;
+        width:100%;
+        font-size: 14px;
+    }
+    /* Starter CSS for Flyout Menu */
+    #ssi_mobile_nav,
+    #ssi_mobile_nav ul,
+    #ssi_mobile_nav ul li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+    #ssi_mobile_nav ul {
+      position: relative;
+      z-index: 597;
+      display: table;
+      width: 100%;
+      background: rgb(246,246,246);
+    }
+    #ssi_mobile_nav ul li {
+      float: left;
+      min-height: 1px;
+      line-height: 1em;
+      vertical-align: middle;
+      text-align: center !important;
+      background: rgb(246,246,246);
+      width: auto;
+    }
+    #ssi_mobile_nav ul li.hover,
+    #ssi_mobile_nav ul li:hover {
+      position: relative;
+      z-index: 599;
+      cursor: default;
+    }
+    #ssi_mobile_nav ul li {
+      float: none;
+      border-bottom: 1px solid rgb(200,205,210);
+      border-right: 1px solid rgb(200,205,210);
+      cursor: pointer !important;
+    }
+    /* Custom CSS Styles */
+    #ssi_mobile_nav ul a,
+    #ssi_mobile_nav ul a:link,
+    #ssi_mobile_nav ul a:visited {
+      display: block;
+      color:rgb(67,71,82);
+      text-decoration: none;
+      font-weight: 300;
+      /*padding-left:30px;*/
+    }
+    #ssi_mobile_nav > ul > li > a {
+      padding: 18px 18px;
+    }
+    #ssi_mobile_nav ul li:hover > a {
+      color: rgb(67,71,82);
+    }
+    #ssi_mobile_nav > ul > li:hover {
+      background: white;
     }

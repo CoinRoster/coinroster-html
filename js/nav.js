@@ -42,9 +42,9 @@
         init();
         });
     
-    function show_cells(class_name)
+    function show_cells(class_name, display_type)
         {
-        var cells = document.getElementsByClassName(class_name);
+        var cells = document.querySelectorAll("." + class_name);
         for (var i=0; i<cells.length; i++) show(cells[i], "table-cell");
         }
     function hide_cells(class_name)
@@ -52,3 +52,43 @@
         var cells = document.getElementsByClassName(class_name);
         for (var i=0; i<cells.length; i++) hide(cells[i]);
         }
+        
+    var 
+
+    mobile_nav = document.getElementById("ssi_mobile_nav"),
+    ssi_mobile_nav_button = document.getElementById("ssi_mobile_nav_button"),
+    ssi_mobile_nav_placeholder = id("ssi_mobile_nav_placeholder"),
+    ssi_mobile_shade = id("ssi_mobile_shade"),
+    ssi_mobile_nav_placeholder_storage = "Lobby",
+    mobile_nav_state = "hidden";
+
+    function toggle_mobile_menu()
+        {
+        if (mobile_nav_state === "hidden")
+            {
+            show(ssi_mobile_shade);
+            show(mobile_nav);
+            mobile_nav.style.display = "block";
+            ssi_mobile_nav_placeholder.innerHTML = "Close Menu";
+            mobile_nav_state = "visible";
+            }
+        else 
+            {
+            ssi_mobile_nav_placeholder.innerHTML = window.nav_text;
+            hide(mobile_nav);
+            hide(ssi_mobile_shade);
+            mobile_nav_state = "hidden";
+            }
+        }
+        
+    ssi_mobile_nav_button.onclick = function()
+        {
+        toggle_mobile_menu();
+        };
+        
+    ssi_mobile_shade.onclick = function()
+        {
+        toggle_mobile_menu();
+        };
+        
+    ssi_mobile_nav_placeholder.innerHTML = window.nav_text;
