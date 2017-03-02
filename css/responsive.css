@@ -4,7 +4,7 @@
         max-width: 1200px;
     }
         
-    @media only screen and (min-width: 994px) {
+    @media only screen and (min-width: 995px) {
 
         /* four-wide tiles */
         
@@ -14,6 +14,49 @@
         
     }
     
+    @media only screen and (max-width: 994px) {
+
+        /* four-wide tiles */
+        
+        .sub_category_item {
+            width: calc(25% - 8px);
+        }
+        
+        /* List of contests under tile in lobby */
+                
+        #category_report_table tr:first-child { /* header */
+            display: none;
+        }
+        
+        #category_report_table td {
+            display: block;
+        }
+        
+        #category_report_table td:first-child {
+            background: rgb(80,84,88);
+        }
+        #category_report_table td:nth-child(2) { /* game type */
+        }
+        #category_report_table td:nth-child(3) { /* registration deadline */
+        }
+        #category_report_table td:nth-child(4) { /* cost per entry */
+            text-align: left !important;
+        }
+        #category_report_table td:nth-child(5) { /* prize pool */
+            text-align: left !important;
+        }
+        
+        #category_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
+        #category_report_table .payout_info_link {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
+    }
     @media only screen and (min-width: 769px) and (max-width: 994px) {
 
         /* three-wide tiles */
@@ -74,6 +117,34 @@
         .sub_category_item {
             width: calc(50% - 11px);
         }
+        
+        /* Contest page */
+        
+        #category_text {
+            display: none;
+        }
+                
+        /* transactions in My Account */
+        
+        #transaction_report_table tr {
+            border-width: 2px !important;
+        }
+        #transaction_report_table td {
+            display: inline-block;
+        }
+        #transaction_report_table td:nth-child(3) { /* date - override to block */
+            display: block;
+            font-size: 0.75em;
+            padding-top: 0px !important;
+            padding-bottom: 8px !important;
+        }
+        #transaction_report_table td:nth-child(1), #transaction_report_table td:nth-child(5)  { /* trans no. */
+            float: right;
+        }
+        
+        #transaction_report_table .memo_link {
+            padding-right: 0 !important;
+        }
     }
     @media only screen and (max-width: 640px) {
 
@@ -84,7 +155,18 @@
             margin-bottom: 15px !important;
             margin-left: 0 !important;
         }
-    
+        
+        .destroy_left_padding {
+            padding-left: 0 !important;
+        }
+        
+        /* Contest page */
+        
+        .contest_detail_table {
+            display: block !important;
+            padding-right: 0px !important;
+        }
+        
     }
     @media only screen and (max-width: 500px) {
 
@@ -98,10 +180,25 @@
             width: calc(100% - 12px);
         }
         
-        .subwindow_heading, .clickable_subwindow {
+        .subwindow_heading, 
+        .clickable_subwindow, 
+        .contest_table td:first-child {
             font-size:14px !important;
         }
-        .hidden_subwindow, .text_button, .input_style {
+        
+        .hidden_subwindow, 
+        .text_button, 
+        .input_style, 
+        .contest_table td, 
+        .contest_detail_table td  {
             font-size: 12px !important;
+        }
+                
+        .contest_detail_table td:first-child {
+            width: 100px !important;
+        }
+        
+        .contest_detail_table .payout_info_link {
+            padding-right: 0 !important;
         }
     }

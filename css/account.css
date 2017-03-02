@@ -145,11 +145,30 @@
         border-collapse: collapse;
     }
 
-    #transaction_report_table td {
-        padding: 5px 10px;
+    #transaction_report_table tr {
+        width:100%;
+        border-collapse: collapse;
         border-top: 1px solid rgb(72,76,80);
         border-bottom: 1px solid rgb(72,76,80);
+    }
+    
+    #transaction_report_table td {
+        padding: 5px 10px;
         font-family: "Lucida Console", Monaco, monospace;
+    }
+    
+    .right_left {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        list-style: none;
+    }
+    .right_left li {
+        display: table-cell;
+    }
+    .right_left li:first-child {
+        padding-right: 20px;
     }
     
     .memo_link {

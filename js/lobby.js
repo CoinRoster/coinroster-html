@@ -71,7 +71,7 @@
 
         registration_deadline_date = dateconv_ms_to_string(registration_date_ms),
         registration_deadline_time = dateconv_ms_to_time(registration_date_ms);
-        return "<div style=\"white-space:nowrap\">" + registration_deadline_date + "</div>" + registration_deadline_time;
+        return registration_deadline_date + " at " + registration_deadline_time;
         }
                 
     function redirect_to_contest(contest_id)

@@ -33,65 +33,86 @@
         <div id="valid_contest_container">
             <div id="contest_description"></div>
             <hr noshade size="1"/>
-            <table class="contest_detail_table">
-                <tr>
-                    <td>
-                        Category:
-                    </td>
-                    <td>
-                        <span id="category" class="orange"></span>
-                    </td>
-                    <td id="cost_per_entry_label">
-                        Entry fee:
-                    </td>
-                    <td>
-                        <span id="cost_per_entry" class="orange"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Sub-category:
-                    </td>
-                    <td>
-                        <span id="sub_category" class="orange"></span>
-                    </td>
-                    <td>
-                        Prize pool:
-                    </td>
-                    <td>
-                        <span id="prize_pool" class="orange"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Game type:
-                    </td>
-                    <td>
-                        <span id="settlement_type" class="orange"></span>
-                        <span id="payout_info" class="inline_link" style="display:inline-block;padding-left:30px;padding-right:50px">Payout info</span>
-                    </td>
-                    <td>
-                        Rake:
-                    </td>
-                    <td>
-                        <span id="rake" class="orange"></span>
-                    </td>
-                </tr>
-                <tr id="registration_deadline_row">
-                    <td>
-                        Entry deadline:
-                    </td>
-                    <td>
-                        <span id="registration_deadline" class="orange"></span>
-                    </td>
-                    <td>
-                        Countdown:
-                    </td>
-                    <td>
-                        <span id="registration_countdown" class="orange"></span>
-                    </td>
-                </tr>
-            </table>
+            <div style="margin: 10px 0">
+                <table class="contest_detail_table">
+                    <tr>
+                        <td>
+                            Category:
+                        </td>
+                        <td>
+                            <span id="category" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Sub-category:
+                        </td>
+                        <td>
+                            <span id="sub_category" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr id="game_type_inplay">
+                        <td>
+                            Game type:
+                        </td>
+                        <td>
+                            <span id="settlement_type" class="orange"></span>
+                            <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                        </td>
+                    </tr>
+                    <tr class="registration_deadline_row">
+                        <td>
+                            Deadline:
+                        </td>
+                        <td>
+                            <span id="registration_deadline" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr class="registration_deadline_row">
+                        <td>
+                            Countdown:
+                        </td>
+                        <td>
+                            <span id="registration_countdown" class="orange"></span>
+                        </td>
+                    </tr>
+                </table>
+                <table class="contest_detail_table">
+                    <tr id="game_type_open">
+                        <td>
+                            Game type:
+                        </td>
+                        <td>
+                            <span id="settlement_type" class="orange"></span>
+                            <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="cost_per_entry_label">
+                            Entry fee:
+                        </td>
+                        <td>
+                            <span id="cost_per_entry" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Prize pool:
+                        </td>
+                        <td>
+                            <span id="prize_pool" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Rake:
+                        </td>
+                        <td>
+                            <span id="rake" class="orange"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <hr noshade size="1"/>
             <table class="contest_detail_table">
                 <tr class="roster_field hidden">
@@ -185,6 +206,9 @@
                     pay_table = call.pay_table,
                     contest_status = call.contest_status;
             
+                    if (contest_status === 1) destroy("game_type_inplay");
+                    else destroy("game_type_open");
+                    
                     window.cost_per_entry = cost_per_entry;
                     
                     id("category").innerHTML = category;
@@ -195,8 +219,9 @@
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
                     id("rake").innerHTML = multiply(rake, 100) + "%";
-                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry, true) + " BTC";
-                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool, true) + " BTC";
+                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
+                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
+                    
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
@@ -322,7 +347,9 @@
                         }
                     else
                         {
-                        hide("registration_deadline_row");
+                        var registration_deadline_rows = document.getElementsByClassName("registration_deadline_row");
+                        hide(registration_deadline_rows[0]);
+                        hide(registration_deadline_rows[1]);
                         
                         var reason = "";
                         switch (contest_status)

@@ -51,7 +51,7 @@
             <table id="deposit_withdraw_table">
                 <tr>
                     <td>
-                        <a class="link" onclick="deposit();">Deposit BTC</a>
+                        <a class="link destroy_left_padding" onclick="deposit();">Deposit BTC</a>
                     </td>
                     <td>
                         <a class="link" onclick="withdraw();">Withdraw BTC</a>
@@ -523,7 +523,7 @@
                         }
 
                     array[1].style.textAlign = "right";
-                    array[5].style.textAlign = "right";
+                    array[4].style.textAlign = "right";
 
                     return array;
                     }
@@ -554,20 +554,21 @@
                         if (pending_flag === "1") trans_type += " (pending)";
                         
                         if (memo === "") memo_link = "";
-
+                        
+                        if (from_currency === "RC") from_currency = "RC&nbsp";
+                        
                         var row = new_row(table, row_count++, [
                             "#" + transaction_id,
-                            created_date + " at " + created_time,
                             trans_type,
-                            memo_link,
-                            amount,
-                            from_currency
-                            //memo
+                            //"<ul class=\"right_left\"><li>" + "#" + transaction_id + "</li><li>" + trans_type + "</li></ul>",
+                            created_date + " at " + created_time,
+                            "<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
+                            memo_link
                         ]);
                         
                         if (memo !== "")
                             {
-                            row[4].onclick = (function(memo)
+                            row[5].onclick = (function(memo)
                                 {
                                 return function()
                                     {

@@ -91,7 +91,7 @@
     }
     .link {
         font-size:14px;
-        padding: 24px 36px 24px 0;
+        padding: 24px 18px;
     }
     .link:hover, .inline_link:hover, .hide_button:hover {
         text-decoration:underline;
@@ -301,6 +301,13 @@
     
     #body_container { /* gets overridden in lobby.css */
         padding: 0 20px;
+    }
+    #lobby_body_container {
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+    #lobby_body_container .section_header{
+        padding-left: 5px !important;
     }
     .table_body_container {
         padding: 0 20px 20px 20px;

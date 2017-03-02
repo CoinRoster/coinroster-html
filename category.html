@@ -16,12 +16,17 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
-        <!-- POPULATED BY JAVASCRIPT -->
+        <br/>
+        <h3 id="category_header" class="section_header">
+            <span id="category_text"></span><span id="sub_category_text"></span>
+        </h3>
+        <div id="no_open_contests"></div>
+    </div>
+    <div class="table_body_container">
+        <table id="category_report_table" class="contest_table"></table>
     </div>
 </div>
 <script type="text/javascript">
-    
-    var body_container = id("body_container");
     
     window.onhashchange = function()
         {
@@ -43,13 +48,6 @@
 
         id("ssi_header_lobby").className = "ssi_header_a";
         
-        body_container.innerHTML = "<br/>";
-        
-        /*var hr = document.createElement("hr");
-        hr.size = 1;
-        hr.noShade = true;
-        body_container.appendChild(hr);*/
-        
         api({ 
             method: "ContestReport", 
             args: {
@@ -62,69 +60,46 @@
             
             category_description = call.category_description,
             sub_category_description = call.sub_category_description;
-                   
-            var heading = document.createElement("h3");
-            heading.className = "section_header";
-            heading.innerHTML = category_description + "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + sub_category_description;
-            body_container.appendChild(heading);
+            
+            id("ssi_mobile_nav_placeholder").innerHTML = category_description;
+            id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
+            id("sub_category_text").innerHTML = sub_category_description;
 
-            var table = document.createElement("table");
-            table.className = "contest_table";
-            body_container.appendChild(table);
-        
             var 
             
+            table = id("category_report_table"),
             contest_report = call.contest_report,
-            contest_report_array = [],
             number_of_contests = contest_report.length;
     
-            if (number_of_contests === 0) no_data_message(table, "There are no open contests in this category. Please check back soon.");
+            if (number_of_contests === 0) id("no_open_contests").innerHTML = "There are no open contests in this category. Please check back soon.";
             else
                 {
                 var header = new_row(table, -1, [
                     "Contest",
+                    "Deadline",
                     "Game type",
-                    "Min entry",
-                    //"Entries",
-                    "Prize pool",
-                    "Live at",
-                    ""
+                    "Entry fee",
+                    "Prize pool"
                 ]);
                 
-                header[0].style.background = "none";
-                header[0].style.border = "none";
-                
-                for (var i=1; i<header.length; i++)
-                    {
-                    header[i].style.fontSize = "14px";
-                    header[i].style.paddingBottom = "10px";
-                    }
+                header[4].className = "right_nowrap";
+                header[5].className = "right_nowrap";
                     
-                header[1].style.textAlign = "left";
-                header[2].style.textAlign = "left";
-                
-                var last_status = 0;
-
                 for (var i=0; i<number_of_contests; i++)
                     {
                     var contest_item = contest_report[i],
 
                     contest_id = contest_item.id,
-                    contest_type = contest_item.contest_type,
-
                     title = contest_item.title,
                     settlement_type = contest_item.settlement_type,
                     pay_table = contest_item.pay_table,
                     cost_per_entry = contest_item.cost_per_entry,
                     total_prize_pool = contest_item.total_prize_pool,
-                    number_of_entries = divide(total_prize_pool, cost_per_entry) | 0,
-                    
                     registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
-                    
                     status = contest_item.status,
                     status_string,
                     button_string,
-                    button_class;
+                    button_class = "";
             
                     switch (status)
                         {
@@ -137,41 +112,24 @@
                             button_string = "View";
                             status_string = "In play";
                             registration_deadline_string = "In play";
-                            button_class = "";
-                            //continue;
                             break;
                         }
                         
-                    if (status !== last_status)
-                        {
-                        // will fire when status changes as rows are looped through
-                        // to make this only fire on the change to 'in play', initialize last_status = 1
-                        }
-                        
-                    var game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><br/><div id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</div>";
-                        
-                    var row = new_row(table, -1, [
-                        title,
-                        game_type,
-                        toBTC(cost_per_entry, true) + " BTC",
-                        //number_of_entries, // remember to change row[4] to row[5] below
-                        toBTC(total_prize_pool, true) + " BTC",
-                        registration_deadline_string,
-                        "<button class=\"text_button " + button_class + "\" style=\"width:auto\" onclick=\"redirect_to_contest(" + contest_id + ")\">" + button_string + "</button>"
+                    var 
+                    
+                    enter_button = "<a class=\"contest_table_link " + button_class + "\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>" + button_string + "</button>",
+                    game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+                     
+                    row = new_row(table, -1, [
+                        "<ul><li>" + title + "</li><li>" + enter_button + "</li></ul>",
+                        "<div class='field_label'>Deadline:</div>" + registration_deadline_string,
+                        "<div class='field_label'>Game type:</div>" + game_type,
+                        "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
+                        "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC"
                     ]);
 
-                    row[1].onclick = (function(contest_id)
-                        {
-                        return function()
-                            {
-                            redirect_to_contest(contest_id);
-                            }
-                        })(contest_id);
-                    row[1].className = "contest_cell_link";
-                    row[1].style.textAlign = "left";
-                    row[2].style.textAlign = "left";
-                    row[3].style.whiteSpace = "nowrap";
-                    row[4].style.whiteSpace = "nowrap";
+                    row[4].className = "right_nowrap";
+                    row[5].className = "right_nowrap";
 
                     bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
                     }
@@ -179,9 +137,6 @@
             });
         }
 
-</script>
-<script type="text/javascript">
-    window.nav_text = "Contests";
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->

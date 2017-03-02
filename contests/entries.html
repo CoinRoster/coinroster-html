@@ -19,8 +19,11 @@
         <h3 id="no_data_header" class="section_header hidden">
             My Entries
         </h3>
-        <!--<h3 id="contest_title" class="section_header">My Entries</h3>-->
+    </div>
+    <div class="table_body_container">
         <table id="entry_report_table" class="contest_table"></table>
+    </div>
+    <div id="body_container">
         <div id="implied_odds_disclaimer" class="full_width_right_align hidden">
             <div class="implied_odds_disclaimer">
                 * Implied odds are rounded to two decimal places for display. Full precision is used for settlement.
@@ -352,6 +355,9 @@
             });
         }
    
+</script>
+<script type="text/javascript">
+    window.nav_text = "My entries in contest #" + get_url_param("contest_id");
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->

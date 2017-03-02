@@ -13,13 +13,6 @@
         text-decoration: none;
         margin: 0 5px; /* padding L and  immediately below should add up with this to 20px */
     }
-    #body_container {
-        padding-right: 15px !important;
-        padding-left: 15px !important;
-    }
-    .section_header{
-        padding-left: 5px !important;
-    }
     
     .sub_category_item:hover .sub_category_tile {
         border: 1px solid white;
@@ -59,6 +52,19 @@
 
     /*------------------------------------------------------------*/
 
+    .payout_info_link {
+        display: inline-block;
+        cursor: pointer;
+    }    
+    .payout_info_link:hover {
+        text-decoration: underline;
+    }
+
+    #no_open_contests {
+        padding: 0 5px;
+        font-size: 14px;
+    }
+    
     .contest_category_title {
         font-size: 18px;
         padding-top: 10px;
@@ -68,49 +74,70 @@
         width: 100%;
         border-collapse: collapse;
     }
-    .contest_table {
-        margin-bottom: 30px;
-    }
-
+    
     .contest_table tr, .pari_mutuel_table tr {
-        border: 2px solid rgb(44,46,48);
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 1px;
         background: rgb(100,104,108);
     }
-    
+        
     .contest_table td, .pari_mutuel_table td {
-        text-align:right;
-        padding: 10px 15px;
+        padding: 10px 20px;
         font-size: 14px;
     }
-    .contest_cell_link {
-        cursor: pointer;
-    }
-    .contest_cell_link:hover {
-        text-decoration: underline;
+    
+    .contest_table td:first-child {
+        background: rgb(80,84,88);
     }
     
-    /* cancel out css for header cell (first row) */
-    
-    .contest_table tr:first-child td, .pari_mutuel_table tr:first-child td {
-        white-space: nowrap;
+    .contest_table ul {
+        list-style: none;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        width:100%;
+        display: table;
     }
     
-    /*.contest_table tr:first-child td {
-        cursor: default;
+    .contest_table li {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    
+    .contest_table_link {
+        display: block;
+        border-radius: 8px;
+        border: 1px solid white;
+        margin-left: 30px;
         color: white;
-        font-family: 'gotham_medium', sans-serif;
-        white-space: nowrap;
+        padding: 10px 15px;
+        text-decoration: none !important;
     }
-    .contest_table tr:first-child td:first-child:hover {
-        text-decoration: none;
+    .contest_table_link:hover {
+        background: rgb(100,104,108);
+        text-decoration: none !important;
     }
-    .pari_mutuel_table tr:first-child td {
-        white-space: nowrap;
+    
+    .field_label {
+        display: none;
     }
-    .pari_mutuel_table tr:first-child {
+    
+    .contest_table tr:first-child { /* header */
         background: none;
         border: none;
-    }*/
+    }
+    
+    .contest_table tr:first-child td { /* header cells */
+        background: none;
+        border: none;
+        font-size: 12px;
+    }
+    
+    .right_nowrap {
+        text-align: right;
+        white-space: nowrap;
+    }
     
     .pay_table td:first-child {
         padding-right: 30px;
@@ -119,14 +146,6 @@
         text-align: right;
     }
     
-    .payout_info_link {
-        cursor: pointer;
-        font-size: 13px;
-    }    
-    .payout_info_link:hover {
-        text-decoration: underline;
-    }
-
     .implied_odds_disclaimer {
         padding: 5px 20px;
         font-size: 11px;
@@ -155,14 +174,22 @@
     }
     
     .contest_detail_table {
-        margin: 10px 0;
+        display: inline-block;
+        padding-right: 80px;
     }
     .contest_detail_table td {
         vertical-align: middle;
         height: 44px;
-        padding-right: 30px;
         font-size: 14px;
     }
+    
+    .contest_detail_table td:first-child {
+        width: 120px; 
+        white-space: nowrap;
+    }
+    .contest_detail_table .payout_info_link {
+        padding: 0 20px;
+    }   
     
     #salary_cap_container {
         display: inline-block;

@@ -28,10 +28,10 @@
         return matching_inputs;
         }
 
-    function destroy(_id)
+    function destroy(el)
         {
-        var _el = document.getElementById(_id);
-        _el.parentNode.removeChild(_el);
+        if (typeof el === "string") el = id(el);
+        el.parentNode.removeChild(el);
         }
             
     function new_table(parent)
