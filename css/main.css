@@ -4,6 +4,11 @@
     }
     
     @font-face {
+        font-family: gotham_book;
+        src: url(../fonts/Gotham/Gotham-Book.otf);
+    }
+    
+    @font-face {
         font-family: 'logo_font';
         src: url('../fonts/Hemi-Head/hemi-head.ttf') format('truetype');
     }
@@ -12,7 +17,23 @@
         font-family: 'ubuntu_fantasy';
         src: url('../fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('truetype');
     }
-
+    
+    @font-face {
+      font-family: Neuzeit;
+      font-weight: normal;
+      font-style: normal;
+      src: url("../fonts/neuzeit/neuzeit-book.eot");
+      src: url("../fonts/neuzeit/neuzeit-book.woff") format("woff"), url("../fonts/neuzeit/neuzeit-book.ttf") format("truetype");
+    }
+    
+    @font-face {
+      font-family: Neuzeit;
+      font-weight: bold;
+      font-style: normal;
+      src: url("../fonts/neuzeit/neuzeit-book-heavy.eot");
+      src: url("../fonts/neuzeit/neuzeit-book-heavy.woff") format("woff"), url("../fonts/neuzeit/neuzeit-book-heavy.ttf") format("truetype");
+    }
+    
     body {
         font-family: 'gotham_medium', sans-serif;
         padding:0;
@@ -224,8 +245,9 @@
         border-radius: 0;
         border: none;
         padding: 6px 2px;
-        border-bottom: 1px solid grey;
+        border-bottom: 1px solid rgb(180,180,180);
         outline:0;
+        text-align: center;
     }
     
     .input_label {

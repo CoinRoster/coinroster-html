@@ -25,6 +25,9 @@
                 <a class="inline_link" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
             </div>
         </div>
+        <div id="no_entry" class="account_creation_message hidden">
+            <!-- POPULATED BY JAVASCRIPT -->
+        </div>
         <br/>
         <h3 id="contest_title" class="section_header">
             Loading...
@@ -34,7 +37,7 @@
             <div id="contest_description"></div>
             <hr noshade size="1"/>
             <div style="margin: 10px 0">
-                <table class="contest_detail_table">
+                <table class="contest_detail_table add_right_padding">
                     <tr>
                         <td>
                             Category:
@@ -111,62 +114,65 @@
                             <span id="rake" class="orange"></span>
                         </td>
                     </tr>
+                    <tr id="pari_mutuel_table_label" style="display: none">
+                        <td colspan="2">
+                            Outcomes ...
+                        </td>
+                    </tr>
                 </table>
             </div>
-            <hr noshade size="1"/>
-            <table class="contest_detail_table">
-                <tr class="roster_field hidden">
-                    <td>
-                        Number of entries?
-                    </td>
-                    <td>
-                        <input id="number_of_entries_input" type="text" class="light_on_dark_input green" value="1" style="width:42px;">
-                    </td>
-                    <td>
-                        Remaining salary:
-                    </td>
-                    <td>
-                        <span id="salary_cap" class="green"></span>
-                    </td>
-                    <td>
-                        Players drafted:
-                    </td>
-                    <td>
-                        <span id="remaining_players" class="green">0</span>
-                    </td>
-                </tr>
-            </table>
-            <div class="roster_field hidden">
-                <div id="player_table_header">
-                    Available players:
-                </div><!--
-                --><div id="roster_table_header">
-                    Your roster:
-                </div>
-                <div id="player_table_container">
-                    <table id="player_table" class="player_table"></table>
-                </div><!--
-                --><div id="roster_table_container">
-                    <table id="roster_table" class="player_table"></table>
-                </div>
+            <hr id="contest_second_hr" noshade size="1"/>
+        </div>
+    </div>
+    <div class="table_body_container">
+        <table class="contest_detail_table">
+            <tr class="roster_field hidden">
+                <td>
+                    Number of entries?
+                </td>
+                <td>
+                    <input id="number_of_entries_input" type="text" class="light_on_dark_input green" value="1" style="width:42px;">
+                </td>
+                <td>
+                    Remaining salary:
+                </td>
+                <td>
+                    <span id="salary_cap" class="green"></span>
+                </td>
+                <td>
+                    Players drafted:
+                </td>
+                <td>
+                    <span id="remaining_players" class="green">0</span>
+                </td>
+            </tr>
+        </table>
+        <div class="roster_field hidden">
+            <div id="player_table_header">
+                Available players:
+            </div><!--
+            --><div id="roster_table_header">
+                Your roster:
             </div>
-            <div class="pari_mutuel_field hidden">
-                <table id="pari_mutuel_table" class="pari_mutuel_table"></table>
-                <div class="full_width_right_align">
-                    <div class="implied_odds_disclaimer">
-                        * Implied odds are rounded to two decimal places for display. Full precision is used for settlement.
-                    </div>
-                </div>
+            <div id="player_table_container">
+                <table id="player_table" class="player_table"></table>
+            </div><!--
+            --><div id="roster_table_container">
+                <table id="roster_table" class="player_table"></table>
             </div>
+        </div>
+        <div class="pari_mutuel_field hidden">
+            <table id="pari_mutuel_table" class="contest_table"></table>
+        </div>
+        <div class="full_width_right_align">
             <div id="submit_button_container" class="submit_container hidden">
                 <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
                 <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
             </div>
-            <div id="no_entry" class="account_creation_message hidden">
-                <!-- POPULATED BY JAVASCRIPT -->
-            </div>
+            <!--<div class="implied_odds_disclaimer" style="float:right">
+                * Odds are rounded for display. Full precision is used for settlement.
+            </div>-->
         </div>
-        <br/>
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
@@ -225,7 +231,7 @@
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
-                    var contest_active = contest_status === 1;
+                    var contest_open = contest_status === 1;
 
                     if (contest_type === "ROSTER")
                         {
@@ -234,7 +240,7 @@
                         salary_cap = call.salary_cap,
                         roster_size = call.roster_size;
 
-                        initialize_roster_UI(contest_active, option_table, salary_cap, roster_size);
+                        initialize_roster_UI(contest_open, option_table, salary_cap, roster_size);
 
                         id("number_of_entries_input").focus();
                         }
@@ -247,38 +253,39 @@
 
                         wager_grand_total -= rake_amount;
 
-                        initialize_pari_mutuel_UI(contest_active, option_table, wager_grand_total);
+                        initialize_pari_mutuel_UI(contest_open, option_table, wager_grand_total);
                         }
-                    if (typeof window.session !== "undefined")
+                        
+                    if (contest_open) 
                         {
-                        if (window.session.user_level !== "3")
+                        if (typeof window.session !== "undefined")
                             {
-                            if (contest_active) show("submit_button_container");
+                            if (window.session.user_level !== "3")
+                                {
+                                if (contest_open) show("submit_button_container");
+                                }
+                            else 
+                                {
+                                show("validate_email_container");
+                                api({ 
+                                    method: "GetAccountDetails", 
+                                    args: {} 
+                                }, function(call)
+                                    {
+                                    if (call.status === "1")
+                                        {
+                                        show("re_send_email_verification_container");
+                                        id("email_on_file").innerHTML = call.email_address;
+                                        }
+                                    });
+                                }
                             }
                         else 
                             {
-                            show("validate_email_container");
-                            api({ 
-                                method: "GetAccountDetails", 
-                                args: {} 
-                            }, function(call)
-                                {
-                                if (call.status === "1")
-                                    {
-                                    show("re_send_email_verification_container");
-                                    id("email_on_file").innerHTML = call.email_address;
-                                    }
-                                });
+                            show("login_prompt_container");
+                            id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
                             }
-                        }
-                    else 
-                        {
-                        show("login_prompt_container");
-                        id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
-                        }
-                        
-                    if (contest_active) 
-                        {
+
                         id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
                         
                         function update_countdown()
@@ -418,7 +425,7 @@
 
     // initialize interface for roster contest
      
-    function initialize_roster_UI(contest_active, option_table, salary_cap, roster_size)
+    function initialize_roster_UI(contest_open, option_table, salary_cap, roster_size)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
         
@@ -462,7 +469,7 @@
 
     // initialize interface for pari-mutuel contest
      
-    function initialize_pari_mutuel_UI(contest_active, option_table, wager_grand_total)
+    function initialize_pari_mutuel_UI(contest_open, option_table, wager_grand_total)
         {
         var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
         
@@ -482,16 +489,14 @@
         var pari_mutuel_table = id("pari_mutuel_table");
         
         var header = new_row(pari_mutuel_table, -1, [
-            "",
+            //"",
             "Outcome",
             "Wagers",
-            "Implied odds*",
-            contest_active ? "Enter a wager" : ""
+            "Odds",
+            contest_open ? "Enter a wager" : ""
         ]);
         
-        header[0].style.background = "none";
-        header[0].style.border = "none";
-        header[2].style.textAlign = "left";
+        header[1].style.textAlign = "left";
         
         for (var i=0; i<option_table.length; i++)
             {
@@ -499,23 +504,23 @@
                     
             option_id = option_item.id,
             description = option_item.description,
-            wager_total = option_item.wager_total,
-            wager_input = "<input placeholder='Enter a wager' id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>";
             
-            var implied_odds = get_implied_odds(wager_grand_total, option_item);
+            wager_total = option_item.wager_total,
+            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>",
+            
+            implied_odds = get_implied_odds(wager_grand_total, option_item),
     
-            var row = new_row(pari_mutuel_table, -1, [
-                option_id,
+            row = new_row(pari_mutuel_table, -1, [
+                //option_id,
                 description,
-                toBTC(wager_total, true) + " BTC",
-                implied_odds,
-                contest_active ? (wager_input + " BTC") : ""
+                "<div class='field_label'>Wagered:</div>" + toBTC(wager_total) + " BTC",
+                "<div class='field_label'>Current odds:</div>" + implied_odds,
+                contest_open ? ("<div class='field_label'>Enter a wager:</div>" + wager_input + " BTC") : null
             ]);
             
-            row[1].width = 1;
-            row[2].style.textAlign = "left";
+            row[1].style.textAlign = "left";
             
-            if (contest_active) bind_btc_input(id("wager_input_" + option_id), function(input)
+            if (contest_open) bind_btc_input(id("wager_input_" + option_id), function(input)
                 {
                 if (input.value !== "")
                     {
@@ -628,10 +633,7 @@
         
         for (var i=1/*skip header*/; i<rows.length; i++)
             {
-            var cells = rows[i].cells,
-            
-            option_id = cells[0].innerHTML,
-            wager = id("wager_input_" + option_id).value;
+            var wager = id("wager_input_" + i).value;
     
             if (wager === "") continue;
             
@@ -640,7 +642,7 @@
             wagers_total += wager;
     
             wagers.push({
-                id: option_id,
+                id: i,
                 wager: wager
             });
             }

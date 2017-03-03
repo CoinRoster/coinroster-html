@@ -69,22 +69,30 @@
         font-size: 18px;
         padding-top: 10px;
     }
+    
+    .pari_mutuel_table_label {
+        display: none;
+    }
 
-    .contest_table, .player_table, .pari_mutuel_table {
+    .contest_table, .player_table {
         width: 100%;
         border-collapse: collapse;
     }
     
-    .contest_table tr, .pari_mutuel_table tr {
+    .contest_table tr {
         border-color: rgb(44,46,48);
         border-style: solid;
         border-width: 2px 1px;
         background: rgb(100,104,108);
     }
         
-    .contest_table td, .pari_mutuel_table td {
+    .contest_table td {
         padding: 10px 20px;
         font-size: 14px;
+    }
+    
+    #pari_mutuel_table td {
+        text-align: right;
     }
     
     .contest_table td:first-child {
@@ -159,7 +167,8 @@
     }
     
     #contest_description {
-        margin: 20px;
+        margin: 20px 0;
+        font-family: 'gotham_book', sans-serif;
     }
     #contest_description p {
         padding: 5px 0;
@@ -175,8 +184,11 @@
     
     .contest_detail_table {
         display: inline-block;
-        padding-right: 80px;
     }
+    .contest_detail_table.add_right_padding {
+        padding-right: 60px;
+    }
+    
     .contest_detail_table td {
         vertical-align: middle;
         height: 44px;
@@ -187,10 +199,13 @@
         width: 120px; 
         white-space: nowrap;
     }
+    
     .contest_detail_table .payout_info_link {
         padding: 0 20px;
     }   
-    
+
+    /*------------------------------------------------------------*/
+
     #salary_cap_container {
         display: inline-block;
     }
@@ -226,6 +241,10 @@
         padding-left: 0;
     }
     
+    #submit_pari_mutuel_button {
+        float: right;
+        margin-bottom: 20px;
+    }
     .submit_container {
         padding: 20px 0;
     }
