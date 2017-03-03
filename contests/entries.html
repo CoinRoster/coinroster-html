@@ -13,62 +13,84 @@
 <div id="centering_container">
     <div id="body_container">
         <br/>
-        <a id="contest_title" class="section_header_link">
-            <!-- POPULATED BY JAVASCRIPT -->
-        </a>
-        <h3 id="no_data_header" class="section_header hidden">
+        <h3 id="contest_title" class="section_header">
             My Entries
         </h3>
+        <div id="exposure_container">
+            Exposure:<span id="exposure_value" class="orange"></span>
+        </div>
     </div>
     <div class="table_body_container">
-        <table id="entry_report_table" class="contest_table"></table>
-    </div>
-    <div id="body_container">
-        <div id="implied_odds_disclaimer" class="full_width_right_align hidden">
-            <div class="implied_odds_disclaimer">
-                * Implied odds are rounded to two decimal places for display. Full precision is used for settlement.
-            </div>
+        <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
+        <table id="pari_mutuel_entry_report_table" class="contest_table entry_report_table"></table>
+        <div id="pari_mutuel_explanation" class="hidden">
+            * The gross payout is the total amount that you will receive if a given outcome wins.
+            <br/><br/>
+            * The scenario P/L is the net profit or loss that you will realize if a given outcome wins,
+            taking into account your total exposure to the pool. 
+            <br/><br/>
+            * Both figures factor in the rake.
         </div>
         <div id="edit_roster_container" class="hidden">
-            <table class="contest_detail_table">
-                <tr>
-                    <td id="editing_roster" class="orange"></td>
-                </tr>
-                <tr>
-                    <td>
-                        Number of entries:
-                    </td>
-                    <td>
-                        <span id="number_of_entries" class="green"></span>
-                    </td>
-                    <td>
-                        Remaining salary:
-                    </td>
-                    <td>
-                        <span id="salary_cap" class="green"></span>
-                    </td>
-                    <td>
-                        Players drafted:
-                    </td>
-                    <td>
-                        <span id="remaining_players" class="green">0</span>
-                    </td>
-                </tr>
-            </table>
-            <div id="player_table_header">
+            <ul id="editing_roster_ul">
+                <li>
+                    <div id="editing_roster" class="orange"></div>
+                </li>
+                <li>
+                    <span id="cancel_edit_roster_inline" onclick="cancel_edit_roster()">Cancel</span>
+                </li>
+            </ul>
+            <ul class="roster_parameter_table">
+                <li class="roster_parameter_label">
+                    <span id="number_verbose">Number</span>
+                    <span id="number_sign" class="hidden">#</span>
+                    of entries?
+                </li>
+                <li id="number_of_entries_li">
+                    <span id="number_of_entries" class="green"></span>
+                </li>
+                <li id="entry_value_li" class="green">
+                    &rarr;<span id="entry_value"></span>
+                </li>
+            </ul>
+            <ul class="roster_parameter_table">
+                <li class="roster_parameter_label">
+                    Remaining salary:
+                </li>
+                <li>
+                    <span id="salary_cap" class="green"></span>
+                </li>
+            </ul>
+            <ul class="roster_parameter_table">
+                <li class="roster_parameter_label">
+                    Players drafted:
+                </li>
+                <li>
+                    <span id="remaining_players" class="green">0</span>
+                </li>
+            </ul>
+            <div id="player_table_header" class="player_table_header">
                 Available players:
+                <br/>
+                <span class="click_to">
+                    Click to draft
+                </span>
             </div><!--
-            --><div id="roster_table_header">
+            --><div id="roster_table_header" class="player_table_header">
                 Your roster:
+                <br/>
+                <span class="click_to">
+                    Click to drop
+                </span>
             </div>
-            <div id="player_table_container">
+            <div id="player_table_container" class="player_table_container">
                 <table id="player_table" class="player_table"></table>
             </div><!--
-            --><div id="roster_table_container">
+            --><div id="roster_table_container" class="player_table_container">
                 <table id="roster_table" class="player_table"></table>
             </div>
             <div id="submit_button_container" class="submit_container">
-                <button class="text_button auto_width" onclick="update_roster()">Update Roster</button>
+                <button id="submit_roster_button" class="text_button auto_width" onclick="update_roster()">Update Roster</button>
                 <button class="text_button auto_width" onclick="cancel_edit_roster()">Cancel</button>
             </div>
         </div>
@@ -109,15 +131,11 @@
                         var 
                         
                         entry_report = entries.entry_report,
-                        entry_count = entry_report.length,
-                        
-                        table = id("entry_report_table");
+                        entry_count = entry_report.length;
                 
                         if (entry_count === 0) no_data_message(table, "You have no entries in this contest.");
                         else
-                            {
-                            table.className = "pari_mutuel_table";
-                            
+                            {                            
                             var option_table = JSON.parse(contest.option_table);
                             contest.option_table = option_table;
                     
@@ -128,11 +146,15 @@
                                 {
                                 case "PARI-MUTUEL" : 
                                     {
-                                    show("implied_odds_disclaimer");
+                                    destroy("roster_entry_report_table");
+                                    show("pari_mutuel_explanation");
                                     
                                     var 
                                     
+                                    table = id("pari_mutuel_entry_report_table"),
+                                    
                                     user_wagers = [],
+                                    user_exposure = 0,
                             
                                     wager_grand_total = contest.wager_grand_total,
                                     rake_amount = multiply(contest.rake, wager_grand_total);
@@ -140,16 +162,14 @@
                                     wager_grand_total -= rake_amount;
                         
                                     var header = new_row(table, -1, [
-                                        "",
                                         "Outcome",
                                         "My wagers",
-                                        "Implied odds*",
-                                        "Potential payout*"
+                                        "Odds",
+                                        "Gross payout",
+                                        "Scenario P/L"
                                     ]);
 
-                                    header[0].style.background = "none";
-                                    header[0].style.border = "none";
-                                    header[2].style.textAlign = "left";
+                                    header[1].style.textAlign = "left";
                                     
                                     // sum all wagers by pari-mutuel option
                                     
@@ -162,7 +182,11 @@
                                 
                                         if (typeof user_wagers[option_id] === "undefined") user_wagers[option_id] = amount;
                                         else user_wagers[option_id] += amount;
+                                        
+                                        user_exposure += amount;
                                         }
+                                        
+                                    id("exposure_value").innerHTML = toBTC(user_exposure) + " BTC";
                                         
                                     // create rows for any options where user has wagers:
                                     
@@ -171,34 +195,50 @@
                                         var 
                                         
                                         option_item = option_table[i],
-                                        option_id = option_item.id;
-                                
-                                        if (typeof user_wagers[option_id] === "undefined") continue;
-                                
-                                        var
-                                        
+                                        option_id = option_item.id,
                                         description = option_item.description,
-                                        amount = user_wagers[option_id],
+                                        amount = "--", // default is no wager
                                         option_implied_odds = get_implied_odds(wager_grand_total, option_item),
-                                        implied_payout = multiply(option_implied_odds, amount),
+                                        implied_payout = "--", // default is no wager, therefore no payout
+                                        scenario_PL = -user_exposure, // default is no wager, therefore total loss
+                                        scenario_PL_class = "orange"; // default is total loss
                                         
-                                        row = new_row(table, -1, [
-                                            option_id,
+                                        if (typeof user_wagers[option_id] !== "undefined") // user has a wager
+                                            {
+                                            amount = user_wagers[option_id],
+                                            implied_payout = multiply(option_implied_odds, amount),
+                                            scenario_PL = implied_payout - user_exposure;
+                                         
+                                            if (scenario_PL > 0) scenario_PL_class = "green"; // override if profit
+                                            
+                                            amount = toBTC(amount) + " BTC";
+                                            implied_payout = toBTC(implied_payout) + " BTC";
+                                            }
+                                        
+                                        var row = new_row(table, -1, [
                                             description,
-                                            toBTC(amount) + " BTC",
-                                            option_implied_odds,
-                                            toBTC(implied_payout) + " BTC"
+                                            "<div class='field_label'>My Wagers:</div>" + amount,
+                                            "<div class='field_label'>Odds:</div>" + option_implied_odds,
+                                            "<div class='field_label'>Gross payout:</div>" + implied_payout,
+                                            "<div class='field_label'>Scenario P/L:</div><span class='" + scenario_PL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
                                         ]);
 
-                                        row[1].width = "1";
-                                        row[2].style.textAlign = "left";
+                                        row[1].style.textAlign = "left";
                                         }
                                 
                                     break;
                                     }
                                 case "ROSTER" : 
                                     {
-                                    var player_names = [];
+                                    destroy("pari_mutuel_entry_report_table");
+                                    
+                                    var 
+                                    
+                                    table = id("roster_entry_report_table"),
+                                    
+                                    player_names = [],
+                                    
+                                    user_exposure = 0;
                                     
                                     for (var i=0; i<option_table.length; i++)
                                         {
@@ -206,22 +246,14 @@
                                         player_names[option_item.id] = option_item.name;
                                         }
                                     
-                                    var header_content = [
+                                    var header = new_row(table, -1, [
+                                        "Roster",
                                         "Roster ID",
-                                        "Entries",
-                                        "Amount",
-                                        "",
-                                        "Roster"
-                                    ];
+                                        "Wager",
+                                    ]);
                                     
-                                    if (contest_status === 1) header_content.push("Action");
-                                    
-                                    var header = new_row(table, -1, header_content);
-
-                                    header[0].style.background = "none";
-                                    header[0].style.border = "none";
-                                    header[5].style.textAlign = "left";
-                                    
+                                    header[1].style.textAlign = "left";
+                                        
                                     for (var i=0; i<entry_count; i++)
                                         {
                                         var entry_item = entry_report[i],
@@ -232,6 +264,8 @@
                                         number_of_entries = divide(amount, contest.cost_per_entry),
                                         roster_html = "";
                                 
+                                        user_exposure += amount;
+                                
                                         entry_item.roster = roster;
                                         entry_item.number_of_entries = number_of_entries;
                                 
@@ -240,29 +274,24 @@
                                         for (var j=0; j<roster.length; j++)
                                             {
                                             if (j !== 0) roster_html += "<br/>";
-                                            roster_html += player_names[roster[j].id] + " ($" + toCurrency(roster[j].price) + ")";
+                                            roster_html += "<span class='inline_player_name'>" + player_names[roster[j].id] + "</span><span class='inline_player_price'>$" + commas(roster[j].price | 0) + "</span>";
                                             }
                                             
-                                        var row_content = [
-                                            entry_id,
-                                            number_of_entries,
-                                            amount + " BTC",
-                                            "",
-                                            roster_html
-                                        ];
+                                        var enter_button = "";
                                         
-                                        if (contest_status === 1) row_content.push("<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>");
+                                        if (contest_status === 1) enter_button = "<button class=\"text_button orange orange_border\" style=\"width:auto;float:right;\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
 
-                                        var row = new_row(table, -1, row_content);
+                                        var row = new_row(table, -1, [
+                                            "<ul><li>" + roster_html + "</li><li>" + enter_button + "</li></ul>",
+                                            "<div class='field_label'>Roster ID:</div>" + "#" + entry_id,
+                                            "<div class='field_label'>Wager:</div>" + amount + " BTC"
+                                        ]);
 
-                                        row[1].width = "1";
-                                        row[1].style.textAlign = "center";
-                                        row[2].width = "1";
-                                        row[2].style.textAlign = "center";
-                                        row[3].width = "1";
-                                        row[3].style.whiteSpace = "nowrap";
-                                        row[5].style.textAlign = "left";
+                                        row[1].style.textAlign = "left";
                                         }
+                                        
+                                    id("exposure_value").innerHTML = toBTC(user_exposure) + " BTC";
+                                    
                                     break;
                                     }
                                 }
@@ -278,7 +307,7 @@
         {
         var table = id("entry_report_table");
         hide("contest_title");
-        show("no_data_header");
+        show("contest_title");
         no_data_message(table, message);
         }
         
@@ -299,7 +328,8 @@
         id("editing_roster").innerHTML = "Editing Roster " + entry_id;
 
         id("number_of_entries").innerHTML = entry.number_of_entries;
-        id("salary_cap").innerHTML = "$" + toCurrency(contest.salary_cap);
+        id("entry_value").innerHTML = toBTC(entry.amount) + " BTC";
+        id("salary_cap").innerHTML = "$" + commas(contest.salary_cap | 0);
         if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
         else id("remaining_players").innerHTML = 0;
             
@@ -321,11 +351,12 @@
         id("player_table_container").scrollTop = 0;
         id("roster_table_container").scrollTop = 0;
                 
-        window.scrollTo(0, document.body.scrollHeight);
+        window.scrollTo(0, id("editing_roster").offsetTop);
         }
         
     function cancel_edit_roster()
         {
+        window.scroll(0,0);
         hide("edit_roster_container");
         }
         

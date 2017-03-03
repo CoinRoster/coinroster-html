@@ -618,9 +618,9 @@
             player_odds = row.cells[1].querySelector("input").value,
             player_price;
             
-            if (multiplier !== "") player_price = multiply(multiplier, (1 / player_odds));
+            if (multiplier !== "") player_price = multiply(multiplier, (1 / player_odds)) | 0;
 
-            row.cells[2].innerHTML = "$" + toCurrency(player_price);
+            row.cells[2].innerHTML = "$" + commas(player_price);
             }
         }
         
@@ -777,7 +777,7 @@
         
         // check for salary cap
         
-        var salary_cap = id("salary_cap_input").value;
+        var salary_cap = id("salary_cap_input").value | 0;
         
         if (salary_cap === "") return alert("Please enter salary cap");
         if (isNaN(salary_cap)) return alert("Salary cap must be a number");
@@ -803,7 +803,7 @@
     
             if (name === "" || odds === "" || price === "") return alert("Player table is incomplete");
             
-            price = fromCurrency(price);
+            price = fromCurrency(price) | 0;
             
             if (price === 0) return alert("Invalid price or odds for " + name);
             if (price > salary_cap) return alert("Odds table row " + i + ": price cannot be greater than salary cap");

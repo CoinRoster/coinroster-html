@@ -88,7 +88,7 @@
     }
         
     .section_header, .section_header_link {
-        padding: 5px 0;
+        padding: 5px 0 10px;
         font-family: 'ubuntu_fantasy', sans-serif;
         font-weight: normal;
     }
@@ -186,6 +186,10 @@
     
     .green {
         color: rgb(0,255,106) !important;
+    }
+    
+    .red {
+        color: rgb(255,50,50) !important;
     }
     
     .teal {

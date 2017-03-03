@@ -91,6 +91,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            Rake:
+                        </td>
+                        <td>
+                            <span id="rake" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td id="cost_per_entry_label">
                             Entry fee:
                         </td>
@@ -106,14 +114,6 @@
                             <span id="prize_pool" class="orange"></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            Rake:
-                        </td>
-                        <td>
-                            <span id="rake" class="orange"></span>
-                        </td>
-                    </tr>
                     <tr id="pari_mutuel_table_label" style="display: none">
                         <td colspan="2">
                             Outcomes ...
@@ -125,39 +125,56 @@
         </div>
     </div>
     <div class="table_body_container">
-        <table class="contest_detail_table">
-            <tr class="roster_field hidden">
-                <td>
-                    Number of entries?
-                </td>
-                <td>
-                    <input id="number_of_entries_input" type="text" class="light_on_dark_input green" value="1" style="width:42px;">
-                </td>
-                <td>
-                    Remaining salary:
-                </td>
-                <td>
-                    <span id="salary_cap" class="green"></span>
-                </td>
-                <td>
-                    Players drafted:
-                </td>
-                <td>
-                    <span id="remaining_players" class="green">0</span>
-                </td>
-            </tr>
-        </table>
         <div class="roster_field hidden">
-            <div id="player_table_header">
+            <ul class="roster_parameter_table augment_vertical_padding">
+                <li class="roster_parameter_label">
+                    <span id="number_verbose">Number</span>
+                    <span id="number_sign" class="hidden">#</span>
+                    of entries?
+                </li>
+                <li id="number_of_entries_li">
+                    <input id="number_of_entries_input" type="text" class="light_on_dark_input green" style="width:42px;">
+                </li>
+                <li id="entry_value_li" class="green">
+                    &rarr;<span id="entry_value"></span>
+                </li>
+            </ul>
+            <ul class="roster_parameter_table">
+                <li class="roster_parameter_label">
+                    Remaining salary:
+                </li>
+                <li>
+                    <span id="salary_cap" class="green"></span>
+                </li>
+            </ul>
+            <ul class="roster_parameter_table">
+                <li class="roster_parameter_label">
+                    Players drafted:
+                </li>
+                <li>
+                    <span id="remaining_players" class="green">0</span>
+                </li>
+            </ul>
+        </div>
+        <div class="roster_field hidden">
+            <div id="player_table_header" class="player_table_header">
                 Available players:
+                <br/>
+                <span class="click_to">
+                    Click to draft
+                </span>
             </div><!--
-            --><div id="roster_table_header">
+            --><div id="roster_table_header" class="player_table_header">
                 Your roster:
+                <br/>
+                <span class="click_to">
+                    Click to drop
+                </span>
             </div>
-            <div id="player_table_container">
+            <div id="player_table_container" class="player_table_container">
                 <table id="player_table" class="player_table"></table>
             </div><!--
-            --><div id="roster_table_container">
+            --><div id="roster_table_container" class="player_table_container">
                 <table id="roster_table" class="player_table"></table>
             </div>
         </div>
@@ -228,24 +245,29 @@
                     id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
                     id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
                     
-                    
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
                     var contest_open = contest_status === 1;
 
                     if (contest_type === "ROSTER")
                         {
+                        destroy("pari_mutuel_table_label");
+                        
+                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
+                        
                         var
 
                         salary_cap = call.salary_cap,
                         roster_size = call.roster_size;
-
+                
                         initialize_roster_UI(contest_open, option_table, salary_cap, roster_size);
 
-                        id("number_of_entries_input").focus();
+                        id("number_of_entries_input").value = 1;
                         }
                     else if (contest_type === "PARI-MUTUEL")
                         {
+                        destroy("contest_second_hr");
+                        
                         var 
 
                         wager_grand_total = call.wager_grand_total,
@@ -444,10 +466,12 @@
             {
             if (isNaN(this.value) || this.value < 1 || this.value > 9999) this.value = 1;
             else this.value = this.value | 0;
-            id("submit_roster_button").innerHTML = "Submit roster (" + multiply(this.value, window.cost_per_entry) + " BTC)";
+            var entry_value = toBTC(multiply(this.value, window.cost_per_entry)) + " BTC";
+            id("submit_roster_button").innerHTML = "Submit roster (" + entry_value + ")";
+            id("entry_value").innerHTML = entry_value;
             };
         
-        id("salary_cap").innerHTML = "$" + toCurrency(salary_cap);
+        id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
             
@@ -506,7 +530,7 @@
             description = option_item.description,
             
             wager_total = option_item.wager_total,
-            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align teal' style='width:100px'/>",
+            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' style='width:100px'/>",
             
             implied_odds = get_implied_odds(wager_grand_total, option_item),
     

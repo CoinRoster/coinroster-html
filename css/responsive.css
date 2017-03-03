@@ -30,10 +30,11 @@
         
         #category_report_table td {
             display: block;
+            padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
         }
         
         #category_report_table td:first-child { /* title */
-            background: rgb(80,84,88);
+            padding-bottom: 10px !important;
         }
         #category_report_table td:nth-child(2) { /* game type */
         }
@@ -42,8 +43,9 @@
         #category_report_table td:nth-child(4) { /* cost per entry */
             text-align: left !important;
         }
-        #category_report_table td:nth-child(5) { /* prize pool */
+        #category_report_table td:last-child { /* prize pool */
             text-align: left !important;
+            padding-bottom: 11px !important;
         }
         
         #category_report_table .field_label {
@@ -56,6 +58,29 @@
             padding-left: 20px;
         }
         
+        /* My Contests */
+        
+        #contest_report_table tr:first-child { /* header */
+            display: none;
+        }
+        
+        #contest_report_table td {
+            display: block;
+            padding-bottom: 0px !important;
+            text-align: left !important;
+        }
+        #contest_report_table td:first-child { /* title */
+            padding-bottom: 10px !important;
+        }
+        #contest_report_table td:last-child { /* deadline */
+            padding-bottom: 11px !important;
+        }
+        #contest_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
+                
     }
     @media only screen and (min-width: 768px) and (max-width: 994px) {
 
@@ -132,11 +157,7 @@
         #pari_mutuel_table_label {
             display: table-row !important;
         }
-        
-        #contest_second_hr {
-            display: none;
-        }
-                
+                    
         #pari_mutuel_table td {
             text-align: left !important;
         }
@@ -147,10 +168,12 @@
         
         #pari_mutuel_table td {
             display: inline-block;
+            padding-bottom: 0 !important;
         }
         
         #pari_mutuel_table td:first-child { /* outcome */
             display: block;
+            padding-bottom: 10px !important;
         }
         #pari_mutuel_table td:nth-child(2) { /* wagerss */
             float:none;
@@ -158,9 +181,10 @@
         #pari_mutuel_table td:nth-child(3) { /* odds */
             float:none;
         }
-        #pari_mutuel_table td:nth-child(4) { /* enter wager */
+        #pari_mutuel_table td:last-child { /* enter wager */
             display: block;
             float: none;
+            padding-bottom: 11px !important;
         }
         #pari_mutuel_table .field_label {
             display: inline-block !important;
@@ -170,6 +194,14 @@
         }
         #submit_pari_mutuel_button {
             float: left !important;
+        }
+        
+        .roster_parameter_table {
+            display: block !important;
+        }
+        .augment_vertical_padding li {
+            padding-top: 7px !important;
+            padding-bottom: 2px !important;
         }
         
         /* transactions in My Account */
@@ -193,6 +225,29 @@
         #transaction_report_table .memo_link {
             padding-right: 0 !important;
         }
+        
+        /* My Entries */
+        
+        #pari_mutuel_entry_report_table tr:first-child { /* header */
+            display: none;
+        }
+        #pari_mutuel_entry_report_table td {
+            display: block;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+        
+        #pari_mutuel_entry_report_table td:first-child { /* pari_mutuel / outcome */
+            padding-bottom: 10px !important;
+        }
+        #pari_mutuel_entry_report_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #pari_mutuel_entry_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
     }
     @media only screen and (max-width: 640px) {
 
@@ -210,6 +265,41 @@
         
         /* Contest page */
         
+        .player_table td {
+            display: block !important;
+            text-align: left !important;
+        }
+        .player_table td:first-child { /* player name */
+            font-size: 13px !important;
+        }
+        .player_table td:nth-child(2) { /* player price */
+            font-size: 12px !important;
+            padding-top: 0 !important;
+            padding-bottom: 4px !important;
+        }
+        
+        /* My Entries */
+        
+        #roster_entry_report_table tr:first-child { /* header */
+            display: none;
+        }
+        #roster_entry_report_table td {
+            display: block;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+        
+        #roster_entry_report_table td:first-child { /* roster / outcome */
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #roster_entry_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
     }
     @media only screen and (max-width: 500px) {
 
@@ -247,5 +337,39 @@
         
         #submit_pari_mutuel_button {
             margin-left: 20px;
+        }
+        #submit_roster_button {
+            margin-left: 20px;
+        }
+        
+        .roster_parameter_label {
+            font-size: 12px !important;
+            padding-left: 20px !important;
+        }
+        
+        #number_verbose {
+            display: none;
+        }
+        #number_sign {
+            display: inline-block;
+        }
+        
+        .player_table td:first-child { /* player name */
+            font-size: 12px !important;
+        }
+        .player_table td:nth-child(2) { /* player price */
+            font-size: 11px !important;
+        }
+        
+        #editing_roster {
+            padding-left: 20px !important;
+            font-size: 14px !important;
+        }
+        
+        .inline_player_name {
+            display: block !important;
+        }
+        .inline_player_price {
+            padding-left: 0 !important;
         }
     }

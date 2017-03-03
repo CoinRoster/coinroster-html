@@ -109,7 +109,7 @@
         if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
         else if (price <= salary_cap)
             {
-            id("salary_cap").innerHTML = "$" + toCurrency(salary_cap - price);
+            id("salary_cap").innerHTML = "$" + commas(salary_cap - price);
             if (show_max_players) id("remaining_players").innerHTML = ++drafted + "/" + max_players;
             else id("remaining_players").innerHTML = ++drafted;
             id("player_table").deleteRow(row.rowIndex);
@@ -141,7 +141,7 @@
             }
         else id("remaining_players").innerHTML = --remaining_players;
         
-        id("salary_cap").innerHTML = "$" + toCurrency(salary_cap + price);
+        id("salary_cap").innerHTML = "$" + commas(salary_cap + price);
         id("roster_table").deleteRow(row.rowIndex);
         
         insert_player_row("player_table", player_id, name, price);
@@ -153,11 +153,7 @@
         
         table = id(table_id),
         number_of_rows = table.rows.length,
-        row_index = -1,
-        action_button;
-
-        if (table_id === "player_table") action_button = "<button class=\"text_button auto_width\" onclick=\"add_player(" + player_id + ")\">Draft</button>";
-        else action_button = "<button class=\"text_button auto_width\" onclick=\"remove_player(" + player_id + ")\">Drop</button>";
+        row_index = -1;
 
         if (number_of_rows !== 0)
             {
@@ -174,8 +170,7 @@
             
         var row = new_row(table, row_index, [
             "<span class=\"\">" + name + "</span>",
-            "<span class=\"green\">$" + toCurrency(price) + "</span>",
-            action_button
+            "<span class=\"green\">$" + commas(price) + "</span>"
         ]);
         
         row[0].id = "player_" + player_id;
@@ -183,6 +178,35 @@
         row[0].name = name;
         row[0].price = price;
 
+        row[0].onmouseenter = function()
+            {
+            row[0].style.background = "rgb(100,104,108)";
+            };
+        row[0].onmouseleave = function()
+            {
+            row[0].style.background = "rgb(80,84,88)";
+            };
+        if (table_id === "player_table") 
+            {
+            row[0].onclick = (function(player_id)
+                {
+                return function()
+                    {
+                    add_player(player_id);
+                    }
+                })(player_id);
+            }
+        else 
+            {
+            row[0].onclick = (function(player_id)
+                {
+                return function()
+                    {
+                    remove_player(player_id);
+                    }
+                })(player_id);
+            }
+            
         row[2].style.textAlign = "right";
         }
         

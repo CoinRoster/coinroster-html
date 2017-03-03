@@ -42,24 +42,11 @@
                     {
                     var header = new_row(table, -1, [
                         "Contest",
+                        "Exposure",
                         "Category",
-                        /*"My wagers",*/
-                        //"Wager",
-                        "Live at"
+                        "Deadline"
                     ]);
-
-                    header[0].style.background = "none";
-                    header[0].style.border = "none";
-
-                    for (var i=1; i<header.length; i++)
-                        {
-                        header[i].style.fontSize = "14px";
-                        header[i].style.paddingBottom = "10px";
-                        }
-
-                    header[1].style.textAlign = "left";
-                    header[2].style.textAlign = "left";
-
+                    
                     for (var i=0; i<number_of_contests; i++)
                         {
                         var contest_item = user_contest_report[i],
@@ -80,33 +67,22 @@
 
                         if (status === 2) registration_deadline_string = "In play";
                         
-                        var view_string = "View ";
+                        var button_string = "";
                         
-                        if (contest_type === "PARI-MUTUEL") view_string += "wagers";
-                        else if (contest_type === "ROSTER") view_string += "rosters";
+                        if (contest_type === "PARI-MUTUEL") button_string += "Wagers";
+                        else if (contest_type === "ROSTER") button_string += "Rosters";
+                        
+                        var enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
                         
                         var row = new_row(table, -1, [
-                            title,
-                            category_description + " &bull; " +
-                            sub_category_description,
-                            /*user_entries_count + " / " + user_entries_value + " BTC",*/
-                            registration_deadline_string,
-                            "<button class=\"text_button orange orange_border\" style=\"width:auto\" onclick=\"show_user_entries(" + contest_id + ")\">" + view_string + "</button>"
+                            "<ul><li>" + title + "</li><li>" + enter_button + "</li></ul>",
+                            "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
+                            "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
+                            "<div class='field_label'>Deadline:</div>" + registration_deadline_string
                         ]);
                         
                         for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
 
-                        row[1].style.textAlign = "left";
-                        row[1].className = "contest_cell_link";
-                        row[1].onclick = (function(contest_id)
-                            {
-                            return function()
-                                {
-                                show_user_entries(contest_id);
-                                //redirect_to_contest(contest_id);
-                                };
-                            })(contest_id);
-                        row[2].style.textAlign = "left";
                         /*row[2].className = "contest_cell_link";
                         row[2].onclick = (function(category, sub_category)
                             {
