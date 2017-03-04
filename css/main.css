@@ -34,6 +34,13 @@
       src: url("../fonts/neuzeit/neuzeit-book-heavy.woff") format("woff"), url("../fonts/neuzeit/neuzeit-book-heavy.ttf") format("truetype");
     }
     
+    @font-face {
+        font-family: 'Inconsolata';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Inconsolata Regular'), local('Inconsolata-Regular'), url(../fonts/Inconsolata/Inconsolata.woff2) format('woff2');
+    }
+
     body {
         font-family: 'gotham_medium', sans-serif;
         padding:0;
@@ -339,6 +346,10 @@
         padding: 0 20px 20px 20px;
     }
         
+    #no_data_message {
+        font-size: 14px;
+    }
+    
     #login_signup_table td {
         padding: 10px 10px 10px 0;
     }

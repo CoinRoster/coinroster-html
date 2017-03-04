@@ -14,6 +14,10 @@
     <div id="body_container">
         <br/>
         <h3 class="section_header">My Contests</h3>
+        <div id="no_data_message" class="hidden"></div>
+        <div id="exposure_container" class="hidden">
+            In play:<span id="exposure_value" class="orange"></span>
+        </div>
     </div>
     <div class="table_body_container">
         <table id="contest_report_table" class="contest_table"></table>
@@ -37,62 +41,67 @@
                 
                 table = id("contest_report_table");
                 
-                if (number_of_contests === 0) no_data_message(table, "You have no open or in-play contests.");
-                else
+                if (number_of_contests === 0) 
                     {
-                    var header = new_row(table, -1, [
-                        "Contest",
-                        "Exposure",
-                        "Category",
-                        "Deadline"
-                    ]);
-                    
-                    for (var i=0; i<number_of_contests; i++)
-                        {
-                        var contest_item = user_contest_report[i],
-
-                        contest_id = contest_item.id,
-                        category = contest_item.category,
-                        sub_category = contest_item.sub_category,
-                        contest_type = contest_item.contest_type,
-                        category_description = contest_item.category_description,
-                        sub_category_description = contest_item.sub_category_description,
-                        title = contest_item.title,
-                        settlement_type = contest_item.settlement_type,
-                        cost_per_entry = contest_item.cost_per_entry,
-                        registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
-                        user_entries_count = contest_item.user_entries_count,
-                        user_entries_value = contest_item.user_entries_value,
-                        status = contest_item.status;
-
-                        if (status === 2) registration_deadline_string = "In play";
-                        
-                        var button_string = "";
-                        
-                        if (contest_type === "PARI-MUTUEL") button_string += "Wagers";
-                        else if (contest_type === "ROSTER") button_string += "Rosters";
-                        
-                        var enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
-                        
-                        var row = new_row(table, -1, [
-                            "<ul><li>" + title + "</li><li>" + enter_button + "</li></ul>",
-                            "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
-                            "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
-                            "<div class='field_label'>Deadline:</div>" + registration_deadline_string
-                        ]);
-                        
-                        for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
-
-                        /*row[2].className = "contest_cell_link";
-                        row[2].onclick = (function(category, sub_category)
-                            {
-                            return function()
-                                {
-                                window.location = "/lobby.html#category=" + category + "&sub_category=" + sub_category;
-                                };
-                            })(category, sub_category);*/
-                        }
+                    show("no_data_message");
+                    id("no_data_message").innerHTML = "You have no open or in-play contests.";
+                    return;
                     }
+                    
+                show("exposure_container");
+                    
+                var header = new_row(table, -1, [
+                    "Contest",
+                    "Exposure",
+                    "Category",
+                    "Deadline"
+                ]);
+                
+                var exposure_value = 0;
+
+                for (var i=0; i<number_of_contests; i++)
+                    {
+                    var contest_item = user_contest_report[i],
+
+                    contest_id = contest_item.id,
+                    category = contest_item.category,
+                    sub_category = contest_item.sub_category,
+                    contest_type = contest_item.contest_type,
+                    category_description = contest_item.category_description,
+                    sub_category_description = contest_item.sub_category_description,
+                    title = contest_item.title,
+                    settlement_type = contest_item.settlement_type,
+                    cost_per_entry = contest_item.cost_per_entry,
+                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
+                    user_entries_count = contest_item.user_entries_count,
+                    user_entries_value = contest_item.user_entries_value,
+                    status = contest_item.status;
+
+                    if (status === 2) registration_deadline_string = "In play";
+
+                    var button_string = "";
+
+                    if (contest_type === "PARI-MUTUEL") button_string += "My wagers";
+                    else if (contest_type === "ROSTER") button_string += "My rosters";
+
+                    var 
+                    
+                    title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+                    enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
+
+                    var row = new_row(table, -1, [
+                        "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                        "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
+                        "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
+                        "<div class='field_label'>Deadline:</div>" + registration_deadline_string
+                    ]);
+
+                    for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
+                    
+                    exposure_value = add(exposure_value, user_entries_value);
+                    }
+                    
+                id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
                 }
             });
         }

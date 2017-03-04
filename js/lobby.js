@@ -1,11 +1,3 @@
-        
-    function no_data_message(table, message)
-        {
-        var row = new_row(table, -1, [message]);
-        row[1].style.textAlign = "left";
-        }
-        
-/*----------------------------------------------------------------------*/
 
     // supporting functions for contests, generally
     
@@ -39,7 +31,7 @@
                             rank = pay_table_item.rank,
                             payout = pay_table_item.payout;
 
-                            payout_info += "<tr><td>" + rank + "<sup>" + get_ordinal_suffix(rank) + "</sup>" + "</td><td>" + payout * 100 + "%</td></tr>";
+                            payout_info += "<tr><td>" + rank + "<sup>" + get_ordinal_suffix(rank) + "</sup>" + "</td><td>" + multiply(payout, 100) + "%</td></tr>";
                             }
 
                         payout_info += "</table>";
@@ -109,7 +101,7 @@
         if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
         else if (price <= salary_cap)
             {
-            id("salary_cap").innerHTML = "$" + commas(salary_cap - price);
+            id("salary_cap").innerHTML = "$" + commas(subtract(salary_cap, price));
             if (show_max_players) id("remaining_players").innerHTML = ++drafted + "/" + max_players;
             else id("remaining_players").innerHTML = ++drafted;
             id("player_table").deleteRow(row.rowIndex);
@@ -141,7 +133,7 @@
             }
         else id("remaining_players").innerHTML = --remaining_players;
         
-        id("salary_cap").innerHTML = "$" + commas(salary_cap + price);
+        id("salary_cap").innerHTML = "$" + commas(add(salary_cap, price));
         id("roster_table").deleteRow(row.rowIndex);
         
         insert_player_row("player_table", player_id, name, price);

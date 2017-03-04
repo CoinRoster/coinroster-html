@@ -16,7 +16,8 @@
         <h3 id="contest_title" class="section_header">
             My Entries
         </h3>
-        <div id="exposure_container">
+        <div id="no_data_message" class="hidden"></div>
+        <div id="exposure_container" class="hidden">
             Exposure:<span id="exposure_value" class="orange"></span>
         </div>
     </div>
@@ -102,7 +103,7 @@
         {
         var contest_id = get_url_param("contest_id") | 0;
         
-        if (contest_id === 0) return special_no_data_message("Invalid contest ID");
+        if (contest_id === 0) return no_data_message("Invalid contest ID");
         else window.contest_id = contest_id;
         
         api({
@@ -133,9 +134,11 @@
                         entry_report = entries.entry_report,
                         entry_count = entry_report.length;
                 
-                        if (entry_count === 0) no_data_message(table, "You have no entries in this contest.");
+                        if (entry_count === 0) no_data_message("You have no entries in this contest.");
                         else
-                            {                            
+                            {
+                            show("exposure_container");
+                            
                             var option_table = JSON.parse(contest.option_table);
                             contest.option_table = option_table;
                     
@@ -154,7 +157,7 @@
                                     table = id("pari_mutuel_entry_report_table"),
                                     
                                     user_wagers = [],
-                                    user_exposure = 0,
+                                    exposure_value = 0,
                             
                                     wager_grand_total = contest.wager_grand_total,
                                     rake_amount = multiply(contest.rake, wager_grand_total);
@@ -183,10 +186,10 @@
                                         if (typeof user_wagers[option_id] === "undefined") user_wagers[option_id] = amount;
                                         else user_wagers[option_id] += amount;
                                         
-                                        user_exposure += amount;
+                                        exposure_value += amount;
                                         }
                                         
-                                    id("exposure_value").innerHTML = toBTC(user_exposure) + " BTC";
+                                    id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
                                         
                                     // create rows for any options where user has wagers:
                                     
@@ -200,14 +203,14 @@
                                         amount = "--", // default is no wager
                                         option_implied_odds = get_implied_odds(wager_grand_total, option_item),
                                         implied_payout = "--", // default is no wager, therefore no payout
-                                        scenario_PL = -user_exposure, // default is no wager, therefore total loss
+                                        scenario_PL = -exposure_value, // default is no wager, therefore total loss
                                         scenario_PL_class = "orange"; // default is total loss
                                         
                                         if (typeof user_wagers[option_id] !== "undefined") // user has a wager
                                             {
                                             amount = user_wagers[option_id],
                                             implied_payout = multiply(option_implied_odds, amount),
-                                            scenario_PL = implied_payout - user_exposure;
+                                            scenario_PL = implied_payout - exposure_value;
                                          
                                             if (scenario_PL > 0) scenario_PL_class = "green"; // override if profit
                                             
@@ -238,7 +241,7 @@
                                     
                                     player_names = [],
                                     
-                                    user_exposure = 0;
+                                    exposure_value = 0;
                                     
                                     for (var i=0; i<option_table.length; i++)
                                         {
@@ -264,7 +267,7 @@
                                         number_of_entries = divide(amount, contest.cost_per_entry),
                                         roster_html = "";
                                 
-                                        user_exposure += amount;
+                                        exposure_value += amount;
                                 
                                         entry_item.roster = roster;
                                         entry_item.number_of_entries = number_of_entries;
@@ -279,7 +282,7 @@
                                             
                                         var enter_button = "";
                                         
-                                        if (contest_status === 1) enter_button = "<button class=\"text_button orange orange_border\" style=\"width:auto;float:right;\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
+                                        if (contest_status === 1) enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
 
                                         var row = new_row(table, -1, [
                                             "<ul><li>" + roster_html + "</li><li>" + enter_button + "</li></ul>",
@@ -290,7 +293,7 @@
                                         row[1].style.textAlign = "left";
                                         }
                                         
-                                    id("exposure_value").innerHTML = toBTC(user_exposure) + " BTC";
+                                    id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
                                     
                                     break;
                                     }
@@ -299,16 +302,14 @@
                         }
                     });
                 }
-            else special_no_data_message(contest.error);
+            else no_data_message(contest.error);
             });
         }
         
-    function special_no_data_message(message)
+    function no_data_message(message)
         {
-        var table = id("entry_report_table");
-        hide("contest_title");
-        show("contest_title");
-        no_data_message(table, message);
+        show("no_data_message");
+        id("no_data_message").innerHTML = message;
         }
         
     function edit_roster(entry_id)

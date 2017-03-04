@@ -37,13 +37,14 @@
     }
     
     .balance_table td {
-        font-weight: normal;
-        font-family: "Lucida Console", Monaco, monospace;
         padding: 12px 20px 12px 0;
+        font-weight: bold;
+        font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
         height:20px;
         vertical-align:middle !important;
-        font-size:20px;
+        font-size:18px;
         white-space:nowrap;
+        line-height: 20px;
     }
 
     .balance_field {
@@ -57,8 +58,6 @@
     .subwindow {
         padding:20px;
         background:rgb(100,104,108);
-        /*margin-top:20px;*/
-        /*border-radius:10px;*/
         border: 1px solid rgb(44,46,48);
         position:relative;
     }
@@ -154,7 +153,10 @@
     
     #transaction_report_table td {
         padding: 5px 10px;
-        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 13px;
+    }
+    #transaction_report_table td:nth-child(3) { /* date */
+        color: rgb(230,230,230);
     }
     
     .right_left {
@@ -163,11 +165,13 @@
         border: 0;
         outline: 0;
         list-style: none;
+        float: right;
+        font-size: 14px;
     }
     .right_left li {
         display: table-cell;
-    }
-    .right_left li:first-child {
+        font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
+        font-weight: bold;
         padding-right: 20px;
     }
     

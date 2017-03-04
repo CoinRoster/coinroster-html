@@ -154,6 +154,10 @@
             padding-right: 0px !important;
         }
  
+        #pari_mutuel_second_hr {
+            display: none !important;
+        }
+        
         #pari_mutuel_table_label {
             display: table-row !important;
         }
@@ -211,14 +215,19 @@
         }
         #transaction_report_table td {
             display: inline-block;
+            padding-right: 1px !important;
+            padding-left: 1px !important;
         }
-        #transaction_report_table td:nth-child(3) { /* date - override to block */
+        #transaction_report_table td:nth-child(1) { /* trans no. */
+            float: right;
+        }
+        #transaction_report_table td:nth-child(3) { /* date */
             display: block;
-            font-size: 0.75em;
+            font-size: 11px;
             padding-top: 0px !important;
             padding-bottom: 8px !important;
         }
-        #transaction_report_table td:nth-child(1), #transaction_report_table td:nth-child(5)  { /* trans no. */
+        #transaction_report_table td:nth-child(5)  { /* memo */
             float: right;
         }
         
@@ -271,6 +280,8 @@
         }
         .player_table td:first-child { /* player name */
             font-size: 13px !important;
+            padding-top: 1px !important;
+            padding-bottom: 2px !important;
         }
         .player_table td:nth-child(2) { /* player price */
             font-size: 12px !important;
@@ -320,11 +331,13 @@
         }
         
         .hidden_subwindow, 
-        .text_button, 
-        .input_style, 
         .contest_table td, 
         .contest_detail_table td  {
             font-size: 12px !important;
+        }
+        
+        .right_left li:last-child { /* transaction amount */
+            padding-right: 0 !important;
         }
                 
         .contest_detail_table td:first-child {
@@ -371,5 +384,12 @@
         }
         .inline_player_price {
             padding-left: 0 !important;
+        }
+        
+        #transaction_report_table td {
+            font-size: 11px !important;
+        }
+        #transaction_report_table td:nth-child(3) { /* date */
+            font-size: 10px !important;
         }
     }

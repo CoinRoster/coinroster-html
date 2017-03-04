@@ -39,7 +39,23 @@
                                     
                                 </td>
                                 <td style="padding-right:0;padding-top:24px;">
-                                    TOTAL
+                                    Available
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="in_play_balance" class="balance_field" style="padding-bottom:24px">
+                                    
+                                </td>
+                                <td style="padding-right:0;padding-bottom:24px">
+                                    In play
+                                </td>
+                            </tr>
+                            <tr style="border-top:1px solid white;">
+                                <td id="total_balance" class="balance_field" style="padding-top:24px;">
+                                    
+                                </td>
+                                <td style="padding-right:0;padding-top:24px;">
+                                    Total
                                 </td>
                             </tr>
                         </table>
@@ -367,6 +383,10 @@
 
                 btc_balance = call.btc_balance,
                 rc_balance = call.rc_balance,
+                available_balance = add(btc_balance, rc_balance),
+                in_play_balance = call.in_play_balance,
+                total_balance = add(available_balance, in_play_balance),
+                
                 ext_address = call.ext_address,
                 email_address = call.email_address,
                 email_ver_flag = call.email_ver_flag,
@@ -375,7 +395,9 @@
 
                 id("btc_balance").innerHTML = toBTC(btc_balance, true);
                 id("rc_balance").innerHTML = toBTC(rc_balance, true);
-                id("available_balance").innerHTML = toBTC(add(btc_balance, rc_balance), true);
+                id("in_play_balance").innerHTML = toBTC(in_play_balance, true);
+                id("available_balance").innerHTML = toBTC(available_balance, true);
+                id("total_balance").innerHTML = toBTC(total_balance, true);
 
                 if (ext_address === "") destroy("manage_ext_address_subwindow");
                 else
@@ -565,7 +587,7 @@
                             "<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
                             memo_link
                         ]);
-                        
+                                                
                         if (memo !== "")
                             {
                             row[5].onclick = (function(memo)

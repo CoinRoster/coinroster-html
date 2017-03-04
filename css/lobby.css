@@ -121,7 +121,7 @@
         display: block;
         border-radius: 8px;
         border: 1px solid white;
-        margin-left: 30px;
+        margin-left: 20px;
         color: white;
         padding: 10px 15px;
         text-decoration: none !important;
@@ -129,6 +129,17 @@
     }
     .contest_table_link:hover {
         background: rgb(100,104,108);
+    }
+    
+    .first_cell_link {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 10px 10px 10px 0;
+        display: block;
+    }
+    .first_cell_link:hover {
+        text-decoration: underline;
     }
     
     .field_label {
@@ -171,12 +182,13 @@
     /*------------------------------------------------------------*/
 
     #contest_title {
-        color: rgb(200,245,255) !important;
+        /*color: rgb(200,245,255) !important;*/
     }
     
     #contest_description {
         margin: 20px 0;
         font-family: 'gotham_book', sans-serif;
+        overflow-wrap: break-word;
     }
     #contest_description p {
         padding: 5px 0;
@@ -281,7 +293,7 @@
     }*/
     .player_table td {
         font-size: 14px;
-        padding: 2px 20px;
+        padding: 5px 20px;
     }
     
     #roster_table tr {
@@ -301,7 +313,7 @@
     
     #exposure_container {
         font-size: 14px;
-        padding-bottom: 12px;
+        padding-bottom: 20px;
     }
     
     #exposure_value {

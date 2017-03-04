@@ -32,8 +32,8 @@
         <h3 id="contest_title" class="section_header">
             Loading...
         </h3>
-        <table id="invalid_contest_container" class="contest_table hidden"></table>
-        <div id="valid_contest_container">
+        <div id="no_data_message" class="hidden"></div>
+        <div id="valid_contest_container" class="hidden">
             <div id="contest_description"></div>
             <hr noshade size="1"/>
             <div style="margin: 10px 0">
@@ -122,6 +122,7 @@
                 </table>
             </div>
             <hr id="contest_second_hr" noshade size="1"/>
+            <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
         </div>
     </div>
     <div class="table_body_container">
@@ -186,9 +187,6 @@
                 <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
                 <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
             </div>
-            <!--<div class="implied_odds_disclaimer" style="float:right">
-                * Odds are rounded for display. Full precision is used for settlement.
-            </div>-->
         </div>
     </div>
 </div>
@@ -212,6 +210,8 @@
                 {
                 if (call.status === "1")
                     {
+                    show("valid_contest_container");
+                    
                     var
                     
                     category = call.category,
@@ -267,13 +267,14 @@
                     else if (contest_type === "PARI-MUTUEL")
                         {
                         destroy("contest_second_hr");
+                        show("pari_mutuel_second_hr");
                         
                         var 
 
                         wager_grand_total = call.wager_grand_total,
                         rake_amount = multiply(rake, wager_grand_total);
 
-                        wager_grand_total -= rake_amount;
+                        wager_grand_total = subtract(wager_grand_total, rake_amount);
 
                         initialize_pari_mutuel_UI(contest_open, option_table, wager_grand_total);
                         }
@@ -435,12 +436,10 @@
         
     function special_no_data_message(message)
         {
-        var table = id("invalid_contest_container");
-        hide("valid_contest_container");
-        show(table, "table");
+        show("no_data_message");
         id("contest_title").innerHTML = "Contest Page";
         id("contest_title").id = ""; // changes color to white
-        no_data_message(table, message);
+        id("no_data_message").innerHTML = message;
         }
                      
 /*----------------------------------------------------------------------*/
@@ -513,7 +512,6 @@
         var pari_mutuel_table = id("pari_mutuel_table");
         
         var header = new_row(pari_mutuel_table, -1, [
-            //"",
             "Outcome",
             "Wagers",
             "Odds",
@@ -535,7 +533,6 @@
             implied_odds = get_implied_odds(wager_grand_total, option_item),
     
             row = new_row(pari_mutuel_table, -1, [
-                //option_id,
                 description,
                 "<div class='field_label'>Wagered:</div>" + toBTC(wager_total) + " BTC",
                 "<div class='field_label'>Current odds:</div>" + implied_odds,
@@ -553,7 +550,7 @@
                         {
                         show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
                             {
-                            input.value = window.cost_per_entry;
+                            input.value = toBTC(window.cost_per_entry, true);
                             update_submit_button();
                             });
                         }
@@ -577,7 +574,7 @@
             var wager = id("wager_input_" + i).value;
             if (wager === "") continue;
     
-            wagers_total += +wager;
+            wagers_total = add(wagers_total, wager);
             }
         
         var button_html = "Submit wagers";
@@ -613,10 +610,10 @@
                 btc_balance = call.btc_balance,
                 rc_balance = call.rc_balance,
                 available_balance = btc_balance,
-                total_wagers = new BigDecimal(window.cost_per_entry.toString()).multiply(new BigDecimal(number_of_entries.toString())),
+                total_wagers = multiply(window.cost_per_entry, number_of_entries),
                 use_rc = true;
         
-                if (use_rc) available_balance += rc_balance;
+                if (use_rc) available_balance = add(available_balance, rc_balance);
          
                 if (total_wagers > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
                 
@@ -661,9 +658,7 @@
     
             if (wager === "") continue;
             
-            wager = +wager;
-            
-            wagers_total += wager;
+            wagers_total = add(wagers_total, wager);
     
             wagers.push({
                 id: i,
@@ -687,7 +682,7 @@
                 available_balance = btc_balance,
                 use_rc = true;
         
-                if (use_rc) available_balance += rc_balance;
+                if (use_rc) available_balance = add(available_balance, rc_balance);
          
                 if (wagers_total > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
                 

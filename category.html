@@ -20,31 +20,22 @@
         <h3 id="category_header" class="section_header">
             <span id="category_text"></span><span id="sub_category_text"></span>
         </h3>
-        <div id="no_open_contests"></div>
+        <div id="no_data_message"></div>
     </div>
     <div class="table_body_container">
         <table id="category_report_table" class="contest_table"></table>
     </div>
 </div>
 <script type="text/javascript">
-    
-    window.onhashchange = function()
-        {
-        trigger_hash_action();
-        };
 
     function init()
         {
-        if (location.hash.indexOf("#") !== -1) hash_action(location.hash.slice(1));
-        }
-        
-    function hash_action(hash)
-        {
         var 
 
-        hash_args = hash.split("&"),
-        category = hash_args[0].split("=")[1],
-        sub_category = hash_args[1].split("=")[1];
+        category = get_url_param("main"),
+        sub_category = get_url_param("sub");
+
+        if (category === null ||sub_category === null) return special_no_data_message();
 
         id("ssi_header_lobby").className = "ssi_header_a";
         
@@ -60,7 +51,9 @@
             
             category_description = call.category_description,
             sub_category_description = call.sub_category_description;
-            
+    
+            if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return special_no_data_message();
+
             id("ssi_mobile_nav_placeholder").innerHTML = category_description;
             id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
             id("sub_category_text").innerHTML = sub_category_description;
@@ -71,7 +64,13 @@
             contest_report = call.contest_report,
             number_of_contests = contest_report.length;
     
-            if (number_of_contests === 0) id("no_open_contests").innerHTML = "There are no open contests in this category. Please check back soon.";
+            if (number_of_contests === 0) 
+                {
+                id("no_data_message").innerHTML = [
+                    "There are no open contests in this category. Please check back soon.",
+                    "<a href='/' class='inline_link'>Return to lobby</a>"
+                ].join("<br/></br></br>");
+                }
             else
                 {
                 var header = new_row(table, -1, [
@@ -135,6 +134,12 @@
                     }
                 }
             });
+        }
+        
+    function special_no_data_message()
+        {
+        id("category_text").innerHTML = "Invalid category";
+        id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
 </script>

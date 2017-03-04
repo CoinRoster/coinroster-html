@@ -300,6 +300,8 @@
         
     function toBTC(raw_value, full_eight, preserve_sign)
         {
+        if (raw_value === 0) return 0;
+        
         var is_negative = false;
         if (preserve_sign && raw_value < 0) is_negative = true;
 
@@ -412,7 +414,18 @@
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
-            return result; // else return result
+            return parseFloat(result); // else parse as float and return (trims trailing zeros)
+            }
+        else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
+        }
+        
+    function subtract(val1, val2, precision)
+        {
+        var result = new BigDecimal(val1.toString()).subtract(new BigDecimal(val2.toString()));
+        if (!precision) // if no precision specified
+            {
+            if (result % 1 === 0) return result | 0; // if integer, return as integer
+            return parseFloat(result); // else parse as float and return (trims trailing zeros)
             }
         else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
         }
@@ -423,7 +436,7 @@
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
-            return result; // else return result
+            return parseFloat(result); // else parse as float and return (trims trailing zeros)
             }
         else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
         }
@@ -434,7 +447,7 @@
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
-            return result; // else return result
+            return parseFloat(result); // else parse as float and return (trims trailing zeros)
             }
         else return new BigDecimal(result.toString()).setScale(precision, BigDecimal.prototype.ROUND_HALF_UP);
         }
