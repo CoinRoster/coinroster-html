@@ -1,24 +1,20 @@
-<!-- SSI: nav.html -->
 <div id="ssi_header">
     <div class="centering_container">
         <div id="ssi_subnav" class="ssi_header_inner ssi_desktop" style="position:absolute; top:10px; width: 100%;">
             <table class="ssi_header_table">
                 <tr>
-                    <td width="1" class="ssi_header_a_active">
+                    <td width="1">
                         <a class="ssi_header_a teal" href="/account/refer.html">Refer a friend and earn cash!</a>
                     </td>
                     <td><!-- blank cell for spacing --></td>
-                    <td width="1" class="ssi_header_a_active">
+                    <td width="1">
                         <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com">Blog</a>
                     </td>
-                    <td width="1" class="ssi_header_a_active">
+                    <td width="1">
                         <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/faq">FAQ</a>
                     </td>
-                    <td width="1" class="ssi_header_a_active">
+                    <td width="1">
                         <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/contact">Contact</a>
-                    </td>
-                    <td width="1" class="ssi_header_a_inactive">
-                        <a class="ssi_header_a">&nbsp;</a>
                     </td>
                 </tr>
             </table>
@@ -28,7 +24,6 @@
                 <h1 class="logo_font">
                     CoinRoster
                 </h1>
-                <!--<img id="bitcoin_logo" src="/img/B_logo.png" width="20" height="20" />-->
                 <h2 id="bitcoin_fantasy" class="ubuntu_font">
                     Daily Fantasy Sports &nbsp;|&nbsp; Bitcoin                    
                 </h2>
@@ -40,42 +35,24 @@
     <div class="centering_container">
         <table class="ssi_header_table">
             <tr>
-                <!--<td width="1" class="ssi_header_a_active" style="padding-left:20px">
-                    <img width="25" height="25" src="../img/c_logo.png"/>
-                </td>-->
                 <td width="1">
                     <a id="ssi_header_lobby" class="ssi_header_a" href="/">Lobby</a>
                 </td>
-                <td width="1" class="ssi_header_a_inactive">
-                    <a class="ssi_header_a" href="/login.html">Log In</a>
-                </td>
-                <td width="1" class="ssi_header_a_inactive">
-                    <a class="ssi_header_a teal" href="/signup.html">Sign Up</a>
-                </td>
-                <td width="1" class="ssi_header_a_active">
+                <td width="1">
                     <a id="ssi_header_contests" class="ssi_header_a" href="/contests">My Contests</a>
                 </td>
-                <td width="1" class="ssi_header_a_active">
+                <td width="1">
                     <a id="ssi_header_deposit" class="ssi_header_a teal" href="/account/deposit.html">Deposit BTC</a>
                 </td>
                 <td><!-- blank cell for spacing --></td>
-                <td width="1" class="ssi_header_a_active">
-                    <a id="ssi_header_account" class="ssi_header_a" href="/account"></a>
+                <td width="1">
+                    <a id="ssi_header_account" class="ssi_header_a" href="/account"><!--ssi:username--></a>
                 </td>
                 <td width="1" class="ssi_header_admin_wrapper">
                     <a id="ssi_header_admin" class="ssi_header_a" href="/admin">Admin</a>
                 </td>
-                <td width="1" class="ssi_header_a_active">
+                <td width="1">
                     <a class="ssi_header_a" onclick="logout();">Logout</a>
-                </td>
-                <td width="1" class="ssi_header_a_inactive">
-                    <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com">Blog</a>
-                </td>
-                <td width="1" class="ssi_header_a_inactive">
-                    <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/faq">FAQ</a>
-                </td>
-                <td width="1" class="ssi_header_a_inactive">
-                    <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/contact">Contact</a>
                 </td>
             </tr>
         </table>
@@ -87,7 +64,7 @@
     <div id="ssi_mobile_nav_icon"></div>
 </div>
 <div id="ssi_mobile_nav">
-    <div id="ssi_mobile_nav_active" class="ssi_mobile_nav hidden">
+    <div id="ssi_mobile_nav_active" class="ssi_mobile_nav">
         <ul>
             <li>
                 <a href="/account/refer.html" class="teal">Refer a friend and earn cash!</a>
@@ -104,7 +81,7 @@
             --><li>
                 <a href="/account/deposit.html">Deposit BTC</a>
             </li><!--
-            --><li id="ssi_mobile_admin_wrapper" style="display:none">
+            --><li class="ssi_header_admin_wrapper">
                 <a href="/admin">Admin</a>
             </li><!--
             --><li>
@@ -121,28 +98,4 @@
             </li>
         </ul>
     </div>
-    <div id="ssi_mobile_nav_inactive" class="ssi_mobile_nav hidden">
-        <ul>
-            <li>
-                <a href="/signup.html" class="teal">Sign Up</a>
-            </li><!--
-            --><li>
-                <a href="/login.html">Log In</a>
-            </li><!--
-            --><li id="ssi_nav_lobby_inactive">
-                <a href="/">Lobby</a>
-            </li><!--
-            --><li>
-                <a href="http://blog.coinroster.com">Blog</a>
-            </li><!--
-            --><li>
-                <a href="http://blog.coinroster.com/faq">FAQ</a>
-            </li><!--
-            --><li>
-                <a href="http://blog.coinroster.com/contact">Contact</a>
-            </li>
-        </ul>
-    </div>
 </div>
-<!-- end SSI Include -->
-    

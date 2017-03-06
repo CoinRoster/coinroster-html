@@ -32,6 +32,7 @@
                     }
                 break;
             case 2: /* Settle Contest */
+                hide("settle_contest");
                 in_play_contest_report();
                 break;
             }
@@ -326,7 +327,7 @@
         {
         var date_now = new Date().getTime(),
 
-        default_date = date_now,
+        default_date = date_now - 86400 * 1000,
         min_date = date_now,
         max_date = null;
 
@@ -995,6 +996,22 @@
             {
             hide("settle_pari_mutuel");
             show("settle_roster");
+      
+            var table = new_table("roster_outcome_table");
+            
+            for (var i=0; i<option_table.length; i++)
+                {
+                var option_item = option_table[i],
+                        
+                player_id = option_item.id,
+                player_name = option_item.name;
+                
+                new_row(table, -1, [
+                    player_id,
+                    player_name,
+                    "<input type=\"text\" class=\"input_style text_input\"/>"
+                ]);
+                }
             }
         }
         
@@ -1015,6 +1032,122 @@
             args: {
                 contest_id: window.contest_id_to_settle,
                 winning_outcome: winning_outcome
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("Contest has been settled! Reloading panel.");
+                location.reload();
+                }
+            else alert("Error: " + call.error);
+            });
+        }
+        
+    function validate_player_scores()
+        {
+        var 
+        
+        player_rows = id("roster_outcome_table").firstChild.rows,
+        number_of_players = player_rows.length,
+        player_scores = [];
+        
+        for (var i=0; i<number_of_players; i++)
+            {
+            var cells = player_rows[i].cells,
+                    
+            player_id = cells[0].innerHTML,
+            player_name = cells[1].innerHTML,
+            player_score = cells[2].querySelector("input").value.trim();
+    
+            if (player_score === "")
+                {
+                alert("Please provide a score for " + player_name);
+                return false;
+                }   
+                
+            if (player_score.toUpperCase() === "WD") player_score = "WD";
+            else
+                {
+                if (isNaN(player_score) || (+player_score !== (+player_score | 0))) 
+                    {
+                    alert("Invalid score for: " + player_name);
+                    return false;
+                    }
+                
+                player_score = +player_score;
+                }
+                
+            var score_raw = player_score;
+            
+            if (typeof cells[3] !== "undefined") score_raw = cells[3].innerHTML;
+                
+            player_scores.push({
+                id: player_id,
+                score: player_score,
+                score_raw: score_raw
+             });
+            }
+            
+        return player_scores;
+        }
+        
+    function normalize_player_scores()
+        {
+        var player_scores = validate_player_scores();
+        
+        if (!player_scores) return;
+        
+        var 
+        
+        player_rows = id("roster_outcome_table").firstChild.rows,
+        normalization_scheme = selectorValue("score_normalization_selector");
+        
+        switch (normalization_scheme)
+            {
+            case "GOLF" :
+                {
+                var worst_score = -100;
+                
+                for (var i=0; i<player_scores.length; i++)
+                    {
+                    var player = player_scores[i],
+                            
+                    score = player.score;
+            
+                    if (score !== "WD" && score > worst_score) worst_score = score;
+                    }
+                   
+                for (var i=0; i<player_scores.length; i++)
+                    {
+                    var player = player_scores[i],
+                    score = player.score,
+                    new_score;
+            
+                    if (score === "WD") new_score = 0;
+                    else new_score = worst_score - score + 1;
+                    
+                    player_rows[i].cells[2].firstChild.value = new_score;
+                    var cell = player_rows[i].insertCell();
+                    cell.innerHTML = score;
+                    cell.style.textAlign = "right";
+                    }
+                }
+                break;
+            }
+        }
+        
+    function settle_roster_contest()
+        {
+        var player_scores = validate_player_scores();
+        
+        if (!player_scores) return;
+        
+        api({
+            method: "SettleRosterContest",
+            args: {
+                contest_id: window.contest_id_to_settle,
+                player_scores: player_scores
             }
         }, function(call)
             {

@@ -36,18 +36,13 @@
         font-size:14px;
         white-space:nowrap;
     }
-    
-    .ssi_header_a_active, 
-    .ssi_header_a_inactive {
-        display: none;
-    }
-    
+        
     #ssi_header_spacer_cell {
         width:80px;
     }
     
     .ssi_header_admin_wrapper {
-        display:none;
+        display:none !important;
     }
     
     .ssi_header_a {
@@ -56,7 +51,6 @@
         cursor:pointer;
         padding:10px;
     }
-        
     .ssi_header_a:hover {
         color: white;
         text-decoration:underline;

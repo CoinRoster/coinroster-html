@@ -99,6 +99,10 @@
         text-align: right;
     }
     
+    #roster_entry_report_table td {
+        text-align: left;
+    }
+    
     .contest_table td:first-child {
         background: rgb(80,84,88);
     }

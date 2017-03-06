@@ -8,7 +8,7 @@
 <body>   
 <input type="password" style="position:absolute;top:-1000px;"/>
 <div id="header"></div>
-<!--#include virtual="/ssi/nav.html" -->
+<!--#include virtual="/ssi-java/nav" -->
 <div id="nav"></div>
 <div id="pane_0" class="pane" tab_text="Contest Report">
     <div class="content_header" style="height:67px">
@@ -311,7 +311,7 @@
     <div id="in_play_contest_report" class="content_body" style="top:68px">
         <div id="in_play_contest_report_table" class="report_table"></div>
     </div>
-    <div id="settle_contest" class="content_body hidden" style="top:68px">
+    <div id="settle_contest" class="content_body" style="top:68px">
         <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
         <br/><br/>
         <h3 style="font-weight:normal">
@@ -321,15 +321,34 @@
             <span id="contest_title"></span>
         </h2>
         <br/>
-        <div id="settle_pari_mutuel" class="hidden">
+        <div id="settle_pari_mutuel">
             Select winning outcome:
             <br/><br/>
             <div id="pari_mutuel_outcome_table" class="report_table"></div>
             <br/>
             <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
         </div>
-        <div id="settle_roster" class="hidden">
-            Settle roster
+        <div id="settle_roster">
+            Enter scores:
+            <br/><br/>
+            <div id="roster_outcome_table" class="report_table"></div>
+            <br/>
+            <table class="form_table">
+                <tr>
+                    <td>
+                        Normalize scores:
+                    </td>
+                    <td colSpan="2">
+                        <select data-placeholder="Select" id="score_normalization_selector" class="input_style chosen-select" style="width:155px">
+                            <option value="GOLF">Golf</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="button" class="input_style" onclick="normalize_player_scores();">Normalize Player Scores</button>
+                    </td>
+                </tr>
+            </table>
+            <button type="button" class="input_style" onclick="settle_roster_contest();">Settle Contest</button>
         </div>
     </div>
 </div>

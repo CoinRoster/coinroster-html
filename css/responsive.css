@@ -379,6 +379,16 @@
             font-size: 14px !important;
         }
         
+        #transaction_report_table td {
+            font-size: 11px !important;
+        }
+        #transaction_report_table td:nth-child(3) { /* date */
+            font-size: 10px !important;
+        }
+    }
+    
+    @media only screen and (max-width: 374px) {
+
         .inline_player_name {
             display: block !important;
         }
@@ -386,10 +396,4 @@
             padding-left: 0 !important;
         }
         
-        #transaction_report_table td {
-            font-size: 11px !important;
-        }
-        #transaction_report_table td:nth-child(3) { /* date */
-            font-size: 10px !important;
-        }
     }
