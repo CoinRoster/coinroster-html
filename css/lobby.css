@@ -147,12 +147,14 @@
     }
     
     .field_label {
+        color: white !important;
         display: none;
     }
     
     .contest_table tr:first-child { /* header */
         background: none;
         border: none;
+        white-space: nowrap !important
     }
     
     .contest_table tr:first-child td { /* header cells */
@@ -315,12 +317,12 @@
         padding: 20px 0;
     }
     
-    #exposure_container {
+    #exposure_container, #payout_container, #PNL_container {
         font-size: 14px;
         padding-bottom: 20px;
     }
     
-    #exposure_value {
+    #exposure_value, #payout_value, #PNL_value {
         display: inline-block;
         padding-left: 20px;
     }

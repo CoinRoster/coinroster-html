@@ -13,24 +13,34 @@
 <div id="centering_container">
     <div id="body_container">
         <br/>
-        <h3 id="contest_title" class="section_header">
-            My Entries
+        <h3 class="section_header">
+            <a id="contest_title" class="section_header_link" href="/"></a>
         </h3>
         <div id="no_data_message" class="hidden"></div>
         <div id="exposure_container" class="hidden">
-            Exposure:<span id="exposure_value" class="orange"></span>
+            <span id="exposure_label">
+                Exposure:
+            </span>
+            <span id="exposure_value" class="orange"></span>
+        </div>
+        <div id="payout_container" class="hidden">
+            Payout:<span id="payout_value"></span>
+        </div>
+        <div id="PNL_container" class="hidden">
+            P/L:<span id="PNL_value"></span>
         </div>
     </div>
     <div class="table_body_container">
-        <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
+        <table id="roster_entry_report_table" class="contest_table entry_report_table collapse_players"></table>
         <table id="pari_mutuel_entry_report_table" class="contest_table entry_report_table"></table>
         <div id="pari_mutuel_explanation" class="hidden">
-            * The gross payout is the total amount that you will receive if a given outcome wins.
+            * The payout is the total amount that you will receive if a given outcome wins.
             <br/><br/>
             * The scenario P/L is the net profit or loss that you will realize if a given outcome wins,
-            taking into account your total exposure to the pool. 
+            taking into account your total exposure to the pool.
             <br/><br/>
-            * Both figures factor in the rake.
+            * Please note that odds are rounded for display, so actual payouts may be slightly different. To see full precision 
+            <a style='text-decoration:underline;cursor:pointer;' onclick="show_full_precision();">click here</a>.
         </div>
         <div id="edit_roster_container" class="hidden">
             <ul id="editing_roster_ul">
@@ -99,11 +109,23 @@
 </div>
 <script>
 
+    var full_precision = false;
+    
+    function show_full_precision()
+        {
+        full_precision = true;
+        init();
+        };
+        
     function init()
         {
         var contest_id = get_url_param("contest_id") | 0;
         
-        if (contest_id === 0) return no_data_message("Invalid contest ID");
+        if (contest_id === 0) 
+            {
+            id("contest_title").innerHTML = "My Entries";
+            return no_data_message("Invalid contest ID");
+            }
         else window.contest_id = contest_id;
         
         api({
@@ -149,12 +171,13 @@
                                 {
                                 case "PARI-MUTUEL" : 
                                     {
-                                    destroy("roster_entry_report_table");
+                                    if (id("roster_entry_report_table")) destroy("roster_entry_report_table");
                                     show("pari_mutuel_explanation");
                                     
-                                    var 
+                                    var table = id("pari_mutuel_entry_report_table");
+                                    table.innerHTML = "";
                                     
-                                    table = id("pari_mutuel_entry_report_table"),
+                                    var
                                     
                                     user_wagers = [],
                                     exposure_value = 0,
@@ -168,7 +191,7 @@
                                         "Outcome",
                                         "My wagers",
                                         "Odds",
-                                        "Gross payout",
+                                        "Payout",
                                         "Scenario P/L"
                                     ]);
 
@@ -201,7 +224,7 @@
                                         option_id = option_item.id,
                                         description = option_item.description,
                                         amount = "--", // default is no wager
-                                        option_implied_odds = get_implied_odds(wager_grand_total, option_item),
+                                        option_implied_odds = get_implied_odds(wager_grand_total, option_item, full_precision),
                                         implied_payout = "--", // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
                                         scenario_PL_class = "orange"; // default is total loss
@@ -215,14 +238,32 @@
                                             if (scenario_PL > 0) scenario_PL_class = "green"; // override if profit
                                             
                                             amount = toBTC(amount) + " BTC";
-                                            implied_payout = toBTC(implied_payout) + " BTC";
+                                            implied_payout = toBTC(implied_payout);
                                             }
                                         
+                                        var mark_outcome = "";
+                                        
+                                        if (contest_status === 3)
+                                            {
+                                            show("payout_container");
+                                            show("PNL_container");
+                                            
+                                            id("exposure_label").innerHTML = "Wagered:";
+                                            id("payout_value").innerHTML = implied_payout;
+                                            id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
+                                            id("PNL_value").className = scenario_PL_class;
+                                            id("payout_value").style.color = "rgb(230,230,230)";
+                                            
+                                            if (option_item.outcome === 1) mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
+                                            }
+                                            
+                                        if (!isNaN(implied_payout)) implied_payout += " BTC";
+                                        
                                         var row = new_row(table, -1, [
-                                            description,
+                                            mark_outcome + description,
                                             "<div class='field_label'>My Wagers:</div>" + amount,
                                             "<div class='field_label'>Odds:</div>" + option_implied_odds,
-                                            "<div class='field_label'>Gross payout:</div>" + implied_payout,
+                                            "<div class='field_label'>Payout:</div>" + implied_payout,
                                             "<div class='field_label'>Scenario P/L:</div><span class='" + scenario_PL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
                                         ]);
 
@@ -249,10 +290,24 @@
                                         player_names[option_item.id] = option_item.name;
                                         }
                                     
-                                    var header = new_row(table, -1, [
-                                        "<ul><li>Roster ID</li><li><span style='float:right;'>Wager</span</li></ul>",
+                                    var header_data = [
+                                        "<ul><li style='padding-right:60px'>Roster ID</li><li><span style='float:right;'>Wager</span</li></ul>",
                                         "Roster"
-                                    ]);
+                                    ];
+
+                                    if (contest_status === 3)
+                                        {
+                                        header_data.push("Score");
+                                        header_data.push("Payout per entry");
+                                        }
+
+                                    var header = new_row(table, -1, header_data);
+
+                                    if (contest_status === 3)
+                                        {
+                                        header[3].style.textAlign = "right";
+                                        header[4].style.textAlign = "right";
+                                        }
                                         
                                     for (var i=0; i<entry_count; i++)
                                         {
@@ -262,6 +317,9 @@
                                         amount = entry_item.amount,
                                         roster = JSON.parse(entry_item.entry_data),
                                         number_of_entries = divide(amount, contest.cost_per_entry),
+                                        score = entry_item.score,
+                                        payout = entry_item.payout,
+                                        payout_per_entry = divide(payout, number_of_entries),
                                         roster_html = "";
                                 
                                         exposure_value += amount;
@@ -280,11 +338,28 @@
                                         var enter_button = "";
                                         
                                         if (contest_status === 1) enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
-
-                                        var row = new_row(table, -1, [
+                                        else table.className = "contest_table entry_report_table"; //get rid of "collapse_players" since no button
+                                        
+                                        var row_data = [
                                             "<ul><li><div class='field_label'>Roster ID:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Wager:</div>" + amount + " BTC" + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li><li>" + enter_button + "</li></ul>"
-                                        ]);
+                                        ];
+                                        
+                                        if (contest_status === 3)
+                                            {
+                                            row_data.push("<div class='field_label'>Score:</div>" + score);
+                                            row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
+                                            }
+                                
+                                        var row = new_row(table, -1, row_data);
+                                        
+                                        row[1].width = "1";
+                                        
+                                        if (contest_status === 3)
+                                            {
+                                            row[3].style.textAlign = "right";
+                                            row[4].style.textAlign = "right";
+                                            }
                                         }
                                         
                                     id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
@@ -296,7 +371,11 @@
                         }
                     });
                 }
-            else no_data_message(contest.error);
+            else 
+                {
+                id("contest_title").innerHTML = "My Entries";
+                no_data_message(contest.error);
+                }
             });
         }
         

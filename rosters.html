@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Rosters</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+    <script type="text/javascript" src="/js/lobby.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi-java/nav" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="centering_container">
+    <div id="body_container">
+        <br/>
+        <h3 id="contest_title" class="section_header">
+            My Entries
+        </h3>
+        <div id="no_data_message" class="hidden"></div>
+        <div id="exposure_container" class="hidden">
+            Exposure:<span id="exposure_value" class="orange"></span>
+        </div>
+    </div>
+    <div class="table_body_container">
+        <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
+    </div>
+</div>
+<script>
+
+    function init()
+        {
+        var contest_id = get_url_param("contest_id") | 0;
+        
+        if (contest_id === 0) return no_data_message("Invalid contest ID");
+        else window.contest_id = contest_id;
+        
+        api({
+            method: "GetContestDetails",
+            args: {
+                contest_id: contest_id
+            }
+        }, function(contest)
+            {
+            if (contest.status === "1") 
+                {
+                id("contest_title").innerHTML = contest.title;
+                
+                if (contest.contest_type !== "ROSTER") return no_data_message("Contest #" + contest_id + " is not a roster contest.");
+                
+                var contest_status = contest.contest_status;
+                                
+                api({
+                    method: "RosterReport",
+                    args: {
+                        contest_id: contest_id
+                    }
+                }, function(entries)
+                    {
+                    if (entries.status === "1") 
+                        {
+                        var 
+                        
+                        entry_report = entries.entry_report,
+                        entry_count = entry_report.length;
+                
+                        if (entry_count === 0) no_data_message("No rosters have been entered for contest #" + contest_id + ".");
+                        else
+                            {
+                            var option_table = JSON.parse(contest.option_table);
+                            contest.option_table = option_table;
+                    
+                            var table = id("roster_entry_report_table"),
+
+                            player_names = [];
+
+                            for (var i=0; i<option_table.length; i++)
+                                {
+                                var option_item = option_table[i];
+                                player_names[option_item.id] = option_item.name;
+                                }
+
+                            var header_data = [
+                                "<ul><li style='padding-right:40px'>Roster ID</li><li><span style='float:right;'>Entries</span</li></ul>",
+                                "User",
+                                "Roster"
+                            ];
+                            
+                            if (contest_status === 3)
+                                {
+                                header_data.push("Score");
+                                header_data.push("Payout per entry");
+                                }
+                            
+                            var header = new_row(table, -1, header_data);
+
+                            if (contest_status === 3)
+                                {
+                                header[4].style.textAlign = "right";
+                                header[5].style.textAlign = "right";
+                                }
+                                
+                            for (var i=0; i<entry_count; i++)
+                                {
+                                var entry_item = entry_report[i],
+
+                                entry_id = entry_item.id,
+                                amount = entry_item.amount,
+                                roster = JSON.parse(entry_item.entry_data),
+                                number_of_entries = divide(amount, contest.cost_per_entry),
+                                user = entry_item.user,
+                                score = entry_item.score,
+                                payout = entry_item.payout,
+                                payout_per_entry = divide(payout, number_of_entries),
+                                roster_html = "";
+
+                                entry_item.roster = roster;
+                                entry_item.number_of_entries = number_of_entries;
+
+                                for (var j=0; j<roster.length; j++)
+                                    {
+                                    if (j !== 0) roster_html += "<br/>";
+                                    roster_html += "<span class='inline_player_name'>" + player_names[roster[j].id] + "</span><span class='inline_player_price'>$" + commas(roster[j].price | 0) + "</span>";
+                                    }
+
+                                var row_data = [
+                                    "<ul><li><div class='field_label'>Roster ID:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                    "<div class='field_label'>User:</div>" + user,
+                                    roster_html
+                                ];
+                                
+                                if (contest_status === 3)
+                                    {
+                                    row_data.push("<div class='field_label'>Score:</div>" + score);
+                                    row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
+                                    }
+                                
+                                var row = new_row(table, -1, row_data);
+                                
+                                row[1].width = "1";
+                                row[2].style.color = "orange";
+                                
+                                if (contest_status === 3)
+                                    {
+                                    row[4].style.textAlign = "right";
+                                    row[5].style.textAlign = "right";
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            else no_data_message(contest.error);
+            });
+        }
+        
+    function no_data_message(message)
+        {
+        show("no_data_message");
+        id("no_data_message").innerHTML = message;
+        }
+        
+    function edit_roster(entry_id)
+        {
+        id("player_table").innerHTML = "";
+        id("roster_table").innerHTML = "";
+                    
+        var 
+        
+        contest = window.contest,
+        option_table = contest.option_table,
+        entry = window.entries[entry_id],
+        roster = entry.roster;
+
+        window.active_entry = entry_id;
+        
+        id("editing_roster").innerHTML = "Editing Roster " + entry_id;
+
+        id("number_of_entries").innerHTML = entry.number_of_entries;
+        id("entry_value").innerHTML = toBTC(entry.amount) + " BTC";
+        id("salary_cap").innerHTML = "$" + commas(contest.salary_cap | 0);
+        if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
+        else id("remaining_players").innerHTML = 0;
+            
+        for (var i=0; i<option_table.length; i++)
+            {
+            var player_item = option_table[i],
+                    
+            player_id = player_item.id,
+            name = player_item.name,
+            price = player_item.price;
+    
+            insert_player_row("player_table", player_id, name, price);
+            }
+                        
+        for (var i=0; i<roster.length; i++) add_player(roster[i].id);
+        
+        show("edit_roster_container");
+        
+        id("player_table_container").scrollTop = 0;
+        id("roster_table_container").scrollTop = 0;
+                
+        window.scrollTo(0, id("editing_roster").offsetTop);
+        }
+        
+    function cancel_edit_roster()
+        {
+        window.scroll(0,0);
+        hide("edit_roster_container");
+        }
+        
+    function update_roster()
+        {
+        var roster = get_valid_roster();
+        
+        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
+
+        api({
+            method: "UpdateRoster",
+            args: {
+                contest_id: window.contest_id,
+                entry_id: window.active_entry,
+                roster: roster
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                return show_simple_modal("Your roster has been updated", "good", function()
+                    {
+                    location.reload();
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+   
+</script>
+<script type="text/javascript">
+    window.nav_text = "My entries in contest #" + get_url_param("contest_id");
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

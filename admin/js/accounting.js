@@ -321,10 +321,12 @@
     
     var 
     
+    contest_filter_is_populated = false,
     number_of_transactions,
     transaction_report_array = [],
     
     transaction_type_selector = id("transaction_type_selector"),
+    contest_filter_selector = id("contest_filter_selector"),
     user_filter_selector = id("user_filter_selector"),
     
     now = new Date(),
@@ -355,6 +357,11 @@
         };
         
     user_filter_selector.onchange = function()
+        {
+        populate_transaction_report_table();
+        };
+        
+    contest_filter_selector.onchange = function()
         {
         populate_transaction_report_table();
         };
@@ -400,12 +407,17 @@
 
             type_filtering_on = false,
             user_filtering_on = false,
+            contest_filtering_on = false,
 
             trans_type_filter = selectorHTML(transaction_type_selector),
-            user_filter = selectorValue(user_filter_selector);
+            user_filter = selectorValue(user_filter_selector),
+            contest_filter = selectorValue(contest_filter_selector),
+            
+            unique_contests = [];
 
             if (trans_type_filter !== "") type_filtering_on = true;
             if (user_filter !== "") user_filtering_on = true;
+            if (contest_filter !== "") contest_filtering_on = true;
 
             // create rows:
 
@@ -429,10 +441,15 @@
                 contest_id = transaction_item.contest_id,
                 cancelled_flag = transaction_item.cancelled_flag;
 
-                if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
-                if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
                 if (contest_id === 0) contest_id = "";
-
+                
+                if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
+                
+                if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
+                
+                if (contest_filtering_on && !(contest_id === +contest_filter)) show_row = false;
+                else if (!contest_filter_is_populated && !unique_contests.contains(contest_id)) unique_contests.push(contest_id);
+     
                 if (show_row)
                     {
                     there_are_rows = true;
@@ -472,6 +489,23 @@
                     row[6].style.textAlign = "right";
                     row[9].style.textAlign = "right";
                     }
+                }
+                
+            if (!contest_filter_is_populated)
+                {
+                for (var i=0, limit = unique_contests.length; i<limit; i++)
+                    {
+                    var 
+
+                    contest_id = unique_contests[i],
+                    option = document.createElement("option");
+                    option.value = contest_id;
+                    option.innerHTML = contest_id;
+                    contest_filter_selector.appendChild(option);
+                    } 
+
+                $(contest_filter_selector).trigger("chosen:updated");
+                contest_filter_is_populated = true;
                 }
             }
 

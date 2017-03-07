@@ -248,14 +248,17 @@
 
     // supporting functions for pari-mutuel contest
     
-    function get_implied_odds(wager_grand_total, option_item)
+    function get_implied_odds(wager_grand_total, option_item, force_full_precision)
         {
         var 
         
+        precision = 2,
         option_wager_total = option_item.wager_total,
         implied_odds = 0;
+
+        if (force_full_precision) precision = 8;
                                 
-        if (option_wager_total !== 0) implied_odds = divide(wager_grand_total, option_wager_total, 2);
+        if (option_wager_total !== 0) implied_odds = divide(wager_grand_total, option_wager_total, precision);
         
         return implied_odds;
         }

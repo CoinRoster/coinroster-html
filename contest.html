@@ -36,7 +36,7 @@
         <div id="valid_contest_container" class="hidden">
             <div id="contest_description"></div>
             <hr noshade size="1"/>
-            <div style="margin: 10px 0">
+            <div style="margin: 10px 0;">
                 <table class="contest_detail_table add_right_padding">
                     <tr>
                         <td>
@@ -54,7 +54,7 @@
                             <span id="sub_category" class="orange"></span>
                         </td>
                     </tr>
-                    <tr id="game_type_inplay">
+                    <tr>
                         <td>
                             Game type:
                         </td>
@@ -63,31 +63,12 @@
                             <span id="payout_info" class="payout_info_link teal">Payout info</span>
                         </td>
                     </tr>
-                    <tr class="registration_deadline_row">
-                        <td>
-                            Deadline:
+                    <tr>
+                        <td id="entries_label">
+                            Entries:
                         </td>
                         <td>
-                            <span id="registration_deadline" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr class="registration_deadline_row">
-                        <td>
-                            Countdown:
-                        </td>
-                        <td>
-                            <span id="registration_countdown" class="orange"></span>
-                        </td>
-                    </tr>
-                </table>
-                <table class="contest_detail_table">
-                    <tr id="game_type_open">
-                        <td>
-                            Game type:
-                        </td>
-                        <td>
-                            <span id="settlement_type" class="orange"></span>
-                            <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                            <span id="entries_per_user" class="orange"></span>
                         </td>
                     </tr>
                     <tr>
@@ -98,6 +79,8 @@
                             <span id="rake" class="orange"></span>
                         </td>
                     </tr>
+                </table>
+                <table class="contest_detail_table">
                     <tr>
                         <td id="cost_per_entry_label">
                             Entry fee:
@@ -108,13 +91,46 @@
                     </tr>
                     <tr>
                         <td>
+                            Users:
+                        </td>
+                        <td>
+                            <span id="users" class="orange"></span>
+                            <span id="view_rosters" class="payout_info_link teal" style="display:none">View rosters</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             Prize pool:
                         </td>
                         <td>
                             <span id="prize_pool" class="orange"></span>
                         </td>
                     </tr>
-                    <tr id="pari_mutuel_table_label" style="display: none">
+                    <tr>
+                        <td id="registration_deadline_label">
+                            Deadline:
+                        </td>
+                        <td>
+                            <span id="registration_deadline" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr id="registration_countdown_row">
+                        <td>
+                            Countdown:
+                        </td>
+                        <td>
+                            <span id="registration_countdown" class="orange"></span>
+                        </td>
+                    </tr>
+                    <tr id="filler_row" class="hidden">
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr id="pari_mutuel_table_label" class="hidden">
                         <td colspan="2">
                             Outcomes ...
                         </td>
@@ -219,6 +235,9 @@
                     contest_type = call.contest_type,
                     title = call.title,
                     description = call.description,
+                    current_users = call.current_users,
+                    max_users = call.max_users,
+                    entries_per_user = call.entries_per_user,
                     registration_deadline_ms = call.registration_deadline,
                     registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
                     registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
@@ -229,9 +248,15 @@
                     pay_table = call.pay_table,
                     contest_status = call.contest_status;
             
-                    if (contest_status === 1) destroy("game_type_inplay");
-                    else destroy("game_type_open");
+                    var max_users_string = "";
+                    if (max_users > 0) max_users_string = "/" + max_users;
                     
+                    var entries_per_user_string = "Unlimited";
+                    if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
+                    
+                    id("users").innerHTML = current_users + max_users_string;
+                    id("entries_per_user").innerHTML = entries_per_user_string;
+
                     window.cost_per_entry = cost_per_entry;
                     
                     id("category").innerHTML = category;
@@ -245,6 +270,8 @@
                     id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
                     id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
                     
+                    id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
+                    
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
                     var contest_open = contest_status === 1;
@@ -253,7 +280,20 @@
                         {
                         destroy("pari_mutuel_table_label");
                         
+                        id("entries_label").innerHTML = "Rosters:";
                         id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
+                        
+                        if (current_users > 0) 
+                            {
+                            show("view_rosters", "inline-block");
+                            id("view_rosters").onclick = (function(contest_id)
+                                {
+                                return function()
+                                    {
+                                    window.open("/rosters.html?contest_id=" + contest_id, '_blank');
+                                    };
+                                })(contest_id);
+                            }
                         
                         var
 
@@ -269,6 +309,8 @@
                         destroy("contest_second_hr");
                         show("pari_mutuel_second_hr");
                         
+                        id("entries_label").innerHTML = "Wagers:";
+                        
                         var 
 
                         wager_grand_total = call.wager_grand_total,
@@ -281,13 +323,14 @@
                         
                     if (contest_open) 
                         {
-                        if (typeof window.session !== "undefined")
+                        if (typeof window.session === "undefined") // first check to see if user is logged in at all
                             {
-                            if (window.session.user_level !== "3")
-                                {
-                                if (contest_open) show("submit_button_container");
-                                }
-                            else 
+                            show("login_prompt_container");
+                            id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            }
+                        else // user is logged in
+                            {
+                            if (window.session.user_level === "3") // check to see if use has validated email address
                                 {
                                 show("validate_email_container");
                                 api({ 
@@ -302,15 +345,46 @@
                                         }
                                     });
                                 }
-                            }
-                        else 
-                            {
-                            show("login_prompt_container");
-                            id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            else // user is allowed to enter contests - check to see if max users or max entries has been hit
+                                {
+                                if (contest_type === "ROSTER")
+                                    {
+                                    var active_user_entries = call.active_user_entries,
+
+                                    registration_full = (max_users > 0 && current_users === max_users && active_user_entries === 0),
+                                    max_entries_reached = (entries_per_user !== 0 && active_user_entries === entries_per_user);
+
+                                    if (registration_full) 
+                                        {
+                                        id("no_entry").innerHTML = [
+                                            "The maximum number of users for this pool (",
+                                            max_users,
+                                            ") has been reached",
+                                            "<br/><br/>",
+                                            "<a href='/' class='inline_link'>Return to lobby</a>"
+                                        ].join("");
+                                        show("no_entry");
+                                        }
+                                    else if (max_entries_reached) 
+                                        {
+                                        id("no_entry").innerHTML = [
+                                            "You have entered the maximum number of entries for this pool (",
+                                            entries_per_user,
+                                            ")",
+                                            "<br/><br/>",
+                                            "<a href='/' class='inline_link'>Return to lobby</a>"
+                                        ].join("");
+                                        show("no_entry");
+                                        }
+                                    else show("submit_button_container");
+                                    }
+                                else // PARI-MUTUEL
+                                    {
+                                    show("submit_button_container");
+                                    }
+                                }
                             }
 
-                        id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
-                        
                         function update_countdown()
                             {
                             var countdown_string = "";
@@ -377,20 +451,27 @@
                         }
                     else
                         {
-                        var registration_deadline_rows = document.getElementsByClassName("registration_deadline_row");
-                        hide(registration_deadline_rows[0]);
-                        hide(registration_deadline_rows[1]);
+                        hide("registration_countdown_row");
+                        show("filler_row", "table-cell");
+                        id("registration_deadline_label").innerHTML = "Closed:";
                         
-                        var reason = "";
+                        var 
+                        
+                        registration_deadline = call.registration_deadline,
+                        settled_date = call.settled,
+                        
+                        main_line = "Registration for this contest closed at ",
+                        date_string = dateconv_ms_to_time(registration_deadline) + " on " + dateconv_ms_to_string(registration_deadline),
+                        reason = "";
+                
                         switch (contest_status)
                             {
                             case 2 : 
                                 reason = "This contest is now in play!";
                                 break;
                             case 3 : 
-                                reason = "This contest has been settled.";
-                                reason += "<br/><br/>";
-                                
+                                main_line = "This contest was settled at ";
+                                date_string = dateconv_ms_to_time(settled_date) + " on " + dateconv_ms_to_string(settled_date);
                                 if (contest_type === "PARI-MUTUEL")
                                     {
                                     for (var i=0; i<option_table.length; i++)
@@ -405,23 +486,20 @@
                                     }
                                 else if (contest_type === "ROSTER")
                                     {
-                                    reason += "For a list of player scores <a href=\"/temp\" class=\"inline_link\">click here</a>."
+                                    reason += "For a list of player scores <a href=\"/temp\" class=\"inline_link\">click here</a>"
                                     } 
                                 
                                 break;
                             case 4 : 
-                                reason = "This contest was under-subscribed.";
+                                reason = "This contest was under-subscribed";
                                 break;
                             case 5 : 
-                                reason = "This contest was cancelled by our admin team.";
+                                reason = "This contest was cancelled by our admin team";
                                 break;
                             }
-                        var registration_deadline = call.registration_deadline;
                         id("no_entry").innerHTML = [
-                            "Registration for this contest closed at ",
-                            dateconv_ms_to_time(registration_deadline),
-                            " on ",
-                            dateconv_ms_to_string(registration_deadline),
+                            main_line,
+                            date_string,
                             "<br/><br/>",
                             reason
                         ].join("");

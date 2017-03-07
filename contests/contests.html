@@ -47,38 +47,43 @@
                     id("no_data_message").innerHTML = "You have no open or in-play contests.";
                     return;
                     }
-                    
-                show("exposure_container");
-                    
+                     
                 var header = new_row(table, -1, [
                     "Contest",
                     "Exposure",
                     "Category",
-                    "Deadline"
+                    "Status"
                 ]);
                 
-                var exposure_value = 0;
+                var in_play_value = 0;
 
                 for (var i=0; i<number_of_contests; i++)
                     {
                     var contest_item = user_contest_report[i],
 
                     contest_id = contest_item.id,
-                    category = contest_item.category,
-                    sub_category = contest_item.sub_category,
                     contest_type = contest_item.contest_type,
                     category_description = contest_item.category_description,
                     sub_category_description = contest_item.sub_category_description,
                     title = contest_item.title,
                     settlement_type = contest_item.settlement_type,
                     cost_per_entry = contest_item.cost_per_entry,
-                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
                     user_entries_count = contest_item.user_entries_count,
                     user_entries_value = contest_item.user_entries_value,
-                    status = contest_item.status;
+                    status = contest_item.status,
+                    status_string = "";
 
-                    if (status === 2) registration_deadline_string = "In play";
-
+                    if (status === 3) 
+                        {
+                        status_string = "Settled";
+                        }
+                    else
+                        {
+                        if (status === 1) status_string = "Open";
+                        if (status === 2) status_string = "In play";
+                        in_play_value = add(in_play_value, user_entries_value);
+                        }
+                        
                     var button_string = "";
 
                     if (contest_type === "PARI-MUTUEL") button_string += "My wagers";
@@ -93,15 +98,17 @@
                         "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
                         "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
                         "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
-                        "<div class='field_label'>Deadline:</div>" + registration_deadline_string
+                        "<div class='field_label'>Deadline:</div>" + status_string
                     ]);
 
                     for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
-                    
-                    exposure_value = add(exposure_value, user_entries_value);
                     }
                     
-                id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
+                if (in_play_value > 0)
+                    {
+                    show("exposure_container");
+                    id("exposure_value").innerHTML = toBTC(in_play_value) + " BTC";
+                    }
                 }
             });
         }

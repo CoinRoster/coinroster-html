@@ -347,7 +347,12 @@
         {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-       
+        
+    function isInt(value)
+        {
+        if (+value % 1 === 0) return true;
+        return false;
+        }
     function get_ordinal_suffix(i) 
         {
         var 
@@ -410,7 +415,7 @@
     
     function add(val1, val2, precision)
         {
-        var result = new BigDecimal(val1.toString()).add(new BigDecimal(val2.toString()));
+        var result = new BigDecimal(val1.toString()).add(new BigDecimal(val2.toString()), new MathContext(100));
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
@@ -421,7 +426,7 @@
         
     function subtract(val1, val2, precision)
         {
-        var result = new BigDecimal(val1.toString()).subtract(new BigDecimal(val2.toString()));
+        var result = new BigDecimal(val1.toString()).subtract(new BigDecimal(val2.toString()), new MathContext(100));
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
@@ -432,7 +437,7 @@
         
     function multiply(val1, val2, precision)
         {
-        var result = new BigDecimal(val1.toString()).multiply(new BigDecimal(val2.toString()));
+        var result = new BigDecimal(val1.toString()).multiply(new BigDecimal(val2.toString()), new MathContext(100));
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer
@@ -443,7 +448,7 @@
         
     function divide(val1, val2, precision)
         {
-        var result = new BigDecimal(val1.toString()).divide(new BigDecimal(val2.toString()));
+        var result = new BigDecimal(val1.toString()).divide(new BigDecimal(val2.toString()), new MathContext(100));
         if (!precision) // if no precision specified
             {
             if (result % 1 === 0) return result | 0; // if integer, return as integer

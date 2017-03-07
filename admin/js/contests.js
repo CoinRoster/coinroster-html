@@ -728,22 +728,32 @@
         if (min_users === "") return alert("Please enter min users");
         if (isNaN(min_users)) return alert("Min users must be a number");
         if (min_users < 2) return alert("Min users must be 2 or greater");
+        if (!isInt(min_users)) return alert("Invalid value for [min users]");
         
         // max_users can be "" to indicate unlimited and will be locked to 2 if HEADS-UP
         // so only validate max_users if !== ""
         
         if (max_users !== "") 
             {
+            if (!isInt(max_users)) return alert("Invalid value for [max users]");
             if (isNaN(max_users)) return alert("Max users must be a number");
             if (max_users < 2) return alert("Max users cannot be less than 2");
             if (settlement_type !== "HEADS-UP" && +max_users === 2) return alert("You entered max users 2 but didn't choose HEADS-UP");
             }
         else max_users = 0;
-
+  
         // check for entries_per_user
         
-        var entries_per_user = selectorHTML(entries_per_user_selector);
-        
+        var entries_per_user = id("entries_per_user_input").value;
+
+        if (entries_per_user !== "") 
+            {
+            if (isNaN(entries_per_user)) return alert("Invalid value for [entries per user]");
+            if (entries_per_user < 1) return alert("Entries per user cannot be less than 1");
+            if (!isInt(entries_per_user)) return alert("Invalid value for [entries per user]");
+            }
+        else entries_per_user = 0;
+
         // check for roster_size
         
         var roster_size = id("roster_size_input").value;
@@ -752,6 +762,7 @@
 
         if (isNaN(roster_size)) return alert("Invalid roster size");
         if (roster_size < 0) return alert("Roster size cannot be negative");
+        if (!isInt(roster_size)) return alert("Invalid value for [min users]");
         
         // if jackpot, validate pay table
         
@@ -1028,7 +1039,7 @@
         if (winning_outcome === null) return alert("Please select winning outcome!");
         
         api({
-            method: "SettlePariMutuelContest",
+            method: "SettleContest",
             args: {
                 contest_id: window.contest_id_to_settle,
                 winning_outcome: winning_outcome
@@ -1092,8 +1103,18 @@
         return player_scores;
         }
         
+    var normalization_done = false;   
+      
     function normalize_player_scores()
         {
+        if (normalization_done)
+            {
+            var proceed = confirm("You have already normalized player scores - are you sure you want to normalize?");
+            if (!proceed) return false;
+            }
+            
+        normalization_done = true;
+            
         var player_scores = validate_player_scores();
         
         if (!player_scores) return;
@@ -1120,17 +1141,27 @@
                    
                 for (var i=0; i<player_scores.length; i++)
                     {
-                    var player = player_scores[i],
+                    var cells = player_rows[i].cells,
+                    
+                    player = player_scores[i],
                     score = player.score,
                     new_score;
             
                     if (score === "WD") new_score = 0;
                     else new_score = worst_score - score + 1;
                     
-                    player_rows[i].cells[2].firstChild.value = new_score;
-                    var cell = player_rows[i].insertCell();
-                    cell.innerHTML = score;
-                    cell.style.textAlign = "right";
+                    cells[2].firstChild.value = new_score;
+                    
+                    var cell_3;
+                    
+                    if (typeof cells[3] === "undefined") 
+                        {
+                        cell_3 = player_rows[i].insertCell();
+                        cell_3.style.textAlign = "right";
+                        }
+                    else cell_3 = cells[3];
+       
+                    cell_3.innerHTML = score;
                     }
                 }
                 break;
@@ -1144,7 +1175,7 @@
         if (!player_scores) return;
         
         api({
-            method: "SettleRosterContest",
+            method: "SettleContest",
             args: {
                 contest_id: window.contest_id_to_settle,
                 player_scores: player_scores
