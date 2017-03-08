@@ -74,7 +74,7 @@
                     Description
                 </td>
                 <td colSpan="2">
-                    <textarea id="contest_description_textarea" rows="6" cols="100"></textarea> 
+                    <textarea id="contest_description_textarea" class="do_tinymce" rows="6" cols="100"></textarea> 
                 </td>
             </tr>
             <tr>
@@ -247,6 +247,12 @@
                         or
                     </td>
                     <td>
+                        <button type="button" class="input_style" onclick="paste_player_odds();">Excel Paste</button>
+                    </td>
+                    <td>
+                        or
+                    </td>
+                    <td>
                         <button type="button" class="input_style" onclick="scrape_player_odds(false);">Manual Entry</button>
                     </td>
                 </tr>
@@ -268,6 +274,15 @@
                         <input id="odds_multiplier_input" type="text" class="input_style text_input">
                         &nbsp;&nbsp;
                         <button type="button" class="input_style" onclick="price_players();">Price Players</button>
+                    </td>
+                </tr>
+                <tr id="paste_excel_row" style="display:none">
+                    <td colspan="8">
+                        <textarea id="excel_data_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
+                        <br/><br/>
+                        <button type="button" class="input_style" onclick="process_excel_data('ODDS');">Process odds</button>
+                        <button type="button" class="input_style" onclick="process_excel_data('PRICES');">Process prices</button>
+                        <button type="button" class="input_style" onclick="cancel_excel_data();">Cancel</button>
                     </td>
                 </tr>
             </table>
@@ -328,6 +343,30 @@
             <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
         </div>
         <div id="settle_roster">
+            <table class="form_table">
+                <tr>
+                    <td>
+                        Scoring scheme:
+                    </td>
+                    <td>
+                        <select data-placeholder="Select" id="score_normalization_selector" class="input_style chosen-select" style="width:300px">
+                            <option value="INTEGER">INTEGER</option>
+                            <option value="INTEGER-INVERT">INTEGER-INVERT</option>
+                            <option value="DECIMAL">DECIMAL</option>
+                            <option value="DECIMAL-INVERT">DECIMAL-INVERT</option>
+                            <!--<option value="TIME-MM-SS">TIME (MM:SS)</option>
+                            <option value="TIME-MM-SS-INVERT">TIME-INVERT (MM:SS)</option>
+                            <option value="TIME-MM-SS-MS">TIME (MM:SS.SSS)</option>
+                            <option value="TIME-MM-SS-MS-INVERT">TIME-INVERT (MM:SS.SSS)</option>
+                            <option value="TIME-HH-MM">TIME (HH:MM)</option>
+                            <option value="TIME-HH-MM-INVERT">TIME-INVERT (HH:MM)</option>
+                            <option value="TIME-HH-MM-SS">TIME (HH:MM:SS)</option>
+                            <option value="TIME-HH-MM-SS-INVERT">TIME-INVERT (HH:MM:SS)</option>-->
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br/>
             Enter scores:
             <br/><br/>
             <div id="roster_outcome_table" class="report_table"></div>
@@ -335,18 +374,19 @@
             <table class="form_table">
                 <tr>
                     <td>
-                        Normalize scores:
-                    </td>
-                    <td colSpan="2">
-                        <select data-placeholder="Select" id="score_normalization_selector" class="input_style chosen-select" style="width:155px">
-                            <option value="GOLF">Golf</option>
-                        </select>
+                        Do you need to normalize player scores?
+                        <br/>
+                        Normalization will be based on the scoring scheme above.
                     </td>
                     <td>
                         <button type="button" class="input_style" onclick="normalize_player_scores();">Normalize Player Scores</button>
                     </td>
+                    <td>
+                        <button id="undo_normalization_button" type="button" class="input_style hidden" onclick="undo_normalize_player_scores();">Undo</button>
+                    </td>
                 </tr>
-            </table>
+            </table>            
+            <br/>
             <button type="button" class="input_style" onclick="settle_roster_contest();">Settle Contest</button>
         </div>
     </div>

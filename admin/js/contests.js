@@ -20,7 +20,7 @@
                     initialize_registration_deadline();
                     populate_category_selector();
                     tinymce.init({
-                        selector: 'textarea',
+                        selector: 'textarea.do_tinymce',
                         height: 200,
                         plugins: [
                             'advlist autolink lists link image charmap print preview anchor',
@@ -506,16 +506,21 @@
     
     function scrape_player_odds(scrape)
         {
-        id("player_option_table").innerHTML = "";
+        cancel_excel_data();
+        
+        if (typeof player_option_table !== "undefined") player_option_table.innerHTML = "";
         hide("multiplier_row");
         hide("number_of_players_row");
         hide("add_player_button");
         
         if (scrape)
             {
-            var 
+            var url = id("odds_url_input").value.trim();
             
-            url = id("odds_url_input").value.trim(),
+            if (url === "")
+                {
+                return alert("Please provide a scraping link");
+                }
                     
             call = api({
                 method: "ScrapePlayerOdds",
@@ -532,6 +537,79 @@
                 }
             }
         else show("number_of_players_row", "table-row");
+        }
+        
+    function paste_player_odds()
+        {
+        hide("multiplier_row");
+        hide("number_of_players_row");
+        hide("add_player_button");
+        show("paste_excel_row", "table-row");
+        if (typeof player_option_table !== "undefined") player_option_table.innerHTML = "";
+        id("odds_url_input").value = "";
+        id("excel_data_textarea").value = "";
+        }
+        
+    function process_excel_data(process_scheme)
+        {
+        var 
+        
+        lines = id("excel_data_textarea").value.split("\n"),
+        number_of_players = lines.length;
+
+        player_option_table = new_table("player_option_table");
+        
+        for (var i=0; i<number_of_players; i++)
+            {
+            var 
+            
+            line = lines[i].trim(),
+            player_name = null,
+            player_value = null;
+    
+            if (line === "") continue;
+            
+            if (line.indexOf("\t") !== -1)
+                {
+                var fields = line.split("\t");
+                player_name = fields[0].trim();
+                player_value = fields[1].trim();
+                }
+            else return alert("Only one column found in data - this method requires two");
+            
+            var row_data = [
+                "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
+                "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_value + "\">",
+                "<button type=\"button\" class=\"input_style\" onclick=\"remove_player(this);\">Remove player</button>"
+            ];
+            
+            if (process_scheme === "ODDS") row_data.splice(2, 0, "");
+            
+            new_row(player_option_table, -1, row_data);
+            }
+            
+        var header_data = [
+            "Player",
+            "Price",
+            ""
+        ];
+        
+        if (process_scheme === "ODDS") 
+            {
+            header_data.splice(1, 0, "Odds");
+            show("multiplier_row", "table-row");
+            }
+        
+        var header = new_row(player_option_table, 0, header_data);
+            
+        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+        
+        cancel_excel_data();
+        }
+        
+    function cancel_excel_data()
+        {
+        hide("paste_excel_row");
         }
         
     function create_manual_player_table()
@@ -580,7 +658,8 @@
         var header = new_row(player_option_table, 0, [
             "Player",
             "Odds",
-            "Price"
+            "Price",
+            ""
         ]);
             
         for (var i=1; i<header.length; i++) header[i].className = "header_cell";
@@ -618,6 +697,17 @@
             row = rows[i],
             player_odds = row.cells[1].querySelector("input").value,
             player_price;
+    
+            if (player_odds.indexOf("/") !== -1)
+                {
+                var values = player_odds.split("/"),
+                
+                numerator = +values[0],
+                denominator = +values[1];
+        
+                player_odds = divide(numerator, denominator);
+                player_odds = add(player_odds, 1);
+                }
             
             if (multiplier !== "") player_price = multiply(multiplier, (1 / player_odds)) | 0;
 
@@ -803,22 +893,42 @@
         
         player_rows = player_option_table.rows,
         player_name_table = [],
-        option_table = [];
+        option_table = [],
+        number_of_players = player_rows.length - 1; // exclude header
+   
+        if (typeof player_rows[0] === "undefined") return alert("Please add players");
+        if (number_of_players < 2) return alert("Please add at least two players");
+        if (number_of_players < roster_size + 1) return alert("Number of players must be greater than (roster size + 1)");
+        
+        var number_of_columns = player_rows[0].cells.length;
         
         for (var i=1/*header is 0*/; i<player_rows.length; i++)
             {
             var cells = player_rows[i].cells,
-                    
-            name = cells[0].querySelector("input").value,
-            odds = cells[1].querySelector("input").value,
-            price = cells[2].innerHTML;
+            name = "",
+            odds = "",
+            price = "";
     
-            if (name === "" || odds === "" || price === "") return alert("Player table is incomplete");
+            if (number_of_columns === 4) // has name, price, and odds
+                {
+                name = cells[0].querySelector("input").value,
+                odds = cells[1].querySelector("input").value,
+                price = cells[2].innerHTML;
+
+                if (name === "" || odds === "" || price === "") return alert("Player table is incomplete");
+                }
+            else if (number_of_columns === 3) // has name and price only
+                {
+                name = cells[0].querySelector("input").value,
+                price = cells[1].querySelector("input").value;
+
+                if (name === "" || price === "") return alert("Player table is incomplete");
+                }
             
             price = fromCurrency(price) | 0;
             
-            if (price === 0) return alert("Invalid price or odds for " + name);
-            if (price > salary_cap) return alert("Odds table row " + i + ": price cannot be greater than salary cap");
+            if (price === 0) return alert("Invalid price for " + name);
+            if (price > salary_cap) return alert("Row " + i + ": price cannot be greater than salary cap");
             
             if (player_name_table.contains(name)) return alert("Duplicate player: " + name);
             else player_name_table.push(name);
@@ -833,7 +943,7 @@
             }
             
         var odds_source = id("odds_url_input").value.trim();
-        if (odds_source === "") odds_source = "manual";
+        if (odds_source === "") odds_source = "n/a";
         
         // submit
 
@@ -967,6 +1077,12 @@
             }
         }
         
+    var 
+    
+    score_normalization_selector = id("score_normalization_selector"),
+    normalization_done = false,
+    normalization_scheme_used = "";
+    
     function settle_contest(contest_id)
         {
         window.contest_id_to_settle = contest_id;
@@ -1005,6 +1121,12 @@
             }   
         else if (contest_type === "ROSTER")
             {
+            normalization_done = false;
+            hide("undo_normalization_button");
+            score_normalization_selector.selectedIndex = 0;
+            $(score_normalization_selector).trigger("chosen:updated");
+            normalization_scheme_used = "";
+            
             hide("settle_pari_mutuel");
             show("settle_roster");
       
@@ -1055,13 +1177,23 @@
             });
         }
         
-    function validate_player_scores()
+    function validate_player_scores(step)
         {
         var 
         
+        normalization_scheme = selectorValue(score_normalization_selector),
         player_rows = id("roster_outcome_table").firstChild.rows,
         number_of_players = player_rows.length,
-        player_scores = [];
+        player_scores = [],
+        permitted_non_integers = [];
+        
+        var time_scheme = "";
+        
+        if (normalization_scheme.indexOf("TIME-") === 0)
+            {
+            time_scheme = normalization_scheme.slice(5);
+            normalization_scheme = "TIME";
+            }
         
         for (var i=0; i<number_of_players; i++)
             {
@@ -1069,29 +1201,90 @@
                     
             player_id = cells[0].innerHTML,
             player_name = cells[1].innerHTML,
-            player_score = cells[2].querySelector("input").value.trim();
+            player_score = cells[2].querySelector("input").value.trim(),
+            score_raw = player_score;
     
+            if (typeof cells[3] !== "undefined") score_raw = cells[3].innerHTML;
+            
             if (player_score === "")
                 {
                 alert("Please provide a score for " + player_name);
                 return false;
-                }   
-                
-            if (player_score.toUpperCase() === "WD") player_score = "WD";
-            else
-                {
-                if (isNaN(player_score) || (+player_score !== (+player_score | 0))) 
-                    {
-                    alert("Invalid score for: " + player_name);
-                    return false;
-                    }
-                
-                player_score = +player_score;
                 }
-                
-            var score_raw = player_score;
-            
-            if (typeof cells[3] !== "undefined") score_raw = cells[3].innerHTML;
+                                
+            if (step === "NORMALIZING")
+                {
+                switch (normalization_scheme)
+                    {
+                    case "INTEGER" :
+                    case "INTEGER-INVERT" :
+                        {
+                        if (isNaN(player_score))
+                            {
+                            if (!permitted_non_integers.contains(player_score))
+                                {
+                                var allow = confirm(player_name + " has been assigned a score of [" + player_score + "]\n\nWould you like to allow the use of [" + player_score + "]?");
+                                if (!allow) return false;
+                                else permitted_non_integers.push(player_score);
+                                }
+                            }
+                        else if (!isInt(player_score))
+                            {
+                            alert("Score for " + player_name + " is not an integer. Consider using a DECIMAL scoring scheme.");
+                            return false;
+                            }
+                        }
+                        break;
+                    case "DECIMAL" :
+                    case "DECIMAL-INVERT" :
+                        {
+                        if (isNaN(player_score))
+                            {
+                            if (!permitted_non_integers.contains(player_score))
+                                {
+                                var allow = confirm(player_name + " has been assigned a score of [" + player_score + "]\n\nWould you like to allow the use of [" + player_score + "]?");
+                                if (!allow) return false;
+                                else permitted_non_integers.push(player_score);
+                                }
+                            }
+                        }
+                        break;
+                    case "TIME" :
+                        {
+                        // check if input contains the format specified in time_scheme
+                        }
+                        break;
+                    }
+                }
+            else // step === "SUBMITTING"
+                {
+                switch (normalization_scheme)
+                    {
+                    // the following schemes will have normalized to integers
+                    case "INTEGER" :
+                    case "INTEGER-INVERT" :
+                    case "TIME" :
+                        {
+                        if (!isInt(player_score))
+                            {
+                            alert("Invalid score for: " + player_name);
+                            return false;
+                            }
+                        }
+                        break;
+                    // the following schemes will have normalized to integers / doubles
+                    case "DECIMAL" :
+                    case "DECIMAL-INVERT" :
+                        {
+                        if (isNaN(player_score))
+                            {
+                            alert("Invalid score for: " + player_name);
+                            return false;
+                            }
+                        }
+                        break;
+                    }
+                }
                 
             player_scores.push({
                 id: player_id,
@@ -1103,54 +1296,54 @@
         return player_scores;
         }
         
-    var normalization_done = false;   
-      
     function normalize_player_scores()
         {
+        var normalization_scheme = selectorValue(score_normalization_selector);
+        
         if (normalization_done)
             {
-            var proceed = confirm("You have already normalized player scores - are you sure you want to normalize?");
+            var proceed = confirm("You have already normalized player scores using the [" + normalization_scheme_used + "] scheme\n\nAre you sure you want to normalize using the [" + normalization_scheme + "] scheme?");
+            if (!proceed) return false;
+            }
+        else
+            {
+            var proceed = confirm("Are you sure you want to normalize scores using the [" + normalization_scheme + "] scheme?");
             if (!proceed) return false;
             }
             
-        normalization_done = true;
-            
-        var player_scores = validate_player_scores();
+        var player_scores = validate_player_scores("NORMALIZING");
         
         if (!player_scores) return;
         
-        var 
+        normalization_done = true;
         
-        player_rows = id("roster_outcome_table").firstChild.rows,
-        normalization_scheme = selectorValue("score_normalization_selector");
+        var player_rows = id("roster_outcome_table").firstChild.rows;
+        
+        var time_scheme = "";
+        
+        if (normalization_scheme.indexOf("TIME-") === 0)
+            {
+            time_scheme = normalization_scheme.slice(5);
+            alert(time_scheme);
+            normalization_scheme = "TIME";
+            }
         
         switch (normalization_scheme)
             {
-            case "GOLF" :
+            case "INTEGER" :
+            case "DECIMAL" :
                 {
-                var worst_score = -100;
-                
-                for (var i=0; i<player_scores.length; i++)
-                    {
-                    var player = player_scores[i],
-                            
-                    score = player.score;
-            
-                    if (score !== "WD" && score > worst_score) worst_score = score;
-                    }
-                   
                 for (var i=0; i<player_scores.length; i++)
                     {
                     var cells = player_rows[i].cells,
                     
                     player = player_scores[i],
                     score = player.score,
-                    new_score;
+                    score_raw = score;
             
-                    if (score === "WD") new_score = 0;
-                    else new_score = worst_score - score + 1;
+                    if (isNaN(score)) score = 0;
                     
-                    cells[2].firstChild.value = new_score;
+                    cells[2].firstChild.value = score;
                     
                     var cell_3;
                     
@@ -1161,19 +1354,112 @@
                         }
                     else cell_3 = cells[3];
        
-                    cell_3.innerHTML = score;
+                    cell_3.innerHTML = score_raw;
                     }
                 }
                 break;
+            case "INTEGER-INVERT" :
+            case "DECIMAL-INVERT" :
+                {
+                var worst_score = -999999999;
+                
+                for (var i=0; i<player_scores.length; i++)
+                    {
+                    var player = player_scores[i],
+                            
+                    score = player.score;
+            
+                    // we want to preserve raw score as a string, so we process it here
+                    
+                    var 
+                    
+                    cells = player_rows[i].cells,
+                    cell_3;
+                    
+                    if (typeof cells[3] === "undefined") 
+                        {
+                        cell_3 = player_rows[i].insertCell();
+                        cell_3.style.textAlign = "right";
+                        }
+                    else cell_3 = cells[3];
+       
+                    cell_3.innerHTML = score;
+                    
+                    // now cast to number and compare against worst score
+                    
+                    score = +score;
+            
+                    if (!isNaN(score) && score > worst_score) worst_score = score;
+                    }
+                   
+                for (var i=0; i<player_scores.length; i++)
+                    {
+                    var cells = player_rows[i].cells,
+                    
+                    player = player_scores[i],
+                    score = player.score,
+                    new_score;
+            
+                    if (isNaN(score)) new_score = 0;
+                    else new_score = add(subtract(worst_score, score), 1);
+                    
+                    cells[2].firstChild.value = new_score;
+                    }
+                }
+                break;
+            case "TIME" :
+                {
+                // parse time_scheme and convert to whatever the lowest unit is (e.g. net seconds for MM-SS):
+                // MM * 60 + SS
+                }
+                break;
             }
+            
+        show("undo_normalization_button");
+        normalization_scheme_used = normalization_scheme;
+        }
+        
+    function undo_normalize_player_scores()
+        {
+        var 
+        
+        player_rows = id("roster_outcome_table").firstChild.rows,
+        number_of_players = player_rows.length;
+        
+        for (var i=0; i<number_of_players; i++)
+            {
+            var 
+            
+            row = player_rows[i],
+            cells = row.cells;
+                    
+            cells[2].querySelector("input").value = cells[3].innerHTML;
+    
+            row.deleteCell(3);
+            }
+        
+        hide("undo_normalization_button");
+        normalization_done = false;
+        normalization_scheme_used = "";
         }
         
     function settle_roster_contest()
         {
-        var player_scores = validate_player_scores();
+        var player_scores = validate_player_scores("SUBMITTING");
         
         if (!player_scores) return;
         
+        if (normalization_done)
+            {
+            var proceed = confirm("Are you sure you normalized the scores correctly? Scheme: [" + normalization_scheme_used + "]");
+            if (!proceed) return false;
+            }
+        else
+            {
+            var proceed = confirm("Are you sure you want to settle without normalizing player scores?");
+            if (!proceed) return false;
+            }
+            
         api({
             method: "SettleContest",
             args: {
