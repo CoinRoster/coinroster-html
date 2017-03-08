@@ -30,7 +30,7 @@
         </div>
         <br/>
         <h3 id="contest_title" class="section_header">
-            Loading...
+            <!-- POPULATED BY JAVASCRIPT -->
         </h3>
         <div id="no_data_message" class="hidden"></div>
         <div id="valid_contest_container" class="hidden">
@@ -486,7 +486,7 @@
                                     }
                                 else if (contest_type === "ROSTER")
                                     {
-                                    reason += "For a list of player scores <a href=\"/temp\" class=\"inline_link\">click here</a>"
+                                    reason += "For a list of player scores <a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link\">click here</a>"
                                     } 
                                 
                                 break;

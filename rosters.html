@@ -80,7 +80,7 @@
                                 }
 
                             var header_data = [
-                                "<ul><li style='padding-right:40px'>Roster ID</li><li><span style='float:right;'>Entries</span</li></ul>",
+                                "<ul><li style='padding-right:40px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
                                 "User",
                                 "Roster"
                             ];
@@ -115,6 +115,10 @@
 
                                 entry_item.roster = roster;
                                 entry_item.number_of_entries = number_of_entries;
+                                
+                                var mark_outcome = "";
+                                
+                                if (contest_status === 3 && payout !== 0) mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
 
                                 for (var j=0; j<roster.length; j++)
                                     {
@@ -123,7 +127,7 @@
                                     }
 
                                 var row_data = [
-                                    "<ul><li><div class='field_label'>Roster ID:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                    "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
                                     "<div class='field_label'>User:</div>" + user,
                                     roster_html
                                 ];

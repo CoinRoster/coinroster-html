@@ -317,6 +317,27 @@
             padding-bottom: 4px !important;
         }
         
+        /* Scores page */
+        
+        #score_table tr:first-child { /* header */
+            display: none;
+        }
+        #score_table td {
+            display: block !important;
+            text-align: left !important;
+            padding-bottom: 0 !important;
+        }
+        #score_table td:first-child { /* pari_mutuel / outcome */
+            padding-bottom: 10px !important;
+        }
+        #score_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #score_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
     }
     @media only screen and (max-width: 500px) {
 

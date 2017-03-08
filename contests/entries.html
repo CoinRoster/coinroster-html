@@ -227,7 +227,7 @@
                                         option_implied_odds = get_implied_odds(wager_grand_total, option_item, full_precision),
                                         implied_payout = "--", // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
-                                        scenario_PL_class = "orange"; // default is total loss
+                                        PNL_class = "orange"; // default is total loss
                                         
                                         if (typeof user_wagers[option_id] !== "undefined") // user has a wager
                                             {
@@ -235,7 +235,7 @@
                                             implied_payout = multiply(option_implied_odds, amount),
                                             scenario_PL = implied_payout - exposure_value;
                                          
-                                            if (scenario_PL > 0) scenario_PL_class = "green"; // override if profit
+                                            if (scenario_PL > 0) PNL_class = "green"; // override if profit
                                             
                                             amount = toBTC(amount) + " BTC";
                                             implied_payout = toBTC(implied_payout);
@@ -250,9 +250,9 @@
                                             
                                             id("exposure_label").innerHTML = "Wagered:";
                                             id("payout_value").innerHTML = implied_payout;
-                                            id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
-                                            id("PNL_value").className = scenario_PL_class;
                                             id("payout_value").style.color = "rgb(230,230,230)";
+                                            id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
+                                            id("PNL_value").className = PNL_class;
                                             
                                             if (option_item.outcome === 1) mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
                                             }
@@ -264,7 +264,7 @@
                                             "<div class='field_label'>My Wagers:</div>" + amount,
                                             "<div class='field_label'>Odds:</div>" + option_implied_odds,
                                             "<div class='field_label'>Payout:</div>" + implied_payout,
-                                            "<div class='field_label'>Scenario P/L:</div><span class='" + scenario_PL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
+                                            "<div class='field_label'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
                                         ]);
 
                                         row[1].style.textAlign = "left";
@@ -282,6 +282,7 @@
                                     
                                     player_names = [],
                                     
+                                    total_payout = 0,
                                     exposure_value = 0;
                                     
                                     for (var i=0; i<option_table.length; i++)
@@ -291,7 +292,7 @@
                                         }
                                     
                                     var header_data = [
-                                        "<ul><li style='padding-right:60px'>Roster ID</li><li><span style='float:right;'>Wager</span</li></ul>",
+                                        "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
                                         "Roster"
                                     ];
 
@@ -340,8 +341,16 @@
                                         if (contest_status === 1) enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
                                         else table.className = "contest_table entry_report_table"; //get rid of "collapse_players" since no button
                                         
+                                        var mark_outcome = "";
+
+                                        if (contest_status === 3 && payout !== 0) 
+                                            {
+                                            total_payout = add(total_payout, payout);
+                                            mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
+                                            }
+
                                         var row_data = [
-                                            "<ul><li><div class='field_label'>Roster ID:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Wager:</div>" + amount + " BTC" + "</span></li></ul>",
+                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li><li>" + enter_button + "</li></ul>"
                                         ];
                                         
@@ -364,6 +373,23 @@
                                         
                                     id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
                                     
+                                    if (contest_status === 3)
+                                        {
+                                        show("payout_container");
+                                        show("PNL_container");
+                                        
+                                        var PNL = subtract(total_payout, exposure_value);
+                                        
+                                        if (PNL > 0) PNL_class = "green";
+                                        else if (PNL < 0) PNL_class = "orange";
+
+                                        id("exposure_label").innerHTML = "Wagered:";
+                                        id("payout_value").innerHTML = total_payout;
+                                        id("payout_value").style.color = "rgb(230,230,230)";
+                                        id("PNL_value").innerHTML = toBTC(PNL, false, true);
+                                        id("PNL_value").className = PNL_class;
+                                        }
+                                        
                                     break;
                                     }
                                 }
