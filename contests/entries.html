@@ -216,6 +216,11 @@
                                         
                                     // create rows for any options where user has wagers:
                                     
+                                    option_table.sort(function(a, b)
+                                        {
+                                        return b.wager_total - a.wager_total;
+                                        });
+
                                     for (var i=0; i<option_table.length; i++)
                                         {
                                         var 

@@ -99,6 +99,24 @@
         text-align: right;
     }
     
+    #pari_mutuel_table .li_left {
+        white-space:nowrap;
+        min-width:140px;
+        text-align:right;
+    }
+    #pari_mutuel_table .li_right {
+        min-width:80px;
+        text-align:right;
+        float:right;
+    }
+    
+    #pari_mutuel_table .wager_input {
+        float: right;
+        display: inline-block;
+        padding-left: 30px;
+        text-align: center;
+    }
+    
     #roster_entry_report_table td {
         text-align: left;
     }

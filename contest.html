@@ -300,7 +300,7 @@
                         salary_cap = call.salary_cap,
                         roster_size = call.roster_size;
                 
-                        initialize_roster_UI(contest_open, option_table, salary_cap, roster_size);
+                        initialize_roster_UI(contest_status, option_table, salary_cap, roster_size);
 
                         id("number_of_entries_input").value = 1;
                         }
@@ -318,7 +318,7 @@
 
                         wager_grand_total = subtract(wager_grand_total, rake_amount);
 
-                        initialize_pari_mutuel_UI(contest_open, option_table, wager_grand_total);
+                        initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total);
                         }
                         
                     if (contest_open) 
@@ -479,7 +479,7 @@
                                         var option_item = option_table[i];
                                         if (option_item.outcome === 1)
                                             {
-                                            reason += "The winning outcome was #" + option_item.id + " - " + option_item.description;
+                                            reason += "The winning outcome was:&nbsp;&nbsp;" + option_item.description;
                                             break;
                                             }
                                         }
@@ -524,7 +524,7 @@
 
     // initialize interface for roster contest
      
-    function initialize_roster_UI(contest_open, option_table, salary_cap, roster_size)
+    function initialize_roster_UI(contest_status, option_table, salary_cap, roster_size)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
         
@@ -570,8 +570,10 @@
 
     // initialize interface for pari-mutuel contest
      
-    function initialize_pari_mutuel_UI(contest_open, option_table, wager_grand_total)
+    function initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total)
         {
+        var contest_open = contest_status === 1;
+        
         var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
         
         for (var i=0; i<pari_mutuel_fields.length; i++)
@@ -589,15 +591,24 @@
                 
         var pari_mutuel_table = id("pari_mutuel_table");
         
+        var main_header = "";
+        
+        if (contest_open) main_header = "<ul><li>Outcome</li><li style='float:right'>Enter wager</li></ul>";
+        else main_header = "Outcome"
+    
         var header = new_row(pari_mutuel_table, -1, [
-            "Outcome",
-            "Wagers",
-            "Odds",
-            contest_open ? "Enter a wager" : ""
+            main_header,
+            "<ul><li class='li_left'>Wagers</li><li class='li_right'>Odds</li></ul>"
         ]);
         
         header[1].style.textAlign = "left";
+        header[2].style.textAlign = "left";
         
+        option_table.sort(function(a, b)
+            {
+            return b.wager_total - a.wager_total;
+            });
+            
         for (var i=0; i<option_table.length; i++)
             {
             var option_item = option_table[i],
@@ -606,18 +617,23 @@
             description = option_item.description,
             
             wager_total = option_item.wager_total,
-            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' style='width:100px'/>",
+            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' placeholder='Enter wager' style='width:100px'/>",
             
-            implied_odds = get_implied_odds(wager_grand_total, option_item),
-    
-            row = new_row(pari_mutuel_table, -1, [
-                description,
-                "<div class='field_label'>Wagered:</div>" + toBTC(wager_total) + " BTC",
-                "<div class='field_label'>Current odds:</div>" + implied_odds,
-                contest_open ? ("<div class='field_label'>Enter a wager:</div>" + wager_input + " BTC") : null
+            implied_odds = get_implied_odds(wager_grand_total, option_item);
+
+            var main_line = "";
+            
+            if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC" + "</li></ul>";
+            else if (contest_status === 3 && option_item.outcome === 1) main_line = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;" + description;
+            else main_line = description;
+            
+            var row = new_row(pari_mutuel_table, -1, [
+                main_line,
+                "<ul><li class='li_left'>" + "<div class='field_label'>Wagers:</div>" + toBTC(wager_total) + " BTC" + "</li><li class='li_right'>" + "<div class='field_label'>Odds:</div>" + implied_odds + "</li></ul>"
             ]);
             
             row[1].style.textAlign = "left";
+            row[2].style.textAlign = "left";
             
             if (contest_open) bind_btc_input(id("wager_input_" + option_id), function(input)
                 {

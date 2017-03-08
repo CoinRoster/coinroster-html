@@ -168,40 +168,42 @@
             display: none !important;
         }
                     
-        #pari_mutuel_table td {
-            text-align: left !important;
-        }
-        
         #pari_mutuel_table tr:first-child { /* header */
             display: none;
         }
         
         #pari_mutuel_table td {
-            display: inline-block;
-            padding-bottom: 0 !important;
+            display: block;
+            font-size: 12px !important;
         }
         
-        #pari_mutuel_table td:first-child { /* outcome */
-            display: block;
-            padding-bottom: 10px !important;
+        #pari_mutuel_table td:first-child { /* outcome & wager input */
+            padding-top: 0px !important;
+            padding-bottom: 0 !important;
+        } 
+        #pari_mutuel_table .light_on_dark_input {
+            font-size: 12px !important;
         }
-        #pari_mutuel_table td:nth-child(2) { /* wagerss */
-            float:none;
+        #pari_mutuel_table td:last-child { /* wagers & odds */
+            padding-top: 0 !important;
+            padding-bottom: 7px !important;
         }
-        #pari_mutuel_table td:nth-child(3) { /* odds */
-            float:none;
+        #pari_mutuel_table .li_left { /* wagers */
+            text-align: left !important;
+            float: left !important;
         }
-        #pari_mutuel_table td:last-child { /* enter wager */
-            display: block;
-            float: none;
-            padding-bottom: 11px !important;
+        #pari_mutuel_table .li_right {
         }
-        #pari_mutuel_table .field_label {
+        #pari_mutuel_table .field_label { /* odds */
             display: inline-block !important;
             margin-top: 8px;
             padding-right: 20px;
             font-size: 12px;
         }
+        #pari_mutuel_table .hidden_break { /* odds */
+            display: block;
+        }
+        
         #submit_pari_mutuel_button {
             float: left !important;
         }
@@ -373,6 +375,10 @@
         
         .contest_detail_table .payout_info_link {
             padding-right: 0 !important;
+        }
+        
+        #pari_mutuel_table td {
+            font-size: 11px !important;
         }
         
         #submit_pari_mutuel_button {

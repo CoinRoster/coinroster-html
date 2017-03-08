@@ -124,11 +124,12 @@
                         
                     var 
                     
+                    title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
                     enter_button = "<a class=\"contest_table_link " + button_class + "\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>" + button_string + "</button>",
                     game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
                      
                     row = new_row(table, -1, [
-                        "<ul><li>" + title + "</li><li>" + enter_button + "</li></ul>",
+                        "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
                         "<div class='field_label'>Deadline:</div>" + registration_deadline_string,
                         "<div class='field_label'>Game type:</div>" + game_type,
                         "<div class='field_label'>Users:</div>" + current_users + max_users,
