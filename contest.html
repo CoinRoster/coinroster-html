@@ -95,7 +95,6 @@
                         </td>
                         <td>
                             <span id="users" class="orange"></span>
-                            <span id="view_rosters" class="payout_info_link teal" style="display:none">View rosters</span>
                         </td>
                     </tr>
                     <tr>
@@ -198,11 +197,9 @@
         <div class="pari_mutuel_field hidden">
             <table id="pari_mutuel_table" class="contest_table"></table>
         </div>
-        <div class="full_width_right_align">
-            <div id="submit_button_container" class="submit_container hidden">
-                <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
-                <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
-            </div>
+        <div id="submit_button_container" class="submit_container hidden">
+            <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
+            <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
         </div>
     </div>
 </div>
@@ -282,18 +279,6 @@
                         
                         id("entries_label").innerHTML = "Rosters:";
                         id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
-                        
-                        if (current_users > 0) 
-                            {
-                            show("view_rosters", "inline-block");
-                            id("view_rosters").onclick = (function(contest_id)
-                                {
-                                return function()
-                                    {
-                                    window.open("/rosters.html?contest_id=" + contest_id, '_blank');
-                                    };
-                                })(contest_id);
-                            }
                         
                         var
 
@@ -467,7 +452,11 @@
                         switch (contest_status)
                             {
                             case 2 : 
-                                reason = "This contest is now in play!";
+                                reason = [
+                                    "This contest is now in play!",
+                                    "<br/><br/>",
+                                    "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>"
+                                ].join("");
                                 break;
                             case 3 : 
                                 main_line = "This contest was settled at ";
@@ -479,14 +468,18 @@
                                         var option_item = option_table[i];
                                         if (option_item.outcome === 1)
                                             {
-                                            reason += "The winning outcome was:&nbsp;&nbsp;" + option_item.description;
+                                            reason += "The winning outcome was:&nbsp;&nbsp;<span class='orange'>" + option_item.description + "</span>";
                                             break;
                                             }
                                         }
                                     }
                                 else if (contest_type === "ROSTER")
                                     {
-                                    reason += "For a list of player scores <a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link\">click here</a>"
+                                    reason += [
+                                        "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>",
+                                        "<br/><br/>",
+                                        "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>"
+                                    ].join("");
                                     } 
                                 
                                 break;
@@ -619,15 +612,20 @@
             wager_total = option_item.wager_total,
             wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' placeholder='Enter wager' style='width:100px'/>",
             
-            implied_odds = get_implied_odds(wager_grand_total, option_item);
+            implied_odds = get_implied_odds(wager_grand_total, option_item),
 
-            var main_line = "";
+            row_index = -1,
+            main_line = "";
             
             if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC" + "</li></ul>";
-            else if (contest_status === 3 && option_item.outcome === 1) main_line = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;" + description;
+            else if (contest_status === 3 && option_item.outcome === 1) 
+                {
+                main_line = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;" + description;
+                //row_index = 1; // causes winning outcome to float to the top
+                }
             else main_line = description;
             
-            var row = new_row(pari_mutuel_table, -1, [
+            var row = new_row(pari_mutuel_table, row_index, [
                 main_line,
                 "<ul><li class='li_left'>" + "<div class='field_label'>Wagers:</div>" + toBTC(wager_total) + " BTC" + "</li><li class='li_right'>" + "<div class='field_label'>Odds:</div>" + implied_odds + "</li></ul>"
             ]);

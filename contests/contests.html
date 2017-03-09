@@ -50,9 +50,9 @@
                      
                 var header = new_row(table, -1, [
                     "Contest",
+                    "Status",
                     "Exposure",
-                    "Category",
-                    "Status"
+                    "Category"
                 ]);
                 
                 var in_play_value = 0;
@@ -70,18 +70,14 @@
                     cost_per_entry = contest_item.cost_per_entry,
                     user_entries_count = contest_item.user_entries_count,
                     user_entries_value = contest_item.user_entries_value,
-                    status = contest_item.status,
-                    status_string = "";
+                    contest_status = contest_item.status,
+                    status_string = contest_status_string(contest_status),
+                    button_class = "";
 
-                    if (status === 3) 
+                    if (contest_status < 3) 
                         {
-                        status_string = "Settled";
-                        }
-                    else
-                        {
-                        if (status === 1) status_string = "Open";
-                        if (status === 2) status_string = "In play";
                         in_play_value = add(in_play_value, user_entries_value);
+                        button_class = " orange orange_border";
                         }
                         
                     var button_string = "";
@@ -92,13 +88,13 @@
                     var 
                     
                     title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-                    enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
+                    enter_button = "<a class=\"contest_table_link" + button_class + "\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
 
                     var row = new_row(table, -1, [
                         "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                        "<div class='field_label'>Deadline:</div>" + status_string,
                         "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
-                        "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
-                        "<div class='field_label'>Deadline:</div>" + status_string
+                        "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description
                     ]);
 
                     for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";

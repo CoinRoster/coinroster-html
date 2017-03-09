@@ -186,6 +186,16 @@
                     (leave blank for no fixed roster size)
                 </td>
             </tr>
+            <tr class="roster_contest_field">
+                <td>
+                    Score column header
+                </td>
+                <td colSpan="2">
+                    <input id="score_header_input" type="text" class="input_style text_input">
+                    &nbsp;&nbsp;
+                    (e.g. Goals | Points | Score to par)
+                </td>
+            </tr>
         </table>
         <div id="create_jackpot_pay_table" class="roster_contest_field hidden">
             <h3>
@@ -343,10 +353,17 @@
             <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
         </div>
         <div id="settle_roster">
+            <br/>
+            Enter scores:
+            <br/><br/>
+            <div id="roster_outcome_table" class="report_table"></div>
+            <br/>
             <table class="form_table">
                 <tr>
                     <td>
-                        Scoring scheme:
+                        <b>Do you need to normalize player scores</b> (optional)?
+                        <br/>
+                        If so, choose a normalization scheme:
                     </td>
                     <td>
                         <select data-placeholder="Select" id="score_normalization_selector" class="input_style chosen-select" style="width:300px">
@@ -363,20 +380,6 @@
                             <option value="TIME-HH-MM-SS">TIME (HH:MM:SS)</option>
                             <option value="TIME-HH-MM-SS-INVERT">TIME-INVERT (HH:MM:SS)</option>-->
                         </select>
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            Enter scores:
-            <br/><br/>
-            <div id="roster_outcome_table" class="report_table"></div>
-            <br/>
-            <table class="form_table">
-                <tr>
-                    <td>
-                        Do you need to normalize player scores?
-                        <br/>
-                        Normalization will be based on the scoring scheme above.
                     </td>
                     <td>
                         <button type="button" class="input_style" onclick="normalize_player_scores();">Normalize Player Scores</button>

@@ -57,6 +57,18 @@
             }
         }
 
+    function contest_status_string(contest_status)
+        {
+        switch (contest_status)
+            {
+            case 1 : return "Open";
+            case 2 : return "In play";
+            case 3 : return "Settled";
+            case 4 : return "Under-subscribed";
+            case 5 : return "Cancelled";
+            }
+        }
+        
     function get_registration_deadline_string(registration_date_ms)
         {
         var

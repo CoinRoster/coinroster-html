@@ -13,12 +13,10 @@
 <div id="centering_container">
     <div id="body_container">
         <br/>
-        <h3 id="contest_title" class="section_header">
-            My Entries
-        </h3>
+        <h3 id="contest_title" class="section_header"><span class="orange">Leaderboard</span></h3>
         <div id="no_data_message" class="hidden"></div>
         <div id="exposure_container" class="hidden">
-            Exposure:<span id="exposure_value" class="orange"></span>
+            Contest status:<span id="exposure_value" class="orange"></span>
         </div>
     </div>
     <div class="table_body_container">
@@ -43,12 +41,17 @@
             {
             if (contest.status === "1") 
                 {
-                id("contest_title").innerHTML = contest.title;
+                id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + contest.title;
                 
                 if (contest.contest_type !== "ROSTER") return no_data_message("Contest #" + contest_id + " is not a roster contest.");
                 
                 var contest_status = contest.contest_status;
+                
+                if (contest_status === 1) return no_data_message("Contest #" + contest_id + " is still open for registration. This leaderboard will activate when registration closes when registration closes.");
                                 
+                show("exposure_container");
+                id("exposure_value").innerHTML = contest_status_string(contest_status);
+                
                 api({
                     method: "RosterReport",
                     args: {

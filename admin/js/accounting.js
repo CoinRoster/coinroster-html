@@ -441,7 +441,10 @@
                 contest_id = transaction_item.contest_id,
                 cancelled_flag = transaction_item.cancelled_flag;
 
+                var contest_string = "";
+                
                 if (contest_id === 0) contest_id = "";
+                else contest_string = "<a href='/contest.html?id=" + contest_id + "'>" + contest_id + "</a?";
                 
                 if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
                 
@@ -449,7 +452,7 @@
                 
                 if (contest_filtering_on && !(contest_id === +contest_filter)) show_row = false;
                 else if (!contest_filter_is_populated && !unique_contests.contains(contest_id)) unique_contests.push(contest_id);
-     
+                
                 if (show_row)
                     {
                     there_are_rows = true;
@@ -474,7 +477,7 @@
                         created_time,
                         created_by,
                         trans_type,
-                        contest_id,
+                        contest_string,
                         from_account,
                         to_account,
                         amount,

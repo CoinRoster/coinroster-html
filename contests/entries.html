@@ -232,9 +232,12 @@
                                         option_implied_odds = get_implied_odds(wager_grand_total, option_item, full_precision),
                                         implied_payout = "--", // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
-                                        PNL_class = "orange"; // default is total loss
+                                        PNL_class = "orange", // default is total loss
+                                        user_has_wager = typeof user_wagers[option_id] !== "undefined",
+                                        mark_outcome = "",
+                                        row_index = -1;
                                         
-                                        if (typeof user_wagers[option_id] !== "undefined") // user has a wager
+                                        if (user_has_wager) // user has a wager
                                             {
                                             amount = user_wagers[option_id],
                                             implied_payout = multiply(option_implied_odds, amount),
@@ -246,25 +249,27 @@
                                             implied_payout = toBTC(implied_payout);
                                             }
                                         
-                                        var mark_outcome = "";
-                                        
                                         if (contest_status === 3)
                                             {
                                             show("payout_container");
                                             show("PNL_container");
                                             
-                                            id("exposure_label").innerHTML = "Wagered:";
-                                            id("payout_value").innerHTML = implied_payout;
-                                            id("payout_value").style.color = "rgb(230,230,230)";
-                                            id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
-                                            id("PNL_value").className = PNL_class;
-                                            
-                                            if (option_item.outcome === 1) mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
+                                            if (option_item.outcome === 1)
+                                                {
+                                                id("exposure_label").innerHTML = "Wagered:";
+                                                id("payout_value").innerHTML = implied_payout;
+                                                id("payout_value").style.color = "rgb(230,230,230)";
+                                                id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
+                                                id("PNL_value").className = PNL_class;
+                                                
+                                                mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
+                                                //row_index = 1; // causes winning outcome to float to the top
+                                                }
                                             }
                                             
                                         if (!isNaN(implied_payout)) implied_payout += " BTC";
                                         
-                                        var row = new_row(table, -1, [
+                                        var row = new_row(table, row_index, [
                                             mark_outcome + description,
                                             "<div class='field_label'>My Wagers:</div>" + amount,
                                             "<div class='field_label'>Odds:</div>" + option_implied_odds,

@@ -100,25 +100,24 @@
                     max_users = contest_item.max_users,
                     total_prize_pool = contest_item.total_prize_pool,
                     registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
-                    status = contest_item.status,
-                    status_string,
+                    contest_status = contest_item.status,
+                    status_string = contest_status_string(contest_status),
                     button_string,
                     button_class = "";
             
                     if (max_users === 0) max_users = "";
                     else max_users = "/" + max_users;
-            
-                    switch (status)
+                                
+                    switch (contest_status)
                         {
                         case 1:
                             button_string = "Enter";
-                            status_string = "Reg open";
                             button_class = "orange orange_border";
                             break;
                         case 2:
+                        case 3:
                             button_string = "View";
-                            status_string = "In play";
-                            registration_deadline_string = "In play";
+                            registration_deadline_string = contest_status_string(contest_status);
                             break;
                         }
                         

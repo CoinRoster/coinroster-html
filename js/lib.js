@@ -263,6 +263,11 @@
         {
         return value.replace(/[^a-z0-9]/gi, '').toUpperCase();
         }
+        
+    function capitalize_first_letter(string) 
+        {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 
     function toCurrency(num)
         {

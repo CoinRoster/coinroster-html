@@ -577,6 +577,8 @@
                 }
             else return alert("Only one column found in data - this method requires two");
             
+            if (process_scheme === "PRICES") player_value = player_value | 0;
+            
             var row_data = [
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
                 "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_value + "\">",
@@ -854,6 +856,12 @@
         if (roster_size < 0) return alert("Roster size cannot be negative");
         if (!isInt(roster_size)) return alert("Invalid value for [min users]");
         
+        // make sure score_header has been assigned
+        
+        var score_header = id("score_header_input").value;
+        if (score_header === "") return alert("Please select a score column header.");
+        score_header = capitalize_first_letter(score_header);
+            
         // if jackpot, validate pay table
         
         var pay_table = [];
@@ -952,6 +960,7 @@
         args.max_users = max_users;
         args.entries_per_user = entries_per_user;
         args.roster_size = roster_size;
+        args.score_header = score_header;
         args.pay_table = pay_table;
         args.salary_cap = salary_cap;
         args.option_table = option_table;
@@ -973,6 +982,7 @@
         args.max_users = null;
         args.entries_per_user = null;
         args.roster_size = null;
+        args.score_header = null;
         args.pay_table = null;
         args.salary_cap = null;
         args.odds_source = null;

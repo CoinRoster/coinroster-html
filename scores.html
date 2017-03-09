@@ -13,9 +13,7 @@
 <div id="centering_container">
     <div id="body_container">
         <br/>
-        <h3 id="contest_title" class="section_header">
-            <!-- POPULATED BY JAVASCRIPT -->
-        </h3>
+        <h3 id="contest_title" class="section_header"><span class="orange">Player Scores</span></h3>
         <div id="no_data_message" class="hidden"></div>
     </div>
     <div class="table_body_container">
@@ -60,9 +58,10 @@
                     rake = call.rake,
                     option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
-                    contest_status = call.contest_status;
-                        
-                    id("contest_title").innerHTML = title;
+                    contest_status = call.contest_status,
+                    score_header = call.score_header;
+            
+                    id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
             
                     if (contest_type !== "ROSTER") return special_no_data_message("Contest #" + contest_id + " is not a roster contest");
                     if (contest_status < 3) return special_no_data_message("Contest #" + contest_id + " has not been settled");
@@ -87,35 +86,22 @@
                         score = player_item.score,
                         score_raw = player_item.score_raw;
                 
-                        var row_data = [
+                        var row = new_row(table, -1, [
                             name,
                             "<div class='field_label'>Price:</div>" + "$" + commas(price),
+                            "<div class='field_label'>" + score_header + ":</div>" + score_raw,
                             "<div class='field_label'>Score:</div>" + score
-                        ];
-                        
-                        if (score !== score_raw) 
-                            {
-                            if (sub_category.toUpperCase().indexOf("GOLF") !== -1) raw_score_header = "Score to par";
-                            else raw_score_header = "Raw score";
-                            
-                            row_data.splice(2, 0, "<div class='field_label'>" + raw_score_header + "</div>" + score_raw);
-                            }
-                
-                        var row = new_row(table, -1, row_data);
+                        ]);
                         
                         row[1].style.textAlign = "left";
                         }
                      
-                    
-                    var header_data = [
+                    var header = new_row(table, 0, [
                         "Player",
                         "Price",
+                        score_header,
                         "Score"
-                    ];
-                    
-                    if (raw_score_header !== "") header_data.splice(2, 0, raw_score_header);
-
-                    var header = new_row(table, 0, header_data);
+                    ]);
                     
                     header[1].style.textAlign = "left";
                     }
