@@ -16,7 +16,7 @@
         <h3 class="section_header">My Contests</h3>
         <div id="no_data_message" class="hidden"></div>
         <div id="exposure_container" class="hidden">
-            In play:<span id="exposure_value" class="orange"></span>
+            On the line:<span id="exposure_value" class="orange"></span>
         </div>
     </div>
     <div class="table_body_container">
@@ -51,7 +51,7 @@
                 var header = new_row(table, -1, [
                     "Contest",
                     "Status",
-                    "Exposure",
+                    "On the line",
                     "Category"
                 ]);
                 
@@ -93,7 +93,7 @@
                     var row = new_row(table, -1, [
                         "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
                         "<div class='field_label'>Deadline:</div>" + status_string,
-                        "<div class='field_label'>Exposure:</div>" + user_entries_value + " BTC",
+                        "<div class='field_label'>On the line:</div>" + user_entries_value + " BTC",
                         "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description
                     ]);
 
