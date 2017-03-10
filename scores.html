@@ -15,6 +15,9 @@
         <br/>
         <h3 id="contest_title" class="section_header"><span class="orange">Player Scores</span></h3>
         <div id="no_data_message" class="hidden"></div>
+        <div id="scores_updated_container" class="headline_value_container hidden">
+            Scores updated:<span id="scores_updated_value" class="headline_value orange"></span>
+        </div>
     </div>
     <div class="table_body_container">
         <table id="score_table" class="contest_table"></table>
@@ -46,31 +49,23 @@
                     sub_category = call.sub_category,
                     contest_type = call.contest_type,
                     title = call.title,
-                    description = call.description,
-                    current_users = call.current_users,
-                    max_users = call.max_users,
-                    entries_per_user = call.entries_per_user,
                     registration_deadline_ms = call.registration_deadline,
-                    registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
-                    registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
-                    settlement_type = call.settlement_type,
-                    cost_per_entry = call.cost_per_entry,
-                    rake = call.rake,
                     option_table = JSON.parse(call.option_table),
-                    pay_table = call.pay_table,
                     contest_status = call.contest_status,
-                    score_header = call.score_header;
+                    score_header = call.score_header,
+                    scores_updated_ms = call.scores_updated;
             
                     id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
             
                     if (contest_type !== "ROSTER") return special_no_data_message("Contest #" + contest_id + " is not a roster contest");
-                    if (contest_status < 3) return special_no_data_message("Contest #" + contest_id + " has not been settled");
+                    if (contest_status === 1) return special_no_data_message("Contest #" + contest_id + " is still open for registration");
                     if (contest_status > 3) return special_no_data_message("Contest #" + contest_id + " was cancelled");
+                    if (scores_updated_ms === 0) return special_no_data_message("Scores have not been posted yet. Please check back soon.");
+   
+                    show("scores_updated_container");
+                    id("scores_updated_value").innerHTML = timeSince(scores_updated_ms);
                     
-                    var 
-                    
-                    table = id("score_table"),
-                    raw_score_header = "";
+                    var table = id("score_table");
                     
                     option_table.sort(function(a, b)
                         {

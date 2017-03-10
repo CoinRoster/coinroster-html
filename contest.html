@@ -243,7 +243,8 @@
                     rake = call.rake,
                     option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
-                    contest_status = call.contest_status;
+                    contest_status = call.contest_status,
+                    scores_updated = call.scores_updated;
             
                     var max_users_string = "";
                     if (max_users > 0) max_users_string = "/" + max_users;
@@ -459,6 +460,13 @@
                                         "<br/><br/>",
                                         "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>"
                                     ].join("");
+                                    if (scores_updated > 0)
+                                        {
+                                        reason += [
+                                            "<br/><br/>",
+                                            "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>"
+                                        ].join("");
+                                        }
                                     } 
                                 break;
                             case 3 : 

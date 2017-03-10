@@ -326,7 +326,69 @@
         <br/>
     </div>
 </div>
-<div id="pane_2" class="pane" tab_text="Settle Contest">
+<div id="pane_2" class="pane" tab_text="Live Scoring">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Live Scoring
+        </div>
+    </div>
+    <div id="scorable_contest_report" class="content_body" style="top:68px">
+        <div id="scorable_contest_table" class="report_table"></div>
+    </div>
+    <div id="score_contest" class="content_body" style="top:68px">
+        <button type="button" class="input_style" onclick="cancel_score_contest();">Go back</button>
+        <br/><br/>
+        <h3 style="font-weight:normal">
+            Contest <span id="scoring_contest_id"></span>
+        </h3>
+        <h2>
+            <span id="scoring_contest_title"></span>
+        </h2>
+        Enter scores (<span id="score_header"></span>):
+        <br/><br/>
+        <div id="roster_score_table" class="report_table"></div>
+        <br/>
+        <table class="form_table">
+            <tr>
+                <td>
+                    <b>You must normalize scores:</b>
+                    <br/>
+                    This enforces validation
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="scoring_normalization_selector" class="input_style chosen-select" style="width:300px">
+                        <option value="INTEGER">INTEGER</option>
+                        <option value="INTEGER-INVERT">INTEGER-INVERT</option>
+                        <option value="DECIMAL">DECIMAL</option>
+                        <option value="DECIMAL-INVERT">DECIMAL-INVERT</option>
+                        <!--<option value="TIME-MM-SS">TIME (MM:SS)</option>
+                        <option value="TIME-MM-SS-INVERT">TIME-INVERT (MM:SS)</option>
+                        <option value="TIME-MM-SS-MS">TIME (MM:SS.SSS)</option>
+                        <option value="TIME-MM-SS-MS-INVERT">TIME-INVERT (MM:SS.SSS)</option>
+                        <option value="TIME-HH-MM">TIME (HH:MM)</option>
+                        <option value="TIME-HH-MM-INVERT">TIME-INVERT (HH:MM)</option>
+                        <option value="TIME-HH-MM-SS">TIME (HH:MM:SS)</option>
+                        <option value="TIME-HH-MM-SS-INVERT">TIME-INVERT (HH:MM:SS)</option>-->
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="normalize_player_scores('roster_score_table');">Normalize Player Scores</button>
+                </td>
+            </tr>
+        </table>
+        <button id="update_scores_button" type="button" class="input_style hidden" onclick="update_scores('roster_score_table');">Update Scores</button>
+        <br/>
+        You can safely cancel out of here by reloading the page or clicking "Go back" at the top of this window.
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+    </div>
+</div>
+<div id="pane_3" class="pane" tab_text="Settle Contest">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
             Settle Contest
@@ -336,15 +398,16 @@
         <div id="in_play_contest_report_table" class="report_table"></div>
     </div>
     <div id="settle_contest" class="content_body" style="top:68px">
-        <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
-        <br/><br/>
+        <div style="width:800px;background:orange;padding:20px;font-size:18px;">
+            You are in the Contest Settlement tab! If you only want to update scores, please <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
+        </div>
+        <br/>
         <h3 style="font-weight:normal">
             Contest <span id="contest_id"></span> | <span id="contest_type"></span>
         </h3>
         <h2>
             <span id="contest_title"></span>
         </h2>
-        <br/>
         <div id="settle_pari_mutuel">
             Select winning outcome:
             <br/><br/>
@@ -353,7 +416,6 @@
             <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
         </div>
         <div id="settle_roster">
-            <br/>
             Enter scores:
             <br/><br/>
             <div id="roster_outcome_table" class="report_table"></div>
@@ -361,12 +423,12 @@
             <table class="form_table">
                 <tr>
                     <td>
-                        <b>Do you need to normalize player scores</b> (optional)?
+                        <b>You must normalize scores:</b>
                         <br/>
-                        If so, choose a normalization scheme:
+                        This enforces validation
                     </td>
                     <td>
-                        <select data-placeholder="Select" id="score_normalization_selector" class="input_style chosen-select" style="width:300px">
+                        <select data-placeholder="Select" id="settlement_normalization_selector" class="input_style chosen-select" style="width:300px">
                             <option value="INTEGER">INTEGER</option>
                             <option value="INTEGER-INVERT">INTEGER-INVERT</option>
                             <option value="DECIMAL">DECIMAL</option>
@@ -382,15 +444,20 @@
                         </select>
                     </td>
                     <td>
-                        <button type="button" class="input_style" onclick="normalize_player_scores();">Normalize Player Scores</button>
-                    </td>
-                    <td>
-                        <button id="undo_normalization_button" type="button" class="input_style hidden" onclick="undo_normalize_player_scores();">Undo</button>
+                        <button type="button" class="input_style" onclick="normalize_player_scores('roster_outcome_table');">Normalize Player Scores</button>
                     </td>
                 </tr>
-            </table>            
+            </table>
+            <button id="settle_roster_button" type="button" class="input_style hidden" onclick="settle_roster_contest('roster_outcome_table');">Settle Contest</button>
             <br/>
-            <button type="button" class="input_style" onclick="settle_roster_contest();">Settle Contest</button>
+            You can safely cancel out of here by reloading the page or clicking "Go back" at the top of this window.
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>
     </div>
 </div>

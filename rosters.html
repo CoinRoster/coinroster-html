@@ -15,8 +15,11 @@
         <br/>
         <h3 id="contest_title" class="section_header"><span class="orange">Leaderboard</span></h3>
         <div id="no_data_message" class="hidden"></div>
-        <div id="exposure_container" class="hidden">
-            Contest status:<span id="exposure_value" class="orange"></span>
+        <div id="contest_status_container" class="headline_value_container hidden">
+            Contest status:<span id="contest_status_value" class="headline_value orange"></span>
+        </div>
+        <div id="scores_updated_container" class="headline_value_container hidden">
+            Scores updated:<span id="scores_updated_value" class="headline_value orange"></span>
         </div>
     </div>
     <div class="table_body_container">
@@ -49,9 +52,20 @@
                 
                 if (contest_status === 1) return no_data_message("Contest #" + contest_id + " is still open for registration. This leaderboard will activate when registration closes when registration closes.");
                                 
-                show("exposure_container");
-                id("exposure_value").innerHTML = contest_status_string(contest_status);
+                show("contest_status_container");
+                id("contest_status_value").innerHTML = contest_status_string(contest_status);
                 
+                var 
+                
+                scores_updated_ms = contest.scores_updated,
+                scores_updated = scores_updated_ms > 0 ? true : false;
+                
+                if (scores_updated)
+                    {
+                    show("scores_updated_container");
+                    id("scores_updated_value").innerHTML = timeSince(scores_updated_ms);
+                    }
+                    
                 api({
                     method: "RosterReport",
                     args: {
@@ -74,41 +88,83 @@
                     
                             var table = id("roster_entry_report_table"),
 
-                            player_names = [];
+                            player_names = [],
+                            player_scores = [],
+                            player_raw_scores = [];
 
                             for (var i=0; i<option_table.length; i++)
                                 {
-                                var option_item = option_table[i];
-                                player_names[option_item.id] = option_item.name;
+                                var option_item = option_table[i],
+                                player_id = option_item.id;
+                                player_names[player_id] = option_item.name;
+                                if (scores_updated) 
+                                    {
+                                    player_scores[player_id] = option_item.score;
+                                    player_raw_scores[player_id] = option_item.score_raw;
+                                    }
                                 }
+                                
+                            // we need to add player scores to roster data if scores are available
+                            // if contest is not settled, we also need to score rosters
 
+                            for (var i=0; i<entry_count; i++)
+                                {
+                                var 
+                                
+                                entry_item = entry_report[i],
+                                roster = JSON.parse(entry_item.entry_data),
+                                entry_score = 0;
+                        
+                                if (scores_updated)
+                                    {
+                                    for (var j=0; j<roster.length; j++)
+                                        {
+                                        var 
+                                        
+                                        player_id = roster[j].id,
+                                        player_score = player_scores[player_id],
+                                        player_score_raw = player_raw_scores[player_id];
+                                
+                                        roster[j].score = player_score;
+                                        roster[j].score_raw = player_score_raw;
+                                        
+                                        entry_score = add(entry_score, player_score);
+                                        }
+                                    }
+                                    
+                                entry_report[i].entry_data = roster;
+                                entry_report[i].score = entry_score;
+                                }
+                                
+                            if (scores_updated && contest_status !== 3)
+                                {
+                                entry_report.sort(function(a, b)
+                                    {
+                                    return b.score - a.score;
+                                    });
+                                }
+                                    
                             var header_data = [
                                 "<ul><li style='padding-right:40px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
                                 "User",
                                 "Roster"
                             ];
                             
-                            if (contest_status === 3)
-                                {
-                                header_data.push("Score");
-                                header_data.push("Payout per entry");
-                                }
+                            if (scores_updated) header_data.push("Score");
+                            if (contest_status === 3) header_data.push("Payout per entry");
                             
                             var header = new_row(table, -1, header_data);
 
-                            if (contest_status === 3)
-                                {
-                                header[4].style.textAlign = "right";
-                                header[5].style.textAlign = "right";
-                                }
-                                
+                            if (scores_updated) header[4].style.textAlign = "right";
+                            if (contest_status === 3) header[5].style.textAlign = "right";
+        
                             for (var i=0; i<entry_count; i++)
                                 {
                                 var entry_item = entry_report[i],
 
                                 entry_id = entry_item.id,
                                 amount = entry_item.amount,
-                                roster = JSON.parse(entry_item.entry_data),
+                                roster = entry_item.entry_data,
                                 number_of_entries = divide(amount, contest.cost_per_entry),
                                 user = entry_item.user,
                                 score = entry_item.score,
@@ -126,7 +182,19 @@
                                 for (var j=0; j<roster.length; j++)
                                     {
                                     if (j !== 0) roster_html += "<br/>";
-                                    roster_html += "<span class='inline_player_name'>" + player_names[roster[j].id] + "</span><span class='inline_player_price'>$" + commas(roster[j].price | 0) + "</span>";
+                                    roster_html += "<span class='inline_player_name'>" + player_names[roster[j].id] + "</span>";
+                                    if (scores_updated)
+                                        {
+                                        var
+                                        
+                                        score_normalized = roster[j].score,
+                                        score_raw = roster[j].score_raw,
+                                        score_string = score_raw;
+                                
+                                        if (+score_normalized !== +score_raw) score_string += "&nbsp;&nbsp;&nbsp;&nbsp;(" + score_normalized + ")";
+                                        
+                                        roster_html += "<span class='inline_player_price'>" + score_string + "</span>";
+                                        }
                                     }
 
                                 var row_data = [
@@ -135,22 +203,16 @@
                                     roster_html
                                 ];
                                 
-                                if (contest_status === 3)
-                                    {
-                                    row_data.push("<div class='field_label'>Score:</div>" + score);
-                                    row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
-                                    }
+                                if (scores_updated) row_data.push("<div class='field_label'>Score:</div>" + score);
+                                if (contest_status === 3) row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
                                 
                                 var row = new_row(table, -1, row_data);
                                 
                                 row[1].width = "1";
                                 row[2].style.color = "orange";
                                 
-                                if (contest_status === 3)
-                                    {
-                                    row[4].style.textAlign = "right";
-                                    row[5].style.textAlign = "right";
-                                    }
+                                if (scores_updated) row[4].style.textAlign = "right";
+                                if (contest_status === 3) row[5].style.textAlign = "right";
                                 }
                             }
                         }
