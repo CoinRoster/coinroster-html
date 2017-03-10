@@ -452,11 +452,14 @@
                         switch (contest_status)
                             {
                             case 2 : 
-                                reason = [
-                                    "This contest is now in play!",
-                                    "<br/><br/>",
-                                    "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>"
-                                ].join("");
+                                reason = "This contest is now in play!";
+                                if (contest_type === "ROSTER")
+                                    {
+                                    reason += [
+                                        "<br/><br/>",
+                                        "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>"
+                                    ].join("");
+                                    } 
                                 break;
                             case 3 : 
                                 main_line = "This contest was settled at ";
@@ -468,14 +471,14 @@
                                         var option_item = option_table[i];
                                         if (option_item.outcome === 1)
                                             {
-                                            reason += "The winning outcome was:&nbsp;&nbsp;<span class='orange'>" + option_item.description + "</span>";
+                                            reason = "The winning outcome was:&nbsp;&nbsp;<span class='orange'>" + option_item.description + "</span>";
                                             break;
                                             }
                                         }
                                     }
                                 else if (contest_type === "ROSTER")
                                     {
-                                    reason += [
+                                    reason = [
                                         "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>",
                                         "<br/><br/>",
                                         "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>"
