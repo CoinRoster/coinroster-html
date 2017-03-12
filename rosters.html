@@ -143,20 +143,25 @@
                                     return b.score - a.score;
                                     });
                                 }
+                                
+                            var 
+                            
+                            rank = 1,
+                            current_rank_score = entry_report[0].score; // top score
                                     
                             var header_data = [
-                                "<ul><li style='padding-right:40px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
+                                "<ul><li style='padding-right:40px'>Rank</li><li><span style='float:right;'>Score</span</li></ul>",
                                 "User",
                                 "Roster"
                             ];
                             
-                            if (scores_updated) header_data.push("Score");
                             if (contest_status === 3) header_data.push("Payout per entry");
                             
                             var header = new_row(table, -1, header_data);
 
-                            if (scores_updated) header[4].style.textAlign = "right";
-                            if (contest_status === 3) header[5].style.textAlign = "right";
+                            if (!scores_updated) header[1].style.display = "none";
+                                
+                            if (contest_status === 3) header[4].style.textAlign = "right";
         
                             for (var i=0; i<entry_count; i++)
                                 {
@@ -171,6 +176,12 @@
                                 payout = entry_item.payout,
                                 payout_per_entry = divide(payout, number_of_entries),
                                 roster_html = "";
+                        
+                                if (score < current_rank_score)
+                                    {
+                                    rank++;
+                                    current_rank_score = score;
+                                    }
 
                                 entry_item.roster = roster;
                                 entry_item.number_of_entries = number_of_entries;
@@ -198,21 +209,25 @@
                                     }
 
                                 var row_data = [
-                                    "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                    "<ul><li><div class='field_label'>Rank:</div>" + mark_outcome + rank + get_ordinal_suffix(rank) + "</li><li><span style='float:right;'><div class='field_label'>Score:</div>" + score + "</span></li></ul>",
                                     "<div class='field_label'>User:</div>" + user,
                                     roster_html
                                 ];
                                 
-                                if (scores_updated) row_data.push("<div class='field_label'>Score:</div>" + score);
-                                if (contest_status === 3) row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
+                                if (contest_status === 3) row_data.push("<div class='field_label'>Payout per entry:</div><span>" + payout_per_entry + "</span>");
                                 
                                 var row = new_row(table, -1, row_data);
+                                
+                                if (!scores_updated) row[1].style.display = "none";
                                 
                                 row[1].width = "1";
                                 row[2].style.color = "orange";
                                 
-                                if (scores_updated) row[4].style.textAlign = "right";
-                                if (contest_status === 3) row[5].style.textAlign = "right";
+                                if (contest_status === 3) 
+                                    {
+                                    row[4].style.textAlign = "right";
+                                    if (payout_per_entry > 0) row[4].children[1].className = "green";
+                                    }
                                 }
                             }
                         }
