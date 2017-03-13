@@ -119,6 +119,12 @@
     .link:hover, .inline_link:hover, .hide_button:hover {
         text-decoration:underline;
     }
+    
+    .inline_link.vertical_padding {
+        display: block;
+        padding: 25px 0px;
+        width: 300px;
+    }
 
     table {
         border-collapse:collapse;

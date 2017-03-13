@@ -1,10 +1,10 @@
-    
-    function update_contest_status_selector()
+        
+    function update_contest_status_selector(contest_status)
         {
         var 
         
         contest_status_selectors = document.getElementsByClassName("contest_status_selector_button"),
-        selector_to_activate = window.session.contest_status - 1;
+        selector_to_activate = contest_status - 1;
 
         for (var i=0; i<3; i++)
             {
@@ -13,9 +13,7 @@
             }
         }
     
-
     function switch_contest_status(contest_status)
         {
-        window.session.contest_status = contest_status;
-        init();
+        init(contest_status);
         }

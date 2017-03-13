@@ -179,11 +179,12 @@
         background: none;
         border: none;
         font-size: 12px;
+        padding-top: 0px !important;
     }
     
     .right_nowrap {
-        text-align: right;
-        white-space: nowrap;
+        text-align: right !important;
+        white-space: nowrap !important;
     }
     
     .pay_table td:first-child {
@@ -340,7 +341,7 @@
     
     #exposure_container, #payout_container, #PNL_container, .headline_value_container {
         font-size: 14px;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
     }
     
     #exposure_value, #payout_value, #PNL_value, .headline_value {

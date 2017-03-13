@@ -30,24 +30,14 @@
         
         #category_report_table td {
             display: block;
+            text-align: left !important;
             padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
         }
         
         #category_report_table td:first-child { /* title / button */
             padding-bottom: 10px !important;
         }
-        #category_report_table td:nth-child(2) { /* deadline */
-        }
-        #category_report_table td:nth-child(3) { /* game type */
-        }
-        #category_report_table td:nth-child(4) { /* users */
-            text-align: left !important;
-        }
-        #category_report_table td:nth-child(5) { /* cost per entry */
-            text-align: left !important;
-        }
         #category_report_table td:last-child { /* prize pool */
-            text-align: left !important;
             padding-bottom: 11px !important;
         }
         
@@ -421,6 +411,7 @@
         }
         #contest_status_selector_container td {
             text-align: center;
+            font-size: 12px !important;
         }
         #contest_status_selector td:first-child {
             border-left: none !important;

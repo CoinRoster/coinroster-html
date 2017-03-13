@@ -22,6 +22,7 @@
         #contest_status_selector td:last-child {
             border-top: none;
             border-right: none;
+            cursor: default;
         }
         
         .contest_status_selected {

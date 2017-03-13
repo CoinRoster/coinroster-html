@@ -19,24 +19,58 @@
 <!--#include virtual="/ssi/contest_status_selector.html" -->
     <div class="body_container">
         <div id="no_data_message" class="hidden"></div>
-        <div id="exposure_container" class="hidden">
-            On the line:<span id="exposure_value" class="orange"></span>
+        <div id="headline_value_container" class="headline_value_container hidden">
+            <span id="headline_value_label"></span>
+            <span id="headline_value" class="headline_value orange"></span>
         </div>
     </div>
     <div class="table_body_container">
         <table id="contest_report_table" class="contest_table"></table>
     </div>
 </div>
+<!--#include virtual="/ssi-java/my_contests_count" -->
 <script>
- 
-    function init()
+     
+    (function()
         {
-        update_contest_status_selector();
+        if (window.contest_counts)
+            {
+            var
+            
+            open_count = window.contest_counts.open,
+            in_play_count = window.contest_counts.in_play,
+            settled_count = window.contest_counts.settled;
+            
+            id("open_count").innerHTML = "(" + open_count + ")";
+            id("in_play_count").innerHTML = "(" + in_play_count + ")";
+            id("settled_count").innerHTML = "(" + settled_count + ")";
+            }
+        })();
+        
+    function init(contest_status_selection)
+        {
+        var contest_status;
+
+        if (!contest_status_selection)
+            {
+            if (typeof window.session !== "undefined" && !contest_status_selection) contest_status = window.session.contest_status;
+            else contest_status = 1;
+            }
+        else contest_status = contest_status_selection;
+            
+        update_contest_status_selector(contest_status);
+        
+        hide("no_data_message");
+        hide("headline_value_container");
+        
+        id("contest_report_table").innerHTML = "<tr><td>Loading...</td></tr>";
+        
+        var contest_status_final = contest_status;
         
         api({
             method: "ContestReport_MyContests",
             args: {
-                contest_status: window.session.contest_status
+                contest_status: contest_status
             }
         }, function(call)
             {
@@ -53,72 +87,198 @@
                 
                 if (number_of_contests === 0) 
                     {
+                    var no_data_message = "";
+                    switch (contest_status_final)
+                        {
+                        case 1 : // open
+                            no_data_message = "You have no open contests.";
+                            break;
+                        case 2 : // in play
+                            no_data_message = "You have no contests in play.";
+                            break;
+                        case 3 : // settled
+                            no_data_message = "You have no settled contests.";
+                            break;
+                        }
+                    id("no_data_message").innerHTML = no_data_message;
                     show("no_data_message");
-                    id("no_data_message").innerHTML = "You have no open or in-play contests.";
                     return;
                     }
-                     
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Status",
-                    "On the line",
-                    "Category"
-                ]);
-                
-                var in_play_value = 0;
-
-                for (var i=0; i<number_of_contests; i++)
-                    {
-                    var contest_item = user_contest_report[i],
-
-                    contest_id = contest_item.id,
-                    contest_type = contest_item.contest_type,
-                    category_description = contest_item.category_description,
-                    sub_category_description = contest_item.sub_category_description,
-                    title = contest_item.title,
-                    settlement_type = contest_item.settlement_type,
-                    cost_per_entry = contest_item.cost_per_entry,
-                    user_entries_count = contest_item.user_entries_count,
-                    user_entries_value = contest_item.user_entries_value,
-                    contest_status = contest_item.status,
-                    status_string = contest_status_string(contest_status),
-                    button_class = "";
-
-                    if (contest_status < 3) 
-                        {
-                        in_play_value = add(in_play_value, user_entries_value);
-                        button_class = " orange orange_border";
-                        }
-                        
-                    var button_string = "";
-
-                    if (contest_type === "PARI-MUTUEL") button_string += "My wagers";
-                    else if (contest_type === "ROSTER") button_string += "My rosters";
-
-                    var 
                     
-                    title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-                    enter_button = "<a class=\"contest_table_link" + button_class + "\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
-
-                    var row = new_row(table, -1, [
-                        "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
-                        "<div class='field_label'>Deadline:</div>" + status_string,
-                        "<div class='field_label'>On the line:</div>" + user_entries_value + " BTC",
-                        "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description
-                    ]);
-
-                    for (var cell=2; cell<row.length; cell++) row[cell].style.whiteSpace = "nowrap";
-                    }
-                    
-                if (in_play_value > 0)
+                switch (contest_status_final)
                     {
-                    show("exposure_container");
-                    id("exposure_value").innerHTML = toBTC(in_play_value) + " BTC";
+                    case 1 : // open
+                        populate_open_contests(user_contest_report, number_of_contests, table);
+                        break;
+                    case 2 : // in play
+                        populate_in_play_contests(user_contest_report, number_of_contests, table);
+                        break;
+                    case 3 : // settled
+                        populate_settled_contests(user_contest_report, number_of_contests, table);
+                        break;
                     }
                 }
             });
         }
    
+    function populate_open_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "Goes live",
+            "On the line"
+        ]);
+
+        header[4].className = "right_nowrap";
+        
+        var user_wagers_total = 0;
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            contest_type = contest_item.contest_type,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers;
+
+            user_wagers_total = add(user_wagers_total, user_wagers);
+
+            var button_string = "";
+
+            if (contest_type === "PARI-MUTUEL") button_string += "My wagers";
+            else if (contest_type === "ROSTER") button_string += "My rosters";
+
+            var 
+
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
+
+            var row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
+                "<div class='field_label'>Goes live:</div>" + get_registration_deadline_string(contest_item.registration_deadline),
+                "<div class='field_label'>On the line:</div>" + user_wagers + " BTC"
+            ]);
+
+            for (var cell=2; cell<4; cell++) row[cell].style.whiteSpace = "nowrap";
+            
+            row[4].className = "right_nowrap";
+            }
+
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "On the line:";
+        id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        }
+        
+    function populate_in_play_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "In play"
+        ]);
+
+        header[3].className = "right_nowrap";
+        
+        var user_wagers_total = 0;
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            contest_type = contest_item.contest_type,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers;
+
+            user_wagers_total = add(user_wagers_total, user_wagers);
+
+            var button_string = "";
+
+            if (contest_type === "ROSTER")
+                {
+                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contests/entries.html?contest_id=" + contest_id + "'>My wagers</button>";
+                }
+
+            var title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
+
+            var row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
+                "<div class='field_label'>In play:</div>" + user_wagers + " BTC"
+            ]);
+
+            row[2].style.whiteSpace = "nowrap";
+            row[3].className = "right_nowrap";
+            }
+
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "In play:";
+        id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        }
+        
+    function populate_settled_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "P/L"
+        ]);
+
+        header[3].className = "right_nowrap";
+        
+        var PL_total = 0;
+        
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers,
+            user_winnings = contest_item.user_winnings,
+            net_PL = subtract(user_winnings, user_wagers);
+            PL_total = add(PL_total, net_PL);
+        
+            var 
+            
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;white-space:nowrap\" href='/contests/entries.html?contest_id=" + contest_id + "'>Results</button>",
+            PL_class = "";
+    
+            if (net_PL > 0) PL_class = "green";
+            else if (net_PL < 0) PL_class = "orange";
+
+            var row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                "<div class='field_label'>Category:</div>" + category_description + " &bull; " + sub_category_description,
+                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + toBTC(net_PL) + " BTC</span>"
+            ]);
+
+            row[2].style.whiteSpace = "nowrap";
+            row[3].className = "right_nowrap";
+            }
+            
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "Total P/L:";
+        
+        if (PL_total > 0) id("headline_value").innerHTML = "<span class='green'>" + toBTC(PL_total) + " BTC</span>";
+        else if (PL_total < 0) id("headline_value").innerHTML = "-" + toBTC(PL_total) + " BTC";
+        else id("headline_value").innerHTML = toBTC(PL_total);
+        }
+        
     function show_user_entries(contest_id)
         {
         window.location = "/contests/entries.html?contest_id=" + contest_id;

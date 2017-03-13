@@ -30,23 +30,57 @@
         <table id="category_report_table" class="contest_table"></table>
     </div>
 </div>
+<!--#include virtual="/js/contest_counts.js" -->
 <script type="text/javascript">
-
-    function init()
+    
+    (function()
         {
-        update_contest_status_selector();
+        var 
+
+        category = get_url_param("main"),
+        sub_category = get_url_param("sub");
         
+        if (category === null ||sub_category === null) return;
+        
+        var contest_counts = window.contest_counts[category.toUpperCase() + "_" + sub_category.toUpperCase()];
+        
+        if (!contest_counts) return;
+        
+        var
+
+        open_count = contest_counts.open,
+        in_play_count = contest_counts.in_play,
+        settled_count = contest_counts.settled;
+
+        id("open_count").innerHTML = "(" + open_count + ")";
+        id("in_play_count").innerHTML = "(" + in_play_count + ")";
+        id("settled_count").innerHTML = "(" + settled_count + ")";
+            
+        })();
+        
+    function init(contest_status_selection)
+        {
         var 
 
         category = get_url_param("main"),
         sub_category = get_url_param("sub"),
         contest_status = 1;
 
-        if (category === null ||sub_category === null) return special_no_data_message();
+        if (category === null ||sub_category === null) return invalid_category_message();
 
         id("ssi_header_lobby").className = "ssi_header_a";
         
-        if (typeof window.session !== "undefined") contest_status = window.session.contest_status;
+        // two possible overrides, otherwise default to 1
+        
+        if (contest_status_selection) contest_status = contest_status_selection;
+        //else if (typeof window.session !== "undefined") contest_status = window.session.contest_status;
+            
+        update_contest_status_selector(contest_status);
+
+        hide("no_data_message");
+        id("category_report_table").innerHTML = "<tr><td>Loading...</td></tr>";
+        
+        var contest_status_final = contest_status;
         
         api({ 
             method: "ContestReport_Lobby", 
@@ -62,7 +96,7 @@
             category_description = call.category_description,
             sub_category_description = call.sub_category_description;
     
-            if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return special_no_data_message();
+            if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
             id("ssi_mobile_nav_placeholder").innerHTML = category_description;
             id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
@@ -78,88 +112,223 @@
     
             if (number_of_contests === 0) 
                 {
-                id("no_data_message").innerHTML = [
-                    "There are no open contests in this category. Please check back soon.",
-                    "<a href='/' class='inline_link'>Return to lobby</a>"
-                ].join("<br/></br></br>");
-                }
-            else
-                {
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Deadline",
-                    "Game type",
-                    "Users",
-                    "Entry fee",
-                    "Prize pool"
-                ]);
-                
-                header[4].className = "right_nowrap";
-                header[5].className = "right_nowrap";
-                header[6].className = "right_nowrap";
-                    
-                for (var i=0; i<number_of_contests; i++)
+                var no_data_message = "";
+                switch (contest_status_final)
                     {
-                    var contest_item = contest_report[i],
-
-                    contest_id = contest_item.id,
-                    title = contest_item.title,
-                    settlement_type = contest_item.settlement_type,
-                    pay_table = contest_item.pay_table,
-                    cost_per_entry = contest_item.cost_per_entry,
-                    min_users = contest_item.min_users,
-                    current_users = contest_item.current_users,
-                    max_users = contest_item.max_users,
-                    total_prize_pool = contest_item.total_prize_pool,
-                    registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline),
-                    contest_status = contest_item.status,
-                    status_string = contest_status_string(contest_status),
-                    button_string,
-                    button_class = "";
-            
-                    if (max_users === 0) max_users = "";
-                    else max_users = "/" + max_users;
-                                
-                    switch (contest_status)
-                        {
-                        case 1:
-                            button_string = "Enter";
-                            button_class = "orange orange_border";
-                            break;
-                        case 2:
-                        case 3:
-                            button_string = "View";
-                            registration_deadline_string = contest_status_string(contest_status);
-                            break;
-                        }
-                        
-                    var 
-                    
-                    title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-                    enter_button = "<a class=\"contest_table_link " + button_class + "\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>" + button_string + "</button>",
-                    game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
-                     
-                    row = new_row(table, -1, [
-                        "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
-                        "<div class='field_label'>Deadline:</div>" + registration_deadline_string,
-                        "<div class='field_label'>Game type:</div>" + game_type,
-                        "<div class='field_label'>Users:</div>" + current_users + max_users,
-                        "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
-                        "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC"
-                    ]);
-
-                    row[4].className = "right_nowrap";
-                    row[5].className = "right_nowrap";
-                    row[6].className = "right_nowrap";
-
-                    bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
+                    case 1 : // open
+                        no_data_message = "There are no open contests in this category. Please check back soon.";
+                        break;
+                    case 2 : // in play
+                        no_data_message = "There are no contests in play in this category.";
+                        break;
+                    case 3 : // settled
+                        no_data_message = "No contests have been settled in this category in the past 14 days.";
+                        break;
                     }
+                id("no_data_message").innerHTML = no_data_message + "<a href='/' class='inline_link vertical_padding'>Return to lobby</a>";
+                show("no_data_message");
+                return;
                 }
+
+            switch (contest_status_final)
+                {
+                case 1 : // open
+                    populate_open_contests(contest_report, number_of_contests, table);
+                    break;
+                case 2 : // in play
+                    populate_in_play_contests(contest_report, number_of_contests, table);
+                    break;
+                case 3 : // settled
+                    populate_settled_contests(contest_report, number_of_contests, table);
+                    break;
+                }
+            
             });
         }
         
-    function special_no_data_message()
+    function populate_open_contests(contest_report, number_of_contests, table)
         {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Game type",
+            "Goes live",
+            "Entry fee",
+            "Prize pool",
+            "Users"
+        ]);
+
+        header[4].className = "right_nowrap";
+        header[5].className = "right_nowrap";
+        header[6].className = "right_nowrap";
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            title = contest_item.title,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            cost_per_entry = contest_item.cost_per_entry,
+            current_users = contest_item.current_users,
+            max_users = contest_item.max_users,
+            total_prize_pool = contest_item.total_prize_pool,
+            registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline);
+
+            if (max_users === 0) max_users = "";
+            else max_users = "/" + max_users;
+
+            var 
+
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Enter</button>",
+            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+
+            row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                "<div class='field_label'>Game type:</div>" + game_type,
+                "<div class='field_label'>Goes live:</div>" + registration_deadline_string,
+                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
+                "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",
+                "<div class='field_label'>Users:</div>" + current_users + max_users
+            ]);
+
+            row[4].className = "right_nowrap";
+            row[5].className = "right_nowrap";
+            row[6].className = "right_nowrap";
+
+            bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
+            }
+        }
+        
+    function populate_in_play_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Game type",
+            "Entry fee",
+            "Prize pool",
+            "Users"
+        ]);
+
+        header[3].className = "right_nowrap";
+        header[4].className = "right_nowrap";
+        header[5].className = "right_nowrap";
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            title = contest_item.title,
+            contest_type = contest_item.contest_type,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            cost_per_entry = contest_item.cost_per_entry,
+            current_users = contest_item.current_users,
+            max_users = contest_item.max_users,
+            total_prize_pool = contest_item.total_prize_pool,
+            button_string;
+
+            if (max_users === 0) max_users = "";
+            else max_users = "/" + max_users;
+            
+            if (contest_type === "ROSTER")
+                {
+                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>View</button>";
+                }
+
+            var 
+
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+
+            row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                "<div class='field_label'>Game type:</div>" + game_type,
+                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
+                "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",
+                "<div class='field_label'>Users:</div>" + current_users + max_users
+            ]);
+
+            row[3].className = "right_nowrap";
+            row[4].className = "right_nowrap";
+            row[5].className = "right_nowrap";
+
+            bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
+            }
+        }
+            
+    function populate_settled_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Game type",
+            "Entry fee",
+            "Prize pool",
+            "Users"
+        ]);
+
+        header[3].className = "right_nowrap";
+        header[4].className = "right_nowrap";
+        header[5].className = "right_nowrap";
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            title = contest_item.title,
+            contest_type = contest_item.contest_type,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            cost_per_entry = contest_item.cost_per_entry,
+            current_users = contest_item.current_users,
+            max_users = contest_item.max_users,
+            total_prize_pool = contest_item.total_prize_pool,
+            button_string;
+
+            if (max_users === 0) max_users = "";
+            else max_users = "/" + max_users;
+            
+            if (contest_type === "ROSTER")
+                {
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Results</button>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Results</button>";
+                }
+
+            var 
+
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+
+            row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                "<div class='field_label'>Game type:</div>" + game_type,
+                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
+                "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",
+                "<div class='field_label'>Users:</div>" + current_users + max_users
+            ]);
+
+            row[3].className = "right_nowrap";
+            row[4].className = "right_nowrap";
+            row[5].className = "right_nowrap";
+
+            bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
+            }
+        }
+        
+    function invalid_category_message()
+        {
+        show("no_data_message");
+        hide("contest_status_selector_container");
         id("category_text").innerHTML = "Invalid category";
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
