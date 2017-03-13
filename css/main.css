@@ -327,7 +327,7 @@
         margin: 0 auto;
     }
     
-    #body_container { /* gets overridden in lobby.css */
+    #body_container, .body_container { /* gets overridden in lobby.css */
         padding: 0 20px;
     }
     #lobby_body_container {

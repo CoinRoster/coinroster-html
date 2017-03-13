@@ -9,17 +9,21 @@
     <meta name="rating" content="General" />
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <link type="text/css" rel="stylesheet" href="/css/contest_status_selector.css" />
     <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div id="body_container">
+    <div class="body_container">
         <br/>
         <h3 id="category_header" class="section_header">
-            <span id="category_text"></span><span id="sub_category_text"></span>
+            <span id="category_text">&nbsp;</span><span id="sub_category_text"></span>
         </h3>
+    </div>
+<!--#include virtual="/ssi/contest_status_selector.html" -->
+    <div class="body_container">
         <div id="no_data_message"></div>
     </div>
     <div class="table_body_container">
@@ -30,20 +34,26 @@
 
     function init()
         {
+        update_contest_status_selector();
+        
         var 
 
         category = get_url_param("main"),
-        sub_category = get_url_param("sub");
+        sub_category = get_url_param("sub"),
+        contest_status = 1;
 
         if (category === null ||sub_category === null) return special_no_data_message();
 
         id("ssi_header_lobby").className = "ssi_header_a";
         
+        if (typeof window.session !== "undefined") contest_status = window.session.contest_status;
+        
         api({ 
-            method: "ContestReport", 
+            method: "ContestReport_Lobby", 
             args: {
                 category: category,
-                sub_category: sub_category
+                sub_category: sub_category,
+                contest_status: contest_status
             } 
         }, function(call)
             {
@@ -63,6 +73,8 @@
             table = id("category_report_table"),
             contest_report = call.contest_report,
             number_of_contests = contest_report.length;
+    
+            table.innerHTML = "";
     
             if (number_of_contests === 0) 
                 {
@@ -153,6 +165,7 @@
         }
 
 </script>
+<script type="text/javascript" src="/js/contest_status_selector.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>

@@ -414,6 +414,21 @@
         #transaction_report_table td:nth-child(3) { /* date */
             font-size: 10px !important;
         }
+        
+        #contest_status_selector_container {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        #contest_status_selector td:first-child {
+            border-left: none !important;
+        }
+        #contest_status_selector td:nth-child(3) {
+            border-right: none !important;
+        }
+        #contest_status_selector td:last-child {
+            display: none;
+        }
+        
     }
     
     @media only screen and (max-width: 374px) {

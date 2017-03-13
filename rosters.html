@@ -152,16 +152,18 @@
                             var header_data = [
                                 "<ul><li style='padding-right:40px'>Rank</li><li><span style='float:right;'>Score</span</li></ul>",
                                 "User",
-                                "Roster"
+                                "Roster",
+                                "# of entries"
                             ];
                             
-                            if (contest_status === 3) header_data.push("Payout per entry");
+                            if (contest_status === 3) header_data.push("Payout");
                             
                             var header = new_row(table, -1, header_data);
 
                             if (!scores_updated) header[1].style.display = "none";
+                            header[4].style.textAlign = "right";
                                 
-                            if (contest_status === 3) header[4].style.textAlign = "right";
+                            if (contest_status === 3) header[5].style.textAlign = "right";
         
                             for (var i=0; i<entry_count; i++)
                                 {
@@ -211,10 +213,11 @@
                                 var row_data = [
                                     "<ul><li><div class='field_label'>Rank:</div>" + mark_outcome + rank + get_ordinal_suffix(rank) + "</li><li><span style='float:right;'><div class='field_label'>Score:</div>" + score + "</span></li></ul>",
                                     "<div class='field_label'>User:</div>" + user,
-                                    roster_html
+                                    roster_html,
+                                    "<div class='field_label'># of entries:</div>" + number_of_entries
                                 ];
                                 
-                                if (contest_status === 3) row_data.push("<div class='field_label'>Payout per entry:</div><span>" + payout_per_entry + "</span>");
+                                if (contest_status === 3) row_data.push("<div class='field_label'>Payout:</div><span>" + payout + "</span>");
                                 
                                 var row = new_row(table, -1, row_data);
                                 
@@ -222,11 +225,12 @@
                                 
                                 row[1].width = "1";
                                 row[2].style.color = "orange";
+                                row[4].style.textAlign = "right";
                                 
                                 if (contest_status === 3) 
                                     {
-                                    row[4].style.textAlign = "right";
-                                    if (payout_per_entry > 0) row[4].children[1].className = "green";
+                                    row[5].style.textAlign = "right";
+                                    if (payout_per_entry > 0) row[5].children[1].className = "green";
                                     }
                                 }
                             }

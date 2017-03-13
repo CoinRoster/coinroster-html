@@ -66,7 +66,7 @@
     function contest_report()
         {
         var call = api({ 
-            method: "ContestReport", 
+            method: "ContestReport_Admin", 
             args: {
                 category: "",
                 sub_category: ""
@@ -1049,7 +1049,7 @@
     function in_play_contest_report(table_id)
         {
         var call = api({ 
-            method: "ContestReport", 
+            method: "ContestReport_Admin", 
             args: {
                 category: "",
                 sub_category: ""

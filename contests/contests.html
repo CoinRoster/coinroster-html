@@ -4,6 +4,7 @@
     <title>CoinRoster | My Contests</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <link type="text/css" rel="stylesheet" href="/css/contest_status_selector.css" />
     <script type="text/javascript" src="/js/account.js"></script>
     <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
@@ -11,9 +12,12 @@
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div id="body_container">
+    <div class="body_container">
         <br/>
         <h3 class="section_header">My Contests</h3>
+    </div>
+<!--#include virtual="/ssi/contest_status_selector.html" -->
+    <div class="body_container">
         <div id="no_data_message" class="hidden"></div>
         <div id="exposure_container" class="hidden">
             On the line:<span id="exposure_value" class="orange"></span>
@@ -24,12 +28,16 @@
     </div>
 </div>
 <script>
-
+ 
     function init()
         {
+        update_contest_status_selector();
+        
         api({
-            method: "MyContestsReport",
-            args: {}
+            method: "ContestReport_MyContests",
+            args: {
+                contest_status: window.session.contest_status
+            }
         }, function(call)
             {
             if (call.status === "1") 
@@ -40,6 +48,8 @@
                 number_of_contests = user_contest_report.length,
                 
                 table = id("contest_report_table");
+        
+                table.innerHTML = "";
                 
                 if (number_of_contests === 0) 
                     {
@@ -118,6 +128,7 @@
 <script type="text/javascript">
     window.nav_text = "My Contests";
 </script>
+<script type="text/javascript" src="/js/contest_status_selector.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
