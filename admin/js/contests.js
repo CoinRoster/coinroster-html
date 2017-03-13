@@ -872,6 +872,8 @@
         if (roster_size < 0) return alert("Roster size cannot be negative");
         if (!isInt(roster_size)) return alert("Invalid value for [min users]");
         
+        roster_size = +roster_size;
+        
         // make sure score_header has been assigned
         
         var score_header = id("score_header_input").value;
@@ -919,7 +921,7 @@
         player_name_table = [],
         option_table = [],
         number_of_players = player_rows.length - 1; // exclude header
-   
+
         if (typeof player_rows[0] === "undefined") return alert("Please add players");
         if (number_of_players < 2) return alert("Please add at least two players");
         if (number_of_players < roster_size + 1) return alert("Number of players must be greater than (roster size + 1)");
