@@ -114,7 +114,7 @@
         #ssi_mobile_nav_button {
             display: block;
         }
-        .ssi_desktop {
+        .ssi_desktop, .ssi_mobile_hide {
             display: none;
         }
         

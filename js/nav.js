@@ -16,12 +16,19 @@
             if (target === "") target = url[url.length - 2];
             }
 
-        if (pathname.indexOf("/admin/") !== 0) 
+        if (pathname.indexOf("/admin/") !== -1) 
             {
-            tab_id = "ssi_header_" + target;
-            if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
+            return init(); // avoid all mobile stuff below if admin
             }
 
+        tab_id = "ssi_header_" + target;
+        if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
+        
+        if (window.session)
+            {
+            id("balance_bar_available_balance").innerHTML = toBTC(window.session.available_balance);
+            }
+            
         var 
 
         mobile_nav = document.getElementById("ssi_mobile_nav"),
