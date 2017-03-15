@@ -3,7 +3,7 @@
         padding: 18px 0;
         width: 100%;
         text-align: center;
-        z-index: 2000
+        z-index: 1000
     }
 
     #ssi_header {
@@ -119,8 +119,8 @@
     #ssi_mobile_nav {
         z-index: 2;
         display: none;
-        position: relative;
-        top: 0px;
+        position: absolute;
+        top: 142px;
         left: 0;
         right: 0;
         font-size: 14px;

@@ -51,6 +51,10 @@
     #ssi_header {
         height: 158px; /* 142 + height of balance bar */
     }
+    #ssi_mobile_nav {
+        top: 158px; /* same as above */
+    }
+    
     #ssi_main_nav_bar, #ssi_mobile_nav_button {
         top: 112px !important; /* 96 + height of balance bar */
     }
@@ -65,7 +69,6 @@
     @media only screen and (max-width: 500px) {
 
         #ssi_logo_container {
-            z-index: 1000 !important;
             top: 35px !important;
         }
         
