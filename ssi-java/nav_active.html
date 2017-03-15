@@ -12,14 +12,17 @@
                         <span class="ssi_header_a_no_link">Cash value</span>
                     </td>
                     <td><!-- blank cell for spacing --></td>
-                    <td width="1" class="ssi_mobile_hide">
-                        <a id="ssi_header_account" class="ssi_header_a" href="/account"><!--ssi:username--></a>
-                    </td>
-                    <td width="1" class="ssi_header_admin_wrapper ssi_mobile_hide">
+                    <td width="1" class="ssi_header_admin_wrapper">
                         <a id="ssi_header_admin" class="ssi_header_a" href="/admin">Admin</a>
                     </td>
                     <td width="1" class="ssi_mobile_hide">
-                        <a class="ssi_header_a" onclick="logout();">Logout</a>
+                        <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com">Blog</a>
+                    </td>
+                    <td width="1" class="ssi_mobile_hide">
+                        <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/faq">FAQ</a>
+                    </td>
+                    <td width="1" class="ssi_mobile_hide">
+                        <a class="ssi_header_a ssi_subnav_a" href="http://blog.coinroster.com/contact">Contact</a>
                     </td>
                 </tr>
             </table>
@@ -29,7 +32,7 @@
 <div id="ssi_header">
     <div class="centering_container">
         <div id="ssi_logo_container">
-            <a href="/" class="logo_link">
+            <a href="/" id="logo_link">
                 <h1 class="logo_font">
                     CoinRoster
                 </h1>
@@ -51,11 +54,17 @@
                     <a id="ssi_header_contests" class="ssi_header_a" href="/contests">My Contests</a>
                 </td>
                 <td width="1" class="teal">
-                    <a id="ssi_header_deposit" class="ssi_header_a teal" href="/account/deposit.html">Deposit BTC</a>
+                    <a id="ssi_header_deposit" class="ssi_header_a teal" href="/account/deposit.html">Deposit</a>
                 </td>
-                <td><!-- blank cell for spacing --></td>
                 <td width="1" class="teal">
                     <a id="ssi_header_rewards" class="ssi_header_a teal" href="/account/rewards.html">Refer a friend!</a>
+                </td>
+                <td><!-- blank cell for spacing --></td>
+                <td width="1">
+                    <a id="ssi_header_account" class="ssi_header_a" href="/account"><!--ssi:username--></a>
+                </td>
+                <td width="1">
+                    <a class="ssi_header_a" onclick="logout();">Logout</a>
                 </td>
             </tr>
         </table>

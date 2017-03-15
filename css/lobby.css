@@ -35,6 +35,8 @@
     }
     
     .sub_category_description {
+        margin: 0;
+        font-weight: normal;
         padding: 12px 0 8px;
         font-size: 16px;
         font-family: 'ubuntu_fantasy', sans-serif;

@@ -72,12 +72,6 @@
         font-family: 'ubuntu_fantasy', sans-serif;
     }
     
-    .logo_link {
-        text-decoration: none !important;
-        color: white !important;
-        display:inline-block;
-    }
-    
     #bitcoin_logo, #bitcoin_fantasy {
         display: inline-block;
         height: 20px;

@@ -86,8 +86,10 @@
     }
     
     #ssi_main_nav_bar {
-        top: 0px !important;
-        height: 64px !important;
+        top: -5px !important;
+    }
+    #ssi_main_nav_bar td {
+        display: table-cell !important;
     }
     
     #ssi_main_nav_bar a {

@@ -4,7 +4,7 @@
     }
         
     #ssi_logo_container {
-        top: 45px;
+        top: 50px;
     }
         
     #balance_bar {
@@ -60,6 +60,36 @@
         top: 158px; /* same as above */
     }
     
-    #ssi_main_nav_bar, #ssi_mobile_nav_button {
+    #ssi_main_nav_bar {
+        top: 102px !important; /* 96 + height of balance bar */
+    }
+    #ssi_mobile_nav_button {
         top: 112px !important; /* 96 + height of balance bar */
     }
+        
+    #ssi_header_account {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAllBMVEUAAAD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQByQTQSAAAAMXRSTlMA6f18vbj59t7a1KhfNh7LrpNDEfHt4cacUzsC5bOIZzIsCgUDj0wUDgejg3Vua1knkHVdbwAAAZhJREFUWMOl1Ndu4zAQheFR781WseLenb7n/V9uF9gAkWUymRG/+5+QSA5JZ/mcbxel23VuUvXXI4nt120T+PY/fmCF1U3av0YY8uNe1lcBRtpU0m/xyNrx+7yGQif4ASjNuP28hpJHTBeo+XPicQCzfyihwT3JAhoO8UTQqHj9soVGQiynFTRK5heE0FgQTwyNjekpvBFPYngPzG/iJzT+EE+m6a0Dd5wD3TXgcjmjIN9FOyOuzNZsAdexVY8S3wIKn8T3pOhXB+I7RapRlPjAgz1J3Jpx75LMG0Z2JHMI7/sXkrrUd0eQk5iHgTXJrTEQLsX9vDHaQ1q+4875RDJ9jTvBVvT5qWdhpHHTZ+YczKrCgoJVnJ9+z2cbN4KOHXvOj2vk7+V3rVsjSee6R2Dj2mCo185emUdg6x6WyD9iiHTpddhnJcQWu0FvYYIwoy/XFSaxvmb8mGAi7//dvPiYyN6OXg6x6EhEmY/peiI6w4BHRCEM+DfKbZiYUQ8jDr3CSEIvMOKSByMxFTASUgsjDRWBZSCI/wLhXH48GGwlPQAAAABJRU5ErkJggg==");
+        background-size: 16px 16px;
+        background-position: left;
+        background-repeat: no-repeat;
+        padding-left: 24px;
+        color: orange !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    @media only screen and (min-width: 1120px) {
+
+        #ssi_logo_container {
+            top: 60px;
+        }
+        
+    }
+    
+    /* the only truly hack thing I've done with CSS -> need fine gradations for max-width of username in nav bar */
+    
+    @media only screen and (min-width: 938px) and (max-width: 994px) {#ssi_header_account {max-width: 280px;}}
+    @media only screen and (min-width: 882px) and (max-width: 937px) {#ssi_header_account {max-width: 240px;}}
+    @media only screen and (min-width: 826px) and (max-width: 881px) {#ssi_header_account {max-width: 180px;}}
+    @media only screen and (min-width: 768px) and (max-width: 825px) {#ssi_header_account {max-width: 140px;}}
+        
