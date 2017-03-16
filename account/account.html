@@ -11,54 +11,49 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
-        <br/>
-        <h3 class="section_header">My Account</h3>
-        <div style="display:inline-block">
-            <table id="balance_wrapper_table">
+        <h3 class="section_header">
+            My Account
+        </h3>
+        <div style="display:inline-block;">
+            <table class="balance_table">
                 <tr>
-                    <td width="1" style="padding-right:60px;">
-                        <table class="balance_table">
-                            <tr>
-                                <td id="btc_balance" class="balance_field">
-                                    <!-- POPULATED BY JAVASCRIPT -->
-                                </td>
-                                <td style="padding-right:0">
-                                    BTC
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="rc_balance" class="balance_field" style="padding-bottom:24px">
-                                    <!-- POPULATED BY JAVASCRIPT -->
-                                </td>
-                                <td style="padding-right:0;padding-bottom:24px">
-                                    RC
-                                </td>
-                            </tr>
-                            <tr style="border-top:1px solid white;">
-                                <td id="available_balance" class="balance_field" style="padding-top:24px;">
-                                    
-                                </td>
-                                <td style="padding-right:0;padding-top:24px;">
-                                    Available
-                                </td>
-                            </tr>
-                            <tr>
-                                <td id="in_play_balance" class="balance_field" style="padding-bottom:24px">
-                                    
-                                </td>
-                                <td style="padding-right:0;padding-bottom:24px">
-                                    In contests
-                                </td>
-                            </tr>
-                            <tr style="border-top:1px solid white;">
-                                <td id="total_balance" class="balance_field" style="padding-top:24px;">
-                                    
-                                </td>
-                                <td style="padding-right:0;padding-top:24px;">
-                                    Total
-                                </td>
-                            </tr>
-                        </table>
+                    <td id="btc_balance" class="balance_field" style="padding-top:0">
+                        <!-- POPULATED BY JAVASCRIPT -->
+                    </td>
+                    <td style="padding-right:0;padding-top:0">
+                        BTC
+                    </td>
+                </tr>
+                <tr>
+                    <td id="rc_balance" class="balance_field" style="padding-bottom:24px">
+                        <!-- POPULATED BY JAVASCRIPT -->
+                    </td>
+                    <td style="padding-right:0;padding-bottom:24px">
+                        RC
+                    </td>
+                </tr>
+                <tr style="border-top:1px solid white;" class="green">
+                    <td id="available_balance" class="balance_field" style="padding-top:24px;">
+
+                    </td>
+                    <td style="padding-right:0;padding-top:24px;">
+                        Available
+                    </td>
+                </tr>
+                <tr>
+                    <td id="in_play_balance" class="balance_field" style="padding-bottom:24px">
+
+                    </td>
+                    <td style="padding-right:0;padding-bottom:24px">
+                        In contests
+                    </td>
+                </tr>
+                <tr style="border-top:1px solid white;">
+                    <td id="total_balance" class="balance_field" style="padding-top:24px;">
+
+                    </td>
+                    <td style="padding-right:0;padding-top:24px;">
+                        Total
                     </td>
                 </tr>
             </table>
