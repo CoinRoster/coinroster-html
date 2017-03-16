@@ -26,7 +26,17 @@
         
         if (window.session)
             {
-            id("balance_bar_available_balance").innerHTML = toBTC(window.session.available_balance);
+            var available_balance = window.session.available_balance;
+            if (available_balance !== 0)
+                {
+                id("balance_bar_available_balance").innerHTML = toBTC(available_balance);
+                }
+            else // user has 0 balance -> prompt for deposit
+                {
+                show("deposit_cell", "table-cell");
+                id("balance_bar_available_balance").innerHTML = "0.00";
+                
+                }
             }
             
         var 

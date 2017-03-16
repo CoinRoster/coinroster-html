@@ -104,14 +104,6 @@
             display: block !important;
         }
         
-        /* start truncating length of username */
-
-        #ssi_header_account {
-            max-width: 10em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
     }
     @media only screen and (min-width: 768px) {
 
@@ -137,7 +129,7 @@
         #ssi_mobile_nav_button {
             display: block;
         }
-        .ssi_desktop, .ssi_mobile_hide {
+        .ssi_desktop {
             display: none;
         }
         
@@ -352,6 +344,14 @@
     }
     @media only screen and (max-width: 500px) {
 
+        .mobile_lowest_only {
+            display: block !important;
+        }
+        
+        .ssi_mobile_hide {
+            display: none;
+        }
+        
         .table_body_container {
             padding: 0 !important;
         }
