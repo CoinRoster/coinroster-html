@@ -347,6 +347,23 @@
         
         return (is_negative ? "-" : "") + output_value;
         }
+        
+    function populate_fiat_symbol_elements()
+        {
+        var symbol = "USD";
+        if (window.session) symbol = window.session.currency;
+        var els = document.getElementsByClassName("fiat_symbol");
+        for (var i=0, limit = els.length; i<limit; i++) els[i].innerHTML = symbol;
+        }
+    function toFiat(btc_value)
+        {
+        if (window.session)
+            {
+            var btcxxx = multiply(window.session.btcusd_last_price, window.session.currency_last_price);
+            return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
+            }
+        else return false;
+        }
        
     function commas(x) 
         {

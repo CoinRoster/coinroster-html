@@ -110,9 +110,9 @@
             </form>
         </div>
         
-        <div id="manage_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="Your Bitcoin wallet">
+        <div id="manage_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="Manage your Bitcoin wallet">
             <div class="subwindow_heading">
-                Your Bitcoin wallet
+                Mange your Bitcoin wallet
             </div>
             <br/>
             <br/>
@@ -308,6 +308,22 @@
             </form>
         </div>
 
+        <div class="subwindow hidden_subwindow" toggle="Change display currency">
+            <div class="subwindow_heading">
+                Change display currency
+            </div>
+            <br/>
+            <br/>
+            <ul class="account_form">
+                <li>
+                    <span id="currency" class="teal"></span>
+                </li>
+                <li>
+                    <button class="text_button auto_width" onclick="window.location='/account/currency.html';">Change currency</button>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
@@ -378,13 +394,17 @@
                 email_address = call.email_address,
                 email_ver_flag = call.email_ver_flag,
                 newsletter_flag = call.newsletter_flag,
-                ext_address_secure_flag = call.ext_address_secure_flag;
+                ext_address_secure_flag = call.ext_address_secure_flag,
+                
+                currency_symbol = window.session.currency,
+                currency_description = window.session.currency_description;
 
                 id("btc_balance").innerHTML = toBTC(btc_balance, true);
                 id("rc_balance").innerHTML = toBTC(rc_balance, true);
                 id("in_play_balance").innerHTML = toBTC(in_play_balance, true);
                 id("available_balance").innerHTML = toBTC(available_balance, true);
                 id("total_balance").innerHTML = toBTC(total_balance, true);
+                id("currency").innerHTML = currency_symbol + " - " + currency_description;
 
                 if (ext_address === "") destroy("manage_ext_address_subwindow");
                 else

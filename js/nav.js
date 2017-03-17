@@ -23,22 +23,7 @@
 
         tab_id = "ssi_header_" + target;
         if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
-        
-        if (window.session)
-            {
-            var available_balance = window.session.available_balance;
-            if (available_balance !== 0)
-                {
-                id("balance_bar_available_balance").innerHTML = toBTC(available_balance);
-                }
-            else // user has 0 balance -> prompt for deposit
-                {
-                show("deposit_cell", "table-cell");
-                id("balance_bar_available_balance").innerHTML = "0.00";
-                
-                }
-            }
-            
+
         var 
 
         mobile_nav = document.getElementById("ssi_mobile_nav"),
@@ -80,6 +65,23 @@
 
         if (typeof window.nav_text !== "undefined") ssi_mobile_nav_placeholder.innerHTML = window.nav_text;
         else ssi_mobile_nav_placeholder.innerHTML = "Menu";
-        
+                
+        if (window.session)
+            {
+            var available_balance = window.session.available_balance;
+            if (available_balance !== 0)
+                {
+                id("balance_bar_available_balance").innerHTML = toBTC(available_balance) + " BTC";
+                id("balance_bar_fiat_balance").innerHTML = toFiat(available_balance);
+                }
+            else // user has 0 balance -> prompt for deposit
+                {
+                hide("fiat_balance_cell");
+                show("deposit_cell", "table-cell");
+                id("balance_bar_available_balance").innerHTML = "0.00";
+                id("balance_bar_available_balance").className = "orange";
+                }
+            }
+            
         init();
         })();

@@ -77,7 +77,8 @@
             referral_program = user_item.referral_program,
             referrer_username = user_item.referrer_username,
             free_play = user_item.free_play,
-            last_active = user_item.last_active;
+            last_active = user_item.last_active,
+            currency = user_item.currency;
     
             btc_accumulator = add(btc_accumulator, btc_balance);
             rc_accumulator = add(rc_accumulator, rc_balance);
@@ -108,7 +109,8 @@
                 referrer_username,
                 last_login,
                 free_play,
-                last_active
+                last_active,
+                currency
             ]);
             }
         var red_alert = "rgb(230,0,0)";
@@ -164,6 +166,7 @@
                 "Subscribed",
                 "Referral PGM",
                 "Referrer",
+                "Currency",
                 "Level"
             ]);
 
@@ -241,7 +244,8 @@
             referrer_username = user_item[10],
             last_login = user_item[11],
             free_play = user_item[12],
-            last_active = user_item[13];
+            last_active = user_item[13],
+            currency = user_item[14];
     
             created = dateconv_ms_to_string(created);
             
@@ -304,6 +308,7 @@
                         newsletter_flag,
                         referral_program,
                         referrer_username,
+                        currency,
                         user_level
                     ]);
 
