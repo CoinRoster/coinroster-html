@@ -72,7 +72,7 @@
             if (available_balance !== 0)
                 {
                 id("balance_bar_available_balance").innerHTML = toBTC(available_balance) + " BTC";
-                id("balance_bar_fiat_balance").innerHTML = toFiat(available_balance);
+                id("balance_bar_fiat_balance").innerHTML = toFiat(available_balance, true);
                 }
             else // user has 0 balance -> prompt for deposit
                 {

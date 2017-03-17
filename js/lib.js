@@ -355,12 +355,13 @@
         var els = document.getElementsByClassName("fiat_symbol");
         for (var i=0, limit = els.length; i<limit; i++) els[i].innerHTML = symbol;
         }
-    function toFiat(btc_value)
+    function toFiat(btc_value, as_link)
         {
         if (window.session)
             {
             var btcxxx = multiply(window.session.btcusd_last_price, window.session.currency_last_price);
-            return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
+            if (as_link) return toCurrency(multiply(btcxxx, btc_value)) + " <a class='currency_link' href='/account/currency.html'>" + window.session.currency + "</a>";
+            else return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
             }
         else return false;
         }
