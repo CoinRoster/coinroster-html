@@ -164,7 +164,12 @@
             for (var i=0; i<number_of_rows; i++)
                 {
                 var row = table.rows[i];
-                if (player_id < row.player_id)
+                if (price === row.price && name < row.name)
+                    {
+                    row_index = row.rowIndex;
+                    break;
+                    }
+                if (price > row.price)
                     {
                     row_index = row.rowIndex;
                     break;

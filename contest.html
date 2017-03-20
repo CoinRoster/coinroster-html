@@ -554,6 +554,11 @@
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
+        
+        option_table.sort(function(a, b)
+            {
+            return b.name - a.name;
+            });
             
         for (var i=0; i<option_table.length; i++)
             {

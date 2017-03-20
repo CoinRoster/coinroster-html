@@ -18,7 +18,7 @@
 <div id="centering_container">
     <div class="body_container">
         <h3 id="category_header" class="section_header">
-            <span id="category_text">&nbsp;</span><span id="sub_category_text"></span>
+            <span id="sub_category_text"></span>
         </h3>
     </div>
 <!--#include virtual="/ssi/contest_status_selector.html" -->
@@ -98,7 +98,7 @@
             if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
             id("ssi_mobile_nav_placeholder").innerHTML = category_description;
-            id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
+            //id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
             id("sub_category_text").innerHTML = sub_category_description;
 
             var 
@@ -176,11 +176,23 @@
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
+            
+            var button_text = "Enter!";
+            
+            switch (contest_item.contest_type)
+                {
+                case "ROSTER" :
+                    button_text = "Draft!";
+                    break;
+                case "PARI-MUTUEL" :
+                    button_text = "Bet!";
+                    break;
+                }
 
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Enter</button>",
+            enter_button = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>" + button_text + "</button>",
             game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
 
             row = new_row(table, -1, [
@@ -234,11 +246,11 @@
             
             if (contest_type === "ROSTER")
                 {
-                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
                 }
             else if (contest_type === "PARI-MUTUEL")
                 {
-                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>View</button>";
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Wagers</button>";
                 }
 
             var 

@@ -8,8 +8,24 @@
 
         for (var i=0; i<3; i++)
             {
-            if (i === selector_to_activate) contest_status_selectors[i].className += " contest_status_selected";
-            else contest_status_selectors[i].className = "contest_status_selector_button"; 
+            if (i === selector_to_activate) 
+                {
+                var color = "";
+                switch (i)
+                    {
+                    case 0 : // open
+                        color = "green";
+                        break;
+                    case 1 : // in play
+                        color = "orange";
+                        break;
+                    case 2 : // settled
+                        color = "white";
+                        break;
+                    }
+                contest_status_selectors[i].className = "contest_status_selector_button contest_status_selected " + color;
+                }
+            else contest_status_selectors[i].className = "contest_status_selector_button steel"; 
             }
         }
     

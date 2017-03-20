@@ -154,7 +154,7 @@
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
+            enter_button = "<a class=\"contest_table_link\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
 
             var row = new_row(table, -1, [
                 "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
@@ -202,11 +202,11 @@
 
             if (contest_type === "ROSTER")
                 {
-                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
                 }
             else if (contest_type === "PARI-MUTUEL")
                 {
-                button_string = "<a class=\"contest_table_link orange orange_border\" style=\"float:right;width:auto;\" href='/contests/entries.html?contest_id=" + contest_id + "'>My wagers</button>";
+                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contests/entries.html?contest_id=" + contest_id + "'>My wagers</button>";
                 }
 
             var title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
@@ -274,7 +274,7 @@
         id("headline_value_label").innerHTML = "Total P/L:";
         
         if (PL_total > 0) id("headline_value").innerHTML = "<span class='green'>" + toBTC(PL_total) + " BTC</span>";
-        else if (PL_total < 0) id("headline_value").innerHTML = "-" + toBTC(PL_total) + " BTC";
+        else if (PL_total < 0) id("headline_value").innerHTML = "<span class='orange'>-" + toBTC(PL_total) + " BTC</span>";
         else id("headline_value").innerHTML = toBTC(PL_total);
         }
         

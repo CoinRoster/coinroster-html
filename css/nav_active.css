@@ -77,11 +77,18 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
+
     @media only screen and (min-width: 768px) {
 
         #ssi_logo_container {
-            top: 60px;
+            top: 60px !important;
+        }
+        
+    }
+    @media only screen and (max-width: 400px) {
+
+        #ssi_logo_container {
+            top: 45px !important;
         }
         
     }

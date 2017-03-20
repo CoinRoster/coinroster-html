@@ -1,7 +1,7 @@
  
     #centering_container, .centering_container {
         width: auto;
-        max-width: 1200px;
+        max-width: 1366px;
     }
         
     @media only screen and (min-width: 995px) {
@@ -12,6 +12,15 @@
             width: calc(25% - 10px);
         }
         
+
+        #lobby_body_container {
+            padding-right: 15px !important;
+            padding-left: 15px !important;
+        }
+        #lobby_body_container .section_header{
+            padding-left: 5px !important;
+        }
+    
     }
     
     @media only screen and (max-width: 994px) {
@@ -75,27 +84,13 @@
         }
                 
     }
+
     @media only screen and (min-width: 768px) and (max-width: 994px) {
 
         /* three-wide tiles */
         
         .sub_category_item {
-            width: calc(33% - 9px);
-        }
-        
-        /* change password form is especially wide - stack vertically */
-        
-        #change_password_form li {
-            display: block !important;
-        }
-                
-    }
-    @media only screen and (min-width: 768px) and (max-width: 994px) {
-
-        /* three-wide tiles */
-        
-        .sub_category_item {
-            width: calc(33% - 9px);
+            width: calc(33% - 8px);
         }
         
         /* change password form is especially wide - stack vertically */
@@ -152,11 +147,7 @@
         }
         
         /* Contest page */
-        
-        #category_text {
-            display: none;
-        }
-        
+
         .contest_detail_table {
             display: block !important;
             padding-right: 0px !important;
