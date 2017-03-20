@@ -222,12 +222,12 @@
     }
     
     #contest_description {
-        margin: 20px 0;
+        margin: 0 0 18px;
         font-family: 'gotham_book', sans-serif;
         overflow-wrap: break-word;
     }
     #contest_description p {
-        padding: 5px 0;
+        padding: 0 0 10px;
         font-size: 14px;
     }
     #contest_description a {
