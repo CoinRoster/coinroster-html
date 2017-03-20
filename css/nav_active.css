@@ -18,6 +18,7 @@
         z-index: 1001;
         overflow: hidden;
         text-align: right;
+        border-bottom: 1px solid rgb(20,22,24);
     }
 
     #balance_bar table {

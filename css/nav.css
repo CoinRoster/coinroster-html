@@ -17,9 +17,11 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url('../img/slides/slide3-min.jpg');
+        /*background-image: url('../img/slides/slide3-min.jpg');*/
         position: relative;
-        height:142px;
+        height: 142px;
+        border-bottom: 1px solid rgb(20,22,24);
+        background-color: rgba(36,38,40, 0.7);
     }
     
     #ssi_main_nav_bar, #ssi_mobile_nav_button {
