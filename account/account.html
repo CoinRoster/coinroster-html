@@ -14,6 +14,13 @@
         <h3 class="section_header">
             My Account
         </h3>
+        <br/>
+        <span id="account_header">
+            My Account
+        </span>
+        <br/>
+        <br/>
+        <br/>
         <div style="display:inline-block;">
             <table class="balance_table">
                 <tr>
@@ -901,15 +908,12 @@
 
     function init()
         {
-        //id("page_title").innerHTML = "Welcome, " + window.session.username;
+        id("account_header").innerHTML = "Welcome,&nbsp;&nbsp;<span class='orange_actual'>" + window.session.username + "</span>";
         
         populate_account_data();
         transaction_report();
         }
         
-</script>
-<script type="text/javascript">
-    window.nav_text = "My Account";
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->

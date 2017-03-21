@@ -19,6 +19,21 @@
     }
     
     @font-face {
+        font-family: 'open_sans';
+        src: url('../fonts/OpenSans/OpenSans-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'section_header';
+        src: url('../fonts/OpenSans/OpenSans-Bold.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'section_header_2';
+        src: url('../fonts/OpenSans/Bold/OpenSans-Bold.ttf') format('truetype');
+    }
+    
+    @font-face {
       font-family: Neuzeit;
       font-weight: normal;
       font-style: normal;
@@ -42,7 +57,7 @@
     }
 
     body {
-        font-family: 'gotham_medium', sans-serif;
+        font-family: 'section_header', 'section_header_2', sans-serif;
         padding:0;
         margin:0;
         color:white;
@@ -90,9 +105,11 @@
         
     .section_header {
         padding: 10px 0;
-        font-family: 'ubuntu_fantasy', sans-serif;
-        font-size: 16px;
+        font-family: 'section_header', 'section_header_2', sans-serif;
+        font-size: 14px;
         font-weight: normal;
+        text-transform: uppercase;
+        background: rgb(60,62,64);
     }
     .section_header.no_padding_top {
         padding-top: 0px !important;
@@ -355,10 +372,10 @@
     }
     #lobby_body_container {
         padding-right: 3px !important;
-        padding-left: 3px !important;
+        padding-left: 3px !important; /* adjust padding-left below: */
     }
     #lobby_body_container .section_header{
-        padding-left: 16px !important;
+        padding-left: 17px !important; /* 20px - body padding above */
     }
     .table_body_container {
         padding: 0 20px 20px 20px;

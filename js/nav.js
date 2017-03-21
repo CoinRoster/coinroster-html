@@ -26,11 +26,10 @@
 
         var 
 
-        mobile_nav = document.getElementById("ssi_mobile_nav"),
-        ssi_mobile_nav_button = document.getElementById("ssi_mobile_nav_button"),
-        ssi_mobile_nav_placeholder = id("ssi_mobile_nav_placeholder"),
+        mobile_nav = id("ssi_mobile_nav"),
+        ssi_mobile_nav_bar = id("ssi_mobile_nav_bar"),
+        ssi_mobile_nav_icon = id("ssi_mobile_nav_icon"),
         ssi_mobile_shade = id("ssi_mobile_shade"),
-        ssi_mobile_nav_placeholder_storage,
         mobile_nav_state = "hidden";
 
         function toggle_mobile_menu()
@@ -39,21 +38,20 @@
                 {
                 show(ssi_mobile_shade);
                 show(mobile_nav);
+                ssi_mobile_nav_icon.className = "menu_open";
                 mobile_nav.style.display = "block";
-                ssi_mobile_nav_placeholder_storage = ssi_mobile_nav_placeholder.innerHTML;
-                ssi_mobile_nav_placeholder.innerHTML = "Close Menu";
                 mobile_nav_state = "visible";
                 }
             else 
                 {
-                ssi_mobile_nav_placeholder.innerHTML = ssi_mobile_nav_placeholder_storage;
                 hide(mobile_nav);
                 hide(ssi_mobile_shade);
+                ssi_mobile_nav_icon.className = "menu_closed";
                 mobile_nav_state = "hidden";
                 }
             }
 
-        ssi_mobile_nav_button.onclick = function()
+        ssi_mobile_nav_bar.onclick = function()
             {
             toggle_mobile_menu();
             };
@@ -62,10 +60,7 @@
             {
             toggle_mobile_menu();
             };
-
-        if (typeof window.nav_text !== "undefined") ssi_mobile_nav_placeholder.innerHTML = window.nav_text;
-        else ssi_mobile_nav_placeholder.innerHTML = "Menu";
-                
+ 
         if (window.session)
             {
             var available_balance = window.session.available_balance;

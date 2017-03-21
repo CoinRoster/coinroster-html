@@ -27,12 +27,13 @@
         background-repeat: no-repeat;
         background-size: cover;
         position: relative;
+        overflow: hidden;
     }
     
     .sub_category_details {
         width: 100%; /* browsers without calc? */
         width: calc(100% + 1px);
-        background-color: rgba(36,38,40, 0.66);
+        background-color: rgba(36,38,40, 0.7);
         position: absolute;
         top: 0px;
         left: 0px;
@@ -41,7 +42,7 @@
     }
     .sub_category_details td {
         vertical-align: middle;
-        padding: 3px 10px 5px;
+        padding: 3px 11px 5px;
     }
     .sub_category_details td:last-child {
         text-align: right;
@@ -51,7 +52,7 @@
         margin: 0;
         font-weight: normal;
         font-size: 14px;
-        font-family: 'ubuntu_fantasy', sans-serif;
+        font-family: 'section_header', 'section_header_2', sans-serif;
     }
     
     .sub_category_detail {

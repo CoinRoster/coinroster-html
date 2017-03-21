@@ -1,11 +1,13 @@
 
     #ssi_logo_container {
-        width: 100%;
-        text-align: center;
+        top: 31px;
+        left: 0px;
+        width: auto;
         z-index: 100;
         position: absolute;
-        top: 15px;
+        text-align: center;
     }
+    
     #logo_link {
         text-decoration: none !important;
         color: white !important;
@@ -13,28 +15,31 @@
         padding: 18px 20px 10px;
     }
 
+    #coinroster_text {
+        padding: 0;
+        margin: 0;
+        font-size: 20px;
+        font-weight: normal;
+    }
+        
     #ssi_header {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        /*background-image: url('../img/slides/slide3-min.jpg');*/
         position: relative;
-        height: 142px;
+        height: 86px;
         border-bottom: 1px solid rgb(20,22,24);
         background-color: rgba(36,38,40, 0.7);
     }
     
-    #ssi_main_nav_bar, #ssi_mobile_nav_button {
+    #ssi_main_nav_bar, #ssi_mobile_nav_bar {
         z-index: 6;
         width: 100%;
         position: absolute;
-        padding: 13px 0;
     }
     #ssi_main_nav_bar {
-        top: 86px;
-    }
-    #ssi_mobile_nav_button {
-        top: 96px;
+        top: 30px;
+        padding: 13px 0;
     }
     
     .ssi_header_table {
@@ -79,41 +84,86 @@
     }
         
     .ssi_header_active_tab {
-        color: inherit;
-        text-decoration: underline;
+        color: rgb(255,229,171);
+        text-decoration: none;
         cursor: default;
         padding: 10px;
+        border-bottom: 1px solid rgb(255,86,18);
     }
   
+/* Balance Bar -------------------------------------------------------------------- */
+      
+    #balance_bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(36,38,40, 0.9);
+        height: 36px;
+        color: white;
+        z-index: 1001;
+        overflow: hidden;
+        text-align: right;
+        border-bottom: 1px solid rgb(20,22,24);
+    }
+
+    #balance_bar table {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        outline: none;
+        display: table;
+        width: 100%;
+        position: absolute;
+        top: 10px;
+    }
+
+    #balance_bar td {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    #balance_bar .spacer {
+        width: 10px;
+    }
+    
 /* Mobile Nav --------------------------------------------------------------------- */
   
-    #ssi_mobile_nav_button {
+    #ssi_mobile_nav_bar {
         z-index: 2;
         cursor: pointer;
         display: none;
         width: 100%;
-        font-size: 14px;
+        top: 37px !important;
+        padding: 12px 0;
     }
     
-    #ssi_mobile_nav_placeholder {
-        margin: 0;
+    #ssi_mobile_nav_logo {
         padding-left: 20px;
+        font-size: 20px;
     }
+    
     #ssi_mobile_nav_icon {
         position: absolute;
-        top: 10px;
+        top: 13px;
         right: 20px;
-        background-image: url('../img/menu.png');
         background-size: 26px 23px;
         width: 26px;
         height: 23px;
     }
+    .menu_open {
+        background-image: url('../img/close-menu.png');
+    }
+    .menu_closed {
+        background-image: url('../img/menu.png');
+    }
+    
     #ssi_mobile_shade {
         display: none;
         position: fixed;
         z-index: 1;
         left: -500px;
-        top: 143px;
+        top: 87px; /* same as #ssi_mobile_nav */
         right: -500px;
         bottom: -500px;
         overflow: hidden;
@@ -124,11 +174,11 @@
         z-index: 2;
         display: none;
         position: absolute;
-        top: 143px;
+        top: 87px; /* same as #ssi_mobile_shade */
         left: 0;
         right: 0;
-        font-size: 14px;
-        background: rgb(65,66,67);
+        font-size: 13px;
+        background: rgb(55,56,57);
     }
     
     #ssi_mobile_nav ul, #ssi_mobile_nav li {
@@ -150,18 +200,27 @@
         text-decoration: underline;
         cursor: pointer !important;
     }
+
+    /* old code for dealing with display of username --------------------------------
     
-    @media only screen and (min-width: 995px) {
-
-        #ssi_logo_container {
-            top: 25px;
-        }
-        
+    #balance_bar_username_container {
+        max-width: 60%;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: default;
     }
-    @media only screen and (max-width: 400px) {
-
-        #ssi_logo_container {
-            top: 5px;
-        }
-        
+           
+    #ssi_header_account {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAllBMVEUAAAD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQD/pQByQTQSAAAAMXRSTlMA6f18vbj59t7a1KhfNh7LrpNDEfHt4cacUzsC5bOIZzIsCgUDj0wUDgejg3Vua1knkHVdbwAAAZhJREFUWMOl1Ndu4zAQheFR781WseLenb7n/V9uF9gAkWUymRG/+5+QSA5JZ/mcbxel23VuUvXXI4nt120T+PY/fmCF1U3av0YY8uNe1lcBRtpU0m/xyNrx+7yGQif4ASjNuP28hpJHTBeo+XPicQCzfyihwT3JAhoO8UTQqHj9soVGQiynFTRK5heE0FgQTwyNjekpvBFPYngPzG/iJzT+EE+m6a0Dd5wD3TXgcjmjIN9FOyOuzNZsAdexVY8S3wIKn8T3pOhXB+I7RapRlPjAgz1J3Jpx75LMG0Z2JHMI7/sXkrrUd0eQk5iHgTXJrTEQLsX9vDHaQ1q+4875RDJ9jTvBVvT5qWdhpHHTZ+YczKrCgoJVnJ9+z2cbN4KOHXvOj2vk7+V3rVsjSee6R2Dj2mCo185emUdg6x6WyD9iiHTpddhnJcQWu0FvYYIwoy/XFSaxvmb8mGAi7//dvPiYyN6OXg6x6EhEmY/peiI6w4BHRCEM+DfKbZiYUQ8jDr3CSEIvMOKSByMxFTASUgsjDRWBZSCI/wLhXH48GGwlPQAAAABJRU5ErkJggg==");
+        background-size: 16px 16px;
+        background-position: left;
+        background-repeat: no-repeat;
+        padding-left: 24px;
+        color: orange !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
+    
+    */

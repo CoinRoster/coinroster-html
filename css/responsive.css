@@ -107,11 +107,8 @@
 
         /* showing and hiding of navigation */
         
-        #ssi_mobile_nav_button {
+        #ssi_mobile_nav_bar {
             display: none;
-        }
-        .ssi_desktop {
-            display: block;
         }
         #ssi_mobile_nav {
             display: none !important;
@@ -119,15 +116,18 @@
         #ssi_mobile_shade {
             display: none !important;
         }
+        .ssi_desktop_hide {
+            display: none;
+        }
     }
     @media only screen and (max-width: 767px) {
 
         /* showing and hiding of navigation */
 
-        #ssi_mobile_nav_button {
+        #ssi_mobile_nav_bar {
             display: block;
         }
-        .ssi_desktop {
+        .ssi_tablet_hide {
             display: none;
         }
         
