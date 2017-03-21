@@ -47,7 +47,6 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        color: orange;
         cursor: default;
     }
       
@@ -55,10 +54,10 @@
         height: 158px; /* change the two below */
     }
     #ssi_mobile_nav {
-        top: 158px; /* same as above */
+        top: 159px; /* same as above */
     }
     #ssi_mobile_shade {
-        top: 158px; /* same as above */
+        top: 159px; /* same as above */
     }
     
     #ssi_main_nav_bar {

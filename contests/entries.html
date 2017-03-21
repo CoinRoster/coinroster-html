@@ -38,7 +38,7 @@
             * The scenario P/L is the net profit or loss that you will realize if a given outcome wins,
             taking into account your total exposure to the pool.
             <br/><br/>
-            * Please note that odds are rounded for display, so actual payouts may be slightly different. To see full precision 
+            * Please note that odds are rounded for display. To see full precision 
             <a style='text-decoration:underline;cursor:pointer;' onclick="show_full_precision();">click here</a>.
         </div>
         <div id="edit_roster_container" class="hidden">
@@ -228,7 +228,8 @@
                                         option_id = option_item.id,
                                         description = option_item.description,
                                         amount = "--", // default is no wager
-                                        option_implied_odds = get_implied_odds(wager_grand_total, option_item, full_precision),
+                                        implied_odds = get_implied_odds(wager_grand_total, option_item),
+                                        implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
                                         implied_payout = "--", // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
                                         PNL_class = "orange", // default is total loss
@@ -239,7 +240,7 @@
                                         if (user_has_wager) // user has a wager
                                             {
                                             amount = user_wagers[option_id],
-                                            implied_payout = multiply(option_implied_odds, amount),
+                                            implied_payout = multiply(implied_odds_full_precision, amount),
                                             scenario_PL = implied_payout - exposure_value;
                                          
                                             if (scenario_PL > 0) PNL_class = "green"; // override if profit
@@ -271,7 +272,7 @@
                                         var row = new_row(table, row_index, [
                                             mark_outcome + description,
                                             "<div class='field_label'>My Wagers:</div>" + amount,
-                                            "<div class='field_label'>Odds:</div>" + option_implied_odds,
+                                            "<div class='field_label'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
                                             "<div class='field_label'>Payout:</div>" + implied_payout,
                                             "<div class='field_label'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
                                         ]);
@@ -300,16 +301,18 @@
                                         player_names[option_item.id] = option_item.name;
                                         }
                                     
-                                    var header_data = [
+                                    var header_data;
+                                    
+                                    if (contest_status === 3) header_data = [
+                                        "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Score</span</li></ul>",
+                                        "Roster",
+                                        "Entries",
+                                        "Payout per entry"
+                                    ];
+                                    else header_data = [
                                         "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
                                         "Roster"
                                     ];
-
-                                    if (contest_status === 3)
-                                        {
-                                        header_data.push("Score");
-                                        header_data.push("Payout per entry");
-                                        }
 
                                     var header = new_row(table, -1, header_data);
 
@@ -347,7 +350,7 @@
                                             
                                         var enter_button = "";
                                         
-                                        if (contest_status === 1) enter_button = "<a class=\"contest_table_link orange orange_border\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"edit_roster(" + entry_id + ")\">Edit roster</button>";
+                                        if (contest_status === 1) enter_button = "<li class='draft_button' onclick='edit_roster(" + entry_id + ")'>Edit roster</li>";
                                         else table.className = "contest_table entry_report_table"; //get rid of "collapse_players" since no button
                                         
                                         var mark_outcome = "";
@@ -358,25 +361,31 @@
                                             mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
                                             }
 
-                                        var row_data = [
-                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
-                                            "<ul><li>" + roster_html + "</li><li>" + enter_button + "</li></ul>"
+                                        var row_data;
+                                    
+                                        if (contest_status === 3) row_data = [
+                                            "<ul><li><div class='field_label'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Score</div>" + score + "</span></li></ul>",
+                                            "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>",
+                                            "<div class='field_label'>Entries:</div>" + number_of_entries,
+                                            "<div class='field_label'>Payout per entry:</div>" + payout_per_entry
                                         ];
-                                        
-                                        if (contest_status === 3)
-                                            {
-                                            row_data.push("<div class='field_label'>Score:</div>" + score);
-                                            row_data.push("<div class='field_label'>Payout per entry:</div>" + payout_per_entry);
-                                            }
-                                
+                                        else row_data = [
+                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                            "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>"
+                                        ];
+
                                         var row = new_row(table, -1, row_data);
                                         
                                         row[1].width = "1";
+                                        
+                                        if (contest_status === 1) row[2].style.paddingRight = "8px"; // corrects for 'Edit roster >' button padding
                                         
                                         if (contest_status === 3)
                                             {
                                             row[3].style.textAlign = "right";
                                             row[4].style.textAlign = "right";
+                                            if (payout_per_entry > 0) row[4].className = "green";
+                                            else row[4].className = "orange";
                                             }
                                         }
                                         

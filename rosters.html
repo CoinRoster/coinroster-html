@@ -89,7 +89,9 @@
 
                             player_names = [],
                             player_scores = [],
-                            player_raw_scores = [];
+                            player_raw_scores = [],
+                            
+                            raw_scores_are_different = false;
 
                             for (var i=0; i<option_table.length; i++)
                                 {
@@ -98,8 +100,15 @@
                                 player_names[player_id] = option_item.name;
                                 if (scores_updated) 
                                     {
-                                    player_scores[player_id] = option_item.score;
-                                    player_raw_scores[player_id] = option_item.score_raw;
+                                    var
+                                    
+                                    score = option_item.score,
+                                    score_raw = option_item.score_raw;
+                            
+                                    player_scores[player_id] = score;
+                                    player_raw_scores[player_id] = score_raw;
+                                    
+                                    if (!raw_scores_are_different && +score !== +score_raw) raw_scores_are_different = true;
                                     }
                                 }
                                 
@@ -201,9 +210,9 @@
                                         
                                         score_normalized = roster[j].score,
                                         score_raw = roster[j].score_raw,
-                                        score_string = score_raw;
+                                        score_string = score_normalized;
                                 
-                                        if (+score_normalized !== +score_raw) score_string += "&nbsp;&nbsp;&nbsp;&nbsp;(" + score_normalized + ")";
+                                        if (raw_scores_are_different) score_string += "&nbsp;&nbsp;&nbsp;&nbsp;(" + score_raw + ")";
                                         
                                         roster_html += "<span class='inline_player_price'>" + score_string + "</span>";
                                         }
@@ -223,7 +232,7 @@
                                 if (!scores_updated) row[1].style.display = "none";
                                 
                                 row[1].width = "1";
-                                row[2].style.color = "orange";
+                                row[2].className = "orange_actual";
                                 row[4].style.textAlign = "right";
                                 
                                 if (contest_status === 3) 
@@ -246,81 +255,6 @@
         id("no_data_message").innerHTML = message;
         }
         
-    function edit_roster(entry_id)
-        {
-        id("player_table").innerHTML = "";
-        id("roster_table").innerHTML = "";
-                    
-        var 
-        
-        contest = window.contest,
-        option_table = contest.option_table,
-        entry = window.entries[entry_id],
-        roster = entry.roster;
-
-        window.active_entry = entry_id;
-        
-        id("editing_roster").innerHTML = "Editing Roster " + entry_id;
-
-        id("number_of_entries").innerHTML = entry.number_of_entries;
-        id("entry_value").innerHTML = toBTC(entry.amount) + " BTC";
-        id("salary_cap").innerHTML = "$" + commas(contest.salary_cap | 0);
-        if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
-        else id("remaining_players").innerHTML = 0;
-            
-        for (var i=0; i<option_table.length; i++)
-            {
-            var player_item = option_table[i],
-                    
-            player_id = player_item.id,
-            name = player_item.name,
-            price = player_item.price;
-    
-            insert_player_row("player_table", player_id, name, price);
-            }
-                        
-        for (var i=0; i<roster.length; i++) add_player(roster[i].id);
-        
-        show("edit_roster_container");
-        
-        id("player_table_container").scrollTop = 0;
-        id("roster_table_container").scrollTop = 0;
-                
-        window.scrollTo(0, id("editing_roster").offsetTop);
-        }
-        
-    function cancel_edit_roster()
-        {
-        window.scroll(0,0);
-        hide("edit_roster_container");
-        }
-        
-    function update_roster()
-        {
-        var roster = get_valid_roster();
-        
-        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
-
-        api({
-            method: "UpdateRoster",
-            args: {
-                contest_id: window.contest_id,
-                entry_id: window.active_entry,
-                roster: roster
-            }
-        }, function(call)
-            {
-            if (call.status === "1")
-                {
-                return show_simple_modal("Your roster has been updated", "good", function()
-                    {
-                    location.reload();
-                    });
-                }
-            else show_simple_modal(call.error, "bad", null);
-            });
-        }
-   
 </script>
 <script type="text/javascript">
     window.nav_text = "Contest #" + get_url_param("contest_id") + " Leaderboard";

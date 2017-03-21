@@ -131,7 +131,10 @@
 
         header[4].className = "right_nowrap";
         
-        var user_wagers_total = 0;
+        var 
+        
+        user_wagers_total = 0,
+        closest_registration_deadline = 0;
 
         for (var i=0; i<number_of_contests; i++)
             {
@@ -142,26 +145,30 @@
             category_description = contest_item.category_description,
             sub_category_description = contest_item.sub_category_description,
             title = contest_item.title,
-            user_wagers = contest_item.user_wagers;
+            user_wagers = contest_item.user_wagers,
+            registration_deadline_ms = contest_item.registration_deadline,
+            registration_deadline_string = get_registration_deadline_string(registration_deadline_ms),
+            user_wagers_total = add(user_wagers_total, user_wagers),
+            show_countdown = false;
+    
+            if (i === 0) closest_registration_deadline = registration_deadline_ms;
+            if (registration_deadline_ms === closest_registration_deadline) show_countdown = true;
 
-            user_wagers_total = add(user_wagers_total, user_wagers);
+            var button_text = "";
 
-            var button_string = "";
+            if (contest_type === "PARI-MUTUEL") button_text = "My wagers";
+            else if (contest_type === "ROSTER") button_text = "My rosters";
 
-            if (contest_type === "PARI-MUTUEL") button_string += "My wagers";
-            else if (contest_type === "ROSTER") button_string += "My rosters";
-
-            var 
-
-            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            enter_button = "<a class=\"contest_table_link\" style=\"white-space:nowrap;float:right;width:auto\" onclick=\"show_user_entries(" + contest_id + ")\"'>" + button_string + "</button>";
+            var title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
 
             var row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                "<ul><li>" + title_link + "</li><li class='draft_button' onclick='show_user_entries(" + contest_id + ")'>" + button_text + "</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
-                "<div class='field_label'>Goes live:</div>" + get_registration_deadline_string(contest_item.registration_deadline),
+                "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string),
                 "<div class='field_label'>On the line:</div>" + user_wagers + " BTC"
             ]);
+            
+            if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
 
             for (var cell=2; cell<4; cell++) row[cell].style.whiteSpace = "nowrap";
             
@@ -198,21 +205,22 @@
 
             user_wagers_total = add(user_wagers_total, user_wagers);
 
-            var button_string = "";
+            var 
+            
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            first_cell_text = "";
 
             if (contest_type === "ROSTER")
                 {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Leaderboard</li></ul>";
                 }
             else if (contest_type === "PARI-MUTUEL")
                 {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contests/entries.html?contest_id=" + contest_id + "'>My wagers</button>";
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>My wagers</li></ul>";
                 }
 
-            var title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
-
             var row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                first_cell_text,
                 "<div class='field_label'>Category:</div>" + sub_category_description,
                 "<div class='field_label'>In play:</div>" + user_wagers + " BTC"
             ]);
@@ -250,18 +258,17 @@
             user_winnings = contest_item.user_winnings,
             net_PL = subtract(user_winnings, user_wagers);
             PL_total = add(PL_total, net_PL);
-        
+      
             var 
             
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;white-space:nowrap\" href='/contests/entries.html?contest_id=" + contest_id + "'>Results</button>",
             PL_class = "";
     
             if (net_PL > 0) PL_class = "green";
             else if (net_PL < 0) PL_class = "orange";
 
             var row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+                "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>Results</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
                 "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + toBTC(net_PL) + " BTC</span>"
             ]);

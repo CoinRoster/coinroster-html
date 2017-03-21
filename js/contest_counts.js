@@ -1,0 +1,1 @@
+<script>window.contest_counts = {"DFS_GOLF":{"settled":1,"in_play":0,"open":2},"DFS_SOCCER":{"settled":0,"in_play":0,"open":0},"DFS_BASKETBALL":{"settled":0,"in_play":0,"open":0},"POLITICS_FR":{"settled":0,"in_play":0,"open":0},"DFS_NASCAR":{"settled":0,"in_play":0,"open":0},"DFS_HOCKEY":{"settled":1,"in_play":1,"open":0}};</script>

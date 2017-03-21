@@ -451,7 +451,24 @@
                 if (contest_id === 0) contest_id = "";
                 else contest_string = "<a href='/contest.html?id=" + contest_id + "'>" + contest_id + "</a?";
                 
-                if (type_filtering_on && trans_type !== trans_type_filter) show_row = false;
+                if (type_filtering_on)
+                    {
+                    switch (trans_type_filter)
+                        {
+                        case "ALL-DEPOSITS" :
+                            if (trans_type !== "BTC-DEPOSIT" && trans_type !== "RC-DEPOSIT") show_row = false;
+                            break;
+                        case "ALL-WITHDRAWALS" :
+                            if (trans_type !== "BTC-WITHDRAWAL" && trans_type !== "RC-WITHDRAWAL") show_row = false;
+                            break;
+                        case "ALL-CONTEST-ENTRIES" :
+                            if (trans_type !== "BTC-CONTEST-ENTRY" && trans_type !== "RC-CONTEST-ENTRY") show_row = false;
+                            break;
+                        default :
+                            if (trans_type !== trans_type_filter) show_row = false;
+                            break;
+                        }
+                    }
                 
                 if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
                 
@@ -501,6 +518,11 @@
                 
             if (!contest_filter_is_populated)
                 {
+                unique_contests.sort(function(a, b)
+                    {
+                    return b - a;
+                    });
+                    
                 for (var i=0, limit = unique_contests.length; i<limit; i++)
                     {
                     var 
@@ -559,7 +581,7 @@
 
     var 
     
-    new_trans_user_selectors = document.getElementsByClassName("user_selector"),
+    user_selectors = document.getElementsByClassName("user_selector"),
             
     new_trans_selector = id("new_trans_selector"),
     new_transaction_type = 0;
@@ -570,9 +592,9 @@
         show_new_trans_view(view_id);
         };
     
-    for (var s=0; s<new_trans_user_selectors.length; s++)
+    for (var s=0; s<user_selectors.length; s++)
         {
-        var selector = new_trans_user_selectors[s];
+        var selector = user_selectors[s];
         
         for (var i=0; i<number_of_users; i++)
             {
@@ -584,13 +606,13 @@
             username = user_item[2],
             user_level = user_item[3];
 
-            if (user_level !== 2)
-                {
-                var option = document.createElement("option");
-                option.value = user_id;
-                option.innerHTML = username;
-                selector.appendChild(option);
-                }
+            // we allow filtering on internal accounts in transaction report:
+            if (user_level === 2 && selector.className.indexOf("include_internal_accounts") === -1) continue;
+  
+            var option = document.createElement("option");
+            option.value = user_id;
+            option.innerHTML = username;
+            selector.appendChild(option);
             }
         $(selector).trigger("chosen:updated");
         }

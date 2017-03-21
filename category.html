@@ -160,6 +160,8 @@
         header[5].className = "right_nowrap";
         header[6].className = "right_nowrap";
 
+        var closest_registration_deadline = 0;
+        
         for (var i=0; i<number_of_contests; i++)
             {
             var contest_item = contest_report[i],
@@ -172,7 +174,12 @@
             current_users = contest_item.current_users,
             max_users = contest_item.max_users,
             total_prize_pool = contest_item.total_prize_pool,
-            registration_deadline_string = get_registration_deadline_string(contest_item.registration_deadline);
+            registration_deadline_ms = contest_item.registration_deadline,
+            registration_deadline_string = get_registration_deadline_string(registration_deadline_ms),
+            show_countdown = false;
+
+            if (i === 0) closest_registration_deadline = registration_deadline_ms;
+            if (registration_deadline_ms === closest_registration_deadline) show_countdown = true;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
@@ -192,13 +199,12 @@
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            enter_button = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>" + button_text + "</button>",
-            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+            game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
 
             row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + enter_button + "</li></ul>",
+                "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>" + button_text + "</li></ul>",
                 "<div class='field_label'>Game type:</div>" + game_type,
-                "<div class='field_label'>Goes live:</div>" + registration_deadline_string,
+                "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string),
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",
                 "<div class='field_label'>Users:</div>" + current_users + max_users
@@ -208,6 +214,7 @@
             row[5].className = "right_nowrap";
             row[6].className = "right_nowrap";
 
+            if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         }
@@ -238,28 +245,28 @@
             cost_per_entry = contest_item.cost_per_entry,
             current_users = contest_item.current_users,
             max_users = contest_item.max_users,
-            total_prize_pool = contest_item.total_prize_pool,
-            button_string;
+            total_prize_pool = contest_item.total_prize_pool;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
             
-            if (contest_type === "ROSTER")
-                {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Leaderboard</button>";
-                }
-            else if (contest_type === "PARI-MUTUEL")
-                {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Wagers</button>";
-                }
-
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+            game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            first_cell_text = "";
 
-            row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+            if (contest_type === "ROSTER")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Leaderboard</li></ul>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li></ul>";
+                }
+
+            var row = new_row(table, -1, [
+                first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",
@@ -300,28 +307,28 @@
             cost_per_entry = contest_item.cost_per_entry,
             current_users = contest_item.current_users,
             max_users = contest_item.max_users,
-            total_prize_pool = contest_item.total_prize_pool,
-            button_string;
+            total_prize_pool = contest_item.total_prize_pool;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
             
-            if (contest_type === "ROSTER")
-                {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/rosters.html?contest_id=" + contest_id + "'>Results</button>";
-                }
-            else if (contest_type === "PARI-MUTUEL")
-                {
-                button_string = "<a class=\"contest_table_link\" style=\"float:right;width:auto;\" href='/contest.html?id=" + contest_id + "'>Results</button>";
-                }
-
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            game_type = "<span style=\"white-space:nowrap\">" + settlement_type_string(settlement_type) + "</span><span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">Payout info</span>",
+            game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            first_cell_text = "";
 
-            row = new_row(table, -1, [
-                "<ul><li>" + title_link + "</li><li>" + button_string + "</li></ul>",
+            if (contest_type === "ROSTER")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Results</li></ul>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Results</li></ul>";
+                }
+
+            var row = new_row(table, -1, [
+                first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC",
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC",

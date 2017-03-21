@@ -360,7 +360,7 @@
         if (window.session)
             {
             var btcxxx = multiply(window.session.btcusd_last_price, window.session.currency_last_price);
-            if (as_link) return toCurrency(multiply(btcxxx, btc_value)) + " <a class='currency_link' href='/account/currency.html'>" + window.session.currency + "</a>";
+            if (as_link && !window.location.pathname.endsWith("currency.html")) return toCurrency(multiply(btcxxx, btc_value)) + " <a class='currency_link' href='/account/currency.html'>" + window.session.currency + "&nbsp;<i class='fa fa-caret-down' aria-hidden='true'></i></a>";
             else return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
             }
         else return false;

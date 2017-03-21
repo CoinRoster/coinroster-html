@@ -26,6 +26,8 @@
                 <br/>
                 <span id="currency" class="teal"></span>
                 <br/>
+                <span id="exchange_rate" class="exchange_rate steel"></span>
+                <br/>
                 <br/>
                 <br/>
                 To change your display currency, please select from the following list:
@@ -47,6 +49,7 @@
         currency_description = window.session.currency_description;
 
         id("currency").innerHTML = currency_symbol + " - " + currency_description;
+        id("exchange_rate").innerHTML = "1 BTC = " + toCurrency(multiply(window.session.btcusd_last_price, window.session.currency_last_price)) + " " + currency_symbol;
         
         api({
             method: "GetCurrencyOptions",
@@ -65,11 +68,13 @@
                     {
                     var currency = currency_options[i],
                     symbol = currency.symbol,
-                    description = currency.description;
+                    description = currency.description,
+                    last_price = currency.last_price,
+                    BTCxxx = multiply(window.session.btcusd_last_price, last_price);
             
                     var row = new_row(table, -1, [
                         symbol,
-                        description
+                        description + "<br/><span class='exchange_rate steel'>1 BTC = " + toCurrency(BTCxxx) + " " + symbol + "</span>"
                     ]);
                     
                     row[1].className = "teal";

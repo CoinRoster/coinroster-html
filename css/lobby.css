@@ -106,6 +106,13 @@
         padding: 10px 20px;
         font-size: 14px;
     }
+            
+    #category_report_table td, #contest_report_table td {
+        padding: 0 20px;
+    }
+    #category_report_table td:first-child, #contest_report_table td:first-child {
+        padding-right: 0;
+    }
     
     #pari_mutuel_table td, .entry_report_table td {
         text-align: right;
@@ -150,19 +157,27 @@
         display: table-cell;
         vertical-align: middle;
     }
-    
-    .contest_table_link {
-        display: block;
-        border-radius: 8px;
-        border: 1px solid white;
-        margin-left: 20px;
-        color: white;
-        padding: 10px 15px;
+    @-webkit-keyframes action_button {
+        from { background-color: rgb(192,148,42);}
+        50% { background-color: rgb(225,143,0);}
+        to { background-color: rgb(192,148,42);}
+    }
+    .contest_table li.draft_button {
+        text-align: right;
+        color: rgb(255,229,171);
+        padding: 10px 30px 10px 20px;
+        background-image: url('../img/chevron.png');
+        background-position: right;
+        background-repeat: no-repeat;
+        background-size: 18px auto;
         text-decoration: none !important;
         cursor: pointer;
+        width: 40px;
+        white-space: nowrap;
     }
-    .contest_table_link:hover {
-        background: rgb(100,104,108);
+    
+    .contest_table li.draft_button:hover {
+        text-decoration: underline !important;
     }
     
     .first_cell_link {
@@ -192,6 +207,7 @@
         border: none;
         font-size: 12px;
         padding-top: 0px !important;
+        padding-bottom: 8px !important;
     }
     
     .right_nowrap {
@@ -310,6 +326,7 @@
         display: inline-block;
         height: 474px;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
     }
     
     .player_table_header {

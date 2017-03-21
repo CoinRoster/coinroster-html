@@ -81,6 +81,88 @@
     function redirect_to_contest(contest_id)
         {
         location = "/contest.html?id=" + contest_id;
+        }  
+    function redirect_to_leaderboard(contest_id)
+        {
+        location = "/rosters.html?contest_id=" + contest_id;
+        }
+    function redirect_to_my_entries(contest_id)
+        {
+        location = "/contests/entries.html?contest_id=" + contest_id;
+        }
+        
+    function bind_registration_countdown(element, registration_deadline)
+        {
+        if (typeof element === "string") element = id(element);
+        
+        element.style.width = "140px";
+        element.style.display = "inline-block";
+        
+        setInterval(function()
+            {
+            update_countdown();
+            }, 1000);
+
+        update_countdown();
+        
+        function update_countdown()
+            {
+            var countdown_string = "";
+ 
+            if (new Date() > registration_deadline) countdown_string = "Contest is in play!";
+            else
+                {
+                var time_remaining = get_time_remaining(registration_deadline),
+                days = time_remaining.days,
+                hours = time_remaining.hours,
+                mins = time_remaining.minutes,
+                secs = time_remaining.seconds;
+
+                var
+
+                show_hours = false,
+                show_mins = false,
+                show_secs = false;
+
+                if (days > 0) 
+                    {
+                    countdown_string = days + "d ";
+                    show_hours = true;
+                    show_mins = true;
+                    show_secs = true;
+                    }
+                else if (hours > 0) 
+                    {
+                    show_hours = true;
+                    show_mins = true;
+                    show_secs = true;
+                    }
+                else if (mins > 0) 
+                    {
+                    show_mins = true;
+                    show_secs = true;
+                    }
+                else show_secs = true;
+
+                if (show_hours)
+                    {
+                    if (hours < 10) hours = "0" + hours;
+                    countdown_string += hours + "h ";
+                    }
+                if (show_mins)
+                    {
+                    if (mins < 10) mins = "0" + mins;
+                    countdown_string += mins + "m ";
+                    }
+                if (show_secs)
+                    {
+                    if (secs < 10) secs = "0" + secs;
+                    countdown_string += secs + "s ";
+                    }
+                }
+
+            element.innerHTML = countdown_string;
+            }
         }
         
 /*----------------------------------------------------------------------*/
