@@ -18,7 +18,7 @@
 <div id="centering_container">
     <div id="category_header" class="body_container header">
         <h3 class="section_header">
-            <span id="sub_category_text"></span>
+            <span id="path_text"></span>
         </h3>
     </div>
 <!--#include virtual="/ssi/contest_status_selector.html" -->
@@ -98,7 +98,7 @@
             if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
             //id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
-            id("sub_category_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='category_path_slash red_orange'>/</span><span class='orange'>" + sub_category_description + "</span>";
+            id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='category_path_slash red_orange'>/</span><span class='orange'>" + sub_category_description + "</span>";
 
             var 
             

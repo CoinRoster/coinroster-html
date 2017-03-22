@@ -275,10 +275,10 @@
                                         
                                         var row = new_row(table, row_index, [
                                             mark_outcome + description,
-                                            "<div class='field_label'>My Wagers:</div>" + amount,
-                                            "<div class='field_label'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
-                                            "<div class='field_label'>Payout:</div>" + implied_payout,
-                                            "<div class='field_label'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
+                                            "<div class='field_label extra_wide'>My Wagers:</div>" + amount,
+                                            "<div class='field_label extra_wide'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
+                                            "<div class='field_label extra_wide'>Payout:</div>" + implied_payout,
+                                            "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
                                         ]);
 
                                         row[1].style.textAlign = "left";
@@ -368,13 +368,13 @@
                                         var row_data;
                                     
                                         if (contest_status === 3) row_data = [
-                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Score</div>" + score + "</span></li></ul>",
+                                            "<ul><li><div class='field_label auto_width'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Score</div>" + score + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>",
-                                            "<div class='field_label'>Entries:</div>" + number_of_entries,
-                                            "<div class='field_label'>Payout per entry:</div>" + payout_per_entry
+                                            "<div class='field_label auto_width'>Entries:</div>" + number_of_entries,
+                                            "<div class='field_label auto_width'>Payout per entry:</div>" + payout_per_entry
                                         ];
                                         else row_data = [
-                                            "<ul><li><div class='field_label'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                            "<ul><li><div class='field_label auto_width'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Entries:</div>" + number_of_entries + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>"
                                         ];
 

@@ -15,7 +15,7 @@
 <!--#include virtual="/ssi/contest_status_selector.html" -->
     <div class="body_container">
         <div id="no_data_message" class="hidden"></div>
-        <div id="headline_value_container" class="headline_value_container hidden">
+        <div id="headline_value_container" class="headline_value_container my_contests hidden">
             <span id="headline_value_label"></span>
             <span id="headline_value" class="headline_value orange"></span>
         </div>
@@ -164,7 +164,7 @@
                 "<ul><li>" + title_link + "</li><li class='draft_button' onclick='show_user_entries(" + contest_id + ")'>" + button_text + "</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
                 "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string),
-                "<div class='field_label'>On the line:</div>" + user_wagers + " BTC"
+                "<div class='field_label'>My wagers:</div>" + user_wagers + " BTC"
             ]);
             
             if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
@@ -221,7 +221,7 @@
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Category:</div>" + sub_category_description,
-                "<div class='field_label'>In play:</div>" + user_wagers + " BTC"
+                "<div class='field_label'>My wagers:</div>" + user_wagers + " BTC"
             ]);
 
             row[2].style.whiteSpace = "nowrap";

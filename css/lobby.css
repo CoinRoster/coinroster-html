@@ -15,7 +15,7 @@
     }
     
     .sub_category_item:hover .sub_category_tile {
-        border: 1px solid white;
+        border: 1px solid rgb(255,86,18);
     }
     
     .sub_category_tile {
@@ -198,9 +198,16 @@
     }
     
     .field_label {
-        width: 70px;
-        color: white !important;
+        width: 64px;
+        color: rgb(220,222,224) !important;
+        font-family: 'open_sans_reg', 'open_sans_reg_2', sans-serif;
         display: none;
+    }
+    .field_label.extra_wide {
+        width: 80px;
+    }
+    .field_label.auto_width {
+        width: auto;
     }
     
     .contest_table tr:first-child { /* header */
@@ -275,12 +282,12 @@
     
     .contest_detail_table td {
         vertical-align: middle;
-        height: 44px;
-        font-size: 14px;
+        height: 20px;
+        font-size: 12px;
     }
     
     .contest_detail_table td:first-child {
-        width: 120px; 
+        width: 100px; 
         white-space: nowrap;
     }
     
@@ -377,7 +384,14 @@
     
     #exposure_container, #payout_container, #PNL_container, .headline_value_container {
         font-size: 14px;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
+    }
+    .headline_value_container.my_contests {
+        padding-left: 20px;
+    }
+    #headline_value_label {
+        color: rgb(220,222,224);
+        font-size: 13px; 
     }
     
     #exposure_value, #payout_value, #PNL_value, .headline_value {

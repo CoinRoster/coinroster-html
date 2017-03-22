@@ -10,7 +10,7 @@
             {
             if (i === selector_to_activate) 
                 {
-                var color = "white";
+                var color = "orange";
                 /*switch (i)
                     {
                     case 0 : // open

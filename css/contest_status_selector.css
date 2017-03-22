@@ -1,18 +1,22 @@
     #contest_status_selector_container {
-        padding: 9px 20px 30px 20px;
+        padding: 9px 20px 20px 20px;
     }
 
     #contest_status_selector {
-        width: 100%;
+        width: 100%; 
+        border-collapse: separate;
+        border-spacing: 10px 0;
     }
 
     #contest_status_selector td {
-        border: 1px solid grey;
-        padding: 10px 20px;
+        padding: 10px 10px;
         white-space: nowrap;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 13px;
         vertical-align: top;
+    }
+    #contest_status_selector td:hover {
+        text-decoration: underline;
     }
 
     #contest_status_selector td.contest_status_selector_button {
@@ -20,11 +24,11 @@
     }
 
     #contest_status_selector td:last-child {
-        border-top: none;
-        border-right: none;
         cursor: default;
     }
 
     .contest_status_selected {
-        border-bottom: none !important;
+        border-bottom: 1px solid rgb(255,86,18);
+        text-decoration: none !important;
+        cursor: default !important;
     }
