@@ -66,6 +66,11 @@
             display: inline-block !important;
         }
         
+        #category_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
         /* My Contests */
             
         #contest_report_table tr:first-child { /* header */
@@ -209,7 +214,10 @@
         #pari_mutuel_table .hidden_break { /* odds */
             display: block;
         }
-        
+        #pari_mutuel_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
         .roster_parameter_table {
             display: block !important;
         }

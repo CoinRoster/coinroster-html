@@ -246,6 +246,7 @@
                     registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
                     settlement_type = call.settlement_type,
                     cost_per_entry = call.cost_per_entry,
+                    total_prize_pool = call.total_prize_pool,
                     rake = call.rake,
                     option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
@@ -273,8 +274,8 @@
                     
                     id("settlement_type").innerHTML = settlement_type_string(settlement_type);
                     id("rake").innerHTML = multiply(rake, 100) + "%";
-                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC";
-                    id("prize_pool").innerHTML = toBTC(call.total_prize_pool) + " BTC";
+                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "always_inline");
+                    id("prize_pool").innerHTML = toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "always_inline");
                     
                     id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
                     
@@ -287,7 +288,7 @@
                         destroy("pari_mutuel_table_label");
                         
                         id("entries_label").innerHTML = "Rosters:";
-                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
+                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "always_inline");
                         
                         var
 
@@ -578,8 +579,8 @@
 
             row_index = -1,
             main_line = "";
-            
-            if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC" + "</li></ul>";
+                        
+            if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC</li></ul>";
             else
                 {
                 if (contest_status === 3 && option_item.outcome === 1) 
@@ -596,22 +597,33 @@
             
             var row = new_row(pari_mutuel_table, row_index, [
                 main_line,
-                "<ul><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
+                "<ul><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
             ]);
             
             row[1].style.textAlign = "left";
             row[2].style.textAlign = "left";
             
+            function update_wager_input(input, wager_value)
+                {
+                input.value = toBTC(wager_value, true);
+                var 
+                
+                parent = input.parentNode,
+                fiat_wager_display = getFiatDisplay(wager_value, "never_inline", true);
+                if (parent.querySelector(".fiat_display")) destroy(parent.lastChild);
+                parent.appendChild(fiat_wager_display);
+                }
+            
             if (contest_open) bind_btc_input(id("wager_input_" + option_id), function(input)
                 {
                 if (input.value !== "")
                     {
-                    input.value = toBTC(input.value, true);
+                    update_wager_input(input, input.value);
                     if (input.value < window.cost_per_entry)
                         {
                         show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
                             {
-                            input.value = toBTC(window.cost_per_entry, true);
+                            update_wager_input(input, window.cost_per_entry)
                             update_submit_button();
                             });
                         }
@@ -640,7 +652,7 @@
         
         var button_html = "Submit wagers";
         
-        if (wagers_total !== 0) button_html = "Submit wagers (" + toBTC(wagers_total) + " BTC)";
+        if (wagers_total !== 0) button_html = "Submit wagers:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(wagers_total) + " BTC" + getFiatDisplay(wagers_total, "always_inline");
         
         id("submit_pari_mutuel_button").innerHTML = button_html;
         }

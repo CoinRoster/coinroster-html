@@ -355,6 +355,7 @@
         var els = document.getElementsByClassName("fiat_symbol");
         for (var i=0, limit = els.length; i<limit; i++) els[i].innerHTML = symbol;
         }
+        
     function toFiat(btc_value, as_link)
         {
         if (window.session)
@@ -364,6 +365,16 @@
             else return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
             }
         else return false;
+        }
+        
+    function getFiatDisplay(btc_value, inline_class, return_as_element)
+        {
+        var fiat_display = document.createElement("span");
+        fiat_display.className = "fiat_display";
+        if (inline_class) fiat_display.className += " " + inline_class;
+        fiat_display.innerHTML = toFiat(btc_value);
+        if (return_as_element) return fiat_display;
+        else return fiat_display.outerHTML;
         }
        
     function commas(x) 

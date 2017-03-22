@@ -426,3 +426,16 @@
     #reset_password:hover {
         text-decoration:underline;
     }
+    
+    .fiat_display {
+        display: block;
+        font-size: 10px;
+        color: rgb(220,222,224);
+    }
+    .fiat_display.always_inline {
+        display: inline-block !important;
+        padding-left: 20px;
+    }
+    .fiat_display.never_inline {
+        display: block !important;
+    }
