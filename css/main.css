@@ -34,6 +34,16 @@
     }
     
     @font-face {
+        font-family: 'open_sans_reg';
+        src: url('../fonts/OpenSans/OpenSans-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
+        font-family: 'open_sans_reg_2';
+        src: url('../fonts/OpenSans/Regular/OpenSans-Regular.ttf') format('truetype');
+    }
+    
+    @font-face {
       font-family: Neuzeit;
       font-weight: normal;
       font-style: normal;
@@ -102,17 +112,38 @@
         padding:0;
         padding-top:2px;
     }
-        
+       
+    #centering_container, .centering_container {
+        position: relative;
+        width: 980px;
+        margin: 0 auto;
+    }
+    
+    #body_container, .body_container {
+        position: relative;
+        padding: 0 20px;
+    }
+    .lobby_body_container {
+        padding: 0 16px 0 14px; /* approx 15px on either side, but this is just how thinks work out at max width */
+    }
+    .table_body_container {
+        padding: 0 20px 20px 20px;
+    }
     .section_header {
-        padding: 10px 0;
         font-family: 'section_header', 'section_header_2', sans-serif;
-        font-size: 14px;
+        padding: 10px 0;
+        font-size: 16px;
+    }
+    .body_container.header .section_header {
+        margin: 9px 0;
+        padding: 10px 11px;
         font-weight: normal;
-        text-transform: uppercase;
         background: rgb(60,62,64);
+        text-transform: uppercase;
+        font-size: 13px;
     }
     .section_header.no_padding_top {
-        padding-top: 0px !important;
+        margin-top: 0 !important;
     }
     .section_header_link {
         color: white;
@@ -336,7 +367,12 @@
     }
     
     .description_text {
+        font-family: 'open_sans_reg', 'open_sans_reg_2', sans-serif;
         font-size:14px;
+    }
+    
+    .constrain_width {
+        max-width: 600px;
     }
 
     input:-webkit-autofill,
@@ -360,27 +396,6 @@
         margin: 40px 0;
     }
     
-    #centering_container, .centering_container {
-        position: relative;
-        width: 980px;
-        margin: 0 auto;
-    }
-    
-    #body_container, .body_container { /* gets overridden in lobby.css */
-        position: relative;
-        padding: 0 20px;
-    }
-    #lobby_body_container {
-        padding-right: 3px !important;
-        padding-left: 3px !important; /* adjust padding-left below: */
-    }
-    #lobby_body_container .section_header{
-        padding-left: 17px !important; /* 20px - body padding above */
-    }
-    .table_body_container {
-        padding: 0 20px 20px 20px;
-    }
-        
     #no_data_message {
         font-size: 14px;
     }

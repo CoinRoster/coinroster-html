@@ -105,10 +105,6 @@
         width:600px !important;
     }
     
-    .constrain_width {
-        max-width: 600px;
-    }
-    
     .add_left_margin {
         margin-left:20px;
     }
