@@ -65,6 +65,11 @@
     
     /*------------------------------------------------------------*/
 
+    .category_path_slash {
+        display: inline-block;
+        padding: 0 10px;
+    }
+    
     .payout_info_link {
         cursor: pointer;
         display: inline-block;
@@ -193,6 +198,7 @@
     }
     
     .field_label {
+        width: 70px;
         color: white !important;
         display: none;
     }

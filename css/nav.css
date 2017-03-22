@@ -66,9 +66,6 @@
         cursor:pointer;
         padding:10px;
     }
-    .ssi_header_a:hover {
-        text-decoration:underline;
-    }
     .ssi_header_a_no_link {
         padding: 10px;
         text-decoration: none;
@@ -86,9 +83,11 @@
     .ssi_header_active_tab {
         color: rgb(255,229,171);
         text-decoration: none;
-        cursor: default;
         padding: 10px;
         border-bottom: 1px solid rgb(255,86,18);
+    }
+    .ssi_header_a:hover, .ssi_header_active_tab:hover {
+        text-decoration:underline;
     }
   
 /* Balance Bar -------------------------------------------------------------------- */
@@ -143,6 +142,12 @@
         font-size: 20px;
     }
     
+    #ssi_mobile_nav_placeholder {
+        padding-left: 20px;
+        padding-top: 3px;
+        font-size: 14px;
+    }
+    
     #ssi_mobile_nav_icon {
         position: absolute;
         top: 13px;
@@ -152,10 +157,10 @@
         height: 23px;
     }
     .menu_open {
-        background-image: url('../img/close-menu.png');
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAA9BAMAAADxMkJBAAAAHlBMVEUAAAD///////////////////////////////////8kfJuVAAAACXRSTlMA8o3d1qNhMBfFoCJkAAAA10lEQVRIx+3VoQ7CMBQF0JsRApMENYfAzGEQSOTcLJ8wxydgcdsYkP4tFU1vlpa8l6WyVyxZe9q+pmkKbDsj5fMAYDQBapUb0ajchErlBlxU7oWbyr3V+8Wmlnd7R07yHHdnDSvtAfSicuetYzYyI5SYDEvD9BKToZlHYIzAGKE4ligzwjgDvxHIduc47g9zLg4LMucID5HpQMfG0GHmELi1X5WOK7ferTyjIzzBp3KMjnAA07guOv5MYIrrvg0cO3T3LbvsErjOslHhntZ9k7wfLHD5u/UD3cLRBUUytUQAAAAASUVORK5CYII=');
     }
     .menu_closed {
-        background-image: url('../img/menu.png');
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAA9BAMAAADxMkJBAAAAHlBMVEUAAAD///////////////////////////////////8kfJuVAAAACXRSTlMAjvLd1qNhMBckfwZ5AAAAUUlEQVRIx2Ng4MicSQhMa2BgYJhJDGBgkCRK3UQGT6LUTWHQJErdJAZLotRNZogkSt1Uov3LwC5J2LcFDKNgFAwNMFoejJYHo2AUjJYH9CwPAHWNWsKY/D5hAAAAAElFTkSuQmCC');
     }
     
     #ssi_mobile_shade {

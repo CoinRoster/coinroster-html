@@ -10,7 +10,7 @@
 
     /* input box in default state */ 
     .tcalInput {
-        background: white url('tcal_img/cal.gif') 8px 50% no-repeat;
+        background: white url('../img/tcal_img/cal.gif') 8px 50% no-repeat;
         border-radius:5px;
         padding:4px 8px;
         padding-left: 32px;
@@ -34,7 +34,7 @@
 
     /* additional properties for input boxe in activated state, above still applies unless in conflict */
     .tcalActive {
-        background-image: url('tcal_img/no_cal.gif');
+        background-image: url('../img/tcal_img/no_cal.gif');
     }
     
     /* container of calendar's pop-up */
@@ -80,10 +80,10 @@
         font-weight: bold;
         white-space: nowrap;
     }
-    #tcalPrevYear { background-image: url('tcal_img/prev_year.gif'); }
-    #tcalPrevMonth { background-image: url('tcal_img/prev_mon.gif'); }
-    #tcalNextMonth { background-image: url('tcal_img/next_mon.gif'); }
-    #tcalNextYear { background-image: url('tcal_img/next_year.gif'); }
+    #tcalPrevYear { background-image: url('../img/tcal_img/prev_year.gif'); }
+    #tcalPrevMonth { background-image: url('../img/tcal_img/prev_mon.gif'); }
+    #tcalNextMonth { background-image: url('../img/tcal_img/next_mon.gif'); }
+    #tcalNextYear { background-image: url('../img/tcal_img/next_year.gif'); }
 
     /* table containing week days header and calendar grid */
     #tcalGrid {

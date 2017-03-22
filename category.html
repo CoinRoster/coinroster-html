@@ -16,8 +16,8 @@
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div class="body_container">
-        <h3 id="category_header" class="section_header">
+    <div id="category_header" class="body_container header">
+        <h3 class="section_header">
             <span id="sub_category_text"></span>
         </h3>
     </div>
@@ -98,7 +98,7 @@
             if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
             //id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
-            id("sub_category_text").innerHTML = sub_category_description;
+            id("sub_category_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='category_path_slash red_orange'>/</span><span class='orange'>" + sub_category_description + "</span>";
 
             var 
             
@@ -123,7 +123,7 @@
                         no_data_message = "No contests have been settled in this category in the past 14 days.";
                         break;
                     }
-                id("no_data_message").innerHTML = no_data_message + "<a href='/' class='inline_link vertical_padding'>Return to lobby</a>";
+                id("no_data_message").innerHTML = no_data_message + "<a href='/' class='inline_link teal vertical_padding'>Return to lobby</a>";
                 show("no_data_message");
                 return;
                 }

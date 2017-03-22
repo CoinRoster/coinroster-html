@@ -16,10 +16,9 @@
             if (target === "") target = url[url.length - 2];
             }
 
-        if (pathname.indexOf("/admin/") !== -1) 
-            {
-            return init(); // avoid all mobile stuff below if admin
-            }
+        if (pathname.indexOf("/admin/") !== -1) return init(); // avoid all mobile stuff below if admin
+        else if (pathname.indexOf("/contests/") !== -1) target = "contests";
+        else if (pathname.indexOf("/account/") !== -1) target = "account";
 
         tab_id = "ssi_header_" + target;
         if (id(tab_id) !== null) id(tab_id).className = "ssi_header_active_tab";
@@ -31,6 +30,13 @@
         ssi_mobile_nav_icon = id("ssi_mobile_nav_icon"),
         ssi_mobile_shade = id("ssi_mobile_shade"),
         mobile_nav_state = "hidden";
+        
+        if (window.nav_text)
+            {
+            hide("ssi_mobile_nav_logo");
+            show("ssi_mobile_nav_placeholder");
+            id("ssi_mobile_nav_placeholder").innerHTML = window.nav_text;
+            }
 
         function toggle_mobile_menu()
             {

@@ -1,30 +1,30 @@
     #contest_status_selector_container {
-        padding: 0 20px 30px 20px;
+        padding: 9px 20px 30px 20px;
     }
 
-        #contest_status_selector {
-            width: 100%;
-        }
-        
-        #contest_status_selector td {
-            border: 1px solid grey;
-            padding: 10px 20px;
-            white-space: nowrap;
-            cursor: pointer;
-            font-size: 14px;
-            vertical-align: top;
-        }
-        
-        #contest_status_selector td.contest_status_selector_button {
-            width: 1px;
-        }
-        
-        #contest_status_selector td:last-child {
-            border-top: none;
-            border-right: none;
-            cursor: default;
-        }
-        
-        .contest_status_selected {
-            border-bottom: none !important;
-        }
+    #contest_status_selector {
+        width: 100%;
+    }
+
+    #contest_status_selector td {
+        border: 1px solid grey;
+        padding: 10px 20px;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 14px;
+        vertical-align: top;
+    }
+
+    #contest_status_selector td.contest_status_selector_button {
+        width: 1px;
+    }
+
+    #contest_status_selector td:last-child {
+        border-top: none;
+        border-right: none;
+        cursor: default;
+    }
+
+    .contest_status_selected {
+        border-bottom: none !important;
+    }

@@ -13,16 +13,16 @@
 <div class="centering_container">
     <div id="body_container">
         <div id="login_prompt_container" class="account_creation_message hidden">
-            You must <a id="login_link" href="/login.html" class="inline_link">log in</a> to enter this contest.
+            You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
             <br/>
             <br/>
-            Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link">Click here to sign up today!</a>
+            Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link orange_actual">Click here to sign up!</a>
         </div>
         <div id="validate_email_container" class="account_creation_message hidden">
             Please verify your email.
             <div id="re_send_email_verification_container" class="hidden">
                 <br/>
-                <a class="inline_link" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
+                <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
             </div>
         </div>
         <div id="no_entry" class="account_creation_message hidden">
@@ -346,7 +346,7 @@
                                             max_users,
                                             ") has been reached",
                                             "<br/><br/>",
-                                            "<a href='/' class='inline_link'>Return to lobby</a>"
+                                            "<a href='/' class='inline_link teal'>Return to lobby</a>"
                                         ].join("");
                                         show("no_entry");
                                         }
@@ -357,7 +357,7 @@
                                             entries_per_user,
                                             ")",
                                             "<br/><br/>",
-                                            "<a href='/' class='inline_link'>Return to lobby</a>"
+                                            "<a href='/' class='inline_link teal'>Return to lobby</a>"
                                         ].join("");
                                         show("no_entry");
                                         }
@@ -376,7 +376,7 @@
                         {
                         hide("registration_countdown_row");
                         show("filler_row", "table-cell");
-                        id("registration_deadline_label").innerHTML = "Closed:";
+                        id("registration_deadline_label").innerHTML = "Went live:";
                         
                         var 
                         

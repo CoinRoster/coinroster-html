@@ -79,35 +79,39 @@
                     <span id="remaining_players" class="green">0</span>
                 </li>
             </ul>
-            <div id="player_table_header" class="player_table_header">
-                Available players:
-                <br/>
-                <span class="click_to">
-                    Click to draft
-                </span>
-            </div><!--
-            --><div id="roster_table_header" class="player_table_header">
-                Your roster:
-                <br/>
-                <span class="click_to">
-                    Click to drop
-                </span>
-            </div>
-            <div id="player_table_container" class="player_table_container">
-                <table id="player_table" class="player_table"></table>
-            </div><!--
-            --><div id="roster_table_container" class="player_table_container">
-                <table id="roster_table" class="player_table"></table>
-            </div>
-            <div id="submit_button_container" class="submit_container">
-                <button id="submit_roster_button" class="text_button auto_width" onclick="update_roster()">Update Roster</button>
-                <button class="text_button auto_width" onclick="cancel_edit_roster()">Cancel</button>
+            <div style="display:block">
+                <div id="player_table_header" class="player_table_header">
+                    Available players:
+                    <br/>
+                    <span class="click_to">
+                        Click to draft
+                    </span>
+                </div><!--
+                --><div id="roster_table_header" class="player_table_header">
+                    Your roster:
+                    <br/>
+                    <span class="click_to">
+                        Click to drop
+                    </span>
+                </div>
+                <div id="player_table_container" class="player_table_container">
+                    <table id="player_table" class="player_table"></table>
+                </div><!--
+                --><div id="roster_table_container" class="player_table_container">
+                    <table id="roster_table" class="player_table"></table>
+                </div>
+                <div id="submit_button_container" class="submit_container">
+                    <button id="submit_roster_button" class="text_button auto_width" onclick="update_roster()">Update Roster</button>
+                    <button class="text_button auto_width" onclick="cancel_edit_roster()">Cancel</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<script>
-
+<script type="text/javascript">
+     
+    window.nav_text = "MY CONTESTS";
+    
     var full_precision = false;
     
     function show_full_precision()
@@ -364,13 +368,13 @@
                                         var row_data;
                                     
                                         if (contest_status === 3) row_data = [
-                                            "<ul><li><div class='field_label'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Score</div>" + score + "</span></li></ul>",
+                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Score</div>" + score + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>",
                                             "<div class='field_label'>Entries:</div>" + number_of_entries,
                                             "<div class='field_label'>Payout per entry:</div>" + payout_per_entry
                                         ];
                                         else row_data = [
-                                            "<ul><li><div class='field_label'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                            "<ul><li><div class='field_label'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label'>Entries:</div>" + number_of_entries + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>"
                                         ];
 

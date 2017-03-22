@@ -10,8 +10,8 @@
             {
             if (i === selector_to_activate) 
                 {
-                var color = "";
-                switch (i)
+                var color = "white";
+                /*switch (i)
                     {
                     case 0 : // open
                         color = "green";
@@ -22,7 +22,7 @@
                     case 2 : // settled
                         color = "white";
                         break;
-                    }
+                    }*/
                 contest_status_selectors[i].className = "contest_status_selector_button contest_status_selected " + color;
                 }
             else contest_status_selectors[i].className = "contest_status_selector_button steel"; 

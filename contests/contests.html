@@ -12,11 +12,6 @@
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div class="body_container">
-        <h3 class="section_header">
-            My Contests
-        </h3>
-    </div>
 <!--#include virtual="/ssi/contest_status_selector.html" -->
     <div class="body_container">
         <div id="no_data_message" class="hidden"></div>
@@ -30,8 +25,10 @@
     </div>
 </div>
 <!--#include virtual="/ssi-java/my_contests_count" -->
-<script>
+<script type="text/javascript">
      
+    window.nav_text = "MY CONTESTS";
+    
     (function()
         {
         if (window.contest_counts)

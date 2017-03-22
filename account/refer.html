@@ -11,34 +11,32 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
     <div id="body_container">
-        <div id="initial_container">
-            <h3 class="section_header orange_actual">
-                Refer a friend and earn cash!
-            </h3>
-            <div class="input_padding description_text">
-                Receive 50% of the rake on all contest entries made by any account you refer.
+        <h3 class="section_header orange_actual">
+            REFER A FRIEND!
+        </h3>
+        <div class="input_padding description_text">
+            Receive 50% of the rake on all contest entries made by any account you refer.
+            <br/>
+            <br/>
+            These bonuses will be credited to your account in RosterCoins.
+            <br/>
+            <br/>
+            For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>.
+            <br/>
+            <br/>
+            <form onsubmit="return send_referral();">
+                <div class="input_padding">
+                    From:
+                    <input id="referrer" type="text" class="light_on_dark_input add_left_margin" />
+                </div>
+                To:
+                <input id="referral_email_address" type="text" placeholder="Enter an email address" class="light_on_dark_input teal email_input add_left_margin" />
                 <br/>
                 <br/>
-                These bonuses will be credited to your account in RosterCoins.
-                <br/>
-                <br/>
-                For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link">read our blog post</a>.
-                <br/>
-                <br/>
-                <form onsubmit="return send_referral();">
-                    <div class="input_padding">
-                        From:
-                        <input id="referrer" type="text" class="light_on_dark_input add_left_margin" />
-                    </div>
-                    To:
-                    <input id="referral_email_address" type="text" placeholder="Enter an email address" class="light_on_dark_input teal email_input add_left_margin" />
-                    <br/>
-                    <br/>
-                    <button type="submit" class="text_button auto_width">Send referral!</button>
-                    <span id="referral_message" class="add_left_margin"></span>
-                </form>
-                <br/>
-            </div>
+                <button type="submit" class="text_button auto_width">Send referral!</button>
+                <span id="referral_message" class="add_left_margin"></span>
+            </form>
+            <br/>
         </div>
     </div>
 </div>

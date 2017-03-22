@@ -136,11 +136,14 @@
     }
     .body_container.header .section_header {
         margin: 9px 0;
-        padding: 10px 11px;
+        padding: 12px 11px;
         font-weight: normal;
         background: rgb(60,62,64);
         text-transform: uppercase;
         font-size: 13px;
+    }
+    #category_header .section_header { /* section_header of category.html */
+        margin-bottom: 0 !important;
     }
     .section_header.no_padding_top {
         margin-top: 0 !important;
@@ -154,7 +157,6 @@
     }
     
     .link, .inline_link {
-        color: rgb(129,243,217);
         cursor: pointer;
         text-decoration: none;
     }
@@ -242,6 +244,10 @@
     }
     .orange_actual {
         color: orange !important;
+    }
+    
+    .red_orange {
+        color: rgb(255,86,18);
     }
     
     .blue {
@@ -367,8 +373,10 @@
     }
     
     .description_text {
-        font-family: 'open_sans_reg', 'open_sans_reg_2', sans-serif;
         font-size:14px;
+    }
+    .description_text.open_sans_reg {
+        font-family: 'open_sans_reg', 'open_sans_reg_2', sans-serif;
     }
     
     .constrain_width {
