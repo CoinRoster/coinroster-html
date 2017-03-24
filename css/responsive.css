@@ -11,6 +11,10 @@
         .sub_category_item {
             width: calc(25% - 10px);
         }
+        
+        .extra_body_container_padding {
+            padding-left: 31px !important;
+        }
 
     }
     
@@ -26,6 +30,15 @@
         }
         .lobby_body_container {
             padding: 0 3px;
+        }
+        .transaction_table_body {
+            padding: 0 !important;
+        }
+        .transaction_table_body .subwindow {
+            padding-left: 20px !important;
+        }
+        #transaction_report_table td:first-child {
+            padding-left: 20px !important;
         }
         
         /* four-wide tiles */
@@ -92,6 +105,14 @@
             display: inline-block !important;
             padding-right: 20px;
             font-size: 12px;
+        }
+        #contest_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
+        .lobby_container #contest_status_selector_container {
+            padding-bottom: 10px !important;
         }
                 
     }
@@ -196,7 +217,7 @@
             font-size: 12px !important;
         }
         #pari_mutuel_table td:last-child { /* wagers & odds */
-            padding-top: 0 !important;
+            padding-top: 7px !important;
             padding-bottom: 7px !important;
         }
         #pari_mutuel_table .li_left { /* wagers */
@@ -205,14 +226,10 @@
         }
         #pari_mutuel_table .li_right {
         }
-        #pari_mutuel_table .field_label { /* odds */
+        #pari_mutuel_table .field_label {
             display: inline-block !important;
-            margin-top: 8px;
             padding-right: 20px;
             font-size: 12px;
-        }
-        #pari_mutuel_table .hidden_break { /* odds */
-            display: block;
         }
         #pari_mutuel_table .fiat_display.allow_inline {
             display: inline-block !important;
@@ -226,17 +243,28 @@
             padding-bottom: 2px !important;
         }
         
+        /* My Account */
+        
+        #account_menu {
+            float: none;
+            width: 100%;
+        }
+        
         /* transactions in My Account */
         
         #transaction_report_table tr {
-            border-width: 2px !important;
+            display: block;
+            position: relative;
+            border-bottom: 0 !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
         }
         #transaction_report_table td {
             display: inline-block;
             padding-right: 1px !important;
             padding-left: 1px !important;
         }
-        #transaction_report_table td:nth-child(1) { /* trans no. */
+        #transaction_report_table td:first-child { /* trans no. */
             float: right;
         }
         #transaction_report_table td:nth-child(3) { /* date */
@@ -245,8 +273,17 @@
             padding-top: 0px !important;
             padding-bottom: 8px !important;
         }
-        #transaction_report_table td:nth-child(5)  { /* memo */
-            float: right;
+        #transaction_report_table td:nth-child(4)  { /* btc value */
+            float: left;
+        }
+        #transaction_report_table td:nth-child(5)  { /* fiat value */
+            display: block;
+            text-align: left;
+        }
+        #transaction_report_table td:last-child  { /* memo */
+            position: absolute;
+            right: 20px;
+            top: 20px;
         }
         
         #transaction_report_table .memo_link {
@@ -260,13 +297,19 @@
         }
         #roster_entry_report_table td {
             display: block;
+            padding-top: 0 !important;
             padding-bottom: 0 !important;
             text-align: left !important;
         }
         
         #roster_entry_report_table td:first-child { /* roster / outcome */
-            padding-bottom: 10px !important;
+            padding-top: 5px !important;
+            padding-bottom: 7px !important;
             width: auto !important;
+        }
+        #roster_entry_report_table td:nth-child(2) { /* roster players */
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
         }
         #roster_entry_report_table td:last-child { /* wager */
             padding-bottom: 11px !important;
@@ -276,18 +319,27 @@
             padding-right: 20px;
             font-size: 12px;
         }
+        #roster_entry_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
         
         #pari_mutuel_entry_report_table tr:first-child { /* header */
             display: none;
         }
         #pari_mutuel_entry_report_table td {
             display: block;
+            padding-top: 0 !important;
             padding-bottom: 0 !important;
             text-align: left !important;
         }
         
         #pari_mutuel_entry_report_table td:first-child { /* pari_mutuel / outcome */
-            padding-bottom: 10px !important;
+            padding-top: 5px !important;
+            padding-bottom: 7px !important;
+        }
+        #pari_mutuel_entry_report_table td:nth-child(2) { /* My Wagers */
+            padding-top: 10px !important;
         }
         #pari_mutuel_entry_report_table td:last-child { /* wager */
             padding-bottom: 11px !important;
@@ -297,21 +349,13 @@
             padding-right: 20px;
             font-size: 12px;
         }
+        #pari_mutuel_entry_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
     }
     @media only screen and (max-width: 640px) {
 
-        /* move deposit and withdraw buttons under balances */
-
-        #deposit_withdraw_container {
-            display: block !important;
-            margin-bottom: 15px !important;
-            margin-left: 0 !important;
-        }
-        
-        .destroy_left_padding {
-            padding-left: 0 !important;
-        }
-        
         /* Contest page */
         
         .player_table td {
@@ -353,6 +397,14 @@
     }
     @media only screen and (max-width: 500px) {
 
+        #balance_table_wrapper {
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+        #balance_table_outer {
+            margin: 25px auto !important;
+        }
+
         .mobile_lowest_only {
             display: block !important;
         }
@@ -370,14 +422,11 @@
         .sub_category_item {
             width: calc(100% - 12px);
         }
-        
-        .subwindow_heading, 
-        .clickable_subwindow, 
+ 
         .contest_table td:first-child {
             font-size:14px !important;
         }
-        
-        .hidden_subwindow, 
+
         .contest_table td {
             font-size: 12px !important;
         }
@@ -393,6 +442,16 @@
         #pari_mutuel_table td {
             font-size: 11px !important;
         }
+        #pari_mutuel_table .wagers_and_odds li {
+            display: block !important;
+            width: 100%;
+            text-align: left;
+        }
+        #pari_mutuel_table .field_label {
+            text-align: left !important;
+            width: 50px !important;
+        }
+        
         
         #submit_pari_mutuel_button {
             margin-left: 20px;
@@ -454,6 +513,7 @@
         .headline_value_container.my_contests {
             padding-left: 0 !important;
         }
+        
     }
     
     @media only screen and (max-width: 374px) {

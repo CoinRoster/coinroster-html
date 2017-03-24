@@ -358,13 +358,25 @@
         
     function toFiat(btc_value, as_link)
         {
+        var symbol, btc_usd_last_price, currency_last_price;
+        
         if (window.session)
             {
-            var btcxxx = multiply(window.session.btcusd_last_price, window.session.currency_last_price);
-            if (as_link && window.location.pathname.indexOf("currency.html") === -1) return toCurrency(multiply(btcxxx, btc_value)) + " <a class='currency_link' href='/account/currency.html'>" + window.session.currency + "&nbsp;<i class='fa fa-caret-down' aria-hidden='true'></i></a>";
-            else return toCurrency(multiply(btcxxx, btc_value)) + " " + window.session.currency;
+            symbol = window.session.currency;
+            btc_usd_last_price = window.session.btcusd_last_price;
+            currency_last_price = window.session.currency_last_price;
+            }
+        else if (window.inactive_session)
+            {
+            symbol = window.inactive_session.currency;
+            btc_usd_last_price = window.inactive_session.btcusd_last_price;
+            currency_last_price = window.inactive_session.currency_last_price;
             }
         else return false;
+        
+        var btcxxx = multiply(btc_usd_last_price, currency_last_price);
+        if (as_link && window.location.pathname.indexOf("currency.html") === -1) return toCurrency(multiply(btcxxx, btc_value)) + " <a class='currency_link' href='/account/currency.html'>" + symbol + "&nbsp;<i class='fa fa-caret-down' aria-hidden='true'></i></a>";
+        else return toCurrency(multiply(btcxxx, btc_value)) + " " + symbol;
         }
         
     function getFiatDisplay(btc_value, inline_class, return_as_element)

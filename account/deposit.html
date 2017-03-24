@@ -10,10 +10,16 @@
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div id="body_container">
+    <div id="category_header" class="body_container header">
         <h3 class="section_header">
-            Deposit BTC
+            <span id="path_text">
+                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                --><span class='path_slash red_orange'>/</span><!--
+                --><span class='orange'>DEPOSIT</span>
+            </span>
         </h3>
+    </div>
+    <div class="body_container extra_body_container_padding">
         <div id="initial_container">
             <div class="input_padding description_text">
                 Please use the form below to tell us how much you intend to deposit.
@@ -35,7 +41,7 @@
                 <span id="cash_register_address" class="teal small_text"></span>
             </div>
             <br/>
-            <span class="orange">
+            <span class="orange_actual">
                 How much would you like to deposit?
             </span>
             <br/>

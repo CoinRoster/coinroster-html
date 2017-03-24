@@ -15,9 +15,9 @@
 <body>
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
+<div id="centering_container" class="lobby_container">
     <div id="category_header" class="body_container header">
-        <h3 class="section_header">
+        <h3 class="section_header to_uppercase">
             <span id="path_text"></span>
         </h3>
     </div>
@@ -98,7 +98,7 @@
             if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
             //id("category_text").innerHTML = category_description + "&nbsp;&nbsp;-&nbsp;&nbsp;";
-            id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='category_path_slash red_orange'>/</span><span class='orange'>" + sub_category_description + "</span>";
+            id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='path_slash red_orange'>/</span><span class='orange'>" + sub_category_description + "</span>";
 
             var 
             

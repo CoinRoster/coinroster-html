@@ -71,7 +71,7 @@
         padding:0;
         margin:0;
         color:white;
-        font-size:16px;
+        font-size:14px;
         moz-text-size-adjust:none;
         -webkit-text-size-adjust:none;
         -ms-text-size-adjust:none;
@@ -139,8 +139,14 @@
         padding: 13px 11px;
         font-weight: normal;
         background: rgb(55,56,57);
-        text-transform: uppercase;
         font-size: 13px;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .to_uppercase {
+        text-transform: uppercase;
     }
     #category_header .section_header { /* section_header of category.html */
         margin-bottom: 0 !important;
@@ -427,10 +433,23 @@
         text-decoration:underline;
     }
     
+    .path_slash {
+        display: inline-block;
+        padding: 0 10px;
+    }
+    
     .fiat_display {
         display: block;
-        font-size: 10px;
+        font-size: 11px;
         color: rgb(220,222,224);
+    }
+    .fiat_display.align_right {
+        width:100%;
+        text-align:right;
+    }
+    .fiat_display.soft_inline {
+        display: inline-block;
+        padding-left: 20px;
     }
     .fiat_display.always_inline {
         display: inline-block !important;

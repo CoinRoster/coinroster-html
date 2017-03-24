@@ -12,11 +12,11 @@
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div class="centering_container">
     <div id="category_header" class="body_container header">
-        <h3 class="section_header">
+        <h3 class="section_header to_uppercase">
             <span id="path_text"></span>
         </h3>
     </div>
-    <div id="body_container">
+    <div id="body_container" class="extra_body_container_padding">
         <div id="login_prompt_container" class="account_creation_message hidden">
             You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
             <br/>
@@ -144,7 +144,7 @@
             <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
         </div>
     </div>
-    <div class="table_body_container">
+    <div class="table_body_container extra_body_container_padding">
         <div class="roster_field hidden">
             <ul class="roster_parameter_table augment_vertical_padding">
                 <li class="roster_parameter_label">
@@ -155,8 +155,13 @@
                 <li id="number_of_entries_li">
                     <input id="number_of_entries_input" type="text" class="light_on_dark_input green" style="width:42px;">
                 </li>
-                <li id="entry_value_li" class="green">
-                    &rarr;<span id="entry_value"></span>
+                <li style="padding-right:0" class="green">
+                    &rarr;
+                </li>
+                <li id="entry_value_li" style="vertical-align:middle;text-align:right;padding-left:0">
+                    <span id="entry_value" class="green"></span>
+                    <br/>
+                    <span id="entry_value_fiat"></span>
                 </li>
             </ul>
             <ul class="roster_parameter_table">
@@ -259,7 +264,7 @@
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
                     
-                    id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='category_path_slash red_orange'>/</span><a href='/category.html?main=" + category + "&sub=" + sub_category + "' class='inline_link steel'>" + sub_category_description + "</a>";
+                    id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='path_slash red_orange'>/</span><a href='/category.html?main=" + category + "&sub=" + sub_category + "' class='inline_link steel'>" + sub_category_description + "</a>";
                     
                     id("users").innerHTML = current_users + max_users_string;
                     id("entries_per_user").innerHTML = entries_per_user_string;
@@ -288,7 +293,8 @@
                         destroy("pari_mutuel_table_label");
                         
                         id("entries_label").innerHTML = "Rosters:";
-                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "always_inline");
+                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
+                        id("entry_value_fiat").innerHTML = getFiatDisplay(cost_per_entry, "never_inline");
                         
                         var
 
@@ -494,9 +500,10 @@
             {
             if (isNaN(this.value) || this.value < 1 || this.value > 9999) this.value = 1;
             else this.value = this.value | 0;
-            var entry_value = toBTC(multiply(this.value, window.cost_per_entry)) + " BTC";
-            id("submit_roster_button").innerHTML = "Submit roster (" + entry_value + ")";
-            id("entry_value").innerHTML = entry_value;
+            var entry_value = toBTC(multiply(this.value, window.cost_per_entry));
+            id("entry_value").innerHTML = entry_value + " BTC";
+            id("entry_value_fiat").innerHTML = getFiatDisplay(entry_value, "never_inline");
+            update_submit_roster_button(entry_value);
             };
         
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
@@ -519,7 +526,12 @@
             insert_player_row("player_table", player_id, name, price);
             }
             
-        id("submit_roster_button").innerHTML = "Submit roster (" + window.cost_per_entry + " BTC)";
+        update_submit_roster_button(window.cost_per_entry);
+        }
+        
+    function update_submit_roster_button(btc_value)
+        {
+        id("submit_roster_button").innerHTML = "Submit rosters:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(btc_value) + " BTC" + getFiatDisplay(btc_value, "never_inline align_right");
         }
                      
 /*----------------------------------------------------------------------*/
@@ -597,7 +609,7 @@
             
             var row = new_row(pari_mutuel_table, row_index, [
                 main_line,
-                "<ul><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
+                "<ul class='wagers_and_odds'><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
             ]);
             
             row[1].style.textAlign = "left";
@@ -652,7 +664,7 @@
         
         var button_html = "Submit wagers";
         
-        if (wagers_total !== 0) button_html = "Submit wagers:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(wagers_total) + " BTC" + getFiatDisplay(wagers_total, "always_inline");
+        if (wagers_total !== 0) button_html = "Submit wagers:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(wagers_total) + " BTC" + getFiatDisplay(wagers_total, "never_inline align_right");
         
         id("submit_pari_mutuel_button").innerHTML = button_html;
         }

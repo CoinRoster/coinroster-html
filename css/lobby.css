@@ -64,11 +64,6 @@
     }
     
     /*------------------------------------------------------------*/
-
-    .category_path_slash {
-        display: inline-block;
-        padding: 0 10px;
-    }
     
     .payout_info_link {
         cursor: pointer;
@@ -105,7 +100,7 @@
         border-color: rgb(44,46,48);
         border-style: solid;
         border-width: 2px 1px;
-        background: rgb(100,104,108);
+        background: rgb(100,102,104);
     }
         
     .contest_table td {
@@ -147,7 +142,7 @@
     }
     
     .contest_table td:first-child {
-        background: rgb(80,84,88);
+        background: rgb(80,82,84);
     }
     
     .contest_table ul {
@@ -163,6 +158,7 @@
         display: table-cell;
         vertical-align: middle;
     }
+
     @-webkit-keyframes action_button {
         from { background-color: rgb(192,148,42);}
         50% { background-color: rgb(225,143,0);}
@@ -356,8 +352,8 @@
     }
     
     .player_table tr {
-        background: rgb(80,84,88);
-        border: 1px solid rgb(100,104,108);
+        background: rgb(80,82,84);
+        border: 1px solid rgb(100,102,104);
         cursor: pointer;
     }
     /*.player_table tr:hover {
@@ -389,7 +385,24 @@
     .headline_value_container.my_contests {
         padding-left: 20px;
     }
-    #headline_value_label {
+    .headline_value_container ul {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        list-style: none;
+    }
+    .headline_value_container li {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .headline_value_container li:first-child {
+        white-space: nowrap;
+    }
+    .headline_value_container li:last-child {
+        text-align: right;
+    }
+    
+    .headline_value_label {
         color: rgb(220,222,224);
         font-size: 13px; 
     }

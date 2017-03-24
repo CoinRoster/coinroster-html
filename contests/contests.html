@@ -16,8 +16,15 @@
     <div class="body_container">
         <div id="no_data_message" class="hidden"></div>
         <div id="headline_value_container" class="headline_value_container my_contests hidden">
-            <span id="headline_value_label"></span>
-            <span id="headline_value" class="headline_value orange"></span>
+            <ul>
+                <li>
+                    <span id="headline_value_label" class="headline_value_label"></span>
+                </li>
+                <li>
+                    <span id="headline_value" class="headline_value orange"></span>
+                    <span id="headline_value_fiat"></span>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="table_body_container">
@@ -164,7 +171,7 @@
                 "<ul><li>" + title_link + "</li><li class='draft_button' onclick='show_user_entries(" + contest_id + ")'>" + button_text + "</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
                 "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string),
-                "<div class='field_label'>My wagers:</div>" + user_wagers + " BTC"
+                "<div class='field_label'>My wagers:</div>" + toBTC(user_wagers) + " BTC" + getFiatDisplay(user_wagers, "allow_inline")
             ]);
             
             if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
@@ -177,6 +184,7 @@
         show("headline_value_container");
         id("headline_value_label").innerHTML = "On the line:";
         id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        id("headline_value_fiat").innerHTML = getFiatDisplay(user_wagers_total, "soft_inline");
         }
         
     function populate_in_play_contests(contest_report, number_of_contests, table)
@@ -221,7 +229,7 @@
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Category:</div>" + sub_category_description,
-                "<div class='field_label'>My wagers:</div>" + user_wagers + " BTC"
+                "<div class='field_label'>My wagers:</div>" + toBTC(user_wagers) + " BTC" + getFiatDisplay(user_wagers, "allow_inline")
             ]);
 
             row[2].style.whiteSpace = "nowrap";
@@ -231,6 +239,7 @@
         show("headline_value_container");
         id("headline_value_label").innerHTML = "In play:";
         id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        id("headline_value_fiat").innerHTML = getFiatDisplay(user_wagers_total, "soft_inline");
         }
         
     function populate_settled_contests(contest_report, number_of_contests, table)
@@ -269,7 +278,7 @@
             var row = new_row(table, -1, [
                 "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>Results</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
-                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + toBTC(net_PL) + " BTC</span>"
+                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + toBTC(net_PL) + " BTC</span>" + getFiatDisplay(net_PL, "allow_inline")
             ]);
 
             row[2].style.whiteSpace = "nowrap";
@@ -282,6 +291,7 @@
         if (PL_total > 0) id("headline_value").innerHTML = "<span class='green'>" + toBTC(PL_total) + " BTC</span>";
         else if (PL_total < 0) id("headline_value").innerHTML = "<span class='orange'>-" + toBTC(PL_total) + " BTC</span>";
         else id("headline_value").innerHTML = toBTC(PL_total);
+        id("headline_value_fiat").innerHTML = getFiatDisplay(PL_total, "soft_inline");
         }
         
     function show_user_entries(contest_id)

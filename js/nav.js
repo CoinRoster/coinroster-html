@@ -80,7 +80,7 @@
                 hide("fiat_balance_cell");
                 show("deposit_cell", "table-cell");
                 id("balance_bar_available_balance").innerHTML = "0.00";
-                id("balance_bar_available_balance").className = "orange";
+                id("balance_bar_available_balance").className = "red_orange";
                 }
             }
             

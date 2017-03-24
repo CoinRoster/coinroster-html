@@ -225,7 +225,7 @@
                                     "<div class='field_label auto_width'># of entries:</div>" + number_of_entries
                                 ];
                                 
-                                if (contest_status === 3) row_data.push("<div class='field_label auto_width'>Payout:</div><span>" + payout + "</span>");
+                                if (contest_status === 3) row_data.push("<div class='field_label auto_width'>Payout:</div><span>" + payout + " BTC" + getFiatDisplay(payout, "allow_inline") + "</span>");
                                 
                                 var row = new_row(table, -1, row_data);
                                 

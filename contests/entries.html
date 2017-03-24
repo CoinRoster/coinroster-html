@@ -11,22 +11,58 @@
 <!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="centering_container">
-    <div id="body_container">
+    <div id="category_header" class="body_container header">
+        <h3 class="section_header">
+            <span id="path_text">
+                <a href="/contests" class='inline_link steel'>MY CONTESTS</a><!--
+                --><span class='path_slash red_orange'>/</span><!--
+                --><span id="entry_type" class='orange'></span>
+            </span>
+        </h3>
+    </div>
+    <div class="body_container extra_body_container_padding">
         <h3 class="section_header">
             <a id="contest_title" class="section_header_link" href="/"></a>
         </h3>
         <div id="no_data_message" class="hidden"></div>
-        <div id="exposure_container" class="hidden">
-            <span id="exposure_label">
-                On the line:
-            </span>
-            <span id="exposure_value" class="orange"></span>
+        <div id="exposure_container" class="headline_value_container my_contests hidden">
+            <ul>
+                <li>
+                    <span id="exposure_label" class="headline_value_label">
+                        On the line:
+                    </span>
+                </li>
+                <li>
+                    <span id="exposure_value" class="headline_value orange"></span>
+                    <span id="exposure_value_fiat"></span>
+                </li>
+            </ul>
         </div>
-        <div id="payout_container" class="hidden">
-            Payout:<span id="payout_value"></span>
+        <div id="payout_container" class="headline_value_container my_contests hidden">
+            <ul>
+                <li>
+                    <span class="headline_value_label">
+                        Payout:
+                    </span>
+                </li>
+                <li>
+                    <span id="payout_value" class="headline_value orange"></span>
+                    <span id="payout_value_fiat"></span>
+                </li>
+            </ul>
         </div>
-        <div id="PNL_container" class="hidden">
-            P/L:<span id="PNL_value"></span>
+        <div id="PNL_container" class="headline_value_container my_contests hidden">
+            <ul>
+                <li>
+                    <span class="headline_value_label">
+                        P/L:
+                    </span>
+                </li>
+                <li>
+                    <span id="PNL_value" class="headline_value orange"></span>
+                    <span id="PNL_value_fiat"></span>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="table_body_container">
@@ -174,6 +210,8 @@
                                 {
                                 case "PARI-MUTUEL" : 
                                     {
+                                    id("entry_type").innerHTML = "WAGERS";
+                                    
                                     if (id("roster_entry_report_table")) destroy("roster_entry_report_table");
                                     show("pari_mutuel_explanation");
                                     
@@ -192,8 +230,8 @@
                         
                                     var header = new_row(table, -1, [
                                         "Outcome",
-                                        "My wagers",
                                         "Odds",
+                                        "My wagers",
                                         "Payout",
                                         "Scenario P/L"
                                     ]);
@@ -216,6 +254,7 @@
                                         }
                                         
                                     id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
+                                    id("exposure_value_fiat").innerHTML = getFiatDisplay(exposure_value, "soft_inline");
                                         
                                     // create rows for any options where user has wagers:
                                     
@@ -231,10 +270,10 @@
                                         option_item = option_table[i],
                                         option_id = option_item.id,
                                         description = option_item.description,
-                                        amount = "--", // default is no wager
+                                        amount, // default is no wager
                                         implied_odds = get_implied_odds(wager_grand_total, option_item),
                                         implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
-                                        implied_payout = "--", // default is no wager, therefore no payout
+                                        implied_payout, // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
                                         PNL_class = "orange", // default is total loss
                                         user_has_wager = typeof user_wagers[option_id] !== "undefined",
@@ -248,9 +287,6 @@
                                             scenario_PL = implied_payout - exposure_value;
                                          
                                             if (scenario_PL > 0) PNL_class = "green"; // override if profit
-                                            
-                                            amount = toBTC(amount) + " BTC";
-                                            implied_payout = toBTC(implied_payout);
                                             }
                                         
                                         if (contest_status === 3)
@@ -261,25 +297,44 @@
                                             if (option_item.outcome === 1)
                                                 {
                                                 id("exposure_label").innerHTML = "Wagered:";
-                                                id("payout_value").innerHTML = implied_payout;
+                                                id("payout_value").innerHTML = toBTC(implied_payout) + " BTC";
                                                 id("payout_value").style.color = "rgb(230,230,230)";
-                                                id("PNL_value").innerHTML = toBTC(scenario_PL, false, true);
+                                                id("payout_value_fiat").innerHTML = getFiatDisplay(implied_payout, "soft_inline");
+                                                id("PNL_value").innerHTML = toBTC(scenario_PL, false, true) + " BTC";
                                                 id("PNL_value").className = PNL_class;
+                                                id("PNL_value_fiat").innerHTML = getFiatDisplay(scenario_PL, "soft_inline");
                                                 
                                                 mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
                                                 //row_index = 1; // causes winning outcome to float to the top
                                                 }
                                             }
                                             
-                                        if (!isNaN(implied_payout)) implied_payout += " BTC";
+                                        var 
                                         
-                                        var row = new_row(table, row_index, [
+                                        row_data = [],
+                                        implied_odds_cell = "<div class='field_label extra_wide'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
+                                        scenario_PL_cell = "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>" + getFiatDisplay(scenario_PL, "allow_inline");
+                                        
+                                        if (user_has_wager) // user has a wager
+                                            {
+                                            row_data = [
+                                                mark_outcome + description,
+                                                implied_odds_cell,
+                                                "<div class='field_label extra_wide'>My Wagers:</div>" + toBTC(amount) + " BTC" + getFiatDisplay(amount, "allow_inline"),
+                                                "<div class='field_label extra_wide'>Payout:</div>" + toBTC(implied_payout) + " BTC" + getFiatDisplay(implied_payout, "allow_inline"),
+                                                scenario_PL_cell
+                                            ];
+                                            }
+                                        else row_data = [
                                             mark_outcome + description,
-                                            "<div class='field_label extra_wide'>My Wagers:</div>" + amount,
-                                            "<div class='field_label extra_wide'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
-                                            "<div class='field_label extra_wide'>Payout:</div>" + implied_payout,
-                                            "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>"
-                                        ]);
+                                            implied_odds_cell,
+                                            "<div class='field_label extra_wide'>My Wagers:</div>---",
+                                            "<div class='field_label extra_wide'>Payout:</div>---",
+                                            scenario_PL_cell
+                                        ];
+                                        
+                                        
+                                        var row = new_row(table, row_index, row_data);
 
                                         row[1].style.textAlign = "left";
                                         }
@@ -288,6 +343,8 @@
                                     }
                                 case "ROSTER" : 
                                     {
+                                    id("entry_type").innerHTML = "ROSTERS";
+        
                                     destroy("pari_mutuel_entry_report_table");
                                     
                                     var 
@@ -311,7 +368,7 @@
                                         "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Score</span</li></ul>",
                                         "Roster",
                                         "Entries",
-                                        "Payout per entry"
+                                        "Payout"
                                     ];
                                     else header_data = [
                                         "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
@@ -371,7 +428,7 @@
                                             "<ul><li><div class='field_label auto_width'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Score</div>" + score + "</span></li></ul>",
                                             "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>",
                                             "<div class='field_label auto_width'>Entries:</div>" + number_of_entries,
-                                            "<div class='field_label auto_width'>Payout per entry:</div>" + payout_per_entry
+                                            "<div class='field_label auto_width'>Payout:</div>" + toBTC(payout) + " BTC" + getFiatDisplay(payout, "allow_inline")
                                         ];
                                         else row_data = [
                                             "<ul><li><div class='field_label auto_width'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Entries:</div>" + number_of_entries + "</span></li></ul>",
@@ -394,6 +451,7 @@
                                         }
                                         
                                     id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
+                                    id("exposure_value_fiat").innerHTML = getFiatDisplay(exposure_value, "soft_inline");
                                     
                                     if (contest_status === 3)
                                         {
@@ -406,10 +464,12 @@
                                         else if (PNL < 0) PNL_class = "orange";
 
                                         id("exposure_label").innerHTML = "Wagered:";
-                                        id("payout_value").innerHTML = total_payout;
+                                        id("payout_value").innerHTML = total_payout + " BTC";
                                         id("payout_value").style.color = "rgb(230,230,230)";
-                                        id("PNL_value").innerHTML = toBTC(PNL, false, true);
+                                        id("payout_value_fiat").innerHTML = getFiatDisplay(total_payout, "soft_inline");
+                                        id("PNL_value").innerHTML = toBTC(PNL, false, true) + " BTC";
                                         id("PNL_value").className = PNL_class;
+                                        id("PNL_value_fiat").innerHTML = getFiatDisplay(PNL, "soft_inline");
                                         }
                                         
                                     break;
@@ -429,6 +489,7 @@
         
     function no_data_message(message)
         {
+        id("entry_type").innerHTML = "ENTRIES";
         show("no_data_message");
         id("no_data_message").innerHTML = message;
         }

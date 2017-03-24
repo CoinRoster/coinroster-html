@@ -1,12 +1,16 @@
 
+    #account_header {
+        font-size: 14px !important;
+    }
+    
     .action_button {
         padding:20px;
-        background:rgb(100,104,108);
+        background:rgb(100,102,104);
         border-radius:10px;
         border: 1px solid white;
         cursor:pointer;
         color:white;
-        font-size:16px;
+        font-size:14px;
         width:150px;
         font-family: 'gotham_medium', sans-serif;
     }
@@ -18,52 +22,71 @@
     .underline {
         text-decoration:underline;
     }
-
-    #balance_wrapper_table {
-        width:100%;
+    
+    #balance_table_wrapper {
+        display: inline-block;
     }
-
-    #balance_wrapper_table td {
-        vertical-align:top;
+    #balance_table_outer {
+        margin: 40px 60px;
     }
-
-    #deposit_withdraw_container {
-        display:inline-block;
-        margin-bottom: 17px;
-        margin-left: 60px;
+    #balance_table_outer td {
+        white-space: nowrap;
+        vertical-align: bottom;
     }
-    #deposit_withdraw_table td {
-        padding: 18px 18px 0 0;
+    #balance_table_wrapper td.heading_cell {
+        text-align: left;
+        padding-bottom: 23px;
+        padding-right: 30px;
+        padding-left: 0;
+    }
+    .balance_table {
+        border-collapse: collapse;
+        float: right;
+    }
+    .balance_table td {
+        padding: 3px 0;
+        text-align: right;
+    }
+    #btc_balance_row, #rc_balance_row, .fiat_balance .fiat_display {
+        font-size: 12px;
+    }
+    #rc_balance_cell {
+        padding-top: 0px !important;
+        padding-bottom: 6px !important;
+        border-bottom: 1px solid rgb(220,220,220);
+    }
+    .btc_balance {
+        font-size: 18px;
+    }
+    #in_play_balance_wrapper td {
+        padding-top: 0 !important;
+    }
+    #total_balance_cell {
+        border-top: 1px solid rgb(220,220,220);
+    }
+    #deposit_prompt_major {
+        display: inline-block;
+        padding-left: 20px;
+    }
+    #deposit_prompt_major:hover {
+        cursor: pointer;
+        text-decoration: underline;
     }
     
-    .balance_table td {
-        padding: 12px 20px 12px 0;
-        font-weight: bold;
-        font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
-        height:20px;
-        vertical-align:middle !important;
-        font-size:18px;
-        white-space:nowrap;
-        line-height: 20px;
+    #account_menu {
+        float: left;
     }
-
-    .balance_field {
-        text-align:right;
-    }
-
-    #balance_button_table td {
-        padding-left:20px;
-    }
-
+    
     .subwindow {
-        padding:20px;
-        background:rgb(100,104,108);
-        border: 1px solid rgb(44,46,48);
+        padding:13px 50px 13px 11px;
+        background:rgb(100,102,104);
+        border-top: 2px solid rgb(44,46,48);
         position:relative;
     }
 
     .clickable_subwindow {
         cursor:pointer;
+        font-size: 13px;
     }
 
     .clickable_subwindow:hover {
@@ -72,11 +95,11 @@
 
     .hidden_subwindow {
         display: none;
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .subwindow_heading {
-        font-size:16px;
+        font-size:13px !important;
     }
     
     .link_subwindow {
@@ -141,18 +164,28 @@
     }
 
     #transaction_report_table tr {
-        width:100%;
-        border-collapse: collapse;
-        border-top: 1px solid rgb(72,76,80);
-        border-bottom: 1px solid rgb(72,76,80);
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 0px;
+        background: rgb(55,56,57);
     }
     
     #transaction_report_table td {
         padding: 5px 10px;
-        font-size: 13px;
+        font-size: 12px;
+    }
+    #transaction_report_table td:first-child { /* trans no. */
+        white-space:nowrap
     }
     #transaction_report_table td:nth-child(3) { /* date */
         color: rgb(230,230,230);
+    }
+    #transaction_report_table td:nth-child(5) { /* fiat value */
+        text-align: right;
+        white-space: nowrap;
+    }
+    #transaction_report_table td:last-child { /* memo */
+        text-align: right;
     }
     
     .right_left {
