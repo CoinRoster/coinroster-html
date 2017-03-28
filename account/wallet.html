@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>CoinRoster | Deposit BTC</title>
+    <title>CoinRoster | Your Bitcoin Wallet</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <script type="text/javascript" src="/js/account.js"></script>
@@ -15,7 +15,7 @@
             <span id="path_text">
                 <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
                 --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>DEPOSIT</span>
+                --><span class='orange'>WALLET</span>
             </span>
         </h3>
     </div>
@@ -100,78 +100,11 @@
     
     window.nav_text = "MY ACCOUNT";
     
-    var focus_to_input = function()
-        {
-        id("amount_to_deposit").focus();
-        };
-        
     function init()
         {
-        focus_to_input();
-
-        var
-
-        user_ext_address = get_ext_address(true),
-        cash_register_address = get_ext_address(false),
-        must_add_wallet = false;
-
-        if (user_ext_address === "") 
-            {
-            must_add_wallet = true;
-            user_ext_address = "N/A"; // display in background
-            }
-
-        id("user_ext_address").innerHTML = user_ext_address;
-        id("user_ext_address_confirm").innerHTML = user_ext_address;
-        id("cash_register_address").innerHTML = cash_register_address;
-        id("cash_register_address_confirm").innerHTML = cash_register_address;
         
-        if (must_add_wallet)
-            {
-            show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
-                {
-                location = "/account/wallet.html";
-                });
-            }
         }
-        
-    function submit_pending_deposit()
-        {
-        var amount_to_deposit = id("amount_to_deposit").value;
-
-        if (amount_to_deposit === "") 
-            {
-            show_simple_modal("Please enter an amount to deposit", "good", focus_to_input);
-            return false;
-            }
-
-        if (parseFloat(amount_to_deposit) === 0.0) 
-            {
-            show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
-            return false;
-            }
-
-        api({ 
-            method: "UserDeposit", 
-            args: {
-                amount_to_deposit: amount_to_deposit,
-                user_ext_address: id("user_ext_address").innerHTML,
-                cash_register_address: id("cash_register_address").innerHTML
-            } 
-        }, function(call)
-            {
-            if (call.status === "1")
-                {
-                id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
-                hide("initial_container");
-                show("confirmation_container");
-                }
-            else show_simple_modal(call.error, "bad", null);
-            });
-
-        return false;
-        }
-        
+       
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->

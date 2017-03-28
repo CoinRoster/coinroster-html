@@ -24,7 +24,7 @@
                     <td id="available_balance_header" class="heading_cell">
                         Ready to play:
                     </td>
-                    <td>
+                    <td class="balance_table_cell">
                         <table class="balance_table">
                             <tr id="btc_balance_row" class="hidden">
                                 <td>
@@ -49,7 +49,7 @@
                     <td class="heading_cell">
                         In <a href="/contests" class="inline_link white">Contests</a>:
                     </td>
-                    <td>
+                    <td class="balance_table_cell">
                         <table class="balance_table">
                             <tr>
                                 <td>
@@ -64,7 +64,7 @@
                     <td class="heading_cell">
                         Total:
                     </td>
-                    <td>
+                    <td class="balance_table_cell">
                         <table class="balance_table">
                             <tr>
                                 <td id="total_balance_cell">
@@ -77,253 +77,37 @@
                 </tr>
             </table>
         </div>
-        <div id="account_menu">   
-        
-            <a class="subwindow clickable_subwindow link_subwindow" onclick="deposit();">
+        <div id="account_menu">
+            <a class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
                 DEPOSIT
             </a>
-            
-            <a class="subwindow clickable_subwindow link_subwindow" onclick="withdraw();">
+            <a class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html">
                 WITHDRAW
             </a>
-            
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/refer.html">
                 REFER A FRIEND!
             </a>
-            
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
                 TRANSACTION HISTORY
             </a>
-
-            <div id="add_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="CONNECT A BITCOIN WALLET">
-                <div class="subwindow_heading">
-                    Connect a Bitcoin wallet
-                </div>
-                <br/>
-                <div class="input_padding description_text constrain_width">
-                    To make deposits to CoinRoster, we need to know the public address of your
-                    Bitcoin wallet. This way, when funds come in from your wallet, we know they
-                    came from you and can credit your account.
-                    <br/>
-                    <br/>
-                </div>
-                <div id="add_wallet_message" class="hidden" style="padding-bottom:15px;padding-top:0;"></div>
-                <form onsubmit="return update_ext_address('add_ext_address');">
-                    <div class="input_padding">
-                        <ul class="account_form">
-                            <li>
-                                <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35"/>
-                            </li>
-                            <li>
-                                <button type="submit" class="text_button auto_width">Connect wallet</button>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
-            </div>
-
-            <div id="manage_ext_address_subwindow" class="subwindow hidden_subwindow" toggle="YOUR BITCOIN WALLET">
-                <div class="subwindow_heading">
-                    Mange your Bitcoin wallet
-                </div>
-                <br/>
-                <br/>
-                <div id="display_ext_address">
-                    <ul class="account_form">
-                        <li>
-                            <span id="ext_address" class="teal"></span>
-                        </li>
-                        <li>
-                            <button id="change_ext_address_button" class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
-                        </li>
-                    </ul>
-                </div>
-                <div id="change_ext_address" class="hidden">
-                    <form onsubmit="return update_ext_address('new_ext_address');">
-                        <ul class="account_form">
-                            <li>
-                                <span id="change_wallet_message">
-                                    New wallet address:
-                                </span>
-                            </li>
-                            <li>
-                                <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="60"/>
-                            </li>
-                            <li>
-                                <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
-                                <button class="text_button auto_width add_left_margin" style="display:inline-block" onclick="return cancel_change_wallet();">Cancel</button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <br/>
-                <hr noshade>
-                <br/>
-                <span id="must_withdraw_bitcon" class="hidden">
-                    <span class="teal">
-                        Wallet security is ENABLED
-                    </span>
-                    <br/>
-                    <br/>
-                    You must withdraw all Bitcoin from this account in order to change your wallet address.
-                </span>
-                <span id="security_is_enabled" class="constrain_width hidden">
-                    <span class="teal">
-                        Wallet security is ENABLED
-                    </span>
-                    <br/>
-                    <br/>
-                    With security enabled, you will NOT be able to change your wallet address if
-                    there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
-                    from withdrawing your Bitcoins to a new wallet.
-                    <br/>
-                    <br/>
-                    If you want, you can click the button below to DISABLE this security measure. 
-                    You will be free to change your wallet address at any time. 
-                    <br/>
-                    <br/>
-                    <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
-                    <br/>
-                    <br/>
-                    <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
-                </span>
-                <span id="enable_security" class="hidden">
-                    <span class="orange">
-                        Wallet security is DISABLED
-                    </span>
-                    <br/>
-                    <br/>
-                    With security disabled, you can change your wallet address at any time.
-                    <br/>
-                    <br/>
-                    If you would like to enable wallet security and prevent wallet changes while
-                    <br/>
-                    there are Bitcoins in your account, please click here:
-                    <br/>
-                    <br/>
-                    <span id="your_next_opportunity" class="hidden">
-                        Your next opportunity to disable wallet security will be after you withdraw
-                        <br/>
-                        all Bitcoins in your account to your connected wallet.
-                        <br/>
-                        <br/>
-                    </span>
-                    <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
-                </span>
-            </div>
-
-            <div id="add_email_subwindow" class="subwindow hidden_subwindow" toggle="ADD E-MAIL ADDRESS">
-                <div id="add_email_message" class="subwindow_heading">
-                    Add email address
-                </div>
-                <br/>
-                <div class="input_padding description_text">
-                    <span class="orange">
-                        We will only send you emails about activity in your account. Your email will also
-                        <br/>
-                        be used if you ever need to recover your password. We will not sell or share your
-                        <br/>
-                        email address with a third party.
-                    </span>
-                    <br/>
-                    <br/>
-                    We have a weekly newsletter featuring news updates from the world of bitcoin,
-                    <br/>
-                    gaming, and sports. To sign up, please click here:
-                </div>
-                <label id="newsletter_label" class="checkbox_label">
-                    <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
-                    Sign up for our newsletter
-                </label>
-                <form onsubmit="return add_email_address();">
-                    <div class="input_padding">
-                        <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
-                        <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
-                    </div>
-                </form>
-            </div>
-
-            <div id="manage_email_subwindow" class="subwindow hidden_subwindow" toggle="MANAGE E-MAIL">
-                <div id="manage_email_message" class="subwindow_heading">
-                    Manage e-mail
-                </div>
-                <br/>
-                <br/>
-                <div id="manage_email">
-                    <ul class="account_form">
-                        <li>
-                            <span id="email_on_file"></span>
-                            <span id="verified_unverified"></span>
-                        </li>
-                        <li>
-                            <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
-                        </li>
-                        <li id="verification_button">
-                            <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
-                        </li>
-                    </ul>
-                </div>
-                <div id="change_email" class="hidden">
-                    <form onsubmit="return change_email_address();">
-                        <ul class="account_form">
-                            <li>
-                                <span id="change_email_message">
-                                    New e-mail address:
-                                </span>
-                            </li>
-                            <li>
-                                <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
-                            </li>
-                            <li>
-                                <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
-                                <button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <br/>
-                <hr noshade>
-                <br/>
-                <ul class="account_form">
-                    <li>
-                        <span id="subscribe_unsubscribe_message"></span>
-                    </li>
-                    <li>
-                        <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
-                    </li>
-                </ul>            
-            </div>
-
-            <div class="subwindow hidden_subwindow" toggle="CHANGE PASSWORD">
-                <div class="subwindow_heading">
-                    Change password
-                </div>
-                <br/>
-                <br/>
-                <div id="change_password_message" class="hidden" style="padding-bottom:15px;padding-top:0;"></div>
-                <form onsubmit="return change_password();">
-                    <input type="password" style="position:absolute;top:-5000px;"/>
-                    <ul id="change_password_form" class="account_form">
-                        <li>
-                            <input id="old_password" type="password" class="input_style" placeholder="Old password" />
-                        </li>
-                        <li>
-                            <input id="new_password" type="password" class="input_style" placeholder="New password" />
-                        </li>
-                        <li>
-                            <input id="confirm_password" type="password" class="input_style" placeholder="Confirm new password" />
-                        </li>
-                        <li>
-                            <button type="submit" class="text_button auto_width">Submit</button>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-
+            <a id="add_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html">
+                CONNECT BITCOIN WALLET
+            </a>
+            <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html">
+                MANAGE BITCOIN WALLET
+            </a>
+            <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html">
+                ADD EMAIL ADDRESS
+            </a>
+            <a id="manage_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html">
+                MANAGE EMAIL
+            </a>
+            <a class="subwindow clickable_subwindow link_subwindow" href="/account/password.html">
+                CHANGE PASSWORD
+            </a>
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/currency.html">
                 CHANGE DISPLAY CURRENCY
             </a>
-
         </div>
     </div>
 </div>
@@ -331,53 +115,10 @@
 <script type="text/javascript">
      
     window.nav_text = "MY ACCOUNT";
-    
-    // DEPOSIT AND WITHDRAWAL HANDLERS
 
-    function deposit()
+    function init()
         {
-        var ext_address = get_ext_address(true);
-
-        if (ext_address === "") show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
-            {
-            id("add_ext_address_subwindow_toggle").click();
-            });
-        else location = "deposit.html";
-        }
-
-    function withdraw()
-        {
-        var btc_balance = get_btc_balance();
-
-        if (+btc_balance === 0) show_simple_modal("You have no BTC to withdraw", "bad", null);
-        else location = "withdraw.html";
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    function reset_error_messages()
-        {
-        if (id("add_wallet_message")) hide("add_wallet_message");
-        if (id("change_wallet_message")) 
-            {
-            change_wallet_error("New wallet address:", "white");
-            cancel_change_wallet();
-            }
-        hide("change_password_message");
-        if (id("add_email_subwindow")) add_email_error("Add e-mail address", "white");
-        if (id("manage_email_subwindow")) 
-            {
-            change_email_error("New e-mail address:", "white");
-            cancel_change_email();
-            }
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    // POPULATE ACCOUNT DATA
-    
-    function populate_account_data()
-        {
+        id("username_placeholder").innerHTML = window.session.username;
         api({ 
             method: "GetAccountDetails", 
             args: {} 
@@ -394,10 +135,7 @@
                 total_balance = add(available_balance, in_play_balance),
                 
                 ext_address = call.ext_address,
-                email_address = call.email_address,
-                email_ver_flag = call.email_ver_flag,
-                newsletter_flag = call.newsletter_flag,
-                ext_address_secure_flag = call.ext_address_secure_flag;
+                email_address = call.email_address;
         
                 if (available_balance === 0)
                     {
@@ -407,7 +145,7 @@
                     }
                 else
                     {
-                    if (rc_balance !== 0) // only show makeup of available_balance if it isn't straight BTC
+                    if (rc_balance !== 0) // only show composition of available_balance if it isn't straight BTC
                         {
                         show("btc_balance_row", "table-row");
                         show("rc_balance_row", "table-row");
@@ -419,405 +157,20 @@
                     id("available_balance").className += " green";
                     show("available_balance_fiat");
                     }
-                //if (in_play_balance !== 0)
-                    {
-                    show("in_play_balance_wrapper", "table-row");
-                    show("total_balance_wrapper", "table-row");
-                    id("in_play_balance").innerHTML = toBTC(in_play_balance, false) + " BTC";
-                    id("in_play_balance_fiat").innerHTML = getFiatDisplay(in_play_balance, "never_inline");
-                    id("total_balance").innerHTML = toBTC(total_balance, false) + " BTC";
-                    id("total_balance_fiat").innerHTML = getFiatDisplay(total_balance, "never_inline");
-                    }
+
+                show("in_play_balance_wrapper", "table-row");
+                show("total_balance_wrapper", "table-row");
+                id("in_play_balance").innerHTML = toBTC(in_play_balance, false) + " BTC";
+                id("in_play_balance_fiat").innerHTML = getFiatDisplay(in_play_balance, "never_inline");
+                id("total_balance").innerHTML = toBTC(total_balance, false) + " BTC";
+                id("total_balance_fiat").innerHTML = getFiatDisplay(total_balance, "never_inline");
 
                 if (ext_address === "") destroy("manage_ext_address_subwindow");
-                else
-                    {
-                    destroy("add_ext_address_subwindow");
-                    
-                    id("ext_address").innerHTML = ext_address;
-                    if (ext_address_secure_flag === 1)
-                        {
-                        if (btc_balance > 0)
-                            {
-                            hide("change_ext_address_button");
-                            show("must_withdraw_bitcon");
-                            }
-                        else
-                            {
-                            show("security_is_enabled");
-                            }
-                        }
-                    else if (ext_address_secure_flag === 0)
-                        {
-                        show("enable_security");
-                        if (btc_balance > 0)
-                            {
-                            show("your_next_opportunity");
-                            }
-                        }
-                    }
-
+                else destroy("add_ext_address_subwindow");
                 if (email_address === "") destroy("manage_email_subwindow");
-                else 
-                    {
-                    destroy("add_email_subwindow");
-                    id("email_on_file").innerHTML = email_address + "&nbsp;&nbsp;"; 
-                    if (email_ver_flag === 1)
-                        {
-                        id("verified_unverified").innerHTML = "(verified)";
-                        id("email_on_file").style.color = cr_teal;
-                        id("verified_unverified").style.color = cr_teal;
-                        destroy("verification_button");
-                        }
-                    else
-                        {
-                        id("verified_unverified").innerHTML = "(unverified)";
-                        id("email_on_file").style.color = "orange";
-                        id("verified_unverified").style.color = "orange";
-                        }
-                    update_subscription_view(newsletter_flag);
-                    }
-                }
-            (function(subwindows)
-                {
-                for (var i=0; i<subwindows.length; i++)
-                    {
-                    var 
-
-                    subwindow_toggle = document.createElement("div");
-                    subwindow_toggle.innerHTML = subwindows[i].getAttribute("toggle");
-                    subwindow_toggle.className = "subwindow clickable_subwindow";
-
-                    if (typeof subwindows[i].id !== "undefined") subwindow_toggle.id = subwindows[i].id + "_toggle";
-
-                    subwindow_toggle.onclick = (function(subwindow, subwindow_toggle) 
-                        {
-                        return function()
-                            {
-                            if (typeof window.subwindow !== "undefined")
-                                {
-                                window.subwindow.style.display = "none";
-                                window.subwindow_toggle.style.display = "block";
-                                }
-                            window.subwindow = subwindow;
-                            window.subwindow_toggle = subwindow_toggle;
-                            subwindow.style.display = "block";
-                            subwindow_toggle.style.display = "none";
-                            };
-                        })(subwindows[i], subwindow_toggle);
-
-                    var 
-
-                    hide_button = document.createElement("div");
-                    hide_button.className = "hide_button";
-                    hide_button.innerHTML = "hide";
-                    hide_button.onclick =  (function(subwindow, subwindow_toggle) 
-                        {
-                        return function()
-                            {
-                            subwindow.style.display = "none";
-                            subwindow_toggle.style.display = "block";
-                            reset_error_messages();
-                            };
-                        })(subwindows[i], subwindow_toggle);
-
-                    subwindows[i].appendChild(hide_button);
-                    subwindows[i].parentNode.insertBefore(subwindow_toggle, subwindows[i]);
-                    }
-                })(document.getElementsByClassName("hidden_subwindow"));
-
-            var hash = location.hash.slice(1);
-            switch(hash)
-                {
-                case "add_wallet" :
-                    id("add_ext_address_subwindow_toggle").click();
-                    break;
-                default :
-                    // do nothing
+                else destroy("add_email_subwindow");
                 }
             });
-        }
-        
-//--------------------------------------------------------------------------------------------------
-
-    // CONNECT BITCOIN WALLET
-
-    function add_wallet_error(message, color)
-        {
-        show("add_wallet_message");
-        id("add_wallet_message").innerHTML = message;
-        id("add_wallet_message").style.color = color;
-        }
-        
-    function change_wallet_error(message, color)
-        {
-        id("change_wallet_message").innerHTML = message;
-        id("change_wallet_message").style.color = color;
-        }
-    function cancel_change_wallet()
-        {
-        change_wallet_error("New wallet address:", "white");
-        hide("change_ext_address");
-        show("display_ext_address");
-        return false;
-        }
-        
-    function update_ext_address(_id)
-        {
-        var ext_address = id(_id).value;
-        
-        if (ext_address === "")
-            {
-            if (_id === "add_ext_address") add_wallet_error("Enter a wallet address", "orange");
-            else change_wallet_error("Enter a new wallet address", "orange");
-            return false;
-            }
-        
-        // validate bitcoin addresses?
-
-        api({
-            method: "UpdateExtAddress",
-            args: {
-                ext_address: ext_address,
-                update_for_active_user: true
-            }
-        }, function()
-            {
-            location.reload();
-            });
-            
-        return false;
-        }
-
-    function update_ext_address_security(ext_address_secure_flag)
-        {
-        api({
-            method: "UpdateExtAddressSecurity",
-            args: {
-                ext_address_secure_flag: ext_address_secure_flag
-            }
-        }, function()
-            {
-            location.reload();
-            });
-            
-        return false;
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    // ADD / CHANGE / MANAGE EMAIL ADDRESS
-
-    function add_email_error(message)
-        {
-        id("add_email_message").innerHTML = message;
-        id("add_email_message").style.color = "orange";
-        }
-
-    function change_email_error(message, color)
-        {
-        id("change_email_message").innerHTML = message;
-        id("change_email_message").style.color = color;
-        }
-        
-    function add_email_address()
-        {
-        var new_email_address = id("new_email_address").value,
-        newsletter_flag = id("newsletter_checkbox").checked ? 1 : 0;
-
-        if (validate_email(new_email_address) === false)
-            {
-            add_email_error("Invalid email address");
-            return false;
-            }
-
-        api({
-            method: "AddEmailAddress",
-            args: {
-                email_address: new_email_address,
-                newsletter_flag: newsletter_flag
-            }
-        }, function()
-            {
-            location.reload();
-            });
-        }
-
-    function change_email_address()
-        {
-        var new_email_address = id("new_email_address").value;
-
-        if (new_email_address === id("email_on_file").innerHTML)
-            {
-            change_email_error("Email address is on file", "orange");
-            return false;
-            }
-        if (validate_email(new_email_address) === false)
-            {
-            change_email_error("Invalid email address", "orange");
-            return false;
-            }
-
-        api({
-            method: "ChangeEmailAddress",
-            args: {
-                email_address: new_email_address
-            }
-        }, function()
-            {
-            location.reload();
-            });
-            
-        return false;
-        }
-
-    function cancel_change_email()
-        {
-        change_email_error("New e-mail address:", "white");
-        hide("change_email");
-        show("manage_email");
-        return false;
-        }
-
-    function resend_verification()
-        {
-        api({
-            method: "SendEmailVerification",
-            args: {}
-        }, function(call)
-            {
-            if (call.status === "1")
-                {
-                id("verification_button").innerHTML = "Verification email has been sent";
-                id("verification_button").style.color = cr_teal;
-                }
-            });
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    // TOGGLE NEWSLETTER SUBSCRIPTION
-
-    function update_subscription_view(newsletter_flag)
-        {
-        id("subscribe_unsubscribe_message").current_state = newsletter_flag;
-        if (newsletter_flag === 1)
-            {
-            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are</span> subscribed to our newsletter";
-            id("subscribe_unsubscribe_button").innerHTML = "Unsubscribe";
-            }
-        else
-            {
-            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are not</span> subscribed to our newsletter"; 
-            id("subscribe_unsubscribe_button").innerHTML = "Subscribe";
-            }
-        }
-
-    function toggle_subscription()
-        {
-        var current_flag_state = id("subscribe_unsubscribe_message").current_state;
-
-        api({
-            method: "ChangeNewsletterFlag",
-            args: {
-                current_flag_state: current_flag_state
-            }
-        }, function(call)
-            {
-            if (call.status === "1") 
-                {
-                var newsletter_flag = call.newsletter_flag;
-                update_subscription_view(newsletter_flag);
-                }
-            });
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    // CHANGE PASSWORD
-
-    function change_password_error(message, color)
-        {
-        show("change_password_message");
-        id("change_password_message").innerHTML = message;
-        id("change_password_message").style.color = color;
-        id("new_password").value = "";
-        id("confirm_password").value = "";
-        }
-
-    function change_password()
-        {
-        var old_password = id("old_password").value,
-        new_password = id("new_password").value,
-        confirm_password = id("confirm_password").value;
-
-        if (old_password === "")
-            {
-            change_password_error("Enter your old password", "orange");
-            set_focus("old_password");
-            return false;
-            }
-
-        if (old_password.length < 8) 
-            {
-            change_password_error("Old password must be 8 characters or longer", "orange");
-            id("old_password").value = "";
-            set_focus("old_password");
-            return false;
-            }
-
-        if (new_password === "")
-            {
-            change_password_error("Enter new password", "orange");
-            set_focus("new_password");
-            return false;
-            }
-
-        if (new_password.length < 8) 
-            {
-            change_password_error("New password must be 8 characters or longer", "orange");
-            set_focus("new_password");
-            return false;
-            }
-
-        if (new_password !== confirm_password)
-            {
-            change_password_error("The passwords you typed<br/>do not match", "orange");
-            set_focus("new_password");
-            return false;
-            }
-
-        api({
-            method: "ChangePassword",
-            args: {
-                old_password: old_password,
-                new_password: new_password
-            }
-        }, function(call)
-            {
-            if (call !== null)
-                {
-                id("old_password").value = "";
-                if (call.status === "1")
-                    {
-                    id("confirm_password").blur();
-                    change_password_error("Your password has been updated", cr_teal);
-                    }
-                else change_password_error("Not authorized", "orange");
-                }
-            });
-        return false;
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-    // INIT FUNCTION
-
-    function init()
-        {
-        id("username_placeholder").innerHTML = window.session.username;
-        
-        populate_account_data();
         }
         
 </script>

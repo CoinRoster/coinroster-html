@@ -342,8 +342,12 @@
         font-size:11px;
         display:block;
         width:210px;
-        margin:0 auto 5px;
         text-align:left;
+        margin-bottom: 5px;
+    }
+    .landing_center .input_label {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .text_button {

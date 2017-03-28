@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Your Email Settings</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi-java/nav" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="centering_container">
+    <div id="category_header" class="body_container header">
+        <h3 class="section_header">
+            <span id="path_text">
+                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                --><span class='path_slash red_orange'>/</span><!--
+                --><span class='orange'>EMAIL</span>
+            </span>
+        </h3>
+    </div>
+    <div class="body_container extra_body_container_padding">
+        <div id="add_email_subwindow" class="hidden">
+            <div id="add_email_message" class="subwindow_heading">
+                Add email address
+            </div>
+            <br/>
+            <div class="input_padding description_text">
+                <span class="orange">
+                    We will only send you emails about activity in your account. Your email will also
+                    <br/>
+                    be used if you ever need to recover your password. We will not sell or share your
+                    <br/>
+                    email address with a third party.
+                </span>
+                <br/>
+                <br/>
+                We have a weekly newsletter featuring news updates from the world of bitcoin,
+                <br/>
+                gaming, and sports. To sign up, please click here:
+            </div>
+            <label id="newsletter_label" class="checkbox_label">
+                <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
+                Sign up for our newsletter
+            </label>
+            <form onsubmit="return add_email_address();">
+                <div class="input_padding">
+                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
+                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div id="manage_email_subwindow" class="hidden">
+            <div id="manage_email_message" class="subwindow_heading">
+                Manage e-mail
+            </div>
+            <br/>
+            <br/>
+            <div id="manage_email">
+                <ul class="account_form">
+                    <li>
+                        <span id="email_on_file"></span>
+                        <span id="verified_unverified"></span>
+                    </li>
+                    <li>
+                        <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
+                    </li>
+                    <li id="verification_button">
+                        <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
+                    </li>
+                </ul>
+            </div>
+            <div id="change_email" class="hidden">
+                <form onsubmit="return change_email_address();">
+                    <ul class="account_form">
+                        <li>
+                            <span id="change_email_message">
+                                New e-mail address:
+                            </span>
+                        </li>
+                        <li>
+                            <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
+                        </li>
+                        <li>
+                            <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
+                            <button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <br/>
+            <hr noshade>
+            <br/>
+            <ul class="account_form">
+                <li>
+                    <span id="subscribe_unsubscribe_message"></span>
+                </li>
+                <li>
+                    <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
+                </li>
+            </ul>            
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript">
+    
+    window.nav_text = "MY ACCOUNT";
+    
+    function init()
+        {
+        
+        }
+       
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

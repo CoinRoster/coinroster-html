@@ -12,6 +12,7 @@
 </head>
 <body>
 <!--include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
 <table class="landing_center">
     <tr>
         <td>
@@ -21,23 +22,18 @@
                         CoinRoster
                     </a>
                 </h1>
-                <br/>
-                Password: 8 or more chars
-                <br/>
-                No spaces allowed
-                <br/>
-                <br/>
-                <div id="auth_message"></div>
                 <form autocomplete="off" onsubmit="return update_password();">
                     <input type="password" style="position:absolute;top:-1000px;"/>
                     <div class="input_padding">
+                        <span id="password_label" class="input_label">New Password</span>
                         <input placeholder="New password" label="false" id="password" type="password" class="input_style" tabindex="2">
                     </div>
                     <div class="input_padding">
+                        <span id="confirm_password_label" class="input_label">Confirm New Password</span>
                         <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
                     </div>
                     <div class="input_padding">
-                        <button class="text_button" style="color:orange;" type="submit" tabindex="4">Reset Password</button>
+                        <button class="text_button" style="color:orange;" type="submit" tabindex="4">Update Password</button>
                     </div>
                 </form>
             </div>
@@ -62,10 +58,18 @@
             {
             this.value = this.value.replace(/\s/g, "");
             };
+        id("confirm_password").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
 
         id("password").onchange = function()
             {
-            check_password();
+            check_password("New Password");
+            };
+        id("confirm_password").onchange = function()
+            {
+            check_confirm_password("Confirm New Password");
             };
         })();
     

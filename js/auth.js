@@ -78,7 +78,7 @@
         else set_auth_message("email_label", "Invalid email address", "orange");
         }
 
-    function check_password()
+    function check_password(all_ok_text)
         {
         var 
         
@@ -94,9 +94,35 @@
             id("password").value = "";
             //id("confirm_password").value = "";
             set_focus("password");
-            return;
+            return false;
             }
-        else set_auth_message("password_label", "Password", cr_teal);
+        else 
+            {
+            set_auth_message("password_label", all_ok_text, cr_teal);
+            return true;
+            }
+        }
+        
+    function check_confirm_password(all_ok_text)
+        {
+        var password_ok = check_password("New Password");
+        
+        if (!password_ok) return;
+        
+        var 
+        
+        password = id("password").value,
+        confirm_password = id("confirm_password").value;
+
+        if (password !== confirm_password)
+            {
+            set_auth_message("confirm_password_label", "Passwords do not match", "orange");
+            id("confirm_password").value = "";
+            set_focus("confirm_password");
+            return false;
+            }
+        
+        set_auth_message("confirm_password_label", all_ok_text, cr_teal);
         }
         
     function create_account()
@@ -241,7 +267,13 @@
             }
         }, function(call)
             {
-            if (call.status === "1") location.reload();
+            if (call.status === "1")
+                {
+                show_simple_modal("Your password has been changed!", "good", function()
+                    {
+                    window.location = "/account";
+                    });
+                }
             else
                 {
                 set_auth_message("auth_message", call.error, "orange");
@@ -270,4 +302,81 @@
                 show_simple_modal("Verification has been sent!", "good", action);
                 }
             });
+        }
+        
+    // CHANGE PASSWORD
+
+    function change_password_error(message, color)
+        {
+        show("change_password_message");
+        id("change_password_message").innerHTML = message;
+        id("change_password_message").style.color = color;
+        id("new_password").value = "";
+        id("confirm_password").value = "";
+        }
+
+    function change_password()
+        {
+        var old_password = id("old_password").value,
+        new_password = id("new_password").value,
+        confirm_password = id("confirm_password").value;
+
+        if (old_password === "")
+            {
+            change_password_error("Enter your old password", "orange");
+            set_focus("old_password");
+            return false;
+            }
+
+        if (old_password.length < 8) 
+            {
+            change_password_error("Old password must be 8 characters or longer", "orange");
+            id("old_password").value = "";
+            set_focus("old_password");
+            return false;
+            }
+
+        if (new_password === "")
+            {
+            change_password_error("Enter new password", "orange");
+            set_focus("new_password");
+            return false;
+            }
+
+        if (new_password.length < 8) 
+            {
+            change_password_error("New password must be 8 characters or longer", "orange");
+            set_focus("new_password");
+            return false;
+            }
+
+        if (new_password !== confirm_password)
+            {
+            change_password_error("The passwords you typed<br/>do not match", "orange");
+            set_focus("new_password");
+            return false;
+            }
+
+        api({
+            method: "ChangePassword",
+            args: {
+                old_password: old_password,
+                new_password: new_password
+            }
+        }, function(call)
+            {
+            if (call !== null)
+                {
+                id("old_password").value = "";
+                if (call.status === "1")
+                    {
+                    show_simple_modal("Your password has been changed!", "good", function()
+                        {
+                        window.location = "/account";
+                        });
+                    }
+                else change_password_error("Invalid credentials", "orange");
+                }
+            });
+        return false;
         }

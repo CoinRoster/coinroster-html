@@ -525,4 +525,15 @@
             padding-left: 0 !important;
         }
         
+        #balance_table_outer {
+            width: 100%;
+        }
+        #balance_table_outer td.heading_cell {
+            padding-left: 20px !important;
+            padding-right: 0 !important;
+        }
+        #balance_table_outer td.balance_table_cell {
+            padding-right: 20px !important;
+        }
+        
     }
