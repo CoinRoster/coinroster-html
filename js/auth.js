@@ -328,14 +328,6 @@
             return false;
             }
 
-        if (old_password.length < 8) 
-            {
-            change_password_error("Old password must be 8 characters or longer", "orange");
-            id("old_password").value = "";
-            set_focus("old_password");
-            return false;
-            }
-
         if (new_password === "")
             {
             change_password_error("Enter new password", "orange");

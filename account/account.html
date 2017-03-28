@@ -90,23 +90,23 @@
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
                 TRANSACTION HISTORY
             </a>
-            <a id="add_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html">
-                CONNECT BITCOIN WALLET
-            </a>
-            <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html">
-                MANAGE BITCOIN WALLET
-            </a>
-            <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html">
-                ADD EMAIL ADDRESS
-            </a>
-            <a id="manage_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html">
-                MANAGE EMAIL
-            </a>
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/password.html">
                 CHANGE PASSWORD
             </a>
             <a class="subwindow clickable_subwindow link_subwindow" href="/account/currency.html">
                 CHANGE DISPLAY CURRENCY
+            </a>
+            <a id="add_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
+                CONNECT BITCOIN WALLET
+            </a>
+            <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
+                MANAGE BITCOIN WALLET
+            </a>
+            <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
+                ADD EMAIL ADDRESS
+            </a>
+            <a id="manage_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
+                MANAGE EMAIL
             </a>
         </div>
     </div>
@@ -137,11 +137,16 @@
                 ext_address = call.ext_address,
                 email_address = call.email_address;
         
+                if (ext_address !== "") show("manage_ext_address_subwindow");
+                else show("add_ext_address_subwindow");
+                if (email_address !== "") show("manage_email_subwindow");
+                else show("add_email_subwindow");
+
                 if (available_balance === 0)
                     {
                     id("available_balance").innerHTML = "0.00<div id='deposit_prompt_major' class='green' onclick='deposit()'>DEPOSIT!</div>";
+                    id("available_balance_fiat").innerHTML = getFiatDisplay(0, "never_inline");
                     id("available_balance").className += " red_orange";
-                    id("available_balance_header").style.paddingBottom = "7px";
                     }
                 else
                     {
@@ -165,10 +170,6 @@
                 id("total_balance").innerHTML = toBTC(total_balance, false) + " BTC";
                 id("total_balance_fiat").innerHTML = getFiatDisplay(total_balance, "never_inline");
 
-                if (ext_address === "") destroy("manage_ext_address_subwindow");
-                else destroy("add_ext_address_subwindow");
-                if (email_address === "") destroy("manage_email_subwindow");
-                else destroy("add_email_subwindow");
                 }
             });
         }

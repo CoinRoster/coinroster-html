@@ -20,86 +20,82 @@
         </h3>
     </div>
     <div class="body_container extra_body_container_padding">
+        <br/>
         <div id="add_email_subwindow" class="hidden">
-            <div id="add_email_message" class="subwindow_heading">
-                Add email address
-            </div>
+            Add an email address
             <br/>
-            <div class="input_padding description_text">
-                <span class="orange">
-                    We will only send you emails about activity in your account. Your email will also
-                    <br/>
-                    be used if you ever need to recover your password. We will not sell or share your
-                    <br/>
-                    email address with a third party.
-                </span>
+            <br/>
+            <span class="orange">
+                We will only send you emails about activity in your account. Your email will also
                 <br/>
+                be used if you ever need to recover your password. We will not sell or share your
                 <br/>
-                We have a weekly newsletter featuring news updates from the world of bitcoin,
-                <br/>
-                gaming, and sports. To sign up, please click here:
-            </div>
+                email address with a third party.
+            </span>
+            <br/>
             <label id="newsletter_label" class="checkbox_label">
                 <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
-                Sign up for our newsletter
+                Sign up for our newsletter to receive updates from the world of bitcoin, gaming, and sports.
             </label>
+            <div id="add_email_message_container" class="input_padding hidden">
+                <span id="add_email_message"></span>
+            </div>
             <form onsubmit="return add_email_address();">
                 <div class="input_padding">
-                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
-                    <button type="submit" class="text_button auto_width add_left_margin">Submit</button>
+                    <ul class="account_form">
+                        <li>
+                            <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
+                        </li>
+                        <li>
+                            <button type="submit" class="text_button auto_width">Add email address</button>
+                        </li>
+                    </ul>
                 </div>
             </form>
         </div>
         <div id="manage_email_subwindow" class="hidden">
-            <div id="manage_email_message" class="subwindow_heading">
-                Manage e-mail
-            </div>
-            <br/>
-            <br/>
             <div id="manage_email">
+                Your email on file is:
+                <br/>
+                <br/>
+                <span id="email_on_file" class="orange"></span>
+                &nbsp;
+                <span id="verified_unverified" class="orange"></span>
+                <br/>
+                <br/>
                 <ul class="account_form">
-                    <li>
-                        <span id="email_on_file"></span>
-                        <span id="verified_unverified"></span>
+                    <li id="verification_button">
+                        <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
                     </li>
                     <li>
                         <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
-                    </li>
-                    <li id="verification_button">
-                        <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
                     </li>
                 </ul>
             </div>
             <div id="change_email" class="hidden">
                 <form onsubmit="return change_email_address();">
-                    <ul class="account_form">
-                        <li>
-                            <span id="change_email_message">
-                                New e-mail address:
-                            </span>
-                        </li>
-                        <li>
-                            <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
-                        </li>
-                        <li>
-                            <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button>
-                            <button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
-                        </li>
-                    </ul>
+                    <span id="change_email_message">
+                        New email address:
+                    </span>
+                    <br/>
+                    <br/>
+                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
+                    <br/>
+                    <br/>
+                    <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
+                    --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
                 </form>
             </div>
             <br/>
             <hr noshade>
             <br/>
-            <ul class="account_form">
-                <li>
-                    <span id="subscribe_unsubscribe_message"></span>
-                </li>
-                <li>
-                    <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
-                </li>
-            </ul>            
+            <span id="subscribe_unsubscribe_message"></span>
+            <br/>
+            <br/>
+            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
         </div>
+        <br/>
+        <br/>
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
@@ -109,9 +105,178 @@
     
     function init()
         {
-        
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+
+                email_address = call.email_address,
+                email_ver_flag = call.email_ver_flag,
+                newsletter_flag = call.newsletter_flag;
+
+                if (email_address === "") 
+                    {
+                    destroy("manage_email_subwindow");
+                    show("add_email_subwindow");
+                    }
+                else 
+                    {
+                    destroy("add_email_subwindow");
+                    show("manage_email_subwindow");
+                    id("email_on_file").innerHTML = email_address + "&nbsp;&nbsp;"; 
+                    if (email_ver_flag === 1)
+                        {
+                        id("verified_unverified").innerHTML = "verified";
+                        id("verified_unverified").className = "green";
+                        //id("email_on_file").style.color = cr_teal;
+                        destroy("verification_button");
+                        }
+                    else
+                        {
+                        id("verified_unverified").innerHTML = "unverified";
+                        id("verified_unverified").className = "red_orange";
+                        }
+                    update_subscription_view(newsletter_flag);
+                    }
+                }
+            });
         }
        
+//--------------------------------------------------------------------------------------------------
+
+    // ADD / CHANGE / MANAGE EMAIL ADDRESS
+
+    function add_email_error(message)
+        {
+        show("add_email_message_container");
+        id("add_email_message").innerHTML = message;
+        id("add_email_message").className = "orange_actual";
+        }
+
+    function change_email_error(message, color)
+        {
+        id("change_email_message").innerHTML = message;
+        id("change_email_message").style.color = color;
+        }
+        
+    function add_email_address()
+        {
+        var new_email_address = id("new_email_address").value,
+        newsletter_flag = id("newsletter_checkbox").checked ? 1 : 0;
+
+        if (validate_email(new_email_address) === false)
+            {
+            add_email_error("Invalid email address");
+            return false;
+            }
+
+        api({
+            method: "AddEmailAddress",
+            args: {
+                email_address: new_email_address,
+                newsletter_flag: newsletter_flag
+            }
+        }, function()
+            {
+            location.reload();
+            });
+            
+        return false;
+        }
+
+    function change_email_address()
+        {
+        var new_email_address = id("new_email_address").value;
+
+        if (new_email_address === id("email_on_file").innerHTML)
+            {
+            change_email_error("Email address is on file", "orange_actual");
+            return false;
+            }
+        if (validate_email(new_email_address) === false)
+            {
+            change_email_error("Invalid email address", "orange_actual");
+            return false;
+            }
+
+        api({
+            method: "ChangeEmailAddress",
+            args: {
+                email_address: new_email_address
+            }
+        }, function()
+            {
+            location.reload();
+            });
+            
+        return false;
+        }
+
+    function cancel_change_email()
+        {
+        change_email_error("New e-mail address:", "white");
+        hide("change_email");
+        show("manage_email");
+        return false;
+        }
+
+    function resend_verification()
+        {
+        api({
+            method: "SendEmailVerification",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                id("verification_button").innerHTML = "Verification email has been sent";
+                id("verification_button").style.color = cr_teal;
+                }
+            });
+        }
+
+//--------------------------------------------------------------------------------------------------
+
+    // TOGGLE NEWSLETTER SUBSCRIPTION
+
+    function update_subscription_view(newsletter_flag)
+        {
+        id("subscribe_unsubscribe_message").current_state = newsletter_flag;
+        if (newsletter_flag === 1)
+            {
+            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are</span> subscribed to our newsletter";
+            id("subscribe_unsubscribe_button").innerHTML = "Unsubscribe";
+            }
+        else
+            {
+            id("subscribe_unsubscribe_message").innerHTML = "You <span class=\"underline\">are not</span> subscribed to our newsletter"; 
+            id("subscribe_unsubscribe_button").innerHTML = "Subscribe to Newsletter";
+            }
+        }
+
+    function toggle_subscription()
+        {
+        var current_flag_state = id("subscribe_unsubscribe_message").current_state;
+
+        api({
+            method: "ChangeNewsletterFlag",
+            args: {
+                current_flag_state: current_flag_state
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var newsletter_flag = call.newsletter_flag;
+                update_subscription_view(newsletter_flag);
+                }
+            });
+        }
+
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->

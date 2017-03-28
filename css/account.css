@@ -3,6 +3,12 @@
         font-size: 14px !important;
     }
     
+    hr {
+        height: 1px;
+        border: none;
+        background: rgb(100,102,104);
+    }
+    
     .action_button {
         padding:20px;
         background:rgb(80,82,84);
