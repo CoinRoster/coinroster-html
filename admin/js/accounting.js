@@ -774,6 +774,7 @@
         get_cash_register_address();
         get_pending_withdrawals();
         get_pending_deposits();
+        get_quickbt_deposits();
         }
     
     function get_cash_register_address()
@@ -980,6 +981,71 @@
         else id("pending_deposit_table").innerHTML = "Error getting transactions";        
         }
     
+    function get_quickbt_deposits()
+        {
+        var call = api({ method: "GetQuickbtDeposits", args: {} });
+        
+        if (call.status === "1")
+            {
+            var
+            
+            quickbt_deposit_array = call.quickbt_deposits,
+            number_of_transactions = quickbt_deposit_array.length,
+            table = new_table("quickbt_deposit_table"),
+            row_count = 0;
+    
+            if (number_of_transactions > 0)
+                {
+                for (var i=0; i<number_of_transactions; i++)
+                    {
+                    var transaction_item = quickbt_deposit_array[i],
+
+                    quickbt_record_id = transaction_item.transaction_id,
+                    user_id = transaction_item.user_id,
+                    username = get_username_for_id(user_id),
+                    passed_id = transaction_item.passed_id,
+                    created = transaction_item.created,
+                    created_date = dateconv_ms_to_string(created),
+                    created_time = dateconv_ms_to_time(created),
+                    completed = transaction_item.completed,
+                    completed_date = dateconv_ms_to_string(completed),
+                    completed_time = dateconv_ms_to_time(completed),
+                    amount = "TBD";
+
+                    var row = new_row(table, row_count++, [
+                        quickbt_record_id,
+                        created_date + " " + created_time,
+                        completed_date + " " + completed_time,
+                        username,
+                        passed_id,
+                        amount,
+                        "<button onclick=\"populate_quickbt_deposit(" + quickbt_record_id + ",'" + user_id + "')\">Complete deposit</button>" + 
+                        "&nbsp;" +
+                        "<button onclick=\"cancel_quickbt_deposit(" + quickbt_record_id + ")\">Cancel transaction</button>"
+                    ]);
+
+                    // highlight if older than 30 days:
+                    
+                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
+                    }
+                
+                var header = new_row(table, 0, [
+                    "#",
+                    "Created",
+                    "Returned from QuickBT",
+                    "User",
+                    "QuickBT ID",
+                    "Amount",
+                    "Action"
+                ]);
+
+                for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+                }
+            else id("quickbt_deposit_table").innerHTML = "None";
+            }
+        else id("quickbt_deposit_table").innerHTML = "Error getting transactions";        
+        }
+        
     function finalize_pending_withdrawal(transaction_id, amount, ext_address)
         {
         var funds_sent = confirm("Are you sure you have sent\n\n" + toBTC(amount, true) + "\n\nto\n\n" + ext_address + "\n\n?");
@@ -1009,6 +1075,15 @@
         id("pending_deposit_intended_amount").innerHTML = toBTC(amount, true);
         id("pending_deposit_memo").innerHTML = "Completed pending deposit (Trans #" + transaction_id + ")";
         show("pending_deposit_window");
+        }
+                
+    function populate_quickbt_deposit(transaction_id, user_id)
+        {
+        id("quickbt_deposit_record_id").innerHTML = transaction_id;
+        id("quickbt_deposit_username").innerHTML = get_username_for_id(user_id);
+        id("quickbt_deposit_user_id").innerHTML = user_id;
+        id("quickbt_deposit_memo").innerHTML = "Received from QuickBT (ID: " + transaction_id + ")";
+        show("quickbt_deposit_window");
         }
         
     function finalize_pending_deposit()
@@ -1044,6 +1119,37 @@
         else alert("Error: " + call.error);
         }
         
+    function finalize_quickbt_deposit()
+        {
+        var 
+        
+        user_account_id = id("quickbt_deposit_user_id").innerHTML,
+        transaction_amount = id("quickbt_deposit_received_amount").value,
+        transaction_memo = id("quickbt_deposit_memo").innerHTML;
+
+        if (transaction_amount === "") return alert("Please enter an amount");
+        transaction_amount = Number(transaction_amount);
+        if (isNaN(transaction_amount)) return alert("Amount is not a number");
+        if (transaction_amount <= 0) return alert("Amount cannot be less than or equal to 0");
+
+        var call = api({ 
+            method: "FinalizeQuickbtDeposit", 
+            args: {
+                user_account_id: user_account_id,
+                quickbt_record_id: id("quickbt_deposit_record_id").innerHTML,
+                received_amount: transaction_amount,
+                memo: transaction_memo
+            } 
+        });
+        
+        if (call.status === "1") 
+            {
+            alert("Transaction created! Reloading panel.");
+            location.reload();
+            }
+        else alert("Error: " + call.error);
+        }
+        
     function cancel_pending_deposit(transaction_id)
         {
         var do_cancel = confirm("Are you sure you want to cancel pending deposit #" + transaction_id + "?");
@@ -1065,6 +1171,29 @@
                 });
             }
         }
+        
+    function cancel_quickbt_deposit(quickbt_record_id)
+        {
+        var do_cancel = confirm("Are you sure you want to cancel QuickBT deposit #" + quickbt_record_id + "?");
+        if (do_cancel)
+            {
+            api({ 
+                method: "CancelQuickbtDeposit", 
+                args: {
+                    quickbt_record_id: quickbt_record_id
+                } 
+            }, function(call)
+                {
+                if (call.status === "1") 
+                    {
+                    alert("Transaction cancelled! Reloading panel.");
+                    location.reload();
+                    }
+                else alert(call.error);
+                });
+            }
+        }
+        
 /*----------------------------------------------------------------------*/
 
     // Passwords

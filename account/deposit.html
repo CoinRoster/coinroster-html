@@ -20,29 +20,49 @@
         </h3>
     </div>
     <div class="body_container extra_body_container_padding">
+        <!-- INITIAL CONTAINER ************************************************************************** -->
         <div id="initial_container">
+            <br/>
+            <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
+                <ul class="button_contents">
+                    <li>
+                        <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
+                    </li>
+                    <li>
+                        Canadians, click here to use Interac Online
+                    </li>
+                </ul>
+            </button>
+            <br/>
+            <br/>
+            <button class="text_button" onclick="try_ext_address_deposit()" style="width:260px !important">
+                <ul class="button_contents">
+                    <li>
+                        <img src="/img/B_logo.png" height="45" style="margin-right:20px"/>
+                    </li>
+                    <li>
+                        If you have a Bitcoin wallet, click here
+                    </li>
+                </ul>
+            </button>
+        </div>
+        <!-- DEPOSIT FORM ************************************************************************** -->
+        <div id="ext_address_deposit_container" class="hidden">
             <div class="input_padding description_text">
-                Please use the form below to tell us how much you intend to deposit.
-                <br/>
-                <br/>
-                We will credit your account within 24 hours of receiving the funds.
-                <br/>
-                <br/>
-                <br/>
                 Transfer from your connected wallet:
                 <br/>
                 <br/>
-                <span id="user_ext_address" class="teal small_text"></span>
+                <span id="user_ext_address" class="orange small_text"></span>
                 <br/>
                 <br/>
                 To our public wallet:
                 <br/>
                 <br/>
-                <span id="cash_register_address" class="teal small_text"></span>
+                <span id="cash_register_address" class="orange small_text"></span>
             </div>
             <br/>
             <span class="orange_actual">
-                How much would you like to deposit?
+                Please inform us how much you will deposit:
             </span>
             <br/>
             <br/>
@@ -59,13 +79,15 @@
             </div>
             <br/>
         </div>
-        <div id="confirmation_container" style="display:none">
-            <span class="input_padding description_text orange">
+        <!-- DEPOSIT CONFIRMATION WINDOW ************************************************************************** -->
+        <div id="confirmation_container" class="hidden">
+            <br/>
+            <span class="orange">
                 Please initiate a deposit from your wallet
-                <br/>
-                <br/>
-                We will credit your account as soon as the funds arrive
             </span>
+            <br/>
+            <br/>
+            We will credit your account as soon as the funds arrive
             <br/>
             <br/>
             <div class="input_padding description_text">
@@ -78,14 +100,14 @@
                 From:
                 <br/>
                 <br/>
-                <span id="user_ext_address_confirm" class="teal small_text"></span>
+                <span id="user_ext_address_confirm" class="orange small_text"></span>
                 <br/>
                 <br/>
                 <br/>
                 To:
                 <br/>
                 <br/>
-                <span id="cash_register_address_confirm" class="teal small_text"></span>
+                <span id="cash_register_address_confirm" class="orange small_text"></span>
                 <br/>
                 <br/>
                 <br/>
@@ -106,7 +128,38 @@
         };
         
     function init()
+        {  
+
+        }
+
+    function go_to_quickbt()
         {
+        api({ 
+            method: "CreateQuickbtRecord", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                cash_register_address = get_ext_address(false),
+                redirect = encodeURIComponent(call.redirect),
+                passed_id = call.passed_id;
+        
+                window.location = "https://quickbt.com/?btcto=" + cash_register_address + "&btcamount=0.1&redir=" + redirect + "&passed_id=" + passed_id;
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+        
+    function try_ext_address_deposit()
+        {
+        //window.location.hash = "deposit";
+                     
+        hide("initial_container");
+        show("ext_address_deposit_container");
+
         focus_to_input();
 
         var
@@ -120,19 +173,20 @@
             must_add_wallet = true;
             user_ext_address = "N/A"; // display in background
             }
-
+     
         id("user_ext_address").innerHTML = user_ext_address;
         id("user_ext_address_confirm").innerHTML = user_ext_address;
         id("cash_register_address").innerHTML = cash_register_address;
         id("cash_register_address_confirm").innerHTML = cash_register_address;
-        
+
         if (must_add_wallet)
             {
-            show_simple_modal("You must connect a Bitcoin wallet to your account", "good", function()
+            show_simple_modal("You must connect a Bitcoin wallet to your account", "bad", function()
                 {
                 location = "/account/wallet.html";
                 });
             }
+
         }
         
     function submit_pending_deposit()
@@ -163,7 +217,7 @@
             if (call.status === "1")
                 {
                 id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
-                hide("initial_container");
+                hide("ext_address_deposit_container");
                 show("confirmation_container");
                 }
             else show_simple_modal(call.error, "bad", null);

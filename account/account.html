@@ -144,7 +144,7 @@
 
                 if (available_balance === 0)
                     {
-                    id("available_balance").innerHTML = "0.00<div id='deposit_prompt_major' class='green' onclick='deposit()'>DEPOSIT!</div>";
+                    id("available_balance").innerHTML = "0.00<a id='deposit_prompt_major' class='green' href='/account/deposit.html'>DEPOSIT!</a>";
                     id("available_balance_fiat").innerHTML = getFiatDisplay(0, "never_inline");
                     id("available_balance").className += " red_orange";
                     }
