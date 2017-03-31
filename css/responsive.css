@@ -9,7 +9,7 @@
         /* four-wide tiles */
         
         .sub_category_item {
-            width: calc(25% - 10px);
+            width: calc(25% - 5px);
         }
         
         .extra_body_container_padding {
@@ -29,7 +29,7 @@
             padding-left: 20px !important;
         }
         .lobby_body_container {
-            padding: 0 3px;
+            padding: 0 2px 0 3px;
         }
         .transaction_table_body {
             padding: 0 !important;
@@ -44,7 +44,7 @@
         /* four-wide tiles */
         
         .sub_category_item {
-            width: calc(25% - 8px);
+            width: calc(25% - 5px);
         }
         
         /* List of contests under tile in lobby */
@@ -122,7 +122,7 @@
         /* three-wide tiles */
         
         .sub_category_item {
-            width: calc(33% - 8px);
+            width: calc(33% - 2px);
         }
         
         /* change password form is especially wide - stack vertically */
@@ -175,7 +175,7 @@
         /* two-wide tiles */
         
         .sub_category_item {
-            width: calc(50% - 11px);
+            width: calc(50% - 5px);
         }
         
         /* Contest page */
@@ -420,7 +420,7 @@
         /* one-wide tiles */
         
         .sub_category_item {
-            width: calc(100% - 12px);
+            width: calc(100% - 7px);
         }
  
         .contest_table td:first-child {

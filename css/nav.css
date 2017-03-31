@@ -12,7 +12,7 @@
         text-decoration: none !important;
         color: white !important;
         display: inline-block;
-        padding: 18px 20px 10px;
+        padding: 23px 20px 10px;
     }
 
     #coinroster_text {
@@ -27,9 +27,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         position: relative;
-        height: 86px;
-        border-bottom: 1px solid rgb(20,22,24);
-        background-color: rgba(36,38,40, 0.7);
+        height: 96px;
     }
     
     #ssi_main_nav_bar, #ssi_mobile_nav_bar {
@@ -38,7 +36,7 @@
         position: absolute;
     }
     #ssi_main_nav_bar {
-        top: 30px;
+        top: 35px;
         padding: 13px 0;
     }
     
@@ -84,7 +82,8 @@
         color: rgb(255,229,171);
         text-decoration: none;
         padding: 10px;
-        border-bottom: 1px solid rgb(255,86,18);
+        padding-bottom: 7px;
+        border-bottom: 2px solid rgb(255,86,18);
     }
     .ssi_header_a:hover, .ssi_header_active_tab:hover {
         text-decoration:underline;
@@ -133,7 +132,7 @@
         cursor: pointer;
         display: none;
         width: 100%;
-        top: 37px !important;
+        top: 42px;
         padding: 12px 0;
     }
     
@@ -168,7 +167,7 @@
         position: fixed;
         z-index: 1;
         left: -500px;
-        top: 87px; /* same as #ssi_mobile_nav */
+        top: 97px; /* same as #ssi_mobile_nav */
         right: -500px;
         bottom: -500px;
         overflow: hidden;
@@ -179,11 +178,11 @@
         z-index: 2;
         display: none;
         position: absolute;
-        top: 87px; /* same as #ssi_mobile_shade */
+        top: 97px; /* same as #ssi_mobile_shade */
         left: 0;
         right: 0;
         font-size: 13px;
-        background: rgb(55,56,57);
+        background: rgb(40,43,45);
     }
     
     #ssi_mobile_nav ul, #ssi_mobile_nav li {

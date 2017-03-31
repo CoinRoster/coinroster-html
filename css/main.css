@@ -75,8 +75,9 @@
         moz-text-size-adjust:none;
         -webkit-text-size-adjust:none;
         -ms-text-size-adjust:none;
-        /*background: url('../img/greybg.png') repeat;*/
-        background: rgb(45,46,47) url('../img/fabric_bg.jpg') top center repeat;
+        /*background: url('../img/greybg.png') repeat;
+        background: rgb(45,46,47) url('../img/fabric_bg.jpg') top center repeat;*/
+        background: rgb(30,32,34);
     }
 
     a, a:visited, a:active {
@@ -124,7 +125,7 @@
         padding: 0 20px;
     }
     .lobby_body_container {
-        padding: 0 16px 0 14px; /* approx 15px on either side, but this is just how thinks work out at max width */
+        padding: 0 15px 0 17px; /* approx 15px on either side, but this is just how thinks work out at max width */
     }
     .table_body_container {
         padding: 0 20px 20px 20px;
