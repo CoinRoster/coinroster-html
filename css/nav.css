@@ -167,7 +167,7 @@
         position: fixed;
         z-index: 1;
         left: -500px;
-        top: 97px; /* same as #ssi_mobile_nav */
+        top: 96px; /* same as #ssi_mobile_nav */
         right: -500px;
         bottom: -500px;
         overflow: hidden;
@@ -178,11 +178,11 @@
         z-index: 2;
         display: none;
         position: absolute;
-        top: 97px; /* same as #ssi_mobile_shade */
+        top: 96px; /* same as #ssi_mobile_shade */
         left: 0;
         right: 0;
         font-size: 13px;
-        background: rgb(40,43,45);
+        background: rgb(50,52,54);
     }
     
     #ssi_mobile_nav ul, #ssi_mobile_nav li {

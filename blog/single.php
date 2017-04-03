@@ -1,47 +1,54 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying all single posts and attachments
+ *
+ * @package WordPress
+ * @subpackage Twenty_Sixteen
+ * @since Twenty Sixteen 1.0
+ */
 
-<?php 
-/** Themify Default Variables
- *  @var object */
-global $themify;
-?>
+get_header(); ?>
 
-<?php if( have_posts() ) while ( have_posts() ) : the_post(); ?>
+<div id="primary" class="content-area">
+	<main id="main" class="site-main" role="main">
+		<?php
+		// Start the loop.
+		while ( have_posts() ) : the_post();
 
-<!-- layout-container -->
-<div id="layout" class="pagewidth clearfix">
+			// Include the single post content template.
+			get_template_part( 'template-parts/content', 'single' );
 
-	<?php themify_content_before(); // hook ?>
-	<!-- content -->
-	<div id="content" class="list-post">
-    	<?php themify_content_start(); // hook ?>
-		
-		<?php get_template_part( 'includes/loop' , 'single'); ?>
+			// If comments are open or we have at least one comment, load up the comment template.
+			if ( comments_open() || get_comments_number() ) {
+				comments_template();
+			}
 
-		<?php wp_link_pages(array('before' => '<p class="post-pagination"><strong>' . __('Pages:', 'themify') . ' </strong>', 'after' => '</p>', 'next_or_number' => 'number')); ?>
-		
-		<?php get_template_part( 'includes/author-box', 'single'); ?>
+			if ( is_singular( 'attachment' ) ) {
+				// Parent post navigation.
+				the_post_navigation( array(
+					'prev_text' => _x( '<span class="meta-nav">Published in</span><span class="post-title">%title</span>', 'Parent post link', 'twentysixteen' ),
+				) );
+			} elseif ( is_singular( 'post' ) ) {
+				// Previous/next post navigation.
+				the_post_navigation( array(
+					'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'twentysixteen' ) . '</span> ' .
+						'<span class="screen-reader-text">' . __( 'Next post:', 'twentysixteen' ) . '</span> ' .
+						'<span class="post-title">%title</span>',
+					'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'twentysixteen' ) . '</span> ' .
+						'<span class="screen-reader-text">' . __( 'Previous post:', 'twentysixteen' ) . '</span> ' .
+						'<span class="post-title">%title</span>',
+				) );
+			}
 
-		<?php get_template_part( 'includes/post-nav'); ?>
+			// End of the loop.
+		endwhile;
+		?>
 
-		<?php if(!themify_check('setting-comments_posts')): ?>
-			<?php comments_template(); ?>
-		<?php endif; ?>
-        
-		<?php themify_content_end(); // hook ?>	
-	</div>
-	<!-- /content -->
-    <?php themify_content_after(); // hook ?>
+	</main><!-- .site-main -->
 
-<?php endwhile; ?>
+	<?php get_sidebar( 'content-bottom' ); ?>
 
-<?php 
-/////////////////////////////////////////////
-// Sidebar							
-/////////////////////////////////////////////
-if ($themify->layout != "sidebar-none"): get_sidebar(); endif; ?>
+</div><!-- .content-area -->
 
-</div>
-<!-- /layout-container -->
-	
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>

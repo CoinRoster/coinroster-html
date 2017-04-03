@@ -1,10 +1,15 @@
-<?php themify_sidebar_before(); // hook ?>
-<aside id="sidebar" itemscope="itemscope" itemtype="https://schema.org/WPSidebar">
-	<?php themify_sidebar_start(); // hook ?>
-    
-	<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('sidebar-main') ); ?>
-    
-	<?php themify_sidebar_end(); // hook ?>
-</aside>
-<!-- /#sidebar -->
-<?php themify_sidebar_after(); // hook ?>
+<?php
+/**
+ * The template for the sidebar containing the main widget area
+ *
+ * @package WordPress
+ * @subpackage Twenty_Sixteen
+ * @since Twenty Sixteen 1.0
+ */
+?>
+
+<?php if ( is_active_sidebar( 'sidebar-1' )  ) : ?>
+	<aside id="secondary" class="sidebar widget-area" role="complementary">
+		<?php dynamic_sidebar( 'sidebar-1' ); ?>
+	</aside><!-- .sidebar .widget-area -->
+<?php endif; ?>

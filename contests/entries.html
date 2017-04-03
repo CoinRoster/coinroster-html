@@ -46,7 +46,7 @@
                     </span>
                 </li>
                 <li>
-                    <span id="payout_value" class="headline_value orange"></span>
+                    <span id="payout_value" class="headline_value"></span>
                     <span id="payout_value_fiat"></span>
                 </li>
             </ul>
@@ -273,13 +273,13 @@
                                         amount, // default is no wager
                                         implied_odds = get_implied_odds(wager_grand_total, option_item),
                                         implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
-                                        implied_payout, // default is no wager, therefore no payout
+                                        implied_payout = 0, // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
                                         PNL_class = "orange", // default is total loss
                                         user_has_wager = typeof user_wagers[option_id] !== "undefined",
                                         mark_outcome = "",
                                         row_index = -1;
-                                        
+                                
                                         if (user_has_wager) // user has a wager
                                             {
                                             amount = user_wagers[option_id],
@@ -288,7 +288,7 @@
                                          
                                             if (scenario_PL > 0) PNL_class = "green"; // override if profit
                                             }
-                                        
+                                            
                                         if (contest_status === 3)
                                             {
                                             show("payout_container");
@@ -308,7 +308,7 @@
                                                 //row_index = 1; // causes winning outcome to float to the top
                                                 }
                                             }
-                                            
+                                         
                                         var 
                                         
                                         row_data = [],
