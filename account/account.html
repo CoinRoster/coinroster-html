@@ -7,110 +7,114 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 id="account_header" class="section_header orange_actual">
-            <span class='steel'>Welcome,</span>
-            &nbsp;
-            <span id="username_placeholder"></span>
-        </h3>
-    </div>
-    <div class="table_body_container transaction_table_body">
-        <div id="balance_table_wrapper">
-            <table id="balance_table_outer">
-                <tr id="available_balance_wrapper">
-                    <td id="available_balance_header" class="heading_cell">
-                        Ready to play:
-                    </td>
-                    <td class="balance_table_cell">
-                        <table class="balance_table">
-                            <tr id="btc_balance_row" class="hidden">
-                                <td>
-                                    <div id="btc_balance" class="steel"></div>
-                                </td>
-                            </tr>
-                            <tr id="rc_balance_row" class="hidden">
-                                <td id="rc_balance_cell">
-                                    <div id="rc_balance" class="steel"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div id="available_balance" class="btc_balance"></div>
-                                    <div id="available_balance_fiat" class="fiat_balance hidden_"></div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr id="in_play_balance_wrapper" class="hidden_">
-                    <td class="heading_cell">
-                        In <a href="/contests" class="inline_link white">Contests</a>:
-                    </td>
-                    <td class="balance_table_cell">
-                        <table class="balance_table">
-                            <tr>
-                                <td>
-                                    <span id="in_play_balance" class="btc_balance orange"></span>
-                                    <span id="in_play_balance_fiat" class="fiat_balance"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr id="total_balance_wrapper" class="hidden_">
-                    <td class="heading_cell">
-                        Total:
-                    </td>
-                    <td class="balance_table_cell">
-                        <table class="balance_table">
-                            <tr>
-                                <td id="total_balance_cell">
-                                    <span id="total_balance" class="btc_balance"></span>
-                                    <span id="total_balance_fiat" class="fiat_balance"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 id="account_header" class="section_header orange_actual">
+                <span class='steel'>Welcome,</span>
+                &nbsp;
+                <span id="username_placeholder"></span>
+            </h3>
         </div>
-        <div id="account_menu">
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
-                DEPOSIT
-            </a>
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html">
-                WITHDRAW
-            </a>
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/refer.html">
-                REFER A FRIEND!
-            </a>
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
-                TRANSACTION HISTORY
-            </a>
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/password.html">
-                CHANGE PASSWORD
-            </a>
-            <a class="subwindow clickable_subwindow link_subwindow" href="/account/currency.html">
-                CHANGE DISPLAY CURRENCY
-            </a>
-            <a id="add_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
-                CONNECT BITCOIN WALLET
-            </a>
-            <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
-                MANAGE BITCOIN WALLET
-            </a>
-            <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
-                ADD EMAIL ADDRESS
-            </a>
-            <a id="manage_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
-                MANAGE EMAIL
-            </a>
+        <div class="table_body_container transaction_table_body">
+            <div id="balance_table_wrapper">
+                <table id="balance_table_outer">
+                    <tr id="available_balance_wrapper">
+                        <td id="available_balance_header" class="heading_cell">
+                            Ready to play:
+                        </td>
+                        <td class="balance_table_cell">
+                            <table class="balance_table">
+                                <tr id="btc_balance_row" class="hidden">
+                                    <td>
+                                        <div id="btc_balance" class="steel"></div>
+                                    </td>
+                                </tr>
+                                <tr id="rc_balance_row" class="hidden">
+                                    <td id="rc_balance_cell">
+                                        <div id="rc_balance" class="steel"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div id="available_balance" class="btc_balance"></div>
+                                        <div id="available_balance_fiat" class="fiat_balance hidden_"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr id="in_play_balance_wrapper" class="hidden_">
+                        <td class="heading_cell">
+                            In <a href="/contests" class="inline_link white">Contests</a>:
+                        </td>
+                        <td class="balance_table_cell">
+                            <table class="balance_table">
+                                <tr>
+                                    <td>
+                                        <span id="in_play_balance" class="btc_balance orange"></span>
+                                        <span id="in_play_balance_fiat" class="fiat_balance"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr id="total_balance_wrapper" class="hidden_">
+                        <td class="heading_cell">
+                            Total:
+                        </td>
+                        <td class="balance_table_cell">
+                            <table class="balance_table">
+                                <tr>
+                                    <td id="total_balance_cell">
+                                        <span id="total_balance" class="btc_balance"></span>
+                                        <span id="total_balance_fiat" class="fiat_balance"></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="account_menu">
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
+                    DEPOSIT
+                </a>
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html">
+                    WITHDRAW
+                </a>
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/refer.html">
+                    REFER A FRIEND!
+                </a>
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
+                    TRANSACTION HISTORY
+                </a>
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/password.html">
+                    CHANGE PASSWORD
+                </a>
+                <a class="subwindow clickable_subwindow link_subwindow" href="/account/currency.html">
+                    CHANGE DISPLAY CURRENCY
+                </a>
+                <a id="add_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
+                    CONNECT BITCOIN WALLET
+                </a>
+                <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
+                    MANAGE BITCOIN WALLET
+                </a>
+                <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
+                    ADD EMAIL ADDRESS
+                </a>
+                <a id="manage_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
+                    MANAGE EMAIL
+                </a>
+            </div>
+            <div style="clear:both"></div>
         </div>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
      

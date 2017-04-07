@@ -9,28 +9,31 @@
     <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-<!--#include virtual="/ssi/contest_status_selector.html" -->
-    <div class="body_container">
-        <div id="no_data_message" class="hidden"></div>
-        <div id="headline_value_container" class="headline_value_container my_contests hidden">
-            <ul>
-                <li>
-                    <span id="headline_value_label" class="headline_value_label"></span>
-                </li>
-                <li>
-                    <span id="headline_value" class="headline_value orange"></span>
-                    <span id="headline_value_fiat"></span>
-                </li>
-            </ul>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <!--#include virtual="/ssi/contest_status_selector.html" -->
+        <div class="body_container">
+            <div id="no_data_message" class="hidden"></div>
+            <div id="headline_value_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span id="headline_value_label" class="headline_value_label"></span>
+                    </li>
+                    <li>
+                        <span id="headline_value" class="headline_value orange"></span>
+                        <span id="headline_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="table_body_container">
+            <table id="contest_report_table" class="contest_table"></table>
         </div>
     </div>
-    <div class="table_body_container">
-        <table id="contest_report_table" class="contest_table"></table>
-    </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <!--#include virtual="/ssi-java/my_contests_count" -->
 <script type="text/javascript">
      

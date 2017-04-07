@@ -13,22 +13,25 @@
     <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container" class="lobby_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header to_uppercase">
-            <span id="path_text"></span>
-        </h3>
-    </div>
-<!--#include virtual="/ssi/contest_status_selector.html" -->
-    <div class="body_container">
-        <div id="no_data_message"></div>
-    </div>
-    <div class="table_body_container">
-        <table id="category_report_table" class="contest_table"></table>
+<div id="page_body">
+    <div id="centering_container" class="lobby_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header to_uppercase">
+                <span id="path_text"></span>
+            </h3>
+        </div>
+        <!--#include virtual="/ssi/contest_status_selector.html" -->
+        <div class="body_container">
+            <div id="no_data_message"></div>
+        </div>
+        <div class="table_body_container">
+            <table id="category_report_table" class="contest_table"></table>
+        </div>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <!--#include virtual="/js/contest_counts.js" -->
 <script type="text/javascript">
     

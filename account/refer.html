@@ -7,46 +7,49 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>REFER A FRIEND!</span>
-            </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <br/>
-        Receive 50% of the rake on all contest entries made by any account you refer.
-        <br/>
-        <br/>
-        <div style="font-size:12px">
-            These bonuses will be credited to your account in RosterCoins.
-            <br/>
-            <br/>
-            For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>.
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>REFER A FRIEND!</span>
+                </span>
+            </h3>
         </div>
-        <br/>
-        <form onsubmit="return send_referral();">
-            <div class="input_padding">
-                From:
-                <input id="referrer" type="text" class="light_on_dark_input add_left_margin" />
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            Receive 50% of the rake on all contest entries made by any account you refer.
+            <br/>
+            <br/>
+            <div style="font-size:12px">
+                These bonuses will be credited to your account in RosterCoins.
+                <br/>
+                <br/>
+                For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>.
             </div>
-            To:
-            <input id="referral_email_address" type="text" placeholder="Enter an email address" class="light_on_dark_input teal email_input add_left_margin" />
+            <br/>
+            <form onsubmit="return send_referral();">
+                <div class="input_padding">
+                    From:
+                    <input id="referrer" type="text" class="light_on_dark_input add_left_margin" />
+                </div>
+                To:
+                <input id="referral_email_address" type="text" placeholder="Enter an email address" class="light_on_dark_input teal email_input add_left_margin" />
+                <br/>
+                <br/>
+                <button type="submit" class="text_button auto_width">Send referral!</button>
+                <span id="referral_message" class="add_left_margin"></span>
+            </form>
             <br/>
             <br/>
-            <button type="submit" class="text_button auto_width">Send referral!</button>
-            <span id="referral_message" class="add_left_margin"></span>
-        </form>
-        <br/>
-        <br/>
+        </div>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
 

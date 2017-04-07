@@ -7,116 +7,122 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>DEPOSIT</span>
-            </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <!-- INITIAL CONTAINER ************************************************************************** -->
-        <div id="initial_container">
-            <br/>
-            <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
-                <ul class="button_contents">
-                    <li>
-                        <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
-                    </li>
-                    <li>
-                        Canadians, click here to use Interac Online
-                    </li>
-                </ul>
-            </button>
-            <br/>
-            <br/>
-            <button class="text_button" onclick="try_ext_address_deposit()" style="width:260px !important">
-                <ul class="button_contents">
-                    <li>
-                        <img src="/img/B_logo.png" height="45" style="margin-right:20px"/>
-                    </li>
-                    <li>
-                        If you have a Bitcoin wallet, click here
-                    </li>
-                </ul>
-            </button>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>DEPOSIT</span>
+                </span>
+            </h3>
         </div>
-        <!-- DEPOSIT FORM ************************************************************************** -->
-        <div id="ext_address_deposit_container" class="hidden">
-            <div class="input_padding description_text">
-                Transfer from your connected wallet:
+        <div class="body_container extra_body_container_padding">
+            <!-- INITIAL CONTAINER ************************************************************************** -->
+            <div id="initial_container">
+                <br/>
+                <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
+                    <ul class="button_contents">
+                        <li>
+                            <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
+                        </li>
+                        <li>
+                            Canadians, click here to use Interac Online
+                        </li>
+                    </ul>
+                </button>
                 <br/>
                 <br/>
-                <span id="user_ext_address" class="orange small_text"></span>
+                <button class="text_button" onclick="try_ext_address_deposit()" style="width:260px !important">
+                    <ul class="button_contents">
+                        <li>
+                            <img src="/img/B_logo.png" height="45" style="margin-right:20px"/>
+                        </li>
+                        <li>
+                            If you have a Bitcoin wallet, click here
+                        </li>
+                    </ul>
+                </button>
                 <br/>
                 <br/>
-                To our public wallet:
-                <br/>
-                <br/>
-                <span id="cash_register_address" class="orange small_text"></span>
             </div>
-            <br/>
-            <span class="orange_actual">
-                Please inform us how much you will deposit:
-            </span>
-            <br/>
-            <br/>
-            <div class="input_padding description_text">
-                <form onsubmit="return submit_pending_deposit();">
-                    <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="light_on_dark_input teal" style="width:160px" autocorrect="off" autocapitalize="off" spellcheck="false">
-                    <div class="add_left_margin" style="display:inline-block">
-                        BTC
-                    </div>
+            <!-- DEPOSIT FORM ************************************************************************** -->
+            <div id="ext_address_deposit_container" class="hidden">
+                <div class="input_padding description_text">
+                    Transfer from your connected wallet:
                     <br/>
                     <br/>
-                    <button class="text_button" type="submit">Continue</button>
-                </form>
+                    <span id="user_ext_address" class="orange small_text"></span>
+                    <br/>
+                    <br/>
+                    To our public wallet:
+                    <br/>
+                    <br/>
+                    <span id="cash_register_address" class="orange small_text"></span>
+                </div>
+                <br/>
+                <span class="orange_actual">
+                    Please inform us how much you will deposit:
+                </span>
+                <br/>
+                <br/>
+                <div class="input_padding description_text">
+                    <form onsubmit="return submit_pending_deposit();">
+                        <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="light_on_dark_input teal" style="width:160px" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        <div class="add_left_margin" style="display:inline-block">
+                            BTC
+                        </div>
+                        <br/>
+                        <br/>
+                        <button class="text_button" type="submit">Continue</button>
+                    </form>
+                </div>
+                <br/>
             </div>
-            <br/>
-        </div>
-        <!-- DEPOSIT CONFIRMATION WINDOW ************************************************************************** -->
-        <div id="confirmation_container" class="hidden">
-            <br/>
-            <span class="orange">
-                Please initiate a deposit from your wallet
-            </span>
-            <br/>
-            <br/>
-            We will credit your account as soon as the funds arrive
-            <br/>
-            <br/>
-            <div class="input_padding description_text">
-                Deposit amount:
+            <!-- DEPOSIT CONFIRMATION WINDOW ************************************************************************** -->
+            <div id="confirmation_container" class="hidden">
+                <br/>
+                <span class="orange">
+                    Please initiate a deposit from your wallet
+                </span>
                 <br/>
                 <br/>
-                <br/>
-                <h2 id="amount_to_deposit_confirm" class="lucida"></h2><br/>
-                <br/>
-                From:
+                We will credit your account as soon as the funds arrive
                 <br/>
                 <br/>
-                <span id="user_ext_address_confirm" class="orange small_text"></span>
+                <div class="input_padding description_text">
+                    Deposit amount:
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2 id="amount_to_deposit_confirm" class="lucida"></h2><br/>
+                    <br/>
+                    From:
+                    <br/>
+                    <br/>
+                    <span id="user_ext_address_confirm" class="orange small_text"></span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    To:
+                    <br/>
+                    <br/>
+                    <span id="cash_register_address_confirm" class="orange small_text"></span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <a class="text_button a_button" href="/account" style="color:white">Back to account</a>
+                </div>
                 <br/>
-                <br/>
-                <br/>
-                To:
-                <br/>
-                <br/>
-                <span id="cash_register_address_confirm" class="orange small_text"></span>
-                <br/>
-                <br/>
-                <br/>
-                <a class="text_button a_button" href="/account" style="color:white">Back to account</a>
             </div>
-            <br/>
         </div>
+        <br/>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
     

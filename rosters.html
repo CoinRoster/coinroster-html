@@ -8,23 +8,26 @@
     <script type="text/javascript" src="/js/lobby.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="body_container">
-        <h3 id="contest_title" class="section_header"><span class="orange">Leaderboard</span></h3>
-        <div id="no_data_message" class="hidden"></div>
-        <div id="contest_status_container" class="headline_value_container hidden">
-            Contest status:<span id="contest_status_value" class="headline_value orange"></span>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="body_container">
+            <h3 id="contest_title" class="section_header"><span class="orange">Leaderboard</span></h3>
+            <div id="no_data_message" class="hidden"></div>
+            <div id="contest_status_container" class="headline_value_container hidden">
+                Contest status:<span id="contest_status_value" class="headline_value orange"></span>
+            </div>
+            <div id="scores_updated_container" class="headline_value_container hidden">
+                Scores updated:<span id="scores_updated_value" class="headline_value orange"></span>
+            </div>
         </div>
-        <div id="scores_updated_container" class="headline_value_container hidden">
-            Scores updated:<span id="scores_updated_value" class="headline_value orange"></span>
+        <div class="table_body_container">
+            <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
         </div>
-    </div>
-    <div class="table_body_container">
-        <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script>
 
     function init()

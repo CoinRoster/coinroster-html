@@ -8,210 +8,213 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div class="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header to_uppercase">
-            <span id="path_text"></span>
-        </h3>
-    </div>
-    <div id="body_container" class="extra_body_container_padding">
-        <div id="login_prompt_container" class="account_creation_message hidden">
-            You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
-            <br/>
-            <br/>
-            Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link orange_actual">Click here to sign up!</a>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header to_uppercase">
+                <span id="path_text"></span>
+            </h3>
         </div>
-        <div id="validate_email_container" class="account_creation_message hidden">
-            Please verify your email.
-            <div id="re_send_email_verification_container" class="hidden">
+        <div id="body_container" class="extra_body_container_padding">
+            <div id="login_prompt_container" class="account_creation_message hidden">
+                You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
                 <br/>
-                <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
+                <br/>
+                Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link orange_actual">Click here to sign up!</a>
             </div>
-        </div>
-        <div id="no_entry" class="account_creation_message hidden">
-            <!-- POPULATED BY JAVASCRIPT -->
-        </div>
-        <h3 id="contest_title" class="section_header">
-            <!-- POPULATED BY JAVASCRIPT -->
-        </h3>
-        <div id="no_data_message" class="hidden"></div>
-        <div id="valid_contest_container" class="hidden">
-            <div id="contest_description"></div>
-            <hr noshade size="1"/>
-            <div style="margin: 10px 0;">
-                <table class="contest_detail_table add_right_padding">
-                    <tr>
-                        <td>
-                            Category:
-                        </td>
-                        <td>
-                            <span id="category" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Sub-category:
-                        </td>
-                        <td>
-                            <span id="sub_category" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Game type:
-                        </td>
-                        <td>
-                            <span id="settlement_type" class="orange"></span>
-                            <span id="payout_info" class="payout_info_link teal">Payout info</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="entries_label">
-                            Entries:
-                        </td>
-                        <td>
-                            <span id="entries_per_user" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Rake:
-                        </td>
-                        <td>
-                            <span id="rake" class="orange"></span>
-                        </td>
-                    </tr>
-                </table>
-                <table class="contest_detail_table">
-                    <tr>
-                        <td id="cost_per_entry_label">
-                            Entry fee:
-                        </td>
-                        <td>
-                            <span id="cost_per_entry" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Users:
-                        </td>
-                        <td>
-                            <span id="users" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Prize pool:
-                        </td>
-                        <td>
-                            <span id="prize_pool" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="registration_deadline_label">
-                            Deadline:
-                        </td>
-                        <td>
-                            <span id="registration_deadline" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr id="registration_countdown_row">
-                        <td>
-                            Countdown:
-                        </td>
-                        <td>
-                            <span id="registration_countdown" class="orange"></span>
-                        </td>
-                    </tr>
-                    <tr id="filler_row" class="hidden">
-                        <td>
-                            &nbsp;
-                        </td>
-                        <td>
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr id="pari_mutuel_table_label" class="hidden">
-                        <td colspan="2">
-                            Outcomes ...
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <hr id="contest_second_hr" noshade size="1"/>
-            <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
-        </div>
-    </div>
-    <div class="table_body_container extra_body_container_padding">
-        <div class="roster_field hidden">
-            <ul class="roster_parameter_table augment_vertical_padding">
-                <li class="roster_parameter_label">
-                    <span id="number_verbose">Number</span>
-                    <span id="number_sign" class="hidden">#</span>
-                    of entries?
-                </li>
-                <li id="number_of_entries_li">
-                    <input id="number_of_entries_input" type="text" class="light_on_dark_input green" style="width:42px;">
-                </li>
-                <li style="padding-right:0" class="green">
-                    &rarr;
-                </li>
-                <li id="entry_value_li" style="vertical-align:middle;text-align:right;padding-left:0">
-                    <span id="entry_value" class="green"></span>
+            <div id="validate_email_container" class="account_creation_message hidden">
+                Please verify your email.
+                <div id="re_send_email_verification_container" class="hidden">
                     <br/>
-                    <span id="entry_value_fiat"></span>
-                </li>
-            </ul>
-            <ul class="roster_parameter_table">
-                <li class="roster_parameter_label">
-                    Remaining salary:
-                </li>
-                <li>
-                    <span id="salary_cap" class="green"></span>
-                </li>
-            </ul>
-            <ul class="roster_parameter_table">
-                <li class="roster_parameter_label">
-                    Players drafted:
-                </li>
-                <li>
-                    <span id="remaining_players" class="green">0</span>
-                </li>
-            </ul>
-        </div>
-        <div class="roster_field hidden">
-            <div id="player_table_header" class="player_table_header">
-                Available players:
-                <br/>
-                <span class="click_to">
-                    Click to draft
-                </span>
-            </div><!--
-            --><div id="roster_table_header" class="player_table_header">
-                Your roster:
-                <br/>
-                <span class="click_to">
-                    Click to drop
-                </span>
+                    <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
+                </div>
             </div>
-            <div id="player_table_container" class="player_table_container">
-                <table id="player_table" class="player_table"></table>
-            </div><!--
-            --><div id="roster_table_container" class="player_table_container">
-                <table id="roster_table" class="player_table"></table>
+            <div id="no_entry" class="account_creation_message hidden">
+                <!-- POPULATED BY JAVASCRIPT -->
+            </div>
+            <h3 id="contest_title" class="section_header">
+                <!-- POPULATED BY JAVASCRIPT -->
+            </h3>
+            <div id="no_data_message" class="hidden"></div>
+            <div id="valid_contest_container" class="hidden">
+                <div id="contest_description"></div>
+                <hr noshade size="1"/>
+                <div style="margin: 10px 0;">
+                    <table class="contest_detail_table add_right_padding">
+                        <tr>
+                            <td>
+                                Category:
+                            </td>
+                            <td>
+                                <span id="category" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Sub-category:
+                            </td>
+                            <td>
+                                <span id="sub_category" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Game type:
+                            </td>
+                            <td>
+                                <span id="settlement_type" class="orange"></span>
+                                <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="entries_label">
+                                Entries:
+                            </td>
+                            <td>
+                                <span id="entries_per_user" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Rake:
+                            </td>
+                            <td>
+                                <span id="rake" class="orange"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="contest_detail_table">
+                        <tr>
+                            <td id="cost_per_entry_label">
+                                Entry fee:
+                            </td>
+                            <td>
+                                <span id="cost_per_entry" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Users:
+                            </td>
+                            <td>
+                                <span id="users" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Prize pool:
+                            </td>
+                            <td>
+                                <span id="prize_pool" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="registration_deadline_label">
+                                Deadline:
+                            </td>
+                            <td>
+                                <span id="registration_deadline" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="registration_countdown_row">
+                            <td>
+                                Countdown:
+                            </td>
+                            <td>
+                                <span id="registration_countdown" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="filler_row" class="hidden">
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr id="pari_mutuel_table_label" class="hidden">
+                            <td colspan="2">
+                                Outcomes ...
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr id="contest_second_hr" noshade size="1"/>
+                <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
             </div>
         </div>
-        <div class="pari_mutuel_field hidden">
-            <table id="pari_mutuel_table" class="contest_table"></table>
-        </div>
-        <div id="submit_button_container" class="submit_container hidden">
-            <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
-            <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
+        <div class="table_body_container extra_body_container_padding">
+            <div class="roster_field hidden">
+                <ul class="roster_parameter_table augment_vertical_padding">
+                    <li class="roster_parameter_label">
+                        <span id="number_verbose">Number</span>
+                        <span id="number_sign" class="hidden">#</span>
+                        of entries?
+                    </li>
+                    <li id="number_of_entries_li">
+                        <input id="number_of_entries_input" type="text" class="light_on_dark_input green" style="width:42px;">
+                    </li>
+                    <li style="padding-right:0" class="green">
+                        &rarr;
+                    </li>
+                    <li id="entry_value_li" style="vertical-align:middle;text-align:right;padding-left:0">
+                        <span id="entry_value" class="green"></span>
+                        <br/>
+                        <span id="entry_value_fiat"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Remaining salary:
+                    </li>
+                    <li>
+                        <span id="salary_cap" class="green"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Players drafted:
+                    </li>
+                    <li>
+                        <span id="remaining_players" class="green">0</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="roster_field hidden">
+                <div id="player_table_header" class="player_table_header">
+                    Available players:
+                    <br/>
+                    <span class="click_to">
+                        Click to draft
+                    </span>
+                </div><!--
+                --><div id="roster_table_header" class="player_table_header">
+                    Your roster:
+                    <br/>
+                    <span class="click_to">
+                        Click to drop
+                    </span>
+                </div>
+                <div id="player_table_container" class="player_table_container">
+                    <table id="player_table" class="player_table"></table>
+                </div><!--
+                --><div id="roster_table_container" class="player_table_container">
+                    <table id="roster_table" class="player_table"></table>
+                </div>
+            </div>
+            <div class="pari_mutuel_field hidden">
+                <table id="pari_mutuel_table" class="contest_table"></table>
+            </div>
+            <div id="submit_button_container" class="submit_container hidden">
+                <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
+                <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
+            </div>
         </div>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script>
 

@@ -7,97 +7,100 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>EMAIL</span>
-            </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <br/>
-        <div id="add_email_subwindow" class="hidden">
-            Add an email address
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>EMAIL</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
             <br/>
-            <br/>
-            <span class="orange">
-                We will only send you emails about activity in your account. Your email will also
+            <div id="add_email_subwindow" class="hidden">
+                Add an email address
                 <br/>
-                be used if you ever need to recover your password. We will not sell or share your
                 <br/>
-                email address with a third party.
-            </span>
-            <br/>
-            <label id="newsletter_label" class="checkbox_label">
-                <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
-                Sign up for our newsletter to receive updates from the world of bitcoin, gaming, and sports.
-            </label>
-            <div id="add_email_message_container" class="input_padding hidden">
-                <span id="add_email_message"></span>
+                <span class="orange">
+                    We will only send you emails about activity in your account. Your email will also
+                    <br/>
+                    be used if you ever need to recover your password. We will not sell or share your
+                    <br/>
+                    email address with a third party.
+                </span>
+                <br/>
+                <label id="newsletter_label" class="checkbox_label">
+                    <input id="newsletter_checkbox" type="checkbox" name="checkbox" value="value">
+                    Sign up for our newsletter to receive updates from the world of bitcoin, gaming, and sports.
+                </label>
+                <div id="add_email_message_container" class="input_padding hidden">
+                    <span id="add_email_message"></span>
+                </div>
+                <form onsubmit="return add_email_address();">
+                    <div class="input_padding">
+                        <ul class="account_form">
+                            <li>
+                                <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
+                            </li>
+                            <li>
+                                <button type="submit" class="text_button auto_width">Add email address</button>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
-            <form onsubmit="return add_email_address();">
-                <div class="input_padding">
+            <div id="manage_email_subwindow" class="hidden">
+                <div id="manage_email">
+                    Your email on file is:
+                    <br/>
+                    <br/>
+                    <span id="email_on_file" class="orange"></span>
+                    &nbsp;
+                    <span id="verified_unverified" class="orange"></span>
+                    <br/>
+                    <br/>
                     <ul class="account_form">
-                        <li>
-                            <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address"  maxlength="60"/>
+                        <li id="verification_button">
+                            <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
                         </li>
                         <li>
-                            <button type="submit" class="text_button auto_width">Add email address</button>
+                            <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
                         </li>
                     </ul>
                 </div>
-            </form>
-        </div>
-        <div id="manage_email_subwindow" class="hidden">
-            <div id="manage_email">
-                Your email on file is:
+                <div id="change_email" class="hidden">
+                    <form onsubmit="return change_email_address();">
+                        <span id="change_email_message">
+                            New email address:
+                        </span>
+                        <br/>
+                        <br/>
+                        <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
+                        <br/>
+                        <br/>
+                        <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
+                        --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
+                    </form>
+                </div>
+                <br/>
+                <hr noshade>
+                <br/>
+                <span id="subscribe_unsubscribe_message"></span>
                 <br/>
                 <br/>
-                <span id="email_on_file" class="orange"></span>
-                &nbsp;
-                <span id="verified_unverified" class="orange"></span>
-                <br/>
-                <br/>
-                <ul class="account_form">
-                    <li id="verification_button">
-                        <button type="submit" class="text_button auto_width" onclick="resend_verification();">Re-send verification</button>
-                    </li>
-                    <li>
-                        <button class="text_button auto_width" onclick="hide('manage_email');show('change_email');">Change e-mail address</button>
-                    </li>
-                </ul>
-            </div>
-            <div id="change_email" class="hidden">
-                <form onsubmit="return change_email_address();">
-                    <span id="change_email_message">
-                        New email address:
-                    </span>
-                    <br/>
-                    <br/>
-                    <input id="new_email_address" type="text" class="input_style email_input" placeholder="e-mail address" maxlength="60"/>
-                    <br/>
-                    <br/>
-                    <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
-                    --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_email();" style="display:inline-block">Cancel</button>
-                </form>
+                <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
             </div>
             <br/>
-            <hr noshade>
             <br/>
-            <span id="subscribe_unsubscribe_message"></span>
-            <br/>
-            <br/>
-            <button id="subscribe_unsubscribe_button" type="submit" class="text_button auto_width" onclick="toggle_subscription();"></button>
         </div>
-        <br/>
-        <br/>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
     

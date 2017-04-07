@@ -22,10 +22,9 @@
                     <br/>
                     to reset your password.
                 </span>
-                <br/>
-                <br/>
-                <div>
-                    <form onsubmit="return login();">
+                <div id="login_prompt" class="hidden">
+                    <br/>
+                    <form onsubmit="return login('/account');">
                         <div class="input_padding">
                             <input placeholder="Username" label="false" id="username" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
                         </div>
@@ -51,7 +50,11 @@
         if (typeof search_variable === "undefined") email_ver_key = "";
         else email_ver_key = search_variable;
 
-        if (email_ver_key === "") set_auth_message("auth_message", "Please log in", "white");
+        if (email_ver_key === "") 
+            {
+            set_auth_message("auth_message", "Please log in", "white");
+            show("login_prompt");
+            }
         else
             {
             var call = api({
@@ -61,8 +64,27 @@
                 }
             });
 
-            if (call.status === "1") set_auth_message("auth_message", "Your e-mail has been verified", "white");
-            else set_auth_message("auth_message", "Something went wrong, please log in.", "white");
+            if (call.status === "1") 
+                {
+                set_auth_message("auth_message", "Your e-mail has been verified", "white");
+                if (window.session)
+                    {
+                    set_auth_message("auth_message", "Your e-mail has been verified<br/><br/>Redirecting...", "white");
+                    setTimeout(function(){
+                        window.location = "/account";
+                    },1000);
+                    }
+                else
+                    {
+                    set_auth_message("auth_message", "Your e-mail has been verified<br/><br/>Please log in", "white");
+                    show("login_prompt");
+                    }
+                }
+            else 
+                {
+                set_auth_message("auth_message", "Something went wrong, please log in.", "white");
+                show("login_prompt");
+                }
             }
         })();
     

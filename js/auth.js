@@ -4,7 +4,7 @@
         id(_id).style.color = color;
         }
         
-    function login()
+    function login(target_2)
         {
         var
         
@@ -29,6 +29,7 @@
                     var target = hash.split("=")[1];
                     if (typeof target !== "undefined") return window.location = decodeURIComponent(target);
                     }
+                else if (target_2) return window.location = target_2;
                 // fail over to:
                 window.location = "/";
                 }

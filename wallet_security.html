@@ -10,71 +10,74 @@
 <!--#include virtual="/ssi/head.html" -->
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
-<div id="centering_container">
-    <div id="body_container">
-        <br/>
-        <h3 class="section_header">
-            Wallet Security
-        </h3>
-        <div class="input_padding description_text">
-            To make deposits and withdrawals to/from your CoinRoster account, we need to have a public wallet address on file for you.
-            You can only have one address connected at a time, but you can change your address in certain circumstances.
-        </div>
-        <br/>
-        <span class="orange">
-            Default security setting
-        </span>
-        <div class="input_padding description_text">
-            By default, you can change your connected wallet address <i>if and only if</i> your Bitcoin balance is 0.
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="body_container">
             <br/>
+            <h3 class="section_header">
+                Wallet Security
+            </h3>
+            <div class="input_padding description_text">
+                To make deposits and withdrawals to/from your CoinRoster account, we need to have a public wallet address on file for you.
+                You can only have one address connected at a time, but you can change your address in certain circumstances.
+            </div>
             <br/>
-            If we were to let you change your wallet address while your account had Bitcoins in it, a hacker could:
+            <span class="orange">
+                Default security setting
+            </span>
+            <div class="input_padding description_text">
+                By default, you can change your connected wallet address <i>if and only if</i> your Bitcoin balance is 0.
+                <br/>
+                <br/>
+                If we were to let you change your wallet address while your account had Bitcoins in it, a hacker could:
+                <br/>
+                <br/>
+                - steal your password
+                <br/>
+                - log in
+                <br/>
+                - change your wallet address
+                <br/>
+                - request a withdrawal
+            </div>
             <br/>
+            <span class="orange">
+                Disabling security
+            </span>
+            <div class="input_padding description_text">
+                After connecting a wallet you will have the option to disable this security measure, which will enable you to change
+                your connected wallet address at any time. 
+                <br/>
+                <br/>
+                You can disable security <i>if and only if</i> your Bitcoin balance is 0. 
+                <br/>
+                <br/>
+                If we were to let you disable security while your account had Bitcoins in it, a hacker would now have one extra step:
+                <br/>
+                <br/>
+                - steal your password
+                <br/>
+                - log in
+                <br/>
+                - disable security
+                <br/>
+                - change your wallet address
+                <br/>
+                - request a withdrawal
+            </div>
             <br/>
-            - steal your password
-            <br/>
-            - log in
-            <br/>
-            - change your wallet address
-            <br/>
-            - request a withdrawal
-        </div>
-        <br/>
-        <span class="orange">
-            Disabling security
-        </span>
-        <div class="input_padding description_text">
-            After connecting a wallet you will have the option to disable this security measure, which will enable you to change
-            your connected wallet address at any time. 
-            <br/>
-            <br/>
-            You can disable security <i>if and only if</i> your Bitcoin balance is 0. 
-            <br/>
-            <br/>
-            If we were to let you disable security while your account had Bitcoins in it, a hacker would now have one extra step:
-            <br/>
-            <br/>
-            - steal your password
-            <br/>
-            - log in
-            <br/>
-            - disable security
-            <br/>
-            - change your wallet address
-            <br/>
-            - request a withdrawal
-        </div>
-        <br/>
-        <span class="orange">
-            Re-enabling security
-        </span>
-        <div class="input_padding description_text">
-            If you <i>do</i> decide to disable security, you can re-enable it at any time. If you have Bitcoins in your account when you re-enable security, you will NOT be able to disable it again until you have 
-            withdrawn all of your Bitcoins to your connected wallet.
+            <span class="orange">
+                Re-enabling security
+            </span>
+            <div class="input_padding description_text">
+                If you <i>do</i> decide to disable security, you can re-enable it at any time. If you have Bitcoins in your account when you re-enable security, you will NOT be able to disable it again until you have 
+                withdrawn all of your Bitcoins to your connected wallet.
+            </div>
         </div>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript">
     window.nav_text = "Wallet Security";
     function init() {}

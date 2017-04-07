@@ -7,31 +7,36 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>DEPOSIT</span>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>DEPOSIT</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <span class="orange">
+                Thank you for depositing to CoinRoster!
             </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <br/>
-        <span class="orange">
-            Thank you for depositing to CoinRoster!
-        </span>
-        <br/>
-        <br/>
-        We will credit your account as soon as the funds arrive. You will receive an email when your deposit has been processed.
+            <br/>
+            <br/>
+            We will credit your account as soon as the funds arrive. You will receive an email when your deposit has been processed.
+            <br/>
+            <br/>
+            <a href="/account" class="inline_link teal">Back to My Account</a>
+        </div>
         <br/>
         <br/>
-        <a href="/account" class="inline_link teal">Back to My Account</a>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript">
     
     window.nav_text = "MY ACCOUNT";

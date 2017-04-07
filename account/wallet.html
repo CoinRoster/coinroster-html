@@ -7,119 +7,122 @@
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>WALLET</span>
-            </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <br/>
-        <div id="add_ext_address_subwindow" class="hidden">
-            Connect a Bitcoin wallet
-            <div id="add_wallet_message" class="input_padding hidden"></div>
-            <form onsubmit="return update_ext_address('add_ext_address');">
-                <div class="input_padding">
-                    <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35" style="width:260px !important"/>
-                    <br/>
-                    <br/>
-                    <button type="submit" class="text_button auto_width">Connect wallet</button>
-                </div>
-            </form>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>WALLET</span>
+                </span>
+            </h3>
         </div>
-        <div id="manage_ext_address_subwindow" class="hidden">
-            <div id="display_ext_address">
-                Your wallet on file is:
-                <br/>
-                <br/>
-                <span id="ext_address" class="orange"></span>
-                <div id="change_ext_address_button">
-                    <br/>
-                    <button class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
-                </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div id="add_ext_address_subwindow" class="hidden">
+                Connect a Bitcoin wallet
+                <div id="add_wallet_message" class="input_padding hidden"></div>
+                <form onsubmit="return update_ext_address('add_ext_address');">
+                    <div class="input_padding">
+                        <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35" style="width:260px !important"/>
+                        <br/>
+                        <br/>
+                        <button type="submit" class="text_button auto_width">Connect wallet</button>
+                    </div>
+                </form>
             </div>
-            <div id="change_ext_address" class="hidden">
-                <form onsubmit="return update_ext_address('new_ext_address');">
-                    <span id="change_wallet_message">
-                        New wallet address:
+            <div id="manage_ext_address_subwindow" class="hidden">
+                <div id="display_ext_address">
+                    Your wallet on file is:
+                    <br/>
+                    <br/>
+                    <span id="ext_address" class="orange"></span>
+                    <div id="change_ext_address_button">
+                        <br/>
+                        <button class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
+                    </div>
+                </div>
+                <div id="change_ext_address" class="hidden">
+                    <form onsubmit="return update_ext_address('new_ext_address');">
+                        <span id="change_wallet_message">
+                            New wallet address:
+                        </span>
+                        <br/>
+                        <br/>
+                        <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="35" style="width:260px !important"/>
+                        <br/>
+                        <br/>
+                        <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
+                        --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_wallet();" style="display:inline-block">Cancel</button>
+                    </form>
+                </div>
+                <br/>
+                <hr noshade>
+                <br/>
+                <span id="must_withdraw_bitcon" class="hidden">
+                    <span class="teal">
+                        Wallet security is ENABLED
                     </span>
                     <br/>
                     <br/>
-                    <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="35" style="width:260px !important"/>
+                    You must withdraw all Bitcoin from this account in order to change your wallet address.
+                </span>
+                <span id="security_is_enabled" class="constrain_width hidden">
+                    <span class="teal">
+                        Wallet security is ENABLED
+                    </span>
                     <br/>
                     <br/>
-                    <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
-                    --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_wallet();" style="display:inline-block">Cancel</button>
-                </form>
+                    With security enabled, you will NOT be able to change your wallet address if
+                    there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
+                    from withdrawing your Bitcoins to a new wallet.
+                    <br/>
+                    <br/>
+                    If you want, you can click the button below to DISABLE this security measure. 
+                    You will be free to change your wallet address at any time. 
+                    <br/>
+                    <br/>
+                    <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
+                    <br/>
+                    <br/>
+                    <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
+                </span>
+                <span id="enable_security" class="hidden">
+                    <span class="orange_actual">
+                        Wallet security is DISABLED
+                    </span>
+                    <br/>
+                    <br/>
+                    With security disabled, you can change your wallet address at any time.
+                    <br/>
+                    <br/>
+                    If you would like to enable wallet security and prevent wallet changes while
+                    <br/>
+                    there are Bitcoins in your account, please click here:
+                    <br/>
+                    <br/>
+                    <span id="your_next_opportunity" class="hidden">
+                        Your next opportunity to disable wallet security will be after you withdraw
+                        <br/>
+                        all Bitcoins in your account to your connected wallet.
+                        <br/>
+                        <br/>
+                    </span>
+                    <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
+                    <br/>
+                    <br/>
+                    <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
+                </span>
             </div>
             <br/>
-            <hr noshade>
             <br/>
-            <span id="must_withdraw_bitcon" class="hidden">
-                <span class="teal">
-                    Wallet security is ENABLED
-                </span>
-                <br/>
-                <br/>
-                You must withdraw all Bitcoin from this account in order to change your wallet address.
-            </span>
-            <span id="security_is_enabled" class="constrain_width hidden">
-                <span class="teal">
-                    Wallet security is ENABLED
-                </span>
-                <br/>
-                <br/>
-                With security enabled, you will NOT be able to change your wallet address if
-                there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
-                from withdrawing your Bitcoins to a new wallet.
-                <br/>
-                <br/>
-                If you want, you can click the button below to DISABLE this security measure. 
-                You will be free to change your wallet address at any time. 
-                <br/>
-                <br/>
-                <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
-                <br/>
-                <br/>
-                <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
-            </span>
-            <span id="enable_security" class="hidden">
-                <span class="orange_actual">
-                    Wallet security is DISABLED
-                </span>
-                <br/>
-                <br/>
-                With security disabled, you can change your wallet address at any time.
-                <br/>
-                <br/>
-                If you would like to enable wallet security and prevent wallet changes while
-                <br/>
-                there are Bitcoins in your account, please click here:
-                <br/>
-                <br/>
-                <span id="your_next_opportunity" class="hidden">
-                    Your next opportunity to disable wallet security will be after you withdraw
-                    <br/>
-                    all Bitcoins in your account to your connected wallet.
-                    <br/>
-                    <br/>
-                </span>
-                <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
-                <br/>
-                <br/>
-                <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
-            </span>
         </div>
-        <br/>
-        <br/>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
     

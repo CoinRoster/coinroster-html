@@ -6,42 +6,48 @@
     <link rel="stylesheet" type="text/css" href="/css/account.css">
 </head>
 <body>
-<!--#include virtual="/ssi-java/nav" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<div id="centering_container">
-    <div id="category_header" class="body_container header">
-        <h3 class="section_header">
-            <span id="path_text">
-                <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                --><span class='path_slash red_orange'>/</span><!--
-                --><span class='orange'>CURRENCY</span>
-            </span>
-        </h3>
-    </div>
-    <div class="body_container extra_body_container_padding">
-        <br/>
-        <div class="description_text constrain_width">
-            Your current display currency is:
-            <br/>
-            <br/>
-            <span id="currency" class="orange"></span>
-            <br/>
-            <span id="exchange_rate" class="exchange_rate steel"></span>
-            <br/>
-            <br/>
-            <span style="font-size:12px">
-                To change your display currency, please select from the following list:
-            </span>
-            <br/>
-            <br/>
-            <table id="currency_table"></table>
-            <br/>
-            <span style="font-size:11px">
-                CoinRoster's fiat currency display is provided "as is" and solely for informational purposes, not for trading purposes or advice, and may be delayed.
-            </span>
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>CURRENCY</span>
+                </span>
+            </h3>
         </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div class="description_text constrain_width">
+                Your current display currency is:
+                <br/>
+                <br/>
+                <span id="currency" class="orange"></span>
+                <br/>
+                <span id="exchange_rate" class="exchange_rate steel"></span>
+                <br/>
+                <br/>
+                <span style="font-size:12px">
+                    To change your display currency, please select from the following list:
+                </span>
+                <br/>
+                <br/>
+                <table id="currency_table"></table>
+                <br/>
+                <span style="font-size:11px">
+                    CoinRoster's fiat currency display is provided "as is" and solely for informational purposes, not for trading purposes or advice, and may be delayed.
+                </span>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <br/>
     </div>
 </div>
+<!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
 
