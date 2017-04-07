@@ -736,7 +736,7 @@
                 email_address = referral_item.email_address,
                 referral_pgm = referral_item.referral_pgm;
 
-                new_row(table, row_count++, [
+                var row = new_row(table, row_count++, [
                     created_date,
                     created_time,
                     referrer_username,
@@ -744,6 +744,8 @@
                     referral_pgm,
                     referral_key
                 ]);
+                
+                row[5].style.textAlign = "right";
                 }
                 
             var header = new_row(table, 0, [
