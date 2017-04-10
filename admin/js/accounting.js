@@ -75,7 +75,7 @@
             email_ver_flag = user_item.email_ver_flag,
             newsletter_flag = user_item.newsletter_flag,
             referral_program = user_item.referral_program,
-            referrer_username = user_item.referrer_username,
+            referrer = user_item.referrer,
             free_play = user_item.free_play,
             last_active = user_item.last_active,
             currency = user_item.currency;
@@ -89,11 +89,8 @@
                 email_ver_flag = "";
                 newsletter_flag = "";
                 }
-            if (referrer_username === "") 
-                {
-                referrer_username = "";
-                referral_program = "";
-                }
+                
+            if (referrer === "") referral_program = "";
             
             user_report_array.push([
                 created,
@@ -106,7 +103,7 @@
                 email_ver_flag,
                 newsletter_flag,
                 referral_program,
-                referrer_username,
+                referrer,
                 last_login,
                 free_play,
                 last_active,
@@ -241,11 +238,13 @@
             email_ver_flag = user_item[7],
             newsletter_flag = user_item[8],
             referral_program = user_item[9],
-            referrer_username = user_item[10],
+            referrer = user_item[10],
             last_login = user_item[11],
             free_play = user_item[12],
             last_active = user_item[13],
             currency = user_item[14];
+    
+            if (referrer !== "") referrer = get_username_for_id(referrer);
     
             created = dateconv_ms_to_string(created);
             
@@ -307,7 +306,7 @@
                         email_ver_flag,
                         newsletter_flag,
                         referral_program,
-                        referrer_username,
+                        referrer,
                         currency,
                         user_level
                     ]);

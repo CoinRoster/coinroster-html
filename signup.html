@@ -30,18 +30,18 @@
                     </div>
                     <div id="email_input_container" class="input_padding">
                         <span id="email_label" class="input_label">Email address</span>
-                        <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="2" autocorrect="off" autocapitalize="off" spellcheck="false">
                     </div>
                     <div class="input_padding">
                         <span id="password_label" class="input_label">Password</span>
-                        <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="2">
+                        <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="3">
                     </div>
-                    <!--<div class="input_padding">
-                        <span id="confirm_password_label" class="input_label">Confirm password</span>
-                        <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
-                    </div>-->
+                    <div id="promo_code_container" class="input_padding">
+                        <span id="promo_code_label" class="input_label">Promo code (optional)</span>
+                        <input placeholder="Promo code" label="false" id="promo_code" type="text" class="input_style" maxlength="100" tabindex="4">
+                    </div>
                     <div class="input_padding">
-                        <button class="text_button" style="color:orange;" type="submit" tabindex="4">Create account</button>
+                        <button class="text_button" style="color:orange;" type="submit" tabindex="5">Create account</button>
                     </div>
                 </form>
             </div>
@@ -71,6 +71,7 @@
         else 
             {
             destroy("email_input_container");
+            destroy("promo_code_container");
             window.referral_key = search_variable;
             }
 

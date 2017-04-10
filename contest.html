@@ -24,11 +24,11 @@
                 <br/>
                 Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link orange_actual">Click here to sign up!</a>
             </div>
-            <div id="validate_email_container" class="account_creation_message hidden">
-                Please verify your email.
+            <div id="verify_email_container" class="account_creation_message hidden">
+                You must verify your email in order to enter this contest.
                 <div id="re_send_email_verification_container" class="hidden">
                     <br/>
-                    <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to re-send a verification email to <span id="email_on_file"></span>
+                    <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to send a verification email to <span id="email_on_file"></span>
                 </div>
             </div>
             <div id="no_entry" class="account_creation_message hidden">
@@ -336,7 +336,7 @@
                             {
                             if (window.session.user_level === "3") // check to see if use has validated email address
                                 {
-                                show("validate_email_container");
+                                show("verify_email_container");
                                 api({ 
                                     method: "GetAccountDetails", 
                                     args: {} 

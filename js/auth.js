@@ -131,10 +131,10 @@
         var 
         
         referral_key = window.referral_key,
-        email_address,
+        email_address = "",
         username = id("username").value,
-        password = id("password").value;
-        //confirm_password = id("confirm_password").value
+        password = id("password").value,
+        promo_code = "";
 
         if (username === "")
             {
@@ -146,6 +146,7 @@
         if (referral_key === "")
             {
             email_address = id("email_address").value;
+            promo_code = id("promo_code").value;
             if (email_address === "")
                 {
                 set_auth_message("email_label", "Enter an email address", "orange");
@@ -160,20 +161,6 @@
             set_focus("password");
             return false;
             }
-        /*if (confirm_password === "")
-            {
-            set_auth_message("Confirm password", "orange");
-            set_focus("confirm_password");
-            return false;
-            }
-        if (password !== confirm_password)
-            {
-            set_auth_message("Passwords do not match", "orange");
-            id("password").value = "";
-            id("confirm_password").value = "";
-            set_focus("password");
-            return false;
-            }*/
             
         api({
             method: "CreateUser",
@@ -181,17 +168,16 @@
                 email_address: email_address,
                 username: username,
                 password: password,
-                referral_key: window.referral_key
+                referral_key: window.referral_key,
+                promo_code: promo_code
             }
         }, function(call)
             {
             if (call.status === "1") location = "/";
-            else
+            else 
                 {
-                show_simple_modal(call.error_message, "bad", function()
-                    {
-                    location.reload();
-                    });
+                if (call.error_message === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");
+                else show_simple_modal(call.error_message, "bad", null);
                 }
             });
        

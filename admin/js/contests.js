@@ -220,7 +220,6 @@
         right_align(header, right_align_array);
         }
 
-
 /*----------------------------------------------------------------------*/
 
     // switch contest type, show/hide relevant fields

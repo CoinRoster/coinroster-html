@@ -22,9 +22,16 @@
         </div>
         <div class="body_container extra_body_container_padding">
             <br/>
-            Receive <span id="referral_offer"></span>% of the rake on all contest entries made by any account you refer.
+            Receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by the account you refer.
             <br/>
             <br/>
+            <div id="referral_promo_message" class="hidden">
+                Your affiliate promo code
+                <span id="referral_promo_code" class="orange"></span>
+                will automatically be applied when your friend signs up.
+                <br/>
+                <br/>
+            </div>
             <div style="font-size:12px">
                 These bonuses will be credited to your account in RosterCoins.
                 <br/>
@@ -56,7 +63,14 @@
     function init()
         {
         id("referrer").value = session.username;
-        id("referral_offer").innerHTML = multiply(session.referral_offer, 100);
+        id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
+        
+        var referral_promo_code = session.referral_promo_code;
+        if (referral_promo_code)
+            {
+            id("referral_promo_code").innerHTML = referral_promo_code;
+            show("referral_promo_message");
+            }
         }
         
 //--------------------------------------------------------------------------------------------------
