@@ -211,9 +211,10 @@
             args: {
                 email_address: new_email_address
             }
-        }, function()
+        }, function(call)
             {
-            location.reload();
+            if (call.status === "1") location.reload();
+            else show_simple_modal(call.error, "bad", null);
             });
             
         return false;

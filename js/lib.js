@@ -247,6 +247,21 @@
         return false;
         }
         
+    function selectByValue(selector, match)
+        {
+        if (typeof selector === "string") selector = id(selector);
+        var options = selector.options;
+        for (var i=0; i<options.length; i++)
+            {
+            if (options[i].value == match)
+                {
+                selector.selectedIndex = i;
+                return true;
+                }
+            }
+        return false;
+        }
+        
     function get_radio_selection(name)
         {
         var radios = document.getElementsByName(name);

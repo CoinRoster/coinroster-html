@@ -86,20 +86,25 @@
         
     (function()
         {
+        if (window.session.withdrawal_locked === 1)
+            {
+            return show_simple_modal("You cannot withdraw funds until you meet a playing requirement", "good", function()
+                {
+                location = "/account/account.html";
+                });
+            }
+        
         var user_ext_address = get_ext_address(true);
 
         if (user_ext_address === "") 
             {
-            show_simple_modal("You must connect a Bitcoin wallet to your account in order to withdraw funds", "good", function()
+            return show_simple_modal("You must connect a Bitcoin wallet to your account in order to withdraw funds", "good", function()
                 {
                 location = "/account/wallet.html";
                 });
             }
         })();
     
-        
-        
-        
     id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
 
     var focus_to_input = function()

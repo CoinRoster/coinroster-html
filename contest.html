@@ -620,30 +620,31 @@
             
             function update_wager_input(input, wager_value)
                 {
-                input.value = toBTC(wager_value, true);
-                var 
-                
-                parent = input.parentNode,
-                fiat_wager_display = getFiatDisplay(wager_value, "never_inline", true);
+                var parent = input.parentNode;
                 if (parent.querySelector(".fiat_display")) destroy(parent.lastChild);
+                if (wager_value === "") 
+                    {
+                    input.value = "";
+                    return false;
+                    }
+                input.value = toBTC(wager_value, true);
+                var fiat_wager_display = getFiatDisplay(wager_value, "never_inline", true);
                 parent.appendChild(fiat_wager_display);
+                return true;
                 }
             
             if (contest_open) bind_btc_input(id("wager_input_" + option_id), function(input)
                 {
-                if (input.value !== "")
+                var wager_not_null = update_wager_input(input, input.value);
+                if (wager_not_null && input.value < window.cost_per_entry)
                     {
-                    update_wager_input(input, input.value);
-                    if (input.value < window.cost_per_entry)
+                    show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
                         {
-                        show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
-                            {
-                            update_wager_input(input, window.cost_per_entry)
-                            update_submit_button();
-                            });
-                        }
-                    else update_submit_button();
+                        update_wager_input(input, window.cost_per_entry)
+                        update_submit_button();
+                        });
                     }
+                else update_submit_button();
                 });
             }
             

@@ -18,7 +18,7 @@
         <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('affiliate_report');"/>
     </div>
     <div id="affiliate_report" class="content_body report_table" style="top:68px">
-        <!-- POPULATED BY JAVASCRIPT -->
+        Nothing developed for this tab yet
     </div>
 </div>
 <div id="pane_1" class="pane" tab_text="Default Offer">
@@ -177,10 +177,10 @@
         <br/>
         <br/>
         <input id="cancel_promo__reason_input" type="text" class="input_style text_input" maxlength="200" style="width:600px">
-        <div id="cancel_promo__affiliate_container" class="hidden">
-            <br/>
-            <br/>
-            This promo belongs to an affiliate: <span id="cancel_promo__affiliate" style="font-weight:bold"></span>
+        <br/>
+        <br/>
+        <div id="cancel_promo__affiliate_container" class="hidden" style="background:orange;padding:20px;width:580px;">
+            This promo belongs to: <span id="cancel_promo__affiliate" style="font-weight:bold"></span>
             <br/>
             <br/>
             They will receive an email containing the reason entered above.
@@ -198,6 +198,17 @@
         <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('cancelled_promo_report');"/>
     </div>
     <div id="cancelled_promo_report" class="content_body report_table" style="top:68px">        
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<div id="pane_5" class="pane" tab_text="Code Requests">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Code Requests
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('promo_request_report');"/>
+    </div>
+    <div id="promo_request_report" class="content_body report_table" style="top:68px">
         <!-- POPULATED BY JAVASCRIPT -->
     </div>
 </div>

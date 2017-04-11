@@ -77,16 +77,37 @@
                         </td>
                     </tr>
                 </table>
+                <div id="rollover_container" style="padding:20px;border: 1px solid grey;margin:0 20px 20px;max-width:380px;" class="hidden">
+                    <div style="font-size: 12px">
+                        As part of your Free Play promotion you must meet a <span class="orange">playing requirement</span> in order to unlock withdrawals on your account.
+                        <br/>
+                        <br/>
+                        Your bets will be counted <u>as contests are settled</u>.
+                        <br/>
+                        <br/>
+                        Progress:
+                        &nbsp;&nbsp;&nbsp;
+                        <span class="orange">
+                            <span id="rollover_progress"></span> / <span id="rollover_quota"></span> BTC
+                        </span>
+                    </div>
+                </div>
             </div>
             <div id="account_menu">
                 <a class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
                     DEPOSIT
                 </a>
-                <a class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html">
+                <a id="withdrawal_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html" style="display:none">
                     WITHDRAW
                 </a>
                 <a class="subwindow clickable_subwindow link_subwindow" href="/account/refer.html">
                     REFER A FRIEND!
+                </a>
+                <a id="get_referral_promo_code_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/affiliate_request.html" style="display:none">
+                    GET AN AFFILIATE CODE!
+                </a>
+                <a id="manage_referral_promo_code_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/affiliate.html" style="display:none">
+                    YOUR AFFILIATE CODE
                 </a>
                 <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
                     TRANSACTION HISTORY
@@ -101,7 +122,7 @@
                     CONNECT BITCOIN WALLET
                 </a>
                 <a id="manage_ext_address_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/wallet.html" style="display:none">
-                    MANAGE BITCOIN WALLET
+                    YOUR BITCOIN WALLET
                 </a>
                 <a id="add_email_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/email.html" style="display:none">
                     ADD EMAIL ADDRESS
@@ -141,6 +162,17 @@
                 ext_address = call.ext_address,
                 email_address = call.email_address;
         
+                if (window.session.referral_promo_code) show("manage_referral_promo_code_subwindow");
+                else show("get_referral_promo_code_subwindow");
+                
+                if (window.session.withdrawal_locked === 0) show("withdrawal_subwindow");
+                else
+                    {
+                    show("rollover_container");
+                    id("rollover_progress").innerHTML = toBTC(window.session.rollover_progress);
+                    id("rollover_quota").innerHTML = toBTC(window.session.rollover_quota);
+                    }
+        
                 if (ext_address !== "") show("manage_ext_address_subwindow");
                 else show("add_ext_address_subwindow");
                 if (email_address !== "") show("manage_email_subwindow");
@@ -173,7 +205,6 @@
                 id("in_play_balance_fiat").innerHTML = getFiatDisplay(in_play_balance, "never_inline");
                 id("total_balance").innerHTML = toBTC(total_balance, false) + " BTC";
                 id("total_balance_fiat").innerHTML = getFiatDisplay(total_balance, "never_inline");
-
                 }
             });
         }

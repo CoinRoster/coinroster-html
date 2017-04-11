@@ -22,21 +22,22 @@
         </div>
         <div class="body_container extra_body_container_padding">
             <br/>
-            Receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by the account you refer.
-            <br/>
-            <br/>
             <div id="referral_promo_message" class="hidden">
                 Your affiliate promo code
                 <span id="referral_promo_code" class="orange"></span>
                 will automatically be applied when your friend signs up.
                 <br/>
                 <br/>
+                <span style="font-size:12px">
+                    You will receive <span id="referral_offer" class="orange"></span> of the rake on your friend's betting activity once they complete their promotional playing requirement.
+                </span>
             </div>
+            <div id="normal_referral_message" class="hidden">
+                You will receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by your friend's account.
+            </div>
+            <br/>
             <div style="font-size:12px">
-                These bonuses will be credited to your account in RosterCoins.
-                <br/>
-                <br/>
-                For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>.
+                For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>
             </div>
             <br/>
             <form onsubmit="return send_referral();">
@@ -71,6 +72,7 @@
             id("referral_promo_code").innerHTML = referral_promo_code;
             show("referral_promo_message");
             }
+        else show("normal_referral_message");
         }
         
 //--------------------------------------------------------------------------------------------------
@@ -107,10 +109,14 @@
                 referrer: referrer,
                 email_address: referral_email_address
             }
-        }, function()
+        }, function(call)
             {
-            id("referral_email_address").value = "";
-            referral_email_error("Invitation sent!", cr_teal);
+            if (call.status === "1")
+                {
+                id("referral_email_address").value = "";
+                referral_email_error("Invitation sent!", cr_teal);
+                }
+            else referral_email_error(call.error, "orange");
             });
 
         return false;

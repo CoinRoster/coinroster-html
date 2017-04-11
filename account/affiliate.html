@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Refer a friend</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>AFFILIATE CODE</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding constrain_width">
+            <br/>
+            Your affiliate code is:
+            <br/>
+            <br/>
+            <div id="promo_code" class="orange" style="padding:20px;border: 1px solid grey;"></div>
+            <br/>
+            This promo code can be entered into the 'Promo code' field on our signup page, where new users will receive:
+            <br/>
+            <br/>
+            <div style="font-size:12px">
+                <span class="orange">
+                    <span id="promo_description"></span> &bull; <span id="rollover_multiple"></span> playing requirement
+                </span>
+                <br/>
+                <br/>
+                You will receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by any account that signs up with this promo code after the playing requirement has been met.
+                <br/>
+                <br/>
+                <span id="expires" class="orange hidden">
+                    This code expires on <span id="expiry_date"></span> at <span id="expiry_time"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript">
+
+    function init()
+        {
+        api({
+            method: "GetAffiliatePromoDetails",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                id("promo_code").innerHTML = call.promo_code;
+                id("promo_description").innerHTML = call.description;
+                id("rollover_multiple").innerHTML = call.rollover_multiple + "x";
+                id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
+                
+                var expires_ms = call.expires;
+
+                if (expires_ms > 0)
+                    {
+                    var
+
+                    expires_date = dateconv_ms_to_string(expires_ms),
+                    expires_time = dateconv_ms_to_time(expires_ms);
+        
+                    show("expires");
+                    
+                    id("expiry_date").innerHTML = expires_date;
+                    id("expiry_time").innerHTML = expires_time;
+                    }
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

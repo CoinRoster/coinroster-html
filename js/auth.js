@@ -176,8 +176,9 @@
             if (call.status === "1") location = "/";
             else 
                 {
-                if (call.error_message === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");
-                else show_simple_modal(call.error_message, "bad", null);
+                if (call.error === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");
+                else if (call.error === "Email is in use") set_auth_message("email_label", "Email is in use", "orange");
+                else show_simple_modal(call.error, "bad", null);
                 }
             });
        
