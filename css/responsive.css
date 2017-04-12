@@ -151,6 +151,18 @@
     }
     @media only screen and (max-width: 767px) {
 
+        .lobby_logo {
+            font-size: 28px;
+        }
+        
+        .lobby_value_prop {
+            font-size: 44px;
+        }
+
+        .lobby_play_now_button {
+            font-size: 22px;
+        }
+        
         /* showing and hiding of navigation */
 
         #ssi_mobile_nav_bar {
@@ -397,6 +409,12 @@
     }
     @media only screen and (max-width: 500px) {
 
+        .lobby_value_prop {
+            margin-top: 50px;
+            font-size: 38px;
+            margin-bottom: 55px;
+        }
+
         #balance_table_wrapper {
             margin: 0 auto !important;
             width: 100% !important;
@@ -519,6 +537,20 @@
     
     @media only screen and (max-width: 374px) {
 
+        .lobby_logo {
+            font-size: 28px;
+        }
+        
+        .lobby_value_prop {
+            margin-top: 55px;
+            font-size: 32px;
+            margin-bottom: 60px;
+        }
+
+        .lobby_play_now_button {
+            font-size: 22px;
+        }
+        
         .collapse_players .inline_player_name {
             display: block !important;
         }

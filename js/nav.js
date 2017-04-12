@@ -1,5 +1,6 @@
     (function()
         {
+        if (!id("ssi_header")) return;
         var pathname = window.location.pathname;
                 
         if (pathname === "/") target = "lobby";

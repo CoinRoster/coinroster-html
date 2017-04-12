@@ -44,6 +44,11 @@
     }
     
     @font-face {
+        font-family: 'tall_bold';
+        src: url('../fonts/Font7.ttf') format('truetype');
+    }
+    
+    @font-face {
       font-family: Neuzeit;
       font-weight: normal;
       font-style: normal;
@@ -114,12 +119,10 @@
     }
     
     #page_body {
+        min-height: calc(100vh - 50px);
         background: rgb(45,46,47) url('../img/fabric_bg.jpg') top center repeat;
     }
        
-    #centering_container {
-        min-height: calc(100vh - 50px);
-    }
     #centering_container, .centering_container {
         position: relative;
         width: 980px;
