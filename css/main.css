@@ -277,6 +277,12 @@
     .green_border {
         border-color: rgb(0,255,106) !important;
     }
+    .green_background {
+        background: green !important;
+    }
+    .green_background:hover {
+        background: rgb(0,160,0) !important;
+    }
     
     .red {
         color: rgb(255,50,50) !important;
@@ -292,6 +298,12 @@
     
     .white {
         color: white !important;
+    }
+    
+    .low_grade_alert {
+        font-size: 13px;
+        padding: 20px;
+        border: 1px solid grey;
     }
     
     .light_on_dark_input::-webkit-input-placeholder {
@@ -422,10 +434,6 @@
     #page_title {
         font-size: 24px;
         margin: 40px 0;
-    }
-    
-    #no_data_message {
-        font-size: 14px;
     }
     
     #login_signup_table td {

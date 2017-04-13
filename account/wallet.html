@@ -39,7 +39,7 @@
                     Your wallet on file is:
                     <br/>
                     <br/>
-                    <span id="ext_address" class="orange"></span>
+                    <span id="ext_address" class="orange" style="font-size:12px"></span>
                     <div id="change_ext_address_button">
                         <br/>
                         <button class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
@@ -62,60 +62,62 @@
                 <br/>
                 <hr noshade>
                 <br/>
-                <span id="must_withdraw_bitcon" class="hidden">
+                <div id="must_withdraw_bitcon" class="hidden">
                     <span class="teal">
                         Wallet security is ENABLED
                     </span>
                     <br/>
                     <br/>
                     You must withdraw all Bitcoin from this account in order to change your wallet address.
-                </span>
-                <span id="security_is_enabled" class="constrain_width hidden">
+                </div>
+                <div id="security_is_enabled" class="constrain_width hidden">
                     <span class="teal">
                         Wallet security is ENABLED
                     </span>
                     <br/>
                     <br/>
-                    With security enabled, you will NOT be able to change your wallet address if
-                    there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
-                    from withdrawing your Bitcoins to a new wallet.
-                    <br/>
-                    <br/>
-                    If you want, you can click the button below to DISABLE this security measure. 
-                    You will be free to change your wallet address at any time. 
+                    <div style="font-size:12px">
+                        With security enabled, you will NOT be able to change your wallet address if
+                        there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
+                        from withdrawing your Bitcoins to a new wallet.
+                        <br/>
+                        <br/>
+                        If you want, you can click the button below to DISABLE this security measure. 
+                        You will be free to change your wallet address at any time. 
+                    </div>
                     <br/>
                     <br/>
                     <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
                     <br/>
                     <br/>
                     <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
-                </span>
-                <span id="enable_security" class="hidden">
+                </div>
+                <div id="enable_security" class="hidden">
                     <span class="orange_actual">
                         Wallet security is DISABLED
                     </span>
                     <br/>
                     <br/>
-                    With security disabled, you can change your wallet address at any time.
-                    <br/>
-                    <br/>
-                    If you would like to enable wallet security and prevent wallet changes while
-                    <br/>
-                    there are Bitcoins in your account, please click here:
-                    <br/>
-                    <br/>
-                    <span id="your_next_opportunity" class="hidden">
-                        Your next opportunity to disable wallet security will be after you withdraw
-                        <br/>
-                        all Bitcoins in your account to your connected wallet.
+                    <div style="font-size:12px">
+                        With security disabled, you can change your wallet address at any time.
                         <br/>
                         <br/>
-                    </span>
+                        If you would like to enable wallet security and prevent wallet changes while
+                        <br/>
+                        there are Bitcoins in your account, please click the button below.
+                        <span id="your_next_opportunity" class="hidden">
+                            <br/>
+                            Your next opportunity to disable wallet security will be after you withdraw
+                            <br/>
+                            all Bitcoins in your account to your connected wallet.
+                        </span>
+                    </div>
+                    <br/>
                     <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
                     <br/>
                     <br/>
-                    <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
-                </span>
+                    <a href="/wallet_security.html" class="inline_link teal" style="font-size:12px">Click here for a complete explanation</a>
+                </div>
             </div>
             <br/>
             <br/>
@@ -171,9 +173,26 @@
                 ext_address: ext_address,
                 update_for_active_user: true
             }
-        }, function()
+        }, function(call)
             {
-            location.reload();
+            if (call.status === "1")
+                {
+                show_simple_modal("Your wallet has been connected.", "good", function()
+                    {
+                    if (_id === "add_ext_address") 
+                        {
+                        if (location.hash === "#deposit") window.location = "/account/deposit.html#wallet";
+                        else if (location.hash === "#withdraw") window.location = "/account/withdraw.html";
+                        else window.location.reload();
+                        }
+                    else window.location.reload();
+                    });
+                }
+            else 
+                {
+                if (_id === "add_ext_address") add_wallet_error(call.error, "orange");
+                else change_wallet_error(call.error, "orange");
+                }
             });
             
         return false;
@@ -228,18 +247,12 @@
                             hide("change_ext_address_button");
                             show("must_withdraw_bitcon");
                             }
-                        else
-                            {
-                            show("security_is_enabled");
-                            }
+                        else show("security_is_enabled");
                         }
                     else if (ext_address_secure_flag === 0)
                         {
                         show("enable_security");
-                        if (btc_balance > 0)
-                            {
-                            show("your_next_opportunity");
-                            }
+                        if (btc_balance > 0) show("your_next_opportunity");
                         }
                     }
                 }

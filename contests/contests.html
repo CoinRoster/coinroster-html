@@ -15,14 +15,14 @@
         <!--#include virtual="/ssi-java/nav" -->
         <!--#include virtual="/ssi/contest_status_selector.html" -->
         <div class="body_container">
-            <div id="no_data_message" class="hidden"></div>
+            <div id="no_data_message" class="low_grade_alert hidden"></div>
             <div id="headline_value_container" class="headline_value_container my_contests hidden">
                 <ul>
                     <li>
                         <span id="headline_value_label" class="headline_value_label"></span>
                     </li>
                     <li>
-                        <span id="headline_value" class="headline_value orange"></span>
+                        <span id="headline_value" class="headline_value"></span>
                         <span id="headline_value_fiat"></span>
                     </li>
                 </ul>
@@ -255,7 +255,10 @@
 
         header[3].className = "right_nowrap";
         
-        var PL_total = 0;
+        var 
+        
+        PL_total = 0,
+        loss_color = "orange_actual";
         
         for (var i=0; i<number_of_contests; i++)
             {
@@ -273,15 +276,20 @@
             var 
             
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
-            PL_class = "";
+            PL_class = "",
+            minus_sign = "";
     
             if (net_PL > 0) PL_class = "green";
-            else if (net_PL < 0) PL_class = "orange";
+            else if (net_PL < 0) 
+                {
+                PL_class = loss_color;
+                minus_sign = "-";
+                }
 
             var row = new_row(table, -1, [
                 "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>Results</li></ul>",
                 "<div class='field_label'>Category:</div>" + sub_category_description,
-                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + toBTC(net_PL) + " BTC</span>" + getFiatDisplay(net_PL, "allow_inline")
+                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + minus_sign + toBTC(net_PL) + " BTC</span>" + getFiatDisplay(net_PL, "allow_inline")
             ]);
 
             row[2].style.whiteSpace = "nowrap";
@@ -292,7 +300,7 @@
         id("headline_value_label").innerHTML = "Total P/L:";
         
         if (PL_total > 0) id("headline_value").innerHTML = "<span class='green'>" + toBTC(PL_total) + " BTC</span>";
-        else if (PL_total < 0) id("headline_value").innerHTML = "<span class='orange'>-" + toBTC(PL_total) + " BTC</span>";
+        else if (PL_total < 0) id("headline_value").innerHTML = "<span class='" + loss_color + "'>-" + toBTC(PL_total) + " BTC</span>";
         else id("headline_value").innerHTML = toBTC(PL_total);
         id("headline_value_fiat").innerHTML = getFiatDisplay(PL_total, "soft_inline");
         }

@@ -175,6 +175,7 @@
     .settings td, .form_table td {
         font-size:14px;
         padding: 0 16px 16px 0;
+        white-space: nowrap;
     }
     
     .hidden {

@@ -24,6 +24,31 @@
             <!-- INITIAL CONTAINER ************************************************************************** -->
             <div id="initial_container">
                 <br/>
+                <div id="deposit_bonus_prompt" class="hidden">
+                    Your account is eligible for a <span class="orange">100% Deposit Match</span> bonus!
+                    <br/>
+                    <br/>
+                    <div style="font-size:12px" class="constrain_width">
+                        We will match 100% of your first deposit <span class="orange">
+                            up to <span id="deposit_bonus_cap"></span> BTC
+                            <span id="deposit_bonus_fiat" class="steel"></span>
+                        </span>.
+                        <br/>
+                        <br/>
+                        You will need to meet a <span class="orange">
+                            <span id="deposit_bonus_rollover"></span>x playing requirement
+                        </span> before you are able to withdraw funds.
+                        <br/>
+                        <br/>
+                        The Deposit Match bonus is <span class="orange">optional</span> - you do not have to claim it.
+                        <br/>
+                        <br/>
+                        To claim the bonus, <span class="orange">make a deposit with one of the following options</span>. When your first deposit has been processed,
+                        you will be able to claim the bonus on your Account page.
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
                 <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
                     <ul class="button_contents">
                         <li>
@@ -90,15 +115,13 @@
                 </span>
                 <br/>
                 <br/>
-                We will credit your account as soon as the funds arrive
-                <br/>
-                <br/>
                 <div class="input_padding description_text">
-                    Deposit amount:
+                    Amount:
                     <br/>
                     <br/>
                     <br/>
-                    <h2 id="amount_to_deposit_confirm" class="lucida"></h2><br/>
+                    <h2 id="amount_to_deposit_confirm" class="lucida"></h2>
+                    <br/>
                     <br/>
                     From:
                     <br/>
@@ -134,8 +157,21 @@
         };
         
     function init()
-        {  
+        {
+        if (location.hash === "#wallet") try_ext_address_deposit();
+        if (window.session.first_deposit === 0)
+            {
+            var 
 
+            deposit_bonus_cap = window.session.deposit_bonus_cap,
+            deposit_bonus_rollover_multiple = window.session.deposit_bonus_rollover_multiple;
+
+            id("deposit_bonus_cap").innerHTML = deposit_bonus_cap;
+            id("deposit_bonus_fiat").innerHTML = "(approx. " + toFiat(deposit_bonus_cap) + ")";
+            id("deposit_bonus_rollover").innerHTML = deposit_bonus_rollover_multiple;
+
+            show("deposit_bonus_prompt");
+            }
         }
 
     function go_to_quickbt()
@@ -189,7 +225,7 @@
             {
             show_simple_modal("You must connect a Bitcoin wallet to your account", "bad", function()
                 {
-                location = "/account/wallet.html";
+                location = "/account/wallet.html#deposit";
                 });
             }
 

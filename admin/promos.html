@@ -21,24 +21,24 @@
         Nothing developed for this tab yet
     </div>
 </div>
-<div id="pane_1" class="pane" tab_text="Default Offer">
+<div id="pane_1" class="pane" tab_text="Affiliate Revenue">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
-            Default Offer
+            Affiliate Revenue
         </div>
     </div>
     <div class="content_body" style="top:68px">
         <table class="settings" style="top:20px">
             <tr>
                 <td colspan="4">
-                    The default offer is a system-wide variable assigned to <b>new users</b> representing the % of the rake that they will earn on referrals that they make.
+                    This is a system-wide variable assigned to <b>new users</b> representing the % of the rake that they will earn on referrals that they make.
                     <br/><br/>
-                    The default offer must be a multiplier between 0 and 1 (e.g. 0.5 = 50% of the rake).
+                    The value is a multiplier between 0 and 1 (e.g. 0.5 = 50% of the rake).
                 </td>
             </tr>
             <tr>
-                <td width="1" style="white-space:nowrap">
-                    Default offer:
+                <td width="1">
+                    Default affiliate revenue:
                 </td>
                 <td width="1">
                     <input id="default_offer_input" type="text" class="input_style text_input">
@@ -51,7 +51,53 @@
         </table>
     </div>
 </div>
-<div id="pane_2" class="pane" tab_text="Create Promo">
+<div id="pane_2" class="pane" tab_text="Deposit Match">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Deposit Match
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td width="1">
+                    Deposit match cap
+                </td>
+                <td width="1">
+                    <input id="deposit_bonus_cap_input" type="text" btc-input="true" class="input_style text_input"> BTC
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td width="1">
+                    Rollover (multiple)
+                </td>
+                <td width="1">
+                    <input id="deposit_bonus_rollover_input" type="text" class="input_style text_input"> x
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td width="1">
+                    <button type="button" class="input_style" onclick="update_deposit_bonus();">Update</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_3" class="pane" tab_text="Code Requests">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Code Requests
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('promo_request_report');"/>
+    </div>
+    <div id="promo_request_report" class="content_body report_table" style="top:68px">
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<div id="pane_4" class="pane" tab_text="Create Promo">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
             Create Promo
@@ -156,7 +202,7 @@
         </table>
     </div>
 </div>
-<div id="pane_3" class="pane" tab_text="Active Promos">
+<div id="pane_5" class="pane" tab_text="Active Promos">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
             Active Promos
@@ -190,7 +236,7 @@
         <button type="button" class="input_style" onclick="cancel_promo();">Cancel Promo</button>
     </div>
 </div>
-<div id="pane_4" class="pane" tab_text="Cancelled Promos">
+<div id="pane_6" class="pane" tab_text="Cancelled Promos">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
             Cancelled Promos
@@ -201,19 +247,8 @@
         <!-- POPULATED BY JAVASCRIPT -->
     </div>
 </div>
-<div id="pane_5" class="pane" tab_text="Code Requests">
-    <div class="content_header" style="height:67px">
-        <div class="content_header_title">
-            Code Requests
-        </div>
-        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('promo_request_report');"/>
-    </div>
-    <div id="promo_request_report" class="content_body report_table" style="top:68px">
-        <!-- POPULATED BY JAVASCRIPT -->
-    </div>
-</div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
-<script type="text/javascript" src="js/affiliates.js"></script>
+<script type="text/javascript" src="js/promos.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 </body>

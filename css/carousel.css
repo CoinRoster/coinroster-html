@@ -28,13 +28,13 @@
     7. compress with tinyjpg.com
     */
     #slide_1 {
-        background-image: url('../img/slides/slide1-min.jpg');
-    }
-    #slide_2 {
         background-image: url('../img/slides/slide2-min.jpg');
     }
-    #slide_3 {
+    #slide_2 {
         background-image: url('../img/slides/slide3-min.jpg');
+    }
+    #slide_3 {
+        background-image: url('../img/slides/slide1-min.jpg');
     }
     #slide_4 {
         background-image: url('../img/slides/slide4-min.jpg');

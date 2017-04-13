@@ -24,7 +24,7 @@
         </div>
         <!--#include virtual="/ssi/contest_status_selector.html" -->
         <div class="body_container">
-            <div id="no_data_message"></div>
+            <div id="no_data_message" class="low_grade_alert"></div>
         </div>
         <div class="table_body_container">
             <table id="category_report_table" class="contest_table"></table>
@@ -126,7 +126,7 @@
                         no_data_message = "No contests have been settled in this category in the past 14 days.";
                         break;
                     }
-                id("no_data_message").innerHTML = no_data_message + "<a href='/' class='inline_link teal vertical_padding'>Return to lobby</a>";
+                id("no_data_message").innerHTML = no_data_message + "<br/><br/><a href='/' class='inline_link teal'>Return to lobby</a>";
                 show("no_data_message");
                 return;
                 }

@@ -77,12 +77,11 @@
                         </td>
                     </tr>
                 </table>
-                <div id="rollover_container" style="padding:20px;border: 1px solid grey;margin:0 20px 20px;max-width:380px;" class="hidden">
+                <div id="rollover_container" class="low_grade_alert hidden" style="margin:0 20px 20px;max-width:380px;">
                     <div style="font-size: 12px">
-                        As part of your Free Play promotion you must meet a <span class="orange">playing requirement</span> in order to unlock withdrawals on your account.
-                        <br/>
-                        <br/>
-                        Your bets will be counted <u>as contests are settled</u>.
+                        As part of a promotion you must meet a <span class="orange">playing requirement</span> 
+                        in order to unlock withdrawals on your account.
+                        Your bets will be counted toward your progress as contests are settled.
                         <br/>
                         <br/>
                         Progress:
@@ -94,8 +93,11 @@
                 </div>
             </div>
             <div id="account_menu">
-                <a class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
-                    DEPOSIT
+                <a id="deposit_bonus_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/deposit_bonus.html" style="display:none">
+                    CLAIM YOUR DEPOSIT BONUS
+                </a>
+                <a id="deposit_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/deposit.html">
+                    <span id="deposit_prompt">DEPOSIT</span>
                 </a>
                 <a id="withdrawal_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/withdraw.html" style="display:none">
                     WITHDRAW
@@ -161,9 +163,20 @@
                 
                 ext_address = call.ext_address,
                 email_address = call.email_address;
+  
+                if (window.session.first_deposit > 0 && window.session.deposit_bonus_claimed === 0)
+                    {
+                    show("deposit_bonus_subwindow");
+                    id("deposit_bonus_subwindow").className += " green_background";
+                    }
+                else
+                    {
+                    id("deposit_subwindow").className += " green_background";
+                    if (window.session.first_deposit === 0) id("deposit_prompt").innerHTML = "100% DEPOSIT MATCH AVAILABLE!";
+                    }   
         
                 if (window.session.referral_promo_code) show("manage_referral_promo_code_subwindow");
-                else show("get_referral_promo_code_subwindow");
+                else if (id("get_referral_promo_code_subwindow")) show("get_referral_promo_code_subwindow");
                 
                 if (window.session.withdrawal_locked === 0) show("withdrawal_subwindow");
                 else

@@ -53,6 +53,14 @@
             width: 10px !important;
         }
         
+        .contest_table td {
+            font-size: 12px !important;
+        }
+        
+        .contest_table td:first-child {
+            font-size:13px !important;
+        }
+        
         #category_report_table tr:first-child { /* header */
             display: none;
         }
@@ -241,7 +249,6 @@
         #pari_mutuel_table .field_label {
             display: inline-block !important;
             padding-right: 20px;
-            font-size: 12px;
         }
         #pari_mutuel_table .fiat_display.allow_inline {
             display: inline-block !important;
@@ -314,13 +321,19 @@
             text-align: left !important;
         }
         
-        #roster_entry_report_table td:first-child { /* roster / outcome */
+        #roster_entry_report_table td:first-child { /* rank / score */
             padding-top: 5px !important;
             padding-bottom: 7px !important;
             width: auto !important;
         }
-        #roster_entry_report_table td:nth-child(2) { /* roster players */
+        #roster_entry_report_table td:nth-child(2) { /* username */
             padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:nth-child(3) { /* roster */
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:nth-child(4) { /* # of entries */
             padding-bottom: 10px !important;
         }
         #roster_entry_report_table td:last-child { /* wager */
@@ -329,7 +342,6 @@
         #roster_entry_report_table .field_label {
             display: inline-block !important;
             padding-right: 20px;
-            font-size: 12px;
         }
         #roster_entry_report_table .fiat_display.allow_inline {
             display: inline-block !important;
@@ -359,7 +371,6 @@
         #pari_mutuel_entry_report_table .field_label {
             display: inline-block !important;
             padding-right: 20px;
-            font-size: 12px;
         }
         #pari_mutuel_entry_report_table .fiat_display.allow_inline {
             display: inline-block !important;
@@ -404,7 +415,6 @@
         #score_table .field_label {
             display: inline-block !important;
             padding-right: 20px;
-            font-size: 12px;
         }
     }
     @media only screen and (max-width: 500px) {
@@ -441,15 +451,7 @@
         .sub_category_item {
             width: calc(100% - 7px);
         }
- 
-        .contest_table td:first-child {
-            font-size:14px !important;
-        }
-
-        .contest_table td {
-            font-size: 12px !important;
-        }
-        
+         
         .right_left li:last-child { /* transaction amount */
             padding-right: 0 !important;
         }
@@ -470,7 +472,6 @@
             text-align: left !important;
             width: 50px !important;
         }
-        
         
         #submit_pari_mutuel_button {
             margin-left: 20px;
@@ -514,6 +515,9 @@
             padding-top: 0px !important;
             padding-left: 0px !important;
             padding-right: 0px !important;
+        }
+        .lobby_container #contest_status_selector_container {
+            padding-top: 10px !important;
         }
         #contest_status_selector_container td {
             text-align: center;

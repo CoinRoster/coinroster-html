@@ -29,15 +29,15 @@
                 <br/>
                 <br/>
                 <span style="font-size:12px">
-                    You will receive <span id="referral_offer" class="orange"></span> of the rake on your friend's betting activity once they complete their promotional playing requirement.
+                    You will receive <span id="referral_offer_1" class="orange"></span> of the rake on your friend's betting activity once they complete their promotional playing requirement.
                 </span>
             </div>
             <div id="normal_referral_message" class="hidden">
-                You will receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by your friend's account.
+                You will receive <span id="referral_offer_2" class="orange"></span> of the rake on all contest entries made by your friend's account.
             </div>
             <br/>
             <div style="font-size:12px">
-                For more information, <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>
+                For more information <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>
             </div>
             <br/>
             <form onsubmit="return send_referral();">
@@ -47,6 +47,7 @@
                 </div>
                 To:
                 <input id="referral_email_address" type="text" placeholder="Enter an email address" class="light_on_dark_input teal email_input add_left_margin" />
+                <br/>
                 <br/>
                 <br/>
                 <button type="submit" class="text_button auto_width">Send referral!</button>
@@ -63,8 +64,11 @@
 
     function init()
         {
+        var referral_offer = multiply(session.referral_offer, 100) + "%";
+        
         id("referrer").value = session.username;
-        id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
+        id("referral_offer_1").innerHTML = referral_offer;
+        id("referral_offer_2").innerHTML = referral_offer;
         
         var referral_promo_code = session.referral_promo_code;
         if (referral_promo_code)

@@ -38,21 +38,16 @@
         font-family: 'tall_bold', sans-serif;
         font-size: 24px;
         padding: 15px 25px;
-        background: green;
         color: white;
         text-decoration: none;
         border-radius:8px;
     }
-    .lobby_play_now_button:hover {
-        border-color: rgb(0,160,0);
-        border-style: solid;
-        border-width: 0px 1px 2px 1px;
-    }
     
     .lobby_login {
         font-size: 13px;
-        display:block;
-        margin-top:10px
+        display: block;
+        width: 100px;
+        margin: 10px auto 0;
     }
     
     /*------------------------------------------------------------*/
@@ -162,7 +157,7 @@
         
     .contest_table td {
         padding: 10px 20px;
-        font-size: 14px;
+        font-size: 13px;
     }
             
     #category_report_table td, #contest_report_table td {
@@ -224,9 +219,9 @@
     .contest_table li.draft_button {
         text-align: right;
         color: rgb(255,229,171);
-        padding: 10px 30px 10px 20px;
+        padding: 10px 36px 10px 20px;
         background-image: url('../img/chevron.png');
-        background-position: right;
+        background-position: right 7px center;
         background-repeat: no-repeat;
         background-size: 18px auto;
         text-decoration: none !important;

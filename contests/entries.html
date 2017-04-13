@@ -34,7 +34,7 @@
                         </span>
                     </li>
                     <li>
-                        <span id="exposure_value" class="headline_value orange"></span>
+                        <span id="exposure_value" class="headline_value"></span>
                         <span id="exposure_value_fiat"></span>
                     </li>
                 </ul>
@@ -60,7 +60,7 @@
                         </span>
                     </li>
                     <li>
-                        <span id="PNL_value" class="headline_value orange"></span>
+                        <span id="PNL_value" class="headline_value"></span>
                         <span id="PNL_value_fiat"></span>
                     </li>
                 </ul>
@@ -278,7 +278,7 @@
                                         implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
                                         implied_payout = 0, // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value, // default is no wager, therefore total loss
-                                        PNL_class = "orange", // default is total loss
+                                        PNL_class = "orange_actual", // default is total loss
                                         user_has_wager = typeof user_wagers[option_id] !== "undefined",
                                         mark_outcome = "",
                                         row_index = -1;
@@ -290,6 +290,7 @@
                                             scenario_PL = implied_payout - exposure_value;
                                          
                                             if (scenario_PL > 0) PNL_class = "green"; // override if profit
+                                            else if (scenario_PL === 0) PNL_class = "white";
                                             }
                                             
                                         if (contest_status === 3)
@@ -449,7 +450,7 @@
                                             row[3].style.textAlign = "right";
                                             row[4].style.textAlign = "right";
                                             if (payout_per_entry > 0) row[4].className = "green";
-                                            else row[4].className = "orange";
+                                            else row[4].className = "white";
                                             }
                                         }
                                         

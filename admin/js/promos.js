@@ -5,21 +5,24 @@
             {
             case 0: /* Affiliate Report */
                 break;
-            case 1: /* Default Referral Offer */
+            case 1: /* Affiliate Revenue */
                 populate_default_offer();
                 break;
-            case 2: /* Create Promo Code */
+            case 2: /* Deposit Match */
+                populate_deposit_bonus();
+                break;
+            case 3: /* Code Requests */
+                promo_request_report();
+                break;
+            case 4: /* Create Promo Code */
                 initialize_promo_expiry();
                 initialize_referrer_selector();
                 break;
-            case 3: /* Active Promos */
+            case 5: /* Active Promos */
                 promo_report("active");
                 break;
-            case 4: /* Cancelled Promos */
+            case 6: /* Cancelled Promos */
                 promo_report("cancelled");
-                break;
-            case 5: /* Code Requests */
-                promo_request_report();
                 break;
             }
         }      
@@ -66,7 +69,158 @@
             else alert(call.error);
             });
         }   
+                        
+/*----------------------------------------------------------------------*/
+
+    // Deposit match defaults
+
+    function populate_deposit_bonus()
+        {
+        api({
+            method: "GetDefaultDepositBonus",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
                 
+                deposit_bonus_cap = call.deposit_bonus_cap,
+                deposit_bonus_rollover_multiple = call.deposit_bonus_rollover_multiple;
+        
+                id("deposit_bonus_cap_input").value = deposit_bonus_cap;
+                id("deposit_bonus_rollover_input").value = deposit_bonus_rollover_multiple;
+                }
+            else alert(call.error);
+            });
+        }
+        
+    function update_deposit_bonus()
+        {
+        var 
+        
+        deposit_bonus_cap = id("deposit_bonus_cap_input").value,
+        deposit_bonus_rollover_multiple = id("deposit_bonus_rollover_input").value;
+
+        if (deposit_bonus_cap === "") return alert("Please enter a value for Deposit match cap");
+        
+        if (deposit_bonus_rollover_multiple === "") return alert("Please enter a value for Rollover");
+        if (!isInt(deposit_bonus_rollover_multiple)) return alert("Rollover must be an integer");
+        if (deposit_bonus_rollover_multiple <= 0) return alert("Rollover be 0 or less");
+        
+        api({
+            method: "UpdateDefaultDepositBonus",
+            args: {
+                deposit_bonus_cap: deposit_bonus_cap,
+                deposit_bonus_rollover_multiple: deposit_bonus_rollover_multiple
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                alert("The Deposit Match has been updated! Reloading panel.");
+                location.reload();
+                }
+            else alert(call.error);
+            });
+        }   
+                
+/*----------------------------------------------------------------------*/
+
+    // Promo code requests
+    
+    function promo_request_report()
+        {
+        var call = api({ 
+            method: "PromoRequestReport", 
+            args: {}  
+        });
+    
+        var 
+        
+        promo_request_report = call.promo_request_report,
+        number_of_requests = promo_request_report.length,
+        table = new_table("promo_request_report"),
+        row_count = 0;
+
+        for (var i=0; i<number_of_requests; i++)
+            {
+            var promo_request_item = promo_request_report[i],
+                    
+            request_id = promo_request_item.id,
+            created = promo_request_item.created,
+            created_date = dateconv_ms_to_string(created),
+            created_time = dateconv_ms_to_time(created),
+            created_string = created_date + " at " + created_time,
+            user_id = promo_request_item.created_by,
+            username = promo_request_item.created_by_username,
+            requested_code = promo_request_item.requested_code;
+            var row = new_row(table, row_count++, [
+                request_id,
+                created_string,
+                username,
+                requested_code,
+                "<button onclick=\"approve_promo_request('" + btoa(requested_code) + "','" + user_id + "')\">Approve</button>",
+                "<input id='promo_request_denial_reason_" + request_id + "' placeholder='Reason for denial - WILL BE EMAILED TO USER' type='text' class='input_style text_input' maxlength='200' style='width:500px'>&nbsp;" + 
+                "<button onclick=\"deny_promo_request(" + request_id + ")\">Deny</button>"
+            ]);
+            }
+            
+        var header = new_row(table, 0, [
+            "Id",
+            "Created",
+            "User",
+            "Code request",
+            "Approve",
+            "Deny"
+        ]);
+        // style headers:
+
+        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+        }
+        
+    function approve_promo_request(requested_code, user_id)
+        {
+        requested_code = atob(requested_code);
+        
+        id("create_promo__code_input").value = requested_code;
+        
+        window.location.hash = "2";
+        
+        var interval = setInterval(function()
+            { 
+            var referrer_selector = id("create_promo__referrer_selector");
+            
+            if (referrer_selector.innerHTML.length > 100)
+                {
+                clearInterval(interval);
+                selectByValue(referrer_selector, user_id);
+                $(referrer_selector).trigger("chosen:updated");
+                }
+            }, 10);
+        }
+        
+    function deny_promo_request(request_id)
+        {
+        var reason = id("promo_request_denial_reason_" + request_id).value;
+        if (reason === "") return alert("You must supply a reason\n\nNOTE: THE REASON WILL BE EMAILED TO THE REQUESTING USER");
+        api({
+            method: "DenyPromoRequest",
+            args: {
+                request_id: request_id,
+                reason: reason
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("Promo request has been denied! Reloading panel.");
+                location.reload();
+                }
+            else return alert(call.error);
+            });
+        }
+        
 /*----------------------------------------------------------------------*/
 
     // Create promo
@@ -378,100 +532,6 @@
             if (call.status === "1") 
                 {
                 alert("Promo has been cancelled! Reloading panel.");
-                location.reload();
-                }
-            else return alert(call.error);
-            });
-        }
-                
-/*----------------------------------------------------------------------*/
-
-    function promo_request_report()
-        {
-        var call = api({ 
-            method: "PromoRequestReport", 
-            args: {}  
-        });
-    
-        var 
-        
-        promo_request_report = call.promo_request_report,
-        number_of_requests = promo_request_report.length,
-        table = new_table("promo_request_report"),
-        row_count = 0;
-
-        for (var i=0; i<number_of_requests; i++)
-            {
-            var promo_request_item = promo_request_report[i],
-                    
-            request_id = promo_request_item.id,
-            created = promo_request_item.created,
-            created_date = dateconv_ms_to_string(created),
-            created_time = dateconv_ms_to_time(created),
-            created_string = created_date + " at " + created_time,
-            user_id = promo_request_item.created_by,
-            username = promo_request_item.created_by_username,
-            requested_code = promo_request_item.requested_code;
-            var row = new_row(table, row_count++, [
-                request_id,
-                created_string,
-                username,
-                requested_code,
-                "<button onclick=\"approve_promo_request('" + btoa(requested_code) + "','" + user_id + "')\">Approve</button>",
-                "<input id='promo_request_denial_reason_" + request_id + "' placeholder='Reason for denial - WILL BE EMAILED TO USER' type='text' class='input_style text_input' maxlength='200' style='width:500px'>&nbsp;" + 
-                "<button onclick=\"deny_promo_request(" + request_id + ")\">Deny</button>"
-            ]);
-            }
-            
-        var header = new_row(table, 0, [
-            "Id",
-            "Created",
-            "User",
-            "Code request",
-            "Approve",
-            "Deny"
-        ]);
-        // style headers:
-
-        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-        }
-        
-    function approve_promo_request(requested_code, user_id)
-        {
-        requested_code = atob(requested_code);
-        
-        id("create_promo__code_input").value = requested_code;
-        
-        window.location.hash = "2";
-        
-        var interval = setInterval(function()
-            { 
-            var referrer_selector = id("create_promo__referrer_selector");
-            
-            if (referrer_selector.innerHTML.length > 100)
-                {
-                clearInterval(interval);
-                selectByValue(referrer_selector, user_id);
-                $(referrer_selector).trigger("chosen:updated");
-                }
-            }, 10);
-        }
-        
-    function deny_promo_request(request_id)
-        {
-        var reason = id("promo_request_denial_reason_" + request_id).value;
-        if (reason === "") return alert("You must supply a reason\n\nNOTE: THE REASON WILL BE EMAILED TO THE REQUESTING USER");
-        api({
-            method: "DenyPromoRequest",
-            args: {
-                request_id: request_id,
-                reason: reason
-            }
-        }, function(call)
-            {
-            if (call.status === "1") 
-                {
-                alert("Promo request has been denied! Reloading panel.");
                 location.reload();
                 }
             else return alert(call.error);
