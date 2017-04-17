@@ -267,6 +267,9 @@
                 case 3:
                     user_level = "unverified";
                     break;
+                case 4:
+                    user_level = "score_bot";
+                    break;
                 default:
                     user_level = "unknown level";
                 }
