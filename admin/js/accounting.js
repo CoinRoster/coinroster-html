@@ -461,8 +461,11 @@
                     {
                     switch (trans_type_filter)
                         {
+                        case "ALL-PROMOS" :
+                            if (trans_type !== "BTC-PROMO-FREEPLAY" && trans_type !== "BTC-DEPOSIT-BONUS") show_row = false;
+                            break;
                         case "ALL-DEPOSITS" :
-                            if (trans_type !== "BTC-DEPOSIT" && trans_type !== "RC-DEPOSIT" && trans_type !== "BTC-PROMO-DEPOSIT") show_row = false;
+                            if (trans_type !== "BTC-DEPOSIT" && trans_type !== "RC-DEPOSIT") show_row = false;
                             break;
                         case "ALL-WITHDRAWALS" :
                             if (trans_type !== "BTC-WITHDRAWAL" && trans_type !== "RC-WITHDRAWAL") show_row = false;

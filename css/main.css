@@ -303,7 +303,8 @@
     .low_grade_alert {
         font-size: 13px;
         padding: 20px;
-        border: 1px solid grey;
+        border: none !important;
+        background: rgb(55,56,57);
     }
     
     .light_on_dark_input::-webkit-input-placeholder {
