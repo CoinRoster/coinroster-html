@@ -83,7 +83,6 @@
     }
     
     .sub_category_details {
-        width: 100%; /* browsers without calc? */
         width: calc(100% + 1px);
         background-color: rgba(30,32,34, 0.8);
         position: absolute;

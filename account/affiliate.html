@@ -25,7 +25,10 @@
             Your affiliate code is:
             <br/>
             <br/>
-            <div id="promo_code" class="low_grade_alert orange"></div>
+            <div class="low_grade_alert">
+                <div id="promo_code" class="orange"></div>
+                <div id="usage" class="hidden steel" style="font-size:11px;padding-top:10px;">0/3 used</div>
+            </div>
             <br/>
             Users who sign up with your promo code will receive:
             <br/>
@@ -70,7 +73,17 @@
                 id("rollover_multiple").innerHTML = call.rollover_multiple + "x";
                 id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
                 
-                var expires_ms = call.expires;
+                var 
+                
+                max_use = call.max_use,
+                times_used = call.times_used,
+                expires_ms = call.expires;
+        
+                if (max_use > 0) 
+                    {
+                    id("usage").innerHTML = times_used + "/" + max_use + " used";
+                    show("usage");
+                    }
 
                 if (expires_ms > 0)
                     {

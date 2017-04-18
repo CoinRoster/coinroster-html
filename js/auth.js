@@ -177,6 +177,7 @@
             else 
                 {
                 if (call.error === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");
+                else if (call.error === "Promo code has expired") set_auth_message("promo_code_label", "Promo code has expired", "orange");
                 else if (call.error === "Email is in use") set_auth_message("email_label", "Email is in use", "orange");
                 else show_simple_modal(call.error, "bad", null);
                 }

@@ -309,6 +309,7 @@
         referrer = selectorValue("create_promo__referrer_selector"),
         free_play_amount = id("create_promo__freeplay_amount_input").value,
         rollover_multiple = id("create_promo__rollover_input").value,
+        max_use = id("create_promo__max_use_input").value,
         expires_input_value = id("create_promo__deadline_tcal").value,
         expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms),
         expires_time = selectorValue("create_promo__time_selector"),
@@ -335,6 +336,14 @@
 
         if (rollover_multiple === 0) return alert("Please provide a rollover multiple");
         
+        if (max_use !== "") 
+            {
+            if (!isInt(max_use)) return alert("Max use must be an integer");
+            if (isNaN(max_use)) return alert("Max use must be a number");
+            if (max_use <= 0) return alert("Max use must be positive");
+            }
+        else max_use = 0;
+        
         if (expires_input_value === "Select date") expires = 0;
 
         api({
@@ -345,6 +354,7 @@
                 referrer: referrer,
                 free_play_amount: free_play_amount,
                 rollover_multiple: rollover_multiple,
+                max_use: max_use,
                 expires: expires
             }
         }, function(call)
@@ -390,9 +400,10 @@
                 "Description",
                 "Affiliate",
                 "Free-play amount",
-                "Rollover multiple"
+                "Rollover multiple",
+                "Usage"
             ];
-            right_align_array = [8,9];
+            right_align_array = [8,9,10];
             }
         else if (active_cancelled === "cancelled") 
             {
@@ -404,11 +415,12 @@
                 "Affiliate",
                 "Free-play amount",
                 "Rollover multiple",
+                "Usage",
                 "Cancelled",
                 "Cancelled by",
                 "Reason"
             ];
-            right_align_array = [5,6];
+            right_align_array = [5,6,7];
             }
 
         for (var i=0; i<number_of_promos; i++)
@@ -427,6 +439,9 @@
             free_play_amount = promo_item.free_play_amount,
             rollover_multiple = promo_item.rollover_multiple,
             cancelled_reason = promo_item.cancelled_reason,
+            max_use = promo_item.max_use,
+            times_used = promo_item.times_used,
+            usage_string = "unlimited",
     
             created_date = dateconv_ms_to_string(created),
             created_time = dateconv_ms_to_time(created),
@@ -443,6 +458,7 @@
             if (created === 0) created_string = "";
             if (expires === 0) expires_string = "";
             if (cancelled === 0) cancelled_string = "";
+            if (max_use > 0) usage_string = times_used + "/" + max_use;
             
             if (active_cancelled === "active")
                 {
@@ -456,6 +472,7 @@
                     referrer,
                     free_play_amount + " BTC",
                     rollover_multiple + "x",
+                    usage_string,
                     "<button onclick=\"populate_cancel_promo(" + promo_id + ",'" + promo_code + "','" + description + "','"+ referrer + "')\">Cancel promo</button>"
                 ]);
                 }
@@ -468,6 +485,7 @@
                     referrer,
                     free_play_amount,
                     rollover_multiple,
+                    usage_string,
                     cancelled_string,
                     cancelled_by,
                     cancelled_reason
