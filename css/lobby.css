@@ -271,6 +271,12 @@
         padding-bottom: 8px !important;
     }
     
+    .pay_line_row td {
+        padding: 20px !important;
+        text-align: center !important;
+        background: rgb(60,62,64) !important;
+    }
+    
     .right_nowrap {
         text-align: right !important;
         white-space: nowrap !important;
@@ -428,7 +434,7 @@
     
     #exposure_container, #payout_container, #PNL_container, .headline_value_container {
         font-size: 14px;
-        padding-bottom: 20px;
+        padding-bottom: 30px;
     }
     .headline_value_container.my_contests {
         padding-left: 20px;

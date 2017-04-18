@@ -347,6 +347,10 @@
             display: inline-block !important;
             padding-left: 20px;
         }
+        #roster_entry_report_table .pay_line_row td {
+            padding: 20px !important;
+            text-align: center !important;
+        }
         
         #pari_mutuel_entry_report_table tr:first-child { /* header */
             display: none;

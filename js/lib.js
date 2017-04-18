@@ -416,6 +416,8 @@
         }
     function get_ordinal_suffix(i) 
         {
+        if (!isInt(i) || i === "") return "";
+        
         var 
         
         j = i % 10,
