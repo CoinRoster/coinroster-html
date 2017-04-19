@@ -57,6 +57,9 @@
                     populate_category_selector("category_selector_progressive");
                     }
                 break;
+            case 5: /* Progressive Report */
+                progressive_report();
+                break;
             }
         }
                      
@@ -84,7 +87,7 @@
         
         var table = new_table("contest_report_table"),
         row_count = 0,
-        right_align_array = [1,10,11,12,13,14,15,16,17,18];
+        right_align_array = [1,11,12,13,14,15,16,17,18,19];
 
         for (var i=0; i<number_of_contests; i++)
             {
@@ -95,6 +98,7 @@
             created_by = contest_item.created_by,
             category = contest_item.category,
             sub_category = contest_item.sub_category,
+            progressive = contest_item.progressive,
             contest_type = contest_item.contest_type,
             title = contest_item.title,
             description = contest_item.description,
@@ -142,6 +146,8 @@
             if (entries_per_user === 0) entries_per_user = "UMLIMITED";
             if (roster_size === 0) roster_size = "VARIABLE";
             
+            if (!progressive) progressive = "";
+            
             cost_per_entry = toBTC(cost_per_entry);
             
             salary_cap = commas(salary_cap);
@@ -174,6 +180,7 @@
                 contest_type,
                 category,
                 sub_category,
+                progressive,
                 settlement_type,
                 rake,
                 salary_cap,
@@ -188,7 +195,7 @@
                 //description,
                 //pay_table,
                 //option_table,
-                odds_source
+                odds_source,
             ]);
             
             right_align(row, right_align_array);
@@ -203,6 +210,7 @@
             "Type",
             "Category",
             "Sub category",
+            "Progressive",
             "Settlement type",
             "Rake",
             "Salary cap",
@@ -363,8 +371,28 @@
             {
             if (call.status === "1") 
                 {
-                alert("Contest created! Reloading panel.");
-                location.reload();
+                var 
+
+                progressive_report = call.progressive_report,
+                progressive_selector = id("progressive_selector");
+        
+                progressive_selector.innerHTML = "<option></option>";
+
+                for (var i=0; i<progressive_report.length; i++)
+                    {
+                    var progressive = progressive_report[i],
+
+                    code = progressive.code,
+                    balance = progressive.balance;
+            
+                    var option = document.createElement("option");
+                    option.value = code;
+                    option.innerHTML = "[" + code + "] " + toBTC(balance) + " BTC";
+
+                    progressive_selector.appendChild(option);
+                    }
+                    
+                $(progressive_selector).trigger("chosen:updated");
                 }
             else alert("Error: " + call.error);
             });
@@ -778,7 +806,8 @@
         
         contest_type = selectorValue(contest_type_selector),
         category = selectorValue("category_selector"),
-        sub_category = selectorValue("sub_category_selector");
+        sub_category = selectorValue("sub_category_selector"),
+        progressive = selectorValue("progressive_selector");
 
         if (category === "") return alert("Please choose a category");
         if (sub_category === "") return alert("Please choose a sub-category");
@@ -833,6 +862,7 @@
         var common_args = {
             category: category,
             sub_category: sub_category,
+            progressive: progressive,
             contest_type: contest_type,
             title: title,
             description: description,
@@ -1626,12 +1656,12 @@
         category = selectorValue("category_selector_progressive"),
         sub_category = selectorValue("sub_category_selector_progressive"),
         code = id("progressive_code_input").value,
-        description = id("progressive_description_input").value;
+        payout_info = id("progressive_payout_info").value;
 
-        if (category === "") return alert("Please choose a category");
-        if (sub_category === "") return alert("Please choose a sub-category");
+        if (category === "") return alert("Choose a category");
+        if (sub_category === "") return alert("Choose a sub-category");
         if (code === "") return alert("Enter a code");
-        if (description === "") return alert("Enter a description");
+        if (payout_info === "") return alert("Enter payout info");
 
         api({
             method: "CreateProgressive",
@@ -1639,7 +1669,7 @@
                 category: category,
                 sub_category: sub_category,
                 code: code,
-                description: description
+                payout_info: payout_info
             }
         }, function(call)
             {
@@ -1651,4 +1681,78 @@
             else alert(call.error);
             });
         }
+
+/*----------------------------------------------------------------------*/
+           
+    // Progressive Report
         
+        
+    function progressive_report()
+        {
+        api({
+            method: "ProgressiveReport",
+            args: {
+                category: "",
+                sub_category: ""
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var 
+
+                progressive_report = call.progressive_report,
+                table = new_table("progressive_report_table"),
+                row_count = 0;
+        
+                for (var i=0; i<progressive_report.length; i++)
+                    {
+                    var progressive = progressive_report[i],
+                            
+                    id = progressive.id,
+                    
+                    created = progressive.created,
+                    created_date = dateconv_ms_to_string(created),
+                    created_time = dateconv_ms_to_time(created),
+                    created_string = created_date + " at " + created_time,
+                    
+                    created_by = progressive.created_by,
+                    category = progressive.category,
+                    sub_category = progressive.sub_category,
+                    code = progressive.code,
+                    payout_info = progressive.payout_info,
+                    balance = progressive.balance;
+            
+                    var row = new_row(table, row_count++, [
+                        id,
+                        created_string,
+                        created_by,
+                        category,
+                        sub_category,
+                        code,
+                        toBTC(balance) + " BTC",
+                        payout_info
+                    ]);
+                    
+                    row[7].style.textAlign = "right";
+                    }
+                    
+                var header = new_row(table, 0, [
+                    "Id",
+                    "Created",
+                    "Created by",
+                    "Category",
+                    "Sub-category",
+                    "Code",
+                    "Balance",
+                    "Payout info"
+                ]);
+                // style headers:
+
+                for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+                
+                header[7].style.textAlign = "right";
+                }
+            else alert("Error: " + call.error);
+            });
+        }

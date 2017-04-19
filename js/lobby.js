@@ -46,6 +46,23 @@
             })(settlement_type, pay_table);
         }
 
+    function bind_progressive_payout_window(element, payout_info)
+        {
+        element.onclick = (function(payout_info)
+            {
+            return function()
+                {
+                var payout_info_div = [
+                    "<div style=\"font-size:14px;text-align:left!important\">",
+                    "Progressive Jackpot Details:<br/><br/>",
+                    payout_info,
+                    "</div>"
+                ].join("");
+                show_simple_modal(payout_info_div, "good", null);
+                };
+            })(payout_info);
+        }
+
     function settlement_type_string(settlement_type)
         {
         switch (settlement_type)

@@ -438,6 +438,7 @@
     }
     .headline_value_container.my_contests {
         padding-left: 20px;
+        padding-bottom: 25px !important;
     }
     .headline_value_container ul {
         margin: 0;

@@ -38,6 +38,19 @@
                     </li>
                 </ul>
             </div>
+            <div id="progressive_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span class="headline_value_label">
+                            Progressive:
+                        </span>
+                    </li>
+                    <li>
+                        <span id="progressive_value" class="headline_value green"></span>
+                        <span id="progressive_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
             <div id="payout_container" class="headline_value_container my_contests hidden">
                 <ul>
                     <li>
@@ -203,6 +216,24 @@
                         if (entry_count === 0) no_data_message("You have no entries in this contest.");
                         else
                             {
+                            var
+                            
+                            progressive_code = contest.progressive_code,
+                            progressive_balance = 0;
+                    
+                            if (progressive_code !== "")
+                                {
+                                if (contest_status < 3) progressive_balance = contest.progressive_balance;
+                                else progressive_balance = contest.progressive_paid;
+                                
+                                if (progressive_balance > 0)
+                                    {
+                                    show("progressive_container");
+                                    id("progressive_value").innerHTML = toBTC(progressive_balance) + " BTC";
+                                    id("progressive_value_fiat").innerHTML = getFiatDisplay(progressive_balance, "soft_inline");
+                                    }
+                                }
+                                                        
                             show("exposure_container");
                             
                             var option_table = JSON.parse(contest.option_table);
@@ -218,21 +249,23 @@
                                     id("entry_type").innerHTML = "WAGERS";
                                     
                                     if (id("roster_entry_report_table")) destroy("roster_entry_report_table");
-                                    show("pari_mutuel_explanation");
                                     
+                                    show("pari_mutuel_explanation");
+
                                     var table = id("pari_mutuel_entry_report_table");
                                     table.innerHTML = "";
-                                    
+
                                     var
-                                    
+
                                     user_wagers = [],
                                     exposure_value = 0,
-                            
+
                                     wager_grand_total = contest.wager_grand_total,
                                     rake_amount = multiply(contest.rake, wager_grand_total);
 
                                     wager_grand_total -= rake_amount;
-                        
+                                    wager_grand_total += progressive_balance;
+
                                     var header = new_row(table, -1, [
                                         "Outcome",
                                         "Odds",
@@ -242,27 +275,27 @@
                                     ]);
 
                                     header[1].style.textAlign = "left";
-                                    
+
                                     // sum all wagers by pari-mutuel option
-                                    
+
                                     for (var i=0; i<entry_count; i++)
                                         {
                                         var entry_item = entry_report[i],
 
                                         option_id = entry_item.entry_data,
                                         amount = entry_item.amount;
-                                
+
                                         if (typeof user_wagers[option_id] === "undefined") user_wagers[option_id] = amount;
                                         else user_wagers[option_id] += amount;
-                                        
+
                                         exposure_value += amount;
                                         }
-                                        
+
                                     id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
                                     id("exposure_value_fiat").innerHTML = getFiatDisplay(exposure_value, "soft_inline");
-                                        
+
                                     // create rows for any options where user has wagers:
-                                    
+
                                     option_table.sort(function(a, b)
                                         {
                                         return b.wager_total - a.wager_total;
@@ -271,7 +304,7 @@
                                     for (var i=0; i<option_table.length; i++)
                                         {
                                         var 
-                                        
+
                                         option_item = option_table[i],
                                         option_id = option_item.id,
                                         description = option_item.description,
@@ -284,22 +317,22 @@
                                         user_has_wager = typeof user_wagers[option_id] !== "undefined",
                                         mark_outcome = "",
                                         row_index = -1;
-                                
+
                                         if (user_has_wager) // user has a wager
                                             {
                                             amount = user_wagers[option_id],
                                             implied_payout = multiply(implied_odds_full_precision, amount),
                                             scenario_PL = implied_payout - exposure_value;
-                                         
+
                                             if (scenario_PL > 0) PNL_class = "green"; // override if profit
                                             else if (scenario_PL === 0) PNL_class = "white";
                                             }
-                                            
+
                                         if (contest_status === 3)
                                             {
                                             show("payout_container");
                                             show("PNL_container");
-                                            
+
                                             if (option_item.outcome === 1)
                                                 {
                                                 id("exposure_label").innerHTML = "Wagered:";
@@ -309,18 +342,18 @@
                                                 id("PNL_value").innerHTML = toBTC(scenario_PL, false, true) + " BTC";
                                                 id("PNL_value").className = PNL_class;
                                                 id("PNL_value_fiat").innerHTML = getFiatDisplay(scenario_PL, "soft_inline");
-                                                
+
                                                 mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
                                                 //row_index = 1; // causes winning outcome to float to the top
                                                 }
                                             }
-                                         
+
                                         var 
-                                        
+
                                         row_data = [],
                                         implied_odds_cell = "<div class='field_label extra_wide'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
                                         scenario_PL_cell = "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>" + getFiatDisplay(scenario_PL, "allow_inline");
-                                        
+
                                         if (user_has_wager) // user has a wager
                                             {
                                             row_data = [
@@ -338,8 +371,8 @@
                                             "<div class='field_label extra_wide'>Payout:</div>---",
                                             scenario_PL_cell
                                         ];
-                                        
-                                        
+
+
                                         var row = new_row(table, row_index, row_data);
 
                                         row[1].style.textAlign = "left";

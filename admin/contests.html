@@ -66,7 +66,7 @@
                     Progressive
                 </td>
                 <td colSpan="2">
-                    <select data-placeholder="Select" id="progressive_selector" class="input_style chosen-select" style="width:300px">
+                    <select data-placeholder="Select" id="progressive_selector" class="input_style chosen-select" style="width:600px">
                     </select>
                 </td>
             </tr>
@@ -498,7 +498,7 @@
             </tr>
             <tr>
                 <td>
-                    Code:
+                    Code (unique):
                 </td>
                 <td>
                     <input id="progressive_code_input" type="text" class="input_style text_input" maxlength="20">
@@ -507,11 +507,10 @@
             </tr>
             <tr>
                 <td>
-                    Description:
+                    Payout info:
                 </td>
                 <td>
-                    <input id="progressive_description_input" type="text" class="input_style text_input" maxlength="40" style="width:280px">
-                    40 chars or less
+                    <textarea maxlength="500" id="progressive_payout_info" rows="6" cols="60"></textarea>
                 </td>
             </tr>
             <tr>
@@ -520,6 +519,16 @@
                 </td>
             </tr>
         </table>
+    </div>
+</div>
+<div id="pane_5" class="pane" tab_text="Progressive Report">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Progressive
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <div id="progressive_report_table" class="report_table"></div>
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>

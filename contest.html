@@ -68,6 +68,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <td id="cost_per_entry_label">
+                                Entry fee:
+                            </td>
+                            <td>
+                                <span id="cost_per_entry" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td id="entries_label">
                                 Entries:
                             </td>
@@ -86,14 +94,6 @@
                     </table>
                     <table class="contest_detail_table">
                         <tr>
-                            <td id="cost_per_entry_label">
-                                Entry fee:
-                            </td>
-                            <td>
-                                <span id="cost_per_entry" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 Users:
                             </td>
@@ -107,6 +107,15 @@
                             </td>
                             <td>
                                 <span id="prize_pool" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="progressive_payout_info" class="payout_info_link teal" style="display:none;padding-left:0 !important;">Progressive:</span>
+                                <span id="progressive_inactive">Progressive:</span>
+                            </td>
+                            <td>
+                                <span id="progressive_balance" class="orange"></span>
                             </td>
                         </tr>
                         <tr>
@@ -125,7 +134,15 @@
                                 <span id="registration_countdown" class="orange"></span>
                             </td>
                         </tr>
-                        <tr id="filler_row" class="hidden">
+                        <tr id="status_row" class="hidden">
+                            <td>
+                                Status:
+                            </td>
+                            <td>
+                                <span id="status" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="filler_row">
                             <td>
                                 &nbsp;
                             </td>
@@ -245,6 +262,8 @@
                     sub_category = call.sub_category,
                     category_description = call.category_description,
                     sub_category_description = call.sub_category_description,
+                    progressive_code = call.progressive_code,
+                    progressive_balance = 0,
                     contest_type = call.contest_type,
                     title = call.title,
                     description = call.description,
@@ -269,6 +288,34 @@
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
                     
+                    var contest_open = contest_status === 1;
+                    
+                    var show_active_progressive = false;
+                    
+                    if (progressive_code !== "")
+                        {
+                        if (contest_status < 3) 
+                            {
+                            show_active_progressive = true;
+                            progressive_balance = call.progressive_balance;
+                            }
+                        else 
+                            {
+                            progressive_balance = call.progressive_paid;
+                            if (progressive_balance > 0) show_active_progressive = true;
+                            }
+                        }
+                        
+                     if (show_active_progressive)
+                        {
+                        show("progressive_payout_info", "block");
+                        hide("progressive_inactive");
+                        bind_progressive_payout_window(id("progressive_payout_info"), call.progressive_payout_info);
+                        id("progressive_balance").innerHTML = toBTC(progressive_balance) + " BTC" + getFiatDisplay(progressive_balance, "always_inline");
+                        if (progressive_balance > 0) id("progressive_balance").className = "green";
+                        }
+                    else id("progressive_balance").innerHTML = "--";
+                                                        
                     id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='path_slash red_orange'>/</span><a href='/category.html?main=" + category + "&sub=" + sub_category + "' class='inline_link steel'>" + sub_category_description + "</a>";
                     
                     id("users").innerHTML = current_users + max_users_string;
@@ -287,12 +334,12 @@
                     id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "always_inline");
                     id("prize_pool").innerHTML = toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "always_inline");
                     
+                    if (total_prize_pool > 0) id("prize_pool").className = "green";
+                    
                     id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
                     
                     bind_payout_window(id("payout_info"), settlement_type, pay_table);
                     
-                    var contest_open = contest_status === 1;
-
                     if (contest_type === "ROSTER")
                         {
                         destroy("pari_mutuel_table_label");
@@ -324,7 +371,7 @@
 
                         wager_grand_total = subtract(wager_grand_total, rake_amount);
 
-                        initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total);
+                        initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry);
                         }
                         
                     if (contest_open) 
@@ -395,8 +442,9 @@
                         }
                     else
                         {
+                        show("status_row", "table-row");
+                        id("status").innerHTML = contest_status_string(contest_status);
                         hide("registration_countdown_row");
-                        show("filler_row", "table-cell");
                         id("registration_deadline_label").innerHTML = "Went live:";
                         
                         var 
@@ -543,7 +591,7 @@
 
     // initialize interface for pari-mutuel contest
      
-    function initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total)
+    function initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry)
         {
         var contest_open = contest_status === 1;
         
@@ -582,6 +630,8 @@
             return b.wager_total - a.wager_total;
             });
             
+        wager_grand_total += progressive_balance;
+            
         for (var i=0; i<option_table.length; i++)
             {
             var option_item = option_table[i],
@@ -592,10 +642,14 @@
             wager_total = option_item.wager_total,
             wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' placeholder='Enter wager' style='width:100px'/>",
             
-            implied_odds = get_implied_odds(wager_grand_total, option_item),
+            implied_odds = 0,
 
             row_index = -1,
             main_line = "";
+    
+            if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
+            else if (contest_status === 1) implied_odds = divide(wager_grand_total, cost_per_entry, 2);
+            else implied_odds = 0;
                         
             if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC</li></ul>";
             else
