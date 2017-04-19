@@ -225,9 +225,9 @@
                             
                             var payout_pct_at_score = 0;
                             
-                            for (var i=rank-1; i<rosters_at_score; i++) 
+                            for (var r=rank; r<(rank + rosters_at_score); r++) 
                                 {
-                                if (pay_table[i]) payout_pct_at_score = add(payout_pct_at_score, pay_table[i].payout);
+                                if (pay_table[r-1]) payout_pct_at_score = add(payout_pct_at_score, pay_table[r-1].payout);
                                 else break;
                                 }
                 
@@ -291,9 +291,9 @@
 
                                             var payout_pct_at_score = 0;
 
-                                            for (var r=rank-1; r<rosters_at_score; r++) 
+                                            for (var r=rank; r<(rank + rosters_at_score); r++) 
                                                 {
-                                                if (pay_table[r]) payout_pct_at_score = add(payout_pct_at_score, pay_table[r].payout);
+                                                if (pay_table[r-1]) payout_pct_at_score = add(payout_pct_at_score, pay_table[r-1].payout);
                                                 else break;
                                                 }
 
