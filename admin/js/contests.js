@@ -19,10 +19,10 @@
                 contest_report();
                 break;
             case 1: /* Create Contest */
-                if (category_selector.options.length === 0)
+                if (id("category_selector").options.length === 0)
                     {
                     initialize_registration_deadline();
-                    populate_category_selector();
+                    populate_category_selector("category_selector");
                     tinymce.init({
                         selector: 'textarea.do_tinymce',
                         height: 200,
@@ -50,6 +50,12 @@
                 hide("settle_contest");
                 show("in_play_contest_report");
                 in_play_contest_report("in_play_contest_report_table");
+                break;
+            case 4: /* Create Progressive */
+                if (id("category_selector_progressive").options.length === 0)
+                    {
+                    populate_category_selector("category_selector_progressive");
+                    }
                 break;
             }
         }
@@ -251,8 +257,10 @@
     
     var category_map = [];
     
-    function populate_category_selector()
+    function populate_category_selector(_id)
         {
+        var category_selector = id(_id);
+        
         category_selector.innerHTML = "<option></option>";
         
         api({
@@ -295,26 +303,27 @@
                             description: sub_category_description
                             });
                         }
+
                     category_map[category_code] = sub_category_object;
                     }
                 }
             
             $(category_selector).trigger("chosen:updated");
+            
+            category_selector.onchange = function()
+                {
+                populate_sub_category_selector(_id);
+                };
             });
         }
         
-    category_selector.onchange = function()
+    function populate_sub_category_selector(_id)
         {
-        populate_sub_category_selector();
-        };
+        var sub_category_selector = id("sub_" + _id);
         
-    function populate_sub_category_selector()
-        {
         sub_category_selector.innerHTML = "<option></option>";
         
-        var 
-        
-        category_code = selectorValue(category_selector),
+        var category_code = selectorValue(_id),
         sub_category_object = category_map[category_code];
 
         for (var i=0; i<sub_category_object.length; i++)
@@ -331,7 +340,34 @@
             sub_category_selector.appendChild(option);
             }
             
+        if (_id === "category_selector")
+            {
+            sub_category_selector.onchange = function()
+                {
+                populate_progressive_selector();
+                };
+            }
+            
         $(sub_category_selector).trigger("chosen:updated");
+        }
+        
+    function populate_progressive_selector()
+        {
+        api({
+            method: "ProgressiveReport",
+            args: {
+                category: selectorValue("category_selector"),
+                sub_category: selectorValue("sub_category_selector")
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("Contest created! Reloading panel.");
+                location.reload();
+                }
+            else alert("Error: " + call.error);
+            });
         }
 
 /*----------------------------------------------------------------------*/
@@ -741,8 +777,11 @@
         var
         
         contest_type = selectorValue(contest_type_selector),
-        category = selectorValue(category_selector),
-        sub_category = selectorValue(sub_category_selector);
+        category = selectorValue("category_selector"),
+        sub_category = selectorValue("sub_category_selector");
+
+        if (category === "") return alert("Please choose a category");
+        if (sub_category === "") return alert("Please choose a sub-category");
 
         // check for title
         
@@ -1570,3 +1609,46 @@
             else alert("Error: " + call.error);
             });
         }
+
+/*----------------------------------------------------------------------*/
+           
+    // Create Progressive
+       
+    id("progressive_code_input").onblur = function()
+        {
+        this.value = toCode(this.value);
+        };
+    
+    function create_progressive()
+        {
+        var
+        
+        category = selectorValue("category_selector_progressive"),
+        sub_category = selectorValue("sub_category_selector_progressive"),
+        code = id("progressive_code_input").value,
+        description = id("progressive_description_input").value;
+
+        if (category === "") return alert("Please choose a category");
+        if (sub_category === "") return alert("Please choose a sub-category");
+        if (code === "") return alert("Enter a code");
+        if (description === "") return alert("Enter a description");
+
+        api({
+            method: "CreateProgressive",
+            args: {
+                category: category,
+                sub_category: sub_category,
+                code: code,
+                description: description
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                alert("Progressive created! Reloading panel.");
+                location.reload();
+                }
+            else alert(call.error);
+            });
+        }
+        

@@ -223,7 +223,8 @@
     function selectorValue(selector)
         {
         if (typeof selector === "string") selector = id(selector);
-        return selector.options[selector.selectedIndex].value;
+        if (selector.options[selector.selectedIndex]) return selector.options[selector.selectedIndex].value;
+        else return "";
         }
         
     function selectorHTML(selector)

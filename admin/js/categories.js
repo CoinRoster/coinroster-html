@@ -177,11 +177,9 @@
 
     // Create category
     
-    var create_category_code_input = id("create_category_code_input");
-    
-    create_category_code_input.onblur = function()
+    id("create_category_code_input").onblur = function()
         {
-        create_category_code_input.value = toCode(create_category_code_input.value);
+        this.value = toCode(this.value);
         };
     
     function create_category()
@@ -198,7 +196,7 @@
             method: "UpsertCategory",
             args: {
                 code: code,
-                description: description,
+                description: description
             }
         }, function(call)
             {
@@ -210,12 +208,10 @@
             else alert(call.error);
             });
         }
-        
-    var create_sub_category_code_input = id("create_sub_category_code_input");
-    
-    create_sub_category_code_input.onblur = function()
+     
+    id("create_sub_category_code_input").onblur = function()
         {
-        create_sub_category_code_input.value = toCode(create_sub_category_code_input.value);
+        this.value = toCode(this.value);
         };
         
     id("create_sub_category_description_input").onblur = function()
@@ -235,7 +231,7 @@
         var
         
         category = selectorValue("create_sub_category__category_selector"),
-        code = create_sub_category_code_input.value,
+        code = id("create_sub_category_code_input").value,
         description = id("create_sub_category_description_input").value,
         active_flag = +selectorValue("create_sub_category_active_flag_selector");
         
