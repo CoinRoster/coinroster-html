@@ -268,6 +268,7 @@
                     title = call.title,
                     description = call.description,
                     current_users = call.current_users,
+                    min_users = call.min_users,
                     max_users = call.max_users,
                     entries_per_user = call.entries_per_user,
                     registration_deadline_ms = call.registration_deadline,
@@ -284,6 +285,9 @@
             
                     var max_users_string = "";
                     if (max_users > 0) max_users_string = "/" + max_users;
+                    
+                    var show_counts = false;
+                    if (current_users >= min_users) show_counts = true;
                     
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
@@ -353,7 +357,7 @@
                         salary_cap = call.salary_cap,
                         roster_size = call.roster_size;
                 
-                        initialize_roster_UI(contest_status, option_table, salary_cap, roster_size);
+                        initialize_roster_UI(contest_status, option_table, salary_cap, roster_size, show_counts);
 
                         id("number_of_entries_input").value = 1;
                         }
@@ -534,7 +538,7 @@
 
     // initialize interface for roster contest
      
-    function initialize_roster_UI(contest_status, option_table, salary_cap, roster_size)
+    function initialize_roster_UI(contest_status, option_table, salary_cap, roster_size, show_counts)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
         
@@ -574,9 +578,11 @@
                     
             player_id = player_item.id,
             name = player_item.name,
-            price = player_item.price;
+            price = player_item.price,
+            count = player_item.count;
     
-            insert_player_row("player_table", player_id, name, price);
+            if (show_counts) insert_player_row("player_table", player_id, name, price, count);
+            else insert_player_row("player_table", player_id, name, price);
             }
             
         update_submit_roster_button(window.cost_per_entry);

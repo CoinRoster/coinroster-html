@@ -386,18 +386,28 @@
         /* Contest page */
         
         .player_table td {
-            display: block !important;
             text-align: left !important;
+            font-size: 12px !important;
+            width: auto !important;
         }
         .player_table td:first-child { /* player name */
+            width: 100%;
             font-size: 13px !important;
             padding-top: 1px !important;
             padding-bottom: 2px !important;
+            display: block !important;
         }
         .player_table td:nth-child(2) { /* player price */
-            font-size: 12px !important;
             padding-top: 0 !important;
             padding-bottom: 4px !important;
+            padding-right: 5px !important;
+            display: inline-block !important;
+        }
+        .player_table td:nth-child(3) { /* player price */
+            padding-top: 0 !important;
+            padding-bottom: 4px !important;
+            padding-left: 5px !important;
+            display: inline-block !important;
         }
         
         /* Scores page */
@@ -500,6 +510,9 @@
             font-size: 12px !important;
         }
         .player_table td:nth-child(2) { /* player price */
+            font-size: 11px !important;
+        }
+        .player_table td:nth-child(3) { /* player price */
             font-size: 11px !important;
         }
         
