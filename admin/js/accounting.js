@@ -78,8 +78,7 @@
             referrer = user_item.referrer,
             free_play = user_item.free_play,
             last_active = user_item.last_active,
-            currency = user_item.currency,
-            referral_promo_code = user_item.referral_promo_code;
+            currency = user_item.currency;
     
             btc_accumulator = add(btc_accumulator, btc_balance);
             rc_accumulator = add(rc_accumulator, rc_balance);
@@ -108,8 +107,7 @@
                 last_login,
                 free_play,
                 last_active,
-                currency,
-                referral_promo_code
+                currency
             ]);
             }
         var red_alert = "rgb(230,0,0)";
@@ -164,7 +162,6 @@
                 "Verified",
                 "Subscribed",
                 "Referral PGM",
-                "Promo code",
                 "Referrer",
                 "Currency",
                 "Level"
@@ -245,8 +242,7 @@
             last_login = user_item[11],
             free_play = user_item[12],
             last_active = user_item[13],
-            currency = user_item[14],
-            referral_promo_code = user_item[15];
+            currency = user_item[14];
     
             if (referrer !== "") referrer = get_username_for_id(referrer);
     
@@ -286,8 +282,6 @@
             if (last_active === 0) last_active = "";
             else last_active = timeSince(last_active);
             
-            if (typeof referral_promo_code === "undefined") referral_promo_code = "";
-            
             if (show_row) 
                 {
                 if (simple_user_report)
@@ -315,7 +309,6 @@
                         email_ver_flag,
                         newsletter_flag,
                         referral_program,
-                        referral_promo_code,
                         referrer,
                         currency,
                         user_level

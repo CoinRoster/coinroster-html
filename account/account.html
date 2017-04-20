@@ -109,7 +109,7 @@
                     GET AN AFFILIATE CODE!
                 </a>-->
                 <a id="manage_referral_promo_code_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/affiliate.html" style="display:none">
-                    YOUR AFFILIATE CODE
+                    YOUR AFFILIATE CODE<span id="manage_referral_S" class="hidden">S</span>
                 </a>
                 <a class="subwindow clickable_subwindow link_subwindow" href="/account/transactions.html">
                     TRANSACTION HISTORY
@@ -175,7 +175,12 @@
                     if (window.session.first_deposit === 0) id("deposit_prompt").innerHTML = "100% DEPOSIT MATCH AVAILABLE!";
                     }   
         
-                if (window.session.referral_promo_code) show("manage_referral_promo_code_subwindow");
+                var referral_code_count = window.session.referral_code_count;
+                if (referral_code_count > 0) 
+                    {   
+                    show("manage_referral_promo_code_subwindow");
+                    if (referral_code_count > 1) show("manage_referral_S", "inline");
+                    }
                 else if (id("get_referral_promo_code_subwindow")) show("get_referral_promo_code_subwindow");
                 
                 if (window.session.withdrawal_locked === 0) show("withdrawal_subwindow");
