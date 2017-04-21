@@ -3,6 +3,7 @@
 <head>
     <title>CoinRoster | Lobby</title>
     <!--#include virtual="/ssi/head.html" -->
+    <!--#include virtual="/ssi/dropdown.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <script type="text/javascript" src="/js/lobby.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
@@ -17,7 +18,7 @@
                 <span id="path_text"></span>
             </h3>
         </div>
-        <div id="body_container" class="extra_body_container_padding">
+        <div id="body_container">
             <div id="login_prompt_container" class="account_creation_message hidden">
                 You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
                 <br/>
@@ -164,7 +165,7 @@
         <div class="body_container header">
             <div id="no_data_message" class="low_grade_alert hidden"></div>
         </div>
-        <div class="table_body_container extra_body_container_padding">
+        <div class="table_body_container" style="padding-bottom:0">
             <div class="roster_field hidden">
                 <ul class="roster_parameter_table augment_vertical_padding">
                     <li class="roster_parameter_label">
@@ -201,6 +202,16 @@
                     </li>
                 </ul>
             </div>
+        </div>
+        <div class="body_container selector_container">
+            <select id="player_order_selector">
+                <option value="price" data-display="Players sorted by: price">Price - high to low</option>
+                <option value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
+                <option value="name" data-display="Players sorted by: name A-Z">Alphabetical</option>
+            </select>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table_body_container">
             <div class="roster_field hidden">
                 <div id="player_table_header" class="player_table_header">
                     Available players:
@@ -239,6 +250,9 @@
 
     function init()
         {
+        $('select:not(.ignore)').niceSelect();
+        FastClick.attach(id("centering_container"));
+                            
         var contest_id = get_url_param("id") | 0;
         
         window.contest_id = contest_id;
@@ -533,6 +547,13 @@
 /*----------------------------------------------------------------------*/
 
     // initialize interface for roster contest
+    
+    id("player_order_selector").onchange = function()
+        {
+        var sort_scheme = selectorValue(this);
+        window.player_sort_scheme = sort_scheme;
+        sort_player_tables();
+        };
      
     function initialize_roster_UI(contest_status, option_table, salary_cap, roster_size)
         {

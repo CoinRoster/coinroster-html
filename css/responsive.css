@@ -205,6 +205,10 @@
             padding-right: 0px !important;
         }
  
+        .body_container.selector_container {
+            margin: 15px 0 13px !important;
+        }
+    
         #pari_mutuel_second_hr {
             display: none !important;
         }
