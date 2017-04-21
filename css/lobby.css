@@ -508,9 +508,18 @@
         color: rgb(220,220,220);
     }
     
-    .body_container.selector_container.lobby {
+    .selector_container.lobby.roster_field {
+        padding: 0;
         margin: 5px 0 8px;
     }
-    .body_container.selector_container.my_contests {
+    .selector_container.my_contests.roster_field {
+        padding: 0;
         margin: 13px 0 8px;
+    }
+    .selector_container.lobby.pari_mutuel_field {
+        padding: 0;
+        margin: 20px 0 15px;
+    }
+    .selector_container.my_contests.pari_mutuel_field {
+        margin: 0 0 25px;
     }

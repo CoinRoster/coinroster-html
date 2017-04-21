@@ -203,11 +203,19 @@
                 </ul>
             </div>
         </div>
-        <div class="body_container selector_container lobby">
+        <div class="body_container selector_container lobby roster_field hidden">
             <select id="player_order_selector">
-                <option value="price" data-display="Players sorted by: price">Price - high to low</option>
-                <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
-                <option value="name" data-display="Players sorted by: name">Name - A to Z</option>
+                <option value="price" data-display="Players sorted by: price">Price: high to low</option>
+                <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count: high to low</option>
+                <option value="name" data-display="Players sorted by: name A-Z">Name: A-Z</option>
+            </select>
+            <div style="clear:both"></div>
+        </div>
+        <div class="body_container selector_container lobby pari_mutuel_field hidden">
+            <select id="option_order_selector">
+                <option value="odds" data-display="Outcomes sorted by: odds">Odds: likely to unlikely</option>
+                <option value="text" data-display="Outcomes sorted by: text A-Z">Alphabetical: A-Z</option>
+                <option value="order" data-display="Outcomes sorted by: initial order">Initial order</option>
             </select>
             <div style="clear:both"></div>
         </div>
@@ -300,9 +308,6 @@
                     
                     if (!show_counts) destroy("draft_count_option");
                     
-                    $('select:not(.ignore)').niceSelect();
-                    FastClick.attach(id("centering_container"));
-                    
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
                     
@@ -366,12 +371,23 @@
                         id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
                         id("entry_value_fiat").innerHTML = getFiatDisplay(cost_per_entry, "never_inline");
                         
+                        var default_sort_scheme = "price";
+                        selectByValue("player_order_selector", default_sort_scheme);
+                        window.player_sort_scheme = default_sort_scheme;
+
+                        id("player_order_selector").onchange = function()
+                            {
+                            var sort_scheme = selectorValue(this);
+                            window.player_sort_scheme = sort_scheme;
+                            sort_player_tables();
+                            };
+                    
                         var
 
                         salary_cap = call.salary_cap,
                         roster_size = call.roster_size;
                 
-                        initialize_roster_UI(contest_status, option_table, salary_cap, roster_size, show_counts);
+                        initialize_roster_UI(option_table, salary_cap, roster_size, show_counts);
 
                         id("number_of_entries_input").value = 1;
                         }
@@ -381,6 +397,19 @@
                         show("pari_mutuel_second_hr");
                         
                         id("entries_label").innerHTML = "Wagers:";
+                          
+                        var default_sort_scheme = "odds";
+                        selectByValue("option_order_selector", default_sort_scheme);
+                        
+                        window.contest_status = contest_status;
+                        window.option_sort_scheme = default_sort_scheme;
+                        
+                        id("option_order_selector").onchange = function()
+                            {
+                            var sort_scheme = selectorValue(this);
+                            window.option_sort_scheme = sort_scheme;
+                            sort_option_table();
+                            };
                         
                         var 
 
@@ -391,6 +420,9 @@
 
                         initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry);
                         }
+                        
+                    $('select:not(.ignore)').niceSelect();
+                    FastClick.attach(id("centering_container"));
                         
                     if (contest_open) 
                         {
@@ -551,22 +583,8 @@
 /*----------------------------------------------------------------------*/
 
     // initialize interface for roster contest
-    
-    (function()
-        {
-        var default_sort_scheme = "price";
-        selectByValue("player_order_selector", default_sort_scheme);
-        window.player_sort_scheme = default_sort_scheme;
-        })();
-    
-    id("player_order_selector").onchange = function()
-        {
-        var sort_scheme = selectorValue(this);
-        window.player_sort_scheme = sort_scheme;
-        sort_player_tables();
-        };
-     
-    function initialize_roster_UI(contest_status, option_table, salary_cap, roster_size, show_counts)
+
+    function initialize_roster_UI(option_table, salary_cap, roster_size, show_counts)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
         
@@ -594,12 +612,7 @@
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
-        
-        option_table.sort(function(a, b)
-            {
-            return b.name - a.name;
-            });
-            
+  
         for (var i=0; i<option_table.length; i++)
             {
             var player_item = option_table[i],
@@ -646,18 +659,7 @@
                 
         var pari_mutuel_table = id("pari_mutuel_table");
         
-        var main_header = "";
-        
-        if (contest_open) main_header = "<ul><li>Outcome</li><li style='float:right'>Enter wager</li></ul>";
-        else main_header = "Outcome"
-    
-        var header = new_row(pari_mutuel_table, -1, [
-            main_header,
-            "<ul><li class='li_left'>Wagers</li><li class='li_right'>Odds</li></ul>"
-        ]);
-        
-        header[1].style.textAlign = "left";
-        header[2].style.textAlign = "left";
+        insert_pari_mutuel_table_header(pari_mutuel_table);
         
         option_table.sort(function(a, b)
             {
@@ -672,70 +674,16 @@
                     
             option_id = option_item.id,
             description = option_item.description,
-            
             wager_total = option_item.wager_total,
-            wager_input = "<input id='wager_input_" + option_id + "' btc-input='true' class='light_on_dark_input right_align green' placeholder='Enter wager' style='width:100px'/>",
-            
+            wager_value = 0,
             implied_odds = 0,
-
-            row_index = -1,
-            main_line = "";
+            outcome = option_item.outcome;
     
             if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
             else if (contest_status === 1) implied_odds = divide(wager_grand_total, cost_per_entry, 2);
             else implied_odds = 0;
-                        
-            if (contest_open) main_line = "<ul><li>" + description + "</li><li class='wager_input'>" + wager_input + " BTC</li></ul>";
-            else
-                {
-                if (contest_status === 3 && option_item.outcome === 1) 
-                    {
-                    main_line = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;" + description;
-                    //row_index = 1; // causes winning outcome to float to the top
-                    }
-                else main_line = description;
-                
-                // if contest is not open, we need to ensure adequate padding for the outcome cell:
-                
-                main_line = "<div class='pari_mutuel_preserve_padding'>" + main_line + "</div>";
-                }
             
-            var row = new_row(pari_mutuel_table, row_index, [
-                main_line,
-                "<ul class='wagers_and_odds'><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
-            ]);
-            
-            row[1].style.textAlign = "left";
-            row[2].style.textAlign = "left";
-            
-            function update_wager_input(input, wager_value)
-                {
-                var parent = input.parentNode;
-                if (parent.querySelector(".fiat_display")) destroy(parent.lastChild);
-                if (wager_value === "") 
-                    {
-                    input.value = "";
-                    return false;
-                    }
-                input.value = toBTC(wager_value, true);
-                var fiat_wager_display = getFiatDisplay(wager_value, "never_inline", true);
-                parent.appendChild(fiat_wager_display);
-                return true;
-                }
-            
-            if (contest_open) bind_btc_input(id("wager_input_" + option_id), function(input)
-                {
-                var wager_not_null = update_wager_input(input, input.value);
-                if (wager_not_null && input.value < window.cost_per_entry)
-                    {
-                    show_simple_modal("Wager cannot be less than " + window.cost_per_entry + " BTC", "bad", function()
-                        {
-                        update_wager_input(input, window.cost_per_entry)
-                        update_submit_button();
-                        });
-                    }
-                else update_submit_button();
-                });
+            insert_option_row(pari_mutuel_table, option_id, description, wager_total, wager_value, implied_odds, outcome);
             }
             
         id("submit_pari_mutuel_button").innerHTML = "Submit wagers";

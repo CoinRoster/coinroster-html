@@ -205,8 +205,11 @@
             padding-right: 0px !important;
         }
  
-        .body_container.selector_container {
+        .body_container.selector_container.roster_field {
             margin: 15px 0 13px !important;
+        }
+        .body_container.selector_container.lobby.pari_mutuel_field {
+            margin: 15px 0 20px !important;
         }
     
         #pari_mutuel_second_hr {

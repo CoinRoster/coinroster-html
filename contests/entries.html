@@ -78,6 +78,15 @@
                     </li>
                 </ul>
             </div>
+            <div id="pari_mutuel_sort_selector" class="selector_container my_contests pari_mutuel_field hidden">
+                <select id="option_order_selector">
+                    <option value="odds" data-display="Outcomes sorted by: odds">Odds: likely to unlikely</option>
+                    <option value="PL" data-display="Outcomes sorted by: scenario P/L">Scenario P/L: high to low</option>
+                    <option value="text" data-display="Outcomes sorted by: text A-Z">Alphabetical: A-Z</option>
+                    <option value="order" data-display="Outcomes sorted by: initial order">Initial order</option>
+                </select>
+                <div style="clear:both"></div>
+            </div>
         </div>
         <div class="body_container header">
             <div id="no_data_message" class="low_grade_alert hidden"></div>
@@ -91,8 +100,7 @@
                 * The scenario P/L is the net profit or loss that you will realize if a given outcome wins,
                 taking into account your total exposure to the pool.
                 <br/><br/>
-                * Please note that odds are rounded for display. To see full precision 
-                <a style='text-decoration:underline;cursor:pointer;' onclick="show_full_precision();">click here</a>.
+                * Please note that odds are rounded for display.
             </div>
         </div>
         <div id="edit_roster_container" class="hidden">
@@ -135,7 +143,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="body_container selector_container my_contests">
+            <div class="body_container selector_container my_contests roster_field">
                 <select id="player_order_selector">
                     <option value="price" data-display="Players sorted by: price">Price - high to low</option>
                     <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
@@ -178,15 +186,7 @@
 <script type="text/javascript">
      
     window.nav_text = "MY CONTESTS";
-    
-    var full_precision = false;
-    
-    function show_full_precision()
-        {
-        full_precision = true;
-        init();
-        };
-        
+
     function init()
         {
         var contest_id = get_url_param("contest_id") | 0;
@@ -264,10 +264,26 @@
                                     if (id("roster_entry_report_table")) destroy("roster_entry_report_table");
                                     
                                     show("pari_mutuel_explanation");
+                                    show("pari_mutuel_sort_selector");
+                                    
+                                    var default_sort_scheme = "odds";
+                                    selectByValue("option_order_selector", default_sort_scheme);
 
+                                    window.contest_status = contest_status;
+                                    window.option_sort_scheme = default_sort_scheme;
+
+                                    id("option_order_selector").onchange = function()
+                                        {
+                                        var sort_scheme = selectorValue(this);
+                                        window.option_sort_scheme = sort_scheme;
+                                        sort_option_report_table();
+                                        };
+                                    
                                     var table = id("pari_mutuel_entry_report_table");
                                     table.innerHTML = "";
 
+                                    insert_option_report_table_header(table);
+                                    
                                     var
 
                                     user_wagers = [],
@@ -278,17 +294,7 @@
 
                                     wager_grand_total -= rake_amount;
                                     wager_grand_total += progressive_balance;
-
-                                    var header = new_row(table, -1, [
-                                        "Outcome",
-                                        "Odds",
-                                        "My wagers",
-                                        "Payout",
-                                        "Scenario P/L"
-                                    ]);
-
-                                    header[1].style.textAlign = "left";
-
+                                    
                                     // sum all wagers by pari-mutuel option
 
                                     for (var i=0; i<entry_count; i++)
@@ -316,79 +322,25 @@
 
                                     for (var i=0; i<option_table.length; i++)
                                         {
-                                        var 
-
-                                        option_item = option_table[i],
+                                        var option_item = option_table[i],
+                                                
                                         option_id = option_item.id,
                                         description = option_item.description,
-                                        amount, // default is no wager
+                                        user_wager = 0, // default is no wager
+                                        outcome = option_item.outcome,
                                         implied_odds = get_implied_odds(wager_grand_total, option_item),
                                         implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
                                         implied_payout = 0, // default is no wager, therefore no payout
-                                        scenario_PL = -exposure_value, // default is no wager, therefore total loss
-                                        PNL_class = "orange_actual", // default is total loss
-                                        user_has_wager = typeof user_wagers[option_id] !== "undefined",
-                                        mark_outcome = "",
-                                        row_index = -1;
+                                        scenario_PL = -exposure_value; // default is no wager, therefore total loss;
 
-                                        if (user_has_wager) // user has a wager
+                                        if (typeof user_wagers[option_id] !== "undefined") // user has a wager
                                             {
-                                            amount = user_wagers[option_id],
-                                            implied_payout = multiply(implied_odds_full_precision, amount),
+                                            user_wager = user_wagers[option_id],
+                                            implied_payout = multiply(implied_odds_full_precision, user_wager),
                                             scenario_PL = implied_payout - exposure_value;
-
-                                            if (scenario_PL > 0) PNL_class = "green"; // override if profit
-                                            else if (scenario_PL === 0) PNL_class = "white";
                                             }
-
-                                        if (contest_status === 3)
-                                            {
-                                            show("payout_container");
-                                            show("PNL_container");
-
-                                            if (option_item.outcome === 1)
-                                                {
-                                                id("exposure_label").innerHTML = "Wagered:";
-                                                id("payout_value").innerHTML = toBTC(implied_payout) + " BTC";
-                                                id("payout_value").style.color = "rgb(230,230,230)";
-                                                id("payout_value_fiat").innerHTML = getFiatDisplay(implied_payout, "soft_inline");
-                                                id("PNL_value").innerHTML = toBTC(scenario_PL, false, true) + " BTC";
-                                                id("PNL_value").className = PNL_class;
-                                                id("PNL_value_fiat").innerHTML = getFiatDisplay(scenario_PL, "soft_inline");
-
-                                                mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
-                                                //row_index = 1; // causes winning outcome to float to the top
-                                                }
-                                            }
-
-                                        var 
-
-                                        row_data = [],
-                                        implied_odds_cell = "<div class='field_label extra_wide'>Odds:</div>" + (full_precision ? implied_odds_full_precision : implied_odds),
-                                        scenario_PL_cell = "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>" + getFiatDisplay(scenario_PL, "allow_inline");
-
-                                        if (user_has_wager) // user has a wager
-                                            {
-                                            row_data = [
-                                                mark_outcome + description,
-                                                implied_odds_cell,
-                                                "<div class='field_label extra_wide'>My Wagers:</div>" + toBTC(amount) + " BTC" + getFiatDisplay(amount, "allow_inline"),
-                                                "<div class='field_label extra_wide'>Payout:</div>" + toBTC(implied_payout) + " BTC" + getFiatDisplay(implied_payout, "allow_inline"),
-                                                scenario_PL_cell
-                                            ];
-                                            }
-                                        else row_data = [
-                                            mark_outcome + description,
-                                            implied_odds_cell,
-                                            "<div class='field_label extra_wide'>My Wagers:</div>---",
-                                            "<div class='field_label extra_wide'>Payout:</div>---",
-                                            scenario_PL_cell
-                                        ];
-
-
-                                        var row = new_row(table, row_index, row_data);
-
-                                        row[1].style.textAlign = "left";
+                                            
+                                        insert_option_report_row(table, option_id, description, user_wager, implied_odds, implied_payout, scenario_PL, outcome);
                                         }
                                 
                                     break;
@@ -397,9 +349,6 @@
                                     {
                                     id("entry_type").innerHTML = "ROSTERS";
                             
-                                    $('select:not(.ignore)').niceSelect();
-                                    FastClick.attach(id("centering_container"));
-                    
                                     destroy("pari_mutuel_entry_report_table");
                                     
                                     var 
@@ -530,6 +479,8 @@
                                     break;
                                     }
                                 }
+                            $('select:not(.ignore)').niceSelect();
+                            FastClick.attach(id("centering_container"));
                             }
                         }
                     });
