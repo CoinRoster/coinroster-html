@@ -3,6 +3,7 @@
 <head>
     <title>CoinRoster | My Contests</title>
     <!--#include virtual="/ssi/head.html" -->
+    <!--#include virtual="/ssi/dropdown.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <script type="text/javascript" src="/js/account.js"></script>
     <script type="text/javascript" src="/js/lobby.js"></script>
@@ -21,7 +22,7 @@
                 </span>
             </h3>
         </div>
-        <div class="body_container extra_body_container_padding">
+        <div class="body_container">
             <h3 class="section_header">
                 <a id="contest_title" class="section_header_link" href="/"></a>
             </h3>
@@ -81,7 +82,7 @@
         <div class="body_container header">
             <div id="no_data_message" class="low_grade_alert hidden"></div>
         </div>
-        <div class="table_body_container">
+        <div class="table_body_container" style="padding-bottom:0">
             <table id="roster_entry_report_table" class="contest_table entry_report_table collapse_players"></table>
             <table id="pari_mutuel_entry_report_table" class="contest_table entry_report_table"></table>
             <div id="pari_mutuel_explanation" class="hidden">
@@ -93,7 +94,9 @@
                 * Please note that odds are rounded for display. To see full precision 
                 <a style='text-decoration:underline;cursor:pointer;' onclick="show_full_precision();">click here</a>.
             </div>
-            <div id="edit_roster_container" class="hidden">
+        </div>
+        <div id="edit_roster_container" class="hidden">
+            <div class="table_body_container" style="padding-bottom:0">
                 <ul id="editing_roster_ul">
                     <li>
                         <div id="editing_roster" class="orange"></div>
@@ -131,6 +134,16 @@
                         <span id="remaining_players" class="green">0</span>
                     </li>
                 </ul>
+            </div>
+            <div class="body_container selector_container my_contests">
+                <select id="player_order_selector">
+                    <option value="price" data-display="Players sorted by: price">Price - high to low</option>
+                    <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
+                    <option value="name" data-display="Players sorted by: name">Name - A to Z</option>
+                </select>
+                <div style="clear:both"></div>
+            </div>
+            <div class="table_body_container">
                 <div style="display:block">
                     <div id="player_table_header" class="player_table_header">
                         Available players:
@@ -383,7 +396,10 @@
                                 case "ROSTER" : 
                                     {
                                     id("entry_type").innerHTML = "ROSTERS";
-        
+                            
+                                    $('select:not(.ignore)').niceSelect();
+                                    FastClick.attach(id("centering_container"));
+                    
                                     destroy("pari_mutuel_entry_report_table");
                                     
                                     var 
@@ -543,7 +559,14 @@
         contest = window.contest,
         option_table = contest.option_table,
         entry = window.entries[entry_id],
-        roster = entry.roster;
+        roster = entry.roster,
+        
+        min_users = contest.min_users,
+        current_users = contest.current_users;
+
+        var show_counts = false;
+        if (current_users >= min_users) show_counts = true;
+        else destroy("draft_count_option");
 
         window.active_entry = entry_id;
         
@@ -561,9 +584,11 @@
                     
             player_id = player_item.id,
             name = player_item.name,
-            price = player_item.price;
+            price = player_item.price,
+            count = player_item.count;
     
-            insert_player_row("player_table", player_id, name, price);
+            if (show_counts) insert_player_row("player_table", player_id, name, price, count);
+            else insert_player_row("player_table", player_id, name, price);
             }
                         
         for (var i=0; i<roster.length; i++) add_player(roster[i].id);
@@ -576,6 +601,20 @@
         window.scrollTo(0, id("editing_roster").offsetTop);
         }
         
+    (function()
+        {
+        var default_sort_scheme = "price";
+        selectByValue("player_order_selector", default_sort_scheme);
+        window.player_sort_scheme = default_sort_scheme;
+        })();
+    
+    id("player_order_selector").onchange = function()
+        {
+        var sort_scheme = selectorValue(this);
+        window.player_sort_scheme = sort_scheme;
+        sort_player_tables();
+        };
+     
     function cancel_edit_roster()
         {
         window.scroll(0,0);

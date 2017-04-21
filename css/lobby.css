@@ -508,6 +508,9 @@
         color: rgb(220,220,220);
     }
     
-    .body_container.selector_container {
+    .body_container.selector_container.lobby {
         margin: 5px 0 8px;
+    }
+    .body_container.selector_container.my_contests {
+        margin: 13px 0 8px;
     }
