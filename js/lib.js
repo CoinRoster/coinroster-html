@@ -404,6 +404,99 @@
         if (return_as_element) return fiat_display;
         else return fiat_display.outerHTML;
         }
+        
+    function getOddsDisplay(decimal_odds)
+        {
+        if (!window.session) return decimal_odds;
+        var odds_format = window.session.odds_format;
+        switch (odds_format)
+            {
+            case "DECIMAL" :
+                return decimal_odds;
+            case "AMERICAN" :
+                return decimal_to_american(decimal_odds);
+                break;
+            case "PERCENTAGE" :
+                return decimal_to_percentage(decimal_odds);
+                break;
+            case "FRACTIONAL" :
+                return decimal_to_fractional(decimal_odds);
+                break;
+            }
+        }
+        
+    function decimal_to_american(decimal_odds) 
+        {
+        if (decimal_odds === 0) return "100";
+        
+        var precision = 2;
+	decimal_odds = subtract(decimal_odds, 1);
+	if (decimal_odds < 1) return('-' + divide(100, decimal_odds).toFixed(precision));
+        else return('+' + multiply(decimal_odds, 100).toFixed(2));
+        }
+        
+    function decimal_to_percentage(decimal_odds)
+        {
+        if (decimal_odds === 0) return "0%";
+        
+        var raw_percentage = divide(1, decimal_odds);
+        return multiply(raw_percentage, 100).toFixed(1) + "%";
+        }
+        
+    function decimal_to_fractional(decimal_odds) 
+        {
+        if (decimal_odds === 0) return "-1/1";
+        
+        var precision = 1;
+        
+	decimal_odds = parseFloat(decimal_odds).toFixed(precision);
+        
+	var 
+        
+        numerator = (decimal_odds-1) * 10000,
+	denominator = 10000;
+
+	numerator = Math.round(numerator);
+	denominator = Math.round(denominator);
+
+	var a = reduce(numerator, denominator);
+        
+	numerator = a[0];
+	denominator = a[1];
+
+	return(numerator + '/' + denominator);
+        }
+        
+    function reduce(a, b) 
+        {
+	var 
+        
+        n  = new Array(2),
+	f = greatest_common_denominator(a,b);
+
+	n[0] = a/f;
+	n[1] = b/f;
+        
+	return n;
+        }
+        
+    function greatest_common_denominator(num1, num2) 
+        {
+	var a; var b;
+	if (num1 < num2) {a = num2; b = num1;}
+	else if (num1 > num2) {a = num1; b = num2;}
+	else if (num1 === num2) {return num1;}
+        while (true)
+            {
+            if (b === 0) return a;
+            else 
+                {
+                var temp = b;
+                b = a % b;
+                a = temp;
+                }
+            }
+        }
        
     function commas(x) 
         {

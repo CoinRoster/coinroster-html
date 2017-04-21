@@ -541,7 +541,7 @@
 
         var row = new_row(table, row_index, [
             first_cell_content,
-            "<ul class='wagers_and_odds'><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + implied_odds + "</li></ul>"
+            "<ul class='wagers_and_odds'><li class='li_left'>" + "<div class='field_label auto_width'>Wagers:</div>" + toBTC(wager_total) + " BTC" + getFiatDisplay(wager_total, "allow_inline") + "</li><li class='li_right'>" + "<div class='field_label auto_width'>Odds:</div>" + getOddsDisplay(implied_odds) + "</li></ul>"
         ]);
 
         row[0].option_id = option_id;
@@ -753,7 +753,7 @@
         var 
 
         row_data = [],
-        implied_odds_cell = "<div class='field_label extra_wide'>Odds:</div>" + implied_odds,
+        implied_odds_cell = "<div class='field_label extra_wide'>Odds:</div>" + getOddsDisplay(implied_odds),
         scenario_PL_cell = "<div class='field_label extra_wide'>Scenario P/L:</div><span class='" + PNL_class + "'>" + toBTC(scenario_PL, false, true) + " BTC</span>" + getFiatDisplay(scenario_PL, "allow_inline");
 
         if (user_wager > 0) // user has a wager

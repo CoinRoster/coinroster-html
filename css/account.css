@@ -230,17 +230,17 @@
         padding: 5px 20px 5px 0;
     }
     
-    #currency_table {
+    .simple_selection_table {
         
     }
-    #currency_table tr {
+    .simple_selection_table tr {
         border: 1px solid grey;
     }
-    #currency_table tr:hover {
+    .simple_selection_table tr:hover {
         cursor: pointer;
         background: rgb(80,82,84); 
     }
-    #currency_table td {
+    .simple_selection_table td {
         padding: 5px 20px;
     }
     #currency_table td:first-child {
