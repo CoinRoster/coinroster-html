@@ -206,7 +206,7 @@
         <div class="body_container selector_container">
             <select id="player_order_selector">
                 <option value="price" data-display="Players sorted by: price">Price - high to low</option>
-                <option value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
+                <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
                 <option value="name" data-display="Players sorted by: name A-Z">Alphabetical</option>
             </select>
             <div style="clear:both"></div>
@@ -249,10 +249,7 @@
 <script>
 
     function init()
-        {
-        $('select:not(.ignore)').niceSelect();
-        FastClick.attach(id("centering_container"));
-                            
+        {                            
         var contest_id = get_url_param("id") | 0;
         
         window.contest_id = contest_id;
@@ -302,6 +299,10 @@
                     
                     var show_counts = false;
                     if (current_users >= min_users) show_counts = true;
+                    else destroy("draft_count_option");
+                    
+                    $('select:not(.ignore)').niceSelect();
+                    FastClick.attach(id("centering_container"));
                     
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
@@ -551,6 +552,13 @@
 /*----------------------------------------------------------------------*/
 
     // initialize interface for roster contest
+    
+    (function()
+        {
+        var default_sort_scheme = "price";
+        selectByValue("player_order_selector", default_sort_scheme);
+        window.player_sort_scheme = default_sort_scheme;
+        })();
     
     id("player_order_selector").onchange = function()
         {

@@ -252,6 +252,58 @@
         insert_player_row("player_table", player_id, name, price, count);
         }
         
+    function sort_player_tables()
+        {
+        var 
+        
+        player_table = id("player_table"),
+        roster_table = id("roster_table"),
+        
+        player_table_rows = player_table.rows,
+        roster_table_rows = roster_table.rows,
+        
+        player_table_data = [],
+        roster_table_data = [];
+
+        for (var i=0, limit = player_table_rows.length; i<limit; i++) 
+            {
+            var row = player_table_rows[i];
+            player_table_data.push(
+                {
+                id: row.id,
+                name: row.name,
+                price: row.price,
+                count: row.count
+                });
+            }
+        for (var i=0, limit = roster_table_rows.length; i<limit; i++) 
+            {
+            var row = roster_table_rows[i];
+            roster_table_data.push(
+                {
+                id: row.id,
+                name: row.name,
+                price: row.price,
+                count: row.count
+                });
+            }
+        
+        player_table.innerHTML = "";
+        roster_table.innerHTML = "";
+        
+        for (var i=0, limit = player_table_data.length; i<limit; i++) 
+            {
+            var player = player_table_data[i];
+            insert_player_row("player_table", player.id, player.name, player.price, player.count);
+            }
+            
+        for (var i=0, limit = roster_table_data.length; i<limit; i++) 
+            {
+            var player = roster_table_data[i];
+            insert_player_row("roster_table", player.id, player.name, player.price, player.count);
+            }
+        }
+        
     function insert_player_row(table_id, player_id, name, price, count)
         {
         var 
@@ -265,15 +317,39 @@
             for (var i=0; i<number_of_rows; i++)
                 {
                 var row = table.rows[i];
-                if (price === row.price && name < row.name)
+                if (window.player_sort_scheme === "price")
                     {
-                    row_index = row.rowIndex;
-                    break;
+                    if (price === row.price && name < row.name)
+                        {
+                        row_index = row.rowIndex;
+                        break;
+                        }
+                    if (price > row.price)
+                        {
+                        row_index = row.rowIndex;
+                        break;
+                        }
                     }
-                if (price > row.price)
+                else if (window.player_sort_scheme === "name")
                     {
-                    row_index = row.rowIndex;
-                    break;
+                    if (name < row.name)
+                        {
+                        row_index = row.rowIndex;
+                        break;
+                        }
+                    }
+                else if (window.player_sort_scheme === "count")
+                    {
+                    if (count === row.count && name < row.name)
+                        {
+                        row_index = row.rowIndex;
+                        break;
+                        }
+                    if (count > row.count)
+                        {
+                        row_index = row.rowIndex;
+                        break;
+                        }
                     }
                 }
             }
