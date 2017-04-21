@@ -192,6 +192,7 @@
                 
         name = row.name,
         price = row.price,
+        count = row.count,
         
         salary_cap = fromCurrency(id("salary_cap").innerHTML),
         remaining_players = id("remaining_players").innerHTML,
@@ -216,7 +217,7 @@
             if (show_max_players) id("remaining_players").innerHTML = ++drafted + "/" + max_players;
             else id("remaining_players").innerHTML = ++drafted;
             id("player_table").deleteRow(row.rowIndex);
-            insert_player_row("roster_table", player_id, name, price);
+            insert_player_row("roster_table", player_id, name, price, count);
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
@@ -227,6 +228,7 @@
                 
         name = row.name,
         price = row.price,
+        count = row.count,
         
         salary_cap = fromCurrency(id("salary_cap").innerHTML),
         remaining_players = id("remaining_players").innerHTML;
@@ -247,10 +249,10 @@
         id("salary_cap").innerHTML = "$" + commas(add(salary_cap, price));
         id("roster_table").deleteRow(row.rowIndex);
         
-        insert_player_row("player_table", player_id, name, price);
+        insert_player_row("player_table", player_id, name, price, count);
         }
         
-    function insert_player_row(table_id, player_id, name, price)
+    function insert_player_row(table_id, player_id, name, price, count)
         {
         var 
         
@@ -276,15 +278,24 @@
                 }
             }
             
-        var row = new_row(table, row_index, [
+        var row_data = [
             "<span class=\"\">" + name + "</span>",
             "<span class=\"green\">$" + commas(price) + "</span>"
-        ]);
+        ];
+        
+        if (typeof count !== "undefined") 
+            {
+            if (count === 0) count = "";
+            row_data.push("<span class=\"draft_count_color\">" + count + "</span>");
+            }
+        
+        var row = new_row(table, row_index, row_data);
         
         row[0].id = "player_" + player_id;
         row[0].player_id = player_id,
         row[0].name = name;
         row[0].price = price;
+        row[0].count = count;
 
         row[0].onmouseenter = function()
             {
@@ -315,7 +326,13 @@
                 })(player_id);
             }
             
+        row[2].width = "1";
         row[2].style.textAlign = "right";
+        if (row[3])
+            {
+            row[3].width = "1";
+            row[3].style.textAlign = "right";
+            }   
         }
         
     function get_valid_roster()
