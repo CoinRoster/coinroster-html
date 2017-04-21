@@ -629,68 +629,112 @@
         id("excel_data_textarea").value = "";
         }
         
-    function process_excel_data(process_scheme)
+    function paste_pari_mutuel_options()
         {
-        var 
-        
-        lines = id("excel_data_textarea").value.split("\n"),
-        number_of_players = lines.length;
-
-        player_option_table = new_table("player_option_table");
-        
-        for (var i=0; i<number_of_players; i++)
-            {
-            var 
-            
-            line = lines[i].trim(),
-            player_name = null,
-            player_value = null;
-    
-            if (line === "") continue;
-            
-            if (line.indexOf("\t") !== -1)
-                {
-                var fields = line.split("\t");
-                player_name = fields[0].trim();
-                player_value = fields[1].trim();
-                }
-            else return alert("Only one column found in data - this method requires two");
-            
-            if (process_scheme === "PRICES") player_value = fromCurrency(player_value) | 0;
-            
-            var row_data = [
-                "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
-                "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_value + "\">",
-                "<button type=\"button\" class=\"input_style\" onclick=\"remove_player(this);\">Remove player</button>"
-            ];
-            
-            if (process_scheme === "ODDS") row_data.splice(2, 0, "");
-            
-            new_row(player_option_table, -1, row_data);
-            }
-            
-        var header_data = [
-            "Player",
-            "Price",
-            ""
-        ];
-        
-        if (process_scheme === "ODDS") 
-            {
-            header_data.splice(1, 0, "Odds");
-            show("multiplier_row", "table-row");
-            }
-        
-        var header = new_row(player_option_table, 0, header_data);
-            
-        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-        
-        cancel_excel_data();
+        show("paste_pari_mutuel_row", "table-row");
+        id("pari_mutuel_table").innerHTML = "";
+        id("pari_mutuel_excel_textarea").value = "";
         }
         
-    function cancel_excel_data()
+    function process_excel_data(process_scheme, cancel_id)
         {
-        hide("paste_excel_row");
+        if (process_scheme === "PARI-MUTUEL")
+            {
+            var 
+
+            lines = id("pari_mutuel_excel_textarea").value.split("\n"),
+            number_of_options = lines.length,    
+            row_count = 0,
+            rank = 1;
+    
+            pari_mutuel_table = new_table("pari_mutuel_table");
+    
+            for (var i=0; i<number_of_options; i++)
+                {
+                var line = lines[i].trim();
+                
+                if (line === "") continue;
+                
+                var row = new_row(pari_mutuel_table, row_count++, [
+                    rank,
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\">"
+                ]);
+                
+                row[2].firstChild.value = line;                
+                
+                rank++;                
+                }
+            
+            var header = new_row(pari_mutuel_table, 0, [
+                "Id",
+                "Description"
+            ]);
+
+            for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+            }
+        else
+            {
+            var 
+
+            lines = id("excel_data_textarea").value.split("\n"),
+            number_of_players = lines.length;
+
+            player_option_table = new_table("player_option_table");
+
+            for (var i=0; i<number_of_players; i++)
+                {
+                var 
+
+                line = lines[i].trim(),
+                player_name = null,
+                player_value = null;
+
+                if (line === "") continue;
+
+                if (line.indexOf("\t") !== -1)
+                    {
+                    var fields = line.split("\t");
+                    player_name = fields[0].trim();
+                    player_value = fields[1].trim();
+                    }
+                else return alert("Only one column found in data - this method requires two");
+
+                if (process_scheme === "PRICES") player_value = fromCurrency(player_value) | 0;
+
+                var row_data = [
+                    "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_name + "\">",
+                    "<input type=\"text\" class=\"input_style text_input\" value=\"" + player_value + "\">",
+                    "<button type=\"button\" class=\"input_style\" onclick=\"remove_player(this);\">Remove player</button>"
+                ];
+
+                if (process_scheme === "ODDS") row_data.splice(2, 0, "");
+
+                new_row(player_option_table, -1, row_data);
+                }
+
+            var header_data = [
+                "Player",
+                "Price",
+                ""
+            ];
+
+            if (process_scheme === "ODDS") 
+                {
+                header_data.splice(1, 0, "Odds");
+                show("multiplier_row", "table-row");
+                }
+
+            var header = new_row(player_option_table, 0, header_data);
+
+            for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+            }
+            
+        cancel_excel_data(cancel_id);
+        }
+        
+    function cancel_excel_data(_id)
+        {
+        hide(_id);
         }
         
     function create_manual_player_table()

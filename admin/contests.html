@@ -299,9 +299,9 @@
                     <td colspan="8">
                         <textarea id="excel_data_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
                         <br/><br/>
-                        <button type="button" class="input_style" onclick="process_excel_data('ODDS');">Process odds</button>
-                        <button type="button" class="input_style" onclick="process_excel_data('PRICES');">Process prices</button>
-                        <button type="button" class="input_style" onclick="cancel_excel_data();">Cancel</button>
+                        <button type="button" class="input_style" onclick="process_excel_data('ODDS', 'paste_excel_row');">Process odds</button>
+                        <button type="button" class="input_style" onclick="process_excel_data('PRICES', 'paste_excel_row');">Process prices</button>
+                        <button type="button" class="input_style" onclick="cancel_excel_data('paste_excel_row');">Cancel</button>
                     </td>
                 </tr>
             </table>
@@ -314,14 +314,31 @@
             </h3>
             <table class="form_table">
                 <tr>
-                    <td>
+                    <td width="1">
                         Number of options
                     </td>
-                    <td>
+                    <td width="1">
                         <input id="number_of_options" type="text" class="input_style text_input">
                     </td>
-                    <td>
+                    <td width="1">
                         <button type="button" class="input_style" onclick="create_pari_mutuel_table();">Apply</button>
+                    </td>
+                    <td width="1">
+                        or
+                    </td>
+                    <td width="1">
+                        <button type="button" class="input_style" onclick="paste_pari_mutuel_options();">Excel Paste</button>
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+                <tr id="paste_pari_mutuel_row" style="display:none">
+                    <td colspan="6">
+                        <textarea id="pari_mutuel_excel_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
+                        <br/><br/>
+                        <button type="button" class="input_style" onclick="process_excel_data('PARI-MUTUEL', 'paste_pari_mutuel_row');">Create outcome rows</button>
+                        <button type="button" class="input_style" onclick="cancel_excel_data('paste_pari_mutuel_row');">Cancel</button>
                     </td>
                 </tr>
             </table>

@@ -509,15 +509,12 @@
     }
     
     .selector_container.lobby.roster_field {
-        padding: 0;
         margin: 5px 0 8px;
     }
     .selector_container.my_contests.roster_field {
-        padding: 0;
         margin: 13px 0 8px;
     }
     .selector_container.lobby.pari_mutuel_field {
-        padding: 0;
         margin: 20px 0 15px;
     }
     .selector_container.my_contests.pari_mutuel_field {
