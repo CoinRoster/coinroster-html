@@ -564,9 +564,8 @@
         min_users = contest.min_users,
         current_users = contest.current_users;
 
-        var show_counts = false;
-        if (current_users >= min_users) show_counts = true;
-        else destroy("draft_count_option");
+        var show_counts = contest.show_counts;
+        if (!show_counts) destroy("draft_count_option");
 
         window.active_entry = entry_id;
         

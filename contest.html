@@ -281,6 +281,7 @@
                     current_users = call.current_users,
                     min_users = call.min_users,
                     max_users = call.max_users,
+                    show_counts = call.show_counts,
                     entries_per_user = call.entries_per_user,
                     registration_deadline_ms = call.registration_deadline,
                     registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
@@ -297,9 +298,7 @@
                     var max_users_string = "";
                     if (max_users > 0) max_users_string = "/" + max_users;
                     
-                    var show_counts = false;
-                    if (current_users >= min_users) show_counts = true;
-                    else destroy("draft_count_option");
+                    if (!show_counts) destroy("draft_count_option");
                     
                     $('select:not(.ignore)').niceSelect();
                     FastClick.attach(id("centering_container"));
