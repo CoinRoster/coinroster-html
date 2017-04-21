@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>CoinRoster | Lobby</title>
+    <title>CoinRoster</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <script type="text/javascript" src="/js/lobby.js"></script>
@@ -60,6 +60,8 @@
                     scores_updated_ms = call.scores_updated;
             
                     id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
+                    
+                    document.title = "CoinRoster | " + title + " | Leaderboard";
             
                     if (contest_type !== "ROSTER") return special_no_data_message("Contest #" + contest_id + " is not a roster contest");
                     if (contest_status === 1) return special_no_data_message("Contest #" + contest_id + " is still open for registration");

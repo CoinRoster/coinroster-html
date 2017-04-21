@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>CoinRoster | My Contests</title>
+    <title>CoinRoster</title>
     <!--#include virtual="/ssi/head.html" -->
     <!--#include virtual="/ssi/dropdown.html" -->
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
@@ -211,6 +211,8 @@
                 
                 id("contest_title").innerHTML = contest.title;
                 id("contest_title").href = "/contest.html?id=" + contest_id;
+                
+                document.title = "CoinRoster | " + contest.title + " | My Entries";
                 
                 api({
                     method: "EntryReport",

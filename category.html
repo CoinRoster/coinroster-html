@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>CoinRoster | Daily Fantasy Sports | Bitcoin</title>
+    <title>CoinRoster</title>
     <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
     <meta name="keywords" content="coinroster, bitcoin, daily fantasy sports, dfs, fantasy sports" />
     <meta name="Robots" content="index,follow,NOODP" />  
@@ -97,6 +97,8 @@
             
             category_description = call.category_description,
             sub_category_description = call.sub_category_description;
+    
+            document.title = "CoinRoster | " + sub_category_description;
     
             if (typeof category_description === "undefined" || typeof sub_category_description === "undefined") return invalid_category_message();
 
