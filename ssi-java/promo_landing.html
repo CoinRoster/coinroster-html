@@ -8,40 +8,61 @@
     <meta name="Robots" content="index,follow,NOODP" />  
     <meta name="googlebot" content="NOODP" />        
     <meta name="rating" content="General" />
-<!--#include virtual="/ssi/head.html" -->
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/promo_landing.css">
 </head>
 <body>
-<!--#include virtual="/ssi-java/signup_promo" -->
-<!--#include virtual="/ssi/carousel.html" -->
 <!--#include virtual="/ssi/simple_modal.html" -->
-<table class="landing_center">
+<table class="landing_center promo_landing">
     <tr>
         <td>
-            <div>
-                <h1 class="logo_font">
-                    <a href="/" id="logo_link">
-                        CoinRoster
-                    </a>
-                </h1>
-                <form autocomplete="off" onsubmit="return create_account();">
-                    <input type="password" style="position:absolute;top:-1000px;"/>
-                    <div class="input_padding">
-                        <span id="username_label" class="input_label">Username</span>
-                        <input placeholder="Username" label="false" id="username" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
-                    </div>
-                    <div id="email_input_container" class="input_padding">
-                        <span id="email_label" class="input_label">Email address</span>
-                        <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="2" autocorrect="off" autocapitalize="off" spellcheck="false">
-                    </div>
-                    <div class="input_padding">
-                        <span id="password_label" class="input_label">Password</span>
-                        <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="3">
-                    </div>
-                    <div class="input_padding">
-                        <button class="text_button green" type="submit" tabindex="5">Create account</button>
-                    </div>
-                </form>
-            </div>
+            <!--#include virtual="/ssi/carousel.html" -->
+            <table id="promo_landing_container">
+                <tr>
+                    <td>
+                        <h1 class="logo_font">
+                            <a href="/" id="logo_link">
+                                CoinRoster
+                            </a>
+                        </h1>
+                        <div id="tagline" class="promo_text add_padding">
+                            DAILY FANTASY SPORTS FOR BITCOIN
+                        </div>
+                        <div class="add_padding">
+                            <div id="sign_up_today">
+                                Sign up today and receive:
+                            </div>
+                            <div id="promo_description" class="promo_text orange"></div>
+                            <div id="promo_fiat" class="promo_text steel" style="font-size:14px"></div>
+                            <div id="expires_container" class="hidden">
+                                Expires in <span id="expires_countdown" class="orange"></span>
+                            </div>
+                            <div id="cancelled_container" class="hidden"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <form autocomplete="off" onsubmit="return create_account();">
+                            <input type="password" style="position:absolute;top:-1000px;"/>
+                            <input id="promo_code" type="hidden"/>
+                            <div class="input_padding">
+                                <span id="username_label" class="input_label">Username</span>
+                                <input placeholder="Username" label="false" id="username" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            </div>
+                            <div id="email_input_container" class="input_padding">
+                                <span id="email_label" class="input_label">Email address</span>
+                                <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="2" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            </div>
+                            <div class="input_padding">
+                                <span id="password_label" class="input_label">Password</span>
+                                <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="3">
+                            </div>
+                            <div class="input_padding">
+                                <button class="text_button green" type="submit" tabindex="5">Sign up</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>
@@ -50,6 +71,8 @@
     
     (function()
         {
+        window.referral_key = "";
+        
         var inputs = document.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";
 
@@ -57,19 +80,54 @@
             {
             this.value = this.value.replace(/\s/g, "");
             };
+        id("email_address").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
         id("password").onkeyup = function()
             {
             this.value = this.value.replace(/\s/g, "");
             };
-
+            
         id("username").onchange = function()
             {
             check_username();
+            };
+        id("email_address").onchange = function()
+            {
+            check_email();
             };
         id("password").onchange = function()
             {
             check_password("Password");
             };
+            
+        if (window.promo)
+            {
+            var promo = window.promo,
+                    
+            code = promo.promo_code,
+            description = promo.description,
+            free_play_amount = promo.free_play_amount,
+            expires = promo.expires,
+            cancelled = promo.cancelled;
+    
+            id("promo_code").value = code;    
+            id("promo_description").innerHTML = description;
+            id("promo_fiat").innerHTML = "Approximately $" + toFiat(free_play_amount);
+            
+            if (cancelled > 0)
+                {
+                show("cancelled_container");
+                id("cancelled_container").innerHTML = "This promo has expired";
+                id("cancelled_container").className = "red_orange";
+                }
+            else if (expires > 0)
+                {
+                show("expires_container");
+                bind_registration_countdown(id("expires_countdown"), expires);
+                }
+            }
         })();
 
 </script>

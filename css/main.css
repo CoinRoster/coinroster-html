@@ -12,6 +12,10 @@
         font-family: 'logo_font';
         src: url('../fonts/Hemi-Head/hemi-head.ttf') format('truetype');
     }
+    @font-face {
+        font-family: 'logo_font_2';
+        src: url("../fonts/Hemi-Head/hemi-head-webfont.woff") format("woff"), url("../fonts/Hemi-Head/hemi-head.ttf") format("truetype");
+    }
     
     @font-face {
         font-family: 'ubuntu_fantasy';
@@ -94,7 +98,7 @@
     }
     
     .logo_font {
-        font-family: 'logo_font', sans-serif;
+        font-family: 'logo_font_2', sans-serif;
     }
     
     .ubuntu_font {

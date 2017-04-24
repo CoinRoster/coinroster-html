@@ -158,6 +158,19 @@
         }
     }
     @media only screen and (max-width: 767px) {
+        
+        #promo_landing_container td {
+            display: block;
+        }
+        #promo_landing_container td:first-child {
+            padding: 20px 20px 0 20px !important;
+            text-align: center !important;
+        }
+        #promo_landing_container td:last-child {
+            text-align: center !important;
+            width: 200px;
+            margin: 0 auto;
+        }
 
         .lobby_logo {
             font-size: 28px;
@@ -439,6 +452,16 @@
         }
     }
     @media only screen and (max-width: 500px) {
+
+        #promo_landing_container {
+            width: 100% !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+        #promo_landing_container td:first-child {
+            padding: 20px 0 0 0 !important;
+            text-align: center !important;
+        }
 
         .lobby_value_prop {
             margin-top: 50px;
