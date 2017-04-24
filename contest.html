@@ -375,6 +375,10 @@
                         
                         var default_sort_scheme = "price";
                         selectByValue("player_order_selector", default_sort_scheme);
+                        
+                        $('select:not(.ignore)').niceSelect();
+                        FastClick.attach(id("centering_container"));
+
                         window.player_sort_scheme = default_sort_scheme;
 
                         id("player_order_selector").onchange = function()
@@ -403,6 +407,9 @@
                         var default_sort_scheme = "odds";
                         selectByValue("option_order_selector", default_sort_scheme);
                         
+                        $('select:not(.ignore)').niceSelect();
+                        FastClick.attach(id("centering_container"));
+                        
                         window.contest_status = contest_status;
                         window.option_sort_scheme = default_sort_scheme;
                         
@@ -422,9 +429,6 @@
 
                         initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry);
                         }
-                        
-                    $('select:not(.ignore)').niceSelect();
-                    FastClick.attach(id("centering_container"));
                         
                     if (contest_open) 
                         {
