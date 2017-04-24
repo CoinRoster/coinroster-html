@@ -113,7 +113,7 @@
             cancelled = promo.cancelled;
     
             id("promo_code").value = code;    
-            id("promo_description").innerHTML = description;
+            id("promo_description").innerHTML = free_play_amount + " Bitcoin Free Play";
             id("promo_fiat").innerHTML = "Approximately $" + toFiat(free_play_amount);
             
             if (cancelled > 0)

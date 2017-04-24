@@ -462,6 +462,9 @@
             padding: 20px 0 0 0 !important;
             text-align: center !important;
         }
+        #promo_landing_container #promo_description {
+            font-size: 30px;
+        }
 
         .lobby_value_prop {
             margin-top: 50px;
