@@ -864,7 +864,7 @@
         
         // check for description
         
-        var description = tinyMCE.get("contest_description_textarea").getContent();;
+        var description = tinyMCE.get("contest_description_textarea").getContent();
         
         if (description === "") return alert("Please enter a description");
         

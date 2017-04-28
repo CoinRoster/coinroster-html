@@ -13,6 +13,19 @@
                 break;
             case 4: /* Cash Register */
                 get_cash_register();
+                break;
+            case 6:
+                tinymce.init({
+                    selector: 'textarea.do_tinymce',
+                    height: 200,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste code'
+                    ],
+                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                });
+                break;
             }
         }
 
@@ -385,21 +398,22 @@
         start_date_ms = ((start_date_ms / ms_per_day) | 0) * ms_per_day;
         end_date_ms = ((end_date_ms / ms_per_day) | 0) * ms_per_day + ms_per_day;
 
-        var call = api({
+        api({
             method: "TransactionReport",
             args: {
                 start_date_ms: start_date_ms,
                 end_date_ms: end_date_ms,
                 request_source: "admin_panel"
             }
-        });
-        
-        if (call.status === "1") 
+        }, function(call)
             {
-            transaction_report_array = call.transaction_report;
-            number_of_transactions = transaction_report_array.length;
-            populate_transaction_report_table();
-            }
+            if (call.status === "1") 
+                {
+                transaction_report_array = call.transaction_report;
+                number_of_transactions = transaction_report_array.length;
+                populate_transaction_report_table();
+                }
+            });
         }
         
     function populate_transaction_report_table()
@@ -1299,4 +1313,36 @@
         id("confirm_password_key").value = "";
         id("password_textarea").value = "";
         }
+
+/*----------------------------------------------------------------------*/
+
+    // Notify user
+    
+    function notify_user()
+        {
+        var 
         
+        user_id = selectorValue("notify_user_selector"),
+        subject = id("notify_user_subject").value.trim(),
+        message = tinyMCE.get("notify_user_textarea").getContent();
+
+        if (user_id === "") return alert("Please select a user");
+
+        api({ 
+            method: "NotifyUser", 
+            args: {
+                user_id: user_id,
+                subject: subject,
+                message: message
+            } 
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("User has been notified! Reloading panel.");
+                location.reload();
+                }
+            else alert(call.error);
+            });
+        }   
+     
