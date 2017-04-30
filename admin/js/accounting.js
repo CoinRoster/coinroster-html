@@ -626,7 +626,7 @@
             user_level = user_item[3];
 
             // we allow filtering on internal accounts in transaction report:
-            if (user_level === 2 && selector.className.indexOf("include_internal_accounts") === -1) continue;
+            //if (user_level === 2 && selector.className.indexOf("include_internal_accounts") === -1) continue;
   
             var option = document.createElement("option");
             option.value = user_id;
