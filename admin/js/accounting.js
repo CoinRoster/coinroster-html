@@ -341,7 +341,6 @@
     
     var 
     
-    contest_filter_is_populated = false,
     number_of_transactions,
     transaction_report_array = [],
     
@@ -439,6 +438,7 @@
             if (trans_type_filter !== "") type_filtering_on = true;
             if (user_filter !== "") user_filtering_on = true;
             if (contest_filter !== "") contest_filtering_on = true;
+            else contest_filter_selector.innerHTML = "<option></option>";
 
             // create rows:
 
@@ -492,7 +492,7 @@
                 if (user_filtering_on && !(from_account === user_filter || to_account === user_filter)) show_row = false;
                 
                 if (contest_filtering_on && !(contest_id === +contest_filter)) show_row = false;
-                else if (!contest_filter_is_populated && !unique_contests.contains(contest_id)) unique_contests.push(contest_id);
+                else if (!unique_contests.contains(contest_id)) unique_contests.push(contest_id);
                 
                 if (show_row)
                     {
@@ -535,27 +535,23 @@
                     }
                 }
                 
-            if (!contest_filter_is_populated)
+            unique_contests.sort(function(a, b)
                 {
-                unique_contests.sort(function(a, b)
-                    {
-                    return b - a;
-                    });
-                    
-                for (var i=0, limit = unique_contests.length; i<limit; i++)
-                    {
-                    var 
+                return b - a;
+                });
+                
+            for (var i=0, limit = unique_contests.length; i<limit; i++)
+                {
+                var 
 
-                    contest_id = unique_contests[i],
-                    option = document.createElement("option");
-                    option.value = contest_id;
-                    option.innerHTML = contest_id;
-                    contest_filter_selector.appendChild(option);
-                    } 
+                contest_id = unique_contests[i],
+                option = document.createElement("option");
+                option.value = contest_id;
+                option.innerHTML = contest_id;
+                contest_filter_selector.appendChild(option);
+                } 
 
-                $(contest_filter_selector).trigger("chosen:updated");
-                contest_filter_is_populated = true;
-                }
+            $(contest_filter_selector).trigger("chosen:updated");
             }
 
         if (there_are_rows)
