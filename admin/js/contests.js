@@ -1398,7 +1398,10 @@
                         {
                         if (isNaN(score_raw))
                             {
-                            if (!permitted_non_integers.contains(score_raw))
+                            var try_sport = window.contest[window.contest_id_to_settle].sub_category;
+                            
+                            if (try_sport === "GOLF" && score_raw === "E") score_normalized = 0;
+                            else if (!permitted_non_integers.contains(score_raw))
                                 {
                                 var allow = confirm(player_name + " has been assigned a score of [" + score_raw + "]\n\nWould you like to allow the use of [" + score_raw + "]?");
                                 if (!allow) return false;
@@ -1496,6 +1499,8 @@
         
         var time_scheme = "";
         
+        var try_sport = window.contest[window.contest_id_to_settle].sub_category;
+                            
         if (normalization_scheme.indexOf("TIME-") === 0)
             {
             time_scheme = normalization_scheme.slice(5);
@@ -1564,8 +1569,9 @@
                         cell_3.style.textAlign = "right";
                         }
                     else cell_3 = cells[3];
-       
-                    if (isNaN(score_raw)) score_normalized = 0;
+                    
+                    if (try_sport === "GOLF" && score_raw === "E") score_normalized = add(subtract(worst_score, 0), 1);
+                    else if (isNaN(score_raw)) score_normalized = 0;
                     else score_normalized = add(subtract(worst_score, score_raw), 1);
                     
                     cells[2].firstChild.value = score_raw;
