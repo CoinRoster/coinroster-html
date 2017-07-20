@@ -32,6 +32,9 @@
                     <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to send a verification email to <span id="email_on_file"></span>
                 </div>
             </div>
+            <div id="must_deposit_container" class="account_creation_message hidden">
+                You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to enter contests with progressive jackpots.
+            </div>
             <div id="no_entry" class="account_creation_message hidden">
                 <!-- POPULATED BY JAVASCRIPT -->
             </div>
@@ -84,22 +87,14 @@
                                 <span id="entries_per_user" class="orange"></span>
                             </td>
                         </tr>
+                    </table>
+                    <table class="contest_detail_table">
                         <tr>
                             <td>
                                 Rake:
                             </td>
                             <td>
                                 <span id="rake" class="orange"></span>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="contest_detail_table">
-                        <tr>
-                            <td>
-                                Users:
-                            </td>
-                            <td>
-                                <span id="users" class="orange"></span>
                             </td>
                         </tr>
                         <tr>
@@ -141,14 +136,6 @@
                             </td>
                             <td>
                                 <span id="status" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr id="filler_row">
-                            <td>
-                                &nbsp;
-                            </td>
-                            <td>
-                                &nbsp;
                             </td>
                         </tr>
                         <tr id="pari_mutuel_table_label" class="hidden">
@@ -341,7 +328,7 @@
                                                         
                     id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='path_slash red_orange'>/</span><a href='/category.html?main=" + category + "&sub=" + sub_category + "' class='inline_link steel'>" + sub_category_description + "</a>";
                     
-                    id("users").innerHTML = current_users + max_users_string;
+                    //id("users").innerHTML = current_users + max_users_string;
                     id("entries_per_user").innerHTML = entries_per_user_string;
 
                     window.cost_per_entry = cost_per_entry;
@@ -490,6 +477,14 @@
                                 else // PARI-MUTUEL
                                     {
                                     show("submit_button_container");
+                                    }
+                                    
+                                // override any and all of the above if there is a progressive balance and user has not deposited
+                                    
+                                if (window.session.first_deposit === 0 && progressive_balance !== 0) 
+                                    {
+                                    show("must_deposit_container");
+                                    hide("submit_button_container");
                                     }
                                 }
                             }
