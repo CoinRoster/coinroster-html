@@ -39,11 +39,17 @@
                     Amount to withdraw:
                     <br/>
                     <br/>
+                    <h2 id="review_amount_to_withdraw" class="lucida orange"></h2>
                     <br/>
-                    <h2 id="review_amount_to_withdraw" class="lucida"></h2>
+                    <br/>
+                    To:&nbsp;&nbsp;&nbsp;<span class="inline_link teal" onclick="show_ext_address();">connected wallet</span>
                     <br/>
                     <br/>
-                    To:&nbsp;&nbsp;&nbsp;<span class="inline_link" onclick="show_ext_address();">connected wallet</span>
+                    <br/>
+                    Miner fee:
+                    <br/>
+                    <br/>
+                    <span id="miner_fee" class="orange"></span>&nbsp;&nbsp;(<span id="miner_fee_fiat" class="steel"></span>)
                     <br/>
                     <br/>
                 </div>
@@ -65,17 +71,17 @@
                     </span>
                     <br/>
                     <br/>
-                    Transaction ID: <span id="transaction_id"></span>
-                    <br/>
-                    <br/>
                     <span style="font-size:14px;">
-                        One of our administrators will
+                        Your funds will be 
                         <br/>
-                        process the withdrawal shortly.
+                        sent immediately.
                         <br/>
                         <br/>
-                        <a class="link" href="/account">Back to account</a>
+                        <a class="link teal" href="/account">Back to account</a>
                     </span>
+                    <br/>
+                    <br/>
+                    Transaction ID: <span id="transaction_id"></span>
                 </div>
             </div>
         </td>
@@ -106,6 +112,8 @@
         })();
     
     id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
+    id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
+    id("miner_fee_fiat").innerHTML = toFiat(window.session.miner_fee);
 
     var focus_to_input = function()
         {

@@ -41,33 +41,45 @@
                         <br/>
                         <br/>
                         The Deposit Match bonus is <span class="orange">optional</span> - you do not have to claim it.
-                        <br/>
-                        <br/>
-                        To claim the bonus, <span class="orange">make a deposit with one of the following options</span>. When your first deposit has been processed,
-                        you will be able to claim the bonus on your Account page.
                     </div>
                     <br/>
-                    <br/>
                 </div>
+                <div class="input_padding description_text">
+                    To make a deposit, transfer BTC to the following dedicated wallet:
+                    <br/>
+                    <br/>
+                    <span id="user_ext_address" class="orange small_text"></span>
+                </div>
+                <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
+                    <ul class="button_contents">
+                        <li>
+                            <img src="/img/B_logo.png" height="30" style="margin-right:20px"/>
+                        </li>
+                        <li>
+                            Check my deposit
+                        </li>
+                    </ul>
+                </button>
+                <div id="confirmation_container" class="hidden">
+                    <span>
+                        We have received your deposit of:
+                    </span>
+                    <br/>
+                    <br/>
+                    <div class="description_text">
+                        <h2 id="amount_deposited" class="lucida orange"></h2>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
                 <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
                     <ul class="button_contents">
                         <li>
                             <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
                         </li>
                         <li>
-                            Canadians, click here to use Interac Online
-                        </li>
-                    </ul>
-                </button>
-                <br/>
-                <br/>
-                <button class="text_button" onclick="try_ext_address_deposit()" style="width:260px !important">
-                    <ul class="button_contents">
-                        <li>
-                            <img src="/img/B_logo.png" height="45" style="margin-right:20px"/>
-                        </li>
-                        <li>
-                            If you have a Bitcoin wallet, click here
+                            Canadians can click here to buy Bitcoins with Interac Online
                         </li>
                     </ul>
                 </button>
@@ -76,70 +88,6 @@
             </div>
             <!-- DEPOSIT FORM ************************************************************************** -->
             <div id="ext_address_deposit_container" class="hidden">
-                <div class="input_padding description_text">
-                    Transfer from your connected wallet:
-                    <br/>
-                    <br/>
-                    <span id="user_ext_address" class="orange small_text"></span>
-                    <br/>
-                    <br/>
-                    To our public wallet:
-                    <br/>
-                    <br/>
-                    <span id="cash_register_address" class="orange small_text"></span>
-                </div>
-                <br/>
-                <span class="orange_actual">
-                    Please inform us how much you will deposit:
-                </span>
-                <br/>
-                <br/>
-                <div class="input_padding description_text">
-                    <form onsubmit="return submit_pending_deposit();">
-                        <input placeholder="Amount to deposit" label="false" id="amount_to_deposit" type="text" btc-input="true" class="light_on_dark_input teal" style="width:160px" autocorrect="off" autocapitalize="off" spellcheck="false">
-                        <div class="add_left_margin" style="display:inline-block">
-                            BTC
-                        </div>
-                        <br/>
-                        <br/>
-                        <button class="text_button" type="submit">Continue</button>
-                    </form>
-                </div>
-                <br/>
-            </div>
-            <!-- DEPOSIT CONFIRMATION WINDOW ************************************************************************** -->
-            <div id="confirmation_container" class="hidden">
-                <br/>
-                <span class="orange">
-                    Please initiate a deposit from your wallet
-                </span>
-                <br/>
-                <br/>
-                <div class="input_padding description_text">
-                    Amount:
-                    <br/>
-                    <br/>
-                    <br/>
-                    <h2 id="amount_to_deposit_confirm" class="lucida"></h2>
-                    <br/>
-                    <br/>
-                    From:
-                    <br/>
-                    <br/>
-                    <span id="user_ext_address_confirm" class="orange small_text"></span>
-                    <br/>
-                    <br/>
-                    <br/>
-                    To:
-                    <br/>
-                    <br/>
-                    <span id="cash_register_address_confirm" class="orange small_text"></span>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <a class="text_button a_button" href="/account" style="color:white">Back to account</a>
-                </div>
-                <br/>
             </div>
         </div>
         <br/>
@@ -158,7 +106,6 @@
         
     function init()
         {
-        if (location.hash === "#wallet") try_ext_address_deposit();
         if (window.session.first_deposit === 0)
             {
             var 
@@ -172,6 +119,7 @@
 
             show("deposit_bonus_prompt");
             }
+        show_cgs_address();
         }
 
     function go_to_quickbt()
@@ -195,73 +143,25 @@
             });
         }
         
-    function try_ext_address_deposit()
+    function show_cgs_address()
         {
-        //window.location.hash = "deposit";
-                     
-        hide("initial_container");
-        show("ext_address_deposit_container");
+        var cgs_address = window.session.cgs_address;
 
-        focus_to_input();
-
-        var
-
-        user_ext_address = get_ext_address(true),
-        cash_register_address = get_ext_address(false),
-        must_add_wallet = false;
-
-        if (user_ext_address === "") 
-            {
-            must_add_wallet = true;
-            user_ext_address = "N/A"; // display in background
-            }
-     
-        id("user_ext_address").innerHTML = user_ext_address;
-        id("user_ext_address_confirm").innerHTML = user_ext_address;
-        id("cash_register_address").innerHTML = cash_register_address;
-        id("cash_register_address_confirm").innerHTML = cash_register_address;
-
-        if (must_add_wallet)
-            {
-            show_simple_modal("You must connect a Bitcoin wallet to your account", "bad", function()
-                {
-                location = "/account/wallet.html#deposit";
-                });
-            }
-
+        id("user_ext_address").innerHTML = cgs_address;
+        id("user_ext_address_confirm").innerHTML = cgs_address;
         }
         
-    function submit_pending_deposit()
+    function check_deposit()
         {
-        var amount_to_deposit = id("amount_to_deposit").value;
-
-        if (amount_to_deposit === "") 
-            {
-            show_simple_modal("Please enter an amount to deposit", "good", focus_to_input);
-            return false;
-            }
-
-        if (parseFloat(amount_to_deposit) === 0.0) 
-            {
-            show_simple_modal("Cannot deposit 0.0000000", "bad", focus_to_input);
-            return false;
-            }
-
         api({ 
-            method: "UserDeposit", 
-            args: {
-                amount_to_deposit: amount_to_deposit,
-                user_ext_address: id("user_ext_address").innerHTML,
-                cash_register_address: id("cash_register_address").innerHTML
-            } 
+            method: "CheckDeposit", 
+            args: {} 
         }, function(call)
             {
-            if (call.status === "1")
+            if (call.status === "1") show_simple_modal("We have received your deposit of " + call.deposit_amount + " BTC!", "good", function()
                 {
-                id("amount_to_deposit_confirm").innerHTML = amount_to_deposit + " BTC";
-                hide("ext_address_deposit_container");
-                show("confirmation_container");
-                }
+                location = "/account";
+                });
             else show_simple_modal(call.error, "bad", null);
             });
 

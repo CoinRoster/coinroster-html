@@ -890,8 +890,8 @@
                         from_account,
                         amount,
                         from_currency,
-                        ext_address,
-                        "<button onclick=\"finalize_pending_withdrawal(" + transaction_id + "," + amount + ",'" + ext_address + "')\">Bitcoins have been sent</button>"
+                        ext_address
+                        /*"<button onclick=\"finalize_pending_withdrawal(" + transaction_id + "," + amount + ",'" + ext_address + "')\">Bitcoins have been sent</button>"*/
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -906,8 +906,7 @@
                     "User",
                     "Amount",
                     "Currency",
-                    "Send to",
-                    "Actions"
+                    "Withdrawal wallet"
                 ]);
                 // style headers:
 
