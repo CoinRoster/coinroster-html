@@ -48,6 +48,17 @@
                 </div>
             </form>
             <br/>
+            <div id="referral_link_container">
+                <hr noshade />
+                <br/>
+                You can also use the following link to generate referrals:
+                <br/>
+                <br/>
+                <input id="referral_link" type="text" class="light_on_dark_input orange" style="width:270px;text-align:left;padding-bottom:10px;font-size:13px" />
+                <br/>
+                <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_referral_link_to_clipboard()" class="inline_link teal">copy to clipboard</a>
+            </div>
+            <br/>
             <br/>
         </div>
     </div>
@@ -65,6 +76,14 @@
             {
             show("promo_code_container");
             if (location.hash !== "") id("referral_code").value = atob(location.hash.slice(1));
+            }
+            
+        var referral_link = session.referral_link;
+        
+        if (referral_link)
+            {
+            show("referral_link_container");
+            id("referral_link").value = referral_link;
             }
         }
         
@@ -119,6 +138,12 @@
         return false;
         }
 
+    function copy_referral_link_to_clipboard() 
+        {
+        id("referral_link").select();
+        document.execCommand("Copy");
+        } 
+        
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
