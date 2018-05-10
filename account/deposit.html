@@ -150,10 +150,7 @@
 
         id("user_ext_address").innerHTML = cgs_address;
         id("user_ext_address_confirm").innerHTML = cgs_address;
-        window.onload = function() 
-            {
-            id("qr_code").innerHTML('<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + cgs_address + '"></img>');
-            }
+        document.getElementById("qr_code").innerHTML('<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + cgs_address + '"></img>');
         }
         
     function check_deposit()
