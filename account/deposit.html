@@ -150,7 +150,7 @@
         var cgs_address = window.session.cgs_address;
 
         id("user_ext_address").innerHTML = cgs_address;
-        id("user_ext_address_confirm").innerHTML = cgs_address;
+        //id("user_ext_address_confirm").innerHTML = cgs_address;
         document["qr_code"].src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + cgs_address;
         }
         
