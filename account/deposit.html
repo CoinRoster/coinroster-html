@@ -49,7 +49,7 @@
                     <br/>
                     <br/>
                     <span id="user_ext_address" class="orange small_text"></span>
-                    <span id="qr_code"></span>
+                    <img id="qr_code"></img>
                 </div>
                 
                 <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
@@ -151,7 +151,7 @@
 
         id("user_ext_address").innerHTML = cgs_address;
         id("user_ext_address_confirm").innerHTML = cgs_address;
-        id("qr_code").innerHTML('<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + cgs_address + '"></img>');
+        document["qr_code"].src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + cgs_address;
         }
         
     function check_deposit()
