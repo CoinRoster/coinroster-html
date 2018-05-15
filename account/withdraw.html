@@ -118,6 +118,7 @@
     var focus_to_input = function()
         {
         id("amount_to_withdraw").focus();
+        id("custom_miner_fee").focus();
         };
         
     focus_to_input();
@@ -176,11 +177,13 @@
     function go_to_confirm()
         {
         var amount_to_withdraw = id("amount_to_withdraw").value;
+        var custom_miner_fee = id("custom_miner_fee").value;
         
         api({ 
             method: "UserWithdrawal", 
             args: {
-                amount_to_withdraw: amount_to_withdraw
+                amount_to_withdraw: amount_to_withdraw,
+                miner_fee: custom_miner_fee
             } 
         }, function(call)
             {
