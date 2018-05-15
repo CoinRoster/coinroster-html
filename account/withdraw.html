@@ -26,6 +26,7 @@
                     <form onsubmit="return go_to_review();">
                         <div class="input_padding">
                             <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC
+                            <input placeholder="Custom Miner Fee (Default: 10 sat)" label="false" id="custom_miner_fee" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC
                         </div>
                         <button class="text_button" type="submit">Continue</button>
                     </form>
@@ -112,8 +113,7 @@
         })();
     
     id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
-    id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
-    id("miner_fee_fiat").innerHTML = toFiat(window.session.miner_fee);
+    id("custom_miner_fee").value = window.session.miner_fee;
 
     var focus_to_input = function()
         {
@@ -125,6 +125,7 @@
     function go_to_review()
         {
         var amount_to_withdraw = id("amount_to_withdraw").value;
+        var custom_miner_fee = id(custom_miner_fee).value;
 
         if (amount_to_withdraw === "") 
             {
@@ -140,13 +141,23 @@
         
         var btc_balance = +get_btc_balance();
         
-        if (parseFloat(amount_to_withdraw) > btc_balance) 
+        if (parseFloat(amount_to_withdraw) + parseFloat(custom_miner_fee) > btc_balance) 
             {
             show_simple_modal("Insufficient funds", "bad", focus_to_input);
             return false;
             }
             
         id("review_amount_to_withdraw").innerHTML = amount_to_withdraw;
+        if (custom_miner_fee === "")
+           {
+           id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
+           id("miner_fee_fiat").innerHTML = toFiat(window.session.miner_fee);
+           }
+        else 
+           {
+           id("miner_fee").innerHTML = custom_miner_fee+ " BTC";
+           id("miner_fee_fiat").innerHTML = toFiat(parseFloat(custom_miner_fee));    
+           }
 
         hide("initial_container");
         show("review_container");
