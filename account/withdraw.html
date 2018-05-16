@@ -26,7 +26,8 @@
                     <form onsubmit="return go_to_review();">
                         <div class="input_padding">
                             <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC <br>
-                            <input placeholder="Custom Miner Fee (Default: 10 sat)" label="false" id="custom_miner_fee" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px;text-overflow: ellipsis" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC
+                            <input placeholder="Custom Miner Fee (Default: 10 sat)" label="false" id="custom_miner_fee" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px;text-overflow: ellipsis" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC <br>
+                            Withdrawal fee: 10 sat
                         </div>
                         <button class="text_button" type="submit">Continue</button>
                     </form>
@@ -113,7 +114,7 @@
         })();
     
     id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
-    id("custom_miner_fee").value = window.session.miner_fee;
+    //id("custom_miner_fee").value = window.session.miner_fee;
 
     var focus_to_input = function()
         {
