@@ -114,7 +114,7 @@
         })();
     
     id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
-    id("withdrawal_fee").innerHTML = window.session.withdrawal_fee;
+    id("withdrawal_fee").innerHTML = window.session.withdrawal_fee_satoshi;
     //id("custom_miner_fee").value = window.session.miner_fee;
 
     var focus_to_input = function()
@@ -158,7 +158,7 @@
            }
         else 
            {
-           id("miner_fee").innerHTML = custom_miner_fee+ " BTC";
+           id("miner_fee").innerHTML = custom_miner_fee + " BTC";
            id("miner_fee_fiat").innerHTML = toFiat(parseFloat(custom_miner_fee));    
            }
 
