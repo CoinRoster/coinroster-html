@@ -178,7 +178,7 @@
            }
         id("withdrawal_fee_review").innerHTML = parseFloat(window.session.withdrawal_fee);
         id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(window.session.withdrawal_fee)); 
-        total_fee += window.session.withdrawal_fee;
+        total_fee += window.session.withdrawal_fee + amount_to_withdraw;
         id("total_fee").innerHTML = total_fee;
         id("total_fee_fiat").innerHTML = toFiat(total_fee);
         hide("initial_container");
