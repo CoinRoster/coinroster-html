@@ -155,6 +155,7 @@
             }
         
         var btc_balance = +get_btc_balance();
+        var withdrawal = window.session.withdrawal_fee.toFixed(8);
         var total_fee = 0;
         
         if (parseFloat(amount_to_withdraw) + parseFloat(custom_miner_fee) > btc_balance) 
@@ -176,9 +177,9 @@
            id("miner_fee_fiat").innerHTML = toFiat(parseFloat(custom_miner_fee));    
            total_fee += custom_miner_fee;
            }
-        id("withdrawal_fee_review").innerHTML = parseFloat(window.session.withdrawal_fee);
-        id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(window.session.withdrawal_fee)); 
-        total_fee += window.session.withdrawal_fee.toFixed(8); // + parseFloat(amount_to_withdraw);
+        id("withdrawal_fee_review").innerHTML = withdrawal;
+        id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(withdrawal)); 
+        total_fee += withdrawal; // + parseFloat(amount_to_withdraw);
         id("total_fee").innerHTML = total_fee;
         id("total_fee_fiat").innerHTML = typeof(window.session.withdrawal_fee)//toFiat(total_fee);
         hide("initial_container");
