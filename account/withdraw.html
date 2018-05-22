@@ -169,19 +169,19 @@
            {
            id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
            id("miner_fee_fiat").innerHTML = typeof(window.session.miner_fee); //(window.session.miner_fee);
-           total_fee += parseFloat(window.session.miner_fee);
+           //total_fee += parseFloat(window.session.miner_fee);
            }
         else 
            {
            id("miner_fee").innerHTML = custom_miner_fee + " BTC";
            id("miner_fee_fiat").innerHTML = typeof(custom_miner_fee); //toFiat(parseFloat(custom_miner_fee));    
-           total_fee += parseFloat(custom_miner_fee);
+           //total_fee += parseFloat(custom_miner_fee);
            }
         id("withdrawal_fee_review").innerHTML = withdrawal;
         id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(withdrawal)); 
         total_fee += withdrawal; // + parseFloat(amount_to_withdraw);
         id("total_fee").innerHTML = total_fee;
-        id("total_fee_fiat").innerHTML = typeof(window.session.withdrawal_fee)//toFiat(total_fee);
+        id("total_fee_fiat").innerHTML = typeof(total_fee)//toFiat(total_fee);
         hide("initial_container");
         show("review_container");
       
