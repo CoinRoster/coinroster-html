@@ -41,7 +41,7 @@
                     Amount to withdraw:
                     <br/>
                     <br/>
-                    <h2 id="review_amount_to_withdraw" class="lucida orange"></h2>
+                    <h2 id="review_amount_to_withdraw" class="lucida orange"></h2>&nbsp;&nbsp;(<span id="review_amount_fee_fiat" class="steel"></span>)
                     <br/>
                     <br/>
                     To:&nbsp;&nbsp;&nbsp;<span class="inline_link teal" onclick="show_ext_address();">connected wallet</span>
@@ -165,6 +165,7 @@
             }
             
         id("review_amount_to_withdraw").innerHTML = amount_to_withdraw;
+        id("review_amount_fee_fiat").innerHTML = toFiat(amount_to_withdraw);
         if (custom_miner_fee === "")
            {
            id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
