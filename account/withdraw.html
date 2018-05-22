@@ -52,10 +52,14 @@
                     <br/>
                     <br/>
                     <span id="miner_fee" class="orange"></span>&nbsp;&nbsp;(<span id="miner_fee_fiat" class="steel"></span>)
+                    <br/>
+                    <br/>
                     Withdrawal fee:
                     <br/>
                     <br/>
                     <span id="withdrawal_fee_review" class="orange"></span>&nbsp;&nbsp;(<span id="withdrawal_fee_fiat" class="steel"></span>)
+                    <br/>
+                    <br/>
                     Total fee:
                     <br/>
                     <br/>
@@ -172,8 +176,8 @@
            id("miner_fee_fiat").innerHTML = toFiat(parseFloat(custom_miner_fee));    
            total_fee += custom_miner_fee;
            }
-        id("withdrawal_fee_review").innerHTML = window.session.withdrawal_fee;
-        id("miner_fee_fiat").innerHTML = toFiat(parseFloat(window.session.withdrawal_fee)); 
+        id("withdrawal_fee_review").innerHTML = parseFloat(window.session.withdrawal_fee);
+        id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(window.session.withdrawal_fee)); 
         total_fee += window.session.withdrawal_fee;
         id("total_fee").innerHTML = total_fee;
         id("total_fee_fiat").innerHTML = toFiat(total_fee);
