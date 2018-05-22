@@ -156,7 +156,7 @@
         
         var btc_balance = +get_btc_balance();
         var withdrawal = window.session.withdrawal_fee.toFixed(8);
-        var total_fee = 0;
+        var total_fee = 0.0;
         
         if (parseFloat(amount_to_withdraw) + parseFloat(custom_miner_fee) > btc_balance) 
             {
