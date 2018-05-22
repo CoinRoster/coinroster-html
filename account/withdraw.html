@@ -168,7 +168,7 @@
         if (custom_miner_fee === "")
            {
            id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
-           id("miner_fee_fiat").innerHTML = toFiat(window.session.miner_fee);
+           id("miner_fee_fiat").innerHTML = tpeof(window.session.miner_fee); //(window.session.miner_fee);
            total_fee += window.session.miner_fee;
            }
         else 
