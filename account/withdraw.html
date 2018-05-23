@@ -66,8 +66,8 @@
                     <h2 id="total_fee" class="orange"></h2>&nbsp;&nbsp;(<span id="total_fee_fiat" class="steel"></span>)
                     <br/>
                     <br/>
-                <!-- </div>
-                <div> -->
+                </div>
+                <div>
                     <form onsubmit="return go_to_confirm();">
                         <button id="submit_withdrawal_button" class="text_button auto_width" type="submit">Submit withdrawal</button>
                     </form>
@@ -201,9 +201,8 @@
         
     function go_to_confirm()
         {
-        console.log('val: ' + id("review_amount_to_withdraw").value);
-        var amount_to_withdraw = id("review_amount_to_withdraw").value;
-        var custom_miner_fee = id("miner_fee").value;
+        var amount_to_withdraw = id("amount_to_withdraw").value;
+        var custom_miner_fee = id("custom_miner_fee").value;
         
         api({ 
             method: "UserWithdrawal", 
