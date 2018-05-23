@@ -158,7 +158,7 @@
         var withdrawal = window.session.withdrawal_fee.toFixed(8);
         var total_fee = 0.0;
         
-        if (parseFloat(amount_to_withdraw) > btc_balance || parseFloat(custom_miner_fee) + parseFloat(amount_to_withdraw) >= btc_balance
+        if (parseFloat(amount_to_withdraw) > btc_balance || add(parseFloat(custom_miner_fee), parseFloat(amount_to_withdraw)) >= btc_balance
             || parseFloat(amount_to_withdraw) == btc_balance) 
             {
             show_simple_modal("Insufficient funds", "bad", focus_to_input);
@@ -171,17 +171,18 @@
            {
            id("miner_fee").innerHTML = window.session.miner_fee + " BTC";
            id("miner_fee_fiat").innerHTML = toFiat(parseFloat(window.session.miner_fee));
-           total_fee += parseFloat(window.session.miner_fee);
+           total_fee = add(total_fee, parseFloat(window.session.miner_fee));
            }
         else 
            {
            id("miner_fee").innerHTML = custom_miner_fee + " BTC";
            id("miner_fee_fiat").innerHTML = toFiat(parseFloat(custom_miner_fee));    
-           total_fee += parseFloat(custom_miner_fee);
+           total_fee = add(total_fee, parseFloat(custom_miner_fee));
            }
         id("withdrawal_fee_review").innerHTML = withdrawal;
         id("withdrawal_fee_fiat").innerHTML = toFiat(parseFloat(withdrawal)); 
-        total_fee += parseFloat(withdrawal) + parseFloat(amount_to_withdraw);
+        total_fee = add(total_fee, parseFloat(withdrawal))
+        total_fee = add(total_fee, parseFloat(amount_to_withdraw));
         id("total_fee").innerHTML = total_fee;
         id("total_fee_fiat").innerHTML = toFiat(total_fee);
         hide("initial_container");
