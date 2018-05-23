@@ -140,7 +140,7 @@
     function go_to_review()
         {
         var amount_to_withdraw = id("amount_to_withdraw").value;
-        var custom_miner_fee = id("custom_miner_fee").value;
+        var custom_miner_fee = id("custom_miner_fee").value || window.session.miner_fee;
 
         if (amount_to_withdraw === "") 
             {
