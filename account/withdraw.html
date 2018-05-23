@@ -158,7 +158,8 @@
         var withdrawal = window.session.withdrawal_fee.toFixed(8);
         var total_fee = 0.0;
         
-        if (parseFloat(amount_to_withdraw) + parseFloat(custom_miner_fee) > btc_balance) 
+        if (parseFloat(amount_to_withdraw) > btc_balance || parseFloat(custom_miner_fee) + parseFloat(amount_to_withdraw) > btc_balance
+            || parseFloat(amount_to_withdraw) == btc_balance) 
             {
             show_simple_modal("Insufficient funds", "bad", focus_to_input);
             return false;
