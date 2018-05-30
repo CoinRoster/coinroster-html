@@ -173,7 +173,6 @@
             }
         }, function(call)
             {
-            console.log('test1');
             if (call.status === "1") location = "/";
             else 
                 {
@@ -190,8 +189,7 @@
                 else show_simple_modal(call.error, "bad", null);
                 }
             });
-        
-        console.log('test2');
+       
         return false;
         }
         
