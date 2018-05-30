@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Sign up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
+    <meta name="keywords" content="Bitcoin, Daily Fantasy Sports, BTC, Fantasy Sports, Online" />
+    <meta name="Robots" content="index,follow,NOODP" />  
+    <meta name="googlebot" content="NOODP" />        
+    <meta name="rating" content="General" />
+<!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1 class="logo_font">
+                    <a href="/" id="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <form autocomplete="off" onsubmit="return create_account();">
+                    <input type="password" style="position:absolute;top:-1000px;"/>
+                    <div class="input_padding">
+                        <span id="username_label" class="input_label">Username</span>
+                        <input placeholder="Username" label="false" id="username" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </div>
+                    <div id="email_input_container" class="input_padding">
+                        <span id="email_label" class="input_label">Email address</span>
+                        <input placeholder="Email address" label="false" id="email_address" type="text" class="input_style" maxlength="40" tabindex="2" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    </div>
+                    <div class="input_padding">
+                        <span id="password_label" class="input_label">Password</span>
+                        <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="3">
+                    </div>
+                    <div id="promo_code_container" class="input_padding">
+                        <span id="promo_code_label" class="input_label">Promo code (optional)</span>
+                        <input placeholder="Promo code" label="false" id="promo_code" type="text" class="input_style" maxlength="100" tabindex="4">
+                    </div>
+                    <div class="input_padding">
+                        <button class="text_button green" type="submit" tabindex="5">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    
+    (function()
+        {
+        var 
+
+        search_variable = location.search.split("?")[1];
+
+        if (typeof search_variable === "undefined") 
+            {
+            window.referral_key = "";
+            id("email_address").onkeyup = function()
+                {
+                this.value = this.value.replace(/\s/g, "");
+                };
+            id("email_address").onchange = function()
+                {
+                check_email();
+                };
+            }
+        else 
+            {
+            destroy("email_input_container");
+            destroy("promo_code_container");
+            window.referral_key = search_variable;
+            }
+
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";
+
+        id("username").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+        id("password").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+
+        id("username").onchange = function()
+            {
+            check_username();
+            };
+        id("password").onchange = function()
+            {
+            check_password("Password");
+            };
+        })();
+
+</script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

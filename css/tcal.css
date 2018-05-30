@@ -1,0 +1,153 @@
+    /*
+            Stylesheet for Tigra Calendar v5.0
+            Product is Public Domain (Free for any kind of applicaiton, customization and derivative works are allowed) 
+            URL: http://www.softcomplex.com/products/tigra_calendar/
+
+            - all image paths are relative to path of stylesheet
+            - the styles below can be moved into the document or in existing stylesheet
+
+    */
+
+    /* input box in default state */ 
+    .tcalInput {
+        background: white url('../img/tcal_img/cal.gif') 8px 50% no-repeat;
+        border-radius:5px;
+        padding:4px 8px;
+        padding-left: 32px;
+        border:1px solid rgb(170,170,170);
+        outline:0;
+        cursor:pointer;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .tcalInput::-ms-clear {
+        display: none;
+        width:0;
+        height:0;
+    }
+
+    /* additional properties for input boxe in activated state, above still applies unless in conflict */
+    .tcalActive {
+        background-image: url('../img/tcal_img/no_cal.gif');
+    }
+    
+    /* container of calendar's pop-up */
+    #tcal {
+        position: absolute;
+        visibility: hidden;
+        z-index: 100;
+        width: 250px;
+        background-color: white;
+        padding: 0 7px 7px 7px;
+        border:1px solid rgb(170,170,170);
+        border-radius:5px;
+        box-shadow: 1px 1px 10px -5px rgba(0,0,0,0.5);
+    }
+    
+    #tcal table {
+        margin: 0 !important;
+    }
+
+    /* table containing navigation and current month */
+    #tcalControls {
+        border-collapse: collapse;
+        border: 0;
+        width: 100%;
+    }
+    #tcalControls td {
+        border-collapse: collapse;
+        border: 0;
+        padding: 0;
+        width: 40px;
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+    #tcalControls th {
+        border-collapse: collapse;
+        border: 0;
+        padding: 0;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: center;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    #tcalPrevYear { background-image: url('../img/tcal_img/prev_year.gif'); }
+    #tcalPrevMonth { background-image: url('../img/tcal_img/prev_mon.gif'); }
+    #tcalNextMonth { background-image: url('../img/tcal_img/next_mon.gif'); }
+    #tcalNextYear { background-image: url('../img/tcal_img/next_year.gif'); }
+
+    /* table containing week days header and calendar grid */
+    #tcalGrid {
+        border-collapse: collapse;
+        border: none;
+        width: 100%;
+    }
+    #tcalGrid th {
+        border: none;
+        border-collapse: collapse;
+        padding: 6px 0;
+        text-align: center;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        color: rgb(120,125,130);
+        text-decoration: underline;
+    }
+    .cursor_default {
+        cursor: default !important;
+    }
+    #tcalGrid td {
+        border: 0;
+        border-collapse: collapse;
+        padding: 6px 0;
+        text-align: center;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        width: 14%;
+        font-size: 14px;
+        cursor: pointer;
+        background: rgb(245,245,245);
+    }
+    
+    #tcalGrid td:hover {
+        background: rgb(192,219,235);
+        border-radius: 5px;
+    }
+    
+    #tcalGrid td.tcalOtherMonth { 
+        color: white; 
+        cursor: default;
+        background:white !important;
+        border: none !important;
+    }
+    #tcalGrid td.tcalOtherMonth:hover { 
+        background:none;
+    }
+    
+    #tcalGrid td.tcalOutOfRange { 
+        color: gray; 
+        cursor: default;
+        background: white !important;
+    }
+    #tcalGrid td.tcalOutOfRange:hover { 
+        background:none;
+    }
+    /*#tcalGrid td.tcalWeekend { 
+        background-color: #ACD6F5; 
+    }*/
+    #tcalGrid td.tcalToday { 
+        font-weight:bold;
+        color: rgb(51,170,255);
+    }
+    #tcalGrid td.tcalSelected { 
+        background-color: rgb(168,243,201);
+        border: 1px solid green; 
+        border-radius:5px;
+    }		

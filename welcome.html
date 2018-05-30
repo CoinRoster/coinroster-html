@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Welcome to CoinRoster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1 class="logo_font">
+                    <a href="/" id="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <br/>
+                <span class="orange">
+                    Please verify your email.
+                </span>
+                <br/>
+                <br/>
+                <div class="description_text">
+                    We will only send you emails about  
+                    <br/>
+                    activity in your account. We will not
+                    <br/>
+                    sell or share your email address with
+                    <br/>
+                    a third party.
+                </div>
+                <br/>
+                <button type="submit" class="text_button auto_width" style="text-align:center" onclick="resend_verification('/');">
+                    Re-send email verification to
+                    <br/>
+                    <br/>
+                    <div id="email_on_file" class="teal"></div>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+
+    (function()
+        {
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1") id("email_on_file").innerHTML = call.email_address;
+            else location = "/";
+            });
+        })();
+        
+</script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

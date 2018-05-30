@@ -1,0 +1,606 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <!--#include virtual="/ssi/dropdown.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+    <script type="text/javascript" src="/js/lobby.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/contests" class='inline_link steel'>MY CONTESTS</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span id="entry_type" class='orange'></span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container">
+            <h3 class="section_header">
+                <a id="contest_title" class="section_header_link" href="/"></a>
+            </h3>
+            <div id="exposure_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span id="exposure_label" class="headline_value_label">
+                            On the line:
+                        </span>
+                    </li>
+                    <li>
+                        <span id="exposure_value" class="headline_value"></span>
+                        <span id="exposure_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="progressive_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span class="headline_value_label">
+                            Progressive:
+                        </span>
+                    </li>
+                    <li>
+                        <span id="progressive_value" class="headline_value green"></span>
+                        <span id="progressive_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="payout_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span class="headline_value_label">
+                            Payout:
+                        </span>
+                    </li>
+                    <li>
+                        <span id="payout_value" class="headline_value"></span>
+                        <span id="payout_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="PNL_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span class="headline_value_label">
+                            P/L:
+                        </span>
+                    </li>
+                    <li>
+                        <span id="PNL_value" class="headline_value"></span>
+                        <span id="PNL_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="pari_mutuel_sort_selector" class="selector_container my_contests pari_mutuel_field hidden">
+                <select id="option_order_selector">
+                    <option value="odds" data-display="Outcomes sorted by: odds">Odds: likely to unlikely</option>
+                    <option value="PL" data-display="Outcomes sorted by: scenario P/L">Scenario P/L: high to low</option>
+                    <option value="text" data-display="Outcomes sorted by: text A-Z">Alphabetical: A-Z</option>
+                    <option value="order" data-display="Outcomes sorted by: initial order">Initial order</option>
+                </select>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+        <div class="body_container header">
+            <div id="no_data_message" class="low_grade_alert hidden"></div>
+        </div>
+        <div class="table_body_container" style="padding-bottom:0">
+            <table id="roster_entry_report_table" class="contest_table entry_report_table collapse_players"></table>
+            <table id="pari_mutuel_entry_report_table" class="contest_table entry_report_table"></table>
+            <div id="pari_mutuel_explanation" class="hidden">
+                * The payout is the total amount that you will receive if a given outcome wins.
+                <br/><br/>
+                * The scenario P/L is the net profit or loss that you will realize if a given outcome wins,
+                taking into account your total exposure to the pool.
+                <br/><br/>
+                * Please note that odds are rounded for display.
+            </div>
+        </div>
+        <div id="edit_roster_container" class="hidden">
+            <div class="table_body_container" style="padding-bottom:0">
+                <ul id="editing_roster_ul">
+                    <li>
+                        <div id="editing_roster" class="orange"></div>
+                    </li>
+                    <li>
+                        <span id="cancel_edit_roster_inline" onclick="cancel_edit_roster()">Cancel</span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        <span id="number_verbose">Number</span>
+                        <span id="number_sign" class="hidden">#</span>
+                        of entries?
+                    </li>
+                    <li id="number_of_entries_li">
+                        <span id="number_of_entries" class="green"></span>
+                    </li>
+                    <li id="entry_value_li" class="green">
+                        &rarr;<span id="entry_value"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Remaining salary:
+                    </li>
+                    <li>
+                        <span id="salary_cap" class="green"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Players drafted:
+                    </li>
+                    <li>
+                        <span id="remaining_players" class="green">0</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="body_container selector_container my_contests roster_field">
+                <select id="player_order_selector">
+                    <option value="price" data-display="Players sorted by: price">Price - high to low</option>
+                    <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count - high to low</option>
+                    <option value="name" data-display="Players sorted by: name">Name - A to Z</option>
+                </select>
+                <div style="clear:both"></div>
+            </div>
+            <div class="table_body_container">
+                <div style="display:block">
+                    <div id="player_table_header" class="player_table_header">
+                        Available players:
+                        <br/>
+                        <span class="click_to">
+                            Click to draft
+                        </span>
+                    </div><!--
+                    --><div id="roster_table_header" class="player_table_header">
+                        Your roster:
+                        <br/>
+                        <span class="click_to">
+                            Click to drop
+                        </span>
+                    </div>
+                    <div id="player_table_container" class="player_table_container">
+                        <table id="player_table" class="player_table"></table>
+                    </div><!--
+                    --><div id="roster_table_container" class="player_table_container">
+                        <table id="roster_table" class="player_table"></table>
+                    </div>
+                    <div id="submit_button_container" class="submit_container">
+                        <button id="submit_roster_button" class="text_button auto_width" onclick="update_roster()">Update Roster</button>
+                        <button class="text_button auto_width" onclick="cancel_edit_roster()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+     
+    window.nav_text = "MY CONTESTS";
+
+    function init()
+        {
+        var contest_id = get_url_param("contest_id") | 0;
+        
+        if (contest_id === 0) 
+            {
+            id("contest_title").innerHTML = "My Entries";
+            return no_data_message("Invalid contest ID");
+            }
+        else window.contest_id = contest_id;
+        
+        api({
+            method: "GetContestDetails",
+            args: {
+                contest_id: contest_id
+            }
+        }, function(contest)
+            {
+            if (contest.status === "1") 
+                {
+                var contest_status = contest.contest_status;
+                
+                id("contest_title").innerHTML = contest.title;
+                id("contest_title").href = "/contest.html?id=" + contest_id;
+                
+                document.title = "CoinRoster | " + contest.title + " | My Entries";
+                
+                api({
+                    method: "EntryReport",
+                    args: {
+                        contest_id: contest_id
+                    }
+                }, function(entries)
+                    {
+                    if (entries.status === "1") 
+                        {
+                        var 
+                        
+                        entry_report = entries.entry_report,
+                        entry_count = entry_report.length;
+                
+                        if (entry_count === 0) no_data_message("You have no entries in this contest.");
+                        else
+                            {
+                            var
+                            
+                            progressive_code = contest.progressive_code,
+                            progressive_balance = 0;
+                    
+                            if (progressive_code !== "")
+                                {
+                                if (contest_status < 3) progressive_balance = contest.progressive_balance;
+                                else progressive_balance = contest.progressive_paid;
+                                
+                                if (progressive_balance > 0)
+                                    {
+                                    show("progressive_container");
+                                    id("progressive_value").innerHTML = toBTC(progressive_balance) + " BTC";
+                                    id("progressive_value_fiat").innerHTML = getFiatDisplay(progressive_balance, "soft_inline");
+                                    }
+                                }
+                                                        
+                            show("exposure_container");
+                            
+                            var option_table = JSON.parse(contest.option_table);
+                            contest.option_table = option_table;
+                    
+                            window.contest = contest;
+                            window.entries = [];
+                            
+                            switch (contest.contest_type)
+                                {
+                                case "PARI-MUTUEL" : 
+                                    {
+                                    id("entry_type").innerHTML = "WAGERS";
+                                    
+                                    if (id("roster_entry_report_table")) destroy("roster_entry_report_table");
+                                    
+                                    show("pari_mutuel_explanation");
+                                    show("pari_mutuel_sort_selector");
+                                    
+                                    var default_sort_scheme = "odds";
+                                    selectByValue("option_order_selector", default_sort_scheme);
+
+                                    window.contest_status = contest_status;
+                                    window.option_sort_scheme = default_sort_scheme;
+
+                                    id("option_order_selector").onchange = function()
+                                        {
+                                        var sort_scheme = selectorValue(this);
+                                        window.option_sort_scheme = sort_scheme;
+                                        sort_option_report_table();
+                                        };
+                                    
+                                    var table = id("pari_mutuel_entry_report_table");
+                                    table.innerHTML = "";
+
+                                    insert_option_report_table_header(table);
+                                    
+                                    var
+
+                                    user_wagers = [],
+                                    exposure_value = 0,
+
+                                    wager_grand_total = contest.wager_grand_total,
+                                    rake_amount = multiply(contest.rake, wager_grand_total);
+
+                                    wager_grand_total -= rake_amount;
+                                    wager_grand_total += progressive_balance;
+                                    
+                                    // sum all wagers by pari-mutuel option
+
+                                    for (var i=0; i<entry_count; i++)
+                                        {
+                                        var entry_item = entry_report[i],
+
+                                        option_id = entry_item.entry_data,
+                                        amount = entry_item.amount;
+
+                                        if (typeof user_wagers[option_id] === "undefined") user_wagers[option_id] = amount;
+                                        else user_wagers[option_id] += amount;
+
+                                        exposure_value += amount;
+                                        }
+
+                                    id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
+                                    id("exposure_value_fiat").innerHTML = getFiatDisplay(exposure_value, "soft_inline");
+
+                                    // create rows for any options where user has wagers:
+
+                                    option_table.sort(function(a, b)
+                                        {
+                                        return b.wager_total - a.wager_total;
+                                        });
+
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var option_item = option_table[i],
+                                                
+                                        option_id = option_item.id,
+                                        description = option_item.description,
+                                        user_wager = 0, // default is no wager
+                                        outcome = option_item.outcome,
+                                        implied_odds = get_implied_odds(wager_grand_total, option_item),
+                                        implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
+                                        implied_payout = 0, // default is no wager, therefore no payout
+                                        scenario_PL = -exposure_value; // default is no wager, therefore total loss;
+
+                                        if (typeof user_wagers[option_id] !== "undefined") // user has a wager
+                                            {
+                                            user_wager = user_wagers[option_id],
+                                            implied_payout = multiply(implied_odds_full_precision, user_wager),
+                                            scenario_PL = implied_payout - exposure_value;
+                                            }
+                                            
+                                        insert_option_report_row(table, option_id, description, user_wager, implied_odds, implied_payout, scenario_PL, outcome);
+                                        }
+                                
+                                    break;
+                                    }
+                                case "ROSTER" : 
+                                    {
+                                    id("entry_type").innerHTML = "ROSTERS";
+                            
+                                    destroy("pari_mutuel_entry_report_table");
+                                    
+                                    var 
+                                    
+                                    table = id("roster_entry_report_table"),
+                                    
+                                    player_names = [],
+                                    
+                                    total_payout = 0,
+                                    exposure_value = 0;
+                                    
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var option_item = option_table[i];
+                                        player_names[option_item.id] = option_item.name;
+                                        }
+                                    
+                                    var header_data;
+                                    
+                                    if (contest_status === 3) header_data = [
+                                        "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Score</span</li></ul>",
+                                        "Roster",
+                                        "Entries",
+                                        "Payout"
+                                    ];
+                                    else header_data = [
+                                        "<ul><li style='padding-right:60px'>Roster</li><li><span style='float:right;'>Entries</span</li></ul>",
+                                        "Roster"
+                                    ];
+
+                                    var header = new_row(table, -1, header_data);
+
+                                    if (contest_status === 3)
+                                        {
+                                        header[3].style.textAlign = "right";
+                                        header[4].style.textAlign = "right";
+                                        }
+                                        
+                                    for (var i=0; i<entry_count; i++)
+                                        {
+                                        var entry_item = entry_report[i],
+
+                                        entry_id = entry_item.id,
+                                        amount = entry_item.amount,
+                                        roster = JSON.parse(entry_item.entry_data),
+                                        number_of_entries = divide(amount, contest.cost_per_entry),
+                                        score = entry_item.score,
+                                        payout = entry_item.payout,
+                                        payout_per_entry = divide(payout, number_of_entries),
+                                        roster_html = "";
+                                
+                                        exposure_value += amount;
+                                
+                                        entry_item.roster = roster;
+                                        entry_item.number_of_entries = number_of_entries;
+                                
+                                        window.entries[entry_id] = entry_item;
+                                        
+                                        for (var j=0; j<roster.length; j++)
+                                            {
+                                            if (j !== 0) roster_html += "<br/>";
+                                            roster_html += "<span class='inline_player_name'>" + player_names[roster[j].id] + "</span><span class='inline_player_price'>$" + commas(roster[j].price | 0) + "</span>";
+                                            }
+                                            
+                                        var enter_button = "";
+                                        
+                                        if (contest_status === 1) enter_button = "<li class='draft_button' onclick='edit_roster(" + entry_id + ")'>Edit roster</li>";
+                                        else table.className = "contest_table entry_report_table"; //get rid of "collapse_players" since no button
+                                        
+                                        var mark_outcome = "";
+
+                                        if (contest_status === 3 && payout !== 0) 
+                                            {
+                                            total_payout = add(total_payout, payout);
+                                            mark_outcome = "<img src='/img/star.png' width='12' height='12'/>&nbsp;&nbsp;";
+                                            }
+
+                                        var row_data;
+                                    
+                                        if (contest_status === 3) row_data = [
+                                            "<ul><li><div class='field_label auto_width'>Roster:</div>" + mark_outcome + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Score</div>" + score + "</span></li></ul>",
+                                            "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>",
+                                            "<div class='field_label auto_width'>Entries:</div>" + number_of_entries,
+                                            "<div class='field_label auto_width'>Payout:</div>" + toBTC(payout) + " BTC" + getFiatDisplay(payout, "allow_inline")
+                                        ];
+                                        else row_data = [
+                                            "<ul><li><div class='field_label auto_width'>Roster:</div>" + "#" + entry_id + "</li><li><span style='float:right;'><div class='field_label auto_width'>Entries:</div>" + number_of_entries + "</span></li></ul>",
+                                            "<ul><li>" + roster_html + "</li>" + enter_button + "</ul>"
+                                        ];
+
+                                        var row = new_row(table, -1, row_data);
+                                        
+                                        row[1].width = "1";
+                                        
+                                        if (contest_status === 1) row[2].style.paddingRight = "8px"; // corrects for 'Edit roster >' button padding
+                                        
+                                        if (contest_status === 3)
+                                            {
+                                            row[3].style.textAlign = "right";
+                                            row[4].style.textAlign = "right";
+                                            if (payout_per_entry > 0) row[4].className = "green";
+                                            else row[4].className = "white";
+                                            }
+                                        }
+                                        
+                                    id("exposure_value").innerHTML = toBTC(exposure_value) + " BTC";
+                                    id("exposure_value_fiat").innerHTML = getFiatDisplay(exposure_value, "soft_inline");
+                                    
+                                    if (contest_status === 3)
+                                        {
+                                        show("payout_container");
+                                        show("PNL_container");
+                                        
+                                        var PNL = subtract(total_payout, exposure_value);
+                                        
+                                        if (PNL > 0) PNL_class = "green";
+                                        else if (PNL < 0) PNL_class = "orange";
+
+                                        id("exposure_label").innerHTML = "Wagered:";
+                                        id("payout_value").innerHTML = total_payout + " BTC";
+                                        id("payout_value").style.color = "rgb(230,230,230)";
+                                        id("payout_value_fiat").innerHTML = getFiatDisplay(total_payout, "soft_inline");
+                                        id("PNL_value").innerHTML = toBTC(PNL, false, true) + " BTC";
+                                        id("PNL_value").className = PNL_class;
+                                        id("PNL_value_fiat").innerHTML = getFiatDisplay(PNL, "soft_inline");
+                                        }
+                                        
+                                    break;
+                                    }
+                                }
+                            $('select:not(.ignore)').niceSelect();
+                            FastClick.attach(id("centering_container"));
+                            }
+                        }
+                    });
+                }
+            else 
+                {
+                id("contest_title").innerHTML = "My Entries";
+                no_data_message(contest.error);
+                }
+            });
+        }
+        
+    function no_data_message(message)
+        {
+        id("entry_type").innerHTML = "ENTRIES";
+        show("no_data_message");
+        id("no_data_message").innerHTML = message;
+        }
+        
+    function edit_roster(entry_id)
+        {
+        id("player_table").innerHTML = "";
+        id("roster_table").innerHTML = "";
+                    
+        var 
+        
+        contest = window.contest,
+        option_table = contest.option_table,
+        entry = window.entries[entry_id],
+        roster = entry.roster,
+        
+        min_users = contest.min_users,
+        current_users = contest.current_users;
+
+        var show_counts = contest.show_counts;
+        if (!show_counts) destroy("draft_count_option");
+
+        window.active_entry = entry_id;
+        
+        id("editing_roster").innerHTML = "Editing Roster " + entry_id;
+
+        id("number_of_entries").innerHTML = entry.number_of_entries;
+        id("entry_value").innerHTML = toBTC(entry.amount) + " BTC";
+        id("salary_cap").innerHTML = "$" + commas(contest.salary_cap | 0);
+        if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
+        else id("remaining_players").innerHTML = 0;
+            
+        for (var i=0; i<option_table.length; i++)
+            {
+            var player_item = option_table[i],
+                    
+            player_id = player_item.id,
+            name = player_item.name,
+            price = player_item.price,
+            count = player_item.count;
+    
+            if (show_counts) insert_player_row("player_table", player_id, name, price, count);
+            else insert_player_row("player_table", player_id, name, price);
+            }
+                        
+        for (var i=0; i<roster.length; i++) add_player(roster[i].id);
+        
+        show("edit_roster_container");
+        
+        id("player_table_container").scrollTop = 0;
+        id("roster_table_container").scrollTop = 0;
+                
+        window.scrollTo(0, id("editing_roster").offsetTop);
+        }
+        
+    (function()
+        {
+        var default_sort_scheme = "price";
+        selectByValue("player_order_selector", default_sort_scheme);
+        window.player_sort_scheme = default_sort_scheme;
+        })();
+    
+    id("player_order_selector").onchange = function()
+        {
+        var sort_scheme = selectorValue(this);
+        window.player_sort_scheme = sort_scheme;
+        sort_player_tables();
+        };
+     
+    function cancel_edit_roster()
+        {
+        window.scroll(0,0);
+        hide("edit_roster_container");
+        }
+        
+    function update_roster()
+        {
+        var roster = get_valid_roster();
+        
+        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
+
+        api({
+            method: "UpdateRoster",
+            args: {
+                contest_id: window.contest_id,
+                entry_id: window.active_entry,
+                roster: roster
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                return show_simple_modal("Your roster has been updated", "good", function()
+                    {
+                    location.reload();
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+   
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

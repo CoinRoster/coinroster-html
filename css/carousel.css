@@ -1,0 +1,44 @@
+    #carousel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    #carousel .items {
+        height: 100%;
+        position: relative;
+    }
+    .slide {
+        display: table;
+        position: absolute;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width:100%;
+        height:100%;
+    }
+    /* to create slide:
+    1. save as temp file (keep original)
+    2. resize to 1920 wide x whatever high
+    3. change canvas size to 1080 high
+    4. add layer above image
+    5. fill black
+    6. set layer opacity to 65%
+    7. compress with tinyjpg.com
+    */
+    #slide_1 {
+        background-image: url('../img/slides/slide2-min.jpg');
+    }
+    #slide_2 {
+        background-image: url('../img/slides/slide3-min.jpg');
+    }
+    #slide_3 {
+        background-image: url('../img/slides/slide1-min.jpg');
+    }
+    #slide_4 {
+        background-image: url('../img/slides/slide4-min.jpg');
+    }
+    #slide_5 {
+        background-image: url('../img/slides/slide5-min.jpg');
+    }

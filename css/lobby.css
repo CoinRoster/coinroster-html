@@ -1,0 +1,522 @@
+
+    /*------------------------------------------------------------*/
+
+    #splash_container {
+        height: 450px;
+        width: 100%;
+        background-image: url('../img/slides/slide3-min.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-bottom: 23px;
+    }
+    
+    #splash_container .landing_center {
+        height: 450px;
+    }
+    
+    .lobby_logo {
+        margin-top: 30px;
+        font-size: 32px;
+    }
+    
+    .lobby_tagline {
+        font-family: 'tall_bold', sans-serif;
+        font-size: 14px;
+        letter-spacing: 1px;
+        
+    }
+    
+    .lobby_value_prop {
+        font-family: 'tall_bold', sans-serif;
+        margin-top: 45px;
+        font-size: 52px;
+        margin-bottom: 50px;
+    }
+    
+    .lobby_play_now_button {
+        font-family: 'tall_bold', sans-serif;
+        font-size: 24px;
+        padding: 15px 25px;
+        color: white;
+        text-decoration: none;
+        border-radius:8px;
+    }
+    
+    .lobby_login {
+        font-size: 13px;
+        display: block;
+        width: 100px;
+        margin: 10px auto 0;
+    }
+    
+    /*------------------------------------------------------------*/
+
+    /* styling for tile preview in game.html/Create Sub-Category */
+
+    .sub_category_item {
+        vertical-align: top;
+        display: inline-block;
+        width: 227px;
+        cursor: pointer;
+        color: white;
+        text-decoration: none;
+        margin: 0 2px 22px; /* padding L and  immediately below should add up with this to 20px */
+    }
+    
+    .sub_category_item:hover .sub_category_tile {
+        border: 1px solid rgb(255,86,18);
+        margin: 0px;
+    }
+    
+    .sub_category_tile {
+        width: 100%;
+        height: 180px;
+        background: rgb(74,78,82);
+        /*border: 1px solid rgb(30,33,35);*/
+        margin: 1px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .sub_category_details {
+        width: calc(100% + 1px);
+        background-color: rgba(30,32,34, 0.8);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        border-collapse: collapse;
+    }
+    .sub_category_details td {
+        vertical-align: middle;
+        padding: 3px 11px 5px;
+    }
+    .sub_category_details td:last-child {
+        text-align: right;
+    }
+    
+    .sub_category_description {
+        margin: 0;
+        font-weight: normal;
+        font-size: 13px;
+        font-family: 'section_header', 'section_header_2', sans-serif;
+    }
+    
+    .sub_category_detail {
+        color: rgb(210,210,210);
+        font-size: 11px;
+    }
+    .in_play_detail {
+        padding-top:4px;
+    }
+    
+    /*------------------------------------------------------------*/
+    
+    .payout_info_link {
+        cursor: pointer;
+        display: inline-block;
+    }    
+    .payout_info_link:hover {
+        text-decoration: underline;
+    }
+    
+    #category_report_table .payout_info_link {
+        display: block;
+    }
+
+    #no_open_contests {
+        padding: 0 5px;
+        font-size: 14px;
+    }
+    
+    .contest_category_title {
+        font-size: 18px;
+        padding-top: 10px;
+    }
+    
+    .pari_mutuel_table_label {
+        display: none;
+    }
+
+    .contest_table, .player_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .contest_table tr {
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 1px;
+        background: rgb(100,102,104);
+    }
+        
+    .contest_table td {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+            
+    #category_report_table td, #contest_report_table td {
+        padding: 0 20px;
+    }
+    #category_report_table td:first-child, #contest_report_table td:first-child {
+        padding-right: 0;
+    }
+    
+    #pari_mutuel_table td, .entry_report_table td {
+        text-align: right;
+    }
+    
+    #pari_mutuel_table .li_left {
+        white-space:nowrap;
+        min-width:140px;
+        text-align:right;
+    }
+    #pari_mutuel_table .li_right {
+        min-width:80px;
+        text-align:right;
+        float:right;
+    }
+    
+    #pari_mutuel_table .wager_input {
+        float: right;
+        display: inline-block;
+        padding-left: 30px;
+        text-align: center;
+    }
+    
+    #roster_entry_report_table td {
+        text-align: left;
+    }
+    
+    .contest_table td:first-child {
+        background: rgb(80,82,84);
+    }
+    
+    .contest_table ul {
+        list-style: none;
+        margin: 0;
+        border: 0;
+        padding: 0;
+        width: 100%;
+        display: table;
+    }
+    
+    .contest_table li {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    @-webkit-keyframes action_button {
+        from { background-color: rgb(192,148,42);}
+        50% { background-color: rgb(225,143,0);}
+        to { background-color: rgb(192,148,42);}
+    }
+    .contest_table li.draft_button {
+        text-align: right;
+        color: rgb(255,229,171);
+        padding: 10px 36px 10px 20px;
+        background-image: url('../img/chevron.png');
+        background-position: right 7px center;
+        background-repeat: no-repeat;
+        background-size: 18px auto;
+        text-decoration: none !important;
+        cursor: pointer;
+        width: 40px;
+        white-space: nowrap;
+    }
+    
+    .contest_table li.draft_button:hover {
+        text-decoration: underline !important;
+    }
+    
+    .first_cell_link {
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        padding: 10px 10px 10px 0;
+        display: block;
+    }
+    .first_cell_link:hover {
+        text-decoration: underline;
+    }
+    
+    .field_label {
+        width: 64px;
+        color: rgb(220,222,224) !important;
+        font-family: 'open_sans_reg', 'open_sans_reg_2', sans-serif;
+        display: none;
+    }
+    .field_label.extra_wide {
+        width: 80px;
+    }
+    .field_label.auto_width {
+        width: auto;
+    }
+    
+    .contest_table tr:first-child { /* header */
+        background: none;
+        border: none;
+        white-space: nowrap !important
+    }
+    
+    .contest_table tr:first-child td { /* header cells */
+        background: none;
+        border: none;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 8px !important;
+    }
+    
+    .pay_line_row td {
+        padding: 20px !important;
+        text-align: center !important;
+        background: rgb(60,62,64) !important;
+    }
+    
+    .right_nowrap {
+        text-align: right !important;
+        white-space: nowrap !important;
+    }
+    
+    .pay_table td:first-child {
+        padding-right: 30px;
+    }
+    .pay_table td:nth-child(2) {
+        text-align: right;
+    }
+    
+    .implied_odds_disclaimer {
+        padding: 5px 20px;
+        font-size: 11px;
+        color: rgb(200,200,200);
+    }
+    
+    #contest_report_table td {
+        text-align: left;
+    }
+    
+    #score_table td {
+        text-align: right;
+    }
+    
+    /*------------------------------------------------------------*/
+
+    #contest_title {
+        /*color: rgb(200,245,255) !important;*/
+    }
+    
+    #contest_description {
+        margin: 0 0 18px;
+        font-family: 'gotham_book', sans-serif;
+        overflow-wrap: break-word;
+    }
+    #contest_description p {
+        padding: 0 0 10px;
+        font-size: 14px;
+    }
+    #contest_description a {
+        text-decoration: none;
+        color: rgb(129,243,217) !important;
+    }
+    #contest_description a:hover {
+        text-decoration: underline;
+    }
+    
+    .contest_detail_table {
+        display: inline-block;
+    }
+    .contest_detail_table.add_right_padding {
+        padding-right: 60px;
+    }
+    
+    .contest_detail_table td {
+        vertical-align: middle;
+        height: 20px;
+        font-size: 12px;
+    }
+    
+    .contest_detail_table td:first-child {
+        width: 100px; 
+        white-space: nowrap;
+    }
+    
+    .contest_detail_table .payout_info_link {
+        padding: 0 20px;
+    }   
+    
+    /*------------------------------------------------------------*/
+
+    .draft_count_color {
+        color: rgb(214,192,255);
+    }
+    .roster_parameter_table {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline;
+        white-space: nowrap;
+    }
+    
+    .roster_parameter_table li {
+        padding: 10px 15px 10px 0px;
+        white-space: nowrap;
+        font-size: 14px;
+        display: inline-block;
+    }
+    
+    .augment_vertical_padding li {
+        padding-top: 12px;
+    }
+    
+    #number_of_entries_li {
+        padding-right: 6px !important;
+    }
+    
+    #entry_value_li {
+        font-size: 11px;
+    }
+    #entry_value {
+        padding-left: 8px;
+    }
+    
+    
+    #salary_cap_container {
+        display: inline-block;
+    }
+    #remaining_players_container {
+        display: none;
+    }
+    
+    .player_table_container {
+        width: 50%;
+        display: inline-block;
+        height: 474px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .player_table_header {
+        width: calc(50% - 20px);
+        display: inline-block;
+        margin: 10px 0 10px 20px;
+        font-size: 12px;
+    }
+    
+    .click_to {
+        font-size: 10px;
+        color: rgb(200,200,200);
+    }
+    
+    .player_table tr {
+        background: rgb(80,82,84);
+        border: 1px solid rgb(100,102,104);
+        cursor: pointer;
+    }
+    /*.player_table tr:hover {
+        background: rgb(100,102,104);
+    }*/
+    .player_table td {
+        font-size: 14px;
+        padding: 5px 0 5px 20px;
+    }
+    .player_table td:last-child {
+        padding-right: 20px;
+    }
+    
+    #roster_table tr {
+        border-left-width: 0;
+    }
+    #roster_table td:first-child {
+        color: orange;
+    }
+    
+    .submit_container {
+        padding: 20px 0;
+    }
+    
+    #exposure_container, #payout_container, #PNL_container, .headline_value_container {
+        font-size: 14px;
+        padding-bottom: 30px;
+    }
+    .headline_value_container.my_contests {
+        padding-left: 20px;
+        padding-bottom: 25px !important;
+    }
+    .headline_value_container ul {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        list-style: none;
+    }
+    .headline_value_container li {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .headline_value_container li:first-child {
+        white-space: nowrap;
+    }
+    .headline_value_container li:last-child {
+        text-align: right;
+    }
+    
+    .headline_value_label {
+        color: rgb(220,222,224);
+        font-size: 13px; 
+    }
+    
+    #exposure_value, #payout_value, #PNL_value, .headline_value {
+        display: inline-block;
+        padding-left: 20px;
+    }
+    
+    #pari_mutuel_explanation {
+        font-size: 11px;
+        padding: 20px;
+    }
+    
+    #editing_roster_ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        outline: none;
+    }
+    #editing_roster_ul li {
+        display: inline-block;
+    }
+    
+    #editing_roster {
+        padding: 30px 20px 10px 0;
+    }
+    
+    #cancel_edit_roster_inline {
+        color: rgb(220,220,220);
+        font-size: 12px;
+        cursor: pointer;
+    }
+    #cancel_edit_roster_inline:hover {
+        text-decoration: underline;
+    }    
+    
+    .inline_player_price {
+        display: inline-block;
+        padding-left: 15px;
+        font-size: 12px;
+        color: rgb(220,220,220);
+    }
+    
+    .selector_container.lobby.roster_field {
+        margin: 5px 0 8px;
+    }
+    .selector_container.my_contests.roster_field {
+        margin: 13px 0 8px;
+    }
+    .selector_container.lobby.pari_mutuel_field {
+        margin: 20px 0 15px;
+    }
+    .selector_container.my_contests.pari_mutuel_field {
+        margin: 0 0 25px;
+    }

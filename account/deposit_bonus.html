@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Deposit Bonus</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>DEPOSIT</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div id="deposit_bonus_prompt" class="hidden">
+                Claim your <span class="orange">100% Deposit Match</span> bonus!
+                <br/>
+                <br/>
+                <div style="font-size:12px" class="constrain_width">
+                    Your first deposit:&nbsp;&nbsp;&nbsp;<span id="first_deposit" class="orange"></span>
+                    <br/>
+                    <br/>
+                    Deposit bonus:&nbsp;&nbsp;&nbsp;<span id="actual_bonus" class="orange"></span>
+                    <br/>
+                    <br/>
+                    Playing requirement:&nbsp;&nbsp;&nbsp;<span id="actual_playing_requirement" class="orange"></span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <button class="text_button auto_width" onclick="claim_deposit_bonus()">Claim your bonus!</button>
+                </div>
+                <br/>
+                <br/>
+            </div>
+            <div id="not_authorized" class="hidden">
+                This page has expired.
+            </div>
+            <br/>
+            <br/>
+        </div>
+        <br/>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+    
+    window.nav_text = "MY ACCOUNT";
+        
+    function init()
+        {  
+        if (window.session.first_deposit > 0 && window.session.deposit_bonus_claimed === 0)
+            {
+            var 
+
+            first_deposit = window.session.first_deposit,
+            deposit_bonus_cap = window.session.deposit_bonus_cap,
+            deposit_bonus_rollover_multiple = window.session.deposit_bonus_rollover_multiple,
+            
+            actual_bonus = Math.min(first_deposit, deposit_bonus_cap),
+            actual_playing_requirement = multiply(actual_bonus, deposit_bonus_rollover_multiple);
+
+            id("first_deposit").innerHTML = toBTC(first_deposit) + " BTC";
+            id("actual_bonus").innerHTML = toBTC(actual_bonus) + " BTC";
+            id("actual_playing_requirement").innerHTML = toBTC(actual_playing_requirement) + " BTC";
+
+            show("deposit_bonus_prompt");
+            }
+        else show("not_authorized", "inline");
+        }
+        
+    function claim_deposit_bonus()
+        {
+        api({ 
+            method: "ClaimDepositBonus", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("Your deposit bonus has been activated!", "good", function()
+                    {
+                    window.location = "/account";
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

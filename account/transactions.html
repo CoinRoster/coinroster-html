@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Transaction History</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>TRANSACTION HISTORY</span>
+                </span>
+            </h3>
+        </div>
+        <div class="table_body_container transaction_table_body">
+            <div id="transaction_report_table"></div>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+     
+    window.nav_text = "MY ACCOUNT";
+
+    // TRANSACTION REPORT
+
+    function transaction_report()
+        {
+        var 
+
+        start_date_ms = 0, 
+        end_date_ms = 9999999999999;
+
+        api({
+            method: "TransactionReport",
+            args: {
+                start_date_ms: start_date_ms,
+                end_date_ms: end_date_ms,
+                request_source: "account_panel"
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var
+                transaction_report_array = call.transaction_report,
+                number_of_transactions = transaction_report_array.length;
+                function new_row(table, row_index, data)
+                    {
+                    var row = table.insertRow(row_index),
+                    array = [row];
+                    for (var i=0; i<data.length; i++)
+                        {
+                        var cell = row.insertCell(i); 
+                        cell.innerHTML = data[i];
+                        array.push(cell);
+                        }
+
+                    array[1].style.textAlign = "right";
+                    array[4].style.textAlign = "right";
+
+                    return array;
+                    }
+
+                var table = new_table("transaction_report_table"),
+                row_count = 0;
+
+                if (number_of_transactions > 0)
+                    {
+                    // create rows:
+
+                    for (var i=number_of_transactions-1; i>=0; i--)
+                        {
+                        var transaction_item = transaction_report_array[i],
+
+                        transaction_id = transaction_item.transaction_id,
+                        created = transaction_item.created,
+                        trans_type = transaction_item.trans_type,
+                        amount = transaction_item.amount,
+                        from_currency = transaction_item.from_currency,
+                        memo = transaction_item.memo,
+                        memo_link = "<a class=\"memo_link teal\">Memo</a>",
+                        pending_flag = transaction_item.pending_flag,
+
+                        created_date = dateconv_ms_to_string(created),
+                        created_time = dateconv_ms_to_time(created);
+
+                        if (pending_flag === "1") trans_type += " (pending)";
+                        
+                        if (memo === "") memo_link = "";
+                        
+                        if (from_currency === "RC") from_currency = "RC&nbsp";
+                        
+                        var row = new_row(table, row_count++, [
+                            "#" + transaction_id,
+                            trans_type,
+                            //"<ul class=\"right_left\"><li>" + "#" + transaction_id + "</li><li>" + trans_type + "</li></ul>",
+                            created_date + " at " + created_time,
+                            "<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
+                            getFiatDisplay(amount, "allow_inline"),
+                            memo_link
+                        ]);
+                                         
+                        if (memo !== "")
+                            {
+                            row[6].onclick = (function(memo)
+                                {
+                                return function()
+                                    {
+                                    show_simple_modal(memo, "good", null);
+                                    }
+                                })(memo);
+                            }
+                        }
+                    }
+                else id("transaction_report_table").innerHTML = "No transactions found";
+                }
+            });
+        }
+
+    // INIT FUNCTION
+
+    function init()
+        {
+        transaction_report();
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

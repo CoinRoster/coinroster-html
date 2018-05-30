@@ -1,0 +1,15 @@
+<!-- SSI: auto_login.html -->
+<script type="text/javascript">
+    api({
+        method: "GetSessionDetails", 
+        args: {}
+    }, function(call)
+        {
+        if (call.status === "1") 
+            {
+            window.session = call;
+            if (call.is_active === "1") location.replace("/"); 
+            }
+        });
+</script>
+<!-- end SSI Include -->

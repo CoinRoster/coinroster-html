@@ -1,0 +1,98 @@
+<div id="balance_bar">
+    <div class="centering_container">
+        <div class="ssi_header_inner">
+            <table class="ssi_header_table">
+                <tr>
+                    <td width="1">
+                        <span class="ssi_header_a_no_link" style="padding-right:0;">Balance:</span>
+                    </td>
+                    <td width="1">
+                        <span id="balance_bar_available_balance" class="green"></span>
+                    </td>
+                    <td id="fiat_balance_cell" width="1">
+                        <span id="balance_bar_fiat_balance" class="steel"></span>
+                    </td>
+                    <td id="deposit_cell" width="1" class="teal hidden">
+                        <a id="ssi_header_deposit" class="ssi_header_a green" style="padding-left:0;" href="/account/deposit.html">DEPOSIT!</a>
+                    </td>
+                    <td><!-- blank cell for spacing --></td>
+                    <td width="1" class="ssi_mobile_hide">
+                        <a class="ssi_header_a orange_actual" href="/account/refer.html">REFER A FRIEND!</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="ssi_header">
+    <div id="ssi_logo_container" class="ssi_tablet_hide">
+        <a href="/" id="logo_link">
+            <h1 id="coinroster_text" class="logo_font">
+                CoinRoster
+            </h1>
+        </a>
+    </div>
+</div>
+<div id="ssi_main_nav_bar" class="ssi_tablet_hide">
+    <table class="ssi_header_table">
+        <tr>
+            <td><!-- blank cell for spacing --></td>
+            <td width="1">
+                <a id="ssi_header_lobby" class="ssi_header_a" href="/">LOBBY</a>
+            </td>
+            <td width="1">
+                <a id="ssi_header_contests" class="ssi_header_a" href="/contests">MY CONTESTS</a>
+            </td>
+            <td width="1">
+                <a id="ssi_header_account" class="ssi_header_a" href="/account">MY ACCOUNT</a>
+            </td>
+            <td width="1" class="ssi_header_admin_wrapper ssi_tablet_hide">
+                <a id="ssi_header_admin" class="ssi_header_a" href="/admin">ADMIN</a>
+            </td>
+            <td width="1" class="ssi_tablet_hide">
+                <a class="ssi_header_a steel" style="font-size:13px" onclick="logout();">Log out</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="ssi_mobile_shade"></div>
+<div id="ssi_mobile_nav_bar">
+    <div id="ssi_mobile_nav_logo" class="logo_font">
+        CoinRoster
+    </div>
+    <div id="ssi_mobile_nav_placeholder"></div>
+    <div id="ssi_mobile_nav_icon" class="menu_closed"></div>
+</div>
+<div id="ssi_mobile_nav">
+    <div class="ssi_mobile_nav">
+        <ul>
+            <li class="mobile_lowest_only" style="display:none">
+                <a href="/account/refer.html" class="orange_actual">REFER A FRIEND!</a>
+            </li><!--
+            --><li>
+                <a href="/">LOBBY</a>
+            </li><!--
+            --><li>
+                <a href="/contests">MY CONTESTS</a>
+            </li><!--
+            --><li>
+                <a href="/account">MY ACCOUNT</a>
+            </li><!--
+            --><li>
+                <a href="http://blog.coinroster.com/faq">FAQ</a>
+            </li><!--
+            --><li class="ssi_header_admin_wrapper">
+                <a href="/admin">ADMIN</a>
+            </li><!--
+            --><li>
+                <a onclick="logout();">LOG OUT</a>
+            </li><!--
+            --><li>
+                <a href="http://blog.coinroster.com">BLOG</a>
+            </li><!--
+            --><li>
+                <a href="http://blog.coinroster.com/contact">CONTACT</a>
+            </li>
+        </ul>
+    </div>
+</div>

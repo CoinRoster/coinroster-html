@@ -1,0 +1,626 @@
+ 
+    #centering_container, .centering_container {
+        width: auto;
+        max-width: 1366px;
+    }
+        
+    @media only screen and (min-width: 995px) {
+
+        /* four-wide tiles */
+        
+        .sub_category_item {
+            width: calc(25% - 5px);
+        }
+        
+        .extra_body_container_padding {
+            padding-left: 31px !important;
+        }
+
+    }
+    
+    @media only screen and (max-width: 994px) {
+
+        .body_container.header {
+            padding: 0 ! important;
+        }
+        .body_container.header .section_header {
+            margin: 0 0 9px !important;
+            padding-right: 20px !important;
+            padding-left: 20px !important;
+        }
+        .lobby_body_container {
+            padding: 0 2px 0 3px;
+        }
+        .transaction_table_body {
+            padding: 0 !important;
+        }
+        .transaction_table_body .subwindow {
+            padding-left: 20px !important;
+        }
+        #transaction_report_table td:first-child {
+            padding-left: 20px !important;
+        }
+        
+        /* four-wide tiles */
+        
+        .sub_category_item {
+            width: calc(25% - 5px);
+        }
+        
+        /* List of contests under tile in lobby */
+                
+        .contest_table li.draft_button {
+            width: 10px !important;
+        }
+        
+        .contest_table td {
+            font-size: 12px !important;
+        }
+        
+        .contest_table td:first-child {
+            font-size:13px !important;
+        }
+        
+        #category_report_table tr:first-child { /* header */
+            display: none;
+        }
+        
+        #category_report_table td {
+            display: block;
+            text-align: left !important;
+            padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
+        }
+        
+        #category_report_table td:nth-child(2) { /* title / button */
+            padding-top: 10px !important;
+        }
+        #category_report_table td:last-child { /* prize pool */
+            padding-bottom: 11px !important;
+        }
+        
+        #category_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
+        #category_report_table .payout_info_link {
+            display: inline-block !important;
+        }
+        
+        #category_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
+        /* My Contests */
+            
+        #contest_report_table tr:first-child { /* header */
+            display: none;
+        }
+        
+        #contest_report_table td {
+            display: block;
+            padding-bottom: 0px !important;
+            text-align: left !important;
+        }
+        #contest_report_table td:nth-child(2) { /* title / button */
+            padding-top: 10px !important;
+        }
+        #contest_report_table td:last-child { /* deadline */
+            padding-bottom: 11px !important;
+        }
+        #contest_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
+        #contest_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
+        .lobby_container #contest_status_selector_container {
+            padding-bottom: 10px !important;
+        }
+                
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 994px) {
+
+        /* three-wide tiles */
+        
+        .sub_category_item {
+            width: calc(33% - 2px);
+        }
+        
+        /* change password form is especially wide - stack vertically */
+        
+        #change_password_form li {
+            display: block !important;
+        }
+        
+    }
+    @media only screen and (min-width: 768px) {
+
+        /* showing and hiding of navigation */
+        
+        #ssi_mobile_nav_bar {
+            display: none;
+        }
+        #ssi_mobile_nav {
+            display: none !important;
+        }
+        #ssi_mobile_shade {
+            display: none !important;
+        }
+        .ssi_desktop_hide {
+            display: none;
+        }
+    }
+    @media only screen and (max-width: 767px) {
+        
+        #promo_landing_container td {
+            display: block;
+        }
+        #promo_landing_container td:first-child {
+            padding: 20px 20px 0 20px !important;
+            text-align: center !important;
+        }
+        #promo_landing_container td:last-child {
+            text-align: center !important;
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        .lobby_logo {
+            font-size: 28px;
+        }
+        
+        .lobby_value_prop {
+            font-size: 44px;
+        }
+
+        .lobby_play_now_button {
+            font-size: 22px;
+        }
+        
+        /* showing and hiding of navigation */
+
+        #ssi_mobile_nav_bar {
+            display: block;
+        }
+        .ssi_tablet_hide {
+            display: none;
+        }
+        
+        /* force all account forms to stack vertically */
+        
+        .account_form li {
+            display: block !important;
+        }
+        .add_left_margin {
+            margin-left: 6px !important;
+        }
+        .stay_hidden {
+            display: none;
+        }
+        
+        /* two-wide tiles */
+        
+        .sub_category_item {
+            width: calc(50% - 5px);
+        }
+        
+        /* Contest page */
+
+        .contest_detail_table {
+            display: block !important;
+            padding-right: 0px !important;
+        }
+ 
+        .body_container.selector_container.roster_field {
+            margin: 15px 0 13px !important;
+        }
+        .body_container.selector_container.lobby.pari_mutuel_field {
+            margin: 15px 0 20px !important;
+        }
+    
+        #pari_mutuel_second_hr {
+            display: none !important;
+        }
+        
+        #pari_mutuel_table_label {
+            display: table-row !important;
+        }
+        #filler_row {
+            display: none !important;
+        }
+                    
+        #pari_mutuel_table tr:first-child { /* header */
+            display: none;
+        }
+        
+        #pari_mutuel_table td {
+            display: block;
+            font-size: 12px !important;
+        }
+        
+        #pari_mutuel_table td:first-child { /* outcome & wager input */
+            padding-top: 0px !important;
+            padding-bottom: 0 !important;
+        } 
+        #pari_mutuel_table .pari_mutuel_preserve_padding {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+        #pari_mutuel_table .light_on_dark_input {
+            font-size: 12px !important;
+        }
+        #pari_mutuel_table td:last-child { /* wagers & odds */
+            padding-top: 7px !important;
+            padding-bottom: 7px !important;
+        }
+        #pari_mutuel_table .li_left { /* wagers */
+            text-align: left !important;
+            float: left !important;
+        }
+        #pari_mutuel_table .li_right {
+        }
+        #pari_mutuel_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+        }
+        #pari_mutuel_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        .roster_parameter_table {
+            display: block !important;
+        }
+        .augment_vertical_padding li {
+            padding-top: 7px !important;
+            padding-bottom: 2px !important;
+        }
+        
+        /* My Account */
+        
+        #account_menu {
+            float: none;
+            width: 100%;
+        }
+        
+        /* transactions in My Account */
+        
+        #transaction_report_table tr {
+            display: block;
+            position: relative;
+            border-bottom: 0 !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        #transaction_report_table td {
+            display: inline-block;
+            padding-right: 1px !important;
+            padding-left: 1px !important;
+        }
+        #transaction_report_table td:first-child { /* trans no. */
+            float: right;
+        }
+        #transaction_report_table td:nth-child(3) { /* date */
+            display: block;
+            font-size: 11px;
+            padding-top: 0px !important;
+            padding-bottom: 8px !important;
+        }
+        #transaction_report_table td:nth-child(4)  { /* btc value */
+            float: left;
+        }
+        #transaction_report_table td:nth-child(5)  { /* fiat value */
+            display: block;
+            text-align: left;
+        }
+        #transaction_report_table td:last-child  { /* memo */
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        
+        #transaction_report_table .memo_link {
+            padding-right: 0 !important;
+        }
+        
+        /* My Entries */
+        
+        #roster_entry_report_table tr:first-child { /* header */
+            display: none;
+        }
+        #roster_entry_report_table td {
+            display: block;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+        
+        #roster_entry_report_table td:first-child { /* rank / score */
+            padding-top: 5px !important;
+            padding-bottom: 7px !important;
+            width: auto !important;
+        }
+        #roster_entry_report_table td:nth-child(2) { /* username */
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:nth-child(3) { /* roster */
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:nth-child(4) { /* # of entries */
+            padding-bottom: 10px !important;
+        }
+        #roster_entry_report_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #roster_entry_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+        }
+        #roster_entry_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        #roster_entry_report_table .pay_line_row td {
+            padding: 20px !important;
+            text-align: center !important;
+        }
+        
+        #pari_mutuel_entry_report_table tr:first-child { /* header */
+            display: none;
+        }
+        #pari_mutuel_entry_report_table td {
+            display: block;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            text-align: left !important;
+        }
+        
+        #pari_mutuel_entry_report_table td:first-child { /* pari_mutuel / outcome */
+            padding-top: 5px !important;
+            padding-bottom: 7px !important;
+        }
+        #pari_mutuel_entry_report_table td:nth-child(2) { /* My Wagers */
+            padding-top: 10px !important;
+        }
+        #pari_mutuel_entry_report_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #pari_mutuel_entry_report_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+        }
+        #pari_mutuel_entry_report_table .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+    }
+    @media only screen and (max-width: 640px) {
+
+        /* Contest page */
+        
+        .player_table td {
+            text-align: left !important;
+            font-size: 12px !important;
+            width: auto !important;
+        }
+        .player_table td:first-child { /* player name */
+            width: 100%;
+            font-size: 13px !important;
+            padding-top: 1px !important;
+            padding-bottom: 2px !important;
+            display: block !important;
+        }
+        .player_table td:nth-child(2) { /* player price */
+            padding-top: 0 !important;
+            padding-bottom: 4px !important;
+            padding-right: 5px !important;
+            display: inline-block !important;
+        }
+        .player_table td:nth-child(3) { /* player price */
+            padding-top: 0 !important;
+            padding-bottom: 4px !important;
+            padding-left: 5px !important;
+            display: inline-block !important;
+        }
+        
+        /* Scores page */
+        
+        #score_table tr:first-child { /* header */
+            display: none;
+        }
+        #score_table td {
+            display: block !important;
+            text-align: left !important;
+            padding-bottom: 0 !important;
+        }
+        #score_table td:first-child { /* pari_mutuel / outcome */
+            padding-bottom: 10px !important;
+        }
+        #score_table td:last-child { /* wager */
+            padding-bottom: 11px !important;
+        }
+        #score_table .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+
+        #promo_landing_container {
+            width: 100% !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+        #promo_landing_container td:first-child {
+            padding: 20px 0 0 0 !important;
+            text-align: center !important;
+        }
+        #promo_landing_container #promo_description {
+            font-size: 30px;
+        }
+
+        .lobby_value_prop {
+            margin-top: 50px;
+            font-size: 38px;
+            margin-bottom: 55px;
+        }
+
+        #balance_table_wrapper {
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+        #balance_table_outer {
+            margin: 25px auto !important;
+        }
+
+        .mobile_lowest_only {
+            display: block !important;
+        }
+        
+        .ssi_mobile_hide {
+            display: none;
+        }
+        
+        .table_body_container {
+            padding-right: 0 !important;
+            padding-left: 0 !important;
+        }
+        
+        /* one-wide tiles */
+        
+        .sub_category_item {
+            width: calc(100% - 7px);
+        }
+         
+        .right_left li:last-child { /* transaction amount */
+            padding-right: 0 !important;
+        }
+        
+        .contest_detail_table .payout_info_link {
+            padding-right: 0 !important;
+        }
+        
+        #pari_mutuel_table td {
+            font-size: 11px !important;
+        }
+        #pari_mutuel_table .wagers_and_odds li {
+            display: block !important;
+            width: 100%;
+            text-align: left;
+        }
+        #pari_mutuel_table .field_label {
+            text-align: left !important;
+            width: 50px !important;
+        }
+        
+        #submit_pari_mutuel_button {
+            margin-left: 20px;
+        }
+        #submit_roster_button {
+            margin-left: 20px;
+        }
+        
+        .roster_parameter_label {
+            font-size: 12px !important;
+            padding-left: 20px !important;
+        }
+        
+        #number_verbose {
+            display: none;
+        }
+        #number_sign {
+            display: inline-block;
+        }
+        
+        .player_table td:first-child { /* player name */
+            font-size: 12px !important;
+        }
+        .player_table td:nth-child(2) { /* player price */
+            font-size: 11px !important;
+        }
+        .player_table td:nth-child(3) { /* player price */
+            font-size: 11px !important;
+        }
+        
+        #editing_roster {
+            padding-left: 20px !important;
+            font-size: 14px !important;
+        }
+        
+        #transaction_report_table td {
+            font-size: 11px !important;
+        }
+        #transaction_report_table td:nth-child(3) { /* date */
+            font-size: 10px !important;
+        }
+        
+        #contest_status_selector_container {
+            padding-top: 0px !important;
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+        .lobby_container #contest_status_selector_container {
+            padding-top: 10px !important;
+        }
+        #contest_status_selector_container td {
+            text-align: center;
+            font-size: 12px !important;
+        }
+        #contest_status_selector td:first-child {
+            border-left: none !important;
+        }
+        #contest_status_selector td:nth-child(3) {
+            border-right: none !important;
+        }
+        #contest_status_selector td:last-child {
+            display: none;
+        }
+        
+        .headline_value_container.my_contests {
+            padding-left: 0 !important;
+        }
+        
+    }
+    
+    @media only screen and (max-width: 374px) {
+
+        .lobby_logo {
+            font-size: 28px;
+        }
+        
+        .lobby_value_prop {
+            margin-top: 55px;
+            font-size: 32px;
+            margin-bottom: 60px;
+        }
+
+        .lobby_play_now_button {
+            font-size: 22px;
+        }
+        
+        .collapse_players .inline_player_name {
+            display: block !important;
+        }
+        .collapse_players .inline_player_price {
+            padding-left: 0 !important;
+        }
+        
+        #balance_table_outer {
+            width: 100%;
+        }
+        #balance_table_outer td.heading_cell {
+            padding-left: 20px !important;
+            padding-right: 0 !important;
+        }
+        #balance_table_outer td.balance_table_cell {
+            padding-right: 20px !important;
+        }
+        
+    }

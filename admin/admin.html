@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
+    <meta name="keywords" content="coinroster, bitcoin, daily fantasy sports, dfs, fantasy sports" />
+    <meta name="Robots" content="index,follow,NOODP" />  
+    <meta name="googlebot" content="NOODP" />        
+    <meta name="rating" content="General" />
+    <!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1>
+                    Admin Panel
+                </h1>
+                <div class="vertical_spacing">
+                    <a class="text_button a_button" href="accounting.html" style="color:white">Accounting</a>
+                    <br/>
+                    <br/>
+                    <a class="text_button a_button" onclick="build_lobby()" style="color:white">Build Lobby</a>
+                    <br/>
+                    <br/>
+                    <a class="text_button a_button" href="categories.html" style="color:white">Categories</a>
+                    <br/>
+                    <br/>
+                    <a class="text_button a_button" href="contests.html" style="color:white">Contests</a>
+                    <br/>
+                    <br/>
+                    <a class="text_button a_button" href="promos.html" style="color:white">Promos</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script>
+
+    function build_lobby()
+        {
+        api({
+            method: "TriggerBuildLobby",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                alert("Lobby has been built!");
+                location = "/";
+                }
+            });
+        }
+        
+</script>
+</body>
+</html>

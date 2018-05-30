@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Your Bitcoin Wallet</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>WALLET</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div id="add_ext_address_subwindow" class="hidden">
+                Connect a Bitcoin wallet
+                <div id="add_wallet_message" class="input_padding hidden"></div>
+                <form onsubmit="return update_ext_address('add_ext_address');">
+                    <div class="input_padding">
+                        <input id="add_ext_address" type="text" class="input_style email_input" placeholder="Bitcoin wallet address"  maxlength="35" style="width:260px !important"/>
+                        <br/>
+                        <br/>
+                        <button type="submit" class="text_button auto_width">Connect wallet</button>
+                    </div>
+                </form>
+            </div>
+            <div id="manage_ext_address_subwindow" class="hidden">
+                <div id="display_ext_address">
+                    Your wallet on file is:
+                    <br/>
+                    <br/>
+                    <span id="ext_address" class="orange" style="font-size:12px"></span>
+                    <div id="change_ext_address_button">
+                        <br/>
+                        <button class="text_button auto_width" onclick="hide('display_ext_address');show('change_ext_address');">Change wallet address</button>
+                    </div>
+                </div>
+                <div id="change_ext_address" class="hidden">
+                    <form onsubmit="return update_ext_address('new_ext_address');">
+                        <span id="change_wallet_message">
+                            New wallet address:
+                        </span>
+                        <br/>
+                        <br/>
+                        <input id="new_ext_address" type="text" class="input_style email_input" placeholder="wallet address" maxlength="35" style="width:260px !important"/>
+                        <br/>
+                        <br/>
+                        <button type="submit" class="text_button auto_width" style="display:inline-block">Submit</button><!--
+                        --><button class="text_button auto_width add_left_margin" onclick="return cancel_change_wallet();" style="display:inline-block">Cancel</button>
+                    </form>
+                </div>
+                <br/>
+                <hr noshade>
+                <br/>
+                <div id="must_withdraw_bitcon" class="hidden">
+                    <span class="teal">
+                        Wallet security is ENABLED
+                    </span>
+                    <br/>
+                    <br/>
+                    You must withdraw all Bitcoin from this account in order to change your wallet address.
+                </div>
+                <div id="security_is_enabled" class="constrain_width hidden">
+                    <span class="teal">
+                        Wallet security is ENABLED
+                    </span>
+                    <br/>
+                    <br/>
+                    <div style="font-size:12px">
+                        With security enabled, you will NOT be able to change your wallet address if
+                        there are Bitcoins in your CoinRoster account. This is meant to stop a hacker
+                        from withdrawing your Bitcoins to a new wallet.
+                        <br/>
+                        <br/>
+                        If you want, you can click the button below to DISABLE this security measure. 
+                        You will be free to change your wallet address at any time. 
+                    </div>
+                    <br/>
+                    <br/>
+                    <button class="text_button auto_width" onclick="update_ext_address_security(0);">Disable wallet security</button>
+                    <br/>
+                    <br/>
+                    <a href="/wallet_security.html" style="color:white">Click here for a complete explanation</a>
+                </div>
+                <div id="enable_security" class="hidden">
+                    <span class="orange_actual">
+                        Wallet security is DISABLED
+                    </span>
+                    <br/>
+                    <br/>
+                    <div style="font-size:12px">
+                        With security disabled, you can change your wallet address at any time.
+                        <br/>
+                        <br/>
+                        If you would like to enable wallet security and prevent wallet changes while
+                        <br/>
+                        there are Bitcoins in your account, please click the button below.
+                        <span id="your_next_opportunity" class="hidden">
+                            <br/>
+                            Your next opportunity to disable wallet security will be after you withdraw
+                            <br/>
+                            all Bitcoins in your account to your connected wallet.
+                        </span>
+                    </div>
+                    <br/>
+                    <button class="text_button auto_width" onclick="update_ext_address_security(1);">Enable wallet security</button>
+                    <br/>
+                    <br/>
+                    <a href="/wallet_security.html" class="inline_link teal" style="font-size:12px">Click here for a complete explanation</a>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+    
+    window.nav_text = "MY ACCOUNT";
+    
+//--------------------------------------------------------------------------------------------------
+
+    // CONNECT BITCOIN WALLET
+
+    function add_wallet_error(message, color)
+        {
+        show("add_wallet_message");
+        id("add_wallet_message").innerHTML = message;
+        id("add_wallet_message").style.color = color;
+        }
+        
+    function change_wallet_error(message, color)
+        {
+        id("change_wallet_message").innerHTML = message;
+        id("change_wallet_message").style.color = color;
+        }
+    function cancel_change_wallet()
+        {
+        change_wallet_error("New wallet address:", "white");
+        hide("change_ext_address");
+        show("display_ext_address");
+        return false;
+        }
+        
+    function update_ext_address(_id)
+        {
+        var ext_address = id(_id).value;
+        
+        if (ext_address === "")
+            {
+            if (_id === "add_ext_address") add_wallet_error("Enter a wallet address", "orange");
+            else change_wallet_error("Enter a new wallet address", "orange");
+            return false;
+            }
+        
+        // validate bitcoin addresses?
+
+        api({
+            method: "UpdateExtAddress",
+            args: {
+                ext_address: ext_address,
+                update_for_active_user: true
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("Your wallet has been connected.", "good", function()
+                    {
+                    if (_id === "add_ext_address") 
+                        {
+                        if (location.hash === "#deposit") window.location = "/account/deposit.html#wallet";
+                        else if (location.hash === "#withdraw") window.location = "/account/withdraw.html";
+                        else window.location.reload();
+                        }
+                    else window.location.reload();
+                    });
+                }
+            else 
+                {
+                if (_id === "add_ext_address") add_wallet_error(call.error, "orange");
+                else change_wallet_error(call.error, "orange");
+                }
+            });
+            
+        return false;
+        }
+
+    function update_ext_address_security(ext_address_secure_flag)
+        {
+        api({
+            method: "UpdateExtAddressSecurity",
+            args: {
+                ext_address_secure_flag: ext_address_secure_flag
+            }
+        }, function()
+            {
+            location.reload();
+            });
+            
+        return false;
+        }
+
+    function init()
+        {
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+
+                btc_balance = call.btc_balance,
+                ext_address = call.ext_address,
+                ext_address_secure_flag = call.ext_address_secure_flag;
+
+                if (ext_address === "") 
+                    {
+                    destroy("manage_ext_address_subwindow");
+                    show("add_ext_address_subwindow");
+                    }
+                else
+                    {
+                    destroy("add_ext_address_subwindow");
+                    show("manage_ext_address_subwindow");
+                    
+                    id("ext_address").innerHTML = ext_address;
+                    
+                    if (ext_address_secure_flag === 1)
+                        {
+                        if (btc_balance > 0)
+                            {
+                            hide("change_ext_address_button");
+                            show("must_withdraw_bitcon");
+                            }
+                        else show("security_is_enabled");
+                        }
+                    else if (ext_address_secure_flag === 0)
+                        {
+                        show("enable_security");
+                        if (btc_balance > 0) show("your_next_opportunity");
+                        }
+                    }
+                }
+            });
+        }
+       
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

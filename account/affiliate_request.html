@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Affiliate Code Request</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>AFFILIATE CODE</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding constrain_width">
+            <br/>
+            With an affiliate code, you will be able to offer new users <span class="orange">Free Play</span> on CoinRoster!
+            <br/>
+            <br/>
+            <div style="font-size:12px">
+                Users will need to meet a playing requirement, usually equal to 100% divided by the rake.
+                <br/>
+                <br/>
+                You will receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by any account that signs up with your affiliate promo code after the playing requirement has been met.
+                <br/>
+                <br/>
+                <span class="orange">Optional - what would you like your code to be?</span>&nbsp;&nbsp;&nbsp;(we will do our best to accomodate)
+                <br/>
+                <br/>
+                <input id="requested_code" type="text" placeholder="Max 20 chars" class="light_on_dark_input teal email_input" maxlength="20"/>
+                <div class="low_grade_alert" style="margin-top:20px;">
+                    Note
+                    <br/>
+                    <br/>
+                    In order to prevent abuse, we will only approve your account for an 
+                    affiliate code if you have a proven history with us of playing and 
+                    referring friends. If we do not approve you, we will give you some guidance
+                    on what you can do to get approved.
+                </div>
+            </div>
+            <br/>
+            <button class="text_button auto_width" onclick="submit_affiliate_request()">Request code!</button>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init()
+        {
+        id("requested_code").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+        id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
+        }
+        
+    function submit_affiliate_request()
+        {
+        var requested_code = id("requested_code").value;
+        
+        api({
+            method: "PromoCodeRequest",
+            args: {
+                requested_code: requested_code
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("We have received your request and will contact you soon.", "good", function()
+                    {
+                    window.location = "/account";
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

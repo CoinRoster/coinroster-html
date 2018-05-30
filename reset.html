@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Reset your password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
+    <meta name="keywords" content="Bitcoin, Daily Fantasy Sports, BTC, Fantasy Sports, Online" />
+    <meta name="Robots" content="index,follow,NOODP" />  
+    <meta name="googlebot" content="NOODP" />        
+    <meta name="rating" content="General" />
+<!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--include virtual="/ssi/carousel.html" -->
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1 class="logo_font">
+                    <a href="/" id="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <form autocomplete="off" onsubmit="return update_password();">
+                    <input type="password" style="position:absolute;top:-1000px;"/>
+                    <div class="input_padding">
+                        <span id="password_label" class="input_label">New Password</span>
+                        <input placeholder="New password" label="false" id="password" type="password" class="input_style" tabindex="2">
+                    </div>
+                    <div class="input_padding">
+                        <span id="confirm_password_label" class="input_label">Confirm New Password</span>
+                        <input placeholder="Confirm password" label="false" id="confirm_password" type="password" class="input_style" tabindex="3">
+                    </div>
+                    <div class="input_padding">
+                        <button class="text_button" style="color:orange;" type="submit" tabindex="4">Update Password</button>
+                    </div>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    
+    (function() // get reset_key from url
+        {
+        var 
+    
+        search_variable = location.search.split("?")[1];
+
+        if (typeof search_variable === "undefined") window.reset_key = "";
+        else window.reset_key = search_variable;
+
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i += 1) inputs[i].value = "";
+
+        id("password").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+        id("confirm_password").onkeyup = function()
+            {
+            this.value = this.value.replace(/\s/g, "");
+            };
+
+        id("password").onchange = function()
+            {
+            check_password("New Password");
+            };
+        id("confirm_password").onchange = function()
+            {
+            check_confirm_password("Confirm New Password");
+            };
+        })();
+    
+</script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

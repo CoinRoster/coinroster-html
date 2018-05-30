@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Verify your email</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/carousel.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1 class="logo_font">
+                    <a href="/" id="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <br/>
+                <span id="auth_message"></span>
+                <div id="login_prompt" class="hidden">
+                    <br/>
+                    <form onsubmit="return login('/account');">
+                        <div class="input_padding">
+                            <input placeholder="Username" label="false" id="username" type="text" class="input_style" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
+                        <div class="input_padding">
+                            <input placeholder="Password" label="false" id="password" type="password" class="input_style">
+                        </div>
+                        <button id="login_button" class="text_button" type="submit">Log in</button>
+                    </form>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    
+    (function() // automatically submit email verification if token is present
+        {
+        var 
+    
+        search_variable = location.search.split("?")[1],
+        email_ver_key;
+
+        if (typeof search_variable === "undefined") email_ver_key = "";
+        else email_ver_key = search_variable;
+
+        if (email_ver_key === "") 
+            {
+            set_auth_message("auth_message", "Please log in", "white");
+            show("login_prompt");
+            }
+        else
+            {
+            var call = api({
+                method: "VerifyEmail",
+                args: {
+                    email_ver_key: email_ver_key
+                }
+            });
+
+            if (call.status === "1") 
+                {
+                set_auth_message("auth_message", "Your e-mail has been verified", "white");
+                if (window.session)
+                    {
+                    set_auth_message("auth_message", "Your e-mail has been verified<br/><br/>Redirecting...", "white");
+                    setTimeout(function(){
+                        window.location = "/account";
+                    },1000);
+                    }
+                else
+                    {
+                    set_auth_message("auth_message", "Your e-mail has been verified<br/><br/>Please log in", "white");
+                    show("login_prompt");
+                    }
+                }
+            else 
+                {
+                set_auth_message("auth_message", "Something went wrong, please log in.", "white");
+                show("login_prompt");
+                }
+            }
+        })();
+    
+</script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

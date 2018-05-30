@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Withdraw BTC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!--#include virtual="/ssi/head.html" -->
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div id="initial_container">
+                <div class="vertical_spacing">
+                    <h2 class="section_header" style="padding:0">Withdraw BTC</h2>
+                    <br/>
+                    <br/>
+                    Your available balance is:
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2 id="btc_balance" class="lucida"></h2>
+                </div>
+                <div>
+                    <form onsubmit="return go_to_review();">
+                        <div class="input_padding">
+                            <input placeholder="Amount to withdraw" label="false" id="amount_to_withdraw" type="text" btc-input="true" class="light_on_dark_input teal" style="width:180px" autocorrect="off" autocapitalize="off" spellcheck="false"> BTC
+                        </div>
+                        <button class="text_button" type="submit">Continue</button>
+                    </form>
+                </div>
+            </div>
+            <div id="review_container" style="display:none">
+                <div class="vertical_spacing">
+                    <h2 class="section_header" style="padding:0">Review</h2>
+                    <br/>
+                    <br/>
+                    Amount to withdraw:
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h2 id="review_amount_to_withdraw" class="lucida"></h2>
+                    <br/>
+                    <br/>
+                    To:&nbsp;&nbsp;&nbsp;<span class="inline_link" onclick="show_ext_address();">connected wallet</span>
+                    <br/>
+                    <br/>
+                </div>
+                <div>
+                    <form onsubmit="return go_to_confirm();">
+                        <button id="submit_withdrawal_button" class="text_button auto_width" type="submit">Submit withdrawal</button>
+                    </form>
+                </div>
+            </div>
+            <div id="confirmation_container" style="display:none">
+                <div class="vertical_spacing">
+                    <h2 class="section_header" style="padding:0">Confirmation</h2>
+                    <br/>
+                    <br/>
+                    <span style="color:orange">
+                        We have received your
+                        <br/>
+                        withdrawal request!
+                    </span>
+                    <br/>
+                    <br/>
+                    Transaction ID: <span id="transaction_id"></span>
+                    <br/>
+                    <br/>
+                    <span style="font-size:14px;">
+                        One of our administrators will
+                        <br/>
+                        process the withdrawal shortly.
+                        <br/>
+                        <br/>
+                        <a class="link" href="/account">Back to account</a>
+                    </span>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript">
+        
+    (function()
+        {
+        if (window.session.withdrawal_locked === 1)
+            {
+            return show_simple_modal("You cannot withdraw funds until you meet a playing requirement", "good", function()
+                {
+                location = "/account/account.html";
+                });
+            }
+        
+        var user_ext_address = get_ext_address(true);
+
+        if (user_ext_address === "") 
+            {
+            return show_simple_modal("You must connect a Bitcoin wallet to your account in order to withdraw funds", "good", function()
+                {
+                location = "/account/wallet.html#withdraw";
+                });
+            }
+        })();
+    
+    id("btc_balance").innerHTML = toBTC(get_btc_balance(), true);
+
+    var focus_to_input = function()
+        {
+        id("amount_to_withdraw").focus();
+        };
+        
+    focus_to_input();
+            
+    function go_to_review()
+        {
+        var amount_to_withdraw = id("amount_to_withdraw").value;
+
+        if (amount_to_withdraw === "") 
+            {
+            show_simple_modal("Please enter an amount to withdraw", "good", focus_to_input);
+            return false;
+            }
+            
+        if (parseFloat(amount_to_withdraw) === 0.0) 
+            {
+            show_simple_modal("Cannot withdraw 0.0000000", "bad", focus_to_input);
+            return false;
+            }
+        
+        var btc_balance = +get_btc_balance();
+        
+        if (parseFloat(amount_to_withdraw) > btc_balance) 
+            {
+            show_simple_modal("Insufficient funds", "bad", focus_to_input);
+            return false;
+            }
+            
+        id("review_amount_to_withdraw").innerHTML = amount_to_withdraw;
+
+        hide("initial_container");
+        show("review_container");
+      
+        return false;
+        }
+    
+    function show_ext_address()
+        {
+        var ext_address = get_ext_address(true);
+        
+        if (ext_address === "") show_simple_modal("You do not have a wallet address on file with us.<br/><br/>Funds will be returned to the original deposit wallet.", "good", null);
+        else show_simple_modal("Funds will be sent to:<br/><br/><div style=\"font-size:11px;max-width:100%;word-break:break-all\">" + ext_address + "</div>", "good", null);
+        }
+        
+    function go_to_confirm()
+        {
+        var amount_to_withdraw = id("amount_to_withdraw").value;
+        
+        api({ 
+            method: "UserWithdrawal", 
+            args: {
+                amount_to_withdraw: amount_to_withdraw
+            } 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                hide("review_container");
+                id("transaction_id").innerHTML = call.transaction_id;
+
+                show("confirmation_container");
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+            
+        return false;
+        }
+
+</script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

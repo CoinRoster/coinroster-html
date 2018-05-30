@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="CoinRoster offers Daily Fantasy Sports for Bitcoin! Join a contest, create a roster, and win!" />
+    <meta name="keywords" content="coinroster, bitcoin, daily fantasy sports, dfs, fantasy sports" />
+    <meta name="Robots" content="index,follow,NOODP" />  
+    <meta name="googlebot" content="NOODP" />        
+    <meta name="rating" content="General" />
+<!--#include virtual="/ssi/head.html" -->
+</head>
+<body>
+<!--#include virtual="/ssi/carousel.html" -->
+<table class="landing_center">
+    <tr>
+        <td>
+            <div>
+                <h1 class="logo_font">
+                    <a href="/" id="logo_link">
+                        CoinRoster
+                    </a>
+                </h1>
+                <div>
+                    <form onsubmit="return login();">
+                        <div class="input_padding">
+                            <span id="username_label" class="input_label">Username</span>
+                            <input placeholder="Username" label="false" id="username" type="text" class="input_style" maxlength="40" tabindex="1" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
+                        <div class="input_padding">
+                            <span id="password_label" class="input_label">Password</span>
+                            <input placeholder="Password" label="false" id="password" type="password" class="input_style" tabindex="2">
+                        </div>
+                        <button id="login_button" class="text_button green" type="submit">Log in</button>
+                    </form>
+                    <a id="reset_password" class="teal" href="forgot.html">Reset your password</a>
+                    <a class="text_button a_button" href="signup.html" style="color:white">Sign up</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

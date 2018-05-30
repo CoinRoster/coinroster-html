@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | My Contests</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <link type="text/css" rel="stylesheet" href="/css/contest_status_selector.css" />
+    <script type="text/javascript" src="/js/account.js"></script>
+    <script type="text/javascript" src="/js/lobby.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <!--#include virtual="/ssi/contest_status_selector.html" -->
+        <div class="body_container">
+            <div id="headline_value_container" class="headline_value_container my_contests hidden">
+                <ul>
+                    <li>
+                        <span id="headline_value_label" class="headline_value_label"></span>
+                    </li>
+                    <li>
+                        <span id="headline_value" class="headline_value"></span>
+                        <span id="headline_value_fiat"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="body_container header">
+            <div id="no_data_message" class="low_grade_alert hidden"></div>
+        </div>
+        <div class="table_body_container">
+            <table id="contest_report_table" class="contest_table"></table>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<!--#include virtual="/ssi-java/my_contests_count" -->
+<script type="text/javascript">
+     
+    window.nav_text = "MY CONTESTS";
+    
+    (function()
+        {
+        if (window.contest_counts)
+            {
+            var
+            
+            open_count = window.contest_counts.open,
+            in_play_count = window.contest_counts.in_play,
+            settled_count = window.contest_counts.settled;
+            
+            id("open_count").innerHTML = "(" + open_count + ")";
+            id("in_play_count").innerHTML = "(" + in_play_count + ")";
+            id("settled_count").innerHTML = "(" + settled_count + ")";
+            }
+        })();
+        
+    function init(contest_status_selection)
+        {
+        var contest_status;
+
+        if (!contest_status_selection)
+            {
+            if (typeof window.session !== "undefined" && !contest_status_selection) contest_status = window.session.contest_status;
+            else contest_status = 1;
+            }
+        else contest_status = contest_status_selection;
+            
+        update_contest_status_selector(contest_status);
+        
+        hide("no_data_message");
+        hide("headline_value_container");
+        
+        id("contest_report_table").innerHTML = "<tr><td>Loading...</td></tr>";
+        
+        var contest_status_final = contest_status;
+        
+        api({
+            method: "ContestReport_MyContests",
+            args: {
+                contest_status: contest_status
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var 
+                
+                user_contest_report = call.user_contest_report,
+                number_of_contests = user_contest_report.length,
+                
+                table = id("contest_report_table");
+        
+                table.innerHTML = "";
+                
+                if (number_of_contests === 0) 
+                    {
+                    var no_data_message = "";
+                    switch (contest_status_final)
+                        {
+                        case 1 : // open
+                            no_data_message = "You have no open contests.";
+                            break;
+                        case 2 : // in play
+                            no_data_message = "You have no contests in play.";
+                            break;
+                        case 3 : // settled
+                            no_data_message = "You have no settled contests.";
+                            break;
+                        }
+                    id("no_data_message").innerHTML = no_data_message;
+                    show("no_data_message");
+                    return;
+                    }
+                    
+                switch (contest_status_final)
+                    {
+                    case 1 : // open
+                        populate_open_contests(user_contest_report, number_of_contests, table);
+                        break;
+                    case 2 : // in play
+                        populate_in_play_contests(user_contest_report, number_of_contests, table);
+                        break;
+                    case 3 : // settled
+                        populate_settled_contests(user_contest_report, number_of_contests, table);
+                        break;
+                    }
+                }
+            });
+        }
+   
+    function populate_open_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "Goes live",
+            "On the line"
+        ]);
+
+        header[4].className = "right_nowrap";
+        
+        var 
+        
+        user_wagers_total = 0,
+        closest_registration_deadline = 0;
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            contest_type = contest_item.contest_type,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers,
+            registration_deadline_ms = contest_item.registration_deadline,
+            registration_deadline_string = get_registration_deadline_string(registration_deadline_ms),
+            user_wagers_total = add(user_wagers_total, user_wagers),
+            show_countdown = false;
+    
+            if (i === 0) closest_registration_deadline = registration_deadline_ms;
+            if (registration_deadline_ms === closest_registration_deadline) show_countdown = true;
+
+            var button_text = "";
+
+            if (contest_type === "PARI-MUTUEL") button_text = "My wagers";
+            else if (contest_type === "ROSTER") button_text = "My rosters";
+
+            var title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
+
+            var row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li class='draft_button' onclick='show_user_entries(" + contest_id + ")'>" + button_text + "</li></ul>",
+                "<div class='field_label'>Category:</div>" + sub_category_description,
+                "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string),
+                "<div class='field_label'>My wagers:</div>" + toBTC(user_wagers) + " BTC" + getFiatDisplay(user_wagers, "allow_inline")
+            ]);
+            
+            if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
+
+            for (var cell=2; cell<4; cell++) row[cell].style.whiteSpace = "nowrap";
+            
+            row[4].className = "right_nowrap";
+            }
+
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "On the line:";
+        id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        id("headline_value_fiat").innerHTML = getFiatDisplay(user_wagers_total, "soft_inline");
+        }
+        
+    function populate_in_play_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "In play"
+        ]);
+
+        header[3].className = "right_nowrap";
+        
+        var user_wagers_total = 0;
+
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            contest_type = contest_item.contest_type,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers;
+
+            user_wagers_total = add(user_wagers_total, user_wagers);
+
+            var 
+            
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            first_cell_text = "";
+
+            if (contest_type === "ROSTER")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Leaderboard</li></ul>";
+                }
+            else if (contest_type === "PARI-MUTUEL")
+                {
+                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>My wagers</li></ul>";
+                }
+
+            var row = new_row(table, -1, [
+                first_cell_text,
+                "<div class='field_label'>Category:</div>" + sub_category_description,
+                "<div class='field_label'>My wagers:</div>" + toBTC(user_wagers) + " BTC" + getFiatDisplay(user_wagers, "allow_inline")
+            ]);
+
+            row[2].style.whiteSpace = "nowrap";
+            row[3].className = "right_nowrap";
+            }
+
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "In play:";
+        id("headline_value").innerHTML = toBTC(user_wagers_total) + " BTC";
+        id("headline_value_fiat").innerHTML = getFiatDisplay(user_wagers_total, "soft_inline");
+        }
+        
+    function populate_settled_contests(contest_report, number_of_contests, table)
+        {
+        var header = new_row(table, -1, [
+            "Contest",
+            "Category",
+            "P/L"
+        ]);
+
+        header[3].className = "right_nowrap";
+        
+        var 
+        
+        PL_total = 0,
+        loss_color = "orange_actual";
+        
+        for (var i=0; i<number_of_contests; i++)
+            {
+            var contest_item = contest_report[i],
+
+            contest_id = contest_item.id,
+            category_description = contest_item.category_description,
+            sub_category_description = contest_item.sub_category_description,
+            title = contest_item.title,
+            user_wagers = contest_item.user_wagers,
+            user_winnings = contest_item.user_winnings,
+            net_PL = subtract(user_winnings, user_wagers);
+            PL_total = add(PL_total, net_PL);
+      
+            var 
+            
+            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            PL_class = "",
+            minus_sign = "";
+    
+            if (net_PL > 0) PL_class = "green";
+            else if (net_PL < 0) 
+                {
+                PL_class = loss_color;
+                minus_sign = "-";
+                }
+
+            var row = new_row(table, -1, [
+                "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_my_entries(" + contest_id + ")'>Results</li></ul>",
+                "<div class='field_label'>Category:</div>" + sub_category_description,
+                "<div class='field_label'>P/L:</div><span class='" + PL_class + "'>" + minus_sign + toBTC(net_PL) + " BTC</span>" + getFiatDisplay(net_PL, "allow_inline")
+            ]);
+
+            row[2].style.whiteSpace = "nowrap";
+            row[3].className = "right_nowrap";
+            }
+            
+        show("headline_value_container");
+        id("headline_value_label").innerHTML = "Total P/L:";
+        
+        if (PL_total > 0) id("headline_value").innerHTML = "<span class='green'>" + toBTC(PL_total) + " BTC</span>";
+        else if (PL_total < 0) id("headline_value").innerHTML = "<span class='" + loss_color + "'>-" + toBTC(PL_total) + " BTC</span>";
+        else id("headline_value").innerHTML = toBTC(PL_total);
+        id("headline_value_fiat").innerHTML = getFiatDisplay(PL_total, "soft_inline");
+        }
+        
+    function show_user_entries(contest_id)
+        {
+        window.location = "/contests/entries.html?contest_id=" + contest_id;
+        }
+        
+</script>
+<script type="text/javascript" src="/js/contest_status_selector.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

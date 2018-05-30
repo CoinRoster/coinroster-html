@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Admin Panel</title>
+    <script type="text/javascript" src="js/error.js"></script>
+    <!--#include virtual="/ssi/head_admin.html" -->
+</head>
+<body>   
+<input type="password" style="position:absolute;top:-1000px;"/>
+<div id="header"></div>
+<!--#include virtual="/ssi-java/nav_admin" -->
+<div id="nav"></div>
+<div id="pane_0" class="pane" tab_text="Category Report">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Category Report
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('category_table');"/>
+    </div>
+    <div id="category_report" class="content_body report_table" style="top:68px">
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<div id="pane_1" class="pane" tab_text="Create Category">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Create Category
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <br/>
+        <table class="form_table">
+            <tr>
+                <td>
+                    Code (max 20 chars)
+                </td>
+                <td>
+                    <input id="create_category_code_input" type="text" class="input_style text_input" maxlength="20" style="width:200px">
+                    e.g. DFS
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Description (max 40 chars)
+                </td>
+                <td>
+                    <input id="create_category_description_input" type="text" class="input_style text_input" maxlength="40" style="width:400px">
+                    e.g. Daily Fantasy Sports
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <button id="create_category_button" type="button" class="input_style" onclick="create_category();">Create Category</button>
+        <br/>
+        <br/>
+    </div>
+</div>
+<div id="pane_2" class="pane" tab_text="Create Sub-Category">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Create Sub-Category
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <br/>
+        <table class="form_table">
+            <tr>
+                <td>
+                    Category
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="create_sub_category__category_selector" class="input_style chosen-select" style="width:500px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Code (max 20 chars)
+                </td>
+                <td>
+                    <input id="create_sub_category_code_input" type="text" class="input_style text_input" maxlength="20" style="width:200px">
+                    e.g. GOLF
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Description (max 40 chars)
+                </td>
+                <td>
+                    <input id="create_sub_category_description_input" type="text" class="input_style text_input" maxlength="40" style="width:400px">
+                    e.g. Golf
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Active flag
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="create_sub_category_active_flag_selector" class="input_style chosen-select" style="width:155px">
+                        <option value="1" selected>Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td id="image_prompt">
+                    Tile image
+                </td>
+                <td>
+                    <input id="create_sub_category_tile_image" type="file"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top">
+                    The tiles are 220px wide
+                    <br/>
+                    by 150px high. 
+                    <br/>
+                    <br/>
+                    The ideal image size is
+                    <br/>
+                    double that:
+                    <br/>
+                    <br/>
+                    <b>
+                        440px wide
+                        <br/>
+                        300px high   
+                    </b> 
+                </td>
+                <td>
+                    <div id="tile_preview_container">
+                        <div class="sub_category_item">
+                            <div id="create_sub_category_image_preview" class="sub_category_tile"></div>
+                            <div class="sub_category_details">
+                                <div class="sub_category_description" style="color:white">
+                                    --
+                                </div>
+                                <div class="sub_category_detail">
+                                    <span style="color:orange">3 open contests</span>
+                                </div>
+                                <div class="sub_category_detail">
+                                    2 in play
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <button id="create_sub_category_button" type="button" class="input_style" onclick="create_sub_category();">Create Sub-Category</button>
+        &nbsp;
+        <button id="cancel_edit_sub_category_button" type="button" class="input_style hidden" style="background:rgb(255,231,166)" onclick="location.replace('/admin/categories.html')">Cancel Edit</button>
+        <br/>
+        <br/>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="js/categories.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+</body>
+</html>

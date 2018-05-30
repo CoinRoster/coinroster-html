@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Admin Panel</title>
+    <script type="text/javascript" src="js/error.js"></script>
+    <!--#include virtual="/ssi/head_admin.html" -->
+</head>
+<body>   
+<input type="password" style="position:absolute;top:-1000px;"/>
+<div id="header"></div>
+<!--#include virtual="/ssi-java/nav_admin" -->
+<div id="nav"></div>
+<div id="pane_0" class="pane" tab_text="Affiliate Report">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Affiliate Report
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('affiliate_report');"/>
+    </div>
+    <div id="affiliate_report" class="content_body report_table" style="top:68px">
+        Nothing developed for this tab yet
+    </div>
+</div>
+<div id="pane_1" class="pane" tab_text="Affiliate Revenue">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Affiliate Revenue
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td colspan="4">
+                    This is a system-wide variable assigned to <b>new users</b> representing the % of the rake that they will earn on referrals that they make.
+                    <br/><br/>
+                    The value is a multiplier between 0 and 1 (e.g. 0.5 = 50% of the rake).
+                </td>
+            </tr>
+            <tr>
+                <td width="1">
+                    Default affiliate revenue:
+                </td>
+                <td width="1">
+                    <input id="default_offer_input" type="text" class="input_style text_input">
+                </td>
+                <td width="1">
+                    <button type="button" class="input_style" onclick="update_default_offer();">Update</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_2" class="pane" tab_text="Deposit Match">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Deposit Match
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td width="1">
+                    Deposit match cap
+                </td>
+                <td width="1">
+                    <input id="deposit_bonus_cap_input" type="text" btc-input="true" class="input_style text_input"> BTC
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td width="1">
+                    Rollover (multiple)
+                </td>
+                <td width="1">
+                    <input id="deposit_bonus_rollover_input" type="text" class="input_style text_input"> x
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td width="1">
+                    <button type="button" class="input_style" onclick="update_deposit_bonus();">Update</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_3" class="pane" tab_text="Code Requests">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Code Requests
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('promo_request_report');"/>
+    </div>
+    <div id="promo_request_report" class="content_body report_table" style="top:68px">
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<div id="pane_4" class="pane" tab_text="Create Promo">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Create Promo
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td>
+                    Promo code:
+                </td>
+                <td colspan="2">
+                    <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
+                    <button type="button" class="input_style" onclick="check_promo_code();">Check if exists</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Description:
+                </td>
+                <td colspan="2">
+                    <input id="create_promo__description_input" type="text" class="input_style text_input" maxlength="50" style="width:322px">
+                </td>
+                <td>
+                    Used in email subject and elsewhere - e.g. [0.01 BTC Free Play] becomes "Claim your 0.01 BTC Free Play"
+                </td>  
+            </tr>
+            <tr>
+                <td>
+                    Affiliate (optional):
+                </td>
+                <td colspan="2">
+                    <select id="create_promo__referrer_selector" data-placeholder="Select" class="input_style chosen-select_allow-deselect user_selector" style="width:340px">
+                        <option></option>
+                    </select>
+                </td>  
+                <td>
+                    If provided, all users who sign up with the code will have this user as their affiliate
+                </td>  
+            </tr>
+            <tr>
+                <td>
+                    Free play amount:
+                </td>
+                <td colspan="2">
+                    <input id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Rollover (integer):
+                </td>
+                <td colspan="2">
+                    <input id="create_promo__rollover_input" type="text" class="input_style text_input">
+                    x free play amount
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Max use (optional):
+                </td>
+                <td colSpan="2">
+                    <input id="create_promo__max_use_input" type="text" class="input_style text_input">
+                    (leave blank for unlimited)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Expires (optional):
+                </td>
+                <td>
+                    <input id="create_promo__deadline_tcal" type="text" class="input_style text_input tcal">
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="create_promo__time_selector" class="input_style chosen-select" style="width:100px">
+                        <option value="0">12:00 AM</option>
+                        <option value="1">1:00 AM</option>
+                        <option value="2">2:00 AM</option>
+                        <option value="3">3:00 AM</option>
+                        <option value="4">4:00 AM</option>
+                        <option value="5">5:00 AM</option>
+                        <option value="6">6:00 AM</option>
+                        <option value="7">7:00 AM</option>
+                        <option value="8">8:00 AM</option>
+                        <option value="9">9:00 AM</option>
+                        <option value="10">10:00 AM</option>
+                        <option value="11">11:00 AM</option>
+                        <option value="12">12:00 PM</option>
+                        <option value="13">1:00 PM</option>
+                        <option value="14">2:00 PM</option>
+                        <option value="15">3:00 PM</option>
+                        <option value="16">4:00 PM</option>
+                        <option value="17">5:00 PM</option>
+                        <option value="18" selected>6:00 PM</option>
+                        <option value="19">7:00 PM</option>
+                        <option value="20">8:00 PM</option>
+                        <option value="21">9:00 PM</option>
+                        <option value="22">10:00 PM</option>
+                        <option value="23">11:00 PM</option>
+                    </select>
+                    &nbsp;&nbsp;
+                    EST
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="create_promo();">Create Promo</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_5" class="pane" tab_text="Active Promos">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Active Promos
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('active_promo_report');"/>
+    </div>
+    <div id="active_promo_report" class="content_body report_table" style="top:68px">
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+    <div id="cancel_promo" class="content_body report_table hidden" style="top:68px">
+        <input type="hidden" id="cancel_promo_var__promo_code" />
+        <button type="button" class="input_style" onclick="unpopulate_cancel_promo();">Go back</button>
+        <br/>
+        <br/>
+        <h2 id="cancel_promo__promo_code"></h2>
+        <br/>
+        Please provide a cancellation reason:
+        <br/>
+        <br/>
+        <input id="cancel_promo__reason_input" type="text" class="input_style text_input" maxlength="200" style="width:600px">
+        <br/>
+        <br/>
+        <div id="cancel_promo__affiliate_container" class="hidden" style="background:orange;padding:20px;width:580px;">
+            This promo belongs to: <span id="cancel_promo__affiliate" style="font-weight:bold"></span>
+            <br/>
+            <br/>
+            They will receive an email containing the reason entered above.
+        </div>
+        <br/>
+        <br/>
+        <button type="button" class="input_style" onclick="cancel_promo();">Cancel Promo</button>
+    </div>
+</div>
+<div id="pane_6" class="pane" tab_text="Cancelled Promos">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Cancelled Promos
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('cancelled_promo_report');"/>
+    </div>
+    <div id="cancelled_promo_report" class="content_body report_table" style="top:68px">        
+        <!-- POPULATED BY JAVASCRIPT -->
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="js/promos.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+</body>
+</html>

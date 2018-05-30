@@ -1,0 +1,843 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <!--#include virtual="/ssi/dropdown.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/lobby.js"></script>
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header to_uppercase">
+                <span id="path_text"></span>
+            </h3>
+        </div>
+        <div id="body_container">
+            <div id="login_prompt_container" class="account_creation_message hidden">
+                You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
+                <br/>
+                <br/>
+                Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link green">Click here to sign up!</a>
+            </div>
+            <div id="verify_email_container" class="account_creation_message hidden">
+                You must verify your email in order to enter this contest.
+                <div id="re_send_email_verification_container" class="hidden">
+                    <br/>
+                    <a class="inline_link orange" onclick="resend_verification('');">Click here</a> to send a verification email to <span id="email_on_file"></span>
+                </div>
+            </div>
+            <div id="must_deposit_container" class="account_creation_message hidden">
+                You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to enter contests with progressive jackpots.
+            </div>
+            <div id="no_entry" class="account_creation_message hidden">
+                <!-- POPULATED BY JAVASCRIPT -->
+            </div>
+            <h3 id="contest_title" class="section_header">
+                <!-- POPULATED BY JAVASCRIPT -->
+            </h3>
+            <div id="valid_contest_container" class="hidden">
+                <div id="contest_description"></div>
+                <hr noshade size="1"/>
+                <div style="margin: 10px 0;">
+                    <table class="contest_detail_table add_right_padding">
+                        <tr>
+                            <td>
+                                Category:
+                            </td>
+                            <td>
+                                <span id="category" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Sub-category:
+                            </td>
+                            <td>
+                                <span id="sub_category" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Game type:
+                            </td>
+                            <td>
+                                <span id="settlement_type" class="orange"></span>
+                                <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="cost_per_entry_label">
+                                Entry fee:
+                            </td>
+                            <td>
+                                <span id="cost_per_entry" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="entries_label">
+                                Entries:
+                            </td>
+                            <td>
+                                <span id="entries_per_user" class="orange"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="contest_detail_table">
+                        <tr>
+                            <td>
+                                Rake:
+                            </td>
+                            <td>
+                                <span id="rake" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Prize pool:
+                            </td>
+                            <td>
+                                <span id="prize_pool" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span id="progressive_payout_info" class="payout_info_link teal" style="display:none;padding-left:0 !important;">Progressive:</span>
+                                <span id="progressive_inactive">Progressive:</span>
+                            </td>
+                            <td>
+                                <span id="progressive_balance" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="registration_deadline_label">
+                                Deadline:
+                            </td>
+                            <td>
+                                <span id="registration_deadline" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="registration_countdown_row">
+                            <td>
+                                Countdown:
+                            </td>
+                            <td>
+                                <span id="registration_countdown" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="status_row" class="hidden">
+                            <td>
+                                Status:
+                            </td>
+                            <td>
+                                <span id="status" class="orange"></span>
+                            </td>
+                        </tr>
+                        <tr id="pari_mutuel_table_label" class="hidden">
+                            <td colspan="2">
+                                Outcomes ...
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <hr id="contest_second_hr" noshade size="1"/>
+                <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
+            </div>
+        </div>
+        <div class="body_container header">
+            <div id="no_data_message" class="low_grade_alert hidden"></div>
+        </div>
+        <div class="table_body_container" style="padding-bottom:0">
+            <div class="roster_field hidden">
+                <ul class="roster_parameter_table augment_vertical_padding">
+                    <li class="roster_parameter_label">
+                        <span id="number_verbose">Number</span>
+                        <span id="number_sign" class="hidden">#</span>
+                        of entries?
+                    </li>
+                    <li id="number_of_entries_li">
+                        <input id="number_of_entries_input" type="text" class="light_on_dark_input green" style="width:42px;">
+                    </li>
+                    <li style="padding-right:0" class="green">
+                        &rarr;
+                    </li>
+                    <li id="entry_value_li" style="vertical-align:middle;text-align:right;padding-left:0">
+                        <span id="entry_value" class="green"></span>
+                        <br/>
+                        <span id="entry_value_fiat"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Remaining salary:
+                    </li>
+                    <li>
+                        <span id="salary_cap" class="green"></span>
+                    </li>
+                </ul>
+                <ul class="roster_parameter_table">
+                    <li class="roster_parameter_label">
+                        Players drafted:
+                    </li>
+                    <li>
+                        <span id="remaining_players" class="green">0</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="body_container selector_container lobby roster_field hidden">
+            <select id="player_order_selector">
+                <option value="price" data-display="Players sorted by: price">Price: high to low</option>
+                <option id="draft_count_option" value="count" data-display="Players sorted by: draft count">Draft count: high to low</option>
+                <option value="name" data-display="Players sorted by: name A-Z">Name: A-Z</option>
+            </select>
+            <div style="clear:both"></div>
+        </div>
+        <div class="body_container selector_container lobby pari_mutuel_field hidden">
+            <select id="option_order_selector">
+                <option value="odds" data-display="Outcomes sorted by: odds">Odds: likely to unlikely</option>
+                <option value="text" data-display="Outcomes sorted by: text A-Z">Alphabetical: A-Z</option>
+                <option value="order" data-display="Outcomes sorted by: initial order">Initial order</option>
+            </select>
+            <div style="clear:both"></div>
+        </div>
+        <div class="table_body_container">
+            <div class="roster_field hidden">
+                <div id="player_table_header" class="player_table_header">
+                    Available players:
+                    <br/>
+                    <span class="click_to">
+                        Click to draft
+                    </span>
+                </div><!--
+                --><div id="roster_table_header" class="player_table_header">
+                    Your roster:
+                    <br/>
+                    <span class="click_to">
+                        Click to drop
+                    </span>
+                </div>
+                <div id="player_table_container" class="player_table_container">
+                    <table id="player_table" class="player_table"></table>
+                </div><!--
+                --><div id="roster_table_container" class="player_table_container">
+                    <table id="roster_table" class="player_table"></table>
+                </div>
+            </div>
+            <div class="pari_mutuel_field hidden">
+                <table id="pari_mutuel_table" class="contest_table"></table>
+            </div>
+            <div id="submit_button_container" class="submit_container hidden">
+                <button id="submit_roster_button" class="text_button auto_width roster_field hidden" onclick="submit_roster()"></button>
+                <button id="submit_pari_mutuel_button" class="text_button auto_width pari_mutuel_field hidden" onclick="submit_pari_mutuel_wagers()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script>
+
+    function init()
+        {                            
+        var contest_id = get_url_param("id") | 0;
+        
+        window.contest_id = contest_id;
+        
+        if (contest_id !== 0)
+            {
+            api({
+                method: "GetContestDetails",
+                args: {
+                    contest_id: contest_id
+                }
+            }, function(call)
+                {
+                if (call.status === "1")
+                    {
+                    show("valid_contest_container");
+                    
+                    var
+                    
+                    category = call.category,
+                    sub_category = call.sub_category,
+                    category_description = call.category_description,
+                    sub_category_description = call.sub_category_description,
+                    progressive_code = call.progressive_code,
+                    progressive_balance = 0,
+                    contest_type = call.contest_type,
+                    title = call.title,
+                    description = call.description,
+                    current_users = call.current_users,
+                    min_users = call.min_users,
+                    max_users = call.max_users,
+                    show_counts = call.show_counts,
+                    entries_per_user = call.entries_per_user,
+                    registration_deadline_ms = call.registration_deadline,
+                    registration_deadline_date = dateconv_ms_to_string(registration_deadline_ms),
+                    registration_deadline_time = dateconv_ms_to_time(registration_deadline_ms),
+                    settlement_type = call.settlement_type,
+                    cost_per_entry = call.cost_per_entry,
+                    total_prize_pool = call.total_prize_pool,
+                    rake = call.rake,
+                    option_table = JSON.parse(call.option_table),
+                    pay_table = call.pay_table,
+                    contest_status = call.contest_status,
+                    scores_updated = call.scores_updated;
+            
+                    var max_users_string = "";
+                    if (max_users > 0) max_users_string = "/" + max_users;
+                    
+                    if (!show_counts) destroy("draft_count_option");
+                    
+                    var entries_per_user_string = "Unlimited";
+                    if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
+                    
+                    var contest_open = contest_status === 1;
+                    
+                    var show_active_progressive = false;
+                    
+                    if (progressive_code !== "")
+                        {
+                        if (contest_status < 3) 
+                            {
+                            show_active_progressive = true;
+                            progressive_balance = call.progressive_balance;
+                            }
+                        else 
+                            {
+                            progressive_balance = call.progressive_paid;
+                            if (progressive_balance > 0) show_active_progressive = true;
+                            }
+                        }
+                        
+                     if (show_active_progressive)
+                        {
+                        show("progressive_payout_info", "block");
+                        hide("progressive_inactive");
+                        bind_progressive_payout_window(id("progressive_payout_info"), call.progressive_payout_info);
+                        id("progressive_balance").innerHTML = toBTC(progressive_balance) + " BTC" + getFiatDisplay(progressive_balance, "always_inline");
+                        if (progressive_balance > 0) id("progressive_balance").className = "green";
+                        }
+                    else id("progressive_balance").innerHTML = "--";
+                                                        
+                    id("path_text").innerHTML = "<a href='/' class='inline_link steel'>LOBBY</a><span class='path_slash red_orange'>/</span><a href='/category.html?main=" + category + "&sub=" + sub_category + "' class='inline_link steel'>" + sub_category_description + "</a>";
+                    
+                    //id("users").innerHTML = current_users + max_users_string;
+                    id("entries_per_user").innerHTML = entries_per_user_string;
+
+                    window.cost_per_entry = cost_per_entry;
+                    
+                    id("category").innerHTML = category_description;
+                    id("sub_category").innerHTML = sub_category_description;
+                    
+                    id("contest_title").innerHTML = title;
+                    document.title = "CoinRoster | " + title;
+                    
+                    id("contest_description").innerHTML = description;
+                    
+                    id("settlement_type").innerHTML = settlement_type_string(settlement_type);
+                    id("rake").innerHTML = multiply(rake, 100) + "%";
+                    id("cost_per_entry").innerHTML = toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "always_inline");
+                    id("prize_pool").innerHTML = toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "always_inline");
+                    
+                    if (total_prize_pool > 0) id("prize_pool").className = "green";
+                    
+                    id("registration_deadline").innerHTML = registration_deadline_date + "&nbsp;&nbsp;at&nbsp;&nbsp;" + registration_deadline_time;
+                    
+                    bind_payout_window(id("payout_info"), settlement_type, pay_table);
+                    
+                    if (contest_type === "ROSTER")
+                        {
+                        destroy("pari_mutuel_table_label");
+                        
+                        id("entries_label").innerHTML = "Rosters:";
+                        id("entry_value").innerHTML = toBTC(cost_per_entry) + " BTC";
+                        id("entry_value_fiat").innerHTML = getFiatDisplay(cost_per_entry, "never_inline");
+                        
+                        var default_sort_scheme = "price";
+                        selectByValue("player_order_selector", default_sort_scheme);
+                        
+                        $('select:not(.ignore)').niceSelect();
+                        FastClick.attach(id("centering_container"));
+
+                        window.player_sort_scheme = default_sort_scheme;
+
+                        id("player_order_selector").onchange = function()
+                            {
+                            var sort_scheme = selectorValue(this);
+                            window.player_sort_scheme = sort_scheme;
+                            sort_player_tables();
+                            };
+                    
+                        var
+
+                        salary_cap = call.salary_cap,
+                        roster_size = call.roster_size;
+                
+                        initialize_roster_UI(option_table, salary_cap, roster_size, show_counts);
+
+                        id("number_of_entries_input").value = 1;
+                        }
+                    else if (contest_type === "PARI-MUTUEL")
+                        {
+                        destroy("contest_second_hr");
+                        show("pari_mutuel_second_hr");
+                        
+                        id("entries_label").innerHTML = "Wagers:";
+                          
+                        var default_sort_scheme = "odds";
+                        selectByValue("option_order_selector", default_sort_scheme);
+                        
+                        $('select:not(.ignore)').niceSelect();
+                        FastClick.attach(id("centering_container"));
+                        
+                        window.contest_status = contest_status;
+                        window.option_sort_scheme = default_sort_scheme;
+                        
+                        id("option_order_selector").onchange = function()
+                            {
+                            var sort_scheme = selectorValue(this);
+                            window.option_sort_scheme = sort_scheme;
+                            sort_option_table();
+                            };
+                        
+                        var 
+
+                        wager_grand_total = call.wager_grand_total,
+                        rake_amount = multiply(rake, wager_grand_total);
+
+                        wager_grand_total = subtract(wager_grand_total, rake_amount);
+
+                        initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry);
+                        }
+                        
+                    if (contest_open) 
+                        {
+                        if (typeof window.session === "undefined") // first check to see if user is logged in at all
+                            {
+                            show("login_prompt_container");
+                            id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            }
+                        else // user is logged in
+                            {
+                            if (window.session.user_level === "3") // check to see if use has validated email address
+                                {
+                                show("verify_email_container");
+                                api({ 
+                                    method: "GetAccountDetails", 
+                                    args: {} 
+                                }, function(call)
+                                    {
+                                    if (call.status === "1")
+                                        {
+                                        show("re_send_email_verification_container");
+                                        id("email_on_file").innerHTML = call.email_address;
+                                        }
+                                    });
+                                }
+                            else // user is allowed to enter contests - check to see if max users or max entries has been hit
+                                {
+                                if (contest_type === "ROSTER")
+                                    {
+                                    var active_user_entries = call.active_user_entries,
+
+                                    registration_full = (max_users > 0 && current_users === max_users && active_user_entries === 0),
+                                    max_entries_reached = (entries_per_user !== 0 && active_user_entries === entries_per_user);
+
+                                    if (registration_full) 
+                                        {
+                                        id("no_entry").innerHTML = [
+                                            "The maximum number of users for this pool (",
+                                            max_users,
+                                            ") has been reached",
+                                            "<br/><br/>",
+                                            "<a href='/' class='inline_link teal'>Return to lobby</a>"
+                                        ].join("");
+                                        show("no_entry");
+                                        }
+                                    else if (max_entries_reached) 
+                                        {
+                                        id("no_entry").innerHTML = [
+                                            "You have entered the maximum number of entries for this pool (",
+                                            entries_per_user,
+                                            ")",
+                                            "<br/><br/>",
+                                            "<a href='/' class='inline_link teal'>Return to lobby</a>"
+                                        ].join("");
+                                        show("no_entry");
+                                        }
+                                    else show("submit_button_container");
+                                    }
+                                else // PARI-MUTUEL
+                                    {
+                                    show("submit_button_container");
+                                    }
+                                    
+                                // override any and all of the above if there is a progressive balance and user has not deposited
+                                    
+                                if (window.session.first_deposit === 0 && progressive_balance !== 0) 
+                                    {
+                                    show("must_deposit_container");
+                                    hide("submit_button_container");
+                                    }
+                                }
+                            }
+
+                        bind_registration_countdown(id("registration_countdown"), registration_deadline_ms);
+                        }
+                    else
+                        {
+                        show("status_row", "table-row");
+                        id("status").innerHTML = contest_status_string(contest_status);
+                        hide("registration_countdown_row");
+                        id("registration_deadline_label").innerHTML = "Went live:";
+                        
+                        var 
+                        
+                        registration_deadline = call.registration_deadline,
+                        settled_date = call.settled,
+                        
+                        main_line = "Registration for this contest closed at ",
+                        date_string = dateconv_ms_to_time(registration_deadline) + " on " + dateconv_ms_to_string(registration_deadline),
+                        reason = "";
+                
+                        switch (contest_status)
+                            {
+                            case 2 : 
+                                reason = "This contest is now in play!";
+                                if (contest_type === "ROSTER")
+                                    {
+                                    reason += [
+                                        "<br/><br/>",
+                                        "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>"
+                                    ].join("");
+                                    if (scores_updated > 0)
+                                        {
+                                        reason += [
+                                            "<br/><br/>",
+                                            "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>"
+                                        ].join("");
+                                        }
+                                    } 
+                                break;
+                            case 3 : 
+                                main_line = "This contest was settled at ";
+                                date_string = dateconv_ms_to_time(settled_date) + " on " + dateconv_ms_to_string(settled_date);
+                                if (contest_type === "PARI-MUTUEL")
+                                    {
+                                    for (var i=0; i<option_table.length; i++)
+                                        {
+                                        var option_item = option_table[i];
+                                        if (option_item.outcome === 1)
+                                            {
+                                            reason = "The winning outcome was:&nbsp;&nbsp;<span class='orange'>" + option_item.description + "</span>";
+                                            break;
+                                            }
+                                        }
+                                    }
+                                else if (contest_type === "ROSTER")
+                                    {
+                                    reason = [
+                                        "<a href=\"/rosters.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Leaderboard</a>",
+                                        "<br/><br/>",
+                                        "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>"
+                                    ].join("");
+                                    } 
+                                
+                                break;
+                            case 4 : 
+                                reason = "This contest was under-subscribed";
+                                break;
+                            case 5 : 
+                                reason = "This contest was cancelled by our admin team";
+                                break;
+                            }
+                        id("no_entry").innerHTML = [
+                            main_line,
+                            date_string,
+                            "<br/><br/>",
+                            reason
+                        ].join("");
+                        show("no_entry");
+                        }
+                    }
+                else special_no_data_message(call.error);
+                });
+            }
+        else special_no_data_message("Invalid contest ID");
+        }
+        
+    function special_no_data_message(message)
+        {
+        show("no_data_message");
+        id("contest_title").innerHTML = "Contest Page";
+        id("contest_title").id = ""; // changes color to white
+        id("no_data_message").innerHTML = message;
+        }
+                     
+/*----------------------------------------------------------------------*/
+
+    // initialize interface for roster contest
+
+    function initialize_roster_UI(option_table, salary_cap, roster_size, show_counts)
+        {
+        var roster_fields = document.getElementsByClassName("roster_field");
+        
+        for (var i=0; i<roster_fields.length; i++)
+            {
+            var 
+            
+            field = roster_fields[i],
+            tag_name = field.tagName.toLowerCase();
+    
+            if (tag_name === "tr") show(field, "table-row");
+            else show(field);
+            }
+        
+        id("number_of_entries_input").onchange = function()
+            {
+            if (isNaN(this.value) || this.value < 1 || this.value > 9999) this.value = 1;
+            else this.value = this.value | 0;
+            var entry_value = toBTC(multiply(this.value, window.cost_per_entry));
+            id("entry_value").innerHTML = entry_value + " BTC";
+            id("entry_value_fiat").innerHTML = getFiatDisplay(entry_value, "never_inline");
+            update_submit_roster_button(entry_value);
+            };
+        
+        id("salary_cap").innerHTML = "$" + commas(salary_cap);
+        
+        if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
+  
+        for (var i=0; i<option_table.length; i++)
+            {
+            var player_item = option_table[i],
+                    
+            player_id = player_item.id,
+            name = player_item.name,
+            price = player_item.price,
+            count = player_item.count;
+    
+            if (show_counts) insert_player_row("player_table", player_id, name, price, count);
+            else insert_player_row("player_table", player_id, name, price);
+            }
+            
+        update_submit_roster_button(window.cost_per_entry);
+        }
+        
+    function update_submit_roster_button(btc_value)
+        {
+        id("submit_roster_button").innerHTML = "Submit rosters:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(btc_value) + " BTC" + getFiatDisplay(btc_value, "never_inline align_right");
+        }
+                     
+/*----------------------------------------------------------------------*/
+
+    // initialize interface for pari-mutuel contest
+     
+    function initialize_pari_mutuel_UI(contest_status, option_table, wager_grand_total, progressive_balance, cost_per_entry)
+        {
+        var contest_open = contest_status === 1;
+        
+        var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
+        
+        for (var i=0; i<pari_mutuel_fields.length; i++)
+            {
+            var 
+            
+            field = pari_mutuel_fields[i],
+            tag_name = field.tagName.toLowerCase();
+    
+            if (tag_name === "tr") show(field, "table-row");
+            else show(field);
+            }
+            
+        id("cost_per_entry_label").innerHTML = "Min wager:";
+                
+        var pari_mutuel_table = id("pari_mutuel_table");
+        
+        insert_pari_mutuel_table_header(pari_mutuel_table);
+        
+        option_table.sort(function(a, b)
+            {
+            return b.wager_total - a.wager_total;
+            });
+            
+        wager_grand_total += progressive_balance;
+            
+        for (var i=0; i<option_table.length; i++)
+            {
+            var option_item = option_table[i],
+                    
+            option_id = option_item.id,
+            description = option_item.description,
+            wager_total = option_item.wager_total,
+            wager_value = 0,
+            implied_odds = 0,
+            outcome = option_item.outcome;
+    
+            if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
+            else if (contest_status === 1) implied_odds = divide(wager_grand_total, cost_per_entry, 2);
+            else implied_odds = 0;
+            
+            insert_option_row(pari_mutuel_table, option_id, description, wager_total, wager_value, implied_odds, outcome);
+            }
+            
+        id("submit_pari_mutuel_button").innerHTML = "Submit wagers";
+        }
+                     
+    function update_submit_button()
+        {
+        var 
+        
+        rows = id("pari_mutuel_table").rows,
+        wagers_total = 0;
+        
+        for (var i=1/*skip header*/; i<rows.length; i++)
+            {
+            var wager = id("wager_input_" + i).value;
+            if (wager === "") continue;
+    
+            wagers_total = add(wagers_total, wager);
+            }
+        
+        var button_html = "Submit wagers";
+        
+        if (wagers_total !== 0) button_html = "Submit wagers:&nbsp;&nbsp;&nbsp;&nbsp;" + toBTC(wagers_total) + " BTC" + getFiatDisplay(wagers_total, "never_inline align_right");
+        
+        id("submit_pari_mutuel_button").innerHTML = button_html;
+        }
+
+/*----------------------------------------------------------------------*/
+
+    // submit roster
+    
+    function submit_roster()
+        {     
+        var roster = get_valid_roster();
+        
+        if (typeof roster === "undefined") return; // caused if get_valid_roster() throws a simple modal alert
+            
+        var number_of_entries = id("number_of_entries_input").value | 0;
+        
+        if (number_of_entries <= 0) return show_simple_modal("Invalid number of entries", "bad", null);
+            
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                btc_balance = call.btc_balance,
+                rc_balance = call.rc_balance,
+                available_balance = btc_balance,
+                total_wagers = multiply(window.cost_per_entry, number_of_entries),
+                use_rc = true;
+        
+                if (use_rc) available_balance = add(available_balance, rc_balance);
+         
+                if (total_wagers > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                
+                api({
+                    method: "CreateEntryRoster",
+                    args: {
+                        contest_id: window.contest_id,
+                        number_of_entries: number_of_entries,
+                        use_rc: true,
+                        roster: roster
+                    }
+                }, function(call)
+                    {
+                    if (call.status === "1")
+                        {
+                        return show_simple_modal("Your roster has been submitted (" + number_of_entries + " entr" + (number_of_entries > 1 ? "ies)" : "y)"), "good", function()
+                            {
+                            window.location = "/contests";
+                            });
+                        }
+                    else show_simple_modal(call.error, "bad", null);
+                    });
+                }
+            });
+        }
+                     
+/*----------------------------------------------------------------------*/
+
+    // submit pari-mutuel wagers
+    
+    function submit_pari_mutuel_wagers()
+        {
+        var 
+        
+        rows = id("pari_mutuel_table").rows,
+        wagers = [],
+        wagers_total = 0;
+        
+        for (var i=1/*skip header*/; i<rows.length; i++)
+            {
+            var wager = id("wager_input_" + i).value;
+    
+            if (wager === "") continue;
+            
+            wagers_total = add(wagers_total, wager);
+    
+            wagers.push({
+                id: i,
+                wager: wager
+            });
+            }
+        
+        if (wagers.length === 0) return show_simple_modal("Please enter at least one wager", "bad", null);
+           
+        api({ 
+            method: "GetAccountDetails", 
+            args: {} 
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                btc_balance = call.btc_balance,
+                rc_balance = call.rc_balance,
+                available_balance = btc_balance,
+                use_rc = true;
+        
+                if (use_rc) available_balance = add(available_balance, rc_balance);
+         
+                if (wagers_total > available_balance) return show_simple_modal("You have insufficient funds", "bad", null);
+                
+                api({
+                    method: "CreateEntryPariMutuel",
+                    args: {
+                        contest_id: window.contest_id,
+                        use_rc: true,
+                        wagers: wagers
+                    }
+                }, function(call)
+                    {
+                    if (call.status === "1")
+                        {
+                        return show_simple_modal("Your wagers have been submitted", "good", function()
+                            {
+                            window.location = "/contests";
+                            });
+                        }
+                    else show_simple_modal(call.error, "bad", null);
+                    });
+                }
+            });
+        }
+    
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

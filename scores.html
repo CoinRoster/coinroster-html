@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/lobby.js"></script>
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="body_container">
+            <h3 id="contest_title" class="section_header"><span class="orange">Player Scores</span></h3>
+            <div id="scores_updated_container" class="headline_value_container hidden">
+                Scores updated:<span id="scores_updated_value" class="headline_value orange"></span>
+            </div>
+        </div>
+        <div class="body_container header">
+            <div id="no_data_message" class="low_grade_alert hidden"></div>
+        </div>
+        <div class="table_body_container">
+            <table id="score_table" class="contest_table"></table>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script>
+
+    function init()
+        {
+        var grid_els = document.getElementsByClassName('GridTimeline-items'), array;
+        if (grid_els[0])
+            {
+            var grid = grid_els[0], children = grid.childNodes;
+            if (children.length > 0)
+                {
+                
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        var contest_id = get_url_param("contest_id") | 0;
+        
+        window.contest_id = contest_id;
+        
+        if (contest_id !== 0)
+            {
+            api({
+                method: "GetContestDetails",
+                args: {
+                    contest_id: contest_id
+                }
+            }, function(call)
+                {
+                if (call.status === "1")
+                    {                    
+                    var
+                    
+                    category = call.category,
+                    sub_category = call.sub_category,
+                    contest_type = call.contest_type,
+                    title = call.title,
+                    registration_deadline_ms = call.registration_deadline,
+                    option_table = JSON.parse(call.option_table),
+                    contest_status = call.contest_status,
+                    score_header = call.score_header,
+                    scores_updated_ms = call.scores_updated;
+            
+                    id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
+                    
+                    document.title = "CoinRoster | " + title + " | Leaderboard";
+            
+                    if (contest_type !== "ROSTER") return special_no_data_message("Contest #" + contest_id + " is not a roster contest");
+                    if (contest_status === 1) return special_no_data_message("Contest #" + contest_id + " is still open for registration");
+                    if (contest_status > 3) return special_no_data_message("Contest #" + contest_id + " was cancelled");
+                    if (scores_updated_ms === 0) return special_no_data_message("Scores have not been posted yet. Please check back soon.");
+   
+                    show("scores_updated_container");
+                    id("scores_updated_value").innerHTML = timeSince(scores_updated_ms);
+                    
+                    var table = id("score_table");
+                    
+                    option_table.sort(function(a, b)
+                        {
+                        return b.score - a.score;
+                        });
+                    
+                    for (var i=0; i<option_table.length; i++)
+                        {
+                        var player_item = option_table[i],
+                                
+                        name = player_item.name,
+                        price = player_item.price,
+                        score = player_item.score,
+                        score_raw = player_item.score_raw;
+                
+                        var row = new_row(table, -1, [
+                            name,
+                            "<div class='field_label'>Price:</div>" + "$" + commas(price),
+                            "<div class='field_label'>" + score_header + ":</div>" + score_raw,
+                            "<div class='field_label'>Score:</div>" + score
+                        ]);
+                        
+                        row[1].style.textAlign = "left";
+                        }
+                     
+                    var header = new_row(table, 0, [
+                        "Player",
+                        "Price",
+                        score_header,
+                        "Score"
+                    ]);
+                    
+                    header[1].style.textAlign = "left";
+                    }
+                else special_no_data_message(call.error);
+                });
+            }
+        else special_no_data_message("Invalid contest ID");
+        }
+        
+    function special_no_data_message(message)
+        {
+        show("no_data_message");
+        id("contest_title").innerHTML = "Contest Page";
+        id("contest_title").id = ""; // changes color to white
+        id("no_data_message").innerHTML = message;
+        }
+                     
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

@@ -1,0 +1,34 @@
+    #contest_status_selector_container {
+        padding: 9px 20px 20px 20px;
+    }
+
+    #contest_status_selector {
+        width: 100%; 
+        border-collapse: separate;
+        border-spacing: 10px 0;
+    }
+
+    #contest_status_selector td {
+        padding: 10px 10px;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 13px;
+        vertical-align: top;
+    }
+    #contest_status_selector td:hover {
+        text-decoration: underline;
+    }
+
+    #contest_status_selector td.contest_status_selector_button {
+        width: 1px;
+    }
+
+    #contest_status_selector td:last-child {
+        cursor: default;
+    }
+
+    .contest_status_selected {
+        border-bottom: 2px solid rgb(255,86,18);
+        text-decoration: none !important;
+        cursor: default !important;
+    }

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Currency Display</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>CURRENCY</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div class="description_text constrain_width">
+                Your current display currency is:
+                <br/>
+                <br/>
+                <span id="currency" class="orange"></span>
+                <br/>
+                <span id="exchange_rate" class="exchange_rate steel"></span>
+                <br/>
+                <br/>
+                <span style="font-size:12px">
+                    To change your display currency, please select from the following list:
+                </span>
+                <br/>
+                <br/>
+                <table id="currency_table" class="simple_selection_table"></table>
+                <br/>
+                <span style="font-size:11px">
+                    CoinRoster's fiat currency display is provided "as is" and solely for informational purposes, not for trading purposes or advice, and may be delayed.
+                </span>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <br/>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init()
+        {
+        var
+        
+        currency_symbol = window.session.currency,
+        currency_description = window.session.currency_description;
+
+        id("currency").innerHTML = currency_symbol + " - " + currency_description;
+        id("exchange_rate").innerHTML = "1 BTC = " + toCurrency(multiply(window.session.btcusd_last_price, window.session.currency_last_price)) + " " + currency_symbol;
+        
+        api({
+            method: "GetCurrencyOptions",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                currency_options = call.currency_options,
+                number_of_currencies = currency_options.length,
+                table = id("currency_table");
+        
+                for (var i=0; i<number_of_currencies; i++)
+                    {
+                    var currency = currency_options[i],
+                    symbol = currency.symbol,
+                    description = currency.description,
+                    last_price = currency.last_price,
+                    BTCxxx = multiply(window.session.btcusd_last_price, last_price);
+            
+                    var row = new_row(table, -1, [
+                        symbol,
+                        description + "<br/><span class='exchange_rate steel'>1 BTC = " + toCurrency(BTCxxx) + " " + symbol + "</span>"
+                    ]);
+                    
+                    row[1].className = "orange";
+                    row[0].onclick = (function(symbol)
+                        {
+                        return function()
+                            {
+                            api({
+                                method: "UpdateUserCurrency",
+                                args: {
+                                    symbol: symbol
+                                }
+                            }, function(call)
+                                {
+                                if (call.status === "1")
+                                    {
+                                    show_simple_modal("Your display currency has been updated!", "good", function()
+                                        {
+                                        window.location.reload();
+                                        window.scrollTo(0,0);
+                                        });
+                                    }
+                                });  
+                            };
+                        })(symbol);
+                    }
+                }
+            });
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

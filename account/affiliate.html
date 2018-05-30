@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Affiliate Code</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/lobby.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header" style="margin-bottom: 20px">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>AFFILIATE CODE<span id="manage_referral_S" class="hidden">S</span></span>
+                </span>
+            </h3>
+        </div>
+        <div class="table_body_container">
+            <table id="category_report_table" class="contest_table"></table>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init()
+        {
+        var referral_code_count = window.session.referral_code_count;
+        if (referral_code_count === 0) return show_simple_modal("You do not have any affiliate codes.", "bad", function(){window.location = "/account";});
+        else if (referral_code_count > 1) show("manage_referral_S", "inline");
+
+        api({
+            method: "GetAffiliatePromoDetails",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                var 
+                
+                promos = call.promos,
+                table = id("category_report_table"), // I know, I know - but it works
+                right_align_array = [2,3,4,5];
+        
+                var header = new_row(table, -1, [
+                    "Promo code",
+                    "Free play",
+                    "Rollover",
+                    "Usage",
+                    "Expires"
+                ]);
+                
+                right_align(header, right_align_array);
+                
+                for (var i=0; i<promos.length; i++)
+                    {
+                    var promo = promos[i],
+
+                    promo_id = promo.id,
+                    promo_code = promo.promo_code,
+                    description = promo.description,
+                    free_play_amount = promo.free_play_amount,
+                    rollover_multiple = promo.rollover_multiple,
+                    max_use = promo.max_use,
+                    times_used = promo.times_used,
+                    expires = promo.expires,
+                    usage_string = "",
+                    expires_string = "";
+            
+                    if (max_use === 0) usage_string = "Unlimited";
+                    else usage_string = times_used + " / " + max_use;
+                    
+                    if (expires === 0) expires_string = "Never";
+                    else expires_string = dateconv_ms_to_string(expires) + " at " + dateconv_ms_to_time(expires);
+
+                    var row = new_row(table, -1, [
+                        "<ul><li>" + promo_code + "</li><li class='draft_button' onclick='redirect_to_referral(" + '"' + btoa(promo_code) + '"' + ")'>Refer a friend</li></ul>",
+                        "<div class='field_label'>Free play:</div>" + toBTC(free_play_amount) + " BTC" + getFiatDisplay(free_play_amount, "allow_inline"),
+                        "<div class='field_label'>Rollover:</div>" + rollover_multiple + "x",
+                        "<div class='field_label'>Usage:</div>" + usage_string,
+                        "<div class='field_label'>Expires:</div>" + expires_string
+                    ]);
+                    
+                    right_align(row, right_align_array);
+                    }  
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+        }
+        
+    function redirect_to_referral(promo_code)
+        {
+        window.location = "/account/refer.html#" + promo_code;
+        }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

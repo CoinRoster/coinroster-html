@@ -1,0 +1,653 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Admin Panel</title>
+    <script type="text/javascript" src="js/error.js"></script>
+    <!--#include virtual="/ssi/head_admin.html" -->
+</head>
+<body>   
+<input type="password" style="position:absolute;top:-1000px;"/>
+<div id="header"></div>
+<!--#include virtual="/ssi-java/nav_admin" -->
+<div id="nav"></div>
+<div id="pane_0" class="pane" tab_text="User Report">
+    <div class="content_header">
+        <div class="content_header_title">
+            <span id="number_of_users"></span>
+            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            Ledger balance:&nbsp;
+            <span id="ledger_balance_btc"></span>
+            &nbsp;/&nbsp;
+            <span id="ledger_balance_rc"></span>
+        </div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Sort:
+                </td>
+                <td>
+                    <select id="user_report_sort_selector" class="input_style chosen-select" style="width:150px">
+                        <option selected>Last Active</option>
+                        <option >Last Login</option>
+                        <option>Recently Joined</option>
+                        <option>Username</option>
+                        <option>BTC High to Low</option>
+                        <option>RC High to Low</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="checkbox" name="checkbox" id="simple_user_report_checkbox" value="value">
+                    <label for="simple_user_report_checkbox">Simple Report</label>
+                </td>
+                <td>
+                    <input type="checkbox" name="checkbox" id="exclude_internals_checkbox" value="value">
+                    <label for="exclude_internals_checkbox">Exclude Internal Accounts</label>
+                </td>
+                <!--<td>
+                    with keywords:
+                </td>
+                <td>
+                    <input id="search_bar" class="search input_style text_input" placeholder="Enter keywords..." style="width:300px">
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="sort_user_report();">Go!</button>
+                </td>-->
+            </tr>
+        </table>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('user_report_table');"/>
+    </div>
+    <div class="content_body">
+        <div id="user_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_1" class="pane" tab_text="Transaction report">
+    <div class="content_header" style="height:155px">
+        <div class="content_header_title">Transaction Report</div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Date Range:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input tcal" id="transaction_date_start_tcal">
+                </td>
+                <td>
+                    to
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input tcal" id="transaction_date_end_tcal">
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="transaction_report();">Go!</button>
+                </td>
+            </tr>
+        </table>
+        <table class="settings" style="top:108px">
+            <tr>
+                <td>
+                    Filter by transaction type:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="transaction_type_selector" class="input_style chosen-select_allow-deselect" style="width:210px">
+                        <option></option>
+                        <option>BTC-PROMO-FREEPLAY</option>
+                        <option>BTC-DEPOSIT-BONUS</option>
+                        <option>ALL-PROMOS</option>
+                        <option>BTC-DEPOSIT</option>
+                        <option>RC-DEPOSIT</option>
+                        <option>ALL-DEPOSITS</option>
+                        <option>BTC-WITHDRAWAL</option>
+                        <option>RC-WITHDRAWAL</option>
+                        <option>ALL-WITHDRAWALS</option>
+                        <option>BTC-CONTEST-ENTRY</option>
+                        <option>RC-CONTEST-ENTRY</option>
+                        <option>ALL-CONTEST-ENTRIES</option>
+                        <option>BTC-CONTEST-WINNINGS</option>
+                        <option>RC-REFERRAL-REVENUE</option>
+                        <option>BTC-ADJUSTMENT</option>
+                        <option>RC-ADJUSTMENT</option>
+                        <option>BTC-RAKE</option>
+                        <option>BTC-RAKE-CREDIT</option>
+                        <option>RC-SWAP-TO-BTC</option>
+                        <option>BTC-SWAP-TO-RC</option>
+                    </select>
+                </td>
+                <td>
+                    Filter by contest:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="contest_filter_selector" class="input_style chosen-select_allow-deselect contest_selector" style="width:120px">
+                        <option></option>
+                    </select>
+                </td>
+                <td>
+                    Filter by user:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="user_filter_selector" class="input_style chosen-select_allow-deselect user_selector include_internal_accounts" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('transaction_report_table');"/>
+    </div>
+    <div class="content_body" style="top:156px">
+        <div id="transaction_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_2" class="pane" tab_text="New Transaction">
+    <div class="content_header">
+        <div class="content_header_title">New Transaction</div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Transaction Type:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="new_trans_selector" class="input_style chosen-select" style="width:300px">
+                        <option></option>
+                        <option>BTC-DEPOSIT</option>
+                        <option>BTC-WITHDRAWAL</option>
+                        <option>RC-DEPOSIT</option>
+                        <option>RC-WITHDRAWAL</option>
+                    </select>
+                </td>
+                <td>
+                    Display as adjustment:
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="display_as_adjustment_selector" class="input_style chosen-select">
+                        <option>No</option>
+                        <option>Yes</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_0" class="content_body new_trans_window">
+        <!-- NOTHING SELECTED -->
+    </div>
+    <div id="new_trans_view_1" class="content_body new_trans_window">
+        <!-- BTC-DEPOSIT -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">BTC-DEPOSIT</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_2" class="content_body new_trans_window">
+        <!-- BTC-WITHDRAWAL -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">BTC-WITHDRAWAL</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_3" class="content_body new_trans_window">
+        <!-- RC-DEPOSIT -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">RC-DEPOSIT</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    RC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (RC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_4" class="content_body new_trans_window">
+        <!-- RC-WITHDRAWAL -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">RC-WITHDRAWAL</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    RC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (RC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_3" class="pane" tab_text="Pending Referrals">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Pending Referrals
+        </div>
+        <img src="../img/excel.png" class="excel_button" onclick="pop_up_simple_table('referral_report_table');"/>
+    </div>
+    <div class="content_body" style="top:68px">
+        <div id="referral_report_table" class="report_table"></div>
+    </div>
+</div>
+<div id="pane_4" class="pane" tab_text="Cash Register">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Cash Register
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <h3>
+            Cash register wallet address:
+        </h3>
+        <br/>
+        <table>
+            <tr>
+                <td>
+                    <input id="cash_register_address" type="text" class="input_style text_input" maxlength="35" style="width:300px">
+                </td>
+                <td>
+                    <button type="button" class="input_style" onclick="update_cash_register_address();">Update address</button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+        <h3>
+            Pending withdrawals:
+        </h3>
+        <br/>
+        <div id="pending_withdrawal_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <h3>
+            Pending deposits:
+        </h3>
+        <br/>
+        <div id="pending_deposit_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <h3>
+            QuickBT deposits:
+        </h3>
+        <br/>
+        <div id="quickbt_deposit_table" class="report_table"></div>
+    </div>
+    <div id="pending_deposit_window" class="content_body" style="top:68px;display:none;background:white">
+        <div id="pending_deposit_user_id" style="display:none"></div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td style="font-weight:bold">
+                    BTC-DEPOSIT
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Pending deposit ID:
+                </td>
+                <td id="pending_deposit_transaction_id" style="font-weight:bold">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td id="pending_deposit_username" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Intended amount (BTC):
+                </td>
+                <td id="pending_deposit_intended_amount" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Received amount (BTC):
+                </td>
+                <td>
+                    <input id="pending_deposit_received_amount" type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td id="pending_deposit_memo" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="finalize_pending_deposit();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="hide('pending_deposit_window');">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="quickbt_deposit_window" class="content_body" style="top:68px;display:none;background:white">
+        <div id="quickbt_deposit_user_id" style="display:none"></div>
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td style="font-weight:bold">
+                    BTC-DEPOSIT
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    QuickBT record #:
+                </td>
+                <td id="quickbt_deposit_record_id" style="font-weight:bold">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td class="grey_cell">
+                    internal_liability
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td id="quickbt_deposit_username" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Received amount (BTC):
+                </td>
+                <td>
+                    <input id="quickbt_deposit_received_amount" type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td id="quickbt_deposit_memo" class="grey_cell">
+                    <!-- POPULATED BY JAVASCRIPT -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="finalize_quickbt_deposit();">Submit Transaction</button>
+                    <button type="button" class="input_style" onclick="hide('quickbt_deposit_window');">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div id="pane_5" class="pane" tab_text="Passwords">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Passwords
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <input id="password_key" placeholder="Enter current key" type="password" class="input_style text_input transaction_memo" style="width:500px">
+        <button type="button" class="input_style" onclick="show_passwords();">Show Passwords</button>
+        <button type="button" class="input_style" onclick="update_passwords();">Update Passwords</button>
+        <button type="button" class="input_style" onclick="clear_fields();">Reset Form</button>
+        <br/>
+        <br/>
+        <input id="new_password_key" placeholder="Enter new key (only needed if changing the key)" type="password" class="input_style text_input transaction_memo" style="width:300px">
+        <input id="confirm_password_key" placeholder="Re-Enter new key" type="password" class="input_style text_input transaction_memo" style="width:300px">
+        <button type="button" class="input_style" onclick="change_key();">Change Key</button>
+        <br/>
+        <br/>
+        <textarea id="password_textarea" rows="40" cols="150"></textarea> 
+    </div>
+</div>
+<div id="pane_6" class="pane" tab_text="Notify User">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Notify User
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td>
+                    User:
+                </td>
+                <td>
+                    <select id="notify_user_selector" data-placeholder="Select" class="input_style chosen-select user_selector" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Subject:
+                </td>
+                <td>
+                    <input id="notify_user_subject" placeholder="Subject" type="text" class="input_style text_input" style="width:500px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Message
+                </td>
+                <td class="grey_cell">
+                    <textarea id="notify_user_textarea" class="do_tinymce" rows="20" cols="100">Hi <b><!--USERNAME--></b>,</textarea> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="notify_user();">Send Message</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="js/accounting.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+</body>
+</html>

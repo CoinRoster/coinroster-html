@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Refer a friend</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>REFER A FRIEND!</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div>
+                You will receive <span id="referral_offer" class="orange"></span> of the rake on all contest entries made by your friend's account.
+            </div>
+            <br/>
+            <div style="font-size:12px">
+                For more information <a href="http://blog.coinroster.com/coinroster-referral-affiliate-rewards/" class="inline_link teal">read our blog post</a>
+            </div>
+            <br/>
+            <form onsubmit="return send_referral();">
+                <div class="input_padding">
+                    <span id="referrer_label" class="input_label">From</span>
+                    <input id="referrer" type="text" class="input_style" placeholder="Your name" />
+                </div>
+                <div class="input_padding">
+                    <span id="referral_email_label" class="input_label">To</span>
+                    <input id="referral_email_address" type="text" class="input_style" placeholder="Enter an email address" />
+                </div>
+                <div id="promo_code_container" class="input_padding hidden">
+                    <span id="referral_code_label" class="input_label">Affiliate code (applied on sign-up)</span>
+                    <input id="referral_code" type="text" class="input_style" placeholder="Affiliate promo code" />
+                </div>
+                <div class="input_padding">
+                    <button type="submit" class="text_button auto_width">Send referral!</button>
+                </div>
+            </form>
+            <div id="referral_link_container" class="hidden">
+                <br/>
+                <hr noshade />
+                <br/>
+                You can also use the following link to generate referrals:
+                <br/>
+                <br/>
+                <input id="referral_link" type="text" class="light_on_dark_input orange" style="width:270px;text-align:left;padding-bottom:10px;font-size:13px" />
+                <br/>
+                <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_referral_link_to_clipboard()" class="inline_link teal">copy to clipboard</a>
+            </div>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init()
+        {
+        id("referrer").value = session.username;
+        id("referral_offer").innerHTML = multiply(session.referral_offer, 100) + "%";
+        
+        var referral_code_count = window.session.referral_code_count;
+        if (referral_code_count > 0) 
+            {
+            show("promo_code_container");
+            if (location.hash !== "") id("referral_code").value = atob(location.hash.slice(1));
+            }
+            
+        var referral_link = session.referral_link;
+        
+        if (referral_link)
+            {
+            show("referral_link_container");
+            id("referral_link").value = referral_link;
+            }
+        }
+        
+//--------------------------------------------------------------------------------------------------
+
+    // SEND REFERRAL
+
+    function set_message(_id, message, color)
+        {
+        id(_id).innerHTML = message;
+        id(_id).style.color = color;
+        }
+
+    function send_referral()
+        {
+        var 
+
+        referrer = id("referrer").value,
+        referral_email_address = id("referral_email_address").value,
+        referral_code = id("referral_code").value;
+
+        if (referrer === "")
+            {
+            set_message("referrer_label", "Please enter your name", "orange");
+            return false;
+            }
+        if (validate_email(referral_email_address) === false)
+            {
+            set_message("referral_email_label", "Invalid email address", "orange");
+            return false;
+            }
+
+        api({
+            method: "SendReferral",
+            args: {
+                referrer: referrer,
+                email_address: referral_email_address,
+                referral_code: referral_code
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("Referral sent!", "good", function()
+                    {
+                    location.reload();
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+
+        return false;
+        }
+
+    function copy_referral_link_to_clipboard() 
+        {
+        id("referral_link").select();
+        document.execCommand("Copy");
+        } 
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>
