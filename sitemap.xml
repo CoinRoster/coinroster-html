@@ -3585,7 +3585,7 @@ xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <priority>0.8</priority>
 </url><url> 
     <loc>https://www.coinroster.com/contest.html?id=915</loc> 
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
 </url><url> 
     <loc>https://www.coinroster.com/contest.html?id=916</loc> 
@@ -3605,6 +3605,18 @@ xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
     <priority>0.8</priority>
 </url><url> 
     <loc>https://www.coinroster.com/contest.html?id=920</loc> 
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+</url><url> 
+    <loc>https://www.coinroster.com/contest.html?id=921</loc> 
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+</url><url> 
+    <loc>https://www.coinroster.com/contest.html?id=922</loc> 
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+</url><url> 
+    <loc>https://www.coinroster.com/contest.html?id=923</loc> 
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
 </url>
