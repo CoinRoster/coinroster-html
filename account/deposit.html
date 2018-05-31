@@ -112,19 +112,19 @@
         
     function init()
         {
-        if (window.session.first_deposit === 0)
-            {
-            var 
+        // if (window.session.first_deposit === 0)
+        //     {
+        //     var 
 
-            deposit_bonus_cap = window.session.deposit_bonus_cap,
-            deposit_bonus_rollover_multiple = window.session.deposit_bonus_rollover_multiple;
+        //     deposit_bonus_cap = window.session.deposit_bonus_cap,
+        //     deposit_bonus_rollover_multiple = window.session.deposit_bonus_rollover_multiple;
 
-            id("deposit_bonus_cap").innerHTML = deposit_bonus_cap;
-            id("deposit_bonus_fiat").innerHTML = "(approx. " + toFiat(deposit_bonus_cap) + ")";
-            id("deposit_bonus_rollover").innerHTML = deposit_bonus_rollover_multiple;
+        //     id("deposit_bonus_cap").innerHTML = deposit_bonus_cap;
+        //     id("deposit_bonus_fiat").innerHTML = "(approx. " + toFiat(deposit_bonus_cap) + ")";
+        //     id("deposit_bonus_rollover").innerHTML = deposit_bonus_rollover_multiple;
 
-            show("deposit_bonus_prompt");
-            }
+        //     show("deposit_bonus_prompt");
+        //     }
         show_cgs_address();
         }
 
