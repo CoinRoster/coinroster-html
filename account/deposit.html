@@ -89,6 +89,19 @@
                         </li>
                     </ul>
                 </button>
+                <button class="text_button" onclick="go_to_shapeshift()" style="width:260px !important">
+                    <ul class="button_contents">
+                        <li>
+                            <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" height="66" style="margin-right:20px"/>
+                        </li>
+                        <li>
+                            Use any cryptocurrency to fund your account with Shapeshift
+                        </li>
+                    </ul>
+                </button>
+                <!-- <a href="https://shapeshift.io/shifty.html?destination=enter-withdraw-address&amp;amount=enter-amount&amp;apiKey=enter-public-apiKey">
+                    <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" class="ss-button">
+                </a> -->
                 <br/>
                 <br/>
             </div>
@@ -148,6 +161,13 @@
             else show_simple_modal(call.error, "bad", null);
             });
         }
+
+    function go_to_shapeshift() {
+        window.open(
+            "https://shapeshift.io/shifty.html?destination=" + window.session.cgs_address + "&amp;amount=enter-amount&amp", //;apiKey=enter-public-apiKey",
+            '_blank'        
+        )
+    }
         
     function show_cgs_address()
         {
