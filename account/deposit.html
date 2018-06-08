@@ -99,6 +99,14 @@
                 </div>
                 <br/>
                 <br/>
+                <div>
+                    <a class="donate-with-crypto"
+                       href="https://commerce.coinbase.com/checkout/18e33cd9-2b71-4574-9cf2-dcac69ef4803">
+                      <span>Deposit with Coinbase</span>
+                    </a>
+                    <script src="https://commerce.coinbase.com/v1/checkout.js">
+                    </script>
+                </div>
             </div>
             <!-- DEPOSIT FORM ************************************************************************** -->
             <div id="ext_address_deposit_container" class="hidden">
@@ -139,27 +147,10 @@
     function go_to_quickbt()
         {
         window.open
-        (
-        "https://quickbt.com/?btcto=" + window.session.cgs_address, // + "&amp;amount=enter-amount&amp", 
-        '_blank'        
-        );
-        // api({ 
-        //     method: "CreateQuickbtRecord", 
-        //     args: {} 
-        // }, function(call)
-        //     {
-        //     if (call.status === "1")
-        //         {
-        //         var 
-                
-        //         cash_register_address = get_ext_address(false),
-        //         redirect = encodeURIComponent(call.redirect),
-        //         passed_id = call.passed_id;
-        
-        //         window.location = "https://quickbt.com/?btcto=" + cash_register_address + "&btcamount=0.1&redir=" + redirect + "&passed_id=" + passed_id;
-        //         }
-        //     else show_simple_modal(call.error, "bad", null);
-        //     });
+            (
+            "https://quickbt.com/?btcto=" + window.session.cgs_address, // + "&amp;amount=enter-amount&amp", 
+            '_blank'        
+            );
         }
 
     function go_to_shapeshift() 
