@@ -138,31 +138,38 @@
 
     function go_to_quickbt()
         {
-        api({ 
-            method: "CreateQuickbtRecord", 
-            args: {} 
-        }, function(call)
-            {
-            if (call.status === "1")
-                {
-                var 
+        window.open
+        (
+        "https://quickbt.com/?btcto=" + window.session.cgs_address, // + "&amp;amount=enter-amount&amp", 
+        '_blank'        
+        );
+        // api({ 
+        //     method: "CreateQuickbtRecord", 
+        //     args: {} 
+        // }, function(call)
+        //     {
+        //     if (call.status === "1")
+        //         {
+        //         var 
                 
-                cash_register_address = get_ext_address(false),
-                redirect = encodeURIComponent(call.redirect),
-                passed_id = call.passed_id;
+        //         cash_register_address = get_ext_address(false),
+        //         redirect = encodeURIComponent(call.redirect),
+        //         passed_id = call.passed_id;
         
-                window.location = "https://quickbt.com/?btcto=" + cash_register_address + "&btcamount=0.1&redir=" + redirect + "&passed_id=" + passed_id;
-                }
-            else show_simple_modal(call.error, "bad", null);
-            });
+        //         window.location = "https://quickbt.com/?btcto=" + cash_register_address + "&btcamount=0.1&redir=" + redirect + "&passed_id=" + passed_id;
+        //         }
+        //     else show_simple_modal(call.error, "bad", null);
+        //     });
         }
 
-    function go_to_shapeshift() {
-        window.open(
+    function go_to_shapeshift() 
+        {
+        window.open
+            (
             "https://shapeshift.io/shifty.html?destination=" + window.session.cgs_address + "&amp;amount=enter-amount&amp", //;apiKey=enter-public-apiKey",
             '_blank'        
-        )
-    }
+            );
+        }
         
     function show_cgs_address()
         {
