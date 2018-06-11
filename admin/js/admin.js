@@ -8,7 +8,7 @@
         nav_nodes = [],
         nav_selection = -1,
         panes = document.getElementsByClassName("pane");
-        id("internal_promo").innerHTML = window.session.internal_promo_balance;
+
         for (var i=0; i<panes.length; i++) 
             {
             var nav_node = document.createElement("a");
