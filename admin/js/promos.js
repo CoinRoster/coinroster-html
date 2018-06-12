@@ -227,7 +227,6 @@
 
     function initialize_promo_expiry()
         {
-
         var element = id("create_promo__deadline_tcal"),
         
         date_now = new Date().getTime(),
@@ -325,7 +324,7 @@
             description =  id("create_promo__description_input").value;
         }
 
-        if(selectorValue("create_promo__referrer_selector") === null) {
+        if(id("create_promo__referrer_selector") === null) {
             referrer =  id(user_affiliate_id).value;
         } else {
             referrer = selectorValue("create_promo__referrer_selector");
