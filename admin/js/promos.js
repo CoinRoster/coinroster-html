@@ -325,7 +325,7 @@
         }
         
         if(id("create_promo__referrer_selector") === null) {
-            console.log(id("user_affiliate_id").value);
+            console.log(window.sessionStorage.username);
             referrer =  id("user_affiliate_id").value;
         } else {
             referrer = selectorValue("create_promo__referrer_selector");
