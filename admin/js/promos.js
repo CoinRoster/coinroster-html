@@ -305,14 +305,14 @@
         var 
         
         promo_code = id("create_promo__code_input").value.trim(),
-        referrer = "",
         free_play_amount = id("create_promo__freeplay_amount_input").value,
-        rollover_multiple = id("create_promo__rollover_input").value || "5",
         max_use = id("create_promo__max_use_input").value,
         expires_input_value = id("create_promo__deadline_tcal").value,
         expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms),
         expires_time = selectorValue("create_promo__time_selector"),
         expires = expires_date + expires_time * 60 * 60 * 1000,
+        referrer = "",
+        rollover_multiple = "",
         description = "";
 
         if(id("create_promo__description_input") === null) {
@@ -325,6 +325,12 @@
             referrer =  id(user_affiliate_id).value;
         } else {
             referrer = selectorValue("create_promo__referrer_selector");
+        }
+
+        if(id("create_promo__rollover_input") === null) {
+            rollover_multiple =  "5";
+        } else {
+            rollover_multiple = id("create_promo__rollover_input");
         }
 
         if (promo_code === "") return alert("Please enter a promo code");
