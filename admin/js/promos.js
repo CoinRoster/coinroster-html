@@ -226,6 +226,8 @@
     // Create promo
 
     function initialize_promo_expiry()
+        {
+
         var element = id("create_promo__deadline_tcal"),
         
         date_now = new Date().getTime(),
