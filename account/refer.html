@@ -266,9 +266,68 @@
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
     id("user_affiliate_id").innerHTML = window.session.username;
-    id("user_affiliate_balance").innerHTML = window.session.btc_balance;
+    id("user_affiliate_balance").innerHTML = window.session.btc_balance;var 
+       
+    function create_promo() {
+        promo_code = id("create_promo__code_input").value.trim(),
+        free_play_amount = id("create_promo__freeplay_amount_input").value,
+        max_use = id("create_promo__max_use_input").value,
+        expires = 0,
+        referrer = "window.session.username",
+        rollover_multiple = 5,
+        description = "User Generated Promo Code";
+
+
+        if (promo_code === "") return alert("Please enter a promo code");
+        if (description === "") return alert("Please enter a description");
+        
+        if (free_play_amount !== "") 
+            {
+            if (isNaN(free_play_amount)) return alert("Free play must be a number");
+            if (free_play_amount < 0) return alert("Free play must be a positive number");
+            }
+        else free_play_amount = 0;
+        
+        if (free_play_amount === 0) return alert("Please enter a free play amount");
+        
+        if (rollover_multiple !== "") 
+            {
+            if (!isInt(rollover_multiple)) return alert("Rollover multiple must be an integer");
+            if (rollover_multiple < 0) return alert("Rollover multiple must be a positive number");
+            }
+        else rollover_multiple = 0;
+
+        if (rollover_multiple === 0) return alert("Please provide a rollover multiple");
+        
+        if (max_use !== "") 
+            {
+            if (!isInt(max_use)) return alert("Max use must be an integer");
+            if (isNaN(max_use)) return alert("Max use must be a number");
+            if (max_use <= 0) return alert("Max use must be positive");
+            }
+        else max_use = 0;
+
+        api({
+            method: "CreatePromo",
+            args: {
+                promo_code: promo_code,
+                description: description,
+                referrer: referrer,
+                free_play_amount: free_play_amount,
+                rollover_multiple: rollover_multiple,
+                max_use: max_use,
+                expires: expires
+            }
+        }, function(call) {
+            if (call.status === "1") 
+                {
+                alert("Promo has been created! Reloading panel.");
+                location.reload();
+                }
+            else return alert(call.error);
+        });
+    }
 </script>
-<script type="text/javascript" src="/../admin/js/promos.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

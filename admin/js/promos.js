@@ -1,5 +1,4 @@
-
-    function action_on_tab_change(selection)
+function action_on_tab_change(selection)
         {
         switch(selection)
             {
@@ -246,9 +245,6 @@
 
     function initialize_referrer_selector()
         {
-        if (id("create_promo__referrer_selector") === null) {
-            return;
-        }
         var create_promo__referrer_selector = id("create_promo__referrer_selector");
         api({
             method: "UserReport", 
@@ -308,52 +304,15 @@
         var 
         
         promo_code = id("create_promo__code_input").value.trim(),
+        description = id("create_promo__description_input").value,
+        referrer = selectorValue("create_promo__referrer_selector"),
         free_play_amount = id("create_promo__freeplay_amount_input").value,
+        rollover_multiple = id("create_promo__rollover_input").value,
         max_use = id("create_promo__max_use_input").value,
-        expires_input_value = "Select date",
-        expires_date = "",
-        expires_time = "",
-        expires = 0.0,
-        referrer = "",
-        rollover_multiple = "",
-        description = "";
-
-        // user generated promos don't have access to these
-
-        if (id("create_promo__deadline_tcal") !== null) 
-            {
-            expires_input_value = id("create_promo__deadline_tcal").value;
-            expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms);
-            expires_time = selectorValue("create_promo__time_selector");
-            expires = expires_date + expires_time * 60 * 60 * 1000;
-            }
-
-        if(id("create_promo__description_input") === null) 
-            {
-            description = "User Generated Promo Code";
-            }
-        else 
-            {
-            description =  id("create_promo__description_input").value;
-            }
-        
-        if(id("create_promo__referrer_selector") === null) 
-            {
-            referrer =  window.session.username;
-            }
-        else 
-            {
-            referrer = selectorValue("create_promo__referrer_selector");
-            }
-        
-        if(id("create_promo__rollover_input") === null) 
-            {
-            rollover_multiple =  5;
-            } 
-        else 
-            {
-            rollover_multiple = id("create_promo__rollover_input").value;
-            }
+        expires_input_value = id("create_promo__deadline_tcal").value,
+        expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms),
+        expires_time = selectorValue("create_promo__time_selector"),
+        expires = expires_date + expires_time * 60 * 60 * 1000;
 
         if (promo_code === "") return alert("Please enter a promo code");
         if (description === "") return alert("Please enter a description");
@@ -382,7 +341,7 @@
             if (isNaN(max_use)) return alert("Max use must be a number");
             if (max_use <= 0) return alert("Max use must be positive");
             }
-        else max_use = 0;
+        else max_use = 1;
         
         if (expires_input_value === "Select date") expires = 0;
 
