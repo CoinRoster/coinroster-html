@@ -315,7 +315,7 @@
         expires = expires_date + expires_time * 60 * 60 * 1000,
         description = "";
 
-        if(id("create_promo__description_input").value === null) {
+        if(id("create_promo__description_input") === null) {
             description = "User Generated Promo Code";
         } else {
             description =  id("create_promo__description_input").value;
