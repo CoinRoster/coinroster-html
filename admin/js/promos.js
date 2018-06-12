@@ -329,7 +329,7 @@
         } else {
             referrer = selectorValue("create_promo__referrer_selector");
         }
-        console.log(id("create_promo__rollover_input").value);
+        
         if(id("create_promo__rollover_input") === null) {
             rollover_multiple =  5;
         } else {
