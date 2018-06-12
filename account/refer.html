@@ -273,11 +273,11 @@
         free_play_amount = id("create_promo__freeplay_amount_input").value,
         max_use = id("create_promo__max_use_input").value,
         expires = 0,
-        referrer = "window.session.username",
+        referrer = window.session.user_id,
         rollover_multiple = 5,
         description = "User Generated Promo Code";
 
-
+        console.log(referrer);
         if (promo_code === "") return alert("Please enter a promo code");
         if (description === "") return alert("Please enter a description");
         
