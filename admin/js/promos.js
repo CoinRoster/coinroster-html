@@ -323,7 +323,7 @@
         } else {
             description =  id("create_promo__description_input").value;
         }
-
+        
         if(id("create_promo__referrer_selector") === null) {
             referrer =  id(user_affiliate_id).value;
         } else {
