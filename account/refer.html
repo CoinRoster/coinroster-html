@@ -327,6 +327,30 @@
             else return alert(call.error);
         });
     }
+
+    function check_promo_code()
+    {
+    var promo_code = id("create_promo__code_input").value.trim();
+    
+    if (promo_code === "") return alert("Please enter a promo code");
+    else 
+        {
+        api({
+            method: "CheckPromoCode",
+            args: {
+                promo_code: promo_code
+            }
+        }, function(call)
+            {
+            if (call.status === "1") return alert("Promo code [" + promo_code + "] is available");
+            else 
+                {
+                id("create_promo__code_input").value = "";
+                return alert(call.error);
+                }
+            });
+        }
+    }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
