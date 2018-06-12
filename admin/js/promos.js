@@ -305,7 +305,6 @@
         var 
         
         promo_code = id("create_promo__code_input").value.trim(),
-        description = id("create_promo__description_input").value || "User Generated Promo Code",
         referrer = selectorValue("create_promo__referrer_selector") || id(user_affiliate_id).value,
         free_play_amount = id("create_promo__freeplay_amount_input").value,
         rollover_multiple = id("create_promo__rollover_input").value || "5",
@@ -313,7 +312,13 @@
         expires_input_value = id("create_promo__deadline_tcal").value,
         expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms),
         expires_time = selectorValue("create_promo__time_selector"),
-        expires = expires_date + expires_time * 60 * 60 * 1000;
+        expires = expires_date + expires_time * 60 * 60 * 1000,
+        description = "";
+        try {
+            description = id("create_promo__description_input").value;
+        } catch (error) {
+            description = "User Generated Promo Code";
+        }
 
         if (promo_code === "") return alert("Please enter a promo code");
         if (description === "") return alert("Please enter a description");
