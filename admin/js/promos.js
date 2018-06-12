@@ -305,7 +305,7 @@
         var 
         
         promo_code = id("create_promo__code_input").value.trim(),
-        referrer = selectorValue("create_promo__referrer_selector") || id(user_affiliate_id).value,
+        referrer = "",
         free_play_amount = id("create_promo__freeplay_amount_input").value,
         rollover_multiple = id("create_promo__rollover_input").value || "5",
         max_use = id("create_promo__max_use_input").value,
@@ -314,10 +314,17 @@
         expires_time = selectorValue("create_promo__time_selector"),
         expires = expires_date + expires_time * 60 * 60 * 1000,
         description = "";
-        try {
-            description = id("create_promo__description_input").value;
-        } catch (error) {
+
+        if(id("create_promo__description_input").value === null) {
             description = "User Generated Promo Code";
+        } else {
+            description =  id("create_promo__description_input").value;
+        }
+
+        if(selectorValue("create_promo__referrer_selector") === null) {
+            referrer =  id(user_affiliate_id).value;
+        } else {
+            referrer = selectorValue("create_promo__referrer_selector");
         }
 
         if (promo_code === "") return alert("Please enter a promo code");
