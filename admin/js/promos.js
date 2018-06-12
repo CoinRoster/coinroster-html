@@ -226,10 +226,6 @@
     // Create promo
 
     function initialize_promo_expiry()
-        {
-        if (id("create_promo__deadline_tcal") === null) {
-            return;
-        }
         var element = id("create_promo__deadline_tcal"),
         
         date_now = new Date().getTime(),
@@ -249,6 +245,9 @@
 
     function initialize_referrer_selector()
         {
+        if (id("create_promo__referrer_selector") === null) {
+            return;
+        }
         var create_promo__referrer_selector = id("create_promo__referrer_selector");
         api({
             method: "UserReport", 
