@@ -333,7 +333,7 @@
         if(id("create_promo__rollover_input") === null) {
             rollover_multiple =  5;
         } else {
-            rollover_multiple = id("create_promo__rollover_input");
+            rollover_multiple = id("create_promo__rollover_input").value;
         }
 
         if (promo_code === "") return alert("Please enter a promo code");
