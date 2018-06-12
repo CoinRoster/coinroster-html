@@ -227,6 +227,9 @@
 
     function initialize_promo_expiry()
         {
+        if (id("create_promo__deadline_tcal") === null) {
+            return;
+        }
         var element = id("create_promo__deadline_tcal"),
         
         date_now = new Date().getTime(),
