@@ -320,7 +320,7 @@
 
         // user generated promos don't have access to these
 
-        if (id("create_promo__deadline_tcal") === null) 
+        if (id("create_promo__deadline_tcal") !== null) 
             {
             expires_input_value = id("create_promo__deadline_tcal").value;
             expires_date = dateconv_date_start_time(id("create_promo__deadline_tcal").date_ms);
