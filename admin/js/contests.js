@@ -274,7 +274,8 @@
     function populate_code_selector(_id) 
         {
         var code_selector = id(_id);        
-        
+        var balance_for_code = id("progressive_code_balance");
+
         code_selector.innerHTML = "<option></option>";
         api({
             method: "GetProgressiveCodes",
@@ -283,16 +284,21 @@
             }
         }, function(call)
             {
-                for (let i = 0; i < call.codes.length; i++) {
-                    console.log(call.codes[i]);
+                var i;
+                for (i = 0; i < call.codes.length; i++) {
                     var option = document.createElement("option");
-                    option.value = call.codes[i];
+                    option.value = i;
                     option.innerHTML = "[" + call.codes[i] + "] ";
 
                     code_selector.appendChild(option);
                 }
 
                 $(code_selector).trigger("chosen:updated");
+
+                code_selector.onchange = function()
+                    {
+                    balance_for_code.innerHTML = call.balances[call.codes.indexOf(document.querySelector('#' + _id + 'option:checked').value)];
+                    };
             });
         
         }

@@ -575,10 +575,18 @@
             </tr>
             <tr>
                 <td>
+                    Current Progressive Balance:
+                </td>
+                <td>
+                    <span id="progressive_code_balance"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Internal Promotions Balance:
                 </td>
                 <td>
-                    <input id="progressive_promotions_balance" type="text" class="input_style text_input" maxlength="20">
+                    <span id="internal_promotions_balance"></span>
                 </td>
             </tr>
             <tr>
@@ -601,5 +609,17 @@
 <script type="text/javascript" src="js/contests.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript">
+    var call = api({
+            method: "GetPromotionBalance",
+            args: {}
+        });
+        
+        if (call.status === "1") 
+            {
+            id("internal_promotions_balance").innerHTML = call.internal_promo_balance + ' BTC';
+            }
+        else id("internal_promotions_balance").innerHTML = 'Could not complete request';
+</script>
 </body>
 </html>

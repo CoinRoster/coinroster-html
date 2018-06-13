@@ -161,7 +161,7 @@
                     Internal Promo Balance:
                 </td>
                 <td colspan="2">
-                    <span id="internal_promo"></span>
+                    <span id="internal_promotions_balance"></span>
                 </td>
             </tr>
             <tr>
@@ -276,9 +276,9 @@
         
         if (call.status === "1") 
             {
-            id("internal_promo").innerHTML = call.internal_promo_balance + ' BTC';
+            id("internal_promotions_balance").innerHTML = call.internal_promo_balance + ' BTC';
             }
-        else id("internal_promo").innerHTML = 'Could not complete request';
+        else id("internal_promotions_balance").innerHTML = 'Could not complete request';
 </script>
 </body>
 </html>
