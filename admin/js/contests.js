@@ -269,7 +269,7 @@
 
     // populate progressive code selector
 
-    var category_map_code = [];
+    var balances = [];
 
     function populate_code_selector(_id) 
         {
@@ -285,6 +285,7 @@
         }, function(call)
             {
                 var i;
+                balances = call.balances;
                 for (i = 0; i < call.codes.length; i++) {
                     var option = document.createElement("option");
                     option.value = i;
@@ -298,7 +299,7 @@
                 code_selector.onchange = function()
                     {
                     console.log(document.querySelector('#' + _id + ' option:checked').value);
-                    balance_for_code.innerHTML = call.balances[document.querySelector('#' + _id + ' option:checked').value];
+                    balance_for_code.innerHTML = balances[document.querySelector('#' + _id + ' option:checked').value];
                     };
             });
         
