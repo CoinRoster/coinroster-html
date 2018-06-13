@@ -283,7 +283,13 @@
             }
         }, function(call)
             {
-                return;
+                for (let i = 0; i < call.codes.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = codes[i];
+                    option.innerHTML = "[" + codes[i] + "] ";
+
+                    code_selector.appendChild(option);
+                }
             });
         
         }
