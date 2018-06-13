@@ -284,6 +284,7 @@
         }, function(call)
             {
                 for (let i = 0; i < call.codes.length; i++) {
+                    console.log(call.codes[i]);
                     var option = document.createElement("option");
                     option.value = call.codes[i];
                     option.innerHTML = "[" + call.codes[i] + "] ";
