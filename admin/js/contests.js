@@ -297,6 +297,7 @@
 
                 code_selector.onchange = function()
                     {
+                    console.log(call.codes.indexOf(document.querySelector('#' + _id + ' option:checked').value));
                     balance_for_code.innerHTML = call.balances[call.codes.indexOf(document.querySelector('#' + _id + ' option:checked').value)];
                     };
             });
