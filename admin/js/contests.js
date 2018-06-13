@@ -60,6 +60,12 @@
             case 5: /* Progressive Report */
                 progressive_report();
                 break;
+            case 6:
+                if (id("category_selector_progressive").options.length === 0)
+                    {
+                    populate_code_selector("code_selector_progressive");
+                    }
+                break; 
             }
         }
                      
