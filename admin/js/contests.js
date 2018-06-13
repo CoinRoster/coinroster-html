@@ -291,6 +291,8 @@
 
                     code_selector.appendChild(option);
                 }
+
+                $(code_selector).trigger("chosen:updated");
             });
         
         }
