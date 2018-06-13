@@ -1785,7 +1785,6 @@
 
         if (code === "") return alert("Choose a code");
         if (amount === "") return alert("Enter an amount");
-        if (info === "") return alert("Enter payout info");
 
         api (
             {
