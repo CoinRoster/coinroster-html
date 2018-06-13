@@ -285,7 +285,7 @@
         }, function(call)
             {
                 var i;
-                balances = call.balances;
+                console.log(call.balances);
                 for (i = 0; i < call.codes.length; i++) {
                     var option = document.createElement("option");
                     option.value = i;
