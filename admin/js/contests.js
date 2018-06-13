@@ -269,8 +269,6 @@
 
     // populate progressive code selector
 
-    var balances = [];
-
     function populate_code_selector(_id) 
         {
         var code_selector = id(_id);        
@@ -298,8 +296,7 @@
 
                 code_selector.onchange = function()
                     {
-                    console.log(balances);
-                    balance_for_code.innerHTML = balances[document.querySelector('#' + _id + ' option:checked').value];
+                    balance_for_code.innerHTML = call.balances[document.querySelector('#' + _id + ' option:checked').value];
                     };
             });
         
