@@ -285,8 +285,8 @@
             {
                 for (let i = 0; i < call.codes.length; i++) {
                     var option = document.createElement("option");
-                    option.value = codes[i];
-                    option.innerHTML = "[" + codes[i] + "] ";
+                    option.value = call.codes[i];
+                    option.innerHTML = "[" + call.codes[i] + "] ";
 
                     code_selector.appendChild(option);
                 }
