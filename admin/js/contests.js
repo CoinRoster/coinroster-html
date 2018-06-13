@@ -1781,8 +1781,8 @@
         var
         
         code = selectorValue("code_selector_progressive"),
-        amount = id("progressive_addition_input"),
-        info = id("progressive_payout_info"); /* ,
+        amount = id("progressive_addition_input").value,
+        info = id("progressive_payout_info").value; /* ,
         promotions_balance = id(""),
         progressive_balance = id("progressive_code_balance"); */
 
