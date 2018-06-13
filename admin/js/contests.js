@@ -1781,10 +1781,7 @@
         var
         
         code = selectorValue("code_selector_progressive"),
-        amount = id("progressive_addition_input").value,
-        info = id("progressive_payout_info").value; /* ,
-        promotions_balance = id(""),
-        progressive_balance = id("progressive_code_balance"); */
+        amount = id("progressive_addition_input").value;
 
         if (code === "") return alert("Choose a code");
         if (amount === "") return alert("Enter an amount");
@@ -1795,9 +1792,7 @@
                 method: "AddToProgressive",
                 args: {
                     code: code,
-                    amount_to_add: amount,
-                    payout_info: info /*,
-                    progressive_balance: progressive_balance */
+                    amount_to_add: amount
                 }
             }, function(call)
                 {   
