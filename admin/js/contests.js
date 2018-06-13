@@ -298,7 +298,7 @@
 
                 code_selector.onchange = function()
                     {
-                    console.log(document.querySelector('#' + _id + ' option:checked').value);
+                    console.log(balances);
                     balance_for_code.innerHTML = balances[document.querySelector('#' + _id + ' option:checked').value];
                     };
             });
