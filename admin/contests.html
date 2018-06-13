@@ -548,6 +548,57 @@
         <div id="progressive_report_table" class="report_table"></div>
     </div>
 </div>
+<div id="pane_6" class="pane" tab_text="Create Progressive">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Create Progressive
+        </div>
+    </div>
+    <div class="content_body" style="top:68px">
+        <table class="settings" style="top:20px">
+            <tr>
+                <td>
+                    Category
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="category_selector_progressive" class="input_style chosen-select" style="width:300px">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Sub-category
+                </td>
+                <td>
+                    <select data-placeholder="Select" id="sub_category_selector_progressive" class="input_style chosen-select" style="width:300px">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Code (unique):
+                </td>
+                <td>
+                    <input id="progressive_code_input" type="text" class="input_style text_input" maxlength="20">
+                    20 chars or less
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Payout info:
+                </td>
+                <td>
+                    <textarea maxlength="500" id="progressive_payout_info" rows="6" cols="60"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="create_progressive();">Create Progressive</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="js/contests.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
