@@ -298,25 +298,25 @@
 
                 category_selector.appendChild(option);
 
-                // if (number_of_sub_categories > 0)
-                //     {
-                //     var sub_category_object = [];
-                //     for (var j=0; j<number_of_sub_categories; j++)
-                //         {
-                //         var sub_category = sub_categories[j],
+                if (number_of_sub_categories > 0)
+                    {
+                    var sub_category_object = [];
+                    for (var j=0; j<number_of_sub_categories; j++)
+                        {
+                        var sub_category = sub_categories[j],
 
-                //         sub_category_code = sub_category.code,
-                //         sub_category_description = sub_category.description;
+                        sub_category_code = sub_category.code,
+                        sub_category_description = sub_category.description;
                 
-                //         sub_category_object.push(
-                //             {
-                //             code: sub_category_code,
-                //             description: sub_category_description
-                //             });
-                //         }
+                        sub_category_object.push(
+                            {
+                            code: sub_category_code,
+                            description: sub_category_description
+                            });
+                        }
 
-                //     category_map[category_code] = sub_category_object;
-                //     }
+                    category_map[category_code] = sub_category_object;
+                    }
                 }
             
             $(category_selector).trigger("chosen:updated");
