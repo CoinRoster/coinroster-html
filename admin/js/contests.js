@@ -1778,6 +1778,37 @@
 
     function add_to_progressive()
         {
+        var
+        
+        code = selectorValue("code_selector_progressive"),
+        amount = id("progressive_addition_input"),
+        info = id("progressive_payout_info"); /* ,
+        promotions_balance = id(""),
+        progressive_balance = id("progressive_code_balance"); */
+
+        if (code === "") return alert("Choose a code");
+        if (amount === "") return alert("Enter an amount");
+        if (info === "") return alert("Enter payout info");
+
+        api (
+            {
+                method: "AddToProgressive",
+                args: {
+                    code: code,
+                    amount_to_add: amount,
+                    payout_info: info /*,
+                    progressive_balance: progressive_balance */
+                }
+            }, function(call)
+                {   
+                if (call.status === "1")
+                    {
+                    alert("Progressive updated! Reloading panel.");
+                    location.reload();
+                    }
+                else alert(call.error);
+                });
+
         return;
         }
 
