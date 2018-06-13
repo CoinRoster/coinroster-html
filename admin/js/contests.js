@@ -269,6 +269,8 @@
 
     // populate progressive code selector
 
+    var category_map_code = [];
+    
     function populate_code_selector(_id) 
         {
         var code_selector = id(_id);        
@@ -315,7 +317,7 @@
                             });
                         }
 
-                    category_map[category_code] = sub_category_object;
+                    category_map_code[category_code] = sub_category_object;
                     }
                 }
             
