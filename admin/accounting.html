@@ -712,7 +712,10 @@
     $.ajax({
         url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
         dataType: 'json',
-        headers: {"Access-Control-Allow-Origin": "*"},
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type':'application/x-www-form-urlencoded'
+        },
         type: 'get',
         crossDomain: true,
         success: function( data, textStatus, jQxhr ){
