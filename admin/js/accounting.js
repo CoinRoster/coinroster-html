@@ -862,6 +862,7 @@
             }, function (call) {
                 if (call.status === "1")
                     {
+                    window.location.reload();
                     return alert ("Cold storage balance updated");
                     }
                 else alert("Problem while updating balance");
