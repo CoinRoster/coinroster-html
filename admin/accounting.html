@@ -700,6 +700,15 @@
         <br/>
         <table>
             <tr>
+                Internal Liability RC balance:
+                <td>
+                    <span id="liability_rc_balance"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table>
+            <tr>
                 Internal Progressive Balance:
                 <td>
                     <span id="progressive_balance"></span>
@@ -776,17 +785,17 @@
     api({
         method: "GetLiabilities"
     }, function(call){
-        id("liability_btc_balance").innerHTML = call.liability_btc_balance;
-        id("liability_rc_balance").innerHTML = call.liability_rc_balance;
-        id("progressive_balance").innerHTML = call.progressive_balance;
-        id("contest_balance").innerHTML = call.contest_balance;
+        id("liability_btc_balance").innerHTML = '<b>' + call.liability_btc_balance + '<b> BTC';
+        id("liability_rc_balance").innerHTML = '<b>' + call.liability_rc_balance + '<b> BTC';
+        id("progressive_balance").innerHTML = '<b>' + call.progressive_balance + '<b> BTC';
+        id("contest_balance").innerHTML = '<b>' + call.contest_balance + '<b> BTC';
     });
     
     api({
         method: "GetEquities"
     }, function(call){
-        id("promo_balance").innerHTML = call.promo_balance;
-        id("asset_balance").innerHTML = call.asset_balance;
+        id("promo_balance").innerHTML = '<b>' + call.promo_balance + '<b> BTC';
+        id("asset_balance").innerHTML = '<b>' + call.asset_balance + '<b> BTC';
     });
 
 </script>
