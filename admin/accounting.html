@@ -715,7 +715,7 @@
     }, function(call){
         console.log(call.response);
         var response = JSON.parse(call.response);
-        id("cash_register_balance").innerHTML = toBTC(response.balance, true);
+        id("cash_register_balance").innerHTML = response.balance / Math.pow(10, 8);
     });
 
 </script>
