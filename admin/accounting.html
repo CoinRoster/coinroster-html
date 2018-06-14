@@ -709,6 +709,7 @@
         method: "GetCashRegisterBalance"
     }, function(call){
         var response = JSON.parse(call.reponse);
+        console.log(response);
         id("cash_register_balance").innerHTML = toBTC(response.balance, false);
     });
 
