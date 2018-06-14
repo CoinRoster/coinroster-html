@@ -27,7 +27,7 @@
                 });
                 break;
             case 7: /* Balance Sheet */
-                balance_sheet_init();
+                // balance_sheet_init();
                 break;
             }
         }
@@ -850,9 +850,9 @@
             }
         }
     
-    function update_cold_storage_address()
+    function update_cold_storage_balance()
         {
-        var amount = id("cash_register_address").value;
+        var amount = id("cash_register_balance").value;
         api(
             {
                 method: "UpdateColdStorageBalance",

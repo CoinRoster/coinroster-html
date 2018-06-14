@@ -660,10 +660,10 @@
             <tr>
                 Current Cold Storage Balance:
                 <td>
-                    <input id="cold_storage_balance" type="text" class="input_style text_input" maxlength="35" style="width:300px">
+                    <input id="cold_storage_balance" type="text" class="input_style text_input" maxlength="35" style="width:300px"> BTC
                 </td>
                 <td>
-                    <button type="button" class="input_style" onclick="update_cash_register_address();">Update address</button>
+                    <button type="button" class="input_style" onclick="update_cold_storage_balance();">Update balance</button>
                 </td>
             </tr>
         </table>
@@ -696,7 +696,17 @@
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript">
-    id("cold_storage_balance").value = window.session.cold_storage_balance;
+
+    var call = api({
+            method: "GetColdStorageBalance",
+            args: {}
+        });
+        
+    if (call.status === "1") 
+        {
+        id("cold_storage_balance").innerHTML = call.cold_storage_balance;
+        }
+    else id("cold_storage_balance").innerHTML = 'Could not complete request';
 </script>
 </body>
 </html>
