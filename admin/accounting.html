@@ -761,7 +761,7 @@
         {
         console.log(call.cold_storage_balance);
         cold_storage_input.value = call.cold_storage_balance;
-        id("cold_storage_balance_value").innerHTML = call.cold_storage_balance;
+        id("cold_storage_balance_value").innerHTML = '<b>' + call.cold_storage_balance + '</b> BTC';
         }
     else cold_storage_input.value = 'Could not complete request';
     cold_storage_input.onclick = function () 
@@ -773,7 +773,7 @@
         method: "GetCashRegisterBalance"
     }, function(call){
         var response = JSON.parse(call.response);
-        id("cash_register_balance").innerHTML = response.balance / Math.pow(10, 8);
+        id("cash_register_balance").innerHTML = '<b>' + response.balance / Math.pow(10, 8) + '</b> BTC';
     });
     
     api({
