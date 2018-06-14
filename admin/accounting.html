@@ -680,10 +680,65 @@
         <hr>
         <br/>
         <h3>
-            Pending withdrawals:
+            Liabilities:
         </h3>
         <br/>
-        <div id="quickbt_deposit_table" class="report_table"></div>
+        <table>
+            <tr>
+                Internal Liability BTC balance:
+                <td>
+                    <span id="liability_btc_balance"></span>
+                </td>
+            </tr>
+            <tr>
+                Internal Liability RC balance:
+                <td>
+                    <span id="liability_rc_balance"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table>
+            <tr>
+                Internal Progressive Balance:
+                <td>
+                    <span id="progressive_balance"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table>
+            <tr>
+                Internal Contest Balance:
+                <td>
+                    <span id="contest_balance"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <hr>
+        <br/>
+        <h3>
+            Equities:
+        </h3>
+        <br/>
+        <table>
+            <tr>
+                Internal Promo Balance:
+                <td>
+                    <span id="promo_balance"></span>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table>
+            <tr>
+                Internal Asset Balance:
+                <td>
+                    <span id="asset_balance"></span>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
@@ -710,12 +765,28 @@
         {
         cold_storage_input.value = "";
         }
+        
     api({
         method: "GetCashRegisterBalance"
     }, function(call){
-        console.log(call.response);
         var response = JSON.parse(call.response);
         id("cash_register_balance").innerHTML = response.balance / Math.pow(10, 8);
+    });
+    
+    api({
+        method: "GetLiabilities"
+    }, function(call){
+        id("liability_btc_balance").innerHTML = response.liability_btc_balance;
+        id("liability_rc_balance").innerHTML = response.liability_rc_balance;
+        id("progressive_balance").innerHTML = response.progressive_balance;
+        id("contest_balance").innerHTML = response.contest_balance;
+    });
+    
+    api({
+        method: "GetEquities"
+    }, function(call){
+        id("promo_balance").innerHTML = response.promo_balance;
+        id("asset_balance").innerHTML = response.asset_balance;
     });
 
 </script>
