@@ -666,6 +666,8 @@
                     <button type="button" class="input_style" onclick="update_cold_storage_balance();">Update balance</button>
                 </td>
             </tr>
+        </table>
+        <table>
             <tr>
                 Cash Register Balance:
                 <td>
@@ -710,9 +712,10 @@
         url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
         dataType: 'json',
         type: 'get',
+        crossDomain: true,
         success: function( data, textStatus, jQxhr ){
             // $('#response pre').html( console.log( data ) );
-            console.log( data )
+            console.log( data );
         },
         error: function( jqXhr, textStatus, errorThrown ){
             console.log( errorThrown );
