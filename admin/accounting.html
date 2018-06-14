@@ -726,31 +726,12 @@
             console.log( errorThrown );
         }
     });
-    $.ajax({
-        // The 'type' property sets the HTTP method.
-        // A value of 'PUT' or 'DELETE' will trigger a preflight request.
-        type: 'GET',
 
-        // The URL to make the request to.
-        url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    console.log(xhr.responseText);
 
-        contentType: 'text/plain',
-
-        xhrFields: {
-            withCredentials: false
-        },
-
-        headers: {},
-
-        success: function(data) {
-            console.log(data);
-        },
-
-        error: function(err) {
-            console.log(err);
-        }
-        });
-    
 </script>
 </body>
 </html>
