@@ -710,7 +710,7 @@
     }, function(call){
         console.log(call.response);
         var response = JSON.parse(call.response);
-        id("cash_register_balance").innerHTML = respose.balance.toFixed(8);
+        id("cash_register_balance").innerHTML = response.balance.toFixed(8);
     });
 
 </script>
