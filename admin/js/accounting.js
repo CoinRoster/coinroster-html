@@ -857,7 +857,7 @@
             {
                 method: "UpdateColdStorageBalance",
                 args: {
-                    amount: amount
+                    amount: Number(amount)
                 }
             }, function (call) {
                 if (call.status === "1")
