@@ -712,6 +712,7 @@
     $.ajax({
         url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
         dataType: 'json',
+        headers: {"Access-Control-Allow-Origin": "*"},
         type: 'get',
         crossDomain: true,
         success: function( data, textStatus, jQxhr ){
@@ -723,9 +724,6 @@
         }
     });
     
-    $.getJSON('https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/', function(json) {
-            console.log(json)
-    })
 </script>
 </body>
 </html>
