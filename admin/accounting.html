@@ -658,12 +658,18 @@
         <br/>
         <table>
             <tr>
-                Current Cold Storage Balance:
+                Cold Storage Balance: <span id="cold_storage_balance_value"></span> BTC
                 <td>
-                    <input id="cold_storage_balance" type="text" class="input_style text_input" maxlength="35" style="width:300px"> BTC
+                    <input id="cold_storage_balance" type="text" dir="rtl" class="input_style text_input" maxlength="35" style="width:300px"> BTC
                 </td>
                 <td>
                     <button type="button" class="input_style" onclick="update_cold_storage_balance();">Update balance</button>
+                </td>
+            </tr>
+            <tr>
+                Cash Register Balance:
+                <td>
+                    <span id="cash_register_balance"></span>
                 </td>
             </tr>
         </table>
@@ -672,20 +678,6 @@
         <br/>
         <h3>
             Pending withdrawals:
-        </h3>
-        <br/>
-        <div id="pending_withdrawal_table" class="report_table"></div>
-        <br/>
-        <br/>
-        <h3>
-            Pending deposits:
-        </h3>
-        <br/>
-        <div id="pending_deposit_table" class="report_table"></div>
-        <br/>
-        <br/>
-        <h3>
-            QuickBT deposits:
         </h3>
         <br/>
         <div id="quickbt_deposit_table" class="report_table"></div>
@@ -707,12 +699,25 @@
         {
         console.log(call.cold_storage_balance);
         cold_storage_input.value = call.cold_storage_balance;
+        id("cold_storage_balance_value").value = call.cold_storage_balance;
         }
     else cold_storage_input.value = 'Could not complete request';
     cold_storage_input.onclick = function () 
         {
         cold_storage_input.value = "";
         }
+    $.ajax({
+        url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
+        dataType: 'json',
+        type: 'get',
+        success: function( data, textStatus, jQxhr ){
+            // $('#response pre').html( console.log( data ) );
+            console.log( data )
+        },
+        error: function( jqXhr, textStatus, errorThrown ){
+            console.log( errorThrown );
+        }
+    });
 </script>
 </body>
 </html>
