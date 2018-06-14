@@ -1361,8 +1361,3 @@
             else alert(call.error);
             });
         }   
-
-    function balance_sheet_init() {
-        id("cold_storage_balance").value = window.session.cold_storage_balance;
-    }
-    
