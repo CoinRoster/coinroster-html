@@ -686,6 +686,11 @@
         <div id="quickbt_deposit_table" class="report_table"></div>
     </div>
 </div>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="js/accounting.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="../js/lib.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript">
 
     var cold_storage_input = id("cold_storage_balance");
@@ -710,14 +715,9 @@
     }, function(call){
         console.log(call.response);
         var response = JSON.parse(call.response);
-        id("cash_register_balance").innerHTML = response.balance.toFixed(8);
+        id("cash_register_balance").innerHTML = toBTC(response.balance, false);
     });
 
 </script>
-<script type="text/javascript" src="/js/btc_inputs.js"></script>
-<script type="text/javascript" src="js/accounting.js"></script>
-<script type="text/javascript" src="js/admin.js"></script>
-<script type="text/javascript" src="../js/lib.js"></script>
-<script type="text/javascript" src="/js/nav.js"></script>
 </body>
 </html>
