@@ -696,7 +696,6 @@
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript">
-    console.log('??');
     var call = api({
             method: "GetColdStorageBalance",
             args: {}
@@ -705,9 +704,9 @@
     if (call.status === "1") 
         {
         console.log(call.cold_storage_balance);
-        id("cold_storage_balance").innerHTML = call.cold_storage_balance;
+        id("cold_storage_balance").value = call.cold_storage_balance;
         }
-    else id("cold_storage_balance").innerHTML = 'Could not complete request';
+    else id("cold_storage_balance").value = 'Could not complete request';
 </script>
 </body>
 </html>
