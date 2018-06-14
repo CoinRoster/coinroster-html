@@ -667,6 +667,7 @@
                 </td>
             </tr>
         </table>
+        <br/>
         <table>
             <tr>
                 Cash Register Balance:
@@ -701,7 +702,7 @@
         {
         console.log(call.cold_storage_balance);
         cold_storage_input.value = call.cold_storage_balance;
-        id("cold_storage_balance_value").value = call.cold_storage_balance;
+        id("cold_storage_balance_value").innerHTML = call.cold_storage_balance;
         }
     else cold_storage_input.value = 'Could not complete request';
     cold_storage_input.onclick = function () 
@@ -710,7 +711,7 @@
         }
     $.ajax({
         url: 'https://api.blockcypher.com/v1/btc/main/addrs/1HjSwXFqL4B2GWB6Umt34PX9R69xvPRzUz/',
-        dataType: 'jsonp',
+        dataType: 'json',
         type: 'get',
         crossDomain: true,
         success: function( data, textStatus, jQxhr ){
