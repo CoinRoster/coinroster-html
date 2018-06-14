@@ -776,17 +776,17 @@
     api({
         method: "GetLiabilities"
     }, function(call){
-        id("liability_btc_balance").innerHTML = response.liability_btc_balance;
-        id("liability_rc_balance").innerHTML = response.liability_rc_balance;
-        id("progressive_balance").innerHTML = response.progressive_balance;
-        id("contest_balance").innerHTML = response.contest_balance;
+        id("liability_btc_balance").innerHTML = call.liability_btc_balance;
+        id("liability_rc_balance").innerHTML = call.liability_rc_balance;
+        id("progressive_balance").innerHTML = call.progressive_balance;
+        id("contest_balance").innerHTML = call.contest_balance;
     });
     
     api({
         method: "GetEquities"
     }, function(call){
-        id("promo_balance").innerHTML = response.promo_balance;
-        id("asset_balance").innerHTML = response.asset_balance;
+        id("promo_balance").innerHTML = call.promo_balance;
+        id("asset_balance").innerHTML = call.asset_balance;
     });
 
 </script>
