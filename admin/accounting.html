@@ -429,7 +429,7 @@
                     <input id="cash_register_address" type="text" class="input_style text_input" maxlength="35" style="width:300px">
                 </td>
                 <td>
-                    <button type="button" class="input_style" onclick="update_cash_register_address();">Update address</button>
+                    <button type="button" class="input_style" onclick="update_cold_storage_balance();">Update balance</button>
                 </td>
             </tr>
         </table>
@@ -652,31 +652,43 @@
         </div>
     </div>
     <div class="content_body" style="top:68px">
-        <table class="settings" style="top:20px">
+        <h3>
+           Assets:
+        </h3>
+        <br/>
+        <table>
             <tr>
+                Current Cold Storage Balance:
                 <td>
-                    User:
+                    <input id="cold_storage_balance" type="text" class="input_style text_input" maxlength="35" style="width:300px">
                 </td>
                 <td>
-                    <select id="notify_user_selector" data-placeholder="Select" class="input_style chosen-select user_selector" style="width:330px">
-                        <option></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Subject:
-                </td>
-                <td>
-                    <input id="notify_user_subject" placeholder="Subject" type="text" class="input_style text_input" style="width:500px">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button type="button" class="input_style" onclick="notify_user();">Send Message</button>
+                    <button type="button" class="input_style" onclick="update_cash_register_address();">Update address</button>
                 </td>
             </tr>
         </table>
+        <br/>
+        <hr>
+        <br/>
+        <h3>
+            Pending withdrawals:
+        </h3>
+        <br/>
+        <div id="pending_withdrawal_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <h3>
+            Pending deposits:
+        </h3>
+        <br/>
+        <div id="pending_deposit_table" class="report_table"></div>
+        <br/>
+        <br/>
+        <h3>
+            QuickBT deposits:
+        </h3>
+        <br/>
+        <div id="quickbt_deposit_table" class="report_table"></div>
     </div>
 </div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>

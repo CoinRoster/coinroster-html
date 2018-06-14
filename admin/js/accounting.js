@@ -26,6 +26,9 @@
                     toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
                 });
                 break;
+            case 7: /* Balance Sheet */
+                balance_sheet_init();
+                break;
             }
         }
 
@@ -846,7 +849,25 @@
             else alert("Problem while updating cash register");
             }
         }
-            
+    
+    function update_cold_storage_address()
+        {
+        var amount = id("cash_register_address").value;
+        api(
+            {
+                method: "UpdateColdStorageBalance",
+                args: {
+                    amount: amount
+                }
+            }, function (call) {
+                if (call.status === "1")
+                    {
+                    return alert ("Cold storage balance updated");
+                    }
+                else alert("Problem while updating balance");
+            });
+        }
+
     function get_pending_withdrawals()
         {
         var call = api({ method: "GetPendingWithdrawals", args: {} });
@@ -1340,4 +1361,8 @@
             else alert(call.error);
             });
         }   
-     
+
+    function balance_sheet_init() {
+        id("cold_storage_balance").value = window.session.cold_storage_balance;
+    }
+    
