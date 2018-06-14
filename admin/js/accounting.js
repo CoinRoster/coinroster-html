@@ -852,7 +852,7 @@
     
     function update_cold_storage_balance()
         {
-        var amount = id("cash_register_balance").value;
+        var amount = id("cold_storage_balance").value;
         api(
             {
                 method: "UpdateColdStorageBalance",
