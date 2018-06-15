@@ -63,7 +63,7 @@
         
         var number_of_options = +id("number_of_options").value;
         console.log(number_of_options);
-        if(number_of_options === "" || (!(number_of_options >= 0) || isNaN(number_of_options))) return alert("Please enter the number of options");
+        if(!(number_of_options > 0) || isNaN(number_of_options)) return alert("Please enter the number of options");
 
         // get registration deadline
         
