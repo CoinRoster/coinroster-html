@@ -20,119 +20,119 @@
                 </span>
             </h3>
         </div>
-        <br/>
-    </div>    
-    <div id="pane_1" class="pane" tab_text="Create Contest">
-        <div class="content_header" style="height:67px">
-            <div class="content_header_title">
-                Create Contest
+        <div class="table_body_container">
+            <div class="content_header" style="height:67px">
+                <div class="content_header_title">
+                    Create Contest
+                </div>
             </div>
-        </div>
-        <div class="content_body" style="top:68px">
-            <h3>
-                Contest Details
-            </h3>
-            <br/>
-            <table class="form_table">
-                <tr>
-                    <td>
-                        Title
-                    </td>
-                    <td colSpan="2">
-                        <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Description
-                    </td>
-                    <td colSpan="2">
-                        <textarea maxlength="500" id="progressive_payout_info" rows="6" cols="60"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        Registration deadline:
-                    </td>
-                    <td width="1">
-                        <input type="text" class="input_style text_input tcal" id="registration_deadline_tcal">
-                    </td>
-                    <td>
-                        <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
-                            <option value="0">12:00 AM</option>
-                            <option value="1">1:00 AM</option>
-                            <option value="2">2:00 AM</option>
-                            <option value="3">3:00 AM</option>
-                            <option value="4">4:00 AM</option>
-                            <option value="5">5:00 AM</option>
-                            <option value="6">6:00 AM</option>
-                            <option value="7">7:00 AM</option>
-                            <option value="8">8:00 AM</option>
-                            <option value="9">9:00 AM</option>
-                            <option value="10">10:00 AM</option>
-                            <option value="11">11:00 AM</option>
-                            <option value="12">12:00 PM</option>
-                            <option value="13">1:00 PM</option>
-                            <option value="14">2:00 PM</option>
-                            <option value="15">3:00 PM</option>
-                            <option value="16">4:00 PM</option>
-                            <option value="17">5:00 PM</option>
-                            <option value="18" selected>6:00 PM</option>
-                            <option value="19">7:00 PM</option>
-                            <option value="20">8:00 PM</option>
-                            <option value="21">9:00 PM</option>
-                            <option value="22">10:00 PM</option>
-                            <option value="23">11:00 PM</option>
-                        </select>
-                        &nbsp;&nbsp;
-                        EST
-                    </td>
-                </tr>
-            </table>
-            <div class="pari_mutuel_contest_field">
+            <div class="content_body" style="top:68px">
                 <h3>
-                    Pari-mutuel option table
+                    Contest Details
                 </h3>
+                <br/>
                 <table class="form_table">
                     <tr>
-                        <td width="1">
-                            Number of options
-                        </td>
-                        <td width="1">
-                            <input id="number_of_options" type="text" class="input_style text_input">
-                        </td>
-                        <td width="1">
-                            <button type="button" class="input_style" onclick="create_pari_mutuel_table();">Apply</button>
-                        </td>
-                        <td width="1">
-                            or
-                        </td>
-                        <td width="1">
-                            <button type="button" class="input_style" onclick="paste_pari_mutuel_options();">Excel Paste</button>
-                        </td>
                         <td>
-                            
+                            Title
+                        </td>
+                        <td colSpan="2">
+                            <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
                         </td>
                     </tr>
-                    <tr id="paste_pari_mutuel_row" style="display:none">
-                        <td colspan="6">
-                            <textarea id="pari_mutuel_excel_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
-                            <br/><br/>
-                            <button type="button" class="input_style" onclick="process_excel_data('PARI-MUTUEL', 'paste_pari_mutuel_row');">Create outcome rows</button>
-                            <button type="button" class="input_style" onclick="cancel_excel_data('paste_pari_mutuel_row');">Cancel</button>
+                    <tr>
+                        <td>
+                            Description
+                        </td>
+                        <td colSpan="2">
+                            <textarea maxlength="500" id="progressive_payout_info" rows="6" cols="60"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Registration deadline:
+                        </td>
+                        <td width="1">
+                            <input type="text" class="input_style text_input tcal" id="registration_deadline_tcal">
+                        </td>
+                        <td>
+                            <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
+                                <option value="0">12:00 AM</option>
+                                <option value="1">1:00 AM</option>
+                                <option value="2">2:00 AM</option>
+                                <option value="3">3:00 AM</option>
+                                <option value="4">4:00 AM</option>
+                                <option value="5">5:00 AM</option>
+                                <option value="6">6:00 AM</option>
+                                <option value="7">7:00 AM</option>
+                                <option value="8">8:00 AM</option>
+                                <option value="9">9:00 AM</option>
+                                <option value="10">10:00 AM</option>
+                                <option value="11">11:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="13">1:00 PM</option>
+                                <option value="14">2:00 PM</option>
+                                <option value="15">3:00 PM</option>
+                                <option value="16">4:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                                <option value="18" selected>6:00 PM</option>
+                                <option value="19">7:00 PM</option>
+                                <option value="20">8:00 PM</option>
+                                <option value="21">9:00 PM</option>
+                                <option value="22">10:00 PM</option>
+                                <option value="23">11:00 PM</option>
+                            </select>
+                            &nbsp;&nbsp;
+                            EST
                         </td>
                     </tr>
                 </table>
-                <div id="pari_mutuel_table" class="report_table"></div>
+                <div class="pari_mutuel_contest_field">
+                    <h3>
+                        Pari-mutuel option table
+                    </h3>
+                    <table class="form_table">
+                        <tr>
+                            <td width="1">
+                                Number of options
+                            </td>
+                            <td width="1">
+                                <input id="number_of_options" type="text" class="input_style text_input">
+                            </td>
+                            <td width="1">
+                                <button type="button" class="input_style" onclick="create_pari_mutuel_table();">Apply</button>
+                            </td>
+                            <td width="1">
+                                or
+                            </td>
+                            <td width="1">
+                                <button type="button" class="input_style" onclick="paste_pari_mutuel_options();">Excel Paste</button>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr id="paste_pari_mutuel_row" style="display:none">
+                            <td colspan="6">
+                                <textarea id="pari_mutuel_excel_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
+                                <br/><br/>
+                                <button type="button" class="input_style" onclick="process_excel_data('PARI-MUTUEL', 'paste_pari_mutuel_row');">Create outcome rows</button>
+                                <button type="button" class="input_style" onclick="cancel_excel_data('paste_pari_mutuel_row');">Cancel</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="pari_mutuel_table" class="report_table"></div>
+                </div>
+                <br/>
+                <br/>
+                <button type="button" class="input_style huge_button" onclick="create_contest();">Create Contest</button>
+                <br/>
+                <br/>
+                <br/>
             </div>
-            <br/>
-            <br/>
-            <button type="button" class="input_style huge_button" onclick="create_contest();">Create Contest</button>
-            <br/>
-            <br/>
-            <br/>
         </div>
-    </div>
+        <br/>
+    </div>   
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
