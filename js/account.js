@@ -95,7 +95,7 @@
 
     function create_pari_mutuel_contest(args)
         {
-        var pari_mutuel_table = id('new_table')
+        var pari_mutuel_table = id('pari_mutuel_table_element')
         
         // the following arguments only apply in a roster contest:
         
