@@ -121,8 +121,6 @@
     </div>   
 </div>
 <!--#include virtual="/ssi/footer.html" -->
-<script type="text/javascript" src="/js/btc_inputs.js"></script>
-<script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script>
     if (window.session.first_deposit === 0) {
@@ -133,19 +131,23 @@
     }
     var date_now = new Date().getTime(),
 
-    default_date = date_now - 86400 * 1000,
+    default_date = date_now + 86400 * 1000,
     min_date = date_now,
     max_date = null;
 
-    initialize_calendar
-        (
-        id("registration_deadline_tcal"),
-        default_date,
-        min_date,
-        max_date
+
+    function init(){
+        initialize_calendar (
+            id("registration_deadline_tcal"),
+            default_date,
+            min_date,
+            max_date
         );
+    }
 </script>
 <script type="text/javascript" src="/js/account.js"></script>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>
