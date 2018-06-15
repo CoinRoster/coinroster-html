@@ -76,15 +76,15 @@
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
 
         var common_args = {
-            category: 'USER-GENERATED',  // user generated
-            sub_category: null,
-            progressive: null,  // null
-            contest_type: 'PARI-MUTUEL', // pari mutuel
+            category: 'USER-GENERATED',  
+            sub_category: "",
+            progressive: null,  
+            contest_type: 'PARI-MUTUEL', 
             title: title,
             description: description,
             registration_deadline: registration_deadline,
-            rake: 0.05, // 5%
-            cost_per_entry: 0.00000001 // 1 satoshi
+            rake: 0.05, 
+            cost_per_entry: 0.00000001 
         };
 
         create_pari_mutuel_contest(common_args);
@@ -97,7 +97,7 @@
         {
         // the following arguments only apply in a roster contest:
 
-        pari_mutuel_table = new_table("pari_mutuel_table");
+        var pari_mutuel_table = id("pari_mutuel_table");
         
         args.settlement_type = null;
         args.min_users = null;
