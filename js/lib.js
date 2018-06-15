@@ -40,6 +40,7 @@
         parent_element.innerHTML = "";
         var table = document.createElement("table");
         parent_element.appendChild(table);
+        table.id = 'new_table';
         return table;
         }
         

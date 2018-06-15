@@ -97,7 +97,7 @@
         {
         // the following arguments only apply in a roster contest:
 
-        var pari_mutuel_table = id("pari_mutuel_table");
+        var pari_mutuel_table = id("new_table");
         
         args.settlement_type = null;
         args.min_users = null;
