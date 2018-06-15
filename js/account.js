@@ -59,6 +59,12 @@
         
         if (description === "") return alert("Please enter a description");
         
+        // check for number of options
+        
+        var number_of_options = +id("number_of_options").value;
+
+        if(number_of_options === "") return alert("Please enter the number of options");
+
         // get registration deadline
         
         var
@@ -90,6 +96,8 @@
     function create_pari_mutuel_contest(args)
         {
         // the following arguments only apply in a roster contest:
+
+        pari_mutuel_table = new_table("pari_mutuel_table");
         
         args.settlement_type = null;
         args.min_users = null;
