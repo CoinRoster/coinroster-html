@@ -98,7 +98,7 @@
                                 <input id="number_of_options" type="text" class="input_style text_input">
                             </td>
                             <td width="1">
-                                <button type="button" class="input_style" onclick="create_pari_mutuel_table();">Apply</button>
+                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
                             </td>
                             <td>
                                 
@@ -144,86 +144,8 @@
         min_date,
         max_date
         );
-
-
-    function create_pari_mutuel_table() 
-    {
-        pari_mutuel_table = new_table("pari_mutuel_table");
-        
-        var
-        
-        row_count = 0,
-        number_of_options = +id("number_of_options").value;
-
-        if (isNaN(number_of_options) || number_of_options < 2) 
-            {
-            id("jackpot_pay_table").innerHTML = "";
-            return alert("There must be 2 or more options");
-            }
-
-        for (var i=0; i<number_of_options; i++)
-            {
-            var rank = i + 1;
-            new_row(pari_mutuel_table, row_count++, [
-                rank,
-                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\">"
-            ]);
-            }
-            
-        var header = new_row(pari_mutuel_table, 0, [
-            "Id",
-            "Description"
-        ]);
-            
-        for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-    } 
-          
-    function create_contest() {
-
-        // check for title
-        
-        var title = id("contest_title_input").value;
-        
-        if (title === "") return alert("Please enter a title");
-        
-        // check for description
-        
-        var description = id("contest_description_textarea").value;
-        
-        if (description === "") return alert("Please enter a description");
-        
-        // get registration deadline
-        
-        var
-        
-        date = dateconv_date_start_time(id("registration_deadline_tcal").date_ms),
-        time = selectorValue("registration_deadline_time_selector"),
-        registration_deadline = date + time * 60 * 60 * 1000;
-
-        if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
-
-        var common_args = {
-            category: category,  // user generated
-            sub_category: sub_category,
-            progressive: progressive,  // null
-            contest_type: contest_type, // pari mutuel
-            title: title,
-            description: description,
-            registration_deadline: registration_deadline,
-            rake: rake, // 5%
-            cost_per_entry: cost_per_entry // 1 satoshi
-        };
-            
-        switch (contest_type) {
-            case "ROSTER":
-                create_roster_contest(common_args);
-                break;
-            case "PARI-MUTUEL":
-                create_pari_mutuel_contest(common_args);
-                break;
-        }
-    }
 </script>
+<script type="text/javascript" src="/js/account.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>
