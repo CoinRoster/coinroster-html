@@ -20,12 +20,10 @@
                 </span>
             </h3>
         </div>
+        <div id="must_deposit_container" class="account_creation_message hidden">
+            You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to enter contests with progressive jackpots.
+        </div>
         <div class="table_body_container">
-            <div class="content_header" style="height:67px">
-                <div class="content_header_title">
-                    Create Contest
-                </div>
-            </div>
             <div class="content_body" style="top:68px">
                 <h3>
                     Contest Details
@@ -102,22 +100,8 @@
                             <td width="1">
                                 <button type="button" class="input_style" onclick="create_pari_mutuel_table();">Apply</button>
                             </td>
-                            <td width="1">
-                                or
-                            </td>
-                            <td width="1">
-                                <button type="button" class="input_style" onclick="paste_pari_mutuel_options();">Excel Paste</button>
-                            </td>
                             <td>
                                 
-                            </td>
-                        </tr>
-                        <tr id="paste_pari_mutuel_row" style="display:none">
-                            <td colspan="6">
-                                <textarea id="pari_mutuel_excel_textarea" placeholder="Paste excel data here..." cols="100" rows="40"></textarea> 
-                                <br/><br/>
-                                <button type="button" class="input_style" onclick="process_excel_data('PARI-MUTUEL', 'paste_pari_mutuel_row');">Create outcome rows</button>
-                                <button type="button" class="input_style" onclick="cancel_excel_data('paste_pari_mutuel_row');">Cancel</button>
                             </td>
                         </tr>
                     </table>
@@ -125,7 +109,9 @@
                 </div>
                 <br/>
                 <br/>
-                <button type="button" class="input_style huge_button" onclick="create_contest();">Create Contest</button>
+                <div id="submit_button_container" class="submit_container hidden">
+                    <button type="button" class="input_style huge_button" onclick="create_contest();">Create Contest</button>
+                </div>
                 <br/>
                 <br/>
                 <br/>
@@ -137,6 +123,12 @@
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script>
+    if (window.session.first_deposit === 0) {
+        show("must_deposit_container");
+        hide("submit_button_container");
+    }
+</script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>
