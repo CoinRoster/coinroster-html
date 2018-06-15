@@ -127,6 +127,8 @@
     if (window.session.first_deposit === 0) {
         show("must_deposit_container");
         hide("submit_button_container");
+    } else {
+        show("submit_button_container");
     }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
