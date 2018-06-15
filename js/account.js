@@ -96,7 +96,7 @@
     function create_pari_mutuel_contest(args)
         {
         var pari_mutuel_table = id('pari_mutuel_table_element')
-        if (pari_mutuel_table.rows == null) return alert('Please click apply');
+        if (pari_mutuel_table === null) return alert('Please click apply');
         // the following arguments only apply in a roster contest:
         
         args.settlement_type = null;
