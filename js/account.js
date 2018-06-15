@@ -62,7 +62,7 @@
         // check for number of options
         
         var number_of_options = +id("number_of_options").value;
-        console.log(number_of_options);
+
         if(!(number_of_options > 0) || isNaN(number_of_options)) return alert("Please enter the number of options");
 
         // get registration deadline
@@ -96,7 +96,7 @@
     function create_pari_mutuel_contest(args)
         {
         var pari_mutuel_table = id('pari_mutuel_table_element')
-        
+        if (pari_mutuel_table.rows == null) return alert('Please click apply');
         // the following arguments only apply in a roster contest:
         
         args.settlement_type = null;
