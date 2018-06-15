@@ -39,7 +39,6 @@
         var parent_element = id(parent);
         parent_element.innerHTML = "";
         var table = document.createElement("table");
-        table.id = 'new_table';
         parent_element.appendChild(table);
         return table;
         }
