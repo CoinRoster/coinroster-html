@@ -21,7 +21,7 @@
             </h3>
         </div>
         <div id="must_deposit_container" class="account_creation_message hidden">
-            You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to enter contests with progressive jackpots.
+            You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to create a contest.
         </div>
         <div class="table_body_container">
             <div class="content_body" style="top:68px">
@@ -43,7 +43,7 @@
                             Description
                         </td>
                         <td colSpan="2">
-                            <textarea maxlength="500" id="progressive_payout_info" rows="6" cols="60"></textarea>
+                            <textarea maxlength="500" id="contest_description_textarea" rows="6" cols="60"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -123,12 +123,72 @@
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript" src="/js/tcal.js"></script>
 <script>
     if (window.session.first_deposit === 0) {
         show("must_deposit_container");
         hide("submit_button_container");
     } else {
         show("submit_button_container");
+    }
+    var date_now = new Date().getTime(),
+
+    default_date = date_now - 86400 * 1000,
+    min_date = date_now,
+    max_date = null;
+
+    initialize_calendar
+        (
+        id("registration_deadline_tcal"),
+        default_date,
+        min_date,
+        max_date
+        );
+
+    function create_contest() {
+
+        // check for title
+        
+        var title = id("contest_title_input").value;
+        
+        if (title === "") return alert("Please enter a title");
+        
+        // check for description
+        
+        var description = id("contest_description_textarea").value;
+        
+        if (description === "") return alert("Please enter a description");
+        
+        // get registration deadline
+        
+        var
+        
+        date = dateconv_date_start_time(id("registration_deadline_tcal").date_ms),
+        time = selectorValue("registration_deadline_time_selector"),
+        registration_deadline = date + time * 60 * 60 * 1000;
+
+        if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
+
+        var common_args = {
+            category: category,
+            sub_category: sub_category,
+            progressive: progressive,
+            contest_type: contest_type,
+            title: title,
+            description: description,
+            registration_deadline: registration_deadline,
+            rake: rake,
+            cost_per_entry: cost_per_entry
+        };
+            
+        switch (contest_type) {
+            case "ROSTER":
+                create_roster_contest(common_args);
+                break;
+            case "PARI-MUTUEL":
+                create_pari_mutuel_contest(common_args);
+                break;
+        }
     }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
