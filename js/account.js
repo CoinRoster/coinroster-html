@@ -83,7 +83,7 @@
             title: title,
             description: description,
             registration_deadline: registration_deadline,
-            rake: 0.05, 
+            rake: 5, 
             cost_per_entry: 0.00000001 
         };
 
