@@ -154,7 +154,7 @@
         }
 
 
-    function get_pending_contests() {
+    function get_user_contests() {
 
         var call = api({ method: "GetUserContests", args: {} });
         
