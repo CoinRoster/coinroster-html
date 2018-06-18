@@ -152,9 +152,3 @@
             else alert("Error: " + call.error);
             });
         }
-
-
-    function get_user_contests() {
-
-    }
-    
