@@ -65,6 +65,9 @@
 
         if(!(number_of_options > 0) || isNaN(number_of_options)) return alert("Please enter the number of options");
 
+        if(window.session) {
+            if (window.session.user_level === 0) return alert ("Please make a deposit first");
+        }
         // get registration deadline
         
         var
