@@ -1928,9 +1928,9 @@
                         option_table,
                         rake,
                         cost_per_entry,
-                        "<button onclick=\"populate_pending_deposit(" + transaction_id + "," + amount + ",'" + user_id + "')\">Complete deposit</button>" + 
+                        "<button onclick=\"populate_pending_deposit(" + contest_id + "," + rake + ",'" + created_by + "')\">Complete deposit</button>" + 
                         "&nbsp;" +
-                        "<button onclick=\"cancel_pending_deposit(" + transaction_id + ")\">Cancel transaction</button>"
+                        "<button onclick=\"cancel_pending_deposit(" + contest_id + ")\">Cancel transaction</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
