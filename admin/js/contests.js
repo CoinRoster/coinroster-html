@@ -1981,6 +1981,7 @@
     
     function update_user_contest (args, contest_id) {
         args.contest_id = contest_id;
+        console.log(args);
         api({
             method: 'ApproveUserContest',
             args: args
