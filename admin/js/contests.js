@@ -66,6 +66,9 @@
                     populate_code_selector("code_selector_progressive");
                     }
                 break; 
+            case 7: /* User Generated Contest */
+                get_pending_contests();
+                break;
             }
         }
                      
