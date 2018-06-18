@@ -1986,9 +1986,7 @@
             method: 'ApproveUserContest',
             args: args
         }, function (call) {
-            if (call.status === 1) {
-                alert('call was successful');
-                window.location.reload();
-            }
+            alert('call was successful');
+            window.location.reload();
         })
     }
