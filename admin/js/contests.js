@@ -1968,7 +1968,7 @@
     }
 
     function approve_contest (contest_id) {
-        var args = [];
+        var args = {};
         args.admin_approval = "1";
         update_user_contest(args, contest_id);
     }
