@@ -1973,7 +1973,7 @@
         update_user_contest(args, contest_id);
     }
 
-    function approve_contest (contest_id) {
+    function reject_contest (contest_id) {
         var args = {};
         args.admin_approval = 0
         update_user_contest(args, contest_id);
