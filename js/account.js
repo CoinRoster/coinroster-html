@@ -77,7 +77,7 @@
 
         var common_args = {
             category: 'USER-GENERATED',  
-            sub_category: "",
+            sub_category: "USER-GENERATED",
             progressive: "",  
             contest_type: 'PARI-MUTUEL', 
             title: title,

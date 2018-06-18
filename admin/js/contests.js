@@ -1928,9 +1928,9 @@
                         option_table,
                         rake,
                         cost_per_entry,
-                        "<button onclick=\"populate_pending_deposit(" + contest_id + "," + rake + ",'" + created_by + "')\">Complete deposit</button>" + 
+                        "<button onclick=\"approve_contest(" + contest_id + ")\">Approve Contest</button>" + 
                         "&nbsp;" +
-                        "<button onclick=\"cancel_pending_deposit(" + contest_id + ")\">Cancel transaction</button>"
+                        "<button onclick=\"reject_contest(" + contest_id + ")\">Reject Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -1965,4 +1965,29 @@
             else id("pending_contest_table").innerHTML = "None";
         }
         else id("pending_contest_table").innerHTML = "Error getting transactions";        
+    }
+
+    function approve_contest (contest_id) {
+        var args = [];
+        args.admin_approval = 1
+        update_user_contest(args, contest_id);
+    }
+
+    function approve_contest (contest_id) {
+        var args = [];
+        args.admin_approval = 0
+        update_user_contest(args, contest_id);
+    }
+    
+    function update_user_contest (args, contest_id) {
+        args.contest_id = contest_id;
+        api({
+            method: 'ApproveUserContest',
+            args: args
+        }, function (call) {
+            if (call.status === 1) {
+                alert('call was successful');
+                window.location.reload();
+            }
+        })
     }
