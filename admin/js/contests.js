@@ -1914,7 +1914,7 @@
                     settlement_type = contest_item.settlement_type,
                     option_table = contest_item.option_table,
                     rake = contest_item.rake,
-                    cost_per_entry = contest_item.cost_per_entry,
+                    cost_per_entry = contest_item.cost_per_entry;
                     
                     var row = new_row(table, row_count++, [
                         contest_id,
