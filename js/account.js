@@ -76,8 +76,8 @@
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
 
         var common_args = {
-            category: 'USER-GENERATED',  
-            sub_category: "USER-GENERATED",
+            category: 'USERGENERATED',  
+            sub_category: "USERGENERATED",
             progressive: "",  
             contest_type: 'PARI-MUTUEL', 
             title: title,
