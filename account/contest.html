@@ -51,8 +51,7 @@
                             Registration deadline:
                         </td>
                         <td width="1">
-                            <input type="text" class="input_style text_input tcal" id="registration_deadline_tcal">
-                            <input type="date" id="test" class="input_style chosen-select" style="width:155px">
+                            <input type="date" id="registration_deadline" class="input_style chosen-select" style="width:155px">
                         </td>
                         <td>
                             <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
@@ -122,7 +121,6 @@
     </div>   
 </div>
 <!--#include virtual="/ssi/footer.html" -->
-<script type="text/javascript" src="/js/tcal.js"></script>
 <script>
     if (window.session.first_deposit === 0) {
         show("must_deposit_container");
@@ -130,20 +128,7 @@
     } else {
         show("submit_button_container");
     }
-    var date_now = new Date().getTime(),
-
-    default_date = date_now + 86400 * 1000,
-    min_date = date_now,
-    max_date = null;
-
-    function init(){
-        initialize_calendar (
-            id("registration_deadline_tcal"),
-            default_date,
-            min_date,
-            max_date
-        );
-    }
+    function init(){}
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>

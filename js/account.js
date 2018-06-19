@@ -47,7 +47,6 @@
           
     function create_contest() {
         
-        console.log(new Date(id("test").value).getTime());
         // check for title
         
         var title = id("contest_title_input").value;
@@ -72,7 +71,7 @@
         
         var
         
-        date = dateconv_date_start_time(id("registration_deadline_tcal").date_ms),
+        date = dateconv_date_start_time(new Date(id("registration_deadline").value).getTime()),
         time = selectorValue("registration_deadline_time_selector"),
         registration_deadline = date + time * 60 * 60 * 1000;
 
