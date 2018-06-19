@@ -103,7 +103,7 @@
                     WITHDRAW
                 </a>
                 <a class="subwindow clickable_subwindow link_subwindow" href="/account/refer.html">
-                    REFER A FRIEND!
+                    AFFILIATE
                 </a>
                 <!--<a id="get_referral_promo_code_subwindow" class="subwindow clickable_subwindow link_subwindow" href="/account/affiliate_request.html" style="display:none">
                     GET AN AFFILIATE CODE!
@@ -167,16 +167,16 @@
                 ext_address = call.ext_address,
                 email_address = call.email_address;
   
-                if (window.session.first_deposit > 0 && window.session.deposit_bonus_claimed === 0)
-                    {
-                    show("deposit_bonus_subwindow");
-                    id("deposit_bonus_subwindow").className += " green_background";
-                    }
-                else
-                    {
-                    id("deposit_subwindow").className += " green_background";
-                    if (window.session.first_deposit === 0) id("deposit_prompt").innerHTML = "100% DEPOSIT MATCH AVAILABLE!";
-                    }   
+                // if (window.session.first_deposit > 0 && window.session.deposit_bonus_claimed === 0)
+                //     {
+                //     show("deposit_bonus_subwindow");
+                //     id("deposit_bonus_subwindow").className += " green_background";
+                //     }
+                // else
+                //     {
+                id("deposit_subwindow").className += " green_background";
+                    // if (window.session.first_deposit === 0) id("deposit_prompt").innerHTML = "100% DEPOSIT MATCH AVAILABLE!";
+                    // }   
         
                 var referral_code_count = window.session.referral_code_count;
                 if (referral_code_count > 0) 

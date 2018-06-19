@@ -60,6 +60,12 @@
             case 5: /* Progressive Report */
                 progressive_report();
                 break;
+            case 6:
+                if (id("category_selector_progressive").options.length === 0)
+                    {
+                    populate_code_selector("code_selector_progressive");
+                    }
+                break; 
             }
         }
                      
@@ -259,6 +265,42 @@
             }
         };
      
+/*----------------------------------------------------------------------*/  
+
+    // populate progressive code selector
+
+    function populate_code_selector(_id) 
+        {
+        var code_selector = id(_id);        
+        var balance_for_code = id("progressive_code_balance");
+
+        code_selector.innerHTML = "<option></option>";
+        api({
+            method: "GetProgressiveCodes",
+            args: {
+                request_source: "admin_panel"
+            }
+        }, function(call)
+            {
+                var i;
+                for (i = 0; i < call.codes.length; i++) {
+                    var option = document.createElement("option");
+                    option.value = call.codes[i];
+                    option.innerHTML = call.codes[i];
+
+                    code_selector.appendChild(option);
+                }
+
+                $(code_selector).trigger("chosen:updated");
+
+                code_selector.onchange = function()
+                    {
+                    balance_for_code.innerHTML = call.balances[call.codes.indexOf(selectorValue(_id))];
+                    };
+            });
+        
+        }
+
 /*----------------------------------------------------------------------*/
 
     // retrieve categories and sub-categories, populate drop-downs
@@ -1730,6 +1772,38 @@
                 }
             else alert(call.error);
             });
+        }
+
+/*----------------------------------------------------------------------*/
+
+    function add_to_progressive()
+        {
+        var
+        
+        code = selectorValue("code_selector_progressive"),
+        amount = id("progressive_addition_input").value;
+
+        if (code === "") return alert("Choose a code");
+        if (amount === "") return alert("Enter an amount");
+
+        api (
+            {
+                method: "AddToProgressive",
+                args: {
+                    code: code,
+                    amount_to_add: amount
+                }
+            }, function(call)
+                {   
+                if (call.status === "1")
+                    {
+                    alert("Progressive updated! Reloading panel.");
+                    location.reload();
+                    }
+                else alert(call.error);
+                });
+
+        return;
         }
 
 /*----------------------------------------------------------------------*/

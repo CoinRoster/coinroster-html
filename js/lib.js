@@ -395,9 +395,6 @@
         
     function toBTC(raw_value, full_eight, preserve_sign)
         {
-	console.log("printing things...");
-	console.log(raw_value);
-	console.log(full_eight);
         if (raw_value === 0) return 0;
         
         var is_negative = false;
@@ -438,7 +435,6 @@
                 }
             }
         
-	console.log(output_value);
         return (is_negative ? "-" : "") + output_value;
         }
         

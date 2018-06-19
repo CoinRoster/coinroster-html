@@ -58,6 +58,123 @@
                 <br/>
                 <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_referral_link_to_clipboard()" class="inline_link teal">copy to clipboard</a>
             </div>
+            <!-- Promo code div -->
+            <div id="pane_4" class="pane" tab_text="Create Promo">
+                <br/>
+                <hr noshade />
+                <br/>
+                <div class="content_header" style="height:67px">
+                    <div class="content_header_title">
+                        Create Your Own Promo Code!
+                    </div>
+                </div>
+                <div class="content_body" style="top:68px">
+                    <table class="settings" style="top:20px">
+                        <tr>
+                            <td>
+                                Promo code:
+                            </td>
+                            <td colspan="2">
+                                <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
+                                <button type="button" class="input_style" onclick="check_promo_code();">Check if exists</button>   
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                Affiliate (optional):
+                            </td>
+                            <td colspan="2">
+                                <span id="user_affiliate_id"></span>  
+                                (All users who sign up with your code will have you as their affiliate)
+                            </td>  
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                Free play amount:
+                            </td>
+                            <td colspan="2">
+                                <input id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
+                                BTC
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                Rollover:
+                            </td>
+                            <td colspan="2">
+                                5 x free play amount
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                Max Promo Allowance (your account balance):
+                            </td>
+                            <td colspan="2">
+                                <span id="user_affiliate_balance"></span>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                Max use (optional):
+                            </td>
+                            <td colSpan="2">
+                                <input id="create_promo__max_use_input" type="text" class="input_style text_input">
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <!-- <tr>
+                            <td>
+                                Expires (optional):
+                            </td>
+                            <td>
+                                <input id="create_promo__deadline_tcal" type="text" class="input_style text_input tcal">
+                            </td>
+                            <td>
+                                <select data-placeholder="Select" id="create_promo__time_selector" class="input_style chosen-select" style="width:100px">
+                                    <option value="0">12:00 AM</option>
+                                    <option value="1">1:00 AM</option>
+                                    <option value="2">2:00 AM</option>
+                                    <option value="3">3:00 AM</option>
+                                    <option value="4">4:00 AM</option>
+                                    <option value="5">5:00 AM</option>
+                                    <option value="6">6:00 AM</option>
+                                    <option value="7">7:00 AM</option>
+                                    <option value="8">8:00 AM</option>
+                                    <option value="9">9:00 AM</option>
+                                    <option value="10">10:00 AM</option>
+                                    <option value="11">11:00 AM</option>
+                                    <option value="12">12:00 PM</option>
+                                    <option value="13">1:00 PM</option>
+                                    <option value="14">2:00 PM</option>
+                                    <option value="15">3:00 PM</option>
+                                    <option value="16">4:00 PM</option>
+                                    <option value="17">5:00 PM</option>
+                                    <option value="18" selected>6:00 PM</option>
+                                    <option value="19">7:00 PM</option>
+                                    <option value="20">8:00 PM</option>
+                                    <option value="21">9:00 PM</option>
+                                    <option value="22">10:00 PM</option>
+                                    <option value="23">11:00 PM</option>
+                                </select>
+                                &nbsp;&nbsp;
+                                EST
+                            </td>
+                        </tr> -->
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="input_style" onclick="create_promo();">Create Promo</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--  -->
             <br/>
             <br/>
         </div>
@@ -146,6 +263,94 @@
         
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript" src="/js/tcal.js"></script>
+<script type="text/javascript">
+    id("user_affiliate_id").innerHTML = window.session.username;
+    id("user_affiliate_balance").innerHTML = window.session.btc_balance;
+      
+    function create_promo() {
+        promo_code = id("create_promo__code_input").value.trim(),
+        free_play_amount = id("create_promo__freeplay_amount_input").value,
+        max_use = id("create_promo__max_use_input").value,
+        expires = 0,
+        referrer = "",
+        rollover_multiple = 5,
+        description = "User Generated Promo Code";
+
+        if (promo_code === "") return alert("Please enter a promo code");
+        if (description === "") return alert("Please enter a description");
+        
+        if (free_play_amount !== "") 
+            {
+            if (isNaN(free_play_amount)) return alert("Free play must be a number");
+            if (free_play_amount < 0) return alert("Free play must be a positive number");
+            }
+        else free_play_amount = 0;
+        
+        if (free_play_amount === 0) return alert("Please enter a free play amount");
+        
+        if (rollover_multiple !== "") 
+            {
+            if (!isInt(rollover_multiple)) return alert("Rollover multiple must be an integer");
+            if (rollover_multiple < 0) return alert("Rollover multiple must be a positive number");
+            }
+        else rollover_multiple = 0;
+
+        if (rollover_multiple === 0) return alert("Please provide a rollover multiple");
+        
+        if (max_use !== "") 
+            {
+            if (!isInt(max_use)) return alert("Max use must be an integer");
+            if (isNaN(max_use)) return alert("Max use must be a number");
+            if (max_use <= 0) return alert("Max use must be positive");
+            }
+        else max_use = 0;
+
+        api({
+            method: "CreatePromo",
+            args: {
+                promo_code: promo_code,
+                description: description,
+                referrer: referrer,
+                free_play_amount: free_play_amount,
+                rollover_multiple: rollover_multiple,
+                max_use: max_use,
+                expires: expires
+            }
+        }, function(call) {
+            if (call.status === "1") 
+                {
+                alert("Promo has been created! Reloading panel.");
+                location.reload();
+                }
+            else return alert(call.error);
+        });
+    }
+
+    function check_promo_code()
+    {
+    var promo_code = id("create_promo__code_input").value.trim();
+    
+    if (promo_code === "") return alert("Please enter a promo code");
+    else 
+        {
+        api({
+            method: "CheckPromoCode",
+            args: {
+                promo_code: promo_code
+            }
+        }, function(call)
+            {
+            if (call.status === "1") return alert("Promo code [" + promo_code + "] is available");
+            else 
+                {
+                id("create_promo__code_input").value = "";
+                return alert(call.error);
+                }
+            });
+        }
+    }
+</script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

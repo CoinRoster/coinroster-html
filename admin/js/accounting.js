@@ -26,6 +26,9 @@
                     toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
                 });
                 break;
+            case 7: /* Balance Sheet */
+                // balance_sheet_init();
+                break;
             }
         }
 
@@ -846,7 +849,26 @@
             else alert("Problem while updating cash register");
             }
         }
-            
+    
+    function update_cold_storage_balance()
+        {
+        var amount = id("cold_storage_balance").value;
+        api(
+            {
+                method: "UpdateColdStorageBalance",
+                args: {
+                    amount: Number(amount)
+                }
+            }, function (call) {
+                if (call.status === "1")
+                    {
+                    window.location.reload();
+                    return alert ("Cold storage balance updated");
+                    }
+                else alert("Problem while updating balance");
+            });
+        }
+
     function get_pending_withdrawals()
         {
         var call = api({ method: "GetPendingWithdrawals", args: {} });
@@ -890,8 +912,8 @@
                         from_account,
                         amount,
                         from_currency,
-                        ext_address,
-                        "<button onclick=\"finalize_pending_withdrawal(" + transaction_id + "," + amount + ",'" + ext_address + "')\">Bitcoins have been sent</button>"
+                        ext_address
+                        /*"<button onclick=\"finalize_pending_withdrawal(" + transaction_id + "," + amount + ",'" + ext_address + "')\">Bitcoins have been sent</button>"*/
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -906,8 +928,7 @@
                     "User",
                     "Amount",
                     "Currency",
-                    "Send to",
-                    "Actions"
+                    "Withdrawal wallet"
                 ]);
                 // style headers:
 
@@ -1341,4 +1362,3 @@
             else alert(call.error);
             });
         }   
-     

@@ -158,6 +158,14 @@
             </tr>
             <tr>
                 <td>
+                    Internal Promo Balance:
+                </td>
+                <td colspan="2">
+                    <span id="internal_promotions_balance"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Max use (optional):
                 </td>
                 <td colSpan="2">
@@ -167,7 +175,7 @@
             </tr>
             <tr>
                 <td>
-                    Expires (optional):
+                    Expires (optional): 
                 </td>
                 <td>
                     <input id="create_promo__deadline_tcal" type="text" class="input_style text_input tcal">
@@ -260,5 +268,17 @@
 <script type="text/javascript" src="js/promos.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript">
+    var call = api({
+            method: "GetPromotionBalance",
+            args: {}
+        });
+        
+        if (call.status === "1") 
+            {
+            id("internal_promotions_balance").innerHTML = call.internal_promo_balance + ' BTC';
+            }
+        else id("internal_promotions_balance").innerHTML = 'Could not complete request';
+</script>
 </body>
 </html>

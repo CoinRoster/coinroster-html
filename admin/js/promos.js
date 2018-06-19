@@ -1,5 +1,4 @@
-
-    function action_on_tab_change(selection)
+function action_on_tab_change(selection)
         {
         switch(selection)
             {
@@ -342,7 +341,7 @@
             if (isNaN(max_use)) return alert("Max use must be a number");
             if (max_use <= 0) return alert("Max use must be positive");
             }
-        else max_use = 0;
+        else max_use = 1;
         
         if (expires_input_value === "Select date") expires = 0;
 

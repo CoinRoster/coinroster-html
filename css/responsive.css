@@ -493,6 +493,10 @@
             padding-left: 0 !important;
         }
         
+        .small_text {
+            font-size: 12px;
+        }
+
         /* one-wide tiles */
         
         .sub_category_item {
@@ -590,6 +594,10 @@
     }
     
     @media only screen and (max-width: 374px) {
+
+        .small_text {
+            font-size: 11px;
+        }
 
         .lobby_logo {
             font-size: 28px;

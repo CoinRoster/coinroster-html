@@ -66,7 +66,7 @@
             deposit_bonus_cap = window.session.deposit_bonus_cap,
             deposit_bonus_rollover_multiple = window.session.deposit_bonus_rollover_multiple,
             
-            actual_bonus = Math.min(first_deposit, deposit_bonus_cap),
+            actual_bonus = window.session.deposit_bonus_available,
             actual_playing_requirement = multiply(actual_bonus, deposit_bonus_rollover_multiple);
 
             id("first_deposit").innerHTML = toBTC(first_deposit) + " BTC";
