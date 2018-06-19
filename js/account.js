@@ -283,7 +283,6 @@
         
         new_row(table, -1, [
             "<input type=\"radio\" name=\"pari_mutuel_outcome_radio\" value=\"" + option_id + "\" />",
-            option_id,
             description
         ]);
         }
