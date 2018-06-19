@@ -253,8 +253,9 @@
     
     function settle_contest(contest_obj)
     {
+    console.log(JSON.stringify(contest_obj));
     window.contest_id_to_settle = contest_obj.contest_id;
-    
+    console.log(JSON.stringify(contest_obj));
     var 
     
     contest_type = contest_obj.contest_type,
