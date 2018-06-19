@@ -188,7 +188,7 @@
                     rake = contest_item.rake,
                     cost_per_entry = contest_item.cost_per_entry;
                     
-                    window.contest_obj[id] = {
+                    window.contest_obj[contest_id] = {
                         contest_id: contest_id,
                         created_date: created_date,
                         created_time: created_time,
