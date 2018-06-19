@@ -135,11 +135,12 @@
     default_date = date_now + 86400 * 1000,
     min_date = date_now,
     max_date = null;
-    id('test').value = '2018-06-19';
-
-    console.log(id('test').date_ms);
-    console.log(id('test').value);
-    console.log(new Date(id('test').value));
+    
+    $("#test").select(function(){
+        console.log(id('test').date_ms);
+        console.log(id('test').value);
+        console.log(new Date(id('test').value));
+    });
 
     function init(){
         initialize_calendar (
