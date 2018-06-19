@@ -39,6 +39,7 @@
             pending_contest_array = call.pending_contests,
             number_of_contests = pending_contest_array.length,
             table = new_table("user_contest_table"),
+            table.border = "1";
             row_count = 0;
 
             if (number_of_contests > 0) {
@@ -69,10 +70,8 @@
                         settlement_type,
                         option_table,
                         rake,
-                        cost_per_entry/* ,
-                        "<button onclick=\"approve_contest(" + contest_id + ")\">Approve Contest</button>" + 
-                        "&nbsp;" +
-                        "<button onclick=\"reject_contest(" + contest_id + ")\">Reject Contest</button>" */
+                        cost_per_entry ,
+                        "<button onclick=\"approve_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -95,7 +94,7 @@
                     "Option Table",
                     "Rake",
                     "Cost Per Entry",
-                    "Action"
+                    "Settle"
                 ]);
                 // style headers:
 
