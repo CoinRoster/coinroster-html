@@ -169,8 +169,6 @@
             table = new_table("user_contest_table"),
             row_count = 0;
             table.border = "1";
-            
-            window.contest_obj = [];
 
             if (number_of_contests > 0) {
                 for (var i = 0; i < number_of_contests; i++) {
@@ -257,7 +255,7 @@
 
     window.contest_id_to_settle = contest_id;
 
-    console.log(window.contest_obj);
+    console.log(window.contest_obj[contest_id]);
 
     var 
     
