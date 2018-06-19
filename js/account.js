@@ -1,3 +1,9 @@
+    $("#test").select(function(){
+        console.log(id('test').date_ms);
+        console.log(id('test').value);
+        console.log(new Date(id('test').value));
+    })
+    
     function get_btc_balance()
         {
         var call = api({ method: "GetAccountDetails", args: {} });
@@ -88,10 +94,6 @@
             rake: 5.00, 
             cost_per_entry: 0.00000001 
         };
-
-        console.log(id('test').date_ms);
-        console.log(id('test').value);
-        console.log(new Date(id('test').value));
         
         create_pari_mutuel_contest(common_args);
     }
