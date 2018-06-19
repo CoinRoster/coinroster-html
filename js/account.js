@@ -47,6 +47,7 @@
           
     function create_contest() {
 
+        console.log(id("test").value);
         // check for title
         
         var title = id("contest_title_input").value;
@@ -67,7 +68,6 @@
 
         if (window.session.user_level === 0) return alert ("Please make a deposit first");
 
-        console.log(id("test").value);
         // get registration deadline
         
         var
