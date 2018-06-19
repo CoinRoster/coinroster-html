@@ -250,7 +250,7 @@
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
 
-    
+    window.contest_obj = [];
     function settle_contest(contest_id) {
 
     window.contest_id_to_settle = contest_id;
