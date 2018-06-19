@@ -75,6 +75,7 @@
         time = selectorValue("registration_deadline_time_selector"),
         registration_deadline = date + time * 60 * 60 * 1000;
         console.log(registration_deadline);
+        console.log(Date.parse(id("registration_deadline").value))
         console.log(new Date().getTime());
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
 
