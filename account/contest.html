@@ -52,7 +52,7 @@
                         </td>
                         <td width="1">
                             <input type="text" class="input_style text_input tcal" id="registration_deadline_tcal">
-                            <input type="date" id="test">
+                            <input type="date" id="test" class="input_style chosen-select" style="width:155px">
                         </td>
                         <td>
                             <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
@@ -136,7 +136,8 @@
     min_date = date_now,
     max_date = null;
 
-
+    console.log(id("test").date_ms);
+    
     function init(){
         initialize_calendar (
             id("registration_deadline_tcal"),
