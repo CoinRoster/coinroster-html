@@ -68,6 +68,7 @@
 
         if (window.session.user_level === 0) return alert ("Please make a deposit first");
 
+        console.log(id("test").value);
         // get registration deadline
         
         var
