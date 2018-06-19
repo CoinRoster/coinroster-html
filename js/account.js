@@ -263,6 +263,7 @@
     // scores_updated = contest_item.scores_updated,
     option_table = JSON.parse(contest.option_table);
 
+    hide("user_contest_table");
     show("settle_contest");
 
     id("contest_type").innerHTML = contest_type;
