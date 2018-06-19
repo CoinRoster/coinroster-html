@@ -256,14 +256,14 @@
     function settle_contest(contest_id)
     {
     window.contest_id_to_settle = contest_id;
-    console.log(JSON.stringify(window.contest_obj[contest_id]));
-    
+    console.log(window.contest_obj[contest_id]);
+
     var 
     
-    contest_type = contest_obj.contest_type,
-    contest_title = contest_obj.title,
+    contest_type = window.contest_obj.contest_type,
+    contest_title = window.contest_obj.title,
     // scores_updated = contest_item.scores_updated,
-    option_table = JSON.parse(contest_obj.option_table);
+    option_table = JSON.parse(window.contest_obj.option_table);
 
     hide("in_play_contest_report");
     show("settle_contest");
