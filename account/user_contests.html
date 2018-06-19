@@ -39,9 +39,8 @@
             pending_contest_array = call.pending_contests,
             number_of_contests = pending_contest_array.length,
             table = new_table("user_contest_table"),
-            table.border = "1";
             row_count = 0;
-
+            table.border = "1";
             if (number_of_contests > 0) {
                 for (var i = 0; i < number_of_contests; i++) {
                     var contest_item = pending_contest_array[i],
