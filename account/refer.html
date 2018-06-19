@@ -82,7 +82,7 @@
                         <tr></tr>
                         <tr>
                             <td>
-                                Affiliate (optional):
+                                Affiliate:
                             </td>
                             <td colspan="2">
                                 <span id="user_affiliate_id"></span>  
@@ -273,7 +273,7 @@
         free_play_amount = id("create_promo__freeplay_amount_input").value,
         max_use = id("create_promo__max_use_input").value,
         expires = 0,
-        referrer = "",
+        referrer = window.session.username,
         rollover_multiple = 5,
         description = "User Generated Promo Code";
 
