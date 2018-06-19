@@ -255,14 +255,13 @@
 
     window.contest_id_to_settle = contest_id;
 
-    console.log(JSON.stringify(window.contest_obj[contest_id]));
-
     var 
     
-    contest_type = window.contest_obj.contest_type,
-    contest_title = window.contest_obj.title,
+    contest = window.contest_obj[contest_id];
+    contest_type = contest.contest_type,
+    contest_title = contest.title,
     // scores_updated = contest_item.scores_updated,
-    option_table = JSON.parse(window.contest_obj.option_table);
+    option_table = JSON.parse(contest.option_table);
 
     hide("in_play_contest_report");
     show("settle_contest");
@@ -278,7 +277,7 @@
     for (var i=0; i<option_table.length; i++)
         {
         var option_item = option_table[i],
-                
+
         option_id = option_item.id,
         description = option_item.description;
         
