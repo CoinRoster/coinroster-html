@@ -253,10 +253,11 @@
     }
 
     
-    function settle_contest(contest_id)
-    {
+    function settle_contest(contest_id) {
+
     window.contest_id_to_settle = contest_id;
-    console.log(window.contest_obj[contest_id]);
+
+    console.log(window.contest_obj);
 
     var 
     
