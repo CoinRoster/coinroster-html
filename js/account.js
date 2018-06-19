@@ -47,10 +47,6 @@
           
     function create_contest() {
 
-        console.log(id("test").date_ms);
-        console.log(id("test").value);
-        console.log(new Date(id("test").value));
-
         // check for title
         
         var title = id("contest_title_input").value;
@@ -69,9 +65,8 @@
 
         if(!(number_of_options > 0) || isNaN(number_of_options)) return alert("Please enter the number of options");
 
-        if(window.session) {
-            if (window.session.user_level === 0) return alert ("Please make a deposit first");
-        }
+        if (window.session.user_level === 0) return alert ("Please make a deposit first");
+
         // get registration deadline
         
         var
