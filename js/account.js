@@ -168,8 +168,10 @@
             number_of_contests = pending_contest_array.length,
             table = new_table("user_contest_table"),
             row_count = 0;
-            table.border = "1",
-            contest_obj = [];
+            table.border = "1";
+            
+            window.contest_obj = [];
+
             if (number_of_contests > 0) {
                 for (var i = 0; i < number_of_contests; i++) {
                     var contest_item = pending_contest_array[i],
@@ -187,7 +189,7 @@
                     rake = contest_item.rake,
                     cost_per_entry = contest_item.cost_per_entry;
                     
-                    contest_obj.push({
+                    window.contest_obj[id] = {
                         contest_id: contest_id,
                         created_date: created_date,
                         created_time: created_time,
@@ -199,7 +201,7 @@
                         option_table: option_table,
                         rake: rake,
                         cost_per_entry: cost_per_entry,
-                    });
+                    };
 
                     var row = new_row(table, row_count++, [
                         contest_id,
@@ -213,7 +215,7 @@
                         option_table,
                         rake,
                         cost_per_entry ,
-                        "<button onclick=\"settle_contest(" + contest_obj[i] + ")\">Settle Contest</button>"
+                        "<button onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -251,11 +253,11 @@
     }
 
     
-    function settle_contest(contest_obj)
+    function settle_contest(contest_id)
     {
-    console.log(JSON.stringify(contest_obj));
-    window.contest_id_to_settle = contest_obj.contest_id;
-    console.log(JSON.stringify(contest_obj));
+    window.contest_id_to_settle = contest_id;
+    console.log(JSON.stringify(window.contest_obj[contest_id]));
+    
     var 
     
     contest_type = contest_obj.contest_type,
