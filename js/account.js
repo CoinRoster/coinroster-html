@@ -47,7 +47,6 @@
           
     function create_contest() {
 
-        console.log(selectorValue(id('test')));
         // check for title
         
         var title = id("contest_title_input").value;
