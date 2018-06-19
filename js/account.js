@@ -73,10 +73,10 @@
         
         var
         
-        date = dateconv_date_start_time(Date.parse(id("registration_deadline").value).getTime()),
+        date = dateconv_date_start_time(Date.parse(id("registration_deadline").value)),
         time = selectorValue("registration_deadline_time_selector"),
         registration_deadline = date + time * 60 * 60 * 1000;
-        
+
         console.log(registration_deadline);
         console.log(Date.parse(id("registration_deadline").value))
         console.log(new Date().getTime());
