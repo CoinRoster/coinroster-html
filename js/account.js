@@ -157,6 +157,8 @@
             });
         }
 
+/*----------------------------------------------------------------------*/
+
     window.contest_obj = [];
     function populate_user_contest() {
         var call = api({ method: "GetUserContests", args: {} });
@@ -253,37 +255,60 @@
 
     function settle_contest(contest_id) {
 
-    window.contest_id_to_settle = contest_id;
+        window.contest_id_to_settle = contest_id;
 
-    var 
-    
-    contest = window.contest_obj[contest_id];
-    contest_type = contest.contest_type,
-    contest_title = contest.title,
-    // scores_updated = contest_item.scores_updated,
-    option_table = JSON.parse(contest.option_table);
-
-    hide("user_contest_table");
-    show("settle_contest");
-
-    id("contest_type").innerHTML = contest_type;
-    id("contest_id").innerHTML = contest_id;
-    id("contest_title").innerHTML = contest_title;
-
-    show("settle_pari_mutuel");
-    
-    var table = new_table("pari_mutuel_outcome_table");
-    
-    for (var i=0; i<option_table.length; i++)
-        {
-        var option_item = option_table[i],
-
-        option_id = option_item.id,
-        description = option_item.description;
+        var 
         
-        new_row(table, -1, [
-            "<input type=\"radio\" name=\"pari_mutuel_outcome_radio\" value=\"" + option_id + "\" />",
-            description
-        ]);
-        }
+        contest = window.contest_obj[contest_id];
+        contest_type = contest.contest_type,
+        contest_title = contest.title,
+        // scores_updated = contest_item.scores_updated,
+        option_table = JSON.parse(contest.option_table);
+
+        hide("user_contest_table");
+        show("settle_contest");
+
+        id("contest_type").innerHTML = contest_type;
+        id("contest_id").innerHTML = contest_id;
+        id("contest_title").innerHTML = contest_title;
+
+        show("settle_pari_mutuel");
+        
+        var table = new_table("pari_mutuel_outcome_table");
+        
+        for (var i=0; i<option_table.length; i++)
+            {
+            var option_item = option_table[i],
+
+            option_id = option_item.id,
+            description = option_item.description;
+            
+            new_row(table, -1, [
+                "<input type=\"radio\" name=\"pari_mutuel_outcome_radio\" value=\"" + option_id + "\" />",
+                description
+            ]);
+            }
+    }
+
+    function settle_pari_mutuel_contest() {
+
+        var winning_outcome = get_radio_selection("pari_mutuel_outcome_radio");
+        
+        if (winning_outcome === null) return alert("Please select winning outcome!");
+        alert('success');
+        // api({
+        //     method: "SettleContest",
+        //     args: {
+        //         contest_id: window.contest_id_to_settle,
+        //         winning_outcome: winning_outcome
+        //     }
+        // }, function(call)
+        //     {
+        //     if (call.status === "1") 
+        //         {
+        //         alert("Contest has been settled! Reloading panel.");
+        //         location.reload();
+        //         }
+        //     else alert("Error: " + call.error);
+        //     });
     }
