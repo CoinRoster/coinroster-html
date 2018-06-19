@@ -48,7 +48,9 @@
     function create_contest() {
 
         console.log(id("test").date_ms);
-        
+        console.log(id("test").value);
+        console.log(new Date(id("test").value));
+
         // check for title
         
         var title = id("contest_title_input").value;
