@@ -20,6 +20,25 @@
                 </span>
             </h3>
             <div id="user_contest_table" class="report_table"></div>
+            <div id="settle_contest" class="content_body" style="top:68px">
+                <div style="width:800px;background:orange;padding:20px;font-size:18px;">
+                    You are in the Contest Settlement tab! If you only want to update scores, please <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
+                </div>
+                <br/>
+                <h3 style="font-weight:normal">
+                    Contest <span id="contest_id"></span> | <span id="contest_type"></span>
+                </h3>
+                <h2>
+                    <span id="contest_title"></span>
+                </h2>
+                <div id="settle_pari_mutuel">
+                    Select winning outcome:
+                    <br/><br/>
+                    <div id="pari_mutuel_outcome_table" class="report_table"></div>
+                    <br/>
+                    <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+                </div>
+            </div>
         </div>
         <br/>
     </div>   
@@ -29,7 +48,11 @@
 <script>
 
     function init() {
+        hide("settle_contest");
+        populate_user_contest();
+    }
 
+    function populate_user_contest() {
         var call = api({ method: "GetUserContests", args: {} });
         
         if (call.status === "1") {
@@ -70,7 +93,7 @@
                         option_table,
                         rake,
                         cost_per_entry ,
-                        "<button onclick=\"approve_contest(" + contest_id + ")\">Settle Contest</button>"
+                        "<button onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -104,8 +127,47 @@
             }
             else id("user_contest_table").innerHTML = "None";
         }
-        else id("user_contest_table").innerHTML = "Error getting transactions";        
+        else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
+
+     
+     function settle_contest(contest_id)
+        {
+        window.contest_id_to_settle = contest_id;
+        
+        var 
+        
+        contest_item = window.contest[contest_id],
+        contest_type = contest_item.contest_type,
+        contest_title = contest_item.title,
+        scores_updated = contest_item.scores_updated,
+        option_table = JSON.parse(contest_item.option_table);
+
+        hide("in_play_contest_report");
+        show("settle_contest");
+        id("contest_type").innerHTML = contest_type;
+        id("contest_id").innerHTML = contest_id;
+        id("contest_title").innerHTML = contest_title;
+
+        show("settle_pari_mutuel");
+        
+        var table = new_table("pari_mutuel_outcome_table");
+        
+        for (var i=0; i<option_table.length; i++)
+            {
+            var option_item = option_table[i],
+                    
+            option_id = option_item.id,
+            description = option_item.description;
+            
+            new_row(table, -1, [
+                "<input type=\"radio\" name=\"pari_mutuel_outcome_radio\" value=\"" + option_id + "\" />",
+                option_id,
+                description
+            ]);
+            }
+        }
+
 </script>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
