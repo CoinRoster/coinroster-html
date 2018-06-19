@@ -157,6 +157,7 @@
             });
         }
 
+    window.contest_obj = [];
     function populate_user_contest() {
         var call = api({ method: "GetUserContests", args: {} });
         
@@ -250,12 +251,13 @@
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
 
-    window.contest_obj = [];
     function settle_contest(contest_id) {
 
     window.contest_id_to_settle = contest_id;
 
     console.log(window.contest_obj);
+    console.log(window.contest_obj[contest_id]);
+    console.log(contest_id);
 
     var 
     
