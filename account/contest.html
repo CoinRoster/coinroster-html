@@ -123,7 +123,6 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/tcal.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script>
     if (window.session.first_deposit === 0) {
         show("must_deposit_container");
@@ -136,14 +135,6 @@
     default_date = date_now + 86400 * 1000,
     min_date = date_now,
     max_date = null;
-    $(document).ready(function () {
-        $("#test").select(function(){
-            console.log(id('test').date_ms);
-            console.log(id('test').value);
-            console.log(new Date(id('test').value));
-        });
-    });
-    
 
     function init(){
         initialize_calendar (

@@ -89,6 +89,10 @@
             cost_per_entry: 0.00000001 
         };
 
+        console.log(id('test').date_ms);
+        console.log(id('test').value);
+        console.log(new Date(id('test').value));
+        
         create_pari_mutuel_contest(common_args);
     }
 
