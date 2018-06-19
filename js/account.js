@@ -255,7 +255,7 @@
 
     window.contest_id_to_settle = contest_id;
 
-    console.log(window.contest_obj[contest_id]);
+    console.log(window.contest_obj);
 
     var 
     
@@ -266,6 +266,7 @@
 
     hide("in_play_contest_report");
     show("settle_contest");
+
     id("contest_type").innerHTML = contest_type;
     id("contest_id").innerHTML = contest_id;
     id("contest_title").innerHTML = contest_title;
