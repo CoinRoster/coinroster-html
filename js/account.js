@@ -256,7 +256,7 @@
     window.contest_id_to_settle = contest_id;
 
     console.log(window.contest_obj);
-    console.log(window.contest_obj[contest_id]);
+    console.log(JSON.stringify(window.contest_obj[contest_id]));
     console.log(contest_id);
 
     var 
