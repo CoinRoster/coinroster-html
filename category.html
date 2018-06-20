@@ -247,8 +247,8 @@
             settlement_deadline = contest_item.settlement_deadline,
             show_countdown = false;
 
-            if (i === 0) closest_registration_deadline = registration_deadline_ms;
-            if (registration_deadline_ms === closest_registration_deadline) show_countdown = true;
+            if (i === 0) closest_registration_deadline = settlement_deadline;
+            if (settlement_deadline === closest_registration_deadline) show_countdown = true;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
