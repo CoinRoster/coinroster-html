@@ -287,7 +287,7 @@
             row[3].className = "right_nowrap";
             row[4].className = "right_nowrap";
             
-            if (show_countdown) bind_registration_countdown(id("countdown_" + i), settlement_deadline);
+            if (show_countdown) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         }
@@ -356,6 +356,10 @@
         id("category_text").innerHTML = "Invalid category";
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
+
+    var $eles = $(":input[name^='settlement_countdown_']");
+    var DOMeles = $eles.get();
+    console.log(DOMeles);
 
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
