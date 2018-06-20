@@ -357,9 +357,14 @@
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
-    var $eles = $(":input[name^='settlement_countdown_']");
-    var DOMeles = $eles.get();
-    console.log(DOMeles);
+    var eles = [];
+    var inputs = document.getElementsByTagName("input");
+    for(var i = 0; i < inputs.length; i++) {
+        if(inputs[i].name.indexOf('settlement_countdown_') == 0) {
+            eles.push(inputs[i]);
+        }
+    }
+    console.log(eles);
 
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
