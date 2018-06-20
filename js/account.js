@@ -86,7 +86,7 @@
         settlement_time = selectorValue("settlement_deadline_time_selector"),
         settlement_deadline = settlement_date + settlement_time * 60 * 60 * 1000;
 
-        if (settlement_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
+        if (settlement_deadline - registration_deadline < 1 * 60 * 60 * 1000) return alert("Settlement deadline must be at least 1 hour from registration deadline");
 
         var common_args = {
             category: 'USERGENERATED',  
