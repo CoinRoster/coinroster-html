@@ -302,6 +302,8 @@
     function test (settlement_expiry_list) {
         for (let i = 0; i < settlement_expiry_list.length; i++) {
             console.log(settlement_expiry_list[i]);
+            console.log(Date.now());
+            console.log(settlement_expiry_list[i] - Date.now());
         }
     }
 
