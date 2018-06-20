@@ -223,17 +223,19 @@
         var header = new_row(table, -1, [
             "Contest",
             "Game type",
+            "Settlement Deadline",
             "Entry fee",
             "Prize pool"
         ]);
 
-        header[3].className = "right_nowrap";
         header[4].className = "right_nowrap";
+        header[5].className = "right_nowrap";
 
         for (var i=0; i<number_of_contests; i++)
             {
             var contest_item = contest_report[i],
 
+            category = contest_item.category,
             contest_id = contest_item.id,
             title = contest_item.title,
             contest_type = contest_item.contest_type,
@@ -241,7 +243,12 @@
             pay_table = contest_item.pay_table,
             cost_per_entry = contest_item.cost_per_entry,
             max_users = contest_item.max_users,
-            total_prize_pool = contest_item.total_prize_pool;
+            total_prize_pool = contest_item.total_prize_pool,
+            settlement_deadline = contest_item.settlement_deadline,
+            show_countdown = false;
+
+            if (i === 0) closest_registration_deadline = registration_deadline_ms;
+            if (registration_deadline_ms === closest_registration_deadline) show_countdown = true;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
@@ -260,10 +267,16 @@
                 {
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li></ul>";
                 }
+            
+            if (category === 'USERGENERATED') 
+                {
+                settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
+                }
 
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
+                "<div class='field_label'>Settlement Deadline:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : settlement_deadline_string),
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
             ]);
