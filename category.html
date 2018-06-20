@@ -275,7 +275,6 @@
             if (category === 'USERGENERATED') 
                 {
                 settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
-                console.log(settlement_deadline_string);
                 }
 
             var row = new_row(table, -1, [
@@ -295,6 +294,12 @@
         test();
         }
             
+    function test (contest_id) {
+        for (let i = 0; i < count; i++) {
+            console.log(id('settlement_countdown_' + i).innerHTML);
+        }
+    }
+
     function populate_settled_contests(contest_report, number_of_contests, table)
         {
         var header = new_row(table, -1, [
@@ -359,12 +364,6 @@
         id("category_text").innerHTML = "Invalid category";
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
-
-    function test (contest_id) {
-        for (let i = 0; i < count; i++) {
-            console.log(id('settlement_countdown_' + i).value);
-        }
-    }
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
