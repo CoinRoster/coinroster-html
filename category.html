@@ -292,6 +292,7 @@
             if (show_countdown) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
+        test();
         }
             
     function populate_settled_contests(contest_report, number_of_contests, table)
@@ -359,8 +360,10 @@
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
-    for (let i = 0; i < count; i++) {
-        console.log(id('settlement_countdown_' + i).value);
+    function test (contest_id) {
+        for (let i = 0; i < count; i++) {
+            console.log(id('settlement_countdown_' + i).value);
+        }
     }
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
