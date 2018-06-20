@@ -217,7 +217,7 @@
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         }
-    var count = 0;
+        
     function populate_in_play_contests(contest_report, number_of_contests, table)
         {
         var header = new_row(table, -1, [
@@ -231,7 +231,11 @@
         header[4].className = "right_nowrap";
         header[5].className = "right_nowrap";
 
-        var closest_registration_deadline = 0;
+        var 
+        
+        closest_registration_deadline = 0,
+        count = 0,
+        settlement_expiry_list = [];
         
         for (var i=0; i<number_of_contests; i++)
             {
@@ -274,6 +278,7 @@
             
             if (category === 'USERGENERATED') 
                 {
+                settlement_expiry_list [i] = settlement_deadline;
                 settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
                 }
 
@@ -291,12 +296,12 @@
             if (show_countdown) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
-        test();
+        test(settlement_expiry_list);
         }
             
-    function test (contest_id) {
-        for (let i = 0; i < count; i++) {
-            console.log(id('settlement_countdown_' + i).innerHTML);
+    function test (settlement_expiry_list) {
+        for (let i = 0; i < settlement_expiry_list.length; i++) {
+            console.log(settlement_expiry_list[i]);
         }
     }
 
