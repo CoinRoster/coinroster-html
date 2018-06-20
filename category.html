@@ -217,7 +217,7 @@
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         }
-        
+    var count = 0;
     function populate_in_play_contests(contest_report, number_of_contests, table)
         {
         var header = new_row(table, -1, [
@@ -235,6 +235,8 @@
         
         for (var i=0; i<number_of_contests; i++)
             {
+            count ++; 
+
             var contest_item = contest_report[i],
 
             category = contest_item.category,
@@ -357,15 +359,9 @@
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
-    var eles = [];
-    var inputs = document.getElementsByTagName("input");
-    for(var i = 0; i < inputs.length; i++) {
-        if(inputs[i].name.indexOf('settlement_countdown_') == 0) {
-            eles.push(inputs[i]).name['settlement_countdown_'];
-        }
+    for (let i = 0; i < count; i++) {
+        console.log(id('settlement_countdown_' + i).value);
     }
-    console.log(eles);
-
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
