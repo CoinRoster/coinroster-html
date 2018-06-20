@@ -279,7 +279,7 @@
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
-                "<div class='field_label'>Settlement Deadline:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : settlement_deadline_string),
+                "<div class='field_label'>Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
             ]);
@@ -356,6 +356,10 @@
         id("category_text").innerHTML = "Invalid category";
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
+
+    var $eles = $(":input[name^='settlement_countdown_']");
+    var DOMeles = $eles.get();
+    console.log(DOMeles);
 
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
