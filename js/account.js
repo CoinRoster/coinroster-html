@@ -67,20 +67,26 @@
 
         if (window.session.user_level === 0) return alert ("Please make a deposit first");
 
-        // get registration deadline
+        // get registration, settlement deadline
 
         if (isNaN(Date.parse(id("registration_deadline").value))) return alert("Please select a valid date");
+        if (isNaN(Date.parse(id("settlement_deadline").value))) return alert("Please select a valid date");
         
         var
         
-        date = dateconv_date_start_time(Date.parse(id("registration_deadline").value)),
-        time = selectorValue("registration_deadline_time_selector"),
-        registration_deadline = date + time * 60 * 60 * 1000;
+        registration_date = dateconv_date_start_time(Date.parse(id("registration_deadline").value)),
+        registration_time = selectorValue("registration_deadline_time_selector"),
+        registration_deadline = registration_date + registration_time * 60 * 60 * 1000;
 
-        console.log(registration_deadline);
-        console.log(Date.parse(id("registration_deadline").value))
-        console.log(new Date().getTime());
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
+        
+        var
+        
+        settlement_date = dateconv_date_start_time(Date.parse(id("settlement_deadline").value)),
+        settlement_time = selectorValue("settlement_deadline_time_selector"),
+        settlement_deadline = settlement_date + settlement_time * 60 * 60 * 1000;
+
+        if (settlement_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
 
         var common_args = {
             category: 'USERGENERATED',  
@@ -91,7 +97,8 @@
             description: description,
             registration_deadline: registration_deadline,
             rake: 5.00, 
-            cost_per_entry: 0.00000001 
+            cost_per_entry: 0.00000001,
+            settlement_deadline: settlement_deadline 
         };
         
         create_pari_mutuel_contest(common_args);
