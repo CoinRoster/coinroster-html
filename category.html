@@ -303,10 +303,13 @@
             
     function test (settlement_expiry_list, contest_id_list) {
         for (let i = 0; i < settlement_expiry_list.length; i++) {
-            console.log(settlement_expiry_list[i]);
-            console.log(contest_id_list[i]);
             if(settlement_expiry_list[i] - Date.now() === 0) {
-                return;
+                api({
+                    method: 'ExpireSettlementWindow',
+                    args: {
+                        contest_id: contest_id_list[i]
+                        }
+                    }, function (call){})
             }
         }
     }
