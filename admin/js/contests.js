@@ -22,6 +22,7 @@
                 if (id("category_selector").options.length === 0)
                     {
                     initialize_registration_deadline();
+                    initialize_settlement_deadline();
                     populate_category_selector("category_selector");
                     tinymce.init({
                         selector: 'textarea.do_tinymce',
