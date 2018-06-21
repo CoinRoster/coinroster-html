@@ -463,6 +463,26 @@
             max_date
             );
         }
+/*----------------------------------------------------------------------*/
+           
+    // Initialize registration deadline calendar
+            
+    function initialize_settlement_deadline()
+        {
+        var date_now = new Date().getTime(),
+
+        default_date = date_now - 86400 * 1000,
+        min_date = date_now,
+        max_date = null;
+
+        initialize_calendar
+            (
+            id("settlement_deadline_tcal"),
+            default_date,
+            min_date,
+            max_date
+            );
+        }
 
 /*----------------------------------------------------------------------*/
 
