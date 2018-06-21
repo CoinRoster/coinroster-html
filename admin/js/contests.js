@@ -922,6 +922,16 @@
         registration_deadline = date + time * 60 * 60 * 1000;
 
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
+
+        // get settlement deadline
+
+        var
+
+        date = dateconv_date_start_time(id("settlement_deadline_tcal").date_ms),
+        time = selectorValue("settlement_deadline_time_selector"),
+        settlement_deadline = date + time * 60 * 60 * 1000;
+
+        if (settlement_deadline - registration_deadline < 1 * 60 * 60 * 1000) return alert("settlement deadline must be at least 1 hour from registration deadline");
         
         // validate rake
         
@@ -957,7 +967,8 @@
             description: description,
             registration_deadline: registration_deadline,
             rake: rake,
-            cost_per_entry: cost_per_entry
+            cost_per_entry: cost_per_entry,
+            settlement_deadline: settlement_deadline
         };
             
         switch (contest_type)
