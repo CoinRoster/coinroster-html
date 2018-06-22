@@ -115,8 +115,7 @@
         var pari_mutuel_table = id('pari_mutuel_table_element')
         if (pari_mutuel_table === null) return alert('Please click apply');
         // the following arguments only apply in a roster contest:
-        
-        args.settlement_type = null;
+
         args.min_users = null;
         args.max_users = null;
         args.entries_per_user = null;
