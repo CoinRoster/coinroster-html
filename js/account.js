@@ -101,7 +101,8 @@
             registration_deadline: registration_deadline,
             rake: 5.00, 
             cost_per_entry: 0.00000001,
-            settlement_deadline: settlement_deadline 
+            settlement_deadline: settlement_deadline,
+            settlement_type: settlement_type
         };
         
         create_pari_mutuel_contest(common_args);
