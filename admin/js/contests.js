@@ -1199,6 +1199,10 @@
         option_rows = pari_mutuel_table.rows,
         option_table = [];
         
+        if (args.category === 'USERGENERATED') {
+            args.settlement_type = selectorValue('settlement_type_selector');
+        }
+
         for (var i=1/*header is 0*/; i<option_rows.length; i++)
             {
             var description = option_rows[i].querySelector("input").value;

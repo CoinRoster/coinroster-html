@@ -48,7 +48,6 @@
     function create_contest() {
         
         var settlement_type = selectorValue('settlement_type_selector');
-        console.log(settlement_type);
 
         // check for title
         
