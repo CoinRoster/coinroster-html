@@ -302,17 +302,6 @@
                              "report_table";
       }
     }
-  
-    @media only screen and (max-width: 750px) {
-        .contest_details {
-            width: 450px;
-            margin: 0 auto;
-        }
-
-        .contest_title_field input {
-            width: 415px;
-        }
-    }
 
     .page_title {
       grid-area: page_title;
@@ -435,4 +424,15 @@
 
     .pari_mutuel_table {
         margin-left: 25px;
+    }
+
+    @media only screen and (max-width: 750px) {
+        .contest_details {
+            width: 450px;
+            margin: 0 auto;
+        }
+
+        .contest_title_field input {
+            width: 415px;
+        }
     }
