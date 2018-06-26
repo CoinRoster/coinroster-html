@@ -281,7 +281,8 @@
   
     @media only screen and (max-width: 1025px) {
       .contest_details {
-        margin-top: 68px;
+        margin-top: 25px;
+        margin-right: 15px;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 50px 25px 35px 25px 95px 25px 35px 25px 35px 25px 35px 25px 35px;
@@ -316,7 +317,7 @@
     }
   
     .contest_title_field input {
-      max-width: 300px;
+      max-width: 340px;
     }
   
     .contest_description {
@@ -415,6 +416,14 @@
     .report_table input {
         margin: 10px;
         max-width: 290px;
+    }
+
+    .report_table .headercell {
+        color: darkgray;
+    }
+
+    .report_table .headercell:nth-child(2) {
+        padding-left: 10px;
     }
 
     .pari_mutuel_table {
