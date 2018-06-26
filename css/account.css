@@ -265,7 +265,7 @@
     .contest_details {
       margin-top: 25px;
       display: grid;
-      grid-template-columns: 475px 1fr;
+      grid-template-columns: 550px 1fr;
       grid-template-rows: 80px 25px 65px 25px 65px 25px 65px 30px 25px 1fr;
       grid-template-areas: "page_title ."
                            "contest_title contest_description"
@@ -335,7 +335,7 @@
         font-family: 'gotham_medium', sans-serif;
     }
 
-    .contest_description_field:active {
+    .contest_description_field textarea:active {
         outline: none;
     }
 
