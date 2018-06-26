@@ -33,7 +33,7 @@
             var rank = i + 1;
             new_row(pari_mutuel_table, row_count++, [
                 rank,
-                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\">"
+                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\ placeholder=\"Description\">"
             ]);
         }
             
