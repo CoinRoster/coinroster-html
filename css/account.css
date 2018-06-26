@@ -262,6 +262,8 @@
         vertical-align: middle;
     }
   
+    /* Create New Contest */
+
     .contest_details {
       margin-top: 25px;
       display: grid;
@@ -372,6 +374,7 @@
     .contest_registration_options select {
         height: 25px;
         margin-left: 10px;
+        padding: 0px;
     }
 
     .contest_settlement_deadline {
@@ -390,6 +393,7 @@
     .contest_settlement_deadline_options select {
         height: 25px;
         margin-left: 10px;
+        padding: 0px;
     }
   
     .contest_settlement_option {
@@ -399,6 +403,7 @@
     .contest_settlement_option select {
         height: 25px;
         margin-left: 15px;
+        padding: 0px;
     }
 
     .contest_pari {
