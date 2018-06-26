@@ -437,3 +437,9 @@
     .pari_mutuel_table {
         margin-left: 25px;
     }
+
+    .submit_container button {
+        margin-top: 40px;
+        width: 130px;
+        color: orange;
+    }
