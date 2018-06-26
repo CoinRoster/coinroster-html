@@ -374,11 +374,11 @@
   
     .contest_settlement_option {
       grid-area: contest_settlement_option;
-      margin-left: 15px;
     }
   
     .contest_settlement_option select {
         height: 25px;
+        margin-left: 25px;
     }
 
     .contest_pari {
