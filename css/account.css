@@ -419,6 +419,10 @@
         width: 65px;
     }
 
+    .contest_pari_options button:focus {
+        outline: none;
+    }
+
     .contest_pari_options input {
       width: 20px;
     }
