@@ -279,7 +279,7 @@
                            "report_table .";
     }
   
-    @media only screen and (max-width: 1110px) {
+    @media only screen and (max-width: 1050px) {
       .contest_details {
         margin-top: 68px;
         display: grid;
