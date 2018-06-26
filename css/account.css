@@ -418,11 +418,11 @@
         max-width: 290px;
     }
 
-    .report_table .headercell {
+    .report_table .header_cell {
         color: darkgray;
     }
 
-    .report_table .headercell:nth-child(2) {
+    .report_table .header_cell:nth-child(2) {
         padding-left: 10px;
     }
 
