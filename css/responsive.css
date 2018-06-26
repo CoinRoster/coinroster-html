@@ -236,9 +236,9 @@
             display: none !important;
         }
                     
-        #pari_mutuel_table tr:first-child { /* header */
+        /* #pari_mutuel_table tr:first-child { /* header * /
             display: none;
-        }
+        } */
         
         #pari_mutuel_table td {
             display: block;
