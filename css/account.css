@@ -348,6 +348,14 @@
         font-family: 'gotham_medium', sans-serif;
     }
 
+    .contest_description_field textarea:focus {
+        outline: none;
+    }
+
+    .contest_description_field textarea:focus {
+        outline: none;
+    }
+
     .contest_registration_deadline {
       grid-area: contest_registration_deadline;
     }
