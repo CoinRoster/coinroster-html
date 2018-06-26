@@ -24,47 +24,41 @@
             You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to create a contest.
         </div>
         <div class="table_body_container">
-            <div class="content_body" style="top:68px">
-                <h3>
-                    Contest Details
-                </h3>
-                <br/>
-                <table class="form_table">
-                    <tr>
-                        <td>
-                            Settlement Type
-                        </td>
-                        <td colSpan="2">
-                            <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
-                                <option>USER-SETTLED</option>
-                                <option>CROWD-SETTLED</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+            <div class="content_body">
+                <div class="contest_details">
+                    <div class="page_title">
+                        Contest Details
+                    </div>
+
+                    <div class="contest_settlement">
+                        Settlement Type
+                    </div>
+                    <div class="contest_settlement_option">
+                        <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
+                            <option>USER-SETTLED</option>
+                            <option>CROWD-SETTLED</option>
+                        </select>
+                        </div>
+
+                        <div class="contest_title">
                             Title
-                        </td>
-                        <td colSpan="2">
+                        </div>
+                        <div class="contest_title_field">
                             <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+
+                        <div class="contest_description">
                             Description
-                        </td>
-                        <td colSpan="2">
+                        </div>
+                        <div class="contest_description_field">
                             <textarea maxlength="500" id="contest_description_textarea" rows="6" cols="60"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Registration deadline:
-                        </td>
-                        <td width="1">
+                        </div>
+                        
+                        <div class="contest_registration_deadline">
+                            Registration deadline
+                        </div>
+                        <div class="contest_registration_options">
                             <input type="date" id="registration_deadline" class="input_style chosen-select" style="width:155px">
-                        </td>
-                        <td>
                             <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
@@ -93,16 +87,13 @@
                             </select>
                             &nbsp;&nbsp;
                             EST
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Settlement deadline:
-                        </td>
-                        <td width="1">
+                        </div>
+
+                        <div class="contest_settlement_deadline">
+                            Settlement deadline
+                        </div>
+                        <div class="contest_settlement_deadline_options">
                             <input type="date" id="settlement_deadline" class="input_style chosen-select" style="width:155px">
-                        </td>
-                        <td>
                             <select data-placeholder="Select" id="settlement_deadline_time_selector" class="input_style chosen-select" style="width:155px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
@@ -131,39 +122,20 @@
                             </select>
                             &nbsp;&nbsp;
                             EST
-                        </td>
-                    </tr>
-                </table>
-                <div class="pari_mutuel_contest_field">
-                    <h3>
-                        Pari-mutuel option table
-                    </h3>
-                    <table class="form_table">
-                        <tr>
-                            <td width="1">
-                                Number of options
-                            </td>
-                            <td width="1">
-                                <input id="number_of_options" type="text" class="input_style text_input">
-                            </td>
-                            <td width="1">
-                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                    <div id="pari_mutuel_table" class="report_table"></div>
-                </div>
-                <br/>
-                <br/>
-                <div id="submit_button_container" class="submit_container hidden">
-                    <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
-                </div>
-                <br/>
-                <br/>
-                <br/>
+                        </div>
+
+                        <div class="contest_pari">
+                            Pari-mutuel option table
+                        </div>
+                        <div class="contest_pari_options">
+                            Number of options: 
+                            <input id="number_of_options" type="text" class="input_style text_input">
+                            <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
+                        </div>
+                        <div id="pari_mutuel_table" class="report_table"></div>
+            </div>
+            <div id="submit_button_container" class="submit_container hidden">
+                <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
             </div>
         </div>
         <br/>
