@@ -368,7 +368,7 @@
 
     .contest_settlement_deadline_options select {
         height: 25px;
-        
+        margin-left: 10px;
     }
 
     .contest_settlement {
@@ -378,9 +378,12 @@
     .contest_settlement_option {
       grid-area: contest_settlement_option;
       margin-left: 15px;
-      margin-top: 10px;
     }
   
+    .contest_settlement_option select {
+        height: 25px;
+    }
+
     .contest_pari {
       grid-area: contest_pari;
     }
