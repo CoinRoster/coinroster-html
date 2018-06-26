@@ -134,7 +134,7 @@
                         </div>
                         <div id="pari_mutuel_table" class="report_table"></div>
             </div>
-            <div id="submit_button_container" class="submit_container">
+            <div id="submit_button_container" class="submit_container hidden">
                 <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
             </div>
         </div>
@@ -144,13 +144,13 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script>
-    // if (window.session.first_deposit === 0) {
-    //     show("must_deposit_container");
-    //     hide("submit_button_container");
-    // } else {
-    //     show("submit_button_container");
-    // }
-    // function init(){}
+    if (window.session.first_deposit === 0) {
+        show("must_deposit_container");
+        hide("submit_button_container");
+    } else {
+        show("submit_button_container");
+    }
+    function init(){}
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>
