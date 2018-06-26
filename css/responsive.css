@@ -240,10 +240,10 @@
             display: none;
         } */
         
-        #pari_mutuel_table td {
+        /* #pari_mutuel_table td {
             display: block;
             font-size: 12px !important;
-        }
+        } */
         
         #pari_mutuel_table td:first-child { /* outcome & wager input */
             padding-top: 0px !important;
