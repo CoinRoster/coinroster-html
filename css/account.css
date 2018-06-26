@@ -266,7 +266,7 @@
       margin-top: 68px;
       display: grid;
       grid-template-columns: 475px 1fr;
-      grid-template-rows: 50px 25px 35px 25px 35px 25px 35px 35px 25px 25px;
+      grid-template-rows: 50px 25px 65px 25px 65px 25px 65px 30px 25px 1fr;
       grid-template-areas: "page_title ."
                            "contest_title contest_description"
                            "contest_title_field contest_description_field"
@@ -328,6 +328,17 @@
       margin-left: 15px;
     }
   
+    .contest_description_field {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 14px;
+        font-family: 'gotham_medium', sans-serif;
+    }
+
+    .contest_description_field:focus {
+        outline: none;
+    }
+
     .contest_registration_deadline {
       grid-area: contest_registration_deadline;
     }
@@ -353,6 +364,7 @@
     .contest_settlement_option {
       grid-area: contest_settlement_option;
       margin-left: 15px;
+      margin-top: 10px;
     }
   
     .contest_pari {
@@ -364,6 +376,15 @@
       margin-left: 15px;
     }
   
+    .contest_pari_options input {
+        margin-left: 25px;
+    }
+
+    .contest_pari_options button {
+        margin-left: 15px;
+        width: 65px;
+    }
+
     .contest_pari_options input {
       width: 25px;
     }
