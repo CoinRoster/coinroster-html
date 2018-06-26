@@ -310,7 +310,7 @@
         }
 
         .contest_title_field input {
-            max-width: 415px;
+            width: 415px;
         }
     }
 
