@@ -285,7 +285,7 @@
         padding-right: 15px;
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows: 50px 25px 35px 25px 95px 25px 35px 25px 35px 25px 35px 25px 35px;
+        grid-template-rows: 70px 25px 65px 25px 170px 25px 65px 25px 45px 15px 54px 25px 35px;
         grid-template-areas: "page_title"
                              "contest_title"
                              "contest_title_field"
@@ -307,6 +307,10 @@
         .contest_details {
             width: 450px;
             margin: 0 auto;
+        }
+
+        .contest_title_field input {
+            max-width: 415px;
         }
     }
 
