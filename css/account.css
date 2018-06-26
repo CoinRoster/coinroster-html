@@ -451,3 +451,7 @@
         width: 130px;
         color: orange;
     }
+
+    #pari_mutuel_table tr:first-child { /* header */
+        display: none;
+    }
