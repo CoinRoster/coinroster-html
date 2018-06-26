@@ -256,10 +256,10 @@
         #pari_mutuel_table .light_on_dark_input {
             font-size: 12px !important;
         }
-        #pari_mutuel_table td:last-child { /* wagers & odds */
+        /* #pari_mutuel_table td:last-child { /* wagers & odds * /
             padding-top: 7px !important;
             padding-bottom: 7px !important;
-        }
+        } */
         #pari_mutuel_table .li_left { /* wagers */
             text-align: left !important;
             float: left !important;
