@@ -272,7 +272,7 @@
                            "contest_title_field contest_description_field"
                            "contest_registration_deadline contest_description_field"
                            "contest_registration_options contest_description_field"
-                           "contest_settlement_deadline contest_settlement"
+                           "contest_settlement_deadline ."
                            "contest_settlement_deadline_options contest_settlement_option"
                            "contest_pari ."
                            "contest_pari_options ."
@@ -360,20 +360,16 @@
   
     .contest_settlement_deadline_options {
       grid-area: contest_settlement_deadline_options;
-      margin-left: 15px;
     }
   
     .contest_settlement_deadline_options input {
         height: 6px;
+        margin-left: 25px;
     }
 
     .contest_settlement_deadline_options select {
         height: 25px;
         margin-left: 10px;
-    }
-
-    .contest_settlement {
-      grid-area: contest_settlement;
     }
   
     .contest_settlement_option {
