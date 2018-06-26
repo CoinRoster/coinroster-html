@@ -409,6 +409,12 @@
     .report_table {
       grid-area: report_table;
       margin-left: 15px;
+      padding: 25px;
+    }
+
+    .report_table input {
+        margin: 10px;
+        max-width: 290px;
     }
 
     .pari_mutuel_table {
