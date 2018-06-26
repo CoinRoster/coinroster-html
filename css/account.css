@@ -303,7 +303,7 @@
       }
     }
   
-    @media only screen and (max-width: 1025px) {
+    @media only screen and (max-width: 750px) {
         .contest_details {
             width: 450px;
             margin: 0 auto;
