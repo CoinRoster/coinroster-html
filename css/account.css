@@ -311,6 +311,12 @@
       }
     }
 
+    @media only screen and (max-width: 900px) {
+        .contest_details {
+            margin-right: 15px;
+        }
+    }
+
     .page_title {
       grid-area: page_title;
     }

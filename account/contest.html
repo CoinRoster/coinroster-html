@@ -4,7 +4,14 @@
     <title>CoinRoster | Create A Contest</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="/js/account.js"></script>
+    <script>
+        $( function() {
+            $( "#registration_deadline" ).datepicker();
+            $( "#settlement_deadline" ).datepicker();
+        } );
+    </script>
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
@@ -58,7 +65,7 @@
                             Registration Deadline
                         </div>
                         <div class="contest_registration_options">
-                            <input type="date" id="registration_deadline" class="input_style chosen-select" style="width:155px">
+                            <input type="text" id="registration_deadline" class="input_style chosen-select" style="width:155px">
                             <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:100px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
@@ -93,7 +100,7 @@
                             Settlement Deadline
                         </div>
                         <div class="contest_settlement_deadline_options">
-                            <input type="date" id="settlement_deadline" class="input_style chosen-select" style="width:155px">
+                            <input type="text" id="settlement_deadline" class="input_style chosen-select" style="width:155px">
                             <select data-placeholder="Select" id="settlement_deadline_time_selector" class="input_style chosen-select" style="width:100px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
@@ -156,6 +163,8 @@
 <script type="text/javascript" src="/js/account.js"></script>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>
