@@ -317,6 +317,13 @@
         }
     }
 
+    @media only screen and (max-width: 600px) {
+        .contest_details {
+            width: 375px;
+            margin: 0 auto;
+        }
+    }
+
     .page_title {
       grid-area: page_title;
     }
@@ -336,7 +343,7 @@
     
     @media only screen and (max-width: 900px) {
         .contest_title_field input {
-            width: 415px;
+            width: 325px;
           }
     }
 
@@ -354,6 +361,12 @@
         padding: 10px;
         font-size: 14px;
         font-family: 'gotham_medium', sans-serif;
+    }
+
+    @media only screen and (max-width: 900px) {
+        .contest_description_field textarea {
+            width: 325px;
+        }
     }
 
     .contest_description_field textarea:focus {
