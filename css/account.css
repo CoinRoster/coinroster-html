@@ -413,15 +413,17 @@
     .contest_pari_options {
       grid-area: contest_pari_options;
       margin-left: 15px;
+      font-size: 13px;
     }
   
     .contest_pari_options input {
-        margin-left: 25px;
+        margin-left: 20px;
     }
 
     .contest_pari_options button {
         margin-left: 15px;
         width: 65px;
+        font-size: 14px;
     }
 
     .contest_pari_options button:focus {
