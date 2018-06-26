@@ -263,10 +263,10 @@
     }
   
     .contest_details {
-      margin-top: 68px;
+      margin-top: 25px;
       display: grid;
       grid-template-columns: 475px 1fr;
-      grid-template-rows: 50px 25px 65px 25px 65px 25px 65px 30px 25px 1fr;
+      grid-template-rows: 80px 25px 65px 25px 65px 25px 65px 30px 25px 1fr;
       grid-template-areas: "page_title ."
                            "contest_title contest_description"
                            "contest_title_field contest_description_field"
@@ -335,7 +335,7 @@
         font-family: 'gotham_medium', sans-serif;
     }
 
-    .contest_description_field:focus {
+    .contest_description_field:active {
         outline: none;
     }
 
