@@ -282,7 +282,9 @@
     @media only screen and (max-width: 1025px) {
       .contest_details {
         margin-top: 25px;
-        margin-right: 15px;
+        padding-right: 15px;
+        width: 450px;
+        margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 50px 25px 35px 25px 95px 25px 35px 25px 35px 25px 35px 25px 35px;
