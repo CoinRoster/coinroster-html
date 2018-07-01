@@ -71,7 +71,7 @@
                 get_pending_contests('user');
                 break;
             case 8: /* User Generated Contest */
-                get_pending_contests('crowd');
+                populate_user_contest();
                 break;
             }
         }
@@ -2135,7 +2135,7 @@
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
 
-    function settle_contest(contest_id) {
+    function settle_crowd_contest(contest_id) {
 
         window.contest_id_to_settle = contest_id;
 
@@ -2172,7 +2172,7 @@
             }
     }
 
-    function settle_pari_mutuel_contest() {
+    function settle_crowd_pari_mutuel_contest() {
 
         var winning_outcome = get_radio_selection("pari_mutuel_outcome_radio");
         
