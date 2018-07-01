@@ -1940,9 +1940,15 @@
             
             pending_contest_array = call.pending_contests,
             number_of_contests = pending_contest_array.length,
-            table = new_table("pending_contest_table"),
             row_count = 0;
-    
+            if (settlement_type === 'crowd') {
+                var ele = "pending_crowd_contest_table"
+            } else {
+                ele = "pending_contest_table";
+            }
+            
+            var table = new_table(ele);
+
             if (number_of_contests > 0) {
                 for (var i = 0; i < number_of_contests; i++) {
                     var contest_item = pending_contest_array[i],
@@ -2006,9 +2012,9 @@
                 header[1].style.textAlign = "center";
                 header[6].style.textAlign = "right";
             }
-            else id("pending_contest_table").innerHTML = "None";
+            else id(ele).innerHTML = "None";
         }
-        else id("pending_contest_table").innerHTML = "Error getting transactions";        
+        else id(ele).innerHTML = "Error getting transactions";        
     }
 
     function approve_contest (contest_id) {
