@@ -70,7 +70,7 @@
             case 7: /* User Generated Contest */
                 get_pending_contests('user');
                 break;
-            case 7: /* User Generated Contest */
+            case 8: /* User Generated Contest */
                 get_pending_contests('crowd');
                 break;
             }
@@ -1931,7 +1931,7 @@
             method: "GetUnapprovedContests",
             args: {
                 settlement_type: settlement_type
-            } 
+            }
         });
         
         if (call.status === "1") {
