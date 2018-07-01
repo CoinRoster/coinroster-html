@@ -68,7 +68,10 @@
                     }
                 break; 
             case 7: /* User Generated Contest */
-                get_pending_contests();
+                get_pending_contests('user');
+                break;
+            case 7: /* User Generated Contest */
+                get_pending_contests('crowd');
                 break;
             }
         }
@@ -1922,9 +1925,14 @@
 
 /*----------------------------------------------------------------------*/
               
-    function get_pending_contests() {
+    function get_pending_contests(settlement_type) {
 
-        var call = api({ method: "GetUnapprovedContests", args: {} });
+        var call = api({ 
+            method: "GetUnapprovedContests",
+            args: {
+                settlement_type: settlement_type
+            } 
+        });
         
         if (call.status === "1") {
             
