@@ -148,6 +148,8 @@
                 <select data-placeholder="Select" id="sub_category_selector" class="input_style chosen-select" style="width:300px">
                 </select>
             </div>
+            <br/>
+            <br/>
             <div id="submit_button_container" class="submit_container hidden">
                 <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
             </div>
@@ -164,7 +166,9 @@
     } else {
         show("submit_button_container");
     }
-    function init(){}
+    function init(){
+        populate_category_selector('category_selector');
+    }
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>
