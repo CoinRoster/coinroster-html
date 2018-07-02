@@ -108,13 +108,13 @@
             sub_category_selector.appendChild(option);
             }
             
-        if (_id === "category_selector")
-            {
-            sub_category_selector.onchange = function()
-                {
-                populate_progressive_selector();
-                };
-            }
+        // if (_id === "category_selector")
+        //     {
+        //     sub_category_selector.onchange = function()
+        //         {
+        //         populate_progressive_selector();
+        //         };
+        //     }
             
         $(sub_category_selector).trigger("chosen:updated");
         }
