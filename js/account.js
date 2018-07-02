@@ -32,7 +32,10 @@
         category_selector.innerHTML = "<option></option>";
         
         api({
-            method: "CategoryReport"
+            method: "CategoryReport",
+            args: {
+                request_source: ""
+            }
         }, function(call)
             {
             var category_report = call.category_report;
