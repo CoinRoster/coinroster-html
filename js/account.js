@@ -154,6 +154,7 @@
     function create_contest() {
         
         var settlement_type = selectorValue('settlement_type_selector');    
+        console.log(settlement_type);
 
         var category = selectorValue('category_selector');
         var sub_category = selectorValue('sub_category_selector');
