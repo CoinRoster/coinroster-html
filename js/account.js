@@ -202,8 +202,8 @@
         if (settlement_deadline - registration_deadline < 1 * 60 * 60 * 1000) return alert("Settlement deadline must be at least 1 hour from registration deadline");
 
         var common_args = {
-            category: 'USERGENERATED',  
-            sub_category: "USERGENERATED",
+            category: category,  
+            sub_category: sub_category,
             progressive: "",  
             contest_type: 'PARI-MUTUEL', 
             title: title,
