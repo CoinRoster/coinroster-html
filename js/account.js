@@ -153,7 +153,12 @@
           
     function create_contest() {
         
-        var settlement_type = selectorValue('settlement_type_selector');
+        var settlement_type = selectorValue('settlement_type_selector');    
+
+        var category = selectorValue('category_selector');
+        var sub_category = selectorValue('sub_category_selector');
+
+        if(!(category !== '' && sub_category !== '')) return alert('Please select category');
 
         // check for title
         
