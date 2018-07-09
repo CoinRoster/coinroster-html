@@ -65,6 +65,7 @@
 
     function settlement_type_string(settlement_type)
         {
+        console.log(settlement_type);
         switch (settlement_type)
             {
             case "JACKPOT" : return "Jackpot";
