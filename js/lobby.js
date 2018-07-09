@@ -71,6 +71,7 @@
             case "HEADS-UP" : return "Heads up";
             case "DOUBLE-UP" : return "Double-up";
             case "PARI-MUTUEL" : return "Pari-mutuel";
+            default: return "Pari-mutuel";
             }
         }
 
