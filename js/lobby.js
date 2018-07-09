@@ -40,6 +40,9 @@
                     case "PARI-MUTUEL" :
                         payout_info += "This is a pari-mutuel pool. The entire pot will be distributed pro-rata to those who choose the correct outcome.";
                         break;
+                    default :
+                        payout_info += "This is a pari-mutuel pool. The entire pot will be distributed pro-rata to those who choose the correct outcome.";
+                        break;
                     }
                 show_simple_modal(payout_info, "good", null);
                 };
@@ -72,7 +75,7 @@
             case "HEADS-UP" : return "Heads up";
             case "DOUBLE-UP" : return "Double-up";
             case "PARI-MUTUEL" : return "Pari-mutuel";
-            default: return "Pari-mutuel";
+            default : return "Pari-mutuel";
             }
         }
 
