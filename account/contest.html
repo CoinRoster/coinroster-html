@@ -34,7 +34,184 @@
         </div>
         <div class="table_body_container">
             <div class="content_body">
-                <div class="contest_details">
+
+                <div class="contest_details" >
+                    <div class="page_title">
+                        <h3>
+                            Contest Details
+                        </h3>
+                    </div>
+                    <div>
+                        Contest Type: 
+                        <select data-placeholder="Select" id="contest_type_selector" class="input_style chosen-select">
+                            <option value="" selected disabled hidden>Select</option>
+                            <option value="Roster">Roster</option>
+                            <option value="Prop">Prop</option>
+                            <option value="Misc">Misc</option>
+                        </select>
+                    </div>
+                    <div class="roster_fields hidden">
+                        <div class="roster_sport_selector">
+                            Sport:
+                            <select data-placeholder="Select" id="roster_sport_selector" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Golf">Golf</option>
+                                <option value="Baseball">Baseball</option>
+                            </select>
+                        </div>
+                        <div class="roster_basketball_scoring hidden">
+                            <!-- select which of these you want to use - checkboxes? -->
+                            <div>
+                                Points 
+                                <input type="number" style="width:25px;" id="roster_basketball_points"/>
+                            </div>
+                            <div>
+                                Rebounds 
+                                <input type="number" style="width:25px;" id="roster_basketball_rebounds"/>
+                            </div>
+                            <div>
+                                Assits 
+                                <input type="number" style="width:25px;" id="roster_basketball_assists"/>
+                            </div>
+                            <div>
+                                Steals 
+                                <input type="number" style="width:25px;" id="roster_basketball_steals"/>
+                            </div>
+                            <div>
+                                Blocks 
+                                <input type="number" style="width:25px;" id="roster_basketball_blocks"/>
+                            </div>
+                            <div>
+                                Turnovers 
+                                <input type="number" style="width:25px;" id="roster_basketball_turnovers"/>
+                            </div>
+                        </div>
+                        <div class="roster_golf_scoring hidden">
+                            <!-- select which of these you want to use - checkboxes? -->
+                            <div>
+                                Eagles 
+                                <input type="number" style="width:25px;" id="roster_golf_eagles"/>
+                            </div>
+                            <div>
+                                Birdies 
+                                <input type="number" style="width:25px;" id="roster_golf_birdies"/>
+                            </div>
+                            <div>
+                                Pars 
+                                <input type="number" style="width:25px;" id="roster_golf_pars"/>
+                            </div>
+                            <div>
+                                Bogeys 
+                                <input type="number" style="width:25px;" id="roster_golf_bogeys"/>
+                            </div>
+                            <div>
+                                Double-Bogeys 
+                                <input type="number" style="width:25px;" id="roster_golf_double_bogeys"/>
+                            </div>
+                            <div>
+                                Overall Score 
+                                <input type="number" style="width:25px;" id="roster_golf_overall_score"/>
+                            </div>
+                            <div class="roster_round_tournament">
+                                Round or Tournament? 
+                                <div>
+                                    <input type="radio" name="round_tournament" id="roster_golf_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="roster_golf_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="roster_golf_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="roster_golf_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="roster_golf_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="roster_baseball_scoring hidden">
+                            <!-- select which of these you want to use - checkboxes? -->
+                            <div>
+                                RBI's  
+                                <input type="number" style="width:25px;" id="roster_baseball_rbi"/>
+                            </div>
+                            <div>
+                                Hits 
+                                <input type="number" style="width:25px;" id="roster_baseball_hits"/>
+                            </div>
+                            <div>
+                                Runs 
+                                <input type="number" style="width:25px;" id="roster_baseball_runs"/>
+                            </div>
+                            <div>
+                                Strikeouts 
+                                <input type="number" style="width:25px;" id="roster_baseball_strikeouts"/>
+                            </div>
+                            <div>
+                                Walks 
+                                <input type="number" style="width:25px;" id="roster_baseball_walks"/>
+                            </div>
+                        </div>
+                        <div class="public_private_selector">
+                            Public or Private?
+                            <div>
+                                <input type="radio" name="public_private" id="roster_public" checked/>
+                                <label for="roster_public">Public</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="public_private" id="roster_private"/>
+                                <label for="roster_private">Private</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prop_fields hidden">
+                        <div class="prop_sport_selector">
+                            Sport:
+                            <select data-placeholder="Select" id="prop_sport_selector" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Golf">Golf</option>
+                                <option value="Baseball">Baseball</option>
+                            </select>
+                        </div>
+                        <div class="public_private_selector">
+                            Public or Private?
+                            <div>
+                                <input type="radio" name="public_private" id="prop_public" checked/>
+                                <label for="prop_public">Public</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="public_private" id="prop_private"/>
+                                <label for="prop_private">Private</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="misc_fields hidden">
+                        <div class="public_private_selector">
+                            Public or Private?
+                            <div>
+                                <input type="radio" name="public_private" id="misc_public" checked/>
+                                <label for="misc_public">Public</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="public_private" id="misc_private"/>
+                                <label for="misc_private">Private</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- <div class="contest_details">
                     <div class="page_title">
                         <h3>
                             Contest Details
@@ -151,7 +328,7 @@
             <br/>
             <div id="submit_button_container" class="submit_container hidden">
                 <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
-            </div>
+            </div> -->
         </div>
         <br/>
     </div>   
@@ -171,6 +348,7 @@
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>
+<script type="text/javascript" src="/js/create_contest.js"></script>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
