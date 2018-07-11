@@ -264,7 +264,7 @@
   
     /* Create New Contest */
 
-    .contest_details {
+    /* .contest_details {
       margin-top: 25px;
       display: grid;
       grid-template-columns: 500px 1fr;
@@ -480,7 +480,7 @@
         margin-top: 40px;
         width: 130px;
         color: orange;
-    }
+    } */
 
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
