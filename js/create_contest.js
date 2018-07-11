@@ -10,19 +10,19 @@ contest_type_selector.onchange = function()
     switch (selectorHTML(contest_type_selector))
       {
         case "Roster":
-          show(roster_fields);
-          hide(prop_fields);
-          hide(misc_fields);
+          show(roster_fields[0]);
+          hide(prop_fields[0]);
+          hide(misc_fields[0]);
           break;
         case "Prop":
-          show(prop_fields);
-          hide(roster_fields);
-          hide(misc_fields);
+          show(prop_fields[0]);
+          hide(roster_fields[0]);
+          hide(misc_fields[0]);
           break;
         case "Misc":
-          show(misc_fields);
-          hide(roster_fields);
-          hide(prop_fields);
+          show(misc_fields[0]);
+          hide(roster_fields[0]);
+          hide(prop_fields[0]);
           break;
       }
   };
@@ -36,19 +36,19 @@ roster_sport_selector.onchange = function()
   switch (selectorHTML(roster_sport_selector))
     {
       case "Basketball":
-        show(basketball_scoring);
-        hide(golf_scoring);
-        hide(baseball_scoring);
+        show(basketball_scoring[0]);
+        hide(golf_scoring[0]);
+        hide(baseball_scoring[0]);
         break;
       case "Golf":
-        show(golf_scoring);
-        hide(basketball_scoring);
-        hide(baseball_scoring);
+        show(golf_scoring[0]);
+        hide(basketball_scoring[0]);
+        hide(baseball_scoring[0]);
         break;
       case "Baseball":
-        show(baseball_scoring);
-        hide(basketball_scoring);
-        hide(golf_scoring);
+        show(baseball_scoring[0]);
+        hide(basketball_scoring[0]);
+        hide(golf_scoring[0]);
         break;
     }
  };
