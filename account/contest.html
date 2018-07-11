@@ -44,72 +44,74 @@
                     <div>
                         Contest Type: 
                         <select data-placeholder="Select" id="contest_type_selector" class="input_style chosen-select">
-                            <option>Roster</option>
-                            <option>Prop</option>
-                            <option>Misc</option>
+                            <option value="" selected disabled hidden>Select</option>
+                            <option value="Roster">Roster</option>
+                            <option value="Prop">Prop</option>
+                            <option value="Misc">Misc</option>
                         </select>
                     </div>
                     <div class="roster_fields hidden">
                         <div class="roster_sport_selector">
                             Sport:
                             <select data-placeholder="Select" id="roster_sport_selector" class="input_style chosen-select">
-                                <option>Basketball</option>
-                                <option>Golf</option>
-                                <option>Baseball</option>
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Golf">Golf</option>
+                                <option value="Baseball">Baseball</option>
                             </select>
                         </div>
                         <div class="roster_basketball_scoring hidden">
                             <!-- select which of these you want to use - checkboxes? -->
                             <div>
                                 Points 
-                                <input type="number" style="width:10px;" id="roster_basketball_points"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_points"/>
                             </div>
                             <div>
                                 Rebounds 
-                                <input type="number" style="width:10px;" id="roster_basketball_rebounds"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_rebounds"/>
                             </div>
                             <div>
                                 Assits 
-                                <input type="number" style="width:10px;" id="roster_basketball_assists"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_assists"/>
                             </div>
                             <div>
                                 Steals 
-                                <input type="number" style="width:10px;" id="roster_basketball_steals"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_steals"/>
                             </div>
                             <div>
                                 Blocks 
-                                <input type="number" style="width:10px;" id="roster_basketball_blocks"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_blocks"/>
                             </div>
                             <div>
                                 Turnovers 
-                                <input type="number" style="width:10px;" id="roster_basketball_turnovers"/>
+                                <input type="number" style="width:25px;" id="roster_basketball_turnovers"/>
                             </div>
                         </div>
                         <div class="roster_golf_scoring hidden">
                             <!-- select which of these you want to use - checkboxes? -->
                             <div>
                                 Eagles 
-                                <input type="number" style="width:10px;" id="roster_golf_eagles"/>
+                                <input type="number" style="width:25px;" id="roster_golf_eagles"/>
                             </div>
                             <div>
                                 Birdies 
-                                <input type="number" style="width:10px;" id="roster_golf_birdies"/>
+                                <input type="number" style="width:25px;" id="roster_golf_birdies"/>
                             </div>
                             <div>
                                 Pars 
-                                <input type="number" style="width:10px;" id="roster_golf_pars"/>
+                                <input type="number" style="width:25px;" id="roster_golf_pars"/>
                             </div>
                             <div>
                                 Bogeys 
-                                <input type="number" style="width:10px;" id="roster_golf_bogeys"/>
+                                <input type="number" style="width:25px;" id="roster_golf_bogeys"/>
                             </div>
                             <div>
                                 Double-Bogeys 
-                                <input type="number" style="width:10px;" id="roster_golf_double_bogeys"/>
+                                <input type="number" style="width:25px;" id="roster_golf_double_bogeys"/>
                             </div>
                             <div>
                                 Overall Score 
-                                <input type="number" style="width:10px;" id="roster_golf_overall_score"/>
+                                <input type="number" style="width:25px;" id="roster_golf_overall_score"/>
                             </div>
                             <div class="roster_round_tournament">
                                 Round or Tournament? 
@@ -139,23 +141,23 @@
                             <!-- select which of these you want to use - checkboxes? -->
                             <div>
                                 RBI's  
-                                <input type="number" style="width:10px;" id="roster_baseball_rbi"/>
+                                <input type="number" style="width:25px;" id="roster_baseball_rbi"/>
                             </div>
                             <div>
                                 Hits 
-                                <input type="number" style="width:10px;" id="roster_baseball_hits"/>
+                                <input type="number" style="width:25px;" id="roster_baseball_hits"/>
                             </div>
                             <div>
                                 Runs 
-                                <input type="number" style="width:10px;" id="roster_baseball_runs"/>
+                                <input type="number" style="width:25px;" id="roster_baseball_runs"/>
                             </div>
                             <div>
                                 Strikeouts 
-                                <input type="number" style="width:10px;" id="roster_baseball_strikeouts"/>
+                                <input type="number" style="width:25px;" id="roster_baseball_strikeouts"/>
                             </div>
                             <div>
                                 Walks 
-                                <input type="number" style="width:10px;" id="roster_baseball_walks"/>
+                                <input type="number" style="width:25px;" id="roster_baseball_walks"/>
                             </div>
                         </div>
                         <div class="public_private_selector">
@@ -174,9 +176,10 @@
                         <div class="prop_sport_selector">
                             Sport:
                             <select data-placeholder="Select" id="prop_sport_selector" class="input_style chosen-select">
-                                <option>Basketball</option>
-                                <option>Golf</option>
-                                <option>Baseball</option>
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Golf">Golf</option>
+                                <option value="Baseball">Baseball</option>
                             </select>
                         </div>
                         <div class="public_private_selector">
