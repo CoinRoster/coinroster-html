@@ -4,7 +4,16 @@
     <title>CoinRoster | Create A Contest</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="/js/account.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $( "#registration_deadline" ).datepicker();
+            $( "#settlement_deadline" ).datepicker();
+        } );
+  </script>
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
@@ -24,150 +33,141 @@
             You must <a href="/account/deposit.html" class="inline_link orange">make a deposit</a> to create a contest.
         </div>
         <div class="table_body_container">
-            <div class="content_body" style="top:68px">
-                <h3>
-                    Contest Details
-                </h3>
-                <br/>
-                <table class="form_table">
-                    <tr>
-                        <td>
-                            Settlement Type
-                        </td>
-                        <td colSpan="2">
-                            <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
-                                <option>USER-SETTLED</option>
-                                <option>CROWD-SETTLED</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td colSpan="2">
-                            <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" style="width:650px">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Description
-                        </td>
-                        <td colSpan="2">
-                            <textarea maxlength="500" id="contest_description_textarea" rows="6" cols="60"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Registration deadline:
-                        </td>
-                        <td width="1">
-                            <input type="date" id="registration_deadline" class="input_style chosen-select" style="width:155px">
-                        </td>
-                        <td>
-                            <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:155px">
-                                <option value="0">12:00 AM</option>
-                                <option value="1">1:00 AM</option>
-                                <option value="2">2:00 AM</option>
-                                <option value="3">3:00 AM</option>
-                                <option value="4">4:00 AM</option>
-                                <option value="5">5:00 AM</option>
-                                <option value="6">6:00 AM</option>
-                                <option value="7">7:00 AM</option>
-                                <option value="8">8:00 AM</option>
-                                <option value="9">9:00 AM</option>
-                                <option value="10">10:00 AM</option>
-                                <option value="11">11:00 AM</option>
-                                <option value="12">12:00 PM</option>
-                                <option value="13">1:00 PM</option>
-                                <option value="14">2:00 PM</option>
-                                <option value="15">3:00 PM</option>
-                                <option value="16">4:00 PM</option>
-                                <option value="17">5:00 PM</option>
-                                <option value="18" selected>6:00 PM</option>
-                                <option value="19">7:00 PM</option>
-                                <option value="20">8:00 PM</option>
-                                <option value="21">9:00 PM</option>
-                                <option value="22">10:00 PM</option>
-                                <option value="23">11:00 PM</option>
-                            </select>
-                            &nbsp;&nbsp;
-                            EST
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Settlement deadline:
-                        </td>
-                        <td width="1">
-                            <input type="date" id="settlement_deadline" class="input_style chosen-select" style="width:155px">
-                        </td>
-                        <td>
-                            <select data-placeholder="Select" id="settlement_deadline_time_selector" class="input_style chosen-select" style="width:155px">
-                                <option value="0">12:00 AM</option>
-                                <option value="1">1:00 AM</option>
-                                <option value="2">2:00 AM</option>
-                                <option value="3">3:00 AM</option>
-                                <option value="4">4:00 AM</option>
-                                <option value="5">5:00 AM</option>
-                                <option value="6">6:00 AM</option>
-                                <option value="7">7:00 AM</option>
-                                <option value="8">8:00 AM</option>
-                                <option value="9">9:00 AM</option>
-                                <option value="10">10:00 AM</option>
-                                <option value="11">11:00 AM</option>
-                                <option value="12">12:00 PM</option>
-                                <option value="13">1:00 PM</option>
-                                <option value="14">2:00 PM</option>
-                                <option value="15">3:00 PM</option>
-                                <option value="16">4:00 PM</option>
-                                <option value="17">5:00 PM</option>
-                                <option value="18" selected>6:00 PM</option>
-                                <option value="19">7:00 PM</option>
-                                <option value="20">8:00 PM</option>
-                                <option value="21">9:00 PM</option>
-                                <option value="22">10:00 PM</option>
-                                <option value="23">11:00 PM</option>
-                            </select>
-                            &nbsp;&nbsp;
-                            EST
-                        </td>
-                    </tr>
-                </table>
-                <div class="pari_mutuel_contest_field">
-                    <h3>
-                        Pari-mutuel option table
-                    </h3>
-                    <table class="form_table">
-                        <tr>
-                            <td width="1">
-                                Number of options
-                            </td>
-                            <td width="1">
-                                <input id="number_of_options" type="text" class="input_style text_input">
-                            </td>
-                            <td width="1">
-                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                    </table>
+            <div class="content_body">
+
+                <div class="contest_details" >
+                    <div class="page_title">
+                        <h3>
+                            Contest Details
+                        </h3>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                <!-- <div class="contest_details">
+                    <div class="page_title">
+                        <h3>
+                            Contest Details
+                        </h3>
+                    </div>
+                    <div class="contest_settlement_option">
+                        Settlement Type:     
+                        <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
+                            <option>USER-SETTLED</option>
+                            <option>CROWD-SETTLED</option>
+                        </select>
+                    </div>
+                    <div class="contest_title">
+                        Title
+                    </div>
+                    <div class="contest_title_field">
+                        <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" placeholder="Title">
+                    </div>
+
+                    <div class="contest_description">
+                        Description
+                    </div>
+                    <div class="contest_description_field">
+                        <textarea maxlength="500" id="contest_description_textarea" rows="7" cols="50" placeholder="Description"></textarea>
+                    </div>
+                    
+                    <div class="contest_registration_deadline">
+                        Registration Deadline
+                    </div>
+                    <div class="contest_registration_options">
+                        <input type="text" id="registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                        <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:100px">
+                            <option value="0">12:00 AM</option>
+                            <option value="1">1:00 AM</option>
+                            <option value="2">2:00 AM</option>
+                            <option value="3">3:00 AM</option>
+                            <option value="4">4:00 AM</option>
+                            <option value="5">5:00 AM</option>
+                            <option value="6">6:00 AM</option>
+                            <option value="7">7:00 AM</option>
+                            <option value="8">8:00 AM</option>
+                            <option value="9">9:00 AM</option>
+                            <option value="10">10:00 AM</option>
+                            <option value="11">11:00 AM</option>
+                            <option value="12">12:00 PM</option>
+                            <option value="13">1:00 PM</option>
+                            <option value="14">2:00 PM</option>
+                            <option value="15">3:00 PM</option>
+                            <option value="16">4:00 PM</option>
+                            <option value="17">5:00 PM</option>
+                            <option value="18" selected>6:00 PM</option>
+                            <option value="19">7:00 PM</option>
+                            <option value="20">8:00 PM</option>
+                            <option value="21">9:00 PM</option>
+                            <option value="22">10:00 PM</option>
+                            <option value="23">11:00 PM</option>
+                        </select>
+                    </div>
+
+                    <div class="contest_settlement_deadline">
+                        Settlement Deadline
+                    </div>
+                    <div class="contest_settlement_deadline_options">
+                        <input type="text" id="settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                        <select data-placeholder="Select" id="settlement_deadline_time_selector" class="input_style chosen-select" style="width:100px">
+                            <option value="0">12:00 AM</option>
+                            <option value="1">1:00 AM</option>
+                            <option value="2">2:00 AM</option>
+                            <option value="3">3:00 AM</option>
+                            <option value="4">4:00 AM</option>
+                            <option value="5">5:00 AM</option>
+                            <option value="6">6:00 AM</option>
+                            <option value="7">7:00 AM</option>
+                            <option value="8">8:00 AM</option>
+                            <option value="9">9:00 AM</option>
+                            <option value="10">10:00 AM</option>
+                            <option value="11">11:00 AM</option>
+                            <option value="12">12:00 PM</option>
+                            <option value="13">1:00 PM</option>
+                            <option value="14">2:00 PM</option>
+                            <option value="15">3:00 PM</option>
+                            <option value="16">4:00 PM</option>
+                            <option value="17">5:00 PM</option>
+                            <option value="18" selected>6:00 PM</option>
+                            <option value="19">7:00 PM</option>
+                            <option value="20">8:00 PM</option>
+                            <option value="21">9:00 PM</option>
+                            <option value="22">10:00 PM</option>
+                            <option value="23">11:00 PM</option>
+                        </select>
+                    </div>
+
+                    <div class="contest_pari">
+                        Pari-mutuel Options
+                    </div>
+                    <div class="contest_pari_options">
+                        Number of Options: 
+                        <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
+                        <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
+                    </div>
                     <div id="pari_mutuel_table" class="report_table"></div>
-                </div>
-                <br/>
-                <br/>
-                <div id="submit_button_container" class="submit_container hidden">
-                    <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
-                </div>
-                <br/>
-                <br/>
-                <br/>
             </div>
+            <div class="category_selector_option">
+                Category:
+                <select data-placeholder="Select" id="category_selector" class="input_style chosen-select" style="width:300px">
+                </select>
+            </div>
+            <div>
+                Sub-Category:
+                <select data-placeholder="Select" id="sub_category_selector" class="input_style chosen-select" style="width:300px">
+                </select>
+            </div>
+            <br/>
+            <br/>
+            <div id="submit_button_container" class="submit_container hidden">
+                <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
+            </div> -->
         </div>
         <br/>
     </div>   
+</div>
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script>
@@ -177,7 +177,9 @@
     } else {
         show("submit_button_container");
     }
-    function init(){}
+    function init(){
+        populate_category_selector('category_selector');
+    }
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>
