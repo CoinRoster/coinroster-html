@@ -1202,7 +1202,7 @@
         option_rows = pari_mutuel_table.rows,
         option_table = [];
         
-        var settlement_type = selectorValue('settlement_type_selector');
+        var settlement_type = selectorValue('settlement_type_selector_pari');
         if(settlement_type === '') return alert('settlement type error');
         args.settlement_type = settlement_type;
 
