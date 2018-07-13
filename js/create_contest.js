@@ -1,5 +1,7 @@
 var contest_type_selector = id("contest_type_selector");
 var roster_sport_selector = id("roster_sport_selector");
+var roster_multistat_overall = id("roster_multistat_overall");
+var roster_settlement_type = id("roster_settlement_type");
 
 contest_type_selector.onchange = function()
   {
@@ -49,6 +51,43 @@ roster_sport_selector.onchange = function()
         show(baseball_scoring[0]);
         hide(basketball_scoring[0]);
         hide(golf_scoring[0]);
+        break;
+    }
+ };
+
+roster_multistat_overall.onchange = function()
+  {
+    var roster_golf_multistat = document.getElementsByClassName("roster_golf_multistat");
+    var roster_golf_overall = document.getElementsByClassName("roster_golf_overall");
+
+    switch (selectorHTML(roster_multistat_overall))
+      {
+        case "Multi-stat":
+          show(roster_golf_multistat[0]);
+          hide(roster_golf_overall[0]);
+          break;
+        case "Overall":
+          show(roster_golf_overall[0]);
+          hide(roster_golf_multistat[0]);
+          break;
+      }
+  };
+
+
+roster_settlement_type.onchange = function()
+ {
+  var roster_jackpot = document.getElementsByClassName("roster_settlement_jackpot");
+  var roster_double_up = document.getElementsByClassName("roster_settlement_double_up");
+
+  switch (selectorHTML(roster_settlement_type))
+    {
+      case "Jackpot":
+        show(roster_jackpot[0]);
+        hide(roster_double_up[0]);
+        break;
+      case "Double-Up":
+        show(roster_double_up[0]);
+        hide(roster_jackpot[0]);
         break;
     }
  };
