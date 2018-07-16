@@ -78,7 +78,6 @@ roster_multistat_overall.onchange = function()
       }
   };
 
-
 roster_settlement_type.onchange = function()
  {
   var roster_jackpot = document.getElementsByClassName("roster_settlement_jackpot");
@@ -97,6 +96,7 @@ roster_settlement_type.onchange = function()
     }
  };
 
+// hide 'prop_golf_match_play_round_tournament' and others - so in reverse it sitll works
 prop_sport_selector.onchange = function()
  {
   var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
@@ -180,16 +180,13 @@ prop_golf_type_selector.onchange = function()
 prop_golf_multistat_overall.onchange = function()
  {
    var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
-   var prop_golf_stats_overall = document.getElementsByClassName("prop_golf_stats_overall");
 
    switch (selectorHTML(prop_golf_multistat_overall))
     {
       case "Multi-stat":
         show(prop_golf_stats_multistat[0]);
-        hide(prop_golf_stats_overall[0]);
         break;
       case "Overall":
-        show(prop_golf_stats_overall[0]);
         hide(prop_golf_stats_multistat[0]);
         break;
     }
