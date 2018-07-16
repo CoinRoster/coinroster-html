@@ -117,9 +117,9 @@ prop_sport_selector.onchange = function()
   // var prop_golf_type_selector = document.getElementById("prop_golf_type");
   // var prop_baseball_type_selector = document.getElementById.getElementById("prop_baseball_type");
 
-  document.getElementById("prop_basketball_type").selectedIndex = "-1";
-  document.getElementById("prop_golf_type").selectedIndex = "-1";
-  document.getElementById("prop_baseball_type").selectedIndex = "-1";
+  document.getElementById("prop_basketball_type").selectedIndex = "0";
+  document.getElementById("prop_golf_type").selectedIndex = "0";
+  document.getElementById("prop_baseball_type").selectedIndex = "0";
 
   switch (selectorHTML(prop_sport_selector))
   {
