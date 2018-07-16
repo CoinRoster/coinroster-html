@@ -102,22 +102,61 @@ prop_sport_selector.onchange = function()
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
 
+  //
+   var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
+   var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
+   var prop_golf_make_the_cut = document.getElementsByClassName("prop_golf_make_the_cut");
+   var prop_golf_over_under = document.getElementsByClassName("prop_golf_over_under");
+   var prop_golf_match_play = document.getElementsByClassName("prop_golf_match_play");
+   var prop_golf_number_of_shots = document.getElementsByClassName("prop_golf_number_of_shots");
+   var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
+   var prop_baseball_match_play = document.getElementsByClassName("prop_baseball_match_play");
+   var prop_baseball_over_under = document.getElementsByClassName("prop_baseball_over_under");
+  //
+
   switch (selectorHTML(prop_sport_selector))
   {
     case "Basketball":
       show(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
       hide(prop_baseball_type[0]);
+
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
+      hide(prop_golf_make_the_cut[0]);
+      hide(prop_golf_over_under[0]);
+      hide(prop_golf_number_of_shots[0]);
+      hide(prop_golf_stats_multistat[0]);
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
       break;
     case "Golf":
       show(prop_golf_type[0]);
       hide(prop_basketball_type[0]);
       hide(prop_baseball_type[0]);
+
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
+      hide(prop_golf_make_the_cut[0]);
+      hide(prop_golf_over_under[0]);
+      hide(prop_golf_number_of_shots[0]);
+      hide(prop_golf_stats_multistat[0]);
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
       break;
     case "Baseball":
       show(prop_baseball_type[0]);
       hide(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
+
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
+      hide(prop_golf_make_the_cut[0]);
+      hide(prop_golf_over_under[0]);
+      hide(prop_golf_number_of_shots[0]);
+      hide(prop_golf_stats_multistat[0]);
+      hide(prop_baseball_match_play[0]);
+      hide(prop_baseball_over_under[0]);
       break;
   }
  };
