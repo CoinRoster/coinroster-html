@@ -93,6 +93,10 @@ roster_settlement_type.onchange = function()
         show(roster_double_up[0]);
         hide(roster_jackpot[0]);
         break;
+      case "Heads-Up":
+        hide(roster_jackpot[0]);
+        hide(roster_jackpot[0]);
+        break;
     }
  };
 
