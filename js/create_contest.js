@@ -63,16 +63,13 @@ roster_sport_selector.onchange = function()
 roster_multistat_overall.onchange = function()
   {
     var roster_golf_multistat = document.getElementsByClassName("roster_golf_multistat");
-    var roster_golf_overall = document.getElementsByClassName("roster_golf_overall");
 
     switch (selectorHTML(roster_multistat_overall))
       {
         case "Multi-stat":
           show(roster_golf_multistat[0]);
-          hide(roster_golf_overall[0]);
           break;
         case "Overall":
-          show(roster_golf_overall[0]);
           hide(roster_golf_multistat[0]);
           break;
       }
@@ -91,6 +88,10 @@ roster_settlement_type.onchange = function()
         break;
       case "Double-Up":
         show(roster_double_up[0]);
+        hide(roster_jackpot[0]);
+        break;
+      case "Heads-Up":
+        hide(roster_jackpot[0]);
         hide(roster_jackpot[0]);
         break;
     }
