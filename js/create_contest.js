@@ -2,6 +2,11 @@ var contest_type_selector = id("contest_type_selector");
 var roster_sport_selector = id("roster_sport_selector");
 var roster_multistat_overall = id("roster_multistat_overall");
 var roster_settlement_type = id("roster_settlement_type");
+var prop_sport_selector = id("prop_sport_selector");
+var prop_basketball_type_selector = id("prop_basketball_type");
+var prop_golf_type_selector = id("prop_golf_type");
+var prop_baseball_type_selector = id("prop_baseball_type");
+var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
 
 contest_type_selector.onchange = function()
   {
@@ -91,3 +96,119 @@ roster_settlement_type.onchange = function()
         break;
     }
  };
+
+prop_sport_selector.onchange = function()
+ {
+  var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
+  var prop_golf_type = document.getElementsByClassName("prop_golf_type");
+  var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
+
+  switch (selectorHTML(prop_sport_selector))
+  {
+    case "Basketball":
+      show(prop_baseball_type[0]);
+      hide(prop_golf_type[0]);
+      hide(prop_baseball_type[0]);
+      break;
+    case "Golf":
+      show(prop_golf_type[0]);
+      hide(prop_basketball_type[0]);
+      hide(prop_baseball_type[0]);
+      break;
+    case "Baseball":
+      show(prop_baseball_type[0]);
+      hide(prop_basketball_type[0]);
+      hide(prop_golf_type[0]);
+      break;
+  }
+ };
+
+prop_basketball_type_selector.onchange = function()
+ {
+   var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
+   var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
+
+   switch (selectorHTML(prop_baseball_type_selector))
+    {
+      case "Match Play":
+        show(prop_basketball_match_play[0]);
+        hide(prop_basketball_over_under[0]);
+        break;
+      case "Over/Under":
+        show(prop_basketball_over_under[0]);
+        hide(prop_basketball_match_play[0]);
+        break;
+    }
+ };
+
+prop_golf_type_selector.onchange = function()
+ {
+   var prop_golf_make_the_cut = document.getElementsByClassName("prop_golf_make_the_cut");
+   var prop_golf_over_under = document.getElementsByClassName("prop_golf_over_under");
+   var prop_golf_match_play = document.getElementsByClassName("prop_golf_match_play");
+   var prop_golf_number_of_shots = document.getElementsByClassName("prop_golf_number_of_shots");
+
+   switch (selectorHTML(prop_golf_type_selector))
+    {
+      case "Make the Cut":
+        show(prop_golf_make_the_cut[0]);
+        hide(prop_golf_over_under[0]);
+        hide(prop_golf_match_play[0]);
+        hide(prop_golf_number_of_shots[0]);
+        break;
+      case "Over/Under":
+        show(prop_golf_over_under[0]);
+        hide(prop_golf_make_the_cut[0]);
+        hide(prop_golf_match_play[0]);
+        hide(prop_golf_number_of_shots[0]);
+        break;
+      case "Match Play":
+        show(prop_golf_match_play[0]);
+        hide(prop_golf_make_the_cut[0]);
+        hide(prop_golf_over_under[0]);
+        hide(prop_golf_number_of_shots[0]);
+        break;
+      case "Number of Shots":
+        show(prop_golf_number_of_shots[0]);
+        hide(prop_golf_make_the_cut[0]);
+        hide(prop_golf_over_under[0]);
+        hide(prop_golf_match_play[0]);
+        break;
+    }
+ };
+
+prop_golf_multistat_overall.onchange = function()
+ {
+   var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
+   var prop_golf_stats_overall = document.getElementsByClassName("prop_golf_stats_overall");
+
+   switch (selectorHTML(prop_golf_multistat_overall))
+    {
+      case "Multi-stat":
+        show(prop_golf_stats_multistat[0]);
+        hide(prop_golf_stats_overall[0]);
+        break;
+      case "Overall":
+        show(prop_golf_stats_overall[0]);
+        hide(prop_golf_stats_multistat[0]);
+        break;
+    }
+ };
+
+ prop_baseball_type_selector.onchange = function()
+  {
+    var prop_baseball_match_play = document.getElementsByClassName("prop_baseball_match_play");
+    var prop_baseball_over_under = document.getElementsByClassName("prop_baseball_over_under");
+
+    switch (selectorHTML(prop_baseball_type_selector))
+      {
+        case "Match Play":
+          show(prop_baseball_match_play[0]);
+          hide(prop_baseball_over_under[0]);
+          break;
+        case "Over/Under":
+          show(prop_baseball_over_under[0]);
+          hide(prop_baseball_match_play[0]);
+          break;
+      }
+  };

@@ -10,8 +10,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $( function() {
-            $( "#registration_deadline" ).datepicker();
-            $( "#settlement_deadline" ).datepicker();
+            $( "#misc_registration_deadline" ).datepicker();
+            $( "#misc_settlement_deadline" ).datepicker();
         } );
   </script>
 </head>
@@ -161,27 +161,27 @@
                         </div>
                         <div class="roster_baseball_scoring hidden">
                             <div>
-                                <input type="checkbox" id="roster_baseball_rbi" class="roster_baseball_checkbox"/>
+                                <input type="checkbox" id="roster_baseball_rbi_checkbox" class="roster_baseball_checkbox"/>
                                 RBI's  
                                 <input type="number" style="width:50px;" id="roster_baseball_rbi"/>
                             </div>
                             <div>
-                                <input type="checkbox" id="roster_baseball_hits" class="roster_baseball_checkbox"/>
+                                <input type="checkbox" id="roster_baseball_hits_checkbox" class="roster_baseball_checkbox"/>
                                 Hits 
                                 <input type="number" style="width:50px;" id="roster_baseball_hits"/>
                             </div>
                             <div>
-                                <input type="checkbox" id="roster_baseball_runs" class="roster_baseball_checkbox"/>
+                                <input type="checkbox" id="roster_baseball_runs_checkbox" class="roster_baseball_checkbox"/>
                                 Runs 
                                 <input type="number" style="width:50px;" id="roster_baseball_runs"/>
                             </div>
                             <div>
-                                <input type="checkbox" id="roster_baseball_strikeouts" class="roster_baseball_checkbox"/>
+                                <input type="checkbox" id="roster_baseball_strikeouts_checkbox" class="roster_baseball_checkbox"/>
                                 Strikeouts 
                                 <input type="number" style="width:50px;" id="roster_baseball_strikeouts"/>
                             </div>
                             <div>
-                                <input type="checkbox" id="roster_baseball_walks" class="roster_baseball_checkbox"/>
+                                <input type="checkbox" id="roster_baseball_walks_checkbox" class="roster_baseball_checkbox"/>
                                 Walks 
                                 <input type="number" style="width:50px;" id="roster_baseball_walks"/>
                             </div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="roster_cost_per_entry">
                             Cost per entry (BTC) 
-                            <input type="number" style="width:200px;" id="roster_cost_per_entry"/>
+                            <input type="number" style="width:200px;" id="roster_cost_per_entry" class="input_style chosen-select"/>
                         </div>
                         <div class="roster_settlement_type">
                             Settlement type 
@@ -208,10 +208,34 @@
                             </select>
                         </div>
                         <div class="roster_settlement_jackpot hidden">
-                            
+                            Pay Structure 
+                            <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255"> <!-- what input type? -->
+                            Min Users 
+                            <input type="number" style="width:200px;" id="roster_jackpot_min_users"/>
+                            Max Users 
+                            <input type="number" style="width:200px;" id="roster_jackpot_max_users"/>
                         </div>
                         <div class="roster_settlement_double_up hidden">
-                            
+                            Min Users 
+                            <input type="number" style="width:200px;" id="roster_double_up_min_users"/>
+                            Max Users 
+                            <input type="number" style="width:200px;" id="roster_double_up_max_users"/>
+                        </div>
+                        <div class="max_rosters_per_user">
+                            Max number of rosters per user 
+                            <input type="number" style="width:200px;" id="max_rosters_per_user"/>
+                        </div>
+                        <div class="roster_size">
+                            Number of players on roster 
+                            <input type="number" style="width:200px;" id="roster_size"/>
+                        </div>
+                        <div class="roster_salary_cap">
+                            Salary cap 
+                            <input type="number" style="width:200px;" id="roster_salary_cap"/>
+                        </div>
+                        <div class="roster_score_header">
+                            Score header 
+                            <input type="number" style="width:200px;" id="roster_score_header"/>
                         </div>
                     </div>
                     <!-- Prop specific fields -->
@@ -225,10 +249,452 @@
                                 <option value="Baseball">Baseball</option>
                             </select>
                         </div>
+                        <div class="prop_basketball_type hidden">
+                            Prop type 
+                            <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
+                        <div class="prop_golf_type hidden">
+                            Prop type 
+                            <select data-placeholder="Select" id="prop_golf_type" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Make the Cut">Make the Cut</option>
+                                <option value="Over/Under">Over/Under</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Number of Shots">Number of Shots</option>
+                            </select>
+                        </div>
+                        <div class="prop_baseball_type hidden">
+                            Prop type 
+                            <select data-placeholder="Select" id="prop_baseball_type" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
+                        <div class="prop_basketball_match_play hidden">
+                            <div class="prop_basketball_scoring">
+                                <div>
+                                    <input type="checkbox" id="prop_basketball_match_points_checkbox" class="roster_basketball_checkbox"/>
+                                    Points 
+                                    <input type="number" style="width:50px;" id="prop_basketball_match_points"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_rebounds_checkbox" class="roster_basketball_checkbox"/>
+                                    Rebounds 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_rebounds"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_assists_checkbox" class="roster_basketball_checkbox"/>
+                                    Assits 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_assists"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_steals_checkbox" class="roster_basketball_checkbox"/>
+                                    Steals 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_steals"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_blocks_checkbox" class="roster_basketball_checkbox"/>
+                                    Blocks 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_blocks"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_turnovers_checkbox" class="roster_basketball_checkbox"/>
+                                    Turnovers 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_turnovers"/>
+                                </div>
+                            </div>
+                            <!-- Use function to populate players + add / delete players -->
+                            <div class="prop_basketball_match_players">
+                                Select Players 
+                                <br />
+                                1 
+                                <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!---->
+                        </div>
+                        <div class="prop_basketball_over_under hidden">
+                            <div class="prop_basketball_over_under_players">
+                                Select Player 
+                                <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!-- Radio butons ? -->
+                            <div class="prop_basketball_over_under_stats">
+                                Stat to use 
+                                <select data-placeholder="Select" id="prop_basketball_over_under_stats" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Points">Points</option>
+                                    <option value="Rebounds">Rebounds</option>
+                                    <option value="Assists">Assists</option>
+                                    <option value="Steals">Steals</option>
+                                    <option value="Blocks">Blocks</option>
+                                    <option value="Turnovers">Turnovers</option>
+                                </select>
+                                <input type="number" style="width:200px;" id="prop_basketball_over_under_stat_value"/>
+                            </div>
+                            <!-- Slider ? -->
+                            <div class="prop_basketball_over_under_value">
+                                Over Under Value (0 - 70)
+                                <input type="number" min="0" max="70" style="width:200px;" id="prop_basketball_over_under_value"/>
+                            </div>
+                        </div>
+                        <div class="prop_golf_make_the_cut hidden">
+                            Select Player 
+                            <select data-placeholder="Select" id="prop_golf_make_the_cut_player" class="input_style chosen-select">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Player X">Player X</option>
+                            </select>
+                        </div>
+                        <div class="prop_golf_over_under hidden">
+                            <div class="prop_golf_over_under_player">
+                                Select Player 
+                                <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_over_under_round_tournament">
+                                Round or Tournament? 
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <div class="prop_golf_over_under_score">
+                                Score
+                                <input type="number" style="width:50px;" id="prop_golf_over_under_score"/>
+                            </div>
+                        </div>
+                        <div class="prop_golf_match_play hidden">
+                            <div class="prop_golf_multistat_overall">
+                                Multi-stat or Overall?
+                                <select data-placeholder="Select" id="prop_golf_multistat_overall" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Multi-stat">Multi-stat</option>
+                                    <option value="Overall">Overall</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_stats_multistat hidden">
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_eagles" class="prop_golf_stats_checkbox"/>
+                                    Eagles 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_eagles"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_birdies" class="prop_golf_stats_checkbox"/>
+                                    Birdies 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_birdies"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_pars" class="prop_golf_stats_checkbox"/>
+                                    Pars 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_pars"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_bogeys" class="prop_golf_stats_checkbox"/>
+                                    Bogeys 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_bogeys"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_double_bogeys" class="prop_golf_stats_checkbox"/>
+                                    Double-Bogeys 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_double_bogeys"/>
+                                </div>
+                            </div>
+                            <div class="prop_golf_stats_overall hidden">
+                                <div>
+                                    Overall Score 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_overall_score"/>
+                                </div>
+                            </div>
+                            <div class="prop_golf_match_play_round_tournament">
+                                Round or Tournament? 
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="prop_golf_match_players">
+                                Select Players 
+                                <br />
+                                1 
+                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!---->
+                        </div>
+                        <div class="prop_golf_number_of_shots hidden">
+                            <div class="prop_golf_number_of_shots_type">
+                                Shot Type 
+                                <select data-placeholder="Select" id="prop_golf_number_of_shots_type" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Eagles">Eagles</option>
+                                    <option value="Birdies">Birdies</option>
+                                    <option value="Pars">Pars</option>
+                                    <option value="Bogeys">Bogeys</option>
+                                    <option value="Double-Bogeys">Double-Bogeys</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_number_of_shots_round_tournament">
+                                Round or Tournament? 
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <div class="prop_golf_number_of_shots_player">
+                                Select Player 
+                                <select data-placeholder="Select" id="prop_golf_number_of_shots_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="prop_baseball_match_play hidden">
+                            <div class="prop_baseball_match_play_stats">
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_rbi_checkbox" class="roster_baseball_checkbox"/>
+                                    RBI's  
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_rbi"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_hits_checkbox" class="roster_baseball_checkbox"/>
+                                    Hits 
+                                    <input type="number" style="width:50px;" id="roster_baseball_hits"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_runs_checkbox" class="roster_baseball_checkbox"/>
+                                    Runs 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_runs"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_strikeouts_checkbox" class="roster_baseball_checkbox"/>
+                                    Strikeouts 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_strikeouts"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_walks_checkbox" class="roster_baseball_checkbox"/>
+                                    Walks 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_walks"/>
+                                </div>
+                            </div>
+                            <div class="prop_baseball_match_players">
+                                Select Players 
+                                <br />
+                                1 
+                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="prop_baseball_over_under hidden">
+                            <div class="prop_baseball_over_under_player">
+                                Select Player 
+                                <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                            <div class="prop_baseball_over_under_stats">
+                                Stat to use 
+                                <select data-placeholder="Select" id="prop_baseball_over_under_stats" class="input_style chosen-select">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="RBI's">RBI's</option>
+                                    <option value="Hits">Hits</option>
+                                    <option value="Runs">Runs</option>
+                                    <option value="Strikeouts">Strikeouts</option>
+                                    <option value="Walks">Walks</option>
+                                </select>
+                                <br />
+                                Over/Under Value 
+                                <input type="number" style="width:50px;" id="prop_baseball_over_under_value"/>
+                            </div>
+                            <div class="prop_baseball_wager_amount">
+                                Minimum Wager Amount 
+                                <input type="number" style="width:50px;" id="prop_baseball_wager_amount" />
+                            </div>
+                        </div>
                     </div>
                     <!-- Misc specific fields -->
                     <div class="misc_fields hidden">
-                        
+                        <div class="misc_title">
+                            Title 
+                            <input id="misc_title" type="text" class="input_style text_input" maxlength="255">
+                        </div>
+                        <div class="misc_description">
+                            Description 
+                            <input id="misc_description" type="text" class="input_style text_input" maxlength="1000" style="width:250px">
+                        </div>
+                        <div class="misc_reg_deadline">
+                            Registration Deadline
+                            <div class="contest_registration_options">
+                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                                <select data-placeholder="Select" id="misc_registration_deadline_time_selector" class="input_style chosen-select" style="width:100px">
+                                    <option value="0">12:00 AM</option>
+                                    <option value="1">1:00 AM</option>
+                                    <option value="2">2:00 AM</option>
+                                    <option value="3">3:00 AM</option>
+                                    <option value="4">4:00 AM</option>
+                                    <option value="5">5:00 AM</option>
+                                    <option value="6">6:00 AM</option>
+                                    <option value="7">7:00 AM</option>
+                                    <option value="8">8:00 AM</option>
+                                    <option value="9">9:00 AM</option>
+                                    <option value="10">10:00 AM</option>
+                                    <option value="11">11:00 AM</option>
+                                    <option value="12">12:00 PM</option>
+                                    <option value="13">1:00 PM</option>
+                                    <option value="14">2:00 PM</option>
+                                    <option value="15">3:00 PM</option>
+                                    <option value="16">4:00 PM</option>
+                                    <option value="17">5:00 PM</option>
+                                    <option value="18" selected>6:00 PM</option>
+                                    <option value="19">7:00 PM</option>
+                                    <option value="20">8:00 PM</option>
+                                    <option value="21">9:00 PM</option>
+                                    <option value="22">10:00 PM</option>
+                                    <option value="23">11:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="misc_set_deadline">
+                            Settlement Deadline 
+                            <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                            <select data-placeholder="Select" id="misc_settlement_deadline_time_selector" class="input_style chosen-select" style="width:100px">
+                                <option value="0">12:00 AM</option>
+                                <option value="1">1:00 AM</option>
+                                <option value="2">2:00 AM</option>
+                                <option value="3">3:00 AM</option>
+                                <option value="4">4:00 AM</option>
+                                <option value="5">5:00 AM</option>
+                                <option value="6">6:00 AM</option>
+                                <option value="7">7:00 AM</option>
+                                <option value="8">8:00 AM</option>
+                                <option value="9">9:00 AM</option>
+                                <option value="10">10:00 AM</option>
+                                <option value="11">11:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="13">1:00 PM</option>
+                                <option value="14">2:00 PM</option>
+                                <option value="15">3:00 PM</option>
+                                <option value="16">4:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                                <option value="18" selected>6:00 PM</option>
+                                <option value="19">7:00 PM</option>
+                                <option value="20">8:00 PM</option>
+                                <option value="21">9:00 PM</option>
+                                <option value="22">10:00 PM</option>
+                                <option value="23">11:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="misc_pari_mutuel_options">
+                            <!-- Reqiures Testing - id's and class's -->
+                            Pari-mutuel Options
+                            <div class="misc_pari_mutuel_options">
+                                Number of Options: 
+                                <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
+                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
+                            </div>
+                            <div id="pari_mutuel_table" class="report_table"></div>
+                        </div>
+                        <div class="misc_min_wager">
+                            Minimum Wager Amount (BTC) 
+                            <input type="number" style="width:200px;" id="misc_min_wager"/>
+                        </div>
+                        <div class="misc_settlement_type">
+                            Settlement Type 
+                            <select data-placeholder="Select" id="misc_settlement_type" class="input_style chosen-select" style="width:100px">
+                                <option value="USER-SETTLED">User-Settled</option>
+                                <option value="CROWD-SETTLED">Crowd-Settled</option>
+                            </select>
+                        </div>
                     </div>
                     <!-- Common fields -->
                     <div class="public_private_selector">
@@ -243,8 +709,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <!-- <div class="contest_details">
                     <div class="page_title">
