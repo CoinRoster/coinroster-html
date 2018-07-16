@@ -96,7 +96,6 @@ roster_settlement_type.onchange = function()
     }
  };
 
-// hide 'prop_golf_match_play_round_tournament' and others - so in reverse it sitll works
 prop_sport_selector.onchange = function()
  {
   var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
@@ -106,7 +105,7 @@ prop_sport_selector.onchange = function()
   switch (selectorHTML(prop_sport_selector))
   {
     case "Basketball":
-      show(prop_baseball_type[0]);
+      show(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
       hide(prop_baseball_type[0]);
       break;
