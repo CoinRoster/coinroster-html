@@ -127,7 +127,7 @@ prop_basketball_type_selector.onchange = function()
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
    var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
 
-   switch (selectorHTML(prop_baseball_type_selector))
+   switch (selectorHTML(prop_basketball_type_selector))
     {
       case "Match Play":
         show(prop_basketball_match_play[0]);
