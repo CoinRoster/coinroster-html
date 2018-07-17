@@ -266,6 +266,10 @@
         padding-left: 15px !important;
     }
 
+    .dropdown {
+        height: 37px;
+    }
+
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
     }
