@@ -196,15 +196,15 @@
                             <span class="input_label">Pay Structure </span>
                             <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255"> <!-- what input type? -->
                             <span class="input_label">Min Users</span>
-                            <input type="number" style="width:200px;" id="roster_jackpot_min_users"/>
+                            <input type="number" class="input_style" id="roster_jackpot_min_users"/>
                             <span class="input_label">Max Users</span>
-                            <input type="number" style="width:200px;" id="roster_jackpot_max_users"/>
+                            <input type="number" class="input_style" id="roster_jackpot_max_users"/>
                         </div>
                         <div class="roster_settlement_double_up hidden input_padding">
                             <span class="input_label">Min Users</span>
-                            <input type="number" style="width:200px;" id="roster_double_up_min_users"/>
+                            <input type="number" class="input_style" id="roster_double_up_min_users"/>
                             <span class="input_label">Max Users</span>
-                            <input type="number" style="width:200px;" id="roster_double_up_max_users"/>
+                            <input type="number" class="input_style" id="roster_double_up_max_users"/>
                         </div>
                         <div class="max_rosters_per_user input_padding">
                             <span class="input_label">Max number of rosters per user</span>
@@ -589,7 +589,7 @@
                         <div class="misc_reg_deadline input_padding">
                             <span class="input_label">Registration Deadline</span>
                             <div class="contest_registration_options">
-                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select dropdown" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
                                 <select data-placeholder="Select" id="misc_registration_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
                                     <option value="0">12:00 AM</option>
                                     <option value="1">1:00 AM</option>
@@ -620,7 +620,7 @@
                         </div>
                         <div class="misc_set_deadline input_padding">
                             <span class="input_label">Settlement Deadline </span>
-                            <input type="text" id="misc_settlement_deadline" class="input_style chosen-select dropdown" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                            <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
                             <select data-placeholder="Select" id="misc_settlement_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
@@ -660,11 +660,11 @@
                         </div>
                         <div class="misc_min_wager input_padding">
                             <span class="input_label">Minimum Wager Amount (BTC) </span>
-                            <input type="number" style="width:200px;" id="misc_min_wager"/>
+                            <input type="number" class="input_style" id="misc_min_wager"/>
                         </div>
                         <div class="misc_settlement_type input_padding">
                             <span class="input_label">Settlement Type </span>
-                            <select data-placeholder="Select" id="misc_settlement_type" class="input_style chosen-select dropdown" style="width:100px">
+                            <select data-placeholder="Select" id="misc_settlement_type" class="input_style chosen-select dropdown">
                                 <option value="USER-SETTLED">User-Settled</option>
                                 <option value="CROWD-SETTLED">Crowd-Settled</option>
                             </select>
@@ -672,7 +672,7 @@
                     </div>
                     <!-- Common fields -->
                     <div class="public_private_selector input_padding">
-                        <span class="input_label">Public or Privat</span>
+                        <span class="input_label">Public or Private</span>
                         <div>
                             <input type="radio" name="public_private" id="roster_public" checked/>
                             <label for="roster_public">Public</label>
