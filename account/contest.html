@@ -41,7 +41,7 @@
                         </h3>
                     </div>
                     <div>
-                        Contest Type: 
+                        <span class="input_label">Contest Type</span>
                         <select data-placeholder="Select" id="contest_type_selector" class="input_style chosen-select">
                             <option value="" selected disabled hidden>Select</option>
                             <option value="Roster">Roster</option>
@@ -52,7 +52,7 @@
                     <!-- Roster specific fields -->
                     <div class="roster_fields hidden">
                         <div class="roster_sport_selector">
-                            Sport:
+                            <span class="input_label">Sport:</span>
                             <select data-placeholder="Select" id="roster_sport_selector" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Basketball">Basketball</option>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="roster_golf_scoring hidden">
                             <div class="roster_multistat_overall">
-                                Multi-stat or Overall?
+                                <span class="input_label">Multi-stat or Overall?</span>
                                 <select data-placeholder="Select" id="roster_multistat_overall" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Multi-stat">Multi-stat</option>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                             <div class="roster_round_tournament">
-                                Round or Tournament? 
+                                <span class="input_label">Round or Tournament?</span>
                                 <div>
                                     <input type="radio" name="round_tournament" id="roster_golf_round_one" checked/>
                                     <label for="roster_golf_round_one">1</label>
@@ -180,11 +180,11 @@
                             </div>
                         </div>
                         <div class="roster_cost_per_entry">
-                            Cost per entry (BTC) 
+                            <span class="input_label">Cost per entry (BTC)</span>
                             <input type="number" style="width:200px;" id="roster_cost_per_entry" class="input_style chosen-select"/>
                         </div>
                         <div class="roster_settlement_type">
-                            Settlement type 
+                            <span class="input_label">Settlement type</span>
                             <select data-placeholder="Select" id="roster_settlement_type" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Jackpot">Jackpot</option>
@@ -193,36 +193,36 @@
                             </select>
                         </div>
                         <div class="roster_settlement_jackpot hidden">
-                            Pay Structure 
+                            <span class="input_label">Pay Structure </span>
                             <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255"> <!-- what input type? -->
-                            Min Users 
+                            <span class="input_label">Min Users</span>
                             <input type="number" style="width:200px;" id="roster_jackpot_min_users"/>
-                            Max Users 
+                            <span class="input_label">Max Users</span>
                             <input type="number" style="width:200px;" id="roster_jackpot_max_users"/>
                         </div>
                         <div class="roster_settlement_double_up hidden">
-                            Min Users 
+                            <span class="input_label">Min Users</span>
                             <input type="number" style="width:200px;" id="roster_double_up_min_users"/>
-                            Max Users 
+                            <span class="input_label">Max Users</span>
                             <input type="number" style="width:200px;" id="roster_double_up_max_users"/>
                         </div>
                         <div class="max_rosters_per_user">
-                            Max number of rosters per user 
+                            <span class="input_label">Max number of rosters per user</span>
                             <input type="number" style="width:200px;" id="max_rosters_per_user"/>
                         </div>
                         <div class="roster_size">
-                            Number of players on roster 
+                            <span class="input_label">Number of players on roster</span>
                             <input type="number" style="width:200px;" id="roster_size"/>
                         </div>
                         <div class="roster_salary_cap">
-                            Salary cap 
+                            <span class="input_label">Salary cap</span>
                             <input type="number" style="width:200px;" id="roster_salary_cap"/>
                         </div>
                     </div>
                     <!-- Prop specific fields -->
                     <div class="prop_fields hidden">
                         <div class="prop_sport_selector">
-                            Sport:
+                            <span class="input_label">Sport</span>
                             <select data-placeholder="Select" id="prop_sport_selector" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Basketball">Basketball</option>
@@ -231,7 +231,7 @@
                             </select>
                         </div>
                         <div class="prop_basketball_type hidden">
-                            Prop type 
+                            <span class="input_label">Prop type</span>
                             <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Match Play">Match Play</option>
@@ -239,7 +239,7 @@
                             </select>
                         </div>
                         <div class="prop_golf_type hidden">
-                            Prop type 
+                            <span class="input_label">Prop type </span>
                             <select data-placeholder="Select" id="prop_golf_type" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Make the Cut">Make the Cut</option>
@@ -249,7 +249,7 @@
                             </select>
                         </div>
                         <div class="prop_baseball_type hidden">
-                            Prop type 
+                            <span class="input_label">Prop type </span>
                             <select data-placeholder="Select" id="prop_baseball_type" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Match Play">Match Play</option>
@@ -291,8 +291,7 @@
                             </div>
                             <!-- Use function to populate players + add / delete players -->
                             <div class="prop_basketball_match_players">
-                                Select Players 
-                                <br />
+                                <span class="input_label">Select Players</span>
                                 1 
                                 <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
@@ -311,7 +310,7 @@
                         </div>
                         <div class="prop_basketball_over_under hidden">
                             <div class="prop_basketball_over_under_players">
-                                Select Player 
+                                <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Player X">Player X</option>
@@ -320,7 +319,7 @@
                             </div>
                             <!-- Radio butons ? -->
                             <div class="prop_basketball_over_under_stats">
-                                Stat to use 
+                                <span class="input_label">Stat to use </span>
                                 <select data-placeholder="Select" id="prop_basketball_over_under_stats" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Points">Points</option>
@@ -334,12 +333,12 @@
                             </div>
                             <!-- Slider ? -->
                             <div class="prop_basketball_over_under_value">
-                                Over Under Value (0 - 70)
+                                <span class="input_label">Over Under Value (0 - 70)</span>
                                 <input type="number" min="0" max="70" style="width:200px;" id="prop_basketball_over_under_value"/>
                             </div>
                         </div>
                         <div class="prop_golf_make_the_cut hidden">
-                            Select Player 
+                            <span class="input_label">Select Player </span>
                             <select data-placeholder="Select" id="prop_golf_make_the_cut_player" class="input_style chosen-select">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Player X">Player X</option>
@@ -347,14 +346,14 @@
                         </div>
                         <div class="prop_golf_over_under hidden">
                             <div class="prop_golf_over_under_player">
-                                Select Player 
+                                <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Player X">Player X</option>
                                 </select>
                             </div>
                             <div class="prop_golf_over_under_round_tournament">
-                                Round or Tournament? 
+                                <span class="input_label">Round or Tournament? </span>
                                 <div>
                                     <input type="radio" name="round_tournament" id="prop_golf_over_round_one" checked/>
                                     <label for="roster_golf_round_one">1</label>
@@ -383,7 +382,7 @@
                         </div>
                         <div class="prop_golf_match_play hidden">
                             <div class="prop_golf_multistat_overall">
-                                Multi-stat or Score to Par?
+                                <span class="input_label">Multi-stat or Score to Par?</span>
                                 <select data-placeholder="Select" id="prop_golf_multistat_overall" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Multi-stat">Multi-stat</option>
@@ -419,12 +418,12 @@
                             </div>
                             <div class="prop_golf_stats_overall hidden">
                                 <div>
-                                    Overall Score 
+                                    <span class="input_label">Overall Score </span>
                                     <input type="number" style="width:50px;" id="prop_golf_stats_overall_score"/>
                                 </div>
                             </div>
                             <div class="prop_golf_match_play_round_tournament">
-                                Round or Tournament? 
+                                <span class="input_label">Round or Tournament? </span>
                                 <div>
                                     <input type="radio" name="round_tournament" id="prop_golf_match_play_round_one" checked/>
                                     <label for="roster_golf_round_one">1</label>
@@ -448,8 +447,7 @@
                             </div>
                             <!---->
                             <div class="prop_golf_match_players">
-                                Select Players 
-                                <br />
+                                <span class="input_label">Select Players </span>
                                 1 
                                 <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
@@ -468,7 +466,7 @@
                         </div>
                         <div class="prop_golf_number_of_shots hidden">
                             <div class="prop_golf_number_of_shots_type">
-                                Shot Type 
+                                <span class="input_label">Shot Type </span>
                                 <select data-placeholder="Select" id="prop_golf_number_of_shots_type" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Eagles">Eagles</option>
@@ -479,7 +477,7 @@
                                 </select>
                             </div>
                             <div class="prop_golf_number_of_shots_round_tournament">
-                                Round or Tournament? 
+                                <span class="input_label">Round or Tournament? </span>
                                 <div>
                                     <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_one" checked/>
                                     <label for="roster_golf_round_one">1</label>
@@ -502,7 +500,7 @@
                                 </div>
                             </div>
                             <div class="prop_golf_number_of_shots_player">
-                                Select Player 
+                                <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_golf_number_of_shots_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Player X">Player X</option>
@@ -538,8 +536,7 @@
                                 </div>
                             </div>
                             <div class="prop_baseball_match_players">
-                                Select Players 
-                                <br />
+                                <span class="input_label">Select Players </span>
                                 1 
                                 <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
@@ -557,14 +554,14 @@
                         </div>
                         <div class="prop_baseball_over_under hidden">
                             <div class="prop_baseball_over_under_player">
-                                Select Player 
+                                <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Player X">Player X</option>
                                 </select>
                             </div>
                             <div class="prop_baseball_over_under_stats">
-                                Stat to use 
+                                <span class="input_label">Stat to use </span>
                                 <select data-placeholder="Select" id="prop_baseball_over_under_stats" class="input_style chosen-select">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="RBIs">RBIs</option>
@@ -574,7 +571,7 @@
                                     <option value="Walks">Walks</option>
                                 </select>
                                 <br />
-                                Over/Under Value 
+                                <span class="input_label">Over/Under Value </span>
                                 <input type="number" style="width:50px;" id="prop_baseball_over_under_value"/>
                             </div>
                         </div>
@@ -582,15 +579,15 @@
                     <!-- Misc specific fields -->
                     <div class="misc_fields hidden">
                         <div class="misc_title">
-                            Title 
+                            <span class="input_label">Title </span>
                             <input id="misc_title" type="text" class="input_style text_input" maxlength="255">
                         </div>
                         <div class="misc_description">
-                            Description 
+                            <span class="input_label">Description </span>
                             <input id="misc_description" type="text" class="input_style text_input" maxlength="1000" style="width:250px">
                         </div>
                         <div class="misc_reg_deadline">
-                            Registration Deadline
+                            <span class="input_label">Registration Deadline</span>
                             <div class="contest_registration_options">
                                 <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
                                 <select data-placeholder="Select" id="misc_registration_deadline_time_selector" class="input_style chosen-select" style="width:100px">
@@ -622,7 +619,7 @@
                             </div>
                         </div>
                         <div class="misc_set_deadline">
-                            Settlement Deadline 
+                            <span class="input_label">Settlement Deadline </span>
                             <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
                             <select data-placeholder="Select" id="misc_settlement_deadline_time_selector" class="input_style chosen-select" style="width:100px">
                                 <option value="0">12:00 AM</option>
@@ -653,7 +650,7 @@
                         </div>
                         <div class="misc_pari_mutuel_options">
                             <!-- Reqiures Testing - id's and class's -->
-                            Pari-mutuel Options
+                            <span class="input_label">Pari-mutuel Options</span>
                             <div class="misc_pari_mutuel_options">
                                 Number of Options: 
                                 <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
@@ -662,11 +659,11 @@
                             <div id="pari_mutuel_table" class="report_table"></div>
                         </div>
                         <div class="misc_min_wager">
-                            Minimum Wager Amount (BTC) 
+                            <span class="input_label">Minimum Wager Amount (BTC) </span>
                             <input type="number" style="width:200px;" id="misc_min_wager"/>
                         </div>
                         <div class="misc_settlement_type">
-                            Settlement Type 
+                            <span class="input_label">Settlement Type </span>
                             <select data-placeholder="Select" id="misc_settlement_type" class="input_style chosen-select" style="width:100px">
                                 <option value="USER-SETTLED">User-Settled</option>
                                 <option value="CROWD-SETTLED">Crowd-Settled</option>
@@ -675,7 +672,7 @@
                     </div>
                     <!-- Common fields -->
                     <div class="public_private_selector">
-                        Public or Private?
+                        <span class="input_label">Public or Private?</span>
                         <div>
                             <input type="radio" name="public_private" id="roster_public" checked/>
                             <label for="roster_public">Public</label>
