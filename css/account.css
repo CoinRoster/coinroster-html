@@ -263,11 +263,8 @@
     }
   
     .content_body {
-        padding-left: 31px !important;
+        padding-left: 15px !important;
     }
-    
-    
-
 
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
