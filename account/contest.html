@@ -94,7 +94,7 @@
                         </div>
                         <div class="roster_golf_scoring hidden input_padding">
                             <div class="roster_multistat_overall">
-                                <span class="input_label">Multi-stat or Overall?</span>
+                                <span class="input_label">Multi-stat or Score to Par</span>
                                 <select data-placeholder="Select" id="roster_multistat_overall" class="input_style chosen-select dropdown dropdown">
                                     <option value="" selected disabled hidden>Select</option>
                                     <option value="Multi-stat">Multi-stat</option>
@@ -181,7 +181,7 @@
                         </div>
                         <div class="roster_cost_per_entry input_padding">
                             <span class="input_label">Cost per entry (BTC)</span>
-                            <input type="number" style="width:200px;" id="roster_cost_per_entry" class="input_style"/>
+                            <input type="number" placeholder="Cost per entry" style="width:200px;" id="roster_cost_per_entry" class="input_style"/>
                         </div>
                         <div class="roster_settlement_type input_padding">
                             <span class="input_label">Settlement type</span>
@@ -193,18 +193,28 @@
                             </select>
                         </div>
                         <div class="roster_settlement_jackpot hidden input_padding">
-                            <span class="input_label">Pay Structure </span>
-                            <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255"> <!-- what input type? -->
-                            <span class="input_label">Min Users</span>
-                            <input type="number" class="input_style" id="roster_jackpot_min_users"/>
-                            <span class="input_label">Max Users</span>
-                            <input type="number" class="input_style" id="roster_jackpot_max_users"/>
+                            <div class="input_padding">
+                                <span class="input_label">Pay Structure </span>
+                                <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255">
+                            </div>
+                            <div class="input_padding">
+                                <span class="input_label">Min Users</span>
+                                <input type="number" class="input_style" id="roster_jackpot_min_users"/>
+                            </div>
+                            <div class="input_padding">
+                                <span class="input_label">Max Users</span>
+                                <input type="number" class="input_style" id="roster_jackpot_max_users"/>
+                            </div>
                         </div>
                         <div class="roster_settlement_double_up hidden input_padding">
-                            <span class="input_label">Min Users</span>
-                            <input type="number" class="input_style" id="roster_double_up_min_users"/>
-                            <span class="input_label">Max Users</span>
-                            <input type="number" class="input_style" id="roster_double_up_max_users"/>
+                            <div class="input_padding">
+                                <span class="input_label">Min Users</span>
+                                <input type="number" class="input_style" id="roster_double_up_min_users"/>
+                            </div>
+                            <div class="input_padding">
+                                <span class="input_label">Max Users</span>
+                                <input type="number" class="input_style" id="roster_double_up_max_users"/>
+                            </div>
                         </div>
                         <div class="max_rosters_per_user input_padding">
                             <span class="input_label">Max number of rosters per user</span>
@@ -584,12 +594,12 @@
                         </div>
                         <div class="misc_description input_padding">
                             <span class="input_label">Description </span>
-                            <input id="misc_description" type="text" class="input_style text_input" maxlength="1000" style="width:250px">
+                            <input id="misc_description" type="text" class="input_style text_input" maxlength="1000">
                         </div>
                         <div class="misc_reg_deadline input_padding">
                             <span class="input_label">Registration Deadline</span>
                             <div class="contest_registration_options">
-                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
                                 <select data-placeholder="Select" id="misc_registration_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
                                     <option value="0">12:00 AM</option>
                                     <option value="1">1:00 AM</option>
@@ -620,7 +630,7 @@
                         </div>
                         <div class="misc_set_deadline input_padding">
                             <span class="input_label">Settlement Deadline </span>
-                            <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
+                            <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
                             <select data-placeholder="Select" id="misc_settlement_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
                                 <option value="0">12:00 AM</option>
                                 <option value="1">1:00 AM</option>
