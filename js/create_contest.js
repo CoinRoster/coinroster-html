@@ -15,7 +15,7 @@ contest_type_selector.onchange = function()
     var misc_fields = document.getElementsByClassName("misc_fields");
 
     document.getElementById("roster_sport_selector").selectedIndex = "0";
-    document.getElementById("roster_sport_selector").selectedIndex = "0";
+    document.getElementById("prop_sport_selector").selectedIndex = "0";
 
     switch (selectorHTML(contest_type_selector))
       {
