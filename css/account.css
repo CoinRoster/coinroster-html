@@ -277,14 +277,14 @@
     }
 
     .checkboxes > div {
-        padding: 10px;
+        padding-bottom: 5px;
     }
 
     /* Remove inline style from input */
     .checkboxes div input:nth-child(2) {
         font-family: 'gotham_medium', sans-serif;
         font-size: 14px;
-        width: 25px !important;
+        width: 45px !important;
         float: right;
         border-radius: 5px;
         padding: 3px;
