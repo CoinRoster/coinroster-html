@@ -277,7 +277,7 @@
     }
 
     .checkboxes > div {
-        padding: 5px;
+        padding: 10px;
     }
 
     /* Remove inline style from input */
@@ -286,6 +286,10 @@
         font-size: 14px;
         width: 25px !important;
         float: right;
+        border-radius: 5px;
+        padding: 3px;
+        border: none;
+        outline: line;
     }
 
     #pari_mutuel_table tr:first-child { /* header */
