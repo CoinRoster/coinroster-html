@@ -271,6 +271,16 @@
         width: 220px;
     }
 
+    .roster_basketball_scoring {
+        width: 200px;
+        margin-left: 25px;
+        border: 1px solid red;
+    }
+
+    .roster_basketball_scoring div input:nth-child(2) {
+        width: 25px;
+    }
+
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
     }
