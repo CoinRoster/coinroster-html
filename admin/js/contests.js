@@ -71,7 +71,7 @@
                 get_pending_contests('user');
                 break;
             case 8: /* User Generated Contest */
-                populate_user_contest();
+                in_play_contest_report("crowd_contest_report_table");
                 break;
             }
         }
