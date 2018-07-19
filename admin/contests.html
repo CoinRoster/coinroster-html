@@ -670,10 +670,10 @@
             Settle Crowd Contest
         </div>
     </div>
-    <div id="crowd_contest_report" class="content_body" style="top:68px">
+    <div id="crowd_contest_report" class="content_body hidden" style="top:68px">
         <div id="crowd_contest_report_table" class="report_table"></div>
     </div>
-    <div id="settle_crowd_contest" class="content_body" style="top:68px">
+    <div id="settle_crowd_contest" class="content_body hidden" style="top:68px">
         <div style="width:800px;background:orange;padding:20px;font-size:18px;">
             You are in the Crowd Contest Settlement tab! If you only want to update scores, please <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
         </div>
@@ -685,6 +685,8 @@
             <span id="contest_title"></span>
         </h2>
         <div id="settle_pari_mutuel">
+            Voting round bets: <span id="entries"></span>
+            <br/><br/>
             Select winning outcome:
             <br/><br/>
             <div id="pari_mutuel_outcome_table" class="report_table"></div>
