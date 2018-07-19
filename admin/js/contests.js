@@ -2210,8 +2210,8 @@
         // scores_updated = contest_item.scores_updated,
         option_table = JSON.parse(contest.option_table);
 
-        hide("user_contest_table");
-        show("settle_contest");
+        hide("crowd_contest_report_table");
+        show("settle_crowd_contest");
 
         id("contest_type").innerHTML = contest_type;
         id("contest_id").innerHTML = contest_id;
