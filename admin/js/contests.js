@@ -71,6 +71,8 @@
                 get_pending_contests('user');
                 break;
             case 8: /* User Generated Contest */
+                hide("settle_crowd_contest");
+                show("crowd_contest_report");
                 in_play_contest_report("crowd_contest_report_table");
                 break;
             }
@@ -1304,6 +1306,68 @@
                 }
             }
         }
+
+/*----------------------------------------------------------------------*/
+
+    function crowd_contest_report(table_id)
+    {
+    var call = api({ 
+        method: "PendingCrowdContestReport", 
+        args: {
+            category: "",
+            sub_category: ""
+        }  
+    });
+    
+    var 
+    
+    contest_report = call.contest_report,
+    table = new_table(table_id),
+    row_count = 0;
+
+    window.contest = [];
+
+    for (var i=0; i<contest_report.length; i++)
+        {
+        var contest_item = contest_report[i];
+        console.log(JSON.stringify(contest_item.entries));
+        if (contest_item.status === 2)
+            {
+            var
+            
+            id = contest_item.id,
+            created = contest_item.created,
+            created_by = contest_item.created_by,
+            category = contest_item.category,
+            sub_category = contest_item.sub_category,
+            contest_type = contest_item.contest_type,
+            title = contest_item.title,
+            settlement_type = contest_item.settlement_type,
+            
+            button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_contest(" + id + ")\">Settle Contest</button>";
+
+            window.contest[id] = contest_item;
+            
+            if (table_id === "scorable_contest_table")
+                {
+                if (contest_type === "PARI-MUTUEL") continue;
+                button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"score_contest(" + id + ")\">Update Scores</button>";
+                }
+    
+            new_row(table, row_count++, [
+                id,
+                dateconv_ms_to_string(created),
+                created_by,
+                contest_type,
+                category,
+                sub_category,
+                settlement_type,
+                title,
+                button_string
+            ]);
+            }
+        }
+    }
 
 /*----------------------------------------------------------------------*/
  
