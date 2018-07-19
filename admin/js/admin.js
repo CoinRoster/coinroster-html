@@ -9,6 +9,8 @@
         nav_selection = -1,
         panes = document.getElementsByClassName("pane");
 
+        console.log(panes);
+
         for (var i=0; i<panes.length; i++) 
             {
             var nav_node = document.createElement("a");
