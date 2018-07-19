@@ -2064,10 +2064,12 @@
 
     window.contest = [];
 
-    for (var i=0; i<contest_report.length; i++)
+    for (var i = 0; i < contest_report.length; i++)
         {
         var contest_item = contest_report[i];
         console.log(JSON.stringify(contest_item.entries));
+        id('entries').innerHTML = JSON.stringify(contest_item.entries);
+
         if (contest_item.status === 2)
             {
             var
