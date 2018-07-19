@@ -277,7 +277,7 @@
     }
 
     .checkboxes > div {
-        padding-bottom: 5px;
+        padding-bottom: 10px;
     }
 
     /* Remove inline style from input */
@@ -290,6 +290,10 @@
         padding: 3px;
         border: none;
         outline: line;
+    }
+
+    .checkboxes div input:nth-child(2):focus {
+        outline: none;
     }
 
     #pari_mutuel_table tr:first-child { /* header */
