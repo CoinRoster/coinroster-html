@@ -2068,7 +2068,7 @@
         {
         var contest_item = contest_report[i];
         console.log(JSON.stringify(contest_item.entries));
-        id('entries').innerHTML = JSON.stringify(contest_item.entries);
+        document.getElementById('entries').innerHTML = JSON.stringify(contest_item.entries);
 
         if (contest_item.status === 2)
             {
