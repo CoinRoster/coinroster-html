@@ -272,13 +272,14 @@
     }
 
     .checkboxes {
-        width: 175px;
+        width: 165px;
         margin-left: 25px;
         border: 1px solid red;
     }
 
     .checkboxes div input:nth-child(2) {
         width: 25px !important;
+        float: right;
     }
 
     #pari_mutuel_table tr:first-child { /* header */
