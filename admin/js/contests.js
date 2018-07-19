@@ -2080,10 +2080,12 @@
         title = contest_item.title,
         settlement_type = contest_item.settlement_type,
         
-        button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_crowd_contest(" + contest_item + ")\">Settle Contest</button>";
+        button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_crowd_contest(" + id + ")\">Settle Contest</button>";
 
         window.contest[id] = contest_item;
  
+        console.log(id);
+        
         new_row(table, row_count++, [
             id,
             dateconv_ms_to_string(created),
@@ -2194,14 +2196,15 @@
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
 
-    function settle_crowd_contest(contest) {
+    function settle_crowd_contest(contest_id) {
 
-        // window.contest_id_to_settle = contest_id;
+        window.contest_id_to_settle = contest_id;
 
-        // console.log(window.contest_obj);
+        console.log(window.contest_obj);
 
         var 
         
+        contest = window.contest_obj[contest_id];
         contest_type = contest.contest_type,
         contest_title = contest.title,
         // scores_updated = contest_item.scores_updated,
