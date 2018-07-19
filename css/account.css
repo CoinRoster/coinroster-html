@@ -297,7 +297,7 @@
     }
 
     .checkboxes div input:nth-child(2):disabled {
-        background: rgb(135, 135, 135); 
+        background: rgb(165, 165, 165); 
     }
 
     #pari_mutuel_table tr:first-child { /* header */
