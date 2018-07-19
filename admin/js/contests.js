@@ -2217,9 +2217,9 @@
         id("contest_id").innerHTML = contest_id;
         id("contest_title").innerHTML = contest_title;
 
-        show("settle_pari_mutuel");
+        show("settle_pari_mutuel_crowd");
         
-        var table = new_table("pari_mutuel_outcome_table");
+        var table = new_table("crowd_outcome_table");
         
         for (var i=0; i<option_table.length; i++)
             {
