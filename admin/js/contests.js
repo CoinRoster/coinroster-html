@@ -2198,6 +2198,8 @@
 
         window.contest_id_to_settle = contest_id;
 
+        console.log(window.contest_obj);
+
         var 
         
         contest = window.contest_obj[contest_id];
