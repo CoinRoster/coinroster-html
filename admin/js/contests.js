@@ -2067,7 +2067,6 @@
     for (var i = 0; i < contest_report.length; i++)
         {
         var contest_item = contest_report[i];
-        console.log(JSON.stringify(contest_item));
         document.getElementById('entries').innerHTML = JSON.stringify(contest_item.entries);
 
         var
@@ -2081,16 +2080,10 @@
         title = contest_item.title,
         settlement_type = contest_item.settlement_type,
         
-        button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_contest(" + id + ")\">Settle Contest</button>";
+        button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_crowd_contest(" + id + ")\">Settle Contest</button>";
 
         window.contest[id] = contest_item;
-        
-        if (table_id === "scorable_contest_table")
-            {
-            if (contest_type === "PARI-MUTUEL") continue;
-            button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"score_contest(" + id + ")\">Update Scores</button>";
-            }
-            
+ 
         new_row(table, row_count++, [
             id,
             dateconv_ms_to_string(created),
