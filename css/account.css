@@ -277,6 +277,10 @@
         border: 1px solid red;
     }
 
+    .checkboxes > div {
+        padding: 5px;
+    }
+
     .checkboxes div input:nth-child(2) {
         width: 25px !important;
         float: right;
