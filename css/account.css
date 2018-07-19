@@ -262,225 +262,43 @@
         vertical-align: middle;
     }
   
-    /* Create New Contest */
-
-    /* .contest_details {
-      margin-top: 25px;
-      display: grid;
-      grid-template-columns: 500px 1fr;
-      grid-template-rows: 80px 30px 65px 30px 65px 30px 65px 30px 25px 1fr;
-      grid-template-areas: "page_title ."
-                           "contest_title contest_description"
-                           "contest_title_field contest_description_field"
-                           "contest_registration_deadline contest_description_field"
-                           "contest_registration_options contest_description_field"
-                           "contest_settlement_deadline ."
-                           "contest_settlement_deadline_options contest_settlement_option"
-                           "contest_pari ."
-                           "contest_pari_options ."
-                           "report_table .";
-    }
-  
-    @media only screen and (max-width: 1025px) {
-        .contest_details {
-            grid-template-columns: 400px 1fr;
-        }
+    .content_body {
+        padding-left: 15px !important;
     }
 
-    @media only screen and (max-width: 900px) {
-      .contest_details {
-        margin-top: 25px;
-        padding-right: 15px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 70px 25px 65px 25px 170px 25px 65px 25px 45px 15px 54px 25px 35px;
-        grid-template-areas: "page_title"
-                             "contest_title"
-                             "contest_title_field"
-                             "contest_description"
-                             "contest_description_field"
-                             "contest_registration_deadline"
-                             "contest_registration_options"
-                             "contest_settlement_deadline"
-                             "contest_settlement_deadline_options"
-                             "contest_settlement"
-                             "contest_settlement_option"
-                             "contest_pari"
-                             "contest_pari_options"
-                             "report_table";
-      }
+    .dropdown {
+        height: 37px;
+        width: 220px;
     }
 
-    @media only screen and (max-width: 900px) {
-        .contest_details {
-            margin-right: 15px;
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .contest_details {
-            width: 375px;
-            margin: 0 auto;
-        }
-    }
-
-    .page_title {
-      grid-area: page_title;
-    }
-  
-    .contest_title {
-      grid-area: contest_title;
-    }
-  
-    .contest_title_field {
-      grid-area: contest_title_field;
-      margin-left: 15px;
-    }
-  
-    .contest_title_field input {
-      width: 340px;
-    }
-    
-    @media only screen and (max-width: 900px) {
-        .contest_title_field input {
-            width: 325px;
-          }
-    }
-
-    .contest_description {
-      grid-area: contest_description;
-    }
-  
-    .contest_description_field {
-      grid-area: contest_description_field;
-      margin-left: 15px;
-    }
-  
-    .contest_description_field textarea {
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 14px;
-        font-family: 'gotham_medium', sans-serif;
-    }
-
-    @media only screen and (max-width: 900px) {
-        .contest_description_field textarea {
-            width: 325px;
-        }
-    }
-
-    .contest_description_field textarea:focus {
-        outline: none;
-    }
-
-    .contest_description_field textarea:focus {
-        outline: none;
-    }
-
-    .contest_registration_deadline {
-      grid-area: contest_registration_deadline;
-    }
-  
-    .contest_registration_options {
-      grid-area: contest_registration_options;
-      margin-left: 15px;
-    }
-  
-    .contest_registration_options input {
-        height: 6px;
-    }
-
-    .contest_registration_options select {
-        height: 25px;
-        margin-left: 10px;
-        padding: 0px;
-    }
-
-    .contest_settlement_deadline {
-      grid-area: contest_settlement_deadline;
-    }
-  
-    .contest_settlement_deadline_options {
-      grid-area: contest_settlement_deadline_options;
-    }
-  
-    .contest_settlement_deadline_options input {
-        height: 6px;
-        margin-left: 15px;
-    }
-
-    .contest_settlement_deadline_options select {
-        height: 25px;
-        margin-left: 10px;
-        padding: 0px;
-    }
-  
-    .contest_settlement_option {
-      grid-area: contest_settlement_option;
-    }
-  
-    .contest_settlement_option select {
-        height: 25px;
-        margin-left: 15px;
-        padding: 0px;
-    }
-
-    .contest_pari {
-      grid-area: contest_pari;
-    }
-  
-    .contest_pari_options {
-      grid-area: contest_pari_options;
-      margin-left: 15px;
-      font-size: 13px;
-    }
-  
-    .contest_pari_options input {
+    .checkboxes {
+        width: 175px;
         margin-left: 20px;
     }
 
-    .contest_pari_options button {
-        margin-left: 15px;
-        width: 65px;
-        font-size: 14px;
+    .checkboxes > div {
+        padding-bottom: 10px;
     }
 
-    .contest_pari_options button:focus {
+    /* Remove inline style from input */
+    .checkboxes div input:nth-child(2) {
+        font-family: 'gotham_medium', sans-serif;
+        font-size: 14px;
+        width: 45px !important;
+        float: right;
+        border-radius: 5px;
+        padding: 3px;
+        border: none;
+        outline: line;
+    }
+
+    .checkboxes div input:nth-child(2):focus {
         outline: none;
     }
 
-    .contest_pari_options input {
-      width: 20px;
+    .checkboxes div input:nth-child(2):disabled {
+        background: rgb(165, 165, 165); 
     }
-  
-    .report_table {
-      grid-area: report_table;
-      margin-left: 15px;
-      padding: 25px;
-    }
-
-    .report_table input {
-        margin: 10px;
-        max-width: 290px;
-    }
-
-    .report_table .header_cell {
-        color: darkgray;
-    }
-
-    .report_table .header_cell:nth-child(2) {
-        padding-left: 10px;
-    }
-
-    .pari_mutuel_table {
-        margin-left: 25px;
-    }
-
-    .submit_container button {
-        margin-top: 40px;
-        width: 130px;
-        color: orange;
-    } */
 
     #pari_mutuel_table tr:first-child { /* header */
         display: none;

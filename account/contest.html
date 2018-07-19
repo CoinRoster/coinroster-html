@@ -10,8 +10,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $( function() {
-            $( "#registration_deadline" ).datepicker();
-            $( "#settlement_deadline" ).datepicker();
+            $( "#misc_registration_deadline" ).datepicker();
+            $( "#misc_settlement_deadline" ).datepicker();
         } );
   </script>
 </head>
@@ -34,7 +34,6 @@
         </div>
         <div class="table_body_container">
             <div class="content_body">
-
                 <div class="contest_details" >
                     <div class="page_title">
                         <h3>
@@ -42,79 +41,95 @@
                         </h3>
                     </div>
                     <div>
-                        Contest Type: 
-                        <select data-placeholder="Select" id="contest_type_selector" class="input_style chosen-select">
+                        <span class="input_label">Contest Type</span>
+                        <select data-placeholder="Select" id="contest_type_selector" class="input_style chosen-select dropdown dropdown">
                             <option value="" selected disabled hidden>Select</option>
                             <option value="Roster">Roster</option>
                             <option value="Prop">Prop</option>
                             <option value="Misc">Misc</option>
                         </select>
                     </div>
+                    <!-- Roster specific fields -->
                     <div class="roster_fields hidden">
-                        <div class="roster_sport_selector">
-                            Sport:
-                            <select data-placeholder="Select" id="roster_sport_selector" class="input_style chosen-select">
+                        <div class="roster_sport_selector input_padding">
+                            <span class="input_label">Sport</span>
+                            <select data-placeholder="Select" id="roster_sport_selector" class="input_style chosen-select dropdown dropdown">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Basketball">Basketball</option>
                                 <option value="Golf">Golf</option>
                                 <option value="Baseball">Baseball</option>
                             </select>
                         </div>
-                        <div class="roster_basketball_scoring hidden">
-                            <!-- select which of these you want to use - checkboxes? -->
+                        <div class="roster_basketball_scoring checkboxes hidden input_padding">
                             <div>
+                                <input type="checkbox" id="roster_basketball_points_checkbox" class="roster_basketball_checkbox"/>
                                 Points 
-                                <input type="number" style="width:25px;" id="roster_basketball_points"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_points" disabled/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_basketball_rebounds_checkbox" class="roster_basketball_checkbox"/>
                                 Rebounds 
-                                <input type="number" style="width:25px;" id="roster_basketball_rebounds"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_rebounds"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_basketball_assists_checkbox" class="roster_basketball_checkbox"/>
                                 Assits 
-                                <input type="number" style="width:25px;" id="roster_basketball_assists"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_assists"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_basketball_steals_checkbox" class="roster_basketball_checkbox"/>
                                 Steals 
-                                <input type="number" style="width:25px;" id="roster_basketball_steals"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_steals"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_basketball_blocks_checkbox" class="roster_basketball_checkbox"/>
                                 Blocks 
-                                <input type="number" style="width:25px;" id="roster_basketball_blocks"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_blocks"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_basketball_turnovers_checkbox" class="roster_basketball_checkbox"/>
                                 Turnovers 
-                                <input type="number" style="width:25px;" id="roster_basketball_turnovers"/>
+                                <input type="number" placeholder="   #" style="width:50px;" id="roster_basketball_turnovers"/>
                             </div>
                         </div>
-                        <div class="roster_golf_scoring hidden">
-                            <!-- select which of these you want to use - checkboxes? -->
-                            <div>
-                                Eagles 
-                                <input type="number" style="width:25px;" id="roster_golf_eagles"/>
+                        <div class="roster_golf_scoring hidden input_padding">
+                            <div class="roster_multistat_overall">
+                                <span class="input_label">Multi-stat or Score to Par</span>
+                                <select data-placeholder="Select" id="roster_multistat_overall" class="input_style chosen-select dropdown dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Multi-stat">Multi-stat</option>
+                                    <option value="Overall">Score to Par</option>
+                                </select>
                             </div>
-                            <div>
-                                Birdies 
-                                <input type="number" style="width:25px;" id="roster_golf_birdies"/>
+                            <div class="roster_golf_multistat hidden input_padding">
+                                <div>
+                                    <input type="checkbox" id="roster_golf_eagles" class="roster_golf_checkbox"/>
+                                    Eagles 
+                                    <input type="number" style="width:50px;" id="roster_golf_eagles"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="roster_golf_birdies" class="roster_golf_checkbox"/>
+                                    Birdies 
+                                    <input type="number" style="width:50px;" id="roster_golf_birdies"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="roster_golf_pars" class="roster_golf_checkbox"/>
+                                    Pars 
+                                    <input type="number" style="width:50px;" id="roster_golf_pars"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="roster_golf_bogeys" class="roster_golf_checkbox"/>
+                                    Bogeys 
+                                    <input type="number" style="width:50px;" id="roster_golf_bogeys"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="roster_golf_double_bogeys" class="roster_golf_checkbox"/>
+                                    Double-Bogeys 
+                                    <input type="number" style="width:50px;" id="roster_golf_double_bogeys"/>
+                                </div>
                             </div>
-                            <div>
-                                Pars 
-                                <input type="number" style="width:25px;" id="roster_golf_pars"/>
-                            </div>
-                            <div>
-                                Bogeys 
-                                <input type="number" style="width:25px;" id="roster_golf_bogeys"/>
-                            </div>
-                            <div>
-                                Double-Bogeys 
-                                <input type="number" style="width:25px;" id="roster_golf_double_bogeys"/>
-                            </div>
-                            <div>
-                                Overall Score 
-                                <input type="number" style="width:25px;" id="roster_golf_overall_score"/>
-                            </div>
-                            <div class="roster_round_tournament">
-                                Round or Tournament? 
+                            <div class="roster_round_tournament input_padding">
+                                <span class="input_label">Round or Tournament</span>
                                 <div>
                                     <input type="radio" name="round_tournament" id="roster_golf_round_one" checked/>
                                     <label for="roster_golf_round_one">1</label>
@@ -137,200 +152,553 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="roster_baseball_scoring hidden">
-                            <!-- select which of these you want to use - checkboxes? -->
+                        <div class="roster_baseball_scoring hidden input_padding">
                             <div>
-                                RBI's  
-                                <input type="number" style="width:25px;" id="roster_baseball_rbi"/>
+                                <input type="checkbox" id="roster_baseball_rbi_checkbox" class="roster_baseball_checkbox"/>
+                                RBIs  
+                                <input type="number" style="width:50px;" id="roster_baseball_rbi"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_baseball_hits_checkbox" class="roster_baseball_checkbox"/>
                                 Hits 
-                                <input type="number" style="width:25px;" id="roster_baseball_hits"/>
+                                <input type="number" style="width:50px;" id="roster_baseball_hits"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_baseball_runs_checkbox" class="roster_baseball_checkbox"/>
                                 Runs 
-                                <input type="number" style="width:25px;" id="roster_baseball_runs"/>
+                                <input type="number" style="width:50px;" id="roster_baseball_runs"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_baseball_strikeouts_checkbox" class="roster_baseball_checkbox"/>
                                 Strikeouts 
-                                <input type="number" style="width:25px;" id="roster_baseball_strikeouts"/>
+                                <input type="number" style="width:50px;" id="roster_baseball_strikeouts"/>
                             </div>
                             <div>
+                                <input type="checkbox" id="roster_baseball_walks_checkbox" class="roster_baseball_checkbox"/>
                                 Walks 
-                                <input type="number" style="width:25px;" id="roster_baseball_walks"/>
+                                <input type="number" style="width:50px;" id="roster_baseball_walks"/>
                             </div>
                         </div>
-                        <div class="public_private_selector">
-                            Public or Private?
-                            <div>
-                                <input type="radio" name="public_private" id="roster_public" checked/>
-                                <label for="roster_public">Public</label>
+                        <div class="roster_cost_per_entry input_padding">
+                            <span class="input_label">Cost per Entry (BTC)</span>
+                            <input type="number" placeholder="Cost per entry" style="width:200px;" id="roster_cost_per_entry" class="input_style"/>
+                        </div>
+                        <div class="roster_settlement_type input_padding">
+                            <span class="input_label">Settlement Type</span>
+                            <select data-placeholder="Select" id="roster_settlement_type" class="input_style chosen-select dropdown dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Jackpot">Jackpot</option>
+                                <option value="Double-Up">Double-Up</option>
+                                <option value="Heads-Up">Heads-Up</option>
+                            </select>
+                        </div>
+                        <div class="roster_settlement_jackpot hidden input_padding">
+                            <div class="input_padding">
+                                <span class="input_label">Pay Structure </span>
+                                <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255">
                             </div>
-                            <div>
-                                <input type="radio" name="public_private" id="roster_private"/>
-                                <label for="roster_private">Private</label>
+                            <div class="input_padding">
+                                <span class="input_label">Min Users</span>
+                                <input type="number" placeholder="Min users" class="input_style" id="roster_jackpot_min_users"/>
                             </div>
+                            <div class="input_padding">
+                                <span class="input_label">Max Users</span>
+                                <input type="number" placeholder="Max users" class="input_style" id="roster_jackpot_max_users"/>
+                            </div>
+                        </div>
+                        <div class="roster_settlement_double_up hidden input_padding">
+                            <div class="input_padding">
+                                <span class="input_label">Min Users</span>
+                                <input type="number" placeholder="Min users" class="input_style" id="roster_double_up_min_users"/>
+                            </div>
+                            <div class="input_padding">
+                                <span class="input_label">Max Users</span>
+                                <input type="number" placeholder="Max users" class="input_style" id="roster_double_up_max_users"/>
+                            </div>
+                        </div>
+                        <div class="max_rosters_per_user input_padding">
+                            <span class="input_label">Max Number of Rosters per User</span>
+                            <input type="number" placeholder="Rosters per user" style="width:200px;" id="max_rosters_per_user" class="input_style"/>
+                        </div>
+                        <div class="roster_size input_padding">
+                            <span class="input_label">Number of Players on Roster</span>
+                            <input type="number" placeholder="Players on roster" style="width:200px;" id="roster_size" class="input_style"/>
+                        </div>
+                        <div class="roster_salary_cap">
+                            <span class="input_label">Salary Cap</span>
+                            <input type="number" placeholder="Salary cap" style="width:200px;" id="roster_salary_cap" class="input_style"/>
                         </div>
                     </div>
+                    <!-- Prop specific fields -->
                     <div class="prop_fields hidden">
-                        <div class="prop_sport_selector">
-                            Sport:
-                            <select data-placeholder="Select" id="prop_sport_selector" class="input_style chosen-select">
+                        <div class="prop_sport_selector input_padding">
+                            <span class="input_label">Sport</span>
+                            <select data-placeholder="Select" id="prop_sport_selector" class="input_style chosen-select dropdown dropdown">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Basketball">Basketball</option>
                                 <option value="Golf">Golf</option>
                                 <option value="Baseball">Baseball</option>
                             </select>
                         </div>
-                        <div class="public_private_selector">
-                            Public or Private?
-                            <div>
-                                <input type="radio" name="public_private" id="prop_public" checked/>
-                                <label for="prop_public">Public</label>
+                        <div class="prop_basketball_type hidden input_padding">
+                            <span class="input_label">Prop type</span>
+                            <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
+                        <div class="prop_golf_type hidden input_padding">
+                            <span class="input_label">Prop type </span>
+                            <select data-placeholder="Select" id="prop_golf_type" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Make the Cut">Make the Cut</option>
+                                <option value="Over/Under">Over/Under</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Number of Shots">Number of Shots</option>
+                            </select>
+                        </div>
+                        <div class="prop_baseball_type hidden input_padding">
+                            <span class="input_label">Prop type </span>
+                            <select data-placeholder="Select" id="prop_baseball_type" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
+                        <div class="prop_basketball_match_play hidden input_padding">
+                            <div class="prop_basketball_scoring">
+                                <div>
+                                    <input type="checkbox" id="prop_basketball_match_points_checkbox" class="roster_basketball_checkbox"/>
+                                    Points 
+                                    <input type="number" style="width:50px;" id="prop_basketball_match_points"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_rebounds_checkbox" class="roster_basketball_checkbox"/>
+                                    Rebounds 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_rebounds"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_assists_checkbox" class="roster_basketball_checkbox"/>
+                                    Assits 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_assists"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_steals_checkbox" class="roster_basketball_checkbox"/>
+                                    Steals 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_steals"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_blocks_checkbox" class="roster_basketball_checkbox"/>
+                                    Blocks 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_blocks"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="props_basketball_match_turnovers_checkbox" class="roster_basketball_checkbox"/>
+                                    Turnovers 
+                                    <input type="number" style="width:50px;" id="props_basketball_match_turnovers"/>
+                                </div>
                             </div>
-                            <div>
-                                <input type="radio" name="public_private" id="prop_private"/>
-                                <label for="prop_private">Private</label>
+                            <!-- Use function to populate players + add / delete players -->
+                            <div class="prop_basketball_match_players input_padding">
+                                <span class="input_label">Select Players</span>
+                                1 
+                                <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!---->
+                        </div>
+                        <div class="prop_basketball_over_under hidden input_padding">
+                            <div class="prop_basketball_over_under_players">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!-- Radio butons ? -->
+                            <div class="prop_basketball_over_under_stats input_padding">
+                                <span class="input_label">Stat to use </span>
+                                <select data-placeholder="Select" id="prop_basketball_over_under_stats" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Points">Points</option>
+                                    <option value="Rebounds">Rebounds</option>
+                                    <option value="Assists">Assists</option>
+                                    <option value="Steals">Steals</option>
+                                    <option value="Blocks">Blocks</option>
+                                    <option value="Turnovers">Turnovers</option>
+                                </select>
+                                <input type="number" style="width:200px;" id="prop_basketball_over_under_stat_value"/>
+                            </div>
+                            <!-- Slider ? -->
+                            <div class="prop_basketball_over_under_value input_padding">
+                                <span class="input_label">Over Under Value (0 - 70)</span>
+                                <input type="number" min="0" max="70" style="width:200px;" id="prop_basketball_over_under_value"/>
+                            </div>
+                        </div>
+                        <div class="prop_golf_make_the_cut hidden input_padding">
+                            <span class="input_label">Select Player </span>
+                            <select data-placeholder="Select" id="prop_golf_make_the_cut_player" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Player X">Player X</option>
+                            </select>
+                        </div>
+                        <div class="prop_golf_over_under hidden input_padding">
+                            <div class="prop_golf_over_under_player">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_over_under_round_tournament input_padding">
+                                <span class="input_label">Round or Tournament</span>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <div class="prop_golf_over_under_score input_padding">
+                                Score
+                                <input type="number" style="width:50px;" id="prop_golf_over_under_score"/>
+                            </div>
+                        </div>
+                        <div class="prop_golf_match_play hidden">
+                            <div class="prop_golf_multistat_overall input_padding">
+                                <span class="input_label">Multi-stat or Score to Par</span>
+                                <select data-placeholder="Select" id="prop_golf_multistat_overall" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Multi-stat">Multi-stat</option>
+                                    <option value="Overall">Overall</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_stats_multistat hidden input_padding">
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_eagles" class="prop_golf_stats_checkbox"/>
+                                    Eagles 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_eagles"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_birdies" class="prop_golf_stats_checkbox"/>
+                                    Birdies 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_birdies"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_pars" class="prop_golf_stats_checkbox"/>
+                                    Pars 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_pars"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_bogeys" class="prop_golf_stats_checkbox"/>
+                                    Bogeys 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_bogeys"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_golf_stats_double_bogeys" class="prop_golf_stats_checkbox"/>
+                                    Double-Bogeys 
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_double_bogeys"/>
+                                </div>
+                            </div>
+                            <div class="prop_golf_stats_overall hidden input_padding">
+                                <div>
+                                    <span class="input_label">Overall Score </span>
+                                    <input type="number" style="width:50px;" id="prop_golf_stats_overall_score"/>
+                                </div>
+                            </div>
+                            <div class="prop_golf_match_play_round_tournament input_padding">
+                                <span class="input_label">Round or Tournament</span>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_over_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_match_play_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <!---->
+                            <div class="prop_golf_match_players input_padding">
+                                <span class="input_label">Select Players </span>
+                                1 
+                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                            <!---->
+                        </div>
+                        <div class="prop_golf_number_of_shots hidden input_padding">
+                            <div class="prop_golf_number_of_shots_type">
+                                <span class="input_label">Shot Type </span>
+                                <select data-placeholder="Select" id="prop_golf_number_of_shots_type" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Eagles">Eagles</option>
+                                    <option value="Birdies">Birdies</option>
+                                    <option value="Pars">Pars</option>
+                                    <option value="Bogeys">Bogeys</option>
+                                    <option value="Double-Bogeys">Double-Bogeys</option>
+                                </select>
+                            </div>
+                            <div class="prop_golf_number_of_shots_round_tournament input_padding">
+                                <span class="input_label">Round or Tournament</span>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_one" checked/>
+                                    <label for="roster_golf_round_one">1</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_two"/>
+                                    <label for="roster_golf_round_two">2</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_three"/>
+                                    <label for="roster_golf_round_three">3</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_round_four"/>
+                                    <label for="roster_golf_round_four">4</label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="round_tournament" id="prop_golf_number_of_shots_tournament"/>
+                                    <label for="roster_golf_tournament">Tournament</label>
+                                </div>
+                            </div>
+                            <div class="prop_golf_number_of_shots_player input_padding">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_golf_number_of_shots_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="prop_baseball_match_play hidden input_padding">
+                            <div class="prop_baseball_match_play_stats">
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_rbi_checkbox" class="roster_baseball_checkbox"/>
+                                    RBIs  
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_rbi"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_hits_checkbox" class="roster_baseball_checkbox"/>
+                                    Hits 
+                                    <input type="number" style="width:50px;" id="roster_baseball_hits"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_runs_checkbox" class="roster_baseball_checkbox"/>
+                                    Runs 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_runs"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_strikeouts_checkbox" class="roster_baseball_checkbox"/>
+                                    Strikeouts 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_strikeouts"/>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="prop_baseball_match_walks_checkbox" class="roster_baseball_checkbox"/>
+                                    Walks 
+                                    <input type="number" style="width:50px;" id="prop_baseball_match_walks"/>
+                                </div>
+                            </div>
+                            <div class="prop_baseball_match_players input_padding">
+                                <span class="input_label">Select Players </span>
+                                1 
+                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                                <br />
+                                2
+                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                    <option value="Player Y">Player Y</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="prop_baseball_over_under hidden">
+                            <div class="prop_baseball_over_under_player input_padding">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="Player X">Player X</option>
+                                </select>
+                            </div>
+                            <div class="prop_baseball_over_under_stats input_padding">
+                                <span class="input_label">Stat to use </span>
+                                <select data-placeholder="Select" id="prop_baseball_over_under_stats" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                    <option value="RBIs">RBIs</option>
+                                    <option value="Hits">Hits</option>
+                                    <option value="Runs">Runs</option>
+                                    <option value="Strikeouts">Strikeouts</option>
+                                    <option value="Walks">Walks</option>
+                                </select>
+                                <br />
+                                <span class="input_label">Over/Under Value </span>
+                                <input type="number" style="width:50px;" id="prop_baseball_over_under_value"/>
                             </div>
                         </div>
                     </div>
+                    <!-- Misc specific fields -->
                     <div class="misc_fields hidden">
-                        <div class="public_private_selector">
-                            Public or Private?
-                            <div>
-                                <input type="radio" name="public_private" id="misc_public" checked/>
-                                <label for="misc_public">Public</label>
+                        <div class="misc_title input_padding">
+                            <span class="input_label">Title </span>
+                            <input id="misc_title" type="text" placeholder="Title" class="input_style text_input" maxlength="255">
+                        </div>
+                        <div class="misc_description input_padding">
+                            <span class="input_label">Description </span>
+                            <textarea id="misc_description" type="text" placeholder="Description" class="input_style text_input" cols="40" rows="5" maxlength="1000"></textarea>
+                        </div>
+                        <div class="misc_reg_deadline input_padding">
+                            <span class="input_label">Registration Deadline</span>
+                            <div class="contest_registration_options">
+                                <input type="text" id="misc_registration_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                                <select data-placeholder="Select" id="misc_registration_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
+                                    <option value="0">12:00 AM</option>
+                                    <option value="1">1:00 AM</option>
+                                    <option value="2">2:00 AM</option>
+                                    <option value="3">3:00 AM</option>
+                                    <option value="4">4:00 AM</option>
+                                    <option value="5">5:00 AM</option>
+                                    <option value="6">6:00 AM</option>
+                                    <option value="7">7:00 AM</option>
+                                    <option value="8">8:00 AM</option>
+                                    <option value="9">9:00 AM</option>
+                                    <option value="10">10:00 AM</option>
+                                    <option value="11">11:00 AM</option>
+                                    <option value="12">12:00 PM</option>
+                                    <option value="13">1:00 PM</option>
+                                    <option value="14">2:00 PM</option>
+                                    <option value="15">3:00 PM</option>
+                                    <option value="16">4:00 PM</option>
+                                    <option value="17">5:00 PM</option>
+                                    <option value="18" selected>6:00 PM</option>
+                                    <option value="19">7:00 PM</option>
+                                    <option value="20">8:00 PM</option>
+                                    <option value="21">9:00 PM</option>
+                                    <option value="22">10:00 PM</option>
+                                    <option value="23">11:00 PM</option>
+                                </select>
                             </div>
-                            <div>
-                                <input type="radio" name="public_private" id="misc_private"/>
-                                <label for="misc_private">Private</label>
+                        </div>
+                        <div class="misc_set_deadline input_padding">
+                            <span class="input_label">Settlement Deadline</span>
+                            <div class="contest_registration_options">
+                                <input type="text" id="misc_settlement_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                                <select data-placeholder="Select" id="misc_settlement_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
+                                    <option value="0">12:00 AM</option>
+                                    <option value="1">1:00 AM</option>
+                                    <option value="2">2:00 AM</option>
+                                    <option value="3">3:00 AM</option>
+                                    <option value="4">4:00 AM</option>
+                                    <option value="5">5:00 AM</option>
+                                    <option value="6">6:00 AM</option>
+                                    <option value="7">7:00 AM</option>
+                                    <option value="8">8:00 AM</option>
+                                    <option value="9">9:00 AM</option>
+                                    <option value="10">10:00 AM</option>
+                                    <option value="11">11:00 AM</option>
+                                    <option value="12">12:00 PM</option>
+                                    <option value="13">1:00 PM</option>
+                                    <option value="14">2:00 PM</option>
+                                    <option value="15">3:00 PM</option>
+                                    <option value="16">4:00 PM</option>
+                                    <option value="17">5:00 PM</option>
+                                    <option value="18" selected>6:00 PM</option>
+                                    <option value="19">7:00 PM</option>
+                                    <option value="20">8:00 PM</option>
+                                    <option value="21">9:00 PM</option>
+                                    <option value="22">10:00 PM</option>
+                                    <option value="23">11:00 PM</option>
+                                </select>
                             </div>
+                        </div>
+                        <div class="misc_pari_mutuel_options input_padding">
+                            <!-- Reqiures Testing - id's and class's -->
+                            <span class="input_label">Pari-mutuel Options</span>
+                            <div class="misc_pari_mutuel_options">
+                                Number of Options: 
+                                <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
+                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
+                            </div>
+                            <div id="pari_mutuel_table" class="report_table"></div>
+                        </div>
+                        <div class="misc_min_wager input_padding">
+                            <span class="input_label">Min Wager Amount (BTC) </span>
+                            <input type="number" placeholder="Min wager amount" class="input_style" id="misc_min_wager"/>
+                        </div>
+                        <div class="misc_settlement_type input_padding">
+                            <span class="input_label">Settlement Type </span>
+                            <select data-placeholder="Select" id="misc_settlement_type" class="input_style chosen-select dropdown">
+                                <option value="USER-SETTLED">User-Settled</option>
+                                <option value="CROWD-SETTLED">Crowd-Settled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Common fields -->
+                    <div class="public_private_selector input_padding">
+                        <span class="input_label">Public or Private</span>
+                        <div>
+                            <input type="radio" name="public_private" id="roster_public" checked/>
+                            <label for="roster_public">Public</label>
+                        </div>
+                        <div>
+                            <input type="radio" name="public_private" id="roster_private"/>
+                            <label for="roster_private">Private</label>
                         </div>
                     </div>
                 </div>
-
-
-
-                <!-- <div class="contest_details">
-                    <div class="page_title">
-                        <h3>
-                            Contest Details
-                        </h3>
-                    </div>
-                    <div class="contest_settlement_option">
-                        Settlement Type:     
-                        <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
-                            <option>USER-SETTLED</option>
-                            <option>CROWD-SETTLED</option>
-                        </select>
-                    </div>
-                    <div class="contest_title">
-                        Title
-                    </div>
-                    <div class="contest_title_field">
-                        <input id="contest_title_input" type="text" class="input_style text_input" maxlength="255" placeholder="Title">
-                    </div>
-
-                    <div class="contest_description">
-                        Description
-                    </div>
-                    <div class="contest_description_field">
-                        <textarea maxlength="500" id="contest_description_textarea" rows="7" cols="50" placeholder="Description"></textarea>
-                    </div>
-                    
-                    <div class="contest_registration_deadline">
-                        Registration Deadline
-                    </div>
-                    <div class="contest_registration_options">
-                        <input type="text" id="registration_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
-                        <select data-placeholder="Select" id="registration_deadline_time_selector" class="input_style chosen-select" style="width:100px">
-                            <option value="0">12:00 AM</option>
-                            <option value="1">1:00 AM</option>
-                            <option value="2">2:00 AM</option>
-                            <option value="3">3:00 AM</option>
-                            <option value="4">4:00 AM</option>
-                            <option value="5">5:00 AM</option>
-                            <option value="6">6:00 AM</option>
-                            <option value="7">7:00 AM</option>
-                            <option value="8">8:00 AM</option>
-                            <option value="9">9:00 AM</option>
-                            <option value="10">10:00 AM</option>
-                            <option value="11">11:00 AM</option>
-                            <option value="12">12:00 PM</option>
-                            <option value="13">1:00 PM</option>
-                            <option value="14">2:00 PM</option>
-                            <option value="15">3:00 PM</option>
-                            <option value="16">4:00 PM</option>
-                            <option value="17">5:00 PM</option>
-                            <option value="18" selected>6:00 PM</option>
-                            <option value="19">7:00 PM</option>
-                            <option value="20">8:00 PM</option>
-                            <option value="21">9:00 PM</option>
-                            <option value="22">10:00 PM</option>
-                            <option value="23">11:00 PM</option>
-                        </select>
-                    </div>
-
-                    <div class="contest_settlement_deadline">
-                        Settlement Deadline
-                    </div>
-                    <div class="contest_settlement_deadline_options">
-                        <input type="text" id="settlement_deadline" class="input_style chosen-select" style="width:155px" placeholder="mm/dd/yyyy" readonly="true">
-                        <select data-placeholder="Select" id="settlement_deadline_time_selector" class="input_style chosen-select" style="width:100px">
-                            <option value="0">12:00 AM</option>
-                            <option value="1">1:00 AM</option>
-                            <option value="2">2:00 AM</option>
-                            <option value="3">3:00 AM</option>
-                            <option value="4">4:00 AM</option>
-                            <option value="5">5:00 AM</option>
-                            <option value="6">6:00 AM</option>
-                            <option value="7">7:00 AM</option>
-                            <option value="8">8:00 AM</option>
-                            <option value="9">9:00 AM</option>
-                            <option value="10">10:00 AM</option>
-                            <option value="11">11:00 AM</option>
-                            <option value="12">12:00 PM</option>
-                            <option value="13">1:00 PM</option>
-                            <option value="14">2:00 PM</option>
-                            <option value="15">3:00 PM</option>
-                            <option value="16">4:00 PM</option>
-                            <option value="17">5:00 PM</option>
-                            <option value="18" selected>6:00 PM</option>
-                            <option value="19">7:00 PM</option>
-                            <option value="20">8:00 PM</option>
-                            <option value="21">9:00 PM</option>
-                            <option value="22">10:00 PM</option>
-                            <option value="23">11:00 PM</option>
-                        </select>
-                    </div>
-
-                    <div class="contest_pari">
-                        Pari-mutuel Options
-                    </div>
-                    <div class="contest_pari_options">
-                        Number of Options: 
-                        <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
-                        <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
-                    </div>
-                    <div id="pari_mutuel_table" class="report_table"></div>
-            </div>
-            <div class="category_selector_option">
-                Category:
-                <select data-placeholder="Select" id="category_selector" class="input_style chosen-select" style="width:300px">
-                </select>
-            </div>
-            <div>
-                Sub-Category:
-                <select data-placeholder="Select" id="sub_category_selector" class="input_style chosen-select" style="width:300px">
-                </select>
-            </div>
-            <br/>
-            <br/>
-            <div id="submit_button_container" class="submit_container hidden">
-                <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
-            </div> -->
+                <div id="submit_button_container" class="submit_container hidden">
+                    <button type="button" class="text_button" onclick="create_contest();">Create Contest</button>
+                </div> 
         </div>
-        <br/>
     </div>   
 </div>
 </div>
