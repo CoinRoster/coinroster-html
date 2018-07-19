@@ -296,6 +296,10 @@
         outline: none;
     }
 
+    .checkboxes div input:nth-child(2):disabled {
+        background: rgb(135, 135, 135); 
+    }
+
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
     }
