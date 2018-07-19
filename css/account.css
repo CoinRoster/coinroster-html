@@ -271,14 +271,14 @@
         width: 220px;
     }
 
-    .roster_basketball_scoring {
-        width: 200px;
+    .checkboxes {
+        width: 175px;
         margin-left: 25px;
         border: 1px solid red;
     }
 
-    .roster_basketball_scoring div input:nth-child(2) {
-        width: 25px;
+    .checkboxes div input:nth-child(2) {
+        width: 25px !important;
     }
 
     #pari_mutuel_table tr:first-child { /* header */
