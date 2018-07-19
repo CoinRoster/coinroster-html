@@ -273,7 +273,7 @@
 
     .checkboxes {
         width: 175px;
-        margin-left: 25px;
+        margin-left: 20px;
     }
 
     .checkboxes > div {
@@ -294,6 +294,10 @@
 
     .checkboxes div input:nth-child(2):focus {
         outline: none;
+    }
+
+    .checkbox_label {
+        margin-top: 2px;
     }
 
     #pari_mutuel_table tr:first-child { /* header */
