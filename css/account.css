@@ -296,10 +296,6 @@
         outline: none;
     }
 
-    .checkbox_label {
-        margin-top: 2px;
-    }
-
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
     }
