@@ -2200,11 +2200,11 @@
 
         window.contest_id_to_settle = contest_id;
 
-        console.log(window.contest_obj);
+        console.log(window.contest);
 
         var 
         
-        contest = window.contest_obj[contest_id];
+        contest = window.contest[contest_id];
         contest_type = contest.contest_type,
         contest_title = contest.title,
         // scores_updated = contest_item.scores_updated,
