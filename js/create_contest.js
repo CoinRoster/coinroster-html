@@ -11,6 +11,11 @@ var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
 
 /*  Checkboxes*/
 var roster_basketball_points_checkbox = id("roster_basketball_points_checkbox");
+var roster_basketball_rebounds_checkbox = id("roster_basketball_rebounds_checkbox");
+var roster_basketball_assists_checkbox = id("roster_basketball_assists_checkbox");
+var roster_basketball_steals_checkbox = id("roster_basketball_steals_checkbox");
+var roster_basketball_blocks_checkbox = id("roster_basketball_blocks_checkbox");
+var roster_basketball_turnovers_checkbox = id("roster_basketball_turnovers_checkbox");
 
 contest_type_selector.onchange = function()
   {
@@ -241,9 +246,15 @@ roster_basketball_points_checkbox.onchange = function()
 
   if (checked) {
     roster_basketball_points[0].classList.remove("dimmed");
-    roster_basketball_points_input.disabled = false;;
+    roster_basketball_points_input.disabled = false; 
   } else {
     roster_basketball_points[0].classList.add("dimmed");
     roster_basketball_points_input.disabled = true;
+    roster_basketball_points_input.value = "";
   }
  };
+
+ roster_basketball_rebounds_checkbox.onchange = function()
+  {
+
+  }
