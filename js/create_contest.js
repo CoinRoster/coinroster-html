@@ -1,3 +1,4 @@
+/* Contest & Sport Selectors */
 var contest_type_selector = id("contest_type_selector");
 var roster_sport_selector = id("roster_sport_selector");
 var roster_multistat_overall = id("roster_multistat_overall");
@@ -7,6 +8,9 @@ var prop_basketball_type_selector = id("prop_basketball_type");
 var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
+
+/*  Checkboxes*/
+var roster_basketball_points_checkbox = id("roster_basketball_points_checkbox");
 
 contest_type_selector.onchange = function()
   {
@@ -228,3 +232,8 @@ prop_golf_multistat_overall.onchange = function()
           break;
       }
   };
+
+roster_basketball_points_checkbox.onchange = function()
+ {
+   console.log("I've been checked!");
+ }
