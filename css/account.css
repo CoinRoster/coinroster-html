@@ -276,12 +276,13 @@
         margin-left: 20px;
     }
 
-    .checkboxes > div {
+    .checkboxes > label {
         padding-bottom: 10px;
+        display: block;
     }
 
     /* Remove inline style from input */
-    .checkboxes div input:nth-child(2) {
+    .checkboxes label input:nth-child(2) {
         font-family: 'gotham_medium', sans-serif;
         font-size: 14px;
         text-align: center;
@@ -293,11 +294,11 @@
         outline: line;
     }
 
-    .checkboxes div input:nth-child(2):focus {
+    .checkboxes label input:nth-child(2):focus {
         outline: none;
     }
 
-    .checkboxes div input:nth-child(2):disabled {
+    .checkboxes label input:nth-child(2):disabled {
         background: rgb(155, 155, 155); 
     }
 
