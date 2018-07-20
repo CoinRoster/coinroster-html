@@ -429,10 +429,10 @@ var inputs_text = $("*[class$='_text']");
     
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
-      console.log(inputs_text[index]);
+      console.log(inputs_text);
     } else {
       inputs[index].disabled = true;
-      console.log(inputs_text[index]);
+      console.log(inputs_text);
     }
     
   })
