@@ -316,7 +316,7 @@
         }
 
         .checkboxes > label > input {
-            pointer-events: all;
+            pointer-events: auto;
         }
     }}
 
