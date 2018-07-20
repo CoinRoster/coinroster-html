@@ -421,7 +421,7 @@ roster_basketball_turnovers_checkbox.onchange = function()
 //  }
 
 var checkboxes = $("*[class$='_checkbox_test']");
-var inputs = $("*[class$='_test']");
+var inputs = $("*[class$='input_test']");
 var inputs_labels = $("*[class$='_checkbox_label']");
 
  $.each(checkboxes, function(index, data){
