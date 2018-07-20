@@ -1,3 +1,18 @@
+var checkboxes = $("*[class$='_checkbox']");
+
+var i;
+for (i = 0; i < checkboxes.length; i++) {
+  
+  checkboxes[i].onchange = function()
+   {
+     console.log("one of them changed?")
+   }
+
+  // console.log(checkboxes[i]);
+}
+
+
+
 /* Contest & Sport Selectors */
 var contest_type_selector = id("contest_type_selector");
 var roster_sport_selector = id("roster_sport_selector");
@@ -248,17 +263,6 @@ roster_basketball_points_checkbox.onchange = function()
   var checked = roster_basketball_points_checkbox.checked;
   var points = document.getElementsByClassName("roster_basketball_points");
   var points_input = document.getElementById("roster_basketball_points");
-
-
-
-  var checkboxes = $("*[class$='_checkbox']")
-
-  var i;
-  for (i = 0; i < checkboxes.length; i++) {
-    console.log(checkboxes[i]);
-  }
-
-  
   
   if (checked) {
     points[0].classList.remove("dimmed");
