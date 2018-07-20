@@ -428,11 +428,13 @@ var inputs = $("*[class$='input_test']");
     
     console.log($(this).checked);
 
-    if ($(this).checked) {
-      inputs[index].disabled = false;
-    } else {
-      inputs[index].disabled = true;
-    }
+    console.log(inputs[index]);
+
+    // if ($(this).checked) {
+    //   inputs[index].disabled = false;
+    // } else {
+    //   inputs[index].disabled = true;
+    // }
     
   })
  });
