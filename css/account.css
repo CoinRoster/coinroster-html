@@ -279,14 +279,12 @@
     .checkboxes > label {
         padding-bottom: 10px;
         display: block;
-        user-select: none;
-        position: relative;
-        z-index: 99;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
+        user-select: none;
     }
 
     /* Remove inline style from input */
@@ -300,9 +298,6 @@
         padding: 3px;
         border: none;
         outline: line;
-        z-index: 9999;
-        position: relative;
-        -webkit-transform:translate3d(0,0,0);
     }
 
     .checkboxes label input:nth-child(2):focus {
