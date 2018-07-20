@@ -340,90 +340,99 @@ roster_basketball_turnovers_checkbox.onchange = function()
   }
  };
 
-roster_golf_eagles_checkbox.onchange = function()
- {
-  var checked = roster_golf_eagles_checkbox.checked;
-  var eagles = document.getElementsByClassName("roster_golf_eagles");
-  var eagles_input = document.getElementById("roster_golf_eagles");
+// roster_golf_eagles_checkbox.onchange = function()
+//  {
+//   var checked = roster_golf_eagles_checkbox.checked;
+//   var eagles = document.getElementsByClassName("roster_golf_eagles");
+//   var eagles_input = document.getElementById("roster_golf_eagles");
 
-  if (checked) {
-    eagles[0].classList.remove("dimmed");
-    eagles_input.disabled = false;
-  } else {
-    eagles[0].classList.add("dimmed");
-    eagles_input.disabled = true;
-    eagles_input.value = "";
-  }
- };
+//   if (checked) {
+//     eagles[0].classList.remove("dimmed");
+//     eagles_input.disabled = false;
+//   } else {
+//     eagles[0].classList.add("dimmed");
+//     eagles_input.disabled = true;
+//     eagles_input.value = "";
+//   }
+//  };
 
- roster_golf_birdies_checkbox.onchange = function()
-  {
-    var checked = roster_golf_birdies_checkbox.checked;
-    var birdies = document.getElementsByClassName("roster_golf_birdies");
-    var birdies_input = document.getElementById("roster_golf_birdies");
+//  roster_golf_birdies_checkbox.onchange = function()
+//   {
+//     var checked = roster_golf_birdies_checkbox.checked;
+//     var birdies = document.getElementsByClassName("roster_golf_birdies");
+//     var birdies_input = document.getElementById("roster_golf_birdies");
 
-    if (checked) {
-      birdies[0].classList.remove("dimmed")
-      birdies_input.disabled = false;
-    } else {
-      birdies[0].classList.add("dimmed");
-      birdies_input.disabled = true;
-      birdies_input.value = "";
-    }
-  }
+//     if (checked) {
+//       birdies[0].classList.remove("dimmed")
+//       birdies_input.disabled = false;
+//     } else {
+//       birdies[0].classList.add("dimmed");
+//       birdies_input.disabled = true;
+//       birdies_input.value = "";
+//     }
+//   }
 
-roster_golf_pars_checkbox.onchange = function()
- {
-  var checked = roster_golf_pars_checkbox.checked;
-  var pars = document.getElementsByClassName("roster_golf_pars");
-  var pars_input = document.getElementById("roster_golf_pars");
+// roster_golf_pars_checkbox.onchange = function()
+//  {
+//   var checked = roster_golf_pars_checkbox.checked;
+//   var pars = document.getElementsByClassName("roster_golf_pars");
+//   var pars_input = document.getElementById("roster_golf_pars");
 
-  if (checked) {
-    pars[0].classList.remove("dimmed")
-    pars_input.disabled = false;
-  } else {
-    pars[0].classList.add("dimmed");
-    pars_input.disabled = true;
-    pars_input.value = "";
-  }
-}
+//   if (checked) {
+//     pars[0].classList.remove("dimmed")
+//     pars_input.disabled = false;
+//   } else {
+//     pars[0].classList.add("dimmed");
+//     pars_input.disabled = true;
+//     pars_input.value = "";
+//   }
+// }
 
-roster_golf_bogeys_checkbox.onchange = function()
- {
-  var checked = roster_golf_bogeys_checkbox.checked;
-  var bogeys = document.getElementsByClassName("roster_golf_bogeys");
-  var bogeys_input = document.getElementById("roster_golf_bogeys");
+// roster_golf_bogeys_checkbox.onchange = function()
+//  {
+//   var checked = roster_golf_bogeys_checkbox.checked;
+//   var bogeys = document.getElementsByClassName("roster_golf_bogeys");
+//   var bogeys_input = document.getElementById("roster_golf_bogeys");
 
-  if (checked) {
-    bogeys[0].classList.remove("dimmed")
-    bogeys_input.disabled = false;
-  } else {
-    bogeys[0].classList.add("dimmed");
-    bogeys_input.disabled = true;
-    bogeys_input.value = "";
-  }
- }
+//   if (checked) {
+//     bogeys[0].classList.remove("dimmed")
+//     bogeys_input.disabled = false;
+//   } else {
+//     bogeys[0].classList.add("dimmed");
+//     bogeys_input.disabled = true;
+//     bogeys_input.value = "";
+//   }
+//  }
 
-roster_golf_double_bogeys_checkbox.onchange = function()
- {
-  var checked = roster_golf_double_bogeys_checkbox.checked;
-  var double_bogeys = document.getElementsByClassName("roster_golf_double_bogeys");
-  var double_bogeys_input = document.getElementById("roster_golf_double_bogeys");
+// roster_golf_double_bogeys_checkbox.onchange = function()
+//  {
+//   var checked = roster_golf_double_bogeys_checkbox.checked;
+//   var double_bogeys = document.getElementsByClassName("roster_golf_double_bogeys");
+//   var double_bogeys_input = document.getElementById("roster_golf_double_bogeys");
 
-  if (checked) {
-    double_bogeys[0].classList.remove("dimmed")
-    double_bogeys_input.disabled = false;
-  } else {
-    double_bogeys[0].classList.add("dimmed");
-    double_bogeys_input.disabled = true;
-    double_bogeys_input.value = "";
-  }
- }
+//   if (checked) {
+//     double_bogeys[0].classList.remove("dimmed")
+//     double_bogeys_input.disabled = false;
+//   } else {
+//     double_bogeys[0].classList.add("dimmed");
+//     double_bogeys_input.disabled = true;
+//     double_bogeys_input.value = "";
+//   }
+//  }
 
- var checkboxes = $("*[class$='_checkbox']");
+var checkboxes = $("*[class$='_checkbox_test']");
+var inputs = $("*[class$='input_test']");
 
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
-    console.log($(this));
+    
+    console.log($(this).checked);
+
+    if ($(this).checked) {
+      inputs[index].disabled = false;
+    } else {
+      inputs[index].disabled = true;
+    }
+    
   })
  });
