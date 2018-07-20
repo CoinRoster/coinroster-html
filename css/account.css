@@ -276,8 +276,11 @@
         margin-left: 20px;
     }
 
-    .checkboxes > label {
+    .checkboxes div {
         padding-bottom: 10px;
+    }
+
+    .checkboxes > label {
         display: block;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -288,7 +291,7 @@
     }
 
     /* Remove inline style from input */
-    .checkboxes label input:nth-child(2) {
+    .checkboxes > div > input {
         font-family: 'gotham_medium', sans-serif;
         font-size: 14px;
         text-align: center;
@@ -300,25 +303,13 @@
         outline: line;
     }
 
-    .checkboxes label input:nth-child(2):focus {
+    .checkboxes > div > input:focus {
         outline: none;
     }
 
-    .checkboxes label input:nth-child(2):disabled {
+    .checkboxes > div > input:disabled {
         background: rgb(155, 155, 155); 
     }
-
-    /* Safari checkbox fix */
-    @media not all and (min-resolution:.001dpcm)
-    { @supports (-webkit-appearance:none) {
-        .checkboxes > label { 
-            pointer-events: none;
-        }
-
-        .checkboxes > label > input {
-            pointer-events: auto;
-        }
-    }}
 
     .dimmed {
         color: rgb(155, 155, 155);
