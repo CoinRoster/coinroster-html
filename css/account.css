@@ -301,6 +301,10 @@
         background: rgb(155, 155, 155); 
     }
 
+    .dimmed {
+        color: rgb(155, 155, 155);
+    }
+
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
     }

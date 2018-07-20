@@ -235,7 +235,10 @@ prop_golf_multistat_overall.onchange = function()
 
 roster_basketball_points_checkbox.onchange = function()
  {
-  const checked = roster_basketball_points_checkbox.checked;
+  var checked = roster_basketball_points_checkbox.checked;
+  var roster_basketball_points = document.getElementsByClassName("roster_basketball_points");
 
-   console.log(checked);
- }
+  if (checked) {
+    roster_basketball_points.classList.remove("dimmed");
+  }
+ };
