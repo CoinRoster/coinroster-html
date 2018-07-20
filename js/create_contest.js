@@ -241,9 +241,9 @@ roster_basketball_points_checkbox.onchange = function()
 
   if (checked) {
     roster_basketball_points[0].classList.remove("dimmed");
-    roster_basketball_points_input.setAttribute("disabled", false);
+    roster_basketball_points_input.disabled = false;;
   } else {
     roster_basketball_points[0].classList.add("dimmed");
-    roster_basketball_points_input.setAttribute("disabled", true);
+    roster_basketball_points_input.disabled = true;
   }
  };
