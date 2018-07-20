@@ -298,6 +298,8 @@
         padding: 3px;
         border: none;
         outline: line;
+        z-index: 9999;
+        -webkit-transform:translate3d(0,0,0);
     }
 
     .checkboxes label input:nth-child(2):focus {
