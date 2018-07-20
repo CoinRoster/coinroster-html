@@ -432,9 +432,11 @@ var inputs_labels = $("*[class$='_checkbox_label']");
     
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
-      
+      inputs_labels[index].classList.remove("dimmed");
     } else {
       inputs[index].disabled = true;
+      inputs_labels[index].classList.add("dimmed");
+      inputs_labels[index].value = "";
     }
     
   })
