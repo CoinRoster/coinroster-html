@@ -294,7 +294,7 @@ roster_basketball_steals_checkbox.onchange = function()
 
   if (checked) {
     steals[0].classList.remove("dimmed");
-    assists_input.disabled = false;
+    steals_input.disabled = false;
   } else {
     steals[0].classList.add("dimmed");
     steals_input.disabled = true;
