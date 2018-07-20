@@ -427,16 +427,15 @@ var inputs_labels = $("*[class$='_checkbox_label']");
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     
-    console.log(inputs);
     console.log(inputs_labels[index]);
     
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
-      inputs_labels[index].classList.remove("dimmed");
+      // inputs_labels[index].classList.remove("dimmed");
     } else {
       inputs[index].disabled = true;
-      inputs_labels[index].classList.add("dimmed");
-      inputs_labels[index].value = "";
+      // inputs_labels[index].classList.add("dimmed");
+      // inputs_labels[index].value = "";
     }
     
   })
