@@ -81,7 +81,7 @@ roster_multistat_overall.onchange = function()
         case "Multi-stat":
           show(roster_golf_multistat[0]);
           break;
-        case "Overall":
+        case "Score to Par":
           hide(roster_golf_multistat[0]);
           break;
       }
