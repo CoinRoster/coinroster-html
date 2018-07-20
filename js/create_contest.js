@@ -426,15 +426,11 @@ var inputs = $("*[class$='input_test']");
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     
-    console.log($(this));
-
-    console.log(inputs[index]);
-
-    // if ($(this).checked) {
-    //   inputs[index].disabled = false;
-    // } else {
-    //   inputs[index].disabled = true;
-    // }
+    if ($(this)[0].checked) {
+      inputs[index].disabled = false;
+    } else {
+      inputs[index].disabled = true;
+    }
     
   })
  });
