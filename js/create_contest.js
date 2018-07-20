@@ -239,6 +239,6 @@ roster_basketball_points_checkbox.onchange = function()
   var roster_basketball_points = document.getElementsByClassName("roster_basketball_points");
 
   if (checked) {
-    roster_basketball_points.classList.remove("dimmed");
+    roster_basketball_points[0].classList.remove("dimmed");
   }
  };
