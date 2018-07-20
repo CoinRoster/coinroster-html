@@ -428,10 +428,11 @@ var inputs_labels = $("*[class$='_checkbox_label']");
   $(data).on('change', function(){
     
     console.log(inputs);
-    console.log(inputs_labels);
+    console.log(inputs_labels[index]);
     
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
+      
     } else {
       inputs[index].disabled = true;
     }
