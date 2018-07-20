@@ -241,20 +241,95 @@ prop_golf_multistat_overall.onchange = function()
 roster_basketball_points_checkbox.onchange = function()
  {
   var checked = roster_basketball_points_checkbox.checked;
-  var roster_basketball_points = document.getElementsByClassName("roster_basketball_points");
-  var roster_basketball_points_input = document.getElementById("roster_basketball_points");
+  var points = document.getElementsByClassName("roster_basketball_points");
+  var points_input = document.getElementById("roster_basketball_points");
 
   if (checked) {
-    roster_basketball_points[0].classList.remove("dimmed");
-    roster_basketball_points_input.disabled = false; 
+    points[0].classList.remove("dimmed");
+    points_input.disabled = false; 
   } else {
-    roster_basketball_points[0].classList.add("dimmed");
-    roster_basketball_points_input.disabled = true;
-    roster_basketball_points_input.value = "";
+    points[0].classList.add("dimmed");
+    points_input.disabled = true;
+    points_input.value = "";
   }
  };
 
  roster_basketball_rebounds_checkbox.onchange = function()
   {
+    var checked = roster_basketball_rebounds_checkbox.checked;
+    var rebounds = document.getElementsByClassName("roster_basketball_rebounds");
+    var rebounds_input = document.getElementById("roster_basketball_rebounds");
 
+    if (checked) {
+      rebounds[0].classList.remove("dimmed");
+      rebounds_input.disabled = false;
+    } else {
+      rebounds[0].classList.add("dimmed");
+      rebounds_input.disabled = true;
+      rebounds_input.value = "";
+    }
+  };
+
+roster_basketball_assists_checkbox.onchange = function()
+ {
+  var checked = roster_basketball_assists_checkbox.checked;
+  var assists = document.getElementsByClassName("roster_basketball_assists");
+  var assists_input = document.getElementById("roster_basketball_assists");
+
+  if (checked) {
+    assists[0].classList.remove("dimmed");
+    assists_input.disabled = false;
+  } else {
+    assists[0].classList.add("dimmed");
+    assists_input.disabled = true;
+    assists_input.value = "";
   }
+ };
+
+roster_basketball_steals_checkbox.onchange = function()
+ {
+  var checked = roster_basketball_steals_checkbox.checked;
+  var steals = document.getElementsByClassName("roster_basketball_steals");
+  var steals_input = document.getElementById("roster_basketball_steals");
+
+  if (checked) {
+    steals[0].classList.remove("dimmed");
+    assists_input.disabled = false;
+  } else {
+    steals[0].classList.add("dimmed");
+    steals_input.disabled = true;
+    steals_input.value = "";
+  }
+ };
+
+roster_basketball_blocks_checkbox.onchange = function()
+ {
+  var checked = roster_basketball_blocks_checkbox.checked;
+  var blocks = document.getElementsByClassName("roster_basketball_blocks");
+  var blocks_input = document.getElementById("roster_basketball_blocks");
+
+  if (checked) {
+    blocks[0].classList.remove("dimmed");
+    blocks_input.disabled = false;
+  } else {
+    blocks[0].classList.add("dimmed");
+    blocks_input.disabled = true;
+    blocks_input.value = "";
+  }
+ };
+
+roster_basketball_turnovers_checkbox.onchange = function()
+ {
+  var checked = roster_basketball_turnovers_checkbox.checked;
+  var turnovers = document.getElementsByClassName("roster_basketball_turnovers");
+  var turnovers_input = document.getElementById("roster_basketball_turnovers");
+
+  if (checked) {
+    turnovers[0].classList.remove("dimmed");
+    turnovers_input.disabled = false;
+  } else {
+    turnovers[0].classList.add("dimmed");
+    turnovers_input.disabled = true;
+    turnovers_input.value = "";
+  }
+ };
