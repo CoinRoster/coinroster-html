@@ -309,12 +309,16 @@
     }
 
     /* Safari checkbox fix */
-    @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
-    { 
-        .checkboxes > label {
+    @media not all and (min-resolution:.001dpcm)
+    { @supports (-webkit-appearance:none) {
+        .checkboxes > label { 
             pointer-events: none;
         }
-    }
+
+        .checkboxes > label > input {
+            pointer-events: all;
+        }
+    }}
 
     .dimmed {
         color: rgb(155, 155, 155);
