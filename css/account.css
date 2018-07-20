@@ -274,7 +274,6 @@
     .checkboxes {
         width: 175px;
         margin-left: 20px;
-        text-align: center;
     }
 
     .checkboxes > div {
@@ -285,6 +284,7 @@
     .checkboxes div input:nth-child(2) {
         font-family: 'gotham_medium', sans-serif;
         font-size: 14px;
+        text-align: center;
         width: 45px !important;
         float: right;
         border-radius: 5px;
