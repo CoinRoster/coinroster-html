@@ -422,17 +422,17 @@ roster_basketball_turnovers_checkbox.onchange = function()
 
 var checkboxes = $("*[class$='_checkbox_test']");
 var inputs = $("*[class$='input_test']");
-var inputs_text = $("*[class$='_text']");
+var inputs_labels = $("*[class$='_checkbox_label']");
 
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     
+    console.log(inputs_text[index]);
+    
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
-      console.log(inputs_text);
     } else {
       inputs[index].disabled = true;
-      console.log(inputs_text);
     }
     
   })
