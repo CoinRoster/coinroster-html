@@ -235,5 +235,7 @@ prop_golf_multistat_overall.onchange = function()
 
 roster_basketball_points_checkbox.onchange = function()
  {
-   console.log(roster_basketball_points_checkbox);
+  const checked = roster_basketball_points_checkbox.checked;
+
+   console.log(checked);
  }
