@@ -21,7 +21,7 @@ var roster_golf_eagles_checkbox = id("roster_golf_eagles_checkbox");
 var roster_golf_birdies_checkbox = id("roster_golf_birdies_checkbox");
 var roster_golf_pars_checkbox = id("roster_golf_pars_checkbox");
 var roster_golf_bogeys_checkbox = id("roster_golf_bogeys_checkbox");
-var roster_golf_double_bogeys = id("roster_golf_double_bogeys");
+var roster_golf_double_bogeys_checkbox = id("roster_golf_double_bogeys_checkbox");
 
 contest_type_selector.onchange = function()
   {
@@ -404,7 +404,7 @@ roster_golf_bogeys_checkbox.onchange = function()
   }
  }
 
-roster_golf_double_bogeys.onchange = function()
+roster_golf_double_bogeys_checkbox.onchange = function()
  {
   var checked = roster_golf_double_bogeys_checkbox.checked;
   var double_bogeys = document.getElementsByClassName("roster_golf_double_bogeys");
