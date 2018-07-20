@@ -16,6 +16,11 @@ var roster_basketball_assists_checkbox = id("roster_basketball_assists_checkbox"
 var roster_basketball_steals_checkbox = id("roster_basketball_steals_checkbox");
 var roster_basketball_blocks_checkbox = id("roster_basketball_blocks_checkbox");
 var roster_basketball_turnovers_checkbox = id("roster_basketball_turnovers_checkbox");
+var roster_golf_eagles_checkbox = id("roster_golf_eagles_checkbox");
+var roster_golf_birdies_checkbox = id("roster_golf_birdies_checkbox");
+var roster_golf_pars_checkbox = id("roster_golf_pars_checkbox");
+var roster_golf_bogeys_checkbox = id("roster_golf_bogeys_checkbox");
+var roster_golf_double_bogeys = id("roster_golf_double_bogeys");
 
 contest_type_selector.onchange = function()
   {
@@ -244,6 +249,11 @@ roster_basketball_points_checkbox.onchange = function()
   var points = document.getElementsByClassName("roster_basketball_points");
   var points_input = document.getElementById("roster_basketball_points");
 
+
+  var checkboxes = $("*[class^='roster_golf']");
+  console.log(checkboxes);
+  console.log("hello");
+
   if (checked) {
     points[0].classList.remove("dimmed");
     points_input.disabled = false; 
@@ -333,3 +343,28 @@ roster_basketball_turnovers_checkbox.onchange = function()
     turnovers_input.value = "";
   }
  };
+
+roster_golf_eagles_checkbox.onchange = function()
+ {
+
+ }
+
+ roster_golf_birdies_checkbox.onchange = function()
+  {
+
+  }
+
+roster_golf_pars_checkbox.onchange = function()
+ {
+
+ }
+
+roster_golf_bogeys_checkbox.onchange = function()
+ {
+
+ }
+
+roster_golf_double_bogeys.onchange = function()
+ {
+
+ }
