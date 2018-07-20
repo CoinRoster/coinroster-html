@@ -235,5 +235,7 @@ prop_golf_multistat_overall.onchange = function()
 
 roster_basketball_points_checkbox.onchange = function()
  {
-   console.log("I've been checked!");
+  var roster_basketball_points = document.getElementsByClassName("roster_basketball_points");
+
+  console.log(roster_basketball_points_checkbox);
  }

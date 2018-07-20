@@ -274,6 +274,7 @@
     .checkboxes {
         width: 175px;
         margin-left: 20px;
+        text-align: center;
     }
 
     .checkboxes > div {
