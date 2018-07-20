@@ -254,7 +254,7 @@ roster_basketball_points_checkbox.onchange = function()
   var checkboxes = $("*[class$='_checkbox']")
 
   var i;
-  for (1 = 0; i < checkboxes.length; i++) {
+  for (i = 0; i < checkboxes.length; i++) {
     console.log(checkboxes[i]);
   }
 
