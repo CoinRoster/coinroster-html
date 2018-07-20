@@ -426,7 +426,7 @@ var inputs = $("*[class$='input_test']");
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     
-    console.log($(this).checked);
+    console.log($(this));
 
     console.log(inputs[index]);
 
