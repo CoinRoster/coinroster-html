@@ -16,6 +16,11 @@ var roster_basketball_assists_checkbox = id("roster_basketball_assists_checkbox"
 var roster_basketball_steals_checkbox = id("roster_basketball_steals_checkbox");
 var roster_basketball_blocks_checkbox = id("roster_basketball_blocks_checkbox");
 var roster_basketball_turnovers_checkbox = id("roster_basketball_turnovers_checkbox");
+var roster_golf_eagles_checkbox = id("roster_golf_eagles_checkbox");
+var roster_golf_birdies_checkbox = id("roster_golf_birdies_checkbox");
+var roster_golf_pars_checkbox = id("roster_golf_pars_checkbox");
+var roster_golf_bogeys_checkbox = id("roster_golf_bogeys_checkbox");
+var roster_golf_double_bogeys = id("roster_golf_double_bogeys");
 
 contest_type_selector.onchange = function()
   {
@@ -333,3 +338,28 @@ roster_basketball_turnovers_checkbox.onchange = function()
     turnovers_input.value = "";
   }
  };
+
+roster_golf_eagles_checkbox.onchange = function()
+ {
+
+ }
+
+ roster_golf_birdies_checkbox.onchange = function()
+  {
+
+  }
+
+roster_golf_pars_checkbox.onchange = function()
+ {
+
+ }
+
+roster_golf_bogeys_checkbox.onchange = function()
+ {
+
+ }
+
+roster_golf_double_bogeys.onchange = function()
+ {
+  
+ }
