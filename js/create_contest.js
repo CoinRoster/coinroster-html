@@ -3,10 +3,9 @@ var checkboxes = $("*[class$='_checkbox']");
 var i;
 for (i = 0; i < checkboxes.length; i++) {
   
-  checkboxes[i].onchange = function()
-   {
-     console.log("one of them changed?")
-   }
+  $(`checkboxes${[i]}`).change(function(){
+    console.log("something changed");
+  })
 
   // console.log(checkboxes[i]);
 }
@@ -24,7 +23,7 @@ var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
 
-/*  Checkboxes*/
+/*  Checkboxes */
 var roster_basketball_points_checkbox = id("roster_basketball_points_checkbox");
 var roster_basketball_rebounds_checkbox = id("roster_basketball_rebounds_checkbox");
 var roster_basketball_assists_checkbox = id("roster_basketball_assists_checkbox");
