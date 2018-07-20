@@ -249,6 +249,11 @@ roster_basketball_points_checkbox.onchange = function()
   var points = document.getElementsByClassName("roster_basketball_points");
   var points_input = document.getElementById("roster_basketball_points");
 
+
+  var checkboxes = $("*[class^='roster_golf']");
+  console.log(checkboxes);
+  console.log("hello");
+
   if (checked) {
     points[0].classList.remove("dimmed");
     points_input.disabled = false; 
@@ -361,5 +366,5 @@ roster_golf_bogeys_checkbox.onchange = function()
 
 roster_golf_double_bogeys.onchange = function()
  {
-  
+
  }
