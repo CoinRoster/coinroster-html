@@ -419,3 +419,11 @@ roster_golf_double_bogeys_checkbox.onchange = function()
     double_bogeys_input.value = "";
   }
  }
+
+ var checkboxes = $("*[class$='_checkbox']");
+
+ $.each(checkboxes, function(index, data){
+  $(data).on('change', function(){
+    console.log($(this).val());
+  })
+ });
