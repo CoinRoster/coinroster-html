@@ -427,6 +427,7 @@ var inputs_labels = $("*[class$='_checkbox_label']");
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     
+    console.log(inputs);
     console.log(inputs_labels);
     
     if ($(this)[0].checked) {
