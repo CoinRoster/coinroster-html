@@ -308,6 +308,14 @@
         background: rgb(155, 155, 155); 
     }
 
+    /* Safari checkbox fix */
+    @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0)
+    { 
+        .checkboxes > label {
+            pointer-events: none;
+        }
+    }
+
     .dimmed {
         color: rgb(155, 155, 155);
     }
