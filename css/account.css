@@ -314,6 +314,10 @@
         .checkboxes > label { 
             pointer-events: none;
         }
+
+        .checkboxes > label > input {
+            pointer-events: all;
+        }
     }}
 
     .dimmed {
