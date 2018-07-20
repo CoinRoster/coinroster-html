@@ -250,10 +250,16 @@ roster_basketball_points_checkbox.onchange = function()
   var points_input = document.getElementById("roster_basketball_points");
 
 
-  var checkboxes = $("*[class^='roster_golf']");
-  console.log(checkboxes);
-  console.log("hello");
 
+  var checkboxes = $("*[class$='_checkbox']")
+
+  var i;
+  for (1 = 0; i < checkboxes.length; i++) {
+    console.log(checkboxes[i]);
+  }
+
+  
+  
   if (checked) {
     points[0].classList.remove("dimmed");
     points_input.disabled = false; 
