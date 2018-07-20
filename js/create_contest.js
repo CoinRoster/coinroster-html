@@ -237,8 +237,13 @@ roster_basketball_points_checkbox.onchange = function()
  {
   var checked = roster_basketball_points_checkbox.checked;
   var roster_basketball_points = document.getElementsByClassName("roster_basketball_points");
+  var roster_basketball_points_input = document.getElementById("roster_basketball_points");
 
   if (checked) {
     roster_basketball_points[0].classList.remove("dimmed");
+    roster_basketball_points_input.setAttribute("disabled", false);
+  } else {
+    roster_basketball_points[0].classList.add("dimmed");
+    roster_basketball_points_input.setAttribute("disabled", true);
   }
  };
