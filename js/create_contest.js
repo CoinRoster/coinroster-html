@@ -424,6 +424,6 @@ roster_golf_double_bogeys_checkbox.onchange = function()
 
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
-    console.log($(this).val());
+    console.log($(this));
   })
  });
