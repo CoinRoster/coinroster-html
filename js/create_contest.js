@@ -12,7 +12,7 @@ var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
 
 var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
-var inputs_labels = $("*[class$='checkbox_label']");
+var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
