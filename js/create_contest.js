@@ -10,6 +10,23 @@ var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
 
+var checkboxes = $("*[class$='_checkbox']");
+var inputs = $("*[class$='checkbox_input']");
+var inputs_labels = $("*[class$='checkbox_label']");
+
+ $.each(checkboxes, function(index, data){
+  $(data).on('change', function(){
+    if ($(this)[0].checked) {
+      inputs[index].disabled = false;
+      inputs_labels[index].classList.remove("dimmed");
+    } else {
+      inputs[index].disabled = true;
+      inputs_labels[index].classList.add("dimmed");
+      inputs_labels[index].value = "";
+    }  
+  })
+ });
+
 /*  Checkboxes */
 var roster_basketball_points_checkbox = id("roster_basketball_points_checkbox");
 var roster_basketball_rebounds_checkbox = id("roster_basketball_rebounds_checkbox");
@@ -419,22 +436,3 @@ roster_basketball_turnovers_checkbox.onchange = function()
 //     double_bogeys_input.value = "";
 //   }
 //  }
-
-var checkboxes = $("*[class$='_checkbox_test']");
-var inputs = $("*[class$='input_test']");
-var inputs_labels = $("*[class$='_checkbox_label']");
-
- $.each(checkboxes, function(index, data){
-  $(data).on('change', function(){
-    
-    if ($(this)[0].checked) {
-      inputs[index].disabled = false;
-      inputs_labels[index].classList.remove("dimmed");
-    } else {
-      inputs[index].disabled = true;
-      inputs_labels[index].classList.add("dimmed");
-      inputs_labels[index].value = "";
-    }
-    
-  })
- });
