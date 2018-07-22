@@ -1,4 +1,3 @@
-/* Can be refactored to a loop.. _checkbox suffix */
 /* Contest & Sport Selectors */
 var contest_type_selector = id("contest_type_selector");
 var roster_sport_selector = id("roster_sport_selector");
@@ -27,24 +26,30 @@ var inputs_labels = $("*[class$='dynamic_checkbox_label']");
   })
  });
 
-/*  Checkboxes */
-var roster_basketball_points_checkbox = id("roster_basketball_points_checkbox");
-var roster_basketball_rebounds_checkbox = id("roster_basketball_rebounds_checkbox");
-var roster_basketball_assists_checkbox = id("roster_basketball_assists_checkbox");
-var roster_basketball_steals_checkbox = id("roster_basketball_steals_checkbox");
-var roster_basketball_blocks_checkbox = id("roster_basketball_blocks_checkbox");
-var roster_basketball_turnovers_checkbox = id("roster_basketball_turnovers_checkbox");
-var roster_golf_eagles_checkbox = id("roster_golf_eagles_checkbox");
-var roster_golf_birdies_checkbox = id("roster_golf_birdies_checkbox");
-var roster_golf_pars_checkbox = id("roster_golf_pars_checkbox");
-var roster_golf_bogeys_checkbox = id("roster_golf_bogeys_checkbox");
-var roster_golf_double_bogeys_checkbox = id("roster_golf_double_bogeys_checkbox");
+ var reset_elements = function()
+  {
+    hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
+    hide(document.getElementsByClassName("roster_golf_scoring")[0]);
+    hide(document.getElementsByClassName("roster_baseball_scoring")[0]);
+    hide(document.getElementsByClassName("prop_basketball_match_play")[0]);
+    hide(document.getElementsByClassName("prop_basketball_over_under")[0]);
+    hide(document.getElementsByClassName("prop_golf_make_the_cut")[0]);
+    hide(document.getElementsByClassName("prop_golf_over_under")[0]);
+    hide(document.getElementsByClassName("prop_golf_match_play")[0]);
+    hide(document.getElementsByClassName("prop_golf_number_of_shots")[0]);
+    hide(document.getElementsByClassName("prop_golf_stats_multistat")[0]);
+    hide(document.getElementsByClassName("prop_baseball_match_play")[0]);
+    hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
+    hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
+  };
 
 contest_type_selector.onchange = function()
   {
     var roster_fields = document.getElementsByClassName("roster_fields");
     var prop_fields = document.getElementsByClassName("prop_fields");
     var misc_fields = document.getElementsByClassName("misc_fields");
+
+    reset_elements();
 
     document.getElementById("roster_sport_selector").selectedIndex = "0";
     document.getElementById("prop_sport_selector").selectedIndex = "0";
@@ -138,17 +143,7 @@ prop_sport_selector.onchange = function()
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
 
-  // Prop resets, so that users can go back and pick a different sport without breaking the form
-  hide(document.getElementsByClassName("prop_basketball_match_play")[0]);
-  hide(document.getElementsByClassName("prop_basketball_over_under")[0]);
-  hide(document.getElementsByClassName("prop_golf_make_the_cut")[0]);
-  hide(document.getElementsByClassName("prop_golf_over_under")[0]);
-  hide(document.getElementsByClassName("prop_golf_match_play")[0]);
-  hide(document.getElementsByClassName("prop_golf_number_of_shots")[0]);
-  hide(document.getElementsByClassName("prop_golf_stats_multistat")[0]);
-  hide(document.getElementsByClassName("prop_baseball_match_play")[0]);
-  hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
-  hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
+  reset_elements();
 
   document.getElementById("prop_basketball_type").selectedIndex = "0";
   document.getElementById("prop_golf_type").selectedIndex = "0";
