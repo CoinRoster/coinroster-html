@@ -7,7 +7,8 @@ var prop_sport_selector = id("prop_sport_selector");
 var prop_basketball_type_selector = id("prop_basketball_type");
 var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
-var prop_golf_multistat_overall = id("prop_golf_multistat_overall");
+var prop_golf_match_multistat_overall = id("prop_golf_multistat_overall");
+var prop_golf_over_multistat_overall = id("prop_golf_multistat_over_overall");
 
 var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
@@ -223,7 +224,7 @@ prop_golf_type_selector.onchange = function()
     }
  };
 
-prop_golf_multistat_overall.onchange = function()
+prop_golf_match_multistat_overall.onchange = function()
  {
    var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
 
@@ -232,10 +233,25 @@ prop_golf_multistat_overall.onchange = function()
       case "Multi-stat":
         show(prop_golf_stats_multistat[0]);
         break;
-      case "Overall":
+      case "Score to Par":
         hide(prop_golf_stats_multistat[0]);
         break;
     }
+ };
+
+prop_golf_over_multistat_overall.onchange = function()
+ {
+    var prop_golf_over_stats_multistat = document.getElementsByClassName("prop_golf_over_stats_multistat");
+
+    switch (selectorHTML(prop_golf_over_multistat_overall))
+     {
+        case "Multi-stat":
+          show(prop_golf_over_stats_multistat[0]);
+          break;
+        case "Score to Par":
+          hide(prop_golf_over_stats_multistat[0]);
+          break;
+     }
  };
 
  prop_baseball_type_selector.onchange = function()
@@ -255,3 +271,4 @@ prop_golf_multistat_overall.onchange = function()
           break;
       }
   };
+
