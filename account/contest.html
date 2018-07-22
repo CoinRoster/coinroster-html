@@ -663,18 +663,43 @@
                                 </select>
                             </div>
                             <div class="prop_baseball_over_under_stats input_padding">
-                                <span class="input_label">Stat to use </span>
-                                <select data-placeholder="Select" id="prop_baseball_over_under_stats" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="RBIs">RBIs</option>
-                                    <option value="Hits">Hits</option>
-                                    <option value="Runs">Runs</option>
-                                    <option value="Strikeouts">Strikeouts</option>
-                                    <option value="Walks">Walks</option>
-                                </select>
-                                <br />
-                                <span class="input_label">Over/Under Value </span>
-                                <input type="number" style="width:50px;" id="prop_baseball_over_under_value"/>
+                                <div class="prop_baseball_match_play_stats checkboxes input_padding">
+                                    <div class="dimmed dynamic_checkbox_label">
+                                        <label>
+                                            <input type="checkbox" id="prop_baseball_over_rbi_checkbox" class="roster_baseball_checkbox"/>
+                                            RBIs
+                                        </label>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_baseball_over_rbi"/>
+                                    </div>
+                                    <div class="dimmed dynamic_checkbox_label">
+                                        <label>
+                                            <input type="checkbox" id="prop_baseball_over_hits_checkbox" class="roster_baseball_checkbox"/>
+                                            Hits
+                                        </label>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="roster_baseball_hits"/>
+                                    </div>
+                                    <div class="dimmed dynamic_checkbox_label">
+                                        <label>
+                                            <input type="checkbox" id="prop_baseball_over_runs_checkbox" class="roster_baseball_checkbox"/>
+                                            Runs 
+                                        </label>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_baseball_over_runs"/>
+                                    </div>
+                                    <div class="dimmed dynamic_checkbox_label">
+                                        <label>
+                                            <input type="checkbox" id="prop_baseball_over_strikeouts_checkbox" class="roster_baseball_checkbox"/>
+                                            Strikeouts
+                                        </label>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_baseball_over_strikeouts"/>
+                                    </div>
+                                    <div class="dimmed dynamic_checkbox_label">
+                                        <label>
+                                            <input type="checkbox" id="prop_baseball_over_walks_checkbox" class="roster_baseball_checkbox"/>
+                                            Walks
+                                        </label>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_baseball_over_walks"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
