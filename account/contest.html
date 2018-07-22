@@ -343,7 +343,6 @@
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_match_turnovers"/>
                                 </div>
                             </div>
-                            <!-- Use function to populate players + add / delete players -->
                             <div class="prop_basketball_match_players input_padding">
                                 <span class="input_label">Select Players</span>
                                 1 
@@ -363,6 +362,50 @@
                             <!---->
                         </div>
                         <div class="prop_basketball_over_under hidden input_padding">
+                            <div class="prop_basketball_scoring checkboxes input_padding">
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="prop_basketball_over_points_checkbox" class="roster_basketball_checkbox"/>
+                                        Points 
+                                    </label>
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_basketball_over_points"/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="props_basketball_over_rebounds_checkbox" class="roster_basketball_checkbox"/>
+                                        Rebounds
+                                    </label> 
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_over_rebounds"/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="props_basketball_over_assists_checkbox" class="roster_basketball_checkbox"/>
+                                        Assits 
+                                    </label>
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_over_assists"/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="props_basketball_over_steals_checkbox" class="roster_basketball_checkbox"/>
+                                        Steals
+                                    </label>
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_over_steals"/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="props_basketball_over_blocks_checkbox" class="roster_basketball_checkbox"/>
+                                        Blocks
+                                    </label>
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_over_blocks"/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" id="props_basketball_over_turnovers_checkbox" class="roster_basketball_checkbox"/>
+                                        Turnovers 
+                                    </label>
+                                    <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_over_turnovers"/>
+                                </div>
+                            </div>
                             <div class="prop_basketball_over_under_players">
                                 <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select dropdown">
@@ -371,25 +414,10 @@
                                     <option value="Player Y">Player Y</option>
                                 </select>
                             </div>
-                            <!-- Radio butons ? -->
-                            <div class="prop_basketball_over_under_stats input_padding">
-                                <span class="input_label">Stat to use </span>
-                                <select data-placeholder="Select" id="prop_basketball_over_under_stats" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Points">Points</option>
-                                    <option value="Rebounds">Rebounds</option>
-                                    <option value="Assists">Assists</option>
-                                    <option value="Steals">Steals</option>
-                                    <option value="Blocks">Blocks</option>
-                                    <option value="Turnovers">Turnovers</option>
-                                </select>
-                                <input type="number" style="width:200px;" id="prop_basketball_over_under_stat_value"/>
-                            </div>
-                            <!-- Slider ? -->
-                            <div class="prop_basketball_over_under_value input_padding">
+                            <!-- <div class="prop_basketball_over_under_value input_padding">
                                 <span class="input_label">Over Under Value (0 - 70)</span>
                                 <input type="number" min="0" max="70" style="width:200px;" id="prop_basketball_over_under_value"/>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="prop_golf_make_the_cut hidden input_padding">
                             <span class="input_label">Select Player </span>
