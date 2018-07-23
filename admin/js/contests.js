@@ -994,7 +994,8 @@
             registration_deadline: registration_deadline,
             rake: rake,
             cost_per_entry: cost_per_entry,
-            settlement_deadline: settlement_deadline
+            settlement_deadline: settlement_deadline,
+            request_source: "admin_panel"
         };
 
         if (title === 'test') {
@@ -1237,8 +1238,7 @@
         {
         api({
             method: "CreateContest",
-            args: args,
-            request_source: "admin_panel"
+            args: args
         }, function(call)
             {
             if (call.status === "1") 
