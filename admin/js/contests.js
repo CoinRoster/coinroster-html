@@ -996,6 +996,10 @@
             cost_per_entry: cost_per_entry,
             settlement_deadline: settlement_deadline
         };
+
+        if (title === 'test') {
+            common_args.private = true;
+        }
             
         switch (contest_type)
             {
@@ -1233,7 +1237,8 @@
         {
         api({
             method: "CreateContest",
-            args: args
+            args: args,
+            request_source: "admin_panel"
         }, function(call)
             {
             if (call.status === "1") 
