@@ -1000,6 +1000,8 @@
 
         if (title === 'test') {
             common_args.private = true;
+        } else {
+            common_args.private = false;
         }
             
         switch (contest_type)
