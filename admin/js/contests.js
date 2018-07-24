@@ -994,8 +994,15 @@
             registration_deadline: registration_deadline,
             rake: rake,
             cost_per_entry: cost_per_entry,
-            settlement_deadline: settlement_deadline
+            settlement_deadline: settlement_deadline,
+            request_source: "admin_panel"
         };
+
+        if (title === 'test') {
+            common_args.private = true;
+        } else {
+            common_args.private = false;
+        }
             
         switch (contest_type)
             {
