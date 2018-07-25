@@ -174,19 +174,38 @@ prop_basketball_type_selector.onchange = function()
  {
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
    var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
-   var player_select = document.getElementById("prop_basketball_over_under_player");
 
-    function populate_players()
+    function populate_match_play_players()
+    {
+      var players = get_all_players("BASKETBALL");
+      var player_select = document.getElementById("prop_basketball_match_player");
+      var selected_players = [];
+
+      var select_player = function(player)
+       {
+          selected_players.push(player);
+
+          console.log(select_players);
+       }
+
+      players.forEach((player) => {
+        var option = document.createElement("option");
+        option.text = player.name;
+        option.value = player.id;
+        option.onclick = select_player(player);
+        player_select.add(option);
+      });
+    }
+
+    function populate_over_under_players()
       {
         var players = get_all_players("BASKETBALL");
+        var player_select = document.getElementById("prop_basketball_over_under_player");
 
         players.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
           option.value = player.id;
-          option.onclick = function() {
-            console.log("You selected " + player.name);
-          };
           player_select.add(option);
         });
       }
@@ -200,7 +219,7 @@ prop_basketball_type_selector.onchange = function()
       case "Over/Under":
         show(prop_basketball_over_under[0]);
         hide(prop_basketball_match_play[0]);
-        populate_players();
+        populate_over_under_players();
         break;
     }
  };
