@@ -185,6 +185,12 @@ prop_basketball_type_selector.onchange = function()
           selected_players.push(player);
 
           console.log(selected_players);
+
+          for (var i = players.length - 1; i >= 0; i--) {
+            if (players[i].id === player.id) {
+               array.splice(i);
+            }
+          }
        }
 
       players.forEach((player) => {
