@@ -188,20 +188,25 @@ prop_basketball_type_selector.onchange = function()
 
           for (var i = players.length - 1; i >= 0; i--) {
             if (players[i].id === player.id) {
-               array.splice(i);
+               players.splice(i);
+               generate_options();
             }
           }
        }
 
-      players.forEach((player) => {
-        var option = document.createElement("option");
-        option.text = player.name;
-        option.value = player.id;
-        option.onclick = function() {
-          select_player(player);
-        }
-        player_select.add(option);
-      });
+       function generate_options() {
+        players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player.id;
+          option.onclick = function() {
+            select_player(player);
+          }
+          player_select.add(option);
+        });
+       }
+
+       generate_options();
     }
 
     function populate_over_under_players()
