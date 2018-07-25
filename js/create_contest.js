@@ -281,6 +281,8 @@ prop_golf_over_multistat_overall.onchange = function()
 /* How to pass values into JSON? */
 function create_jackpot_table() {
       
+  console.log("hello");
+
   jackpot_table = new_table("jackpot_table");
   jackpot_table.id = 'jackpot_table_element';
   var
