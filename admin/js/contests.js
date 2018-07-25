@@ -938,7 +938,16 @@
         var description = tinyMCE.get("contest_description_textarea").getContent();
         
         if (description === "") return alert("Please enter a description");
+
+        var private;
         
+        // check for access selection
+        if (document.getElementById('public_radio').checked) {
+            private = false;
+        } else if (document.getElementById('private_radio').checked) {
+            private = true;
+        } else return alert("Please select contest access");
+
         // get registration deadline
         
         var
@@ -995,14 +1004,9 @@
             rake: rake,
             cost_per_entry: cost_per_entry,
             settlement_deadline: settlement_deadline,
-            request_source: "admin_panel"
+            request_source: "admin_panel",
+            private: private
         };
-
-        if (title === 'test') {
-            common_args.private = true;
-        } else {
-            common_args.private = false;
-        }
             
         switch (contest_type)
             {
