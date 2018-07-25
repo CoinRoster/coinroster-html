@@ -288,9 +288,7 @@ function create_jackpot_table() {
   row_count = 0,
   number_of_payouts = +id("number_of_payouts").value;
 
-  console.log(number_of_payouts);
-
-  if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more options");
+  if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more payouts");
   else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
 
   /* Check that everything adds up to 100 */
@@ -299,7 +297,7 @@ function create_jackpot_table() {
       var rank = i + 1;
       new_row(jackpot_table, row_count++, [
           rank,
-          "<input type=\"text\" class=\"input_style text_input\>"
+          "<input type=\"text\" class=\"input_style text_input\">"
       ]);
   }
       
