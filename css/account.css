@@ -328,8 +328,8 @@
         display: none;
     }
 
-    #pari_mutuel_table  input {
-        width: 180px;
+    #pari_mutuel_table input {
+        width: 180px !important;
         margin-top: 10px;
         margin-left: 10px;
     }
@@ -338,8 +338,8 @@
         display: none;
     }
 
-    #jackpot_table  input {
-        width: 180px;
+    #jackpot_table input {
+        width: 180px !important;
         margin-top: 10px;
         margin-left: 10px;
     }
