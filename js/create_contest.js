@@ -297,7 +297,7 @@ function create_jackpot_table() {
       var rank = i + 1;
       new_row(jackpot_table, row_count++, [
           rank,
-          "<input type=\"text\" class=\"input_style text_input\">"
+          "<input type=\"text\" placeholder=\"% of payout\" class=\"input_style text_input\">"
       ]);
   }
       
