@@ -313,8 +313,8 @@
         color: rgb(155, 155, 155);
     }
 
-    #number_of_options {
-        width: 25px;
+    #number_of_options, #number_of_payouts {
+        width: 40px;
         margin-left: 15px;
     }
 
@@ -342,4 +342,8 @@
         width: 180px !important;
         margin-top: 10px;
         margin-left: 10px;
+    }
+
+    #jackpot_table input:nth-child(2) {
+        margin-top: 0;
     }
