@@ -313,6 +313,33 @@
         color: rgb(155, 155, 155);
     }
 
+    #number_of_options {
+        width: 25px;
+        margin-left: 15px;
+    }
+
+    .pari_mutuel_button {
+        display: block;
+        widows: 220px;
+        margin-top: 10px;
+    }
+
     #pari_mutuel_table tr:first-child { /* header */
         display: none;
+    }
+
+    #pari_mutuel_table > input {
+        width: 180px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    #jackpot_table tr:first-child { /* header */
+        display: none;
+    }
+
+    #jackpot_table > input {
+        width: 180px;
+        margin-top: 10px;
+        margin-left: 10px;
     }

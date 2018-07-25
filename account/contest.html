@@ -226,8 +226,9 @@
                         </div>
                         <div class="roster_settlement_jackpot hidden input_padding">
                             <div class="input_padding">
-                                <span class="input_label">Pay Structure </span>
-                                <input id="roster_jackpot_pay_structure" type="text" class="input_style text_input" maxlength="255">
+                                Number of Payouts: 
+                                <input id="number_of_payouts" type="text" class="input_style text_input" placeholder=" #">
+                                <button type="button" class="text_button pari_mutuel_button" onclick="create_jackpot_table();">Apply</button>
                             </div>
                             <div class="input_padding">
                                 <span class="input_label">Min Users</span>
@@ -835,12 +836,11 @@
                             </div>
                         </div>
                         <div class="misc_pari_mutuel_options input_padding">
-                            <!-- Reqiures Testing - id's and class's -->
                             <span class="input_label">Pari-mutuel Options</span>
                             <div class="misc_pari_mutuel_options">
                                 Number of Options: 
                                 <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
-                                <button type="button" class="text_button" onclick="create_pari_mutuel_table();">Apply</button>
+                                <button type="button" class="text_button pari_mutuel_button" onclick="create_pari_mutuel_table();">Apply</button>
                             </div>
                             <div id="pari_mutuel_table" class="report_table"></div>
                         </div>
