@@ -174,6 +174,19 @@ prop_basketball_type_selector.onchange = function()
  {
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
    var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
+   var player_select = document.getElementById("prop_basketball_over_under_player");
+
+    function populate_players()
+      {
+        var players = get_all_players("BASKETBALL");
+
+        players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player;
+          player_select.add(option);
+        });
+      }
 
    switch (selectorHTML(prop_basketball_type_selector))
     {
@@ -184,6 +197,7 @@ prop_basketball_type_selector.onchange = function()
       case "Over/Under":
         show(prop_basketball_over_under[0]);
         hide(prop_basketball_match_play[0]);
+        populate_players();
         break;
     }
  };
@@ -319,13 +333,3 @@ function get_all_players(sport)
   if (call.status === "1") return call.player_list;
   else return null;
   }
-
-function populate_basketball_players()
- {
-    var players = get_all_players("BASKETBALL");
-
-    players.forEach(player => {
-      console.log(player.name)
-    });
-
- }
