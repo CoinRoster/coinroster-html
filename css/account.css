@@ -328,7 +328,7 @@
         display: none;
     }
 
-    #pari_mutuel_table > input {
+    #pari_mutuel_table  input {
         width: 180px;
         margin-top: 10px;
         margin-left: 10px;
@@ -338,7 +338,7 @@
         display: none;
     }
 
-    #jackpot_table > input {
+    #jackpot_table  input {
         width: 180px;
         margin-top: 10px;
         margin-left: 10px;
