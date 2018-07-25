@@ -280,8 +280,6 @@ prop_golf_over_multistat_overall.onchange = function()
 
 /* How to pass values into JSON? */
 function create_jackpot_table() {
-      
-  console.log("hello");
 
   jackpot_table = new_table("jackpot_table");
   jackpot_table.id = 'jackpot_table_element';
@@ -289,6 +287,8 @@ function create_jackpot_table() {
   
   row_count = 0,
   number_of_payouts = +id("number_of_payouts").value;
+
+  console.log(number_of_payouts);
 
   if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more options");
   else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
