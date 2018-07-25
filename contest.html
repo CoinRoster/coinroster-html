@@ -246,6 +246,7 @@
     function init()
         {                            
         var contest_id = get_url_param("id") | 0;
+        var code = get_url_param("code") || "";
         
         window.contest_id = contest_id;
         
@@ -254,7 +255,8 @@
             api({
                 method: "GetContestDetails",
                 args: {
-                    contest_id: contest_id
+                    contest_id: contest_id,
+                    code: code
                 }
             }, function(call)
                 {
