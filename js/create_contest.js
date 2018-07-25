@@ -279,30 +279,50 @@ prop_golf_over_multistat_overall.onchange = function()
   };
 
 /* How to pass values into JSON? Where to check if it all adds up to 100%? */
-function create_jackpot_table() {
+function create_jackpot_table()
+  {
+    jackpot_table = new_table("jackpot_table");
+    jackpot_table.id = 'jackpot_table_element';
+    var
 
-  jackpot_table = new_table("jackpot_table");
-  jackpot_table.id = 'jackpot_table_element';
-  var
-  
-  row_count = 0,
-  number_of_payouts = +id("number_of_payouts").value;
+    row_count = 0,
+    number_of_payouts = +id("number_of_payouts").value;
 
-  if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more payouts");
-  else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
+    if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more payouts");
+    else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
 
-  for (var i=0; i < number_of_payouts; i++) {
-      var rank = i + 1;
-      new_row(jackpot_table, row_count++, [
-          rank,
-          "<input type=\"text\" placeholder=\"% of payout\" class=\"input_style text_input\">"
-      ]);
+    for (var i=0; i < number_of_payouts; i++) {
+        var rank = i + 1;
+        new_row(jackpot_table, row_count++, [
+            rank,
+            "<input type=\"number\" placeholder=\"% of payout\" class=\"input_style text_input\">"
+        ]);
+    }
+        
+    var header = new_row(jackpot_table, 0, [
+        "Id",
+        "Description"
+    ]);
+        
+    for (var i=1; i<header.length; i++) header[i].className = "header_cell";
   }
-      
-  var header = new_row(jackpot_table, 0, [
-      "Id",
-      "Description"
-  ]);
-      
-  for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-}
+
+function get_all_players(sport)
+  {
+  var call = api({
+      method: "GetPlayerList",
+      args: {
+          sport: sport
+      }
+  });
+  
+  if (call.status === "1") return call.player_list;
+  else return null;
+  }
+
+function populate_basketball_players()
+ {
+    var players = get_all_players("BASKETBALL");
+
+    console.log(players);
+ }
