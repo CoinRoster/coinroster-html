@@ -183,7 +183,8 @@ prop_basketball_type_selector.onchange = function()
         players.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
-          option.value = player;
+          option.value = player.id;
+          option.onclick = console.log("You selected " + player.name);
           player_select.add(option);
         });
       }
