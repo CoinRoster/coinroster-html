@@ -324,5 +324,8 @@ function populate_basketball_players()
  {
     var players = get_all_players("BASKETBALL");
 
-    console.log(players);
+    players.array.forEach(player => {
+      console.log("This player is " + player)
+    });
+
  }
