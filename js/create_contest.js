@@ -184,7 +184,9 @@ prop_basketball_type_selector.onchange = function()
           var option = document.createElement("option");
           option.text = player.name;
           option.value = player.id;
-          option.onclick = console.log("You selected " + player.name);
+          option.onclick = function() {
+            console.log("You selected " + player.name);
+          };
           player_select.add(option);
         });
       }
