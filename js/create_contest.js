@@ -181,11 +181,10 @@ prop_basketball_type_selector.onchange = function()
       var player_select = document.getElementById("prop_basketball_match_player");
       var selected_players = [];
 
-      var select_player = function(player)
-       {
+       function select_player(player) {
           selected_players.push(player);
 
-          console.log(select_players);
+          console.log(selected_players);
        }
 
       players.forEach((player) => {
