@@ -344,6 +344,6 @@
         margin-left: 10px;
     }
 
-    #jackpot_table input:nth-child(2) {
-        margin-top: 0;
+    .number_of_payouts {
+        margin-bottom: 0;
     }
