@@ -18,7 +18,7 @@
         }
 
     function create_pari_mutuel_table() {
-        
+            
         pari_mutuel_table = new_table("pari_mutuel_table");
         pari_mutuel_table.id = 'pari_mutuel_table_element';
         var
