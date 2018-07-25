@@ -215,6 +215,7 @@ prop_basketball_type_selector.onchange = function()
       case "Match Play":
         show(prop_basketball_match_play[0]);
         hide(prop_basketball_over_under[0]);
+        populate_match_play_players();
         break;
       case "Over/Under":
         show(prop_basketball_over_under[0]);
