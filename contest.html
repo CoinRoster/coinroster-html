@@ -246,8 +246,12 @@
     function init()
         {                            
         var contest_id = get_url_param("id") | 0;
-        var code = get_url_param("code") || "";
+        var code = get_url_param("code");
         
+        if (code === null || code === undefined) {
+            code = "";
+        }
+
         window.contest_id = contest_id;
         
         if (contest_id !== 0)
