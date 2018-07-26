@@ -189,7 +189,7 @@ prop_basketball_type_selector.onchange = function()
         var players_to_populate = players;
 
         for (i = 0;i < selected_players.length; i++) {
-          players_to_populate = players.filter(player => player.player_id !== selected_players[i].player_id);
+          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
         console.log(players_to_populate);
