@@ -180,8 +180,8 @@ prop_basketball_type_selector.onchange = function()
    function select_player(player) 
     {
         selected_players.push(player);
-        console.log(selected_players);
         populate_match_play_players();
+        console.log(selected_players);
     }
 
     function populate_match_play_players()
@@ -189,36 +189,31 @@ prop_basketball_type_selector.onchange = function()
         var players_to_populate = players;
         var player_select = document.getElementById("prop_basketball_match_player");
         var selected_players_list = document.getElementById("selected_players_list");
-        player_select.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
-        player_select.selectedIndex = "0";
+        player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
 
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
-        // console.log(players_to_populate);
-        // console.log("======");
-        // console.log(selected_players);
-
         players_to_populate.forEach((player) => {
-          var option = document.createElement("option");
-          option.text = player.name;
-          option.value = player.player_id;
-          option.onclick = function() {
+          var li = document.createElement("li");
+          li.text = player.name;
+          li.value = player.player_id;
+          li.onclick = function() {
             select_player(player);
           }
-          player_select.add(option);
+          player_select.appendChild(li);
         });
 
         selected_players.forEach((player) => {
-          var span = document.createElement("span");
-          span.text = player.name;
-          span.id = player.player_id;
-          span.onclick = function() {
+          var li = document.createElement("li");
+          li.text = player.name;
+          li.id = player.player_id;
+          li.onclick = function() {
             console.log("Clicked a selected player");
           }
-          selected_players_list.appendChild(span);
+          selected_players_list.appendChild(li);
         });
       }
 
