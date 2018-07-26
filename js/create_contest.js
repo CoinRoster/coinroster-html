@@ -188,18 +188,14 @@ prop_basketball_type_selector.onchange = function()
         var player_select = document.getElementById("prop_basketball_match_player");
 
         for (i = 0;i < selected_players.length; i++) {
-          players = players.filter(player => player.player_id !== selected_players[i].player_id);
+          players_to_populate = players.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
         console.log(players);
         console.log("======");
         console.log(selected_players);
 
-        // var players_to_populate = 0;
-
-        /* check if anyone is in selected players */
-
-        players.forEach((player) => {
+        players_to_populate.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
           option.value = player.id;
