@@ -1246,7 +1246,13 @@
             method: "CreateContest",
             args: args
         }, function(call)
-            {
+            {            
+            if (call.status === "1" && args.private) 
+                {
+                show_simple_modal("Your private contest's unique URL: http://165.227.40.220/contest.html?id="
+                    + call.contest_id + "&code=" + contest.code);
+                // location.reload();
+                }
             if (call.status === "1") 
                 {
                 alert("Contest created! Reloading panel.");
