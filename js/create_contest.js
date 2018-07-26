@@ -177,12 +177,19 @@ prop_basketball_type_selector.onchange = function()
    var players = get_all_players("BASKETBALL");
    var selected_players = [];
 
-   function select_player(player) 
+   function add_player(player) 
     {
         selected_players.push(player);
         populate_match_play_players();
-        console.log(selected_players);
     }
+
+    function remove_player(player)
+     {
+        for (i = 0;i < selected_players.length; i++) {
+          selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
+        }  
+        populate_match_play_players();
+     }
 
     function populate_match_play_players()
       {
@@ -201,7 +208,7 @@ prop_basketball_type_selector.onchange = function()
           li.innerHTML = player.name;
           li.value = player.player_id;
           li.onclick = function() {
-            select_player(player);
+            add_player(player);
           }
           player_select.appendChild(li);
         });
@@ -211,7 +218,7 @@ prop_basketball_type_selector.onchange = function()
           li.innerHTML = player.name;
           li.id = player.player_id;
           li.onclick = function() {
-            console.log("Clicked a selected player");
+            remove_player(player);
           }
           selected_players_list.appendChild(li);
         });
