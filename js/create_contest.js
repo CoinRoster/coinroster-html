@@ -188,7 +188,7 @@ prop_basketball_type_selector.onchange = function()
         var player_select = document.getElementById("prop_basketball_match_player");
 
         for (i = 0;i < selected_players.length; i++) {
-          players.filter(player => player.id !== selected_players[i].id);
+          players.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
         console.log(players);
