@@ -174,27 +174,29 @@ prop_basketball_type_selector.onchange = function()
  {
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
    var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
+   var players = get_all_players("BASKETBALL");
+   var selected_players = [];
+
+   function select_player(player) 
+    {
+        selected_players.push(player);
+        populate_match_play_players();
+    }
 
     function populate_match_play_players()
-    {
-      var players = get_all_players("BASKETBALL");
-      var player_select = document.getElementById("prop_basketball_match_player");
-      var selected_players = [];
+      {
+        var player_select = document.getElementById("prop_basketball_match_player");
 
-       function select_player(player) {
-          selected_players.push(player);
+        for (i = 0;i < select_players.length; i++) {
+          players.filter(player => player.id !== select_player[i].id);
+        }      
 
-          console.log(selected_players);
+        console.log(players);
 
-          for (var i = players.length - 1; i >= 0; i--) {
-            if (players[i].id === player.id) {
-               players.splice(i);
-               generate_options();
-            }
-          }
-       }
+        // var players_to_populate = 0;
 
-       function generate_options() {
+        /* check if anyone is in selected players */
+
         players.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
@@ -204,14 +206,10 @@ prop_basketball_type_selector.onchange = function()
           }
           player_select.add(option);
         });
-       }
-
-       generate_options();
-    }
+      }
 
     function populate_over_under_players()
       {
-        var players = get_all_players("BASKETBALL");
         var player_select = document.getElementById("prop_basketball_over_under_player");
 
         players.forEach((player) => {
