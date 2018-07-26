@@ -175,15 +175,64 @@ prop_basketball_type_selector.onchange = function()
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
    var prop_basketball_over_under = document.getElementsByClassName("prop_basketball_over_under");
 
+    function populate_match_play_players()
+    {
+      var players = get_all_players("BASKETBALL");
+      var player_select = document.getElementById("prop_basketball_match_player");
+      var selected_players = [];
+
+       function select_player(player) {
+          selected_players.push(player);
+
+          console.log(selected_players);
+
+          for (var i = players.length - 1; i >= 0; i--) {
+            if (players[i].id === player.id) {
+               players.splice(i);
+               generate_options();
+            }
+          }
+       }
+
+       function generate_options() {
+        players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player.id;
+          option.onclick = function() {
+            select_player(player);
+          }
+          player_select.add(option);
+        });
+       }
+
+       generate_options();
+    }
+
+    function populate_over_under_players()
+      {
+        var players = get_all_players("BASKETBALL");
+        var player_select = document.getElementById("prop_basketball_over_under_player");
+
+        players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player.id;
+          player_select.add(option);
+        });
+      }
+
    switch (selectorHTML(prop_basketball_type_selector))
     {
       case "Match Play":
         show(prop_basketball_match_play[0]);
         hide(prop_basketball_over_under[0]);
+        populate_match_play_players();
         break;
       case "Over/Under":
         show(prop_basketball_over_under[0]);
         hide(prop_basketball_match_play[0]);
+        populate_over_under_players();
         break;
     }
  };
@@ -279,30 +328,43 @@ prop_golf_over_multistat_overall.onchange = function()
   };
 
 /* How to pass values into JSON? Where to check if it all adds up to 100%? */
-function create_jackpot_table() {
+function create_jackpot_table()
+  {
+    jackpot_table = new_table("jackpot_table");
+    jackpot_table.id = 'jackpot_table_element';
+    var
 
-  jackpot_table = new_table("jackpot_table");
-  jackpot_table.id = 'jackpot_table_element';
-  var
-  
-  row_count = 0,
-  number_of_payouts = +id("number_of_payouts").value;
+    row_count = 0,
+    number_of_payouts = +id("number_of_payouts").value;
 
-  if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more payouts");
-  else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
+    if (isNaN(number_of_payouts) || number_of_payouts < 2) return alert("There must be 2 or more payouts");
+    else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
 
-  for (var i=0; i < number_of_payouts; i++) {
-      var rank = i + 1;
-      new_row(jackpot_table, row_count++, [
-          rank,
-          "<input type=\"text\" placeholder=\"% of payout\" class=\"input_style text_input\">"
-      ]);
+    for (var i=0; i < number_of_payouts; i++) {
+        var rank = i + 1;
+        new_row(jackpot_table, row_count++, [
+            rank,
+            "<input type=\"number\" placeholder=\"% of payout\" class=\"input_style text_input\">"
+        ]);
+    }
+        
+    var header = new_row(jackpot_table, 0, [
+        "Id",
+        "Description"
+    ]);
+        
+    for (var i=1; i<header.length; i++) header[i].className = "header_cell";
   }
-      
-  var header = new_row(jackpot_table, 0, [
-      "Id",
-      "Description"
-  ]);
-      
-  for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-}
+
+function get_all_players(sport)
+  {
+  var call = api({
+      method: "GetPlayerList",
+      args: {
+          sport: sport
+      }
+  });
+  
+  if (call.status === "1") return call.player_list;
+  else return null;
+  }

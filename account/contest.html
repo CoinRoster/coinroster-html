@@ -226,7 +226,7 @@
                         </div>
                         <div class="roster_settlement_jackpot hidden input_padding">
                             <div>
-                                <div class="input_padding">
+                                <div class="input_padding number_of_payouts">
                                     Number of Payouts: 
                                     <input id="number_of_payouts" type="number" class="input_style text_input" placeholder=" #">
                                     <button type="button" class="text_button pari_mutuel_button" onclick="create_jackpot_table();">Apply</button>
@@ -347,23 +347,17 @@
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="props_basketball_match_turnovers"/>
                                 </div>
                             </div>
+
+
                             <div class="prop_basketball_match_players input_padding">
-                                <span class="input_label">Select Players</span>
+                                <span class="input_label">Select Players (2 - 10)</span>
                                 1 
                                 <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select dropdown">
                                     <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
-                                </select>
-                                <br />
-                                2
-                                <select data-placeholder="Select" id="prop_basketball_match_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
                                 </select>
                             </div>
-                            <!---->
+
+
                         </div>
                         <div class="prop_basketball_over_under hidden input_padding">
                             <div class="input_padding">
@@ -418,8 +412,6 @@
                                 <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select dropdown">
                                     <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
                                 </select>
                             </div>
                         </div>
