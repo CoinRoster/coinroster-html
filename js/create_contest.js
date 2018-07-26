@@ -205,6 +205,7 @@ prop_basketball_type_selector.onchange = function()
             select_player(player);
           }
           player_select.add(option);
+          console.log(option);
         });
       }
 
