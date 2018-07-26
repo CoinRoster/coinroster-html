@@ -306,16 +306,16 @@ prop_golf_match_multistat_overall.onchange = function()
 prop_golf_over_multistat_overall.onchange = function()
  {
     var prop_golf_over_stats_multistat = document.getElementsByClassName("prop_golf_over_stats_multistat");
-    var prop_golf_over_score_to_par = document.getElementsByClassName("prop_golf_over_score_to_par");
+    // var prop_golf_over_score_to_par = document.getElementsByClassName("prop_golf_over_score_to_par");
 
     switch (selectorHTML(prop_golf_over_multistat_overall))
      {
         case "Multi-stat":
           show(prop_golf_over_stats_multistat[0]);
-          hide(prop_golf_over_score_to_par[0]);
+          // hide(prop_golf_over_score_to_par[0]);
           break;
         case "Score to Par":
-          show(prop_golf_over_score_to_par[0]);
+          // show(prop_golf_over_score_to_par[0]);
           hide(prop_golf_over_stats_multistat[0]);
           break;
      }
