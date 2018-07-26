@@ -347,3 +347,13 @@
     .number_of_payouts {
         margin-bottom: 0;
     }
+
+    .player_list {
+        width: 300px;
+        height: 600px;
+        overflow: scroll;
+    }
+
+    .player_list li:hover {
+        background-color: gray;
+    }
