@@ -187,17 +187,18 @@ prop_basketball_type_selector.onchange = function()
       {
         var players_to_populate = players;
         var player_select = document.getElementById("prop_basketball_match_player");
+        var selected_players_list = document.getElementById("selected_players_list");
         player_select.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+        player_select.selectedIndex = "0";
+        selected_players_list.innerHTML = "";
 
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
-        console.log(players_to_populate);
-        console.log("======");
-        console.log(selected_players);
-
-        player_select.selectedIndex = "0";
+        // console.log(players_to_populate);
+        // console.log("======");
+        // console.log(selected_players);
 
         players_to_populate.forEach((player) => {
           var option = document.createElement("option");
@@ -207,6 +208,17 @@ prop_basketball_type_selector.onchange = function()
             select_player(player);
           }
           player_select.add(option);
+        });
+
+        selected_players.forEach((player) => {
+
+          var span = document.createElement("span");
+          span.text = player.name;
+          span.id = player.player_id;
+          span.onclick = function() {
+            console.log("Clicked a selected player");
+          }
+          selected_players_list.add(span);
         });
       }
 
