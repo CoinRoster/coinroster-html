@@ -187,7 +187,7 @@ prop_basketball_type_selector.onchange = function()
       {
         var players_to_populate = players;
         var player_select = document.getElementById("prop_basketball_match_player");
-        player_select.innerHTML = "";
+        player_select.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
@@ -197,15 +197,16 @@ prop_basketball_type_selector.onchange = function()
         console.log("======");
         console.log(selected_players);
 
+        player_select.selectedIndex = "0";
+
         players_to_populate.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
-          option.value = player.id;
+          option.value = player.player_id;
           option.onclick = function() {
             select_player(player);
           }
           player_select.add(option);
-          console.log(option);
         });
       }
 
