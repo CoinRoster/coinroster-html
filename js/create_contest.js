@@ -180,6 +180,7 @@ prop_basketball_type_selector.onchange = function()
    function select_player(player) 
     {
         selected_players.push(player);
+        console.log(selected_players);
         populate_match_play_players();
     }
 
@@ -211,7 +212,6 @@ prop_basketball_type_selector.onchange = function()
         });
 
         selected_players.forEach((player) => {
-
           var span = document.createElement("span");
           span.text = player.name;
           span.id = player.player_id;
