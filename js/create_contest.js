@@ -218,7 +218,7 @@ prop_basketball_type_selector.onchange = function()
           span.onclick = function() {
             console.log("Clicked a selected player");
           }
-          selected_players_list.add(span);
+          selected_players_list.appendChild(span);
         });
       }
 
