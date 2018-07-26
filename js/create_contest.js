@@ -191,7 +191,7 @@ prop_basketball_type_selector.onchange = function()
           players.filter(player => player.id !== selected_players[i].id);
         }      
 
-        console.log(players);
+        console.log(selected_players);
 
         // var players_to_populate = 0;
 
