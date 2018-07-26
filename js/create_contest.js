@@ -185,8 +185,9 @@ prop_basketball_type_selector.onchange = function()
 
     function populate_match_play_players()
       {
-        var player_select = document.getElementById("prop_basketball_match_player");
         var players_to_populate = players;
+        var player_select = document.getElementById("prop_basketball_match_player");
+        player_select.innerHTML = "";
 
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
