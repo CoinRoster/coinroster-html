@@ -1250,7 +1250,7 @@
             if (call.status === "1" && args.private) 
                 {
                 alert("Your private contest's unique URL: http://165.227.40.220/contest.html?id="
-                    + call.contest_id + "&code=" + contest.code);
+                    + call.contest_id + "&code=" + call.code);
                 // location.reload();
                 }
             if (call.status === "1") 
