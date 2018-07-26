@@ -198,7 +198,7 @@ prop_basketball_type_selector.onchange = function()
 
         players_to_populate.forEach((player) => {
           var li = document.createElement("li");
-          li.text = player.name;
+          li.innerHTML = player.name;
           li.value = player.player_id;
           li.onclick = function() {
             select_player(player);
@@ -208,7 +208,7 @@ prop_basketball_type_selector.onchange = function()
 
         selected_players.forEach((player) => {
           var li = document.createElement("li");
-          li.text = player.name;
+          li.innerHTML = player.name;
           li.id = player.player_id;
           li.onclick = function() {
             console.log("Clicked a selected player");
