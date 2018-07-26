@@ -23,7 +23,7 @@
                 You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
                 <br/>
                 <br/>
-                Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link green">Click here to sign up!</a>
+                Don't have an account?&nbsp;&nbsp;<a id="signup_link" href="/signup.html" class="inline_link green">Click here to sign up!</a>
             </div>
             <div id="verify_email_container" class="account_creation_message hidden">
                 You must verify your email in order to enter this contest.
@@ -429,6 +429,7 @@
                             {
                             show("login_prompt_container");
                             id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            id("signup_link").href = "/signup.html#redirect=" + encodeURIComponent(window.location);
                             }
                         else // user is logged in
                             {
