@@ -634,7 +634,8 @@ function get_available_sports()
         set_deadline_time,
         min_wager,
         settlement_type,
-        pari_mutuel_options: table_values
+        pari_mutuel_options: table_values,
+        private
       };
 
       const json = JSON.stringify(json_obj);
