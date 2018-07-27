@@ -592,4 +592,16 @@ function get_available_sports()
      var contest_type = selectorValue('contest_type_selector');
 
      console.log(contest_type);
+
+    if (contest_type === "Roster") {
+
+    }
+
+    if (contest_type === "Prop") {
+
+    }
+
+     if (contest_type === "Misc") {
+        
+     }
    }
