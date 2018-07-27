@@ -356,7 +356,7 @@
         padding-left: 0px;
         border: 1px solid grey;
         margin-top: 5px;
-        border-radius: 15px;
+        border-radius: 10px;
         width: 200px;
     }
 
@@ -369,6 +369,6 @@
         background-color: gray;
     }
 
-    .submit_button_container {
+    .submit_container {
         margin-top: 15px;
     }
