@@ -620,32 +620,33 @@ function get_available_sports()
         alert("Please enter a contest title");
       } else if (!description.length) {
         alert("Please enter a contest description");
+      } else {
+
+          if (pari_mutuel_table.firstChild) {
+            var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+    
+            for (i=1; i<table_rows;i++) {
+              table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
+            }
+          }
+    
+          var json_obj = {
+            title,
+            description,
+            reg_deadline,
+            reg_deadline_time,
+            set_deadline,
+            set_deadline_time,
+            min_wager,
+            settlement_type,
+            pari_mutuel_options: table_values,
+            private
+          };
+    
+          var json = JSON.stringify(json_obj);
+    
+          console.log(json);
+
       }
-
-      if (pari_mutuel_table.firstChild) {
-        var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
-
-        for (i=1; i<table_rows;i++) {
-          table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
-        }
-      }
-
-      var json_obj = {
-        title,
-        description,
-        reg_deadline,
-        reg_deadline_time,
-        set_deadline,
-        set_deadline_time,
-        min_wager,
-        settlement_type,
-        pari_mutuel_options: table_values,
-        private
-      };
-
-      var json = JSON.stringify(json_obj);
-
-      console.log(json);
-
     }
   }
