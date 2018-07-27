@@ -53,16 +53,45 @@ contest_type_selector.onchange = function()
     var misc_fields = document.getElementsByClassName("misc_fields");
 
     reset_elements();
-
     document.getElementById("roster_sport_selector").selectedIndex = "0";
     document.getElementById("prop_sport_selector").selectedIndex = "0";
 
-
     avaliable_sports = get_available_sports();
 
-    console.log(avaliable_sports);
+    function populate_sports()
+     {
+      //  var basketball = avaliable_sports.BASKETBALL;
+      //  var golf = avaliable_sports.GOLF_4;
+      //  var baseball = avaliable_sports.BASEBALL;
 
-    
+      var baseball = true;
+      var golf = true;
+      var basbeall = false;
+
+       if (basketball) {
+        var option = document.createElement("option");
+        option.text = "Basketball";
+        option.value = "Basketball";
+        roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
+       } 
+       
+       if (golf) {
+        var option = document.createElement("option");
+        option.text = "Golf";
+        option.value = "Golf";
+        roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
+       }
+
+       if (baseball) {
+        var option = document.createElement("option");
+        option.text = "Baseball";
+        option.value = "Baseball";
+        roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
+       }
+     }
 
     switch (selectorHTML(contest_type_selector))
       {
@@ -70,11 +99,13 @@ contest_type_selector.onchange = function()
           show(roster_fields[0]);
           hide(prop_fields[0]);
           hide(misc_fields[0]);
+          populate_sports();
           break;
         case "Prop":
           show(prop_fields[0]);
           hide(roster_fields[0]);
           hide(misc_fields[0]);
+          populate_sports();
           break;
         case "Misc":
           show(misc_fields[0]);
