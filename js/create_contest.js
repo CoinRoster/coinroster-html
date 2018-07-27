@@ -591,7 +591,6 @@ function get_available_sports()
    {
      var contest_type = selectorValue("contest_type_selector");
      var private = id("contest_private").checked;
-     var public = id("contest_public").checked;
 
      if (!contest_type) {
        alert("Please select a contest type");
@@ -625,8 +624,22 @@ function get_available_sports()
         }
       }
 
-      console.log("Private " + private);
-      console.log("Public " + public);
+      const json_obj = {
+        category: "MISC",
+        title,
+        description,
+        reg_deadline,
+        reg_deadline_time,
+        set_deadline,
+        set_deadline_time,
+        min_wager,
+        settlement_type,
+        pari_mutuel_options: table_values
+      };
+
+      const json = JSON.stringify(json_obj);
+
+      console.log(json);
 
     }
   }
