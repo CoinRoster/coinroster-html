@@ -153,7 +153,10 @@
                     status_string = "Under-subscribed";
                     break;
                 case 5:
-                    status_string = "Cancelled";
+                    status_string = "Pending Admin Approval";
+                    break;
+                case 6:
+                    status_string = "Backed out";
                     break;
                 }
                 
@@ -173,7 +176,9 @@
             
             total_prize_pool = contest_item.total_prize_pool,
             number_of_entries = divide(total_prize_pool, cost_per_entry);
-            total_prize_pool += " BTC";
+            total_prize_pool += " BTC",
+            
+            backout_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"backout_contest(" + id + ")\">Backout Contest</button>";
             
             if (settlement_type === "PARI-MUTUEL") 
                 {
@@ -211,6 +216,7 @@
                 //pay_table,
                 //option_table,
                 odds_source,
+                backout_string
             ]);
             
             right_align(row, right_align_array);
@@ -240,7 +246,8 @@
             //"Description",
             //"Pay table",
             //"Option table",
-            "Odds source"
+            "Odds source",
+            "Backout Contest"
         ]);
         // style headers:
 
