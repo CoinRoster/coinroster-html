@@ -341,12 +341,14 @@ prop_golf_type_selector.onchange = function()
         hide(prop_golf_make_the_cut[0]);
         hide(prop_golf_over_under[0]);
         hide(prop_golf_number_of_shots[0]);
+        populate_golf_match_players();
         break;
       case "Number of Shots":
         show(prop_golf_number_of_shots[0]);
         hide(prop_golf_make_the_cut[0]);
         hide(prop_golf_over_under[0]);
         hide(prop_golf_match_play[0]);
+        populate_golf_players(prop_golf_number_of_shots);
         break;
     }
  };
