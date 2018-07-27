@@ -173,7 +173,16 @@
             }
         }, function(call)
             {
-            if (call.status === "1") location = "/";
+            if (call.status === "1") {
+                var hash = location.hash.slice(1);
+                if (hash.indexOf("redirect") !== -1)
+                    {
+                    var target = hash.split("=")[1];
+                    if (typeof target !== "undefined") return window.location = decodeURIComponent(target);
+                    }
+                // fail over to:
+                window.location = "/";
+            }
             else 
                 {
                 if (call.error === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");
