@@ -64,39 +64,38 @@ contest_type_selector.onchange = function()
       //  var golf = avaliable_sports.GOLF_4;
       //  var baseball = avaliable_sports.BASEBALL;
       
-      roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
-      prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+      // roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+      // prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
-      var basketball = true;
-      var golf = true;
-      var baseball = false;
+      // var basketball = true;
+      // var golf = true;
+      // var baseball = false;
 
-       if (basketball) {
-        var option = document.createElement("option");
-        option.text = "Basketball";
-        option.value = "Basketball";
-        roster_sport_selector.add(option);
-        prop_sport_selector.add(option);
-       } 
+      //  if (basketball) {
+      //   var option = document.createElement("option");
+      //   option.text = "Basketball";
+      //   option.value = "Basketball";
+      //   roster_sport_selector.add(option);
+      //   prop_sport_selector.add(option);
+      //  } 
        
-       if (golf) {
-        var option = document.createElement("option");
-        option.text = "Golf";
-        option.value = "Golf";
-        roster_sport_selector.add(option);
-        prop_sport_selector.add(option);
-       }
+      //  if (golf) {
+      //   var option = document.createElement("option");
+      //   option.text = "Golf";
+      //   option.value = "Golf";
+      //   roster_sport_selector.add(option);
+      //   prop_sport_selector.add(option);
+      //  }
 
-       if (baseball) {
-        var option = document.createElement("option");
-        option.text = "Baseball";
-        option.value = "Baseball";
-        roster_sport_selector.add(option);
-        prop_sport_selector.add(option);
-       }
+      //  if (baseball) {
+      //   var option = document.createElement("option");
+      //   option.text = "Baseball";
+      //   option.value = "Baseball";
+      //   roster_sport_selector.add(option);
+      //   prop_sport_selector.add(option);
+      //  }
 
        console.log(roster_sport_selector);
-       console.log(prop_sport_selector);
      }
 
     switch (selectorHTML(contest_type_selector))
