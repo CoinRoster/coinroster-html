@@ -200,7 +200,8 @@ prop_sport_selector.onchange = function()
   var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
-  
+  var prop_golf_type_selector = document.getElementById("prop_golf_type");
+
   avaliable_sports = get_available_sports();
 
   $('#prop_golf_type option[value="Make the Cut"]').remove();
@@ -215,7 +216,7 @@ prop_sport_selector.onchange = function()
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
-    prop_golf_type.add(option);
+    prop_golf_type_selector.add(option);
   }
 
   switch (selectorHTML(prop_sport_selector))
