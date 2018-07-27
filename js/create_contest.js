@@ -612,17 +612,17 @@ function get_available_sports()
       var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+      var table_values = [];
 
       for (i=1; i<table_rows;i++) {
-
-        console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value)
+        table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
       }
 
       // console.log(pari_mutuel_table.firstChild.childNodes[0].children[1].childNodes[1].childNodes[0].value);
       // console.log(pari_mutuel_table.firstChild.childNodes[0].children[2].childNodes[1].childNodes[0].value);
       // console.log(pari_mutuel_table.firstChild.childNodes[0].children[3].childNodes[1].childNodes[0].value);
       
-      // console.log(table_rows);
+      console.log(table_values);
 
     }
   }
