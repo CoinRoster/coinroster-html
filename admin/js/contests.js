@@ -1461,6 +1461,25 @@
         }
         
 /*----------------------------------------------------------------------*/
+
+    function backout_contest(contest_id) {
+        api({
+            method: "AdminBackoutContest",
+            args: {
+                contest_id: contest_id
+            }
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                alert("Contest backed out! Reloading panel.");
+                location.reload();
+                }
+            else alert("Error: " + call.error);
+            });
+    }
+
+/*----------------------------------------------------------------------*/
  
     function validate_player_scores(step, table_id)
         {
