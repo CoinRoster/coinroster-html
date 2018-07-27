@@ -60,16 +60,12 @@ contest_type_selector.onchange = function()
 
     function populate_sports()
      {
-      //  var basketball = avaliable_sports.BASKETBALL;
-      //  var golf = avaliable_sports.GOLF_4;
-      //  var baseball = avaliable_sports.BASEBALL;
+       var basketball = avaliable_sports.BASKETBALL;
+       var golf = avaliable_sports.GOLF_4;
+       var baseball = avaliable_sports.BASEBALL;
       
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
-
-      var basketball = true;
-      var golf = true;
-      var baseball = false;
 
        if (basketball) {
         var option = document.createElement("option");
@@ -204,12 +200,23 @@ prop_sport_selector.onchange = function()
   var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
+  
+  avaliable_sports = get_available_sports();
 
+  $('prop_golf_type[value="Make the Cut"]').remove();
+  
   reset_elements();
-
+  
   document.getElementById("prop_basketball_type").selectedIndex = "0";
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
+
+  // if (true || avaliable_sports.GOLF_2) {
+  //   var option = document.createElement("option");
+  //   option.text = "Make the Cut";
+  //   option.value = "Make the Cut";
+  //   prop_golf_type.add(option);
+  // }
 
   switch (selectorHTML(prop_sport_selector))
   {
