@@ -624,8 +624,7 @@ function get_available_sports()
         }
       }
 
-      const json_obj = {
-        category: "MISC",
+      var json_obj = {
         title,
         description,
         reg_deadline,
@@ -638,7 +637,7 @@ function get_available_sports()
         private
       };
 
-      const json = JSON.stringify(json_obj);
+      var json = JSON.stringify(json_obj);
 
       console.log(json);
 
