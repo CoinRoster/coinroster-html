@@ -610,8 +610,8 @@ function get_available_sports()
         var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
         var set_deadline = id("misc_settlement_deadline").value;
         var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
+        var pari_mutuel = id("pari_mutuel_table").value;
 
-        console.log(reg_deadline);
-        console.log(reg_deadline_time);
+        console.log(pari_mutuel);
      }
    }
