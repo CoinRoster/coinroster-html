@@ -96,19 +96,21 @@ contest_type_selector.onchange = function()
        }
      }
 
+     populate_sports();
+
     switch (selectorHTML(contest_type_selector))
       {
         case "Roster":
           show(roster_fields[0]);
           hide(prop_fields[0]);
           hide(misc_fields[0]);
-          populate_sports();
+          // populate_sports();
           break;
         case "Prop":
           show(prop_fields[0]);
           hide(roster_fields[0]);
           hide(misc_fields[0]);
-          populate_sports();
+          // populate_sports();
           break;
         case "Misc":
           show(misc_fields[0]);
