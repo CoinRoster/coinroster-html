@@ -591,7 +591,9 @@ function get_available_sports()
    {
      var contest_type = selectorValue('contest_type_selector');
 
-     console.log(contest_type);
+     if (!contest_type) {
+       alert("Please choose a contest type");
+     }
 
     if (contest_type === "Roster") {
 
@@ -602,6 +604,14 @@ function get_available_sports()
     }
 
      if (contest_type === "Misc") {
-        
+        var title = id("misc_title").value;
+        var description = id("misc_description").value;
+        var reg_deadline = id("misc_registration_deadline").value;
+        var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
+        var set_deadline = id("misc_settlement_deadline").value;
+        var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
+
+        console.log(reg_deadline);
+        console.log(reg_deadline_time);
      }
    }
