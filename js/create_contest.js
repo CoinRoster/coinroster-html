@@ -14,6 +14,8 @@ var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
 var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
+var avaliable_sports;
+
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     if ($(this)[0].checked) {
@@ -54,6 +56,13 @@ contest_type_selector.onchange = function()
 
     document.getElementById("roster_sport_selector").selectedIndex = "0";
     document.getElementById("prop_sport_selector").selectedIndex = "0";
+
+
+    avaliable_sports = get_available_sports();
+
+    console.log(avaliable_sports);
+
+    
 
     switch (selectorHTML(contest_type_selector))
       {
@@ -504,4 +513,15 @@ function get_all_players(sport)
   
   if (call.status === "1") return call.player_list;
   else return null;
+  }
+
+function get_available_sports()
+  {
+    var call = api({
+        method: "GetAvailableSports",
+        args: {}
+    });
+    
+    if (call.status === "1") return call;
+    else return null;
   }
