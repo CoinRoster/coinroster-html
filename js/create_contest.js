@@ -593,7 +593,7 @@ function get_available_sports()
      var private = id("contest_private").value;
 
      if (!contest_type) {
-       alert("Please choose a contest type");
+       alert("Please select a contest type");
      }
 
     if (contest_type === "Roster") {
@@ -616,15 +616,17 @@ function get_available_sports()
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_values = [];
       
-      if (pari_mutuel_table) {
-        var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+      // if (pari_mutuel_table.length) {
+      //   var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
 
-        for (i=1; i<table_rows;i++) {
-          table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
-        }
-      }
+      //   for (i=1; i<table_rows;i++) {
+      //     table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
+      //   }
+      // }
 
-      console.log(private);
+      console.log(pari_mutuel_table.length)
+
+      console.log("Private " + private);
 
     }
   }
