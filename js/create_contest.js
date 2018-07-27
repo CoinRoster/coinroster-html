@@ -213,7 +213,7 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
 
-  if (avaliable_sports.GOLF_1 || avaliable_sports.GOLF_2) {
+  if (avaliable_sports.GOLF_1 || avaliable_sports.GOLF_2 || avaliable_sports.GOLF_3) {
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
