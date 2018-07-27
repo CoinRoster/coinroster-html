@@ -75,9 +75,7 @@ contest_type_selector.onchange = function()
         var option = document.createElement("option");
         option.text = "Basketball";
         option.value = "Basketball";
-        console.log(roster_sport_selector);
         roster_sport_selector.add(option);
-        console.log(roster_sport_selector);
         prop_sport_selector.add(option);
        } 
        
@@ -96,6 +94,9 @@ contest_type_selector.onchange = function()
         roster_sport_selector.add(option);
         prop_sport_selector.add(option);
        }
+
+       console.log(roster_sport_selector);
+       console.log(prop_sport_selector);
      }
 
     switch (selectorHTML(contest_type_selector))
