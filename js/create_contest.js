@@ -75,7 +75,9 @@ contest_type_selector.onchange = function()
         var option = document.createElement("option");
         option.text = "Basketball";
         option.value = "Basketball";
+        console.log(roster_sport_selector);
         roster_sport_selector.add(option);
+        console.log(roster_sport_selector);
         prop_sport_selector.add(option);
        } 
        
@@ -96,21 +98,19 @@ contest_type_selector.onchange = function()
        }
      }
 
-     populate_sports();
-
     switch (selectorHTML(contest_type_selector))
       {
         case "Roster":
           show(roster_fields[0]);
           hide(prop_fields[0]);
           hide(misc_fields[0]);
-          // populate_sports();
+          populate_sports();
           break;
         case "Prop":
           show(prop_fields[0]);
           hide(roster_fields[0]);
           hide(misc_fields[0]);
-          // populate_sports();
+          populate_sports();
           break;
         case "Misc":
           show(misc_fields[0]);
