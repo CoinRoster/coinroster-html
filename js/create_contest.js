@@ -64,8 +64,8 @@ contest_type_selector.onchange = function()
       //  var golf = avaliable_sports.GOLF_4;
       //  var baseball = avaliable_sports.BASEBALL;
       
-      prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+      prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
       var basketball = true;
       var golf = true;
@@ -75,24 +75,24 @@ contest_type_selector.onchange = function()
         var option = document.createElement("option");
         option.text = "Basketball";
         option.value = "Basketball";
-        prop_sport_selector.add(option);
         roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
        } 
        
        if (golf) {
         var option = document.createElement("option");
         option.text = "Golf";
         option.value = "Golf";
-        prop_sport_selector.add(option);
         roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
        }
 
        if (baseball) {
         var option = document.createElement("option");
         option.text = "Baseball";
         option.value = "Baseball";
-        prop_sport_selector.add(option);
         roster_sport_selector.add(option);
+        prop_sport_selector.add(option);
        }
 
        console.log(roster_sport_selector);
