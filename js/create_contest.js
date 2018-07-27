@@ -624,9 +624,9 @@ function get_available_sports()
       //   }
       // }
 
-      console.log(pari_mutuel_table.length)
+      console.log(pari_mutuel_table.firstChild)
 
-      console.log("Private " + private);
+      console.log(private);
 
     }
   }
