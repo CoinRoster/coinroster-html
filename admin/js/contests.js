@@ -1299,7 +1299,8 @@
                 title = contest_item.title,
                 settlement_type = contest_item.settlement_type,
                 
-                button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_contest(" + id + ")\">Settle Contest</button>";
+                button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_contest(" + id + ")\">Settle Contest</button>",
+                backout_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"backout_contest(" + id + ")\">Backout Contest</button>";
  
                 window.contest[id] = contest_item;
                 
@@ -1313,12 +1314,13 @@
                     id,
                     dateconv_ms_to_string(created),
                     created_by,
-                    contest_type,
+                        contest_type,
                     category,
                     sub_category,
                     settlement_type,
                     title,
-                    button_string
+                    button_string,
+                    backout_string
                 ]);
                 }
             }
