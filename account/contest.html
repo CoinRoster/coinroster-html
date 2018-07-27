@@ -669,20 +669,16 @@
                                 </div>
                             </div>
                             <div class="prop_baseball_match_players input_padding">
-                                <span class="input_label">Select Players </span>
-                                1 
-                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
-                                </select>
-                                <br />
-                                2
-                                <select data-placeholder="Select" id="prop_baseball_match_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
-                                </select>
+                                <div class="prop_basketball_match_players input_padding">
+                                    <div>
+                                        <span class="input_label">Select Players (2 or more)</span>
+                                        <ul class="player_list" id="baseball_match_player_list"></ul>
+                                    </div>
+                                    <div>
+                                        <span class="input_label">My Players</span>
+                                        <ul class="player_list" id="baseball_match_selected_players_list"></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="prop_baseball_over_under hidden">
@@ -733,7 +729,6 @@
                                 <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select dropdown">
                                     <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
                                 </select>
                             </div>
                         </div>

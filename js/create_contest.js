@@ -262,6 +262,7 @@ prop_golf_type_selector.onchange = function()
    var selected_players = [];
    var make_the_cut_player = document.getElementById("prop_golf_make_the_cut_player");
    var over_under_player = document.getElementById("prop_golf_over_under_player");
+   var prop_golf_number_of_shots_player = document.getElementById("prop_golf_number_of_shots_player");
    var match_players = document.getElementById("golf_match_player_list");
    var match_selected_players = document.getElementById("golf_match_selected_players_list");
 
@@ -348,7 +349,7 @@ prop_golf_type_selector.onchange = function()
         hide(prop_golf_make_the_cut[0]);
         hide(prop_golf_over_under[0]);
         hide(prop_golf_match_play[0]);
-        populate_golf_players(prop_golf_number_of_shots);
+        populate_golf_players(prop_golf_number_of_shots_player);
         break;
     }
  };
@@ -387,12 +388,74 @@ prop_golf_over_multistat_overall.onchange = function()
   {
     var prop_baseball_match_play = document.getElementsByClassName("prop_baseball_match_play");
     var prop_baseball_over_under = document.getElementsByClassName("prop_baseball_over_under");
+    var players = get_all_players("BASEBALL");
+    var selected_players = [];
+
+    function add_player(player) 
+    {
+        selected_players.push(player);
+        populate_match_play_players();
+    }
+
+    function remove_player(player)
+     {
+        for (i = 0;i < selected_players.length; i++) {
+          selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
+        }  
+        populate_match_play_players();
+     }
+
+     function populate_match_play_players()
+      {
+        var players_to_populate = players;
+        var player_select = document.getElementById("baseball_match_player_list");
+        var selected_players_list = document.getElementById("baseball_match_selected_players_list");
+        player_select.innerHTML = "";
+        selected_players_list.innerHTML = "";
+
+        for (i = 0;i < selected_players.length; i++) {
+          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
+        }      
+
+        players_to_populate.forEach((player) => {
+          var li = document.createElement("li");
+          li.innerHTML = player.name;
+          li.value = player.player_id;
+          li.onclick = function() {
+            add_player(player);
+          }
+          player_select.appendChild(li);
+        });
+
+        selected_players.forEach((player) => {
+          var li = document.createElement("li");
+          li.innerHTML = player.name;
+          li.id = player.player_id;
+          li.onclick = function() {
+            remove_player(player);
+          }
+          selected_players_list.appendChild(li);
+        });
+      }
+
+      function populate_over_under_player()
+       {
+         var player_select = document.getElementById("prop_baseball_over_under_player");
+
+         players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player.id;
+          player_select.add(option);
+        });
+       }
 
     switch (selectorHTML(prop_baseball_type_selector))
       {
         case "Match Play":
           show(prop_baseball_match_play[0]);
           hide(prop_baseball_over_under[0]);
+          populate_match_play_players();
           break;
         case "Over/Under":
           show(prop_baseball_over_under[0]);
