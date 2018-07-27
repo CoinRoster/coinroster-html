@@ -71,8 +71,6 @@ contest_type_selector.onchange = function()
       var golf = true;
       var baseball = false;
 
-      console.log("hello")
-
        if (basketball) {
         var option = document.createElement("option");
         option.text = "Basketball";
