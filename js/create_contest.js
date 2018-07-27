@@ -612,7 +612,6 @@ function get_available_sports()
       var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
       var pari_mutuel_table = id("pari_mutuel_table");
 
-      var first_value = pari_mutuel_table.rows[1].childNodes[1].children[0].value;
-      console.log(first_value);
+      console.log(pari_mutuel_table.rows[1].childNodes[1].children[0].value);
     }
   }
