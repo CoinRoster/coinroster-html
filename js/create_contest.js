@@ -460,6 +460,7 @@ prop_golf_over_multistat_overall.onchange = function()
         case "Over/Under":
           show(prop_baseball_over_under[0]);
           hide(prop_baseball_match_play[0]);
+          populate_over_under_player();
           break;
       }
   };
