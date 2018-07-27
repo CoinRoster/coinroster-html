@@ -603,16 +603,16 @@ function get_available_sports()
 
     }
 
-     if (contest_type === "Misc") {
-        var title = id("misc_title").value;
-        var description = id("misc_description").value;
-        var reg_deadline = id("misc_registration_deadline").value;
-        var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
-        var set_deadline = id("misc_settlement_deadline").value;
-        var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
-        var pari_mutuel_table = id("pari_mutuel_table");
+    if (contest_type === "Misc") {
+      var title = id("misc_title").value;
+      var description = id("misc_description").value;
+      var reg_deadline = id("misc_registration_deadline").value;
+      var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
+      var set_deadline = id("misc_settlement_deadline").value;
+      var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
+      var pari_mutuel_table = id("pari_mutuel_table");
 
-        console.log(pari_mutuel_table.rows.length);
-        console.log(pari_mutuel_table.rows[1].childNodes[1].children[0].value);
-     }
-   }
+      // console.log(pari_mutuel_table.rows.length);
+      console.log(pari_mutuel_table.rows[1].childNodes[1].children[0].value);
+    }
+  }
