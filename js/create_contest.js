@@ -203,7 +203,7 @@ prop_sport_selector.onchange = function()
   
   avaliable_sports = get_available_sports();
 
-  $('prop_golf_type[value="Make the Cut"]').remove();
+  $('#prop_golf_type[value="Make the Cut"]').remove();
   
   reset_elements();
   
