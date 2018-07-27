@@ -618,7 +618,7 @@ function get_available_sports()
       console.log(pari_mutuel_table.firstChild.childNodes[0].children[2].childNodes[1].childNodes[0].value);
       console.log(pari_mutuel_table.firstChild.childNodes[0].children[3].childNodes[1].childNodes[0].value);
       
-      console.log(pari_mutuel_table.firstChild.childNodes.children.length);
+      console.log(pari_mutuel_table.firstChild.childNodes[0].children.length);
 
     }
   }
