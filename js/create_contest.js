@@ -211,12 +211,12 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
 
-  // if (true || avaliable_sports.GOLF_2) {
-  //   var option = document.createElement("option");
-  //   option.text = "Make the Cut";
-  //   option.value = "Make the Cut";
-  //   prop_golf_type.add(option);
-  // }
+  if (true || avaliable_sports.GOLF_2) {
+    var option = document.createElement("option");
+    option.text = "Make the Cut";
+    option.value = "Make the Cut";
+    prop_golf_type.add(option);
+  }
 
   switch (selectorHTML(prop_sport_selector))
   {
