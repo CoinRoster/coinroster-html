@@ -60,55 +60,56 @@ contest_type_selector.onchange = function()
 
     function populate_sports()
      {
-       var basketball = avaliable_sports.BASKETBALL;
-       var golf = avaliable_sports.GOLF_4;
-       var baseball = avaliable_sports.BASEBALL;
-      
-      roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
-      prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+        var basketball = avaliable_sports.BASKETBALL;
+        var golf = avaliable_sports.GOLF_4;
+        var baseball = avaliable_sports.BASEBALL;
+        
+        roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+        prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
-       if (basketball) {
-        var option = document.createElement("option");
-        option.text = "Basketball";
-        option.value = "Basketball";
-        roster_sport_selector.add(option);
-      } 
-      
-      if (basketball) {
-        var option = document.createElement("option");
-        option.text = "Basketball";
-        option.value = "Basketball";
-        prop_sport_selector.add(option);
-       } 
-       
-       if (golf) {
-        var option = document.createElement("option");
-        option.text = "Golf";
-        option.value = "Golf";
-        roster_sport_selector.add(option);
-       }
+        // Cant have two .add() inside of one statement, only second one is called...?
+        if (basketball) {
+          var option = document.createElement("option");
+          option.text = "Basketball";
+          option.value = "Basketball";
+          roster_sport_selector.add(option);
+        } 
+        
+        if (basketball) {
+          var option = document.createElement("option");
+          option.text = "Basketball";
+          option.value = "Basketball";
+          prop_sport_selector.add(option);
+          } 
+          
+        if (golf) {
+          var option = document.createElement("option");
+          option.text = "Golf";
+          option.value = "Golf";
+          roster_sport_selector.add(option);
+          }
 
-       if (golf) {
-        var option = document.createElement("option");
-        option.text = "Golf";
-        option.value = "Golf";
-        prop_sport_selector.add(option);
-       }
+        if (golf) {
+          var option = document.createElement("option");
+          option.text = "Golf";
+          option.value = "Golf";
+          prop_sport_selector.add(option);
+          }
 
-       if (baseball) {
-        var option = document.createElement("option");
-        option.text = "Baseball";
-        option.value = "Baseball";
-        roster_sport_selector.add(option);
-       }
+        if (baseball) {
+          var option = document.createElement("option");
+          option.text = "Baseball";
+          option.value = "Baseball";
+          roster_sport_selector.add(option);
+          }
 
-       if (baseball) {
-        var option = document.createElement("option");
-        option.text = "Baseball";
-        option.value = "Baseball";
-        prop_sport_selector.add(option);
-       }
-     }
+        if (baseball) {
+          var option = document.createElement("option");
+          option.text = "Baseball";
+          option.value = "Baseball";
+          prop_sport_selector.add(option);
+          }
+      }
 
     switch (selectorHTML(contest_type_selector))
       {
@@ -212,7 +213,7 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
 
-  if (true || avaliable_sports.GOLF_2) {
+  if (avaliable_sports.GOLF_1 || avaliable_sports.GOLF_2) {
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
