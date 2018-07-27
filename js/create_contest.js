@@ -614,14 +614,15 @@ function get_available_sports()
       var min_wager = id("misc_min_wager").value;
       var settlement_type = selectorValue("misc_settlement_type");
       var pari_mutuel_table = id("pari_mutuel_table");
-      var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
       var table_values = [];
-
-      for (i=1; i<table_rows;i++) {
-        table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
-      }
       
+      if (pari_mutuel_table) {
+        var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
 
+        for (i=1; i<table_rows;i++) {
+          table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
+        }
+      }
 
       console.log(private);
 
