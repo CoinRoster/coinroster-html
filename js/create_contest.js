@@ -616,6 +616,12 @@ function get_available_sports()
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_values = [];
       
+      if (!title.length) {
+        alert("Please enter a contest title");
+      } else if (!description.length) {
+        alert("Please enter a contest description");
+      }
+
       if (pari_mutuel_table.firstChild) {
         var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
 
