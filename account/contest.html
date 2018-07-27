@@ -350,11 +350,11 @@
                             <div class="prop_basketball_match_players input_padding">
                                 <div>
                                     <span class="input_label">Select Players (2 or more)</span>
-                                    <ul class="player_list" id="player_list"></ul>
+                                    <ul class="player_list" id="basketball_match_player_list"></ul>
                                 </div>
                                 <div>
                                     <span class="input_label">My Players</span>
-                                    <ul class="player_list" id="selected_players_list"></ul>
+                                    <ul class="player_list" id="basketball_match_selected_players_list"></ul>
                                 </div>
                             </div>
                         </div>
@@ -470,15 +470,10 @@
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_over_stats_double_bogeys"/>
                                 </div>
                             </div>
-                            <!-- <div class="prop_golf_over_score_to_par input_padding hidden">
-                                <span class="input_label">Score to Par</span>
-                                <input type="number" class="input_style" placeholder="Score" id="prop_golf_over_score_to_par"/>
-                            </div> -->
                             <div class="prop_golf_over_under_player">
                                 <span class="input_label">Select Player </span>
                                 <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select dropdown">
                                     <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
                                 </select>
                             </div>
                             <div class="prop_golf_over_under_round_tournament input_padding">
@@ -551,10 +546,6 @@
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_stats_double_bogeys"/>
                                 </div>
                             </div>
-                            <!-- <div class="prop_golf_match_score_to_par input_padding hidden">
-                                <span class="input_label">Score to Par</span>
-                                <input type="number" class="input_style" placeholder="Score" id="prop_golf_match_score_to_par"/>
-                            </div> -->
                             <div class="prop_golf_stats_overall hidden input_padding">
                                 <div>
                                     <span class="input_label">Overall Score </span>
@@ -584,24 +575,18 @@
                                     <label for="roster_golf_tournament">Tournament</label>
                                 </div>
                             </div>
-                            <!---->
                             <div class="prop_golf_match_players input_padding">
-                                <span class="input_label">Select Players </span>
-                                1 
-                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
-                                </select>
-                                <br />
-                                2
-                                <select data-placeholder="Select" id="prop_golf_match_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                    <option value="Player X">Player X</option>
-                                    <option value="Player Y">Player Y</option>
-                                </select>
+                                <div class="prop_basketball_match_players input_padding">
+                                    <div>
+                                        <span class="input_label">Select Players (2 or more)</span>
+                                        <ul class="player_list" id="golf_match_player_list"></ul>
+                                    </div>
+                                    <div>
+                                        <span class="input_label">My Players</span>
+                                        <ul class="player_list" id="golf_match_selected_players_list"></ul>
+                                    </div>
+                                </div>
                             </div>
-                            <!---->
                         </div>
                         <div class="prop_golf_number_of_shots hidden input_padding">
                             <div class="prop_golf_number_of_shots_type">

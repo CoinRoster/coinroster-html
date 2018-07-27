@@ -194,8 +194,8 @@ prop_basketball_type_selector.onchange = function()
     function populate_match_play_players()
       {
         var players_to_populate = players;
-        var player_select = document.getElementById("player_list");
-        var selected_players_list = document.getElementById("selected_players_list");
+        var player_select = document.getElementById("basketball_match_player_list");
+        var selected_players_list = document.getElementById("basketball_match_selected_players_list");
         player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
 
@@ -259,16 +259,64 @@ prop_golf_type_selector.onchange = function()
    var prop_golf_number_of_shots = document.getElementsByClassName("prop_golf_number_of_shots");
 
    var players = get_all_players("GOLF");
+   var selected_players = [];
+   var make_the_cut_player = document.getElementById("prop_golf_make_the_cut_player");
+   var over_under_player = document.getElementById("prop_golf_over_under_player");
+   var match_players = document.getElementById("golf_match_player_list");
+   var match_selected_players = document.getElementById("golf_match_selected_players_list");
 
-   function populate_golf_players()
+   function add_player(player)
     {
-      var player_select = document.getElementById("prop_golf_make_the_cut_player");
+      selected_players.push(player);
+      populate_golf_match_players();
+    }
 
+    function remove_player(player)
+     {
+        for (i = 0;i < selected_players.length; i++) {
+          selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
+        }  
+        populate_golf_match_players();
+     }
+
+   function populate_golf_match_players()
+    {
+      var players_to_populate = players;
+      match_players.innerHTML = "";
+      match_selected_players.innerHTML = "";
+
+      for (i = 0;i < selected_players.length; i++) {
+        players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
+      }   
+
+      players_to_populate.forEach((player) => {
+        var li = document.createElement("li");
+        li.innerHTML = player.name;
+        li.value = player.player_id;
+        li.onclick = function() {
+          add_player(player);
+        }
+        match_players.appendChild(li);
+      });
+
+      selected_players.forEach((player) => {
+        var li = document.createElement("li");
+        li.innerHTML = player.name;
+        li.id = player.player_id;
+        li.onclick = function() {
+          remove_player(player);
+        }
+        match_selected_players.appendChild(li);
+      });
+    }
+
+   function populate_golf_players(element)
+    {
       players.forEach((player) => {
         var option = document.createElement("option");
         option.text = player.name;
         option.value = player.id;
-        player_select.add(option);
+        element.add(option);
       });
     }
 
@@ -279,13 +327,14 @@ prop_golf_type_selector.onchange = function()
         hide(prop_golf_over_under[0]);
         hide(prop_golf_match_play[0]);
         hide(prop_golf_number_of_shots[0]);
-        populate_golf_players();
+        populate_golf_players(make_the_cut_player);
         break;
       case "Over/Under":
         show(prop_golf_over_under[0]);
         hide(prop_golf_make_the_cut[0]);
         hide(prop_golf_match_play[0]);
         hide(prop_golf_number_of_shots[0]);
+        populate_golf_players(over_under_player);
         break;
       case "Match Play":
         show(prop_golf_match_play[0]);
