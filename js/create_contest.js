@@ -587,7 +587,7 @@ function get_available_sports()
     else return null;
   }
 
-  create_new_contest()
+  function create_new_contest()
    {
      var contest_type = selectorValue('contest_type_selector');
 
