@@ -258,6 +258,20 @@ prop_golf_type_selector.onchange = function()
    var prop_golf_match_play = document.getElementsByClassName("prop_golf_match_play");
    var prop_golf_number_of_shots = document.getElementsByClassName("prop_golf_number_of_shots");
 
+   var players = get_all_players("GOLF");
+
+   function populate_golf_players()
+    {
+      var player_select = document.getElementById("prop_golf_make_the_cut_player");
+
+      players.forEach((player) => {
+        var option = document.createElement("option");
+        option.text = player.name;
+        option.value = player.id;
+        player_select.add(option);
+      });
+    }
+
    switch (selectorHTML(prop_golf_type_selector))
     {
       case "Make the Cut":
@@ -265,6 +279,7 @@ prop_golf_type_selector.onchange = function()
         hide(prop_golf_over_under[0]);
         hide(prop_golf_match_play[0]);
         hide(prop_golf_number_of_shots[0]);
+        populate_golf_players();
         break;
       case "Over/Under":
         show(prop_golf_over_under[0]);
@@ -290,16 +305,13 @@ prop_golf_type_selector.onchange = function()
 prop_golf_match_multistat_overall.onchange = function()
  {
    var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
-    // var prop_golf_match_score_to_par = document.getElementsByClassName("prop_golf_match_score_to_par");
 
    switch (selectorHTML(prop_golf_multistat_overall))
     {
       case "Multi-stat":
         show(prop_golf_stats_multistat[0]);
-        // hide(prop_golf_match_score_to_par[0]);
         break;
       case "Score to Par":
-        // show(prop_golf_match_score_to_par[0]);
         hide(prop_golf_stats_multistat[0]);
         break;
     }
@@ -308,16 +320,13 @@ prop_golf_match_multistat_overall.onchange = function()
 prop_golf_over_multistat_overall.onchange = function()
  {
     var prop_golf_over_stats_multistat = document.getElementsByClassName("prop_golf_over_stats_multistat");
-    // var prop_golf_over_score_to_par = document.getElementsByClassName("prop_golf_over_score_to_par");
 
     switch (selectorHTML(prop_golf_over_multistat_overall))
      {
         case "Multi-stat":
           show(prop_golf_over_stats_multistat[0]);
-          // hide(prop_golf_over_score_to_par[0]);
           break;
         case "Score to Par":
-          // show(prop_golf_over_score_to_par[0]);
           hide(prop_golf_over_stats_multistat[0]);
           break;
      }
@@ -341,7 +350,6 @@ prop_golf_over_multistat_overall.onchange = function()
       }
   };
 
-/* How to pass values into JSON? Where to check if it all adds up to 100%? */
 function create_jackpot_table()
   {
     jackpot_table = new_table("jackpot_table");
