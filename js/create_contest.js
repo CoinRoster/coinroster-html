@@ -76,10 +76,9 @@ contest_type_selector.onchange = function()
         option.text = "Basketball";
         option.value = "Basketball";
         roster_sport_selector.add(option);
-        prop_sport_selector.add(option);
-       } 
-
-       if (basketball) {
+      } 
+      
+      if (basketball) {
         var option = document.createElement("option");
         option.text = "Basketball";
         option.value = "Basketball";
@@ -91,6 +90,12 @@ contest_type_selector.onchange = function()
         option.text = "Golf";
         option.value = "Golf";
         roster_sport_selector.add(option);
+       }
+
+       if (golf) {
+        var option = document.createElement("option");
+        option.text = "Golf";
+        option.value = "Golf";
         prop_sport_selector.add(option);
        }
 
@@ -99,10 +104,14 @@ contest_type_selector.onchange = function()
         option.text = "Baseball";
         option.value = "Baseball";
         roster_sport_selector.add(option);
-        prop_sport_selector.add(option);
        }
 
-       console.log(roster_sport_selector);
+       if (baseball) {
+        var option = document.createElement("option");
+        option.text = "Baseball";
+        option.value = "Baseball";
+        prop_sport_selector.add(option);
+       }
      }
 
     switch (selectorHTML(contest_type_selector))
