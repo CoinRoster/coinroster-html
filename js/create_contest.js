@@ -590,8 +590,8 @@ function get_available_sports()
   function create_new_contest()
    {
      var contest_type = selectorValue("contest_type_selector");
-     var private = id("contest_private").value;
-     var public = id("contest_public").value;
+     var private = id("contest_private").checked;
+     var public = id("contest_public").checked;
 
      if (!contest_type) {
        alert("Please select a contest type");
