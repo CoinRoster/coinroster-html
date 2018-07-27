@@ -64,9 +64,9 @@ contest_type_selector.onchange = function()
       //  var golf = avaliable_sports.GOLF_4;
       //  var baseball = avaliable_sports.BASEBALL;
 
-      var baseball = true;
+      var basketball = true;
       var golf = true;
-      var basbeall = false;
+      var baseball = false;
 
        if (basketball) {
         var option = document.createElement("option");
