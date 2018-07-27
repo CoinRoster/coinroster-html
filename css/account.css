@@ -353,7 +353,7 @@
         max-height: 300px;
         overflow: scroll;
         padding-left: 0px;
-        border: 1px solid black;
+        border: 1px solid grey;
         margin-top: 5px;
         border-radius: 15px;
         width: 200px;
@@ -361,8 +361,13 @@
 
     .player_list li {
         padding: 10px;
+        background-color: rgb(80, 80, 80);
     }
 
     .player_list li:hover {
         background-color: gray;
+    }
+
+    .submit_button_container {
+        margin-top: 15px;
     }
