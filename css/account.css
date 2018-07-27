@@ -351,6 +351,7 @@
     .player_list {
         list-style-type: none;
         max-height: 300px;
+        min-height: 30px;
         overflow: scroll;
         padding-left: 0px;
         border: 1px solid grey;
