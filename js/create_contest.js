@@ -83,8 +83,8 @@ contest_type_selector.onchange = function()
         var option = document.createElement("option");
         option.text = "Golf";
         option.value = "Golf";
-        roster_sport_selector.add(option);
         prop_sport_selector.add(option);
+        roster_sport_selector.add(option);
        }
 
        if (baseball) {
