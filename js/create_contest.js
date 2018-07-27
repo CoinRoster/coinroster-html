@@ -589,7 +589,8 @@ function get_available_sports()
 
   function create_new_contest()
    {
-     var contest_type = selectorValue('contest_type_selector');
+     var contest_type = selectorValue("contest_type_selector");
+     var private = id("contest_private").value;
 
      if (!contest_type) {
        alert("Please choose a contest type");
@@ -610,6 +611,8 @@ function get_available_sports()
       var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
       var set_deadline = id("misc_settlement_deadline").value;
       var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
+      var min_wager = id("misc_min_wager").value;
+      var settlement_type = selectorValue("misc_settlement_type");
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
       var table_values = [];
@@ -617,12 +620,10 @@ function get_available_sports()
       for (i=1; i<table_rows;i++) {
         table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
       }
-
-      // console.log(pari_mutuel_table.firstChild.childNodes[0].children[1].childNodes[1].childNodes[0].value);
-      // console.log(pari_mutuel_table.firstChild.childNodes[0].children[2].childNodes[1].childNodes[0].value);
-      // console.log(pari_mutuel_table.firstChild.childNodes[0].children[3].childNodes[1].childNodes[0].value);
       
-      console.log(table_values);
+
+
+      console.log(private);
 
     }
   }
