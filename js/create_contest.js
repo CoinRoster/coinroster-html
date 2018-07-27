@@ -586,3 +586,10 @@ function get_available_sports()
     if (call.status === "1") return call;
     else return null;
   }
+
+  create_new_contest()
+   {
+     var contest_type = selectorValue('contest_type_selector');
+
+     console.log(contest_type);
+   }
