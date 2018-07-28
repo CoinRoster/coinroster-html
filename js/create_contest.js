@@ -627,10 +627,10 @@ function get_available_sports()
       id("number_of_options").classList.remove("error");
 
       // Validation
-      if (!title) {
+      if (!title || title.length > 2) {
         id("misc_title").classList.add("error");
         alert("Please enter a contest title");
-      } else if (!description) {
+      } else if (!description || description.length > 2) {
         id("misc_description").classList.add("error");
         alert("Please enter a contest description");
       } else if (!reg_deadline) {
@@ -641,10 +641,13 @@ function get_available_sports()
          alert("Please set a settlement deadline");
       } else if (!number_of_options || !pari_mutuel_table_element) {
          id("number_of_options").classList.add("error");
-         alert("Please select at least 2 pari-mutuel options");
+         alert("Please select at least 2 pari-mutuel options");        
       } else if (!min_wager) {
         id("misc_min_wager").classList.add("error");
         alert("Please set a minimum wager amount");
+      } else if (isNaN(min_wager)) {
+        id("misc_min_wager").classList.add("error");
+        alert("Please enter a valid minimum wager amount");
       } else {
         // Send the JSON
         // Get values from pari-mutuel table
