@@ -627,12 +627,12 @@ function get_available_sports()
       id("number_of_options").classList.remove("error");
 
       // Validation
-      if (!title || title.length > 2) {
+      if (!title || title.length < 2) {
         id("misc_title").classList.add("error");
-        alert("Please enter a contest title");
-      } else if (!description || description.length > 2) {
+        alert("Please enter a valid contest title");
+      } else if (!description || description.length < 2) {
         id("misc_description").classList.add("error");
-        alert("Please enter a contest description");
+        alert("Please enter a valid contest description");
       } else if (!reg_deadline) {
          id("misc_registration_deadline").classList.add("error");
          alert("Please set a registration deadline");
