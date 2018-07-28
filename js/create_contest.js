@@ -618,8 +618,8 @@ function get_available_sports()
       var table_values = [];
 
       // Remove errors
-      title.classList.remove("error");
-      description.classList.remove("error");
+      id("misc_title").classList.remove("error");
+      id("misc_desctiption").classList.remove("error");
       // reg_deadline.classList.remove("error");
       // set_deadline.classList.remove("error");
       // min_wager.classList.remove("error");
@@ -630,10 +630,10 @@ function get_available_sports()
 
       // Validation
       if (!title.length) {
-        title.classList.add("error");
+        id("misc_title").classList.add("error");
         alert("Please enter a contest title");
       } else if (!description.length) {
-        description.classList.add("error");
+        id("misc_desctiption").classList.add("error");
         alert("Please enter a contest description");
       // } else if () {
 
