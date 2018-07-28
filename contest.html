@@ -451,14 +451,14 @@
                             else // user is allowed to enter contests - check to see if max users or max entries has been hit
                                 {
                                 console.log(window.location);
-                                console.log(window.href);
-                                if(window.location.indexOf('?') > -1) 
+                                console.log(window.location.href);
+                                if(window.location.href.indexOf('?') > -1) 
                                     {
-                                    window.href += '&ref=' + window.session.user_id;
+                                    window.location.href += '&ref=' + window.session.user_id;
                                     }
                                 else
                                     {
-                                    window.href += '?ref=' + window.session.user_id;
+                                    window.location.href += '?ref=' + window.session.user_id;
                                     }
 
                                 if (contest_type === "ROSTER")
