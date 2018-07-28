@@ -450,7 +450,9 @@
                                 }
                             else // user is allowed to enter contests - check to see if max users or max entries has been hit
                                 {
-                                if(window.href.indexOf('?') > -1) 
+                                console.log(window.location);
+                                console.log(window.href);
+                                if(window.location.indexOf('?') > -1) 
                                     {
                                     window.href += '&ref=' + window.session.user_id;
                                     }
