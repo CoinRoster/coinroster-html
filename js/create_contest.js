@@ -613,30 +613,37 @@ function get_available_sports()
       var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
       var min_wager = id("misc_min_wager").value;
       var settlement_type = selectorValue("misc_settlement_type");
-      var number_of_options = id("number_of_options");
+      var number_of_options = id("number_of_options").value;
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_values = [];
 
-      // Remove errors
+      // Clear errors
       id("misc_title").classList.remove("error");
       id("misc_description").classList.remove("error");
-      // reg_deadline.classList.remove("error");
-      // set_deadline.classList.remove("error");
-      // min_wager.classList.remove("error");
-      // set_deadline.classList.remove("error");
-      // reg_deadline.classList.remove("error");
-      // min_wager.classList.remove("error");
-      // number_of_options.classList.remove("error");
+      id("misc_registration_deadline").classList.remove("error");
+      id("misc_settlement_deadline").classList.remove("error");
+      id("misc_min_wager").classList.remove("error");
+      id("number_of_options").classList.remove("error");
 
       // Validation
-      if (!title.length) {
+      if (!title) {
         id("misc_title").classList.add("error");
         alert("Please enter a contest title");
-      } else if (!description.length) {
+      } else if (!description) {
         id("misc_description").classList.add("error");
         alert("Please enter a contest description");
-      // } else if () {
-
+      } else if (!reg_deadline) {
+         id("misc_registration_deadline").classList.add("error");
+         alert("Please set a registration deadline");
+      } else if (!set_deadline) {
+         id("misc_settlement_deadline").classList.add("error");
+         alert("Please set a settlement deadline");
+      } else if (!min_wager) {
+         id("misc_min_wager").classList.add("error");
+         alert("Please set a minimum wager amount");
+      } else if (!number_of_options) {
+         id("number_of_options").classList.add("error");
+         alert("Please select at least 2 pari-mutuel options");
       } else {
         // Send the JSON
         if (pari_mutuel_table.firstChild) {
