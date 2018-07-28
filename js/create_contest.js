@@ -639,7 +639,7 @@ function get_available_sports()
       } else if (!set_deadline) {
          id("misc_settlement_deadline").classList.add("error");
          alert("Please set a settlement deadline");
-      } else if (!number_of_options || !pari_mutuel_table.firstChild) {
+      } else if (!number_of_options || !pari_mutuel_table_element) {
          id("number_of_options").classList.add("error");
          alert("Please select at least 2 pari-mutuel options");
       } else if (!min_wager) {
