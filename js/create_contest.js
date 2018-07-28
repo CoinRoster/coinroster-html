@@ -635,10 +635,10 @@ function get_available_sports()
         alert("Please enter a valid contest description");
       } else if (!reg_deadline) {
          id("misc_registration_deadline").classList.add("error");
-         alert("Please set a registration deadline");
+         alert("Please set a valid registration deadline");
       } else if (!set_deadline) {
          id("misc_settlement_deadline").classList.add("error");
-         alert("Please set a settlement deadline");
+         alert("Please set a valid settlement deadline");
       } else if (!number_of_options || !pari_mutuel_table_element) {
          id("number_of_options").classList.add("error");
          alert("Please select at least 2 pari-mutuel options");        
@@ -676,6 +676,10 @@ function get_available_sports()
         var json = JSON.stringify(json_obj);
 
         console.log(json_obj);
+
+        var future = reg_deadline.getTime() > Date.now();
+
+        console.log(future);
 
         // Make api call
 
