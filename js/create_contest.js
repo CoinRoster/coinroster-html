@@ -642,10 +642,7 @@ function get_available_sports()
       } else if (!number_of_options || !pari_mutuel_table_element) {
          id("number_of_options").classList.add("error");
          alert("Please select at least 2 pari-mutuel options");        
-      } else if (!min_wager) {
-        id("misc_min_wager").classList.add("error");
-        alert("Please set a minimum wager amount");
-      } else if (isNaN(min_wager)) {
+      } else if (!min_wager || isNaN(min_wager)) {
         id("misc_min_wager").classList.add("error");
         alert("Please enter a valid minimum wager amount");
       } else {
@@ -677,7 +674,7 @@ function get_available_sports()
 
         console.log(json_obj);
 
-        var future = reg_deadline.getTime() > Date.now();
+        var future = Date.parse(reg_deadline) > Date.now();
 
         console.log(future);
 
