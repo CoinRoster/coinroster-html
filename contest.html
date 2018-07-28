@@ -454,11 +454,11 @@
                                 var current_url = document.location;
                                 if(window.location.href.indexOf('?') > -1) 
                                     {
-                                    document.location = myURL + '&ref=' + window.session.user_id;
+                                    document.location = current_url + '&ref=' + window.session.user_id;
                                     }
                                 else
                                     {
-                                    document.location = myURL + '?ref=' + window.session.user_id;
+                                    document.location = current_url + '?ref=' + window.session.user_id;
                                     }
 
                                 if (contest_type === "ROSTER")
