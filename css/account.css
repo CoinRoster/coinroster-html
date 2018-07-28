@@ -376,7 +376,3 @@
     .error {
         border: 1px solid red;
     }
-
-    .input_style:hover {
-        border: 1px solid gray;
-    }
