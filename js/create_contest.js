@@ -633,10 +633,10 @@ function get_available_sports()
       } else if (!description || description.length < 2) {
         id("misc_description").classList.add("error");
         alert("Please enter a valid contest description");
-      } else if (!reg_deadline) {
+      } else if (!reg_deadline || Date.parse(reg_deadline) < Date.now()) {
          id("misc_registration_deadline").classList.add("error");
          alert("Please set a valid registration deadline");
-      } else if (!set_deadline) {
+      } else if (!set_deadline || Date.parse(set_deadline) < Date.now() || Date.parse(set_deadline) < Date.parse(reg_deadline)) {
          id("misc_settlement_deadline").classList.add("error");
          alert("Please set a valid settlement deadline");
       } else if (!number_of_options || !pari_mutuel_table_element) {
@@ -646,40 +646,47 @@ function get_available_sports()
         id("misc_min_wager").classList.add("error");
         alert("Please enter a valid minimum wager amount");
       } else {
-        // Send the JSON
         // Get values from pari-mutuel table
         var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+        var table_error = false;
+        
         for (i=1; i<table_rows;i++) {
-          table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
+          var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+          if (!desc) {
+            table_error = true;
+          } else {
+            table_values.push(desc);
+          }
         }
 
-        // Format date
-        var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
-        registration_deadline += reg_deadline_time * 60 * 60 * 1000;
-        var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
-        set_deadline += set_deadline_time * 60 * 60 * 1000;
+        if (table_error) {
+          alert("Please enter pari-mutuel option descriptions");
+        } else {
+          // Send the JSON
+          // Format date
+          var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
+          registration_deadline += reg_deadline_time * 60 * 60 * 1000;
+          var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
+          set_deadline += set_deadline_time * 60 * 60 * 1000;
 
-        var json_obj = {
-          title,
-          description,
-          registration_deadline,
-          settlement_deadline,
-          min_wager,
-          settlement_type,
-          pari_mutuel_options: table_values,
-          private
-        };
+          var json_obj = {
+            title,
+            description,
+            registration_deadline,
+            settlement_deadline,
+            min_wager,
+            settlement_type,
+            pari_mutuel_options: table_values,
+            private
+          };
 
-        var json = JSON.stringify(json_obj);
+          var json = JSON.stringify(json_obj);
 
-        console.log(json_obj);
+          console.log(json);
 
-        var future = Date.parse(reg_deadline) > Date.now();
+          // Make api call
 
-        console.log(future);
-
-        // Make api call
-
+        }
       }
     }
   }
