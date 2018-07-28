@@ -618,6 +618,9 @@ function get_available_sports()
       var pari_mutuel_table_element = id("pari_mutuel_table_element");
       var table_values = [];
 
+      reg_deadline_time = reg_deadline_time * 60 * 60 * 1000;
+      set_deadline_time = set_deadline_time * 60 * 60 * 1000;
+
       // Clear errors
       id("misc_title").classList.remove("error");
       id("misc_description").classList.remove("error");
@@ -633,10 +636,14 @@ function get_available_sports()
       } else if (!description || description.length < 2) {
         id("misc_description").classList.add("error");
         alert("Please enter a valid contest description");
-      } else if (!reg_deadline || Date.parse(reg_deadline) < Date.now()) {
+      } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now()) {
          id("misc_registration_deadline").classList.add("error");
          alert("Please set a valid registration deadline");
-      } else if (!set_deadline || Date.parse(set_deadline) < Date.now() || Date.parse(set_deadline) < Date.parse(reg_deadline)) {
+      } else if (
+          !set_deadline || 
+          Date.parse(set_deadline) < Date.now() || 
+          Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time
+        ) {
          id("misc_settlement_deadline").classList.add("error");
          alert("Please set a valid settlement deadline");
       } else if (!number_of_options || !pari_mutuel_table_element) {
@@ -665,9 +672,9 @@ function get_available_sports()
           // Send the JSON
           // Format date
           var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
-          registration_deadline += reg_deadline_time * 60 * 60 * 1000;
           var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
-          set_deadline += set_deadline_time * 60 * 60 * 1000;
+          registration_deadline += reg_deadline_time;
+          settlement_deadline += set_deadline_time;
 
           var json_obj = {
             title,
