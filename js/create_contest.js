@@ -621,7 +621,7 @@ function get_available_sports()
         alert("Please enter a contest title");
       } else if (!description.length) {
         alert("Please enter a contest description");
-      } else if () {
+      // } else if () {
 
       } else {
         // Send the JSON
