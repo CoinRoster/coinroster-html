@@ -613,13 +613,27 @@ function get_available_sports()
       var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
       var min_wager = id("misc_min_wager").value;
       var settlement_type = selectorValue("misc_settlement_type");
+      var number_of_options = id("number_of_options");
       var pari_mutuel_table = id("pari_mutuel_table");
       var table_values = [];
 
+      // Remove errors
+      title.classList.remove("error");
+      description.classList.remove("error");
+      // reg_deadline.classList.remove("error");
+      // set_deadline.classList.remove("error");
+      // min_wager.classList.remove("error");
+      // set_deadline.classList.remove("error");
+      // reg_deadline.classList.remove("error");
+      // min_wager.classList.remove("error");
+      // number_of_options.classList.remove("error");
+
       // Validation
       if (!title.length) {
+        title.classList.add("error");
         alert("Please enter a contest title");
       } else if (!description.length) {
+        description.classList.add("error");
         alert("Please enter a contest description");
       // } else if () {
 

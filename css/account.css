@@ -372,3 +372,11 @@
     .submit_container {
         margin-top: 15px;
     }
+
+    .error {
+        border: 1px solid red;
+    }
+
+    .input_style:hover {
+        border: 1px solid gray;
+    }
