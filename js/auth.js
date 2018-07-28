@@ -132,8 +132,9 @@
         var
 
         target = null,
-        referrer = null;
-
+        referrer = null,
+        hash = location.hash.slice(1);
+        
         if (hash.indexOf("redirect") !== -1)
             {
             target = hash.split("=")[1];
@@ -203,8 +204,7 @@
         api(method, function(call)
             {
             if (call.status === "1") {
-                var hash = location.hash.slice(1);
-                if (hash.indexOf("redirect") !== -1)
+                if (target !== null)
                     {
                     if (typeof target !== "undefined" || target !== null) return window.location = decodeURIComponent(target);
                     }
