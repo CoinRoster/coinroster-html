@@ -712,4 +712,5 @@ function get_available_sports()
 
         }
       }
-}
+    }
+  }
