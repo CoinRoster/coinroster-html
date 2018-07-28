@@ -450,15 +450,15 @@
                                 }
                             else // user is allowed to enter contests - check to see if max users or max entries has been hit
                                 {
-                                console.log(window.location);
-                                console.log(window.location.href);
+                                console.log(window.session);
+                                var current_url = document.location;
                                 if(window.location.href.indexOf('?') > -1) 
                                     {
-                                    window.location.href += '&ref=' + window.session.user_id;
+                                    document.location = myURL + '&ref=' + window.session.user_id;
                                     }
                                 else
                                     {
-                                    window.location.href += '?ref=' + window.session.user_id;
+                                    document.location = myURL + '?ref=' + window.session.user_id;
                                     }
 
                                 if (contest_type === "ROSTER")
