@@ -450,6 +450,15 @@
                                 }
                             else // user is allowed to enter contests - check to see if max users or max entries has been hit
                                 {
+                                if(window.href.indexOf('?') > -1) 
+                                    {
+                                    window.href += '&ref=' + window.session.user_id;
+                                    }
+                                else
+                                    {
+                                    window.href += '?ref=' + window.session.user_id;
+                                    }
+
                                 if (contest_type === "ROSTER")
                                     {
                                     var active_user_entries = call.active_user_entries,
