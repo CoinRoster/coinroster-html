@@ -454,12 +454,12 @@
                                 var current_href = document.location.href;
                                 if(window.location.href.indexOf('?') > -1) 
                                     {
-                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.user_id);
+                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.username);
                                     // document.location = current_url + '&ref=' + window.session.user_id;
                                     }
                                 else
                                     {
-                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.user_id);
+                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.username);
                                     }
 
                                 if (contest_type === "ROSTER")
