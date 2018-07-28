@@ -583,7 +583,7 @@ function get_available_sports()
         args: {}
     });
     
-    if (call.status === "1") return call;
+    if (call.status === "1") return true;
     else return null;
   }
 
@@ -597,11 +597,25 @@ function get_available_sports()
      }
 
     if (contest_type === "Roster") {
+      var sport = selectorValue("roster_sport_selector");
 
+      if (!sport) {
+        alert("Please select a sport");
+      }
+
+      if (sport === "Basketball") {
+
+
+
+      } else if (sport === "Baseball") {
+        // baseball
+      } else if (sport === "Golf") {
+        // golf
+      }
     }
 
     if (contest_type === "Prop") {
-
+      var sport = selectorValue("prop_sport_selector");
     }
 
     if (contest_type === "Misc") {
@@ -618,8 +632,8 @@ function get_available_sports()
       var pari_mutuel_table_element = id("pari_mutuel_table_element");
       var table_values = [];
 
-      reg_deadline_time = reg_deadline_time * 60 * 60 * 1000;
-      set_deadline_time = set_deadline_time * 60 * 60 * 1000;
+      reg_deadline_time *= 60 * 60 * 1000;
+      set_deadline_time *= 60 * 60 * 1000;
 
       // Clear errors
       id("misc_title").classList.remove("error");
@@ -659,7 +673,7 @@ function get_available_sports()
         
         for (i=1; i<table_rows;i++) {
           var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-          if (!desc) {
+          if (!desc || desc.length < 2) {
             table_error = true;
           } else {
             table_values.push(desc);
@@ -667,10 +681,9 @@ function get_available_sports()
         }
 
         if (table_error) {
-          alert("Please enter pari-mutuel option descriptions");
+          alert("Please enter valid pari-mutuel option descriptions");
         } else {
-          // Send the JSON
-          // Format date
+          // Make the JSON call now that all validation has passed
           var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
           var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
           registration_deadline += reg_deadline_time;
