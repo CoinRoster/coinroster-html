@@ -615,6 +615,7 @@ function get_available_sports()
       var settlement_type = selectorValue("misc_settlement_type");
       var number_of_options = id("number_of_options").value;
       var pari_mutuel_table = id("pari_mutuel_table");
+      var pari_mutuel_table_element = id("pari_mutuel_table_element");
       var table_values = [];
 
       // Clear errors
@@ -638,21 +639,18 @@ function get_available_sports()
       } else if (!set_deadline) {
          id("misc_settlement_deadline").classList.add("error");
          alert("Please set a settlement deadline");
-      } else if (!min_wager) {
-         id("misc_min_wager").classList.add("error");
-         alert("Please set a minimum wager amount");
-      } else if (!number_of_options) {
+      } else if (!number_of_options || !pari_mutuel_table.firstChild) {
          id("number_of_options").classList.add("error");
          alert("Please select at least 2 pari-mutuel options");
+      } else if (!min_wager) {
+        id("misc_min_wager").classList.add("error");
+        alert("Please set a minimum wager amount");
       } else {
         // Send the JSON
-        if (pari_mutuel_table.firstChild) {
-          
-          // Get values from pari-mutuel table
-          var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
-          for (i=1; i<table_rows;i++) {
-            table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
-          }
+        // Get values from pari-mutuel table
+        var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+        for (i=1; i<table_rows;i++) {
+          table_values.push(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value);
         }
 
         // Format date
@@ -674,7 +672,7 @@ function get_available_sports()
 
         var json = JSON.stringify(json_obj);
 
-        console.log(json);
+        console.log(json_obj);
 
         // Make api call
 
