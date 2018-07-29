@@ -661,7 +661,7 @@ function create_new_contest()
     }
 
     // golf score to par doesnt need scoring - check 
-    if (!scoring && selectorValue(roster_multistat_overall) !== "Score to Par") {
+    if (!scoring) {
       alert("Please select at least one scoring option");
     } else if (!cost_per_entry) {
       id("roster_cost_per_entry").classList.add("error");
