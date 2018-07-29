@@ -640,6 +640,8 @@ function get_available_sports()
         check_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks");
         check_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers");
 
+        console.log(scoring);
+
         // if (id("roster_basketball_points").value) {
         //   if (isNan(id("roster_basketball_points").value)) {
         //     id("roster_basketball_points").classList.add("error");
