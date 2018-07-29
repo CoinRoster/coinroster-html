@@ -644,9 +644,16 @@ function create_new_contest()
   if (contest_type === "Roster") {
     var sport = selectorValue("roster_sport_selector");
     var settlement_type = selectorValue("roster_settlement_type");
+    var json_obj = {};
+    var scoring = {};
+    var score_to_par = false;
+    var round_tournament;
+    var checked_boxes_flag = {flag: false};
+    var cost_per_entry = id("roster_cost_per_entry").value;
 
     if (!sport) {
       alert("Please select a sport");
+      checked_boxes_flag.flag = true;
     }
 
     // Clear errors
@@ -661,14 +668,12 @@ function create_new_contest()
     clear_error("roster_baseball_hits");
     clear_error("roster_baseball_runs");
     clear_error("roster_baseball_strikeouts");
-    clear_error("roster_baseball_walks");
-
-    var json_obj = {};
-    var scoring = {};
-    var score_to_par = false;
-    var round_tournament;
-    var checked_boxes_flag = {flag: false};
-    var cost_per_entry = id("roster_cost_per_entry").value;
+    clear_error("roster_baseball_walks");    
+    clear_error("roster_golf_eagles_checkbox");
+    clear_error("roster_golf_birdies_checkbox");
+    clear_error("roster_golf_pars_checkbox");
+    clear_error("roster_golf_bogeys_checkbox");
+    clear_error("roster_golf_double_bogeys_checkbox");
 
     if (sport === "Basketball") {
       get_score_value("roster_basketball_points", "points", scoring);
@@ -711,10 +716,10 @@ function create_new_contest()
 
         any_checked([
           "roster_golf_eagles_checkbox",
-          "roster_golf_birdies",
-          "roster_golf_pars",
-          "roster_golf_bogeys",
-          "roster_golf_double_bogeys"
+          "roster_golf_birdies_checkbox",
+          "roster_golf_pars_checkbox",
+          "roster_golf_bogeys_checkbox",
+          "roster_golf_double_bogeys_checkbox"
         ], checked_boxes_flag);
       } else if (type === "Score to Par") {
         score_to_par = true;
