@@ -695,8 +695,9 @@ function create_new_contest()
       alert("Please provide a valid cost to enter the contest");
     }
     
-
     console.log(scoring);
+    console.log(selectorValue(roster_multistat_overall) !== "Score to Par")
+    console.log(checked_boxes_flag);
 
     var json_obj = {
 
