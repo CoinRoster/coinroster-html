@@ -963,24 +963,33 @@ function create_new_contest()
 
         function create_contest_attempt(data)
         {
-        var call = api({
-            method: "SetupMisc",
-            args: {
-                data, data
-            }
-        });
-        
-        if (call.status === "1") {
-          alert("Contest created successfully!");
-          window.locaion = "/";
-        } else {
-          return alert("There was an error. " + call.error);
+          var call = api({
+              method: "SetupMisc",
+              args: {
+                  data, data
+              }
+          });
+          
+          if (call.status === "1") {
+            alert("Contest created successfully!");
+            return window.locaion = "/";
+          } else {
+            return alert("There was an error. " + call.error);
+          }
         }
+
+        function isJSON(str) {
+          try {
+              return (JSON.parse(str) && !!str);
+          } catch (e) {
+              return false;
+          }
       }
 
-      console.log(json);
+        console.log(json);
+        console.log(isJSON(json));
 
-      create_contest_attempt(json);
+        create_contest_attempt(json);
       }
     }
   }
