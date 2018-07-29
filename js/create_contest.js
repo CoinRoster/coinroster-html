@@ -726,12 +726,6 @@ function create_new_contest()
       }
       
       round_tournament = getCheckedValue("round_tournament");
-
-
-
-      console.log(scoring);
-      console.log(round_tournament);
-
     }
 
     if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !checked_boxes_flag.flag) {
@@ -744,7 +738,8 @@ function create_new_contest()
     }
     
    
-
+    console.log(sport === "Golf");
+    console.log(round_tournament === "on");
     // else if
 
     // api call
