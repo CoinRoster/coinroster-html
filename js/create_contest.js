@@ -708,6 +708,8 @@ function create_new_contest()
         "roster_basketball_blocks_checkbox",
         "roster_basketball_turnovers_checkbox"
       ], checked_boxes_flag);
+
+      json_obj.category = "BASKETBALLFANTASY";
     } else if (sport === "Baseball") {
       get_score_value("roster_baseball_rbi", "RBIs", scoring);
       get_score_value("roster_baseball_hits", "hits", scoring);
@@ -722,6 +724,8 @@ function create_new_contest()
         "roster_baseball_strikeouts_checkbox",
         "roster_baseball_walks_checkbox"
       ], checked_boxes_flag);
+
+      json_obj.category = "BASEBALLFANTASY";
     } else if (sport === "Golf") {
       var type = selectorValue(roster_multistat_overall);
       round_tournament = getCheckedValue("round_tournament");
@@ -740,6 +744,8 @@ function create_new_contest()
           "roster_golf_bogeys_checkbox",
           "roster_golf_double_bogeys_checkbox"
         ], checked_boxes_flag);
+
+        json_obj.category = "GOLFFANTASY";
       } else if (type === "Score to Par") {
         score_to_par = true;
       } 
@@ -808,13 +814,23 @@ function create_new_contest()
     } else if (!roster_salary_cap || isNaN(roster_salary_cap) || roster_salary_cap < 500) {
       add_error("roster_salary_cap");
       alert("Please enter a valid salary cap (minimum $500)")
+    } else {
+      // Build the JSON object
+      json_obj.category = "FANTASYSPORTS";
+      json_obj.contest_type = "PARI-MUTUEL";
+      json_obj.cost_per_entry = cost_per_entry;
+      json_obj.private = private;
+
+      console.log(json_obj);
+
+
     }
     
-    console.log(jackpot_payouts);
+    
     
     
 
-    // build json object
+    
     // api call
 
   }
