@@ -636,6 +636,7 @@ function get_available_sports()
       var pari_mutuel_table_element = id("pari_mutuel_table_element");
       var table_values = [];
 
+      var hour = 3600000;
       reg_deadline_time *= 60 * 60 * 1000;
       set_deadline_time *= 60 * 60 * 1000;
 
@@ -654,13 +655,13 @@ function get_available_sports()
       } else if (!description || description.length < 2) {
         id("misc_description").classList.add("error");
         alert("Please enter a valid contest description");
-      } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now()) {
+      } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
          id("misc_registration_deadline").classList.add("error");
          alert("Please set a valid registration deadline");
       } else if (
           !set_deadline || 
           Date.parse(set_deadline) < Date.now() || 
-          Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time
+          Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
         ) {
          id("misc_settlement_deadline").classList.add("error");
          alert("Please set a valid settlement deadline");
