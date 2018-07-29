@@ -694,6 +694,7 @@ function create_new_contest()
     clear_error("roster_salary_cap");
 
     if (sport === "Basketball") {
+      json_obj.sub_category = "BASKETBALLY";
       get_score_value("roster_basketball_points", "points", scoring);
       get_score_value("roster_basketball_rebounds", "rebounds", scoring);
       get_score_value("roster_basketball_assists", "assists", scoring);
@@ -708,9 +709,8 @@ function create_new_contest()
         "roster_basketball_blocks_checkbox",
         "roster_basketball_turnovers_checkbox"
       ], checked_boxes_flag);
-
-      json_obj.sub_category = "BASKETBALLFANTASY";
     } else if (sport === "Baseball") {
+      json_obj.sub_category = "BASEBALL";
       get_score_value("roster_baseball_rbi", "RBIs", scoring);
       get_score_value("roster_baseball_hits", "hits", scoring);
       get_score_value("roster_baseball_runs", "runs", scoring);
@@ -724,9 +724,8 @@ function create_new_contest()
         "roster_baseball_strikeouts_checkbox",
         "roster_baseball_walks_checkbox"
       ], checked_boxes_flag);
-
-      json_obj.sub_category = "BASEBALLFANTASY";
     } else if (sport === "Golf") {
+      json_obj.sub_category = "GOLF";
       var type = selectorValue(roster_multistat_overall);
       round_tournament = getCheckedValue("round_tournament");
 
@@ -744,8 +743,6 @@ function create_new_contest()
           "roster_golf_bogeys_checkbox",
           "roster_golf_double_bogeys_checkbox"
         ], checked_boxes_flag);
-
-        json_obj.sub_category = "GOLFFANTASY";
       } else if (type === "Score to Par") {
         score_to_par = true;
       }
@@ -793,19 +790,19 @@ function create_new_contest()
       alert("Please enter a valid number of payouts (must be two or more)");
     } else if (jackpot_table_error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
-    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 2)) {
+    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1)) {
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || Number(roster_jackpot_max_users) < 2 || Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users))) {
+    } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || Number(roster_jackpot_max_users) < 0 || Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users))) {
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || Number(roster_double_up_min_users) < 2)) {
+    } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || Number(roster_double_up_min_users) < 0)) {
       add_error("roster_double_up_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Double-Up" && (!roster_double_up_max_users || Number(roster_double_up_max_users) < 2 || Number(roster_double_up_max_users) < Number(roster_double_up_min_users))) {
+    } else if (settlement_type === "Double-Up" && (!roster_double_up_max_users || Number(roster_double_up_max_users) < 0 || Number(roster_double_up_max_users) < Number(roster_double_up_min_users))) {
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 1) {
+    } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
     } else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1) {
@@ -818,19 +815,19 @@ function create_new_contest()
       // Build the JSON object
       json_obj.category = "FANTASYSPORTS";
       json_obj.contest_type = "PARI-MUTUEL";
-      json_obj.cost_per_entry = cost_per_entry;
+      json_obj.cost_per_entry = Number(cost_per_entry);
       json_obj.private = private;
-      json_obj.roster_size = roster_size;
-      json_obj.max_rosters = max_rosters_per_user;
-      json_obj.salary_cap = roster_salary_cap;
+      json_obj.roster_size = Number(roster_size);
+      json_obj.max_rosters = Number(max_rosters_per_user);
+      json_obj.salary_cap = Number(roster_salary_cap);
 
       if (settlement_type === "Jackpot") {
         json_obj.jackpot_payouts = jackpot_payouts;
-        json_obj.min_users = roster_jackpot_min_users;
-        json_obj.max_users = roster_jackpot_max_users;
+        json_obj.min_users = Number(roster_jackpot_min_users);
+        json_obj.max_users = Number(roster_jackpot_max_users);
       } else if (settlement_type === "Double-Up") {
-        json_obj.min_users = roster_double_up_min_users;
-        json_obj.max_users = roster_double_up_max_users;
+        json_obj.min_users = Number(roster_double_up_min_users);
+        json_obj.max_users = Number(roster_double_up_max_users);
       }
 
       if (sport === "Golf") {
@@ -935,12 +932,14 @@ function create_new_contest()
         registration_deadline += reg_deadline_time;
         settlement_deadline += set_deadline_time;
 
+        min_wager = Number(min_wager);
+
         var json_obj = {
           title,
           description,
           registration_deadline,
           settlement_deadline,
-          min_wager,
+          cost_per_entry, min_wager,
           settlement_type,
           pari_mutuel_options: table_values,
           private
