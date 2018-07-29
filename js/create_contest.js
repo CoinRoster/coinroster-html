@@ -594,13 +594,13 @@ function get_available_sports()
   }
 
 // Check what scoring options are selected and populate scoring object
-function check_value(input, checkbox, name) {
+function check_value(input, checkbox, name, score_obj) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
       id(input).classList.add("error");
       alert("Please enter a valid number of " + name);
     } else {
-      scoring[name] = id(input).value;
+      score_obj[name] = id(input).value;
     }
   } else if (id(checkbox).checked) {
     id(input).classList.add("error");
@@ -636,12 +636,12 @@ function check_value(input, checkbox, name) {
         // Collect & validate scoring data
         var scoring = {};
 
-        check_value("roster_basketball_points", "roster_basketball_points_checkbox", "points");
-        check_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds");
-        check_value("roster_basketball_assists", "roster_basketball_assists_checkbox", "assists");
-        check_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals");
-        check_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks");
-        check_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers");
+        check_value("roster_basketball_points", "roster_basketball_points_checkbox", "points", scoring);
+        check_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds", scoring);
+        check_value("roster_basketball_assists", "roster_basketball_assists_checkbox", "assists", scoring);
+        check_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals", scoring);
+        check_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks", scoring);
+        check_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
 
         console.log(scoring);
 
