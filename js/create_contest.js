@@ -727,6 +727,8 @@ function create_new_contest()
       
       round_tournament = getCheckedValue("round_tournament");
 
+
+
       console.log(scoring);
       console.log(round_tournament);
 
@@ -737,11 +739,13 @@ function create_new_contest()
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
+    } else if (sport === "Golf" && round_tournament === "on") {
+      alert("Please select either round or tournament");
     }
     
    
 
-    
+    // else if
 
     // api call
 
