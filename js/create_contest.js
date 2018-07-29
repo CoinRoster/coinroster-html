@@ -606,7 +606,7 @@ function get_score_value(input, name, score_obj) {
       add_error(input);
       alert("Please set a valid value for " + name);
     } else {
-      score_obj[name] = id(input).value;
+      score_obj[name.toLowerCase()] = id(input).value;
     }
   } else if (id(input + "_checkbox").checked) {
     add_error(input);
@@ -896,12 +896,12 @@ function create_new_contest()
         alert("Please set a valid registration deadline");
     } else if (
         !set_deadline || 
-        Date.parse(set_deadline) < Date.now() || 
+        Date.parse(set_deadline) + set_deadline_time < Date.now() || 
         Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
       ) {
 
         console.log(!set_deadline)
-        console.log(Date.parse(set_deadline) < Date.now())
+        console.log(Date.parse(set_deadline) + set_deadline_time < Date.now())
         console.log(Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour)
 
         add_error("misc_settlement_deadline");
@@ -919,7 +919,7 @@ function create_new_contest()
       
       for (i=1; i<table_rows;i++) {
         var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        if (!desc || desc.length < 2) {
+        if (!desc) {
           table_error = true;
         } else {
           table_values.push(desc);
@@ -947,6 +947,8 @@ function create_new_contest()
         };
 
         var json = JSON.stringify(json_obj);
+
+        console.log(json)
 
         // api call
 
