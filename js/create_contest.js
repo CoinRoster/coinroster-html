@@ -734,23 +734,25 @@ function create_new_contest()
     if (settlement_type === "Jackpot") {
       var jackpot_table = id("jackpot_table");
       var counter = 0;
-      var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
-    
-      for (i=1; i<table_rows;i++) {
-        var amount = jackpot_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        if (!amount || isNaN(amount)) {
-          jackpot_table_error = true;
-        } else {
-          jackpot_payouts.push(amount);
+      if (jackpot_table.firstChild) {
+        var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
+      
+        for (i=1; i<table_rows;i++) {
+          var amount = jackpot_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+          if (!amount || isNaN(amount)) {
+            jackpot_table_error = true;
+          } else {
+            jackpot_payouts.push(Number(amount));
+          }
         }
-      }
-
-      jackpot_payouts.forEach(function(percent) {
-        counter += percent;
-      });
-
-      if (counter !== "100") {
-        jackpot_table_error = true;
+  
+        jackpot_payouts.forEach(function(percent) {
+          counter += percent;
+        });
+  
+        if (counter !== 100) {
+          jackpot_table_error = true;
+        }
       }
 
 
@@ -766,6 +768,8 @@ function create_new_contest()
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
+    } else if (!settlement_type) {
+      alert("Please select a settlement type");
     } else if (settlement_type === "Jackpot" && !number_of_payouts) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be two or more)");
