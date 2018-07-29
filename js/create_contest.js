@@ -606,7 +606,7 @@ function get_score_value(input, name, score_obj) {
       add_error(input);
       alert("Please set a valid value for " + name);
     } else {
-      score_obj[name.toLowerCase()] = id(input).value;
+      score_obj[name.toLowerCase()] = Number(id(input).value);
     }
   } else if (id(input + "_checkbox").checked) {
     add_error(input);
@@ -694,7 +694,7 @@ function create_new_contest()
     clear_error("roster_salary_cap");
 
     if (sport === "Basketball") {
-      json_obj.sub_category = "BASKETBALLY";
+      json_obj.sub_category = "BASKETBALL";
       get_score_value("roster_basketball_points", "points", scoring);
       get_score_value("roster_basketball_rebounds", "rebounds", scoring);
       get_score_value("roster_basketball_assists", "assists", scoring);
@@ -793,22 +793,34 @@ function create_new_contest()
     } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1)) {
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || Number(roster_jackpot_max_users) < 0 || Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users))) {
+    } else if (settlement_type === "Jackpot" && (
+        !roster_jackpot_max_users || 
+        Number(roster_jackpot_max_users) < 0 || 
+        Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users)) &&
+        Number(roster_jackpot_max_users) !== 0
+      ) 
+    {
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
     } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || Number(roster_double_up_min_users) < 0)) {
       add_error("roster_double_up_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Double-Up" && (!roster_double_up_max_users || Number(roster_double_up_max_users) < 0 || Number(roster_double_up_max_users) < Number(roster_double_up_min_users))) {
+    } else if (settlement_type === "Double-Up" && (
+        !roster_double_up_max_users || 
+        Number(roster_double_up_max_users) < 0 ||
+        Number(roster_double_up_max_users) < Number(roster_double_up_min_users)) &&
+        Number(roster_double_up_max_users) !== 0
+      ) 
+    {  
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) {
+    } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0 && Number(max_rosters_per_user) !== 0) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
     } else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1) {
       add_error("roster_size");
       alert("Please enter a valid roster size")
-    } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
+    } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500 && (Number(roster_salary_cap) !== 0)) {
       add_error("roster_salary_cap");
       alert("Please enter a valid salary cap (minimum $500)")
     } else {
@@ -833,7 +845,9 @@ function create_new_contest()
       if (sport === "Golf") {
         json_obj.round_tournament = round_tournament;
         if (score_to_par) {
-          json_obj.scoring_rules = "score_to_par";
+          json_obj.multi_st = "score_to_par";
+        } else {
+          json_obj.multi_st = "multi-stat";
         }
       }
 
