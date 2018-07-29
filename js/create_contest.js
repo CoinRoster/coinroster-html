@@ -21,12 +21,10 @@ var avaliable_sports;
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
       inputs_labels[index].classList.remove("dimmed");
-      inputs_labels[index].classList.remove("error");
     } else {
       inputs[index].value = "";
       inputs[index].disabled = true;
       inputs_labels[index].classList.add("dimmed");
-      inputs_labels[index].classList.remove("error");
     }  
   })
  });
@@ -593,161 +591,187 @@ function get_available_sports()
     else return null;
   }
 
+function add_error(id) {
+  id(id).classList.add("error");
+}
+
+function clear_error(id) {
+  id(id).classList.remove("error");
+}
+
 // Check what scoring options are selected and populate scoring object
-function check_value(input, checkbox, name, score_obj) {
+function get_score_value(input, checkbox, name, score_obj) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
-      id(input).classList.add("error");
+      add_error(input);
       alert("Please enter a valid number of " + name);
     } else {
       score_obj[name] = id(input).value;
     }
   } else if (id(checkbox).checked) {
-    id(input).classList.add("error");
+    add_error(input);
     alert("Please enter a valid number of " + name);
   }
 }
 
-  function create_new_contest()
-   {
-     var contest_type = selectorValue("contest_type_selector");
-     var private = id("contest_private").checked;
+function create_new_contest()
+  {
+    var contest_type = selectorValue("contest_type_selector");
+    var private = id("contest_private").checked;
 
-     if (!contest_type) {
-       alert("Please select a contest type");
-     }
-
-    if (contest_type === "Roster") {
-      var sport = selectorValue("roster_sport_selector");
-
-      if (!sport) {
-        alert("Please select a sport");
-      }
-
-      if (sport === "Basketball") {
-        // Clear errors
-        // id("roster_basketball_points").classList.remove("error");
-        // id("roster_basketball_rebounds").classList.remove("error");
-        // id("roster_basketball_assists").classList.remove("error");
-        // id("roster_basketball_steals").classList.remove("error");
-        // id("roster_basketball_blocks").classList.remove("error");
-        // id("roster_basketball_turnovers").classList.remove("error");
-
-        // Collect & validate scoring data
-        var scoring = {};
-
-        check_value("roster_basketball_points", "roster_basketball_points_checkbox", "points", scoring);
-        check_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds", scoring);
-        check_value("roster_basketball_assists", "roster_basketball_assists_checkbox", "assists", scoring);
-        check_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals", scoring);
-        check_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks", scoring);
-        check_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
-
-        console.log(scoring);
-
-
-      } else if (sport === "Baseball") {
-        // baseball
-      } else if (sport === "Golf") {
-        // golf
-      }
+    if (!contest_type) {
+      alert("Please select a contest type");
     }
 
-    if (contest_type === "Prop") {
-      var sport = selectorValue("prop_sport_selector");
+  if (contest_type === "Roster") {
+    var sport = selectorValue("roster_sport_selector");
+
+    if (!sport) {
+      alert("Please select a sport");
     }
 
-    if (contest_type === "Misc") {
-      // Collect form data
-      var title = id("misc_title").value;
-      var description = id("misc_description").value;
-      var reg_deadline = id("misc_registration_deadline").value;
-      var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
-      var set_deadline = id("misc_settlement_deadline").value;
-      var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
-      var min_wager = id("misc_min_wager").value;
-      var settlement_type = selectorValue("misc_settlement_type");
-      var number_of_options = id("number_of_options").value;
-      var pari_mutuel_table = id("pari_mutuel_table");
-      var pari_mutuel_table_element = id("pari_mutuel_table_element");
-      var table_values = [];
+    // Clear errors
+    clear_error("roster_cost_per_entry");
+    clear_error("roster_basketball_points");
+    clear_error("roster_basketball_rebounds");
+    clear_error("roster_basketball_assists");
+    clear_error("roster_basketball_steals");
+    clear_error("roster_basketball_blocks");
+    clear_error("roster_basketball_turnovers");
 
-      var hour = 3600000;
-      reg_deadline_time *= 60 * 60 * 1000;
-      set_deadline_time *= 60 * 60 * 1000;
+    var scoring = {};
+    var cost_per_entry = id("roster_cost_per_entry").value;
+    
 
-      // Clear errors
-      id("misc_title").classList.remove("error");
-      id("misc_description").classList.remove("error");
-      id("misc_registration_deadline").classList.remove("error");
-      id("misc_settlement_deadline").classList.remove("error");
-      id("misc_min_wager").classList.remove("error");
-      id("number_of_options").classList.remove("error");
+    if (sport === "Basketball") {
+      get_score_value("roster_basketball_points", "roster_basketball_points_checkbox", "points", scoring);
+      get_score_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds", scoring);
+      get_score_value("roster_basketball_assists", "roster_basketball_assists_checkbox", "assists", scoring);
+      get_score_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals", scoring);
+      get_score_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks", scoring);
+      get_score_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
+    } else if (sport === "Baseball") {
+      get_score_value("roster_baseball_rbi", "roster_baseball_rbi_checkbox", "rbis", scoring);
+      get_score_value("roster_baseball_hits", "roster_baseball_hits_checkbox", scoring);
+      get_score_value("roster_baseball_runs", "roster_baseball_runs_checkbox", "hits", scoring);
+      get_score_value("roster_baseball_strikeouts", "roster_baseball_strikeouts_checkbox", "strikeouts", scoring);
+      get_score_value("roster_baseball_walks", "roster_baseball_walks_checkbox", "walks", scoring);
+    } else if (sport === "Golf") {
+      // golf
+    }
 
-      // Validation
-      if (!title || title.length < 2) {
-        id("misc_title").classList.add("error");
-        alert("Please enter a valid contest title");
-      } else if (!description || description.length < 2) {
-        id("misc_description").classList.add("error");
-        alert("Please enter a valid contest description");
-      } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
-         id("misc_registration_deadline").classList.add("error");
-         alert("Please set a valid registration deadline");
-      } else if (
-          !set_deadline || 
-          Date.parse(set_deadline) < Date.now() || 
-          Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
-        ) {
-         id("misc_settlement_deadline").classList.add("error");
-         alert("Please set a valid settlement deadline");
-      } else if (!number_of_options || !pari_mutuel_table_element) {
-         id("number_of_options").classList.add("error");
-         alert("Please select at least 2 pari-mutuel options");        
-      } else if (!min_wager || isNaN(min_wager)) {
-        id("misc_min_wager").classList.add("error");
-        alert("Please enter a valid minimum wager amount");
-      } else {
-        // Get values from pari-mutuel table
-        var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
-        var table_error = false;
-        
-        for (i=1; i<table_rows;i++) {
-          var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-          if (!desc || desc.length < 2) {
-            table_error = true;
-          } else {
-            table_values.push(desc);
-          }
-        }
+    // golf score to par doesnt need scoring - check 
+    if (!scoring || selectorValue(roster_multistat_overall) !== "Score to Par") {
+      alert("Please select at least one scoring option");
+    } else if (!cost_per_entry) {
+      id("roster_cost_per_entry").classList.add("error");
+      alert("Please provide a cost to enter the contest");
+    }
+    
 
-        if (table_error) {
-          alert("Please enter valid pari-mutuel option descriptions");
+    console.log(scoring);
+
+    var json_obj = {
+
+    };
+
+    // api call
+
+  }
+
+  if (contest_type === "Prop") {
+    var sport = selectorValue("prop_sport_selector");
+  }
+
+  if (contest_type === "Misc") {
+    // Collect form data
+    var title = id("misc_title").value;
+    var description = id("misc_description").value;
+    var reg_deadline = id("misc_registration_deadline").value;
+    var reg_deadline_time = id("misc_registration_deadline_time_selector").value;
+    var set_deadline = id("misc_settlement_deadline").value;
+    var set_deadline_time = id("misc_settlement_deadline_time_selector").value;
+    var min_wager = id("misc_min_wager").value;
+    var settlement_type = selectorValue("misc_settlement_type");
+    var number_of_options = id("number_of_options").value;
+    var pari_mutuel_table = id("pari_mutuel_table");
+    var pari_mutuel_table_element = id("pari_mutuel_table_element");
+    var table_values = [];
+
+    var hour = 3600000;
+    reg_deadline_time *= 60 * 60 * 1000;
+    set_deadline_time *= 60 * 60 * 1000;
+
+    // Clear errors
+    clear_error("misc_title");
+    clear_error("misc_description");
+    clear_error("misc_registration_deadline");
+    clear_error("misc_settlement_deadline");
+    clear_error("misc_min_wager");
+    clear_error("number_of_options");
+
+    // Validation
+    if (!title || title.length < 2) {
+      add_error("misc_title");
+      alert("Please enter a valid contest title");
+    } else if (!description || description.length < 2) {
+      add_error("misc_description");
+      alert("Please enter a valid contest description");
+    } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
+        add_error("misc_registration_deadline");
+        alert("Please set a valid registration deadline");
+    } else if (
+        !set_deadline || 
+        Date.parse(set_deadline) < Date.now() || 
+        Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
+      ) {
+        add_error("misc_settlement_deadline");
+        alert("Please set a valid settlement deadline");
+    } else if (!number_of_options || !pari_mutuel_table_element) {
+        add_error("number_of_options");
+        alert("Please select at least 2 pari-mutuel options");        
+    } else if (!min_wager || isNaN(min_wager)) {
+      add_error("misc_min_wager");
+      alert("Please enter a valid minimum wager amount");
+    } else {
+      // Get values from pari-mutuel table
+      var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
+      var table_error = false;
+      
+      for (i=1; i<table_rows;i++) {
+        var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        if (!desc || desc.length < 2) {
+          table_error = true;
         } else {
-          // Make the JSON call now that all validation has passed
-          var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
-          var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
-          registration_deadline += reg_deadline_time;
-          settlement_deadline += set_deadline_time;
-
-          var json_obj = {
-            title,
-            description,
-            registration_deadline,
-            settlement_deadline,
-            min_wager,
-            settlement_type,
-            pari_mutuel_options: table_values,
-            private
-          };
-
-          var json = JSON.stringify(json_obj);
-
-          console.log(json);
-
-          // api call
-
+          table_values.push(desc);
         }
+      }
+
+      if (table_error) {
+        alert("Please enter valid pari-mutuel option descriptions");
+      } else {
+        // Make the JSON call now that all validation has passed
+        var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
+        var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
+        registration_deadline += reg_deadline_time;
+        settlement_deadline += set_deadline_time;
+
+        var json_obj = {
+          title,
+          description,
+          registration_deadline,
+          settlement_deadline,
+          min_wager,
+          settlement_type,
+          pari_mutuel_options: table_values,
+          private
+        };
+
+        var json = JSON.stringify(json_obj);
+
+        // api call
+
       }
     }
   }
+}
