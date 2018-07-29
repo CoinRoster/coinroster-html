@@ -797,6 +797,11 @@ function create_new_contest()
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
     } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || roster_jackpot_max_users < 2 || roster_jackpot_max_users <= roster_jackpot_min_users)) {
+      console.log(settlement_type === "Jackpot")
+      console.log(!roster_jackpot_max_users)
+      console.log(roster_jackpot_max_users < 2)
+      console.log(roster_jackpot_max_users <= roster_jackpot_min_users)
+
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
     } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || roster_double_up_min_users < 2)) {
