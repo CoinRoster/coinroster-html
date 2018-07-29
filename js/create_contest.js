@@ -770,7 +770,7 @@ function create_new_contest()
       alert("Please provide a valid cost to enter the contest");
     } else if (!settlement_type) {
       alert("Please select a settlement type");
-    } else if (settlement_type === "Jackpot" && !number_of_payouts) {
+    } else if (settlement_type === "Jackpot" && !number_of_payouts || number_of_payouts < 2) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be two or more)");
     } else if (jackpot_table_error) {
