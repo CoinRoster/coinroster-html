@@ -782,21 +782,21 @@ function create_new_contest()
       alert("Please provide a valid cost to enter the contest");
     } else if (!settlement_type) {
       alert("Please select a settlement type");
-    } else if (settlement_type === "Jackpot" && !number_of_payouts || number_of_payouts < 2) {
+    } else if (settlement_type === "Jackpot" && (!number_of_payouts || number_of_payouts < 2)) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be two or more)");
     } else if (jackpot_table_error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
-    } else if (settlement_type === "Jackpot" && !roster_jackpot_min_users || roster_jackpot_min_users < 2) {
+    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || roster_jackpot_min_users < 2)) {
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Jackpot" && !roster_jackpot_max_users || roster_jackpot_max_users < 2) {
+    } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || roster_jackpot_max_users < 2 || roster_jackpot_max_users <= roster_jackpot_min_users)) {
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if (settlement_type === "Double-Up" && !roster_double_up_min_users || roster_double_up_min_users < 2) {
+    } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || roster_double_up_min_users < 2)) {
       add_error("roster_double_up_min_users");
       alert("Please enter a valid minimum number of users");
-    } else if (settlement_type === "Double-Up" && !roster_double_up_max_users || roster_double_up_max_users < 2) {
+    } else if (settlement_type === "Double-Up" && (!roster_double_up_max_users || roster_double_up_max_users < 2 || roster_double_up_max_users <= roster_double_up_min_users)) {
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
     } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || max_rosters_per_user < 1) {
