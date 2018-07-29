@@ -735,27 +735,27 @@ function create_new_contest()
       var jackpot_table = id("jackpot_table");
       var counter = 0;
       if (jackpot_table.firstChild) {
-        var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
+        if (jackpot_table.firstChild.childNodes[0]) {
+          var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
       
-        for (i=1; i<table_rows;i++) {
-          var amount = jackpot_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-          if (!amount || isNaN(amount)) {
+          for (i=1; i<table_rows;i++) {
+            var amount = jackpot_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+            if (!amount || isNaN(amount)) {
+              jackpot_table_error = true;
+            } else {
+              jackpot_payouts.push(Number(amount));
+            }
+          }
+    
+          jackpot_payouts.forEach(function(percent) {
+            counter += percent;
+          });
+    
+          if (counter !== 100) {
             jackpot_table_error = true;
-          } else {
-            jackpot_payouts.push(Number(amount));
           }
         }
-  
-        jackpot_payouts.forEach(function(percent) {
-          counter += percent;
-        });
-  
-        if (counter !== 100) {
-          jackpot_table_error = true;
-        }
-      }
-
-
+      } 
     } else if (settlement_type === "Double-Up") {
 
     }
