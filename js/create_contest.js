@@ -972,13 +972,14 @@ function create_new_contest()
         
         if (call.status === "1") {
           alert("Contest created successfully!");
-          window.locaion = "/account/user_contests.html";
+          window.locaion = "/";
         } else {
           return alert("There was an error. " + call.error);
         }
       }
 
       create_contest_attempt(json);
+      }
     }
   }
 }
