@@ -604,14 +604,22 @@ function get_score_value(input, checkbox, name, score_obj) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
       add_error(input);
-      alert("Please enter a valid number of " + name);
+      alert("Please set a valid value for " + name);
     } else {
       score_obj[name] = id(input).value;
     }
   } else if (id(checkbox).checked) {
     add_error(input);
-    alert("Please enter a valid number of " + name);
+    alert("Please enter a valid value for " + name);
   }
+}
+
+function any_checked(boxes, flag){
+  boxes.forEach(function(box) {
+    if (id(box).checked) {
+      flag = true;
+    }
+  });
 }
 
 function create_new_contest()
@@ -638,8 +646,14 @@ function create_new_contest()
     clear_error("roster_basketball_steals");
     clear_error("roster_basketball_blocks");
     clear_error("roster_basketball_turnovers");
+    clear_error("roster_baseball_rbi");
+    clear_error("roster_baseball_hits");
+    clear_error("roster_baseball_runs");
+    clear_error("roster_baseball_strikeouts");
+    clear_error("roster_baseball_walks");
 
     var scoring = {};
+    var checked_boxes_flag = false;
     var cost_per_entry = id("roster_cost_per_entry").value;
     
 
@@ -650,21 +664,35 @@ function create_new_contest()
       get_score_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals", scoring);
       get_score_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks", scoring);
       get_score_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
+      any_checked([
+        "roster_basketball_points_checkbox",
+        "roster_basketball_rebounds_checkbox",
+        "roster_basketball_steals_checkbox",
+        "roster_basketball_blocks",
+        "roster_basketball_turnovers_checkbox"
+      ], checked_boxes_flag);
     } else if (sport === "Baseball") {
-      get_score_value("roster_baseball_rbi", "roster_baseball_rbi_checkbox", "rbis", scoring);
+      get_score_value("roster_baseball_rbi", "roster_baseball_rbi_checkbox", "RBIs", scoring);
       get_score_value("roster_baseball_hits", "roster_baseball_hits_checkbox", "hits", scoring);
       get_score_value("roster_baseball_runs", "roster_baseball_runs_checkbox", "runs", scoring);
       get_score_value("roster_baseball_strikeouts", "roster_baseball_strikeouts_checkbox", "strikeouts", scoring);
       get_score_value("roster_baseball_walks", "roster_baseball_walks_checkbox", "walks", scoring);
+      any_checked([
+        "roster_baseball_rbi_checkbox",
+        "roster_baseball_hits_checkbox",
+        "roster_baseball_runs_checkbox",
+        "roster_baseball_strikeouts_checkbox",
+        "roster_baseball_walks_checkbox"
+      ], checked_boxes_flag);
     } else if (sport === "Golf") {
       // golf
     }
 
-    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par") {
+    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" || !checked_boxes_flag) {
       alert("Please select at least one scoring option");
-    } else if (!cost_per_entry) {
-      id("roster_cost_per_entry").classList.add("error");
-      alert("Please provide a cost to enter the contest");
+    } else if (!cost_per_entry || isNaN(cost_per_entry)) {
+      add_error("roster_cost_per_entry");
+      alert("Please provide a valid cost to enter the contest");
     }
     
 
