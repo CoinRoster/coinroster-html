@@ -828,7 +828,7 @@ function create_new_contest()
         json_obj.jackpot_payouts = jackpot_payouts;
         json_obj.min_users = roster_jackpot_min_users;
         json_obj.max_users = roster_jackpot_max_users;
-      } else if (settlement_Type === "Double-Up") {
+      } else if (settlement_type === "Double-Up") {
         json_obj.min_users = roster_double_up_min_users;
         json_obj.max_users = roster_double_up_max_users;
       }
@@ -838,14 +838,13 @@ function create_new_contest()
       }
 
 
-      
+      console.log(sport !== "Golf");
+      console.log(selectorValue(roster_multistat_overall) !== "Score to Par");
+
       console.log(json_obj);
 
     }
-    
-    
-    
-    
+
 
     
     // api call
