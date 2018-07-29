@@ -748,7 +748,7 @@ function create_new_contest()
         json_obj.category = "GOLFFANTASY";
       } else if (type === "Score to Par") {
         score_to_par = true;
-      } 
+      }
     }
 
     if (settlement_type === "Jackpot") {
@@ -833,22 +833,22 @@ function create_new_contest()
         json_obj.max_users = roster_double_up_max_users;
       }
 
-      if (sport !== "Golf" && selectorValue(roster_multistat_overall) !== "Score to Par") {
+      if (sport === "Golf") {
+        json_obj.round_tournament = round_tournament;
+        if (score_to_par) {
+          json_obj.scoring_rules = "score_to_par";
+        }
+      }
+
+      if (sport !== "Golf" || selectorValue(roster_multistat_overall) !== "Score to Par") {
         json_obj.scoring_rules = scoring;
       }
 
-
-      console.log(sport !== "Golf");
-      console.log(selectorValue(roster_multistat_overall) !== "Score to Par");
-
       console.log(json_obj);
-
+      
+      // api call
+      
     }
-
-
-    
-    // api call
-
   }
 
   if (contest_type === "Prop") {
