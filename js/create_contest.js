@@ -817,7 +817,7 @@ function create_new_contest()
     } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0 && Number(max_rosters_per_user) !== 0) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
-    } else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_Size) !== 0) {
+    } else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_size) !== 0) {
       add_error("roster_size");
       alert("Please enter a valid roster size")
     } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
