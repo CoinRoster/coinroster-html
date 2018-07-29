@@ -966,7 +966,7 @@ function create_new_contest()
         var call = api({
             method: "SetupMisc",
             args: {
-                data
+                data, data
             }
         });
         
@@ -977,6 +977,8 @@ function create_new_contest()
           return alert("There was an error. " + call.error);
         }
       }
+
+      console.log(json);
 
       create_contest_attempt(json);
       }
