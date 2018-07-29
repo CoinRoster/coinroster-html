@@ -961,12 +961,12 @@ function create_new_contest()
 
         var json = JSON.stringify(json_obj);
 
-        function create_contest_attempt(json)
+        function create_contest_attempt(data)
         {
         var call = api({
             method: "SetupMisc",
             args: {
-                data: json
+                data
             }
         });
         
