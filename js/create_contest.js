@@ -709,7 +709,7 @@ function create_new_contest()
         "roster_basketball_turnovers_checkbox"
       ], checked_boxes_flag);
 
-      json_obj.category = "BASKETBALLFANTASY";
+      json_obj.sub_category = "BASKETBALLFANTASY";
     } else if (sport === "Baseball") {
       get_score_value("roster_baseball_rbi", "RBIs", scoring);
       get_score_value("roster_baseball_hits", "hits", scoring);
@@ -725,7 +725,7 @@ function create_new_contest()
         "roster_baseball_walks_checkbox"
       ], checked_boxes_flag);
 
-      json_obj.category = "BASEBALLFANTASY";
+      json_obj.sub_category = "BASEBALLFANTASY";
     } else if (sport === "Golf") {
       var type = selectorValue(roster_multistat_overall);
       round_tournament = getCheckedValue("round_tournament");
@@ -745,7 +745,7 @@ function create_new_contest()
           "roster_golf_double_bogeys_checkbox"
         ], checked_boxes_flag);
 
-        json_obj.category = "GOLFFANTASY";
+        json_obj.sub_category = "GOLFFANTASY";
       } else if (type === "Score to Par") {
         score_to_par = true;
       }
@@ -844,6 +844,8 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
 
+      var json = JSON.stringify(json_obj);
+
       console.log(json_obj);
       
       // api call
@@ -897,6 +899,11 @@ function create_new_contest()
         Date.parse(set_deadline) < Date.now() || 
         Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
       ) {
+
+        console.log(!set_deadline)
+        console.log(Date.parse(set_deadline) < Date.now())
+        console.log(Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour)
+
         add_error("misc_settlement_deadline");
         alert("Please set a valid settlement deadline");
     } else if (!number_of_options || !pari_mutuel_table_element) {
