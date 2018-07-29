@@ -669,11 +669,11 @@ function create_new_contest()
     clear_error("roster_baseball_runs");
     clear_error("roster_baseball_strikeouts");
     clear_error("roster_baseball_walks");    
-    clear_error("roster_golf_eagles_checkbox");
-    clear_error("roster_golf_birdies_checkbox");
-    clear_error("roster_golf_pars_checkbox");
-    clear_error("roster_golf_bogeys_checkbox");
-    clear_error("roster_golf_double_bogeys_checkbox");
+    clear_error("roster_golf_eagles");
+    clear_error("roster_golf_birdies");
+    clear_error("roster_golf_pars");
+    clear_error("roster_golf_bogeys");
+    clear_error("roster_golf_double_bogeys");
 
     if (sport === "Basketball") {
       get_score_value("roster_basketball_points", "points", scoring);
