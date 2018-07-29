@@ -374,5 +374,5 @@
     }
 
     .error {
-        border: 2px solid #ff5353;
+        border: 2px solid #ff5353 !important;
     }
