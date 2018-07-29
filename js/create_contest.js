@@ -617,7 +617,8 @@ function get_score_value(input, checkbox, name, score_obj) {
 function any_checked(boxes, flag){
   boxes.forEach(function(box) {
     if (id(box).checked) {
-      flag = true;
+      flag.flag = true;
+      console.log()
     }
   });
 }
@@ -653,7 +654,7 @@ function create_new_contest()
     clear_error("roster_baseball_walks");
 
     var scoring = {};
-    var checked_boxes_flag = false;
+    var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     
 
@@ -688,7 +689,7 @@ function create_new_contest()
       // golf
     }
 
-    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" || checked_boxes_flag) {
+    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !checked_boxes_flag) {
       alert("Please select at least one scoring option");
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
