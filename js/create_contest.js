@@ -737,7 +737,7 @@ function create_new_contest()
       var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
     
       for (i=1; i<table_rows;i++) {
-        var amount = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        var amount = jackpot_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
         if (!amount || isNaN(amount)) {
           jackpot_table_error = true;
         } else {
@@ -766,7 +766,7 @@ function create_new_contest()
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
-    } else if (sport === "Golf" && !number_of_payouts) {
+    } else if (settlement_type === "Jackpot" && !number_of_payouts) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be two or more)");
     } else if (jackpot_table_error) {
