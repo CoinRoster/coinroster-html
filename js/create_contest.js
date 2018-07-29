@@ -591,12 +591,12 @@ function get_available_sports()
     else return null;
   }
 
-function add_error(id) {
-  id(id).classList.add("error");
+function add_error(element) {
+  id(element).classList.add("error");
 }
 
-function clear_error(id) {
-  id(id).classList.remove("error");
+function clear_error(element) {
+  id(element).classList.remove("error");
 }
 
 // Check what scoring options are selected and populate scoring object
