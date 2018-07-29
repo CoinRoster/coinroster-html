@@ -797,11 +797,6 @@ function create_new_contest()
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
     } else if (settlement_type === "Jackpot" && (!roster_jackpot_max_users || Number(roster_jackpot_max_users) < 2 || Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users))) {
-      console.log(settlement_type === "Jackpot")
-      console.log(roster_jackpot_max_users)
-      console.log(roster_jackpot_max_users < 2)
-      console.log(roster_jackpot_max_users <= roster_jackpot_min_users)
-
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
     } else if (settlement_type === "Double-Up" && (!roster_double_up_min_users || Number(roster_double_up_min_users) < 2)) {
@@ -825,17 +820,26 @@ function create_new_contest()
       json_obj.contest_type = "PARI-MUTUEL";
       json_obj.cost_per_entry = cost_per_entry;
       json_obj.private = private;
+      json_obj.roster_size = roster_size;
+      json_obj.max_rosters = max_rosters_per_user;
+      json_obj.salary_cap = roster_salary_cap;
 
       if (settlement_type === "Jackpot") {
         json_obj.jackpot_payouts = jackpot_payouts;
+        json_obj.min_users = roster_jackpot_min_users;
+        json_obj.max_users = roster_jackpot_max_users;
+      } else if (settlement_Type === "Double-Up") {
+        json_obj.min_users = roster_double_up_min_users;
+        json_obj.max_users = roster_double_up_max_users;
       }
 
       if (sport !== "Golf" && selectorValue(roster_multistat_overall) !== "Score to Par") {
         json_obj.scoring_rules = scoring;
       }
 
-      console.log(json_obj);
 
+      
+      console.log(json_obj);
 
     }
     
