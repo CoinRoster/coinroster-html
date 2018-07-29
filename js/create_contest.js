@@ -21,10 +21,12 @@ var avaliable_sports;
     if ($(this)[0].checked) {
       inputs[index].disabled = false;
       inputs_labels[index].classList.remove("dimmed");
+      inputs_labels[index].classList.remove("error");
     } else {
       inputs[index].value = "";
       inputs[index].disabled = true;
       inputs_labels[index].classList.add("dimmed");
+      inputs_labels[index].classList.remove("error");
     }  
   })
  });
@@ -591,6 +593,21 @@ function get_available_sports()
     else return null;
   }
 
+// Check what scoring options are selected and populate scoring object
+function check_value(input, checkbox, name) {
+  if (id(input).value) {
+    if (isNaN(id(input).value)) {
+      id(input).classList.add("error");
+      alert("Please enter a valid number of " + name);
+    } else {
+      scoring[name] = id(input).value;
+    }
+  } else if (id(checkbox).checked) {
+    id(input).classList.add("error");
+    alert("Please enter a valid number of " + name);
+  }
+}
+
   function create_new_contest()
    {
      var contest_type = selectorValue("contest_type_selector");
@@ -609,29 +626,15 @@ function get_available_sports()
 
       if (sport === "Basketball") {
         // Clear errors
-        id("roster_basketball_points").classList.remove("error");
-        id("roster_basketball_rebounds").classList.remove("error");
-        id("roster_basketball_assists").classList.remove("error");
-        id("roster_basketball_steals").classList.remove("error");
-        id("roster_basketball_blocks").classList.remove("error");
-        id("roster_basketball_turnovers").classList.remove("error");
+        // id("roster_basketball_points").classList.remove("error");
+        // id("roster_basketball_rebounds").classList.remove("error");
+        // id("roster_basketball_assists").classList.remove("error");
+        // id("roster_basketball_steals").classList.remove("error");
+        // id("roster_basketball_blocks").classList.remove("error");
+        // id("roster_basketball_turnovers").classList.remove("error");
 
         // Collect & validate scoring data
         var scoring = {};
-        
-        function check_value(input, checkbox, name) {
-          if (id(input).value) {
-            if (isNaN(id(input).value)) {
-              id(input).classList.add("error");
-              alert("Please enter a valid number of " + name);
-            } else {
-              scoring[name] = id(input).value;
-            }
-          } else if (id(checkbox).checked) {
-            id(input).classList.add("error");
-            alert("Please enter a valid number of " + name);
-          }
-        }
 
         check_value("roster_basketball_points", "roster_basketball_points_checkbox", "points");
         check_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds");
@@ -641,56 +644,6 @@ function get_available_sports()
         check_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers");
 
         console.log(scoring);
-
-        // if (id("roster_basketball_points").value) {
-        //   if (isNan(id("roster_basketball_points").value)) {
-        //     id("roster_basketball_points").classList.add("error");
-        //     alert("Please enter a valid number of points");
-        //   } else {
-        //     scoring.points = id("roster_basketball_points").value;
-        //   }
-        // } else {
-        //   if (id("roster_basketball_points_checkbox").checked) {
-        //     id("roster_basketball_points").classList.add("error");
-        //     alert("Please enter a valid number of points");
-        //   }
-        // }
-
-        // if (id("roster_basketball_rebounds").value) {
-        //   if(isNaN(id("roster_basketball_rebounds").value)) {
-        //     id("roster_basketball_rebounds").classList.add("error");
-        //     alert("Please enter a valid number of rebounds");
-        //   } else {
-        //     scoring.rebounds = id("roster_basketball_rebounds").value;
-        //   }
-        // } else {
-        //   if (id("roster_basketball_rebounds_checkbox").checkboxed) {
-        //     id("roster_basketball_rebounds").classList.add("error");
-        //     alert("Please enter a valid number of rebounds");
-        //   }
-        // }
-        
-        // if (id("roster_basketball_assists").value) {
-        //   if (isNaN(id("roster_basketball_assists").value)) {
-        //     id("roster_basketball_assists").classList.add("error");
-        //     alert("Please enter a valid number of assists")
-        //   }
-        //   scoring.assists = id("roster_basketball_assists").value;
-        // }
-
-        // if (id("roster_basketball_steals").value) {
-        //   scoring.steals = id("roster_basketball_steals").value;
-        // }
-
-        // if (id("roster_basketball_blocks").value) {
-        //   scoring.blocks = id("roster_basketball_blocks").value;
-        // }
-
-        // if (id("roster_basketball_turnovers").value) {
-        //   scoring.blocks = id("roster_basketball_turnovers").value;
-        // }
-
-
 
 
       } else if (sport === "Baseball") {
