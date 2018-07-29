@@ -821,6 +821,14 @@ function create_new_contest()
       json_obj.cost_per_entry = cost_per_entry;
       json_obj.private = private;
 
+      if (settlement_type === "Jackpot") {
+        json_obj.jackpot_payouts = jackpot_payouts;
+      }
+
+      if (sport !== "Golf" && selectorValue(roster_multistat_overall) !== "Score to Par") {
+        json_obj.scoring_rules = scoring;
+      }
+
       console.log(json_obj);
 
 
