@@ -785,9 +785,9 @@ function create_new_contest()
       alert("Please provide a valid cost to enter the contest");
     } else if (!settlement_type) {
       alert("Please select a settlement type");
-    } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 2)) {
+    } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 3)) {
       add_error("number_of_payouts");
-      alert("Please enter a valid number of payouts (must be two or more)");
+      alert("Please enter a valid number of payouts (must be three or more)");
     } else if (jackpot_table_error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
     } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1)) {
@@ -953,7 +953,7 @@ function create_new_contest()
           description,
           registration_deadline,
           settlement_deadline,
-          cost_per_entry, min_wager,
+          cost_per_entry: min_wager,
           settlement_type,
           pari_mutuel_options: table_values,
           private
@@ -961,11 +961,24 @@ function create_new_contest()
 
         var json = JSON.stringify(json_obj);
 
-        console.log(json)
-
-        // api call
-
+        function create_contest_attempt(json)
+        {
+        var call = api({
+            method: "SetupMisc",
+            args: {
+                data: json
+            }
+        });
+        
+        if (call.status === "1") {
+          alert("Contest created successfully!");
+          window.locaion = "/account/user_contests.html";
+        } else {
+          return alert("There was an error. " + call.error);
+        }
       }
+
+      create_contest_attempt(json);
     }
   }
 }
