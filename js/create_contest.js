@@ -652,6 +652,13 @@ function create_new_contest()
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
+    var roster_jackpot_min_users = id("roster_jackpot_min_users").value;
+    var roster_jackpot_max_users = id("roster_jackpot_max_users").value;
+    var roster_double_up_min_users = id("roster_double_up_min_users").value;
+    var roster_double_up_max_users = id ("roster_double_up_max_users").value;
+    var max_rosters_per_user = id("max_rosters_per_user").value;
+    var roster_size = id("roster_size").value;
+    var roster_salary_cap = id ("roster_salary_cap").value;
     var jackpot_table_error = false;
 
     if (!sport) {
@@ -678,6 +685,13 @@ function create_new_contest()
     clear_error("roster_golf_bogeys");
     clear_error("roster_golf_double_bogeys");
     clear_error("number_of_payouts");
+    clear_error("roster_jackpot_min_users");
+    clear_error("roster_jackpot_max_users");
+    clear_error("roster_double_up_min_users");
+    clear_error("roster_double_up_max_users");
+    clear_error("max_rosters_per_user");
+    clear_error("roster_size");
+    clear_error("roster_salary_cap");
 
     if (sport === "Basketball") {
       get_score_value("roster_basketball_points", "points", scoring);
@@ -756,8 +770,6 @@ function create_new_contest()
           }
         }
       } 
-    } else if (settlement_type === "Double-Up") {
-
     }
 
     // Validation
@@ -775,8 +787,29 @@ function create_new_contest()
       alert("Please enter a valid number of payouts (must be two or more)");
     } else if (jackpot_table_error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
+    } else if (settlement_type === "Jackpot" && !roster_jackpot_min_users || roster_jackpot_min_users < 2) {
+      add_error("roster_jackpot_min_users");
+      alert("Please enter a valid minimum number of users");
+    } else if (settlement_type === "Jackpot" && !roster_jackpot_max_users || roster_jackpot_max_users < 2) {
+      add_error("roster_jackpot_max_users");
+      alert("Please enter a valid maximum number of users");
+    } else if (settlement_type === "Double-Up" && !roster_double_up_min_users || roster_double_up_min_users < 2) {
+      add_error("roster_double_up_min_users");
+      alert("Please enter a valid minimum number of users");
+    } else if (settlement_type === "Double-Up" && !roster_double_up_max_users || roster_double_up_max_users < 2) {
+      add_error("roster_double_up_max_users");
+      alert("Please enter a valid maximum number of users");
+    } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || max_rosters_per_user < 1) {
+      add_error("max_rosters_per_user");
+      alert("Please enter roster per user maximum");
+    } else if (!roster_size || isNaN(roster_size) || roster_size < 1) {
+      add_error("roster_size");
+      alert("Please enter a valid roster size")
+    } else if (!roster_salary_cap || isNaN(roster_salary_cap) || roster_salary_cap < 500) {
+      add_error("roster_salary_cap");
+      alert("Please enter a valid salary cap (minimum $500)")
     }
-
+    
     console.log(jackpot_payouts);
     
     
