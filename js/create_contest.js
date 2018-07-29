@@ -688,7 +688,7 @@ function create_new_contest()
       // golf
     }
 
-    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" || !checked_boxes_flag) {
+    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" || checked_boxes_flag) {
       alert("Please select at least one scoring option");
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
