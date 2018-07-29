@@ -652,8 +652,8 @@ function create_new_contest()
       get_score_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
     } else if (sport === "Baseball") {
       get_score_value("roster_baseball_rbi", "roster_baseball_rbi_checkbox", "rbis", scoring);
-      get_score_value("roster_baseball_hits", "roster_baseball_hits_checkbox", scoring);
-      get_score_value("roster_baseball_runs", "roster_baseball_runs_checkbox", "hits", scoring);
+      get_score_value("roster_baseball_hits", "roster_baseball_hits_checkbox", "hits", scoring);
+      get_score_value("roster_baseball_runs", "roster_baseball_runs_checkbox", "runs", scoring);
       get_score_value("roster_baseball_strikeouts", "roster_baseball_strikeouts_checkbox", "strikeouts", scoring);
       get_score_value("roster_baseball_walks", "roster_baseball_walks_checkbox", "walks", scoring);
     } else if (sport === "Golf") {
@@ -661,7 +661,7 @@ function create_new_contest()
     }
 
     // golf score to par doesnt need scoring - check 
-    if (!scoring || selectorValue(roster_multistat_overall) !== "Score to Par") {
+    if (!scoring && selectorValue(roster_multistat_overall) !== "Score to Par") {
       alert("Please select at least one scoring option");
     } else if (!cost_per_entry) {
       id("roster_cost_per_entry").classList.add("error");
