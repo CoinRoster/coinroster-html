@@ -600,7 +600,7 @@ function clear_error(element) {
 }
 
 // Check what scoring options are selected and populate scoring object
-function get_score_value(input, checkbox, name, score_obj) {
+function get_score_value(input, name, score_obj) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
       add_error(input);
@@ -608,7 +608,7 @@ function get_score_value(input, checkbox, name, score_obj) {
     } else {
       score_obj[name] = id(input).value;
     }
-  } else if (id(checkbox).checked) {
+  } else if (id(input + "_checkbox").checked) {
     add_error(input);
     alert("Please enter a valid value for " + name);
   }
@@ -618,9 +618,18 @@ function any_checked(boxes, flag){
   boxes.forEach(function(box) {
     if (id(box).checked) {
       flag.flag = true;
-      console.log()
     }
   });
+}
+
+function getCheckedValue(name) {
+  var radios = document.getElementsByName(name);
+  for ( i=0; i<radios.length; i++ ) {
+      if ( radios[i].checked ) {
+          return radios[i].value;
+      }
+  }
+  return null;
 }
 
 function create_new_contest()
@@ -634,6 +643,7 @@ function create_new_contest()
 
   if (contest_type === "Roster") {
     var sport = selectorValue("roster_sport_selector");
+    var settlement_type = selectorValue("roster_settlement_type");
 
     if (!sport) {
       alert("Please select a sport");
@@ -653,31 +663,35 @@ function create_new_contest()
     clear_error("roster_baseball_strikeouts");
     clear_error("roster_baseball_walks");
 
+    var json_obj = {};
     var scoring = {};
+    var score_to_par = false;
+    var round_tournament;
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
-    
 
     if (sport === "Basketball") {
-      get_score_value("roster_basketball_points", "roster_basketball_points_checkbox", "points", scoring);
-      get_score_value("roster_basketball_rebounds", "roster_basketball_rebounds_checkbox", "rebounds", scoring);
-      get_score_value("roster_basketball_assists", "roster_basketball_assists_checkbox", "assists", scoring);
-      get_score_value("roster_basketball_steals", "roster_basketball_steals_checkbox", "steals", scoring);
-      get_score_value("roster_basketball_blocks", "roster_basketball_blocks", "blocks", scoring);
-      get_score_value("roster_basketball_turnovers", "roster_basketball_turnovers_checkbox", "turnovers", scoring);
+      get_score_value("roster_basketball_points", "points", scoring);
+      get_score_value("roster_basketball_rebounds", "rebounds", scoring);
+      get_score_value("roster_basketball_assists", "assists", scoring);
+      get_score_value("roster_basketball_steals", "steals", scoring);
+      get_score_value("roster_basketball_blocks", "blocks", scoring);
+      get_score_value("roster_basketball_turnovers", "turnovers", scoring);
+      
       any_checked([
         "roster_basketball_points_checkbox",
         "roster_basketball_rebounds_checkbox",
         "roster_basketball_steals_checkbox",
-        "roster_basketball_blocks",
+        "roster_basketball_blocks_checkbox",
         "roster_basketball_turnovers_checkbox"
       ], checked_boxes_flag);
     } else if (sport === "Baseball") {
-      get_score_value("roster_baseball_rbi", "roster_baseball_rbi_checkbox", "RBIs", scoring);
-      get_score_value("roster_baseball_hits", "roster_baseball_hits_checkbox", "hits", scoring);
-      get_score_value("roster_baseball_runs", "roster_baseball_runs_checkbox", "runs", scoring);
-      get_score_value("roster_baseball_strikeouts", "roster_baseball_strikeouts_checkbox", "strikeouts", scoring);
-      get_score_value("roster_baseball_walks", "roster_baseball_walks_checkbox", "walks", scoring);
+      get_score_value("roster_baseball_rbi", "RBIs", scoring);
+      get_score_value("roster_baseball_hits", "hits", scoring);
+      get_score_value("roster_baseball_runs", "runs", scoring);
+      get_score_value("roster_baseball_strikeouts", "strikeouts", scoring);
+      get_score_value("roster_baseball_walks", "walks", scoring);
+     
       any_checked([
         "roster_baseball_rbi_checkbox",
         "roster_baseball_hits_checkbox",
@@ -686,7 +700,31 @@ function create_new_contest()
         "roster_baseball_walks_checkbox"
       ], checked_boxes_flag);
     } else if (sport === "Golf") {
-      // golf
+      var type = selectorValue(roster_multistat_overall);
+
+      if (type === "Multi-stat") {
+        get_score_value("roster_golf_eagles", "eagles", scoring);
+        get_score_value("roster_golf_birdies", "birdies", scoring);
+        get_score_value("roster_golf_pars", "pars", scoring);
+        get_score_value("roster_golf_bogeys", "bogeys", scoring);
+        get_score_value("roster_golf_double_bogeys", "double-bogeys", scoring);
+
+        any_checked([
+          "roster_golf_eagles_checkbox",
+          "roster_golf_birdies",
+          "roster_golf_pars",
+          "roster_golf_bogeys",
+          "roster_golf_double_bogeys"
+        ], checked_boxes_flag);
+      } else if (type === "Score to Par") {
+        score_to_par = true;
+      }
+      
+      round_tournament = getCheckedValue("round_tournament");
+
+      console.log(scoring);
+      console.log(round_tournament);
+
     }
 
     if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !checked_boxes_flag.flag) {
@@ -696,13 +734,9 @@ function create_new_contest()
       alert("Please provide a valid cost to enter the contest");
     }
     
-    console.log(!scoring.length);
-    console.log(selectorValue(roster_multistat_overall) !== "Score to Par")
-    console.log(checked_boxes_flag);
+   
 
-    var json_obj = {
-
-    };
+    
 
     // api call
 
