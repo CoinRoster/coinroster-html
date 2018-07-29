@@ -646,10 +646,13 @@ function create_new_contest()
     var settlement_type = selectorValue("roster_settlement_type");
     var json_obj = {};
     var scoring = {};
+    var jackpot_payouts = [];
     var score_to_par = false;
     var round_tournament;
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
+    var number_of_payouts = id("number_of_payouts").value;
+    var jackpot_table_error = false;
 
     if (!sport) {
       alert("Please select a sport");
@@ -674,6 +677,7 @@ function create_new_contest()
     clear_error("roster_golf_pars");
     clear_error("roster_golf_bogeys");
     clear_error("roster_golf_double_bogeys");
+    clear_error("number_of_payouts");
 
     if (sport === "Basketball") {
       get_score_value("roster_basketball_points", "points", scoring);
@@ -706,6 +710,7 @@ function create_new_contest()
       ], checked_boxes_flag);
     } else if (sport === "Golf") {
       var type = selectorValue(roster_multistat_overall);
+      round_tournament = getCheckedValue("round_tournament");
 
       if (type === "Multi-stat") {
         get_score_value("roster_golf_eagles", "eagles", scoring);
@@ -723,25 +728,56 @@ function create_new_contest()
         ], checked_boxes_flag);
       } else if (type === "Score to Par") {
         score_to_par = true;
-      }
-      
-      round_tournament = getCheckedValue("round_tournament");
+      } 
     }
 
+    if (settlement_type === "Jackpot") {
+      var jackpot_table = id("jackpot_table");
+      var counter = 0;
+      var table_rows = jackpot_table.firstChild.childNodes[0].children.length;
+    
+      for (i=1; i<table_rows;i++) {
+        var amount = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        if (!amount || isNaN(amount)) {
+          jackpot_table_error = true;
+        } else {
+          jackpot_payouts.push(amount);
+        }
+      }
+
+      jackpot_payouts.forEach(function(percent) {
+        counter += percent;
+      });
+
+      if (counter !== "100") {
+        jackpot_table_error = true;
+      }
+
+
+    } else if (settlement_type === "Double-Up") {
+
+    }
+
+    // Validation
     if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !checked_boxes_flag.flag) {
       alert("Please select at least one scoring option");
+    } else if (sport === "Golf" && round_tournament === "on") {
+      alert("Please select either a round or tournament");
     } else if (!cost_per_entry || isNaN(cost_per_entry)) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
-    } else if (sport === "Golf" && round_tournament === "on") {
-      alert("Please select either round or tournament");
+    } else if (sport === "Golf" && !number_of_payouts) {
+      add_error("number_of_payouts");
+      alert("Please enter a valid number of payouts (must be two or more)");
+    } else if (jackpot_table_error) {
+      alert("Please enter valid jackpot payout values (must add up to 100.0%)");
     }
-    
-   
-    console.log(sport === "Golf");
-    console.log(round_tournament === "on");
-    // else if
 
+    console.log(jackpot_payouts);
+    
+    
+
+    // build json object
     // api call
 
   }
