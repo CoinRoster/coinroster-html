@@ -865,7 +865,6 @@ function create_new_contest()
     var scoring = {};
     var submit_error = {error: false};
     var scoring_required = {required: true};
-    var scores_empty = jQuery.isEmptyObject(scoring);
     var sport = selectorValue("prop_sport_selector");
 
     // Clear errors
@@ -918,11 +917,10 @@ function create_new_contest()
       
     };
     
+    //Validation
+    var scores_empty = jQuery.isEmptyObject(scoring);
+    
     if (scores_empty && scoring_required && !submit_error.error) {
-      console.log(scoring);
-      console.log(scores_empty);
-      console.log(!submit_error.error);
-      
       alert("Please select at least one scoring option");
       submit_error.error = true;
     }
