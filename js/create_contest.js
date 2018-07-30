@@ -632,6 +632,30 @@ function getCheckedValue(name) {
   return null;
 }
 
+function create_contest_attempt(data, method)
+  {
+    var call = api({
+        method,
+        args: {
+            data
+        }
+    });
+  
+  if (call.status === "1" && data.private) 
+    {
+      alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
+        + call.contest_id + "&code=" + call.code);
+      window.location = "/";
+    }
+  if (call.status === "1") 
+    {
+      alert("Your contest has been created successfully!");
+      window.location = "/";
+    } else {
+      alert("Error: " + call.error); 
+    };
+  }
+
 function create_new_contest()
   {
     var contest_type = selectorValue("contest_type_selector");
@@ -951,32 +975,8 @@ function create_new_contest()
           pari_mutuel_options: table_values,
           private
         };
-
-        function create_contest_attempt(data)
-          {
-            var call = api({
-                method: "SetupMisc",
-                args: {
-                    data
-                }
-            });
-          
-          if (call.status === "1" && data.private) 
-            {
-              alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
-                + call.contest_id + "&code=" + call.code);
-              window.location = "/";
-            }
-          if (call.status === "1") 
-            {
-              alert("Your contest has been created successfully!");
-              window.location = "/";
-            } else {
-              alert("Error: " + call.error); 
-            };
-        }
         
-        create_contest_attempt(json_obj);
+        create_contest_attempt(json_obj, "SetupMisc");
       }
     }
   }
