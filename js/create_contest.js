@@ -778,8 +778,11 @@ function create_new_contest()
       } 
     }
 
+    
     // Validation
-    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
+    var scores_empty = jQuery.isEmptyObject(scoring);
+
+    if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
       console.log(scoring)
       console.log(scoring.length)
       alert("Please select at least one scoring option");
