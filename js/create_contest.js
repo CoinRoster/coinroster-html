@@ -934,7 +934,7 @@ function create_new_contest()
       ) {
         add_error("misc_settlement_deadline");
         alert("Please set a valid settlement deadline");
-    } else if (!number_of_options || !pari_mutuel_table_element) {
+    } else if (!number_of_options || Number(number_of_options) < 2 || !pari_mutuel_table_element) {
         add_error("number_of_options");
         alert("Please select at least 2 pari-mutuel options");        
     } else if (!min_wager || isNaN(min_wager)) {
