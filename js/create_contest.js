@@ -1096,7 +1096,7 @@ function create_new_contest()
         json_obj.prop_data = prop_data;
       } else if (prop_type === "Number of Shots") {
         scoring_required.required = false;
-        var prop_data = { prop_type: "NUMBER_OF_SHOTS"};
+        var prop_data = { prop_type: "NUMBER_SHOTS"};
         var shot_type = selectorValue("prop_golf_number_of_shots_type");
         var round_tournament = getCheckedValue("prop_golf_shots_round_tournament");
         var player = document.getElementById("prop_golf_number_of_shots_player").value;
@@ -1126,7 +1126,7 @@ function create_new_contest()
 
       } else if (prop_type === "Make the Cut") {
         scoring_required.required = false;
-        var prop_data = { prop_type: "MAKE_THE_CUT"};
+        var prop_data = { prop_type: "MAKE_CUT"};
         var player = document.getElementById("prop_golf_make_the_cut_player").value;
 
         if (!player && !submit_error.error) {
@@ -1195,7 +1195,8 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
-
+        
+        prop_data.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
       }
     };
