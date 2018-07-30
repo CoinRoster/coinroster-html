@@ -868,6 +868,13 @@ function create_new_contest()
     var scores_empty = jQuery.isEmptyObject(scoring);
     var sport = selectorValue("prop_sport_selector");
 
+    // Clear errors
+    clear_error("prop_basketball_match_points");
+    clear_error("props_basketball_match_rebounds");
+    clear_error("props_basketball_match_assists");
+    clear_error("props_basketball_match_steals");
+    clear_error("props_basketball_match_blocks");
+    clear_error("props_basketball_match_turnovers");
 
     if (!sport) {
       alert("Please select a sport");
