@@ -67,6 +67,9 @@ contest_type_selector.onchange = function()
         roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
         prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
+        console.log(avaliable_sports);
+
+
         // Cant have two .add() inside of one statement, only second one is called...?
         if (basketball) {
           var option = document.createElement("option");
