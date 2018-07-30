@@ -936,8 +936,7 @@ function create_new_contest()
           selected_players.forEach((player) => {
             players.push(player.id);
           });
-        }
-
+          
           var prop_data = {
             prop_type: "MATCH_PLAY",
             players: players
@@ -1037,6 +1036,7 @@ function create_new_contest()
 
       } else if (prop_type === "Match Play") {
         var prop_data = { prop_type: "MATCH_PLAY"};
+        var players = [];
         var multi_stat = selectorValue("prop_golf_multistat_overall");
         var round_tournament = getCheckedValue("prop_golf_match_round_tournament");
         var selected_players = document.getElementById("golf_match_selected_players_list").childNodes;
@@ -1067,8 +1067,16 @@ function create_new_contest()
           prop_data.round_tournament = round_tournament.toLowerCase();
         }
 
+        if (selected_players.length < 2 && !submit_error.error) {
+          alert("Please select at least two players");
+          submit_error.error = true;
+        } else {
+          selected_players.forEach((player) => {
+            players.push(player.id);
+          });
 
-
+          prop_data.players = players;
+        }
 
         json_obj.prop_data = prop_data;
 
@@ -1199,4 +1207,5 @@ function create_new_contest()
         create_contest_attempt(json_obj, "SetupMisc");
       }
     }
+  }
 }
