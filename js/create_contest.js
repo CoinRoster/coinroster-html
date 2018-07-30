@@ -976,12 +976,12 @@ function create_new_contest()
         var player = document.getElementById("prop_golf_over_under_player").value;
         var round_tournament = getCheckedValue("prop_golf_over_round_tournament");
 
-        console.log(round_tournament);
-
         if (!over_under_value && !submit_error.error) {
           alert("Please enter a valid over/under value");
           add_error("prop_golf_over_under_value");
           submit_error.error = true;
+        } else {
+          prop_data.over_under_value = over_under_value;
         }
 
         if (!multi_stat && !submit_error.error) {
@@ -1010,7 +1010,7 @@ function create_new_contest()
           prop_data.player_id = player;
         }
 
-        if (round_tournament === "on" && !submit_error.error) {
+        if (!round_tournament && !submit_error.error) {
           alert("Please select either a round or tournament");
           submit_error.erro = true;
         } else {
