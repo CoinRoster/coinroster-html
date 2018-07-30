@@ -885,7 +885,7 @@ function create_new_contest()
       if (prop_type === "Match Play") {
         // Collect and validate scores
         get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_rebounds", "reounds", scoring, submit_error)
+        get_score_value("props_basketball_match_rebounds", "rebounds", scoring, submit_error)
         get_score_value("props_basketball_match_assists", "assists", scoring, submit_error)
         get_score_value("props_basketball_match_steals", "steals", scoring, submit_error)
         get_score_value("props_basketball_match_blocks", "blocks", scoring, submit_error);
@@ -927,7 +927,7 @@ function create_new_contest()
     
     if (!submit_error.error) {
       // build & submit json
-      console.log(selected_players);
+      console.log(players);
       console.log("Contest created!");
     }
   }
