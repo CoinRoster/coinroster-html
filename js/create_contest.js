@@ -603,14 +603,14 @@ function clear_error(element) {
 function get_score_value(input, name, score_obj, error) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
-      error = true;
+      error.error = true;
       add_error(input);
       alert("Please set a valid value for " + name);
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
   } else if (id(input + "_checkbox").checked) {
-    error = true;
+    error.error = true;
     add_error(input);
     alert("Please enter a valid value for " + name);
   }
@@ -675,7 +675,7 @@ function create_new_contest()
     var jackpot_payouts = [];
     var score_to_par = false;
     var round_tournament;
-    var submit_error = false;
+    var submit_error = {error: false};
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
@@ -850,7 +850,7 @@ function create_new_contest()
     } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
       add_error("roster_salary_cap");
       alert("Please enter a valid salary cap (minimum $500)")
-    } else if (!submit_error) {
+    } else if (!submit_error.error) {
       // Build the JSON object
       json_obj.category = "FANTASYSPORTS";
       json_obj.contest_type = "PARI-MUTUEL";
@@ -882,7 +882,7 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
-      console.log(submit_error);
+      console.log(submit_error.error);
       console.log(json_obj);
       
       // api call
