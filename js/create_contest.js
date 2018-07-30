@@ -891,36 +891,34 @@ function create_new_contest()
         if (selected_players.length < 2) {
           alert("Please select at least two players");
           submit_error.error = true;
+        } else {
+          selected_players.forEach((player) => {
+            players.push(player.id);
+          });
         }
-
-        selected_players.forEach((player) => {
-          console.log(player);
-        });
-
-        console.log(selected_players);
-
       } else if (prop_type === "Over/Under") {
-
+        
         // over/under
-
+        
       }
     } else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
       // golf
-
+      
     } else if (sport === "Baseball") {
       var prop_type = selectorValue("prop_baseball_type");
       // baseball
-
+      
     };
-
+    
     if (scores_empty && scoring_required && !submit_error.error) {
       alert("Please select at least one scoring option");
       submit_error.error = true;
     }
-
+    
     if (!submit_error.error) {
       // build & submit json
+      console.log(selected_players);
       console.log("Contest created!");
     }
   }
