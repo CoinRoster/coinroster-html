@@ -21,6 +21,9 @@
             <h3 class="section_header to_uppercase">
                 <span id="path_text"></span>
             </h3>
+            <h3 class="section_header to_uppercase redirect_button" onclick="create_contest_redirect();"}>
+                Create Contest
+            </h3>
         </div>
         <!--#include virtual="/ssi/contest_status_selector.html" -->
         <div class="body_container header">
@@ -377,6 +380,14 @@
         hide("contest_status_selector_container");
         id("category_text").innerHTML = "Invalid category";
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
+        }
+
+    function create_contest_redirect()
+        {
+            sub_category = get_url_param("sub");
+
+            console.log(sub_category);
+
         }
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
