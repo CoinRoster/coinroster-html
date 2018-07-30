@@ -813,20 +813,14 @@ function create_new_contest()
     } else if (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0 && Number(max_rosters_per_user) !== 0) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
-    } else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_size) !== 0) {
-      add_error("roster_size");
-      alert("Please enter a valid roster size")
-    } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
-      add_error("roster_salary_cap");
-      alert("Please enter a valid salary cap (minimum $500)")
-    } else if (!submit_error.error) {
+    }  else if (!submit_error.error) {
       // Build the JSON object
       json_obj.contest_type = "PARI-MUTUEL";
       json_obj.cost_per_entry = Number(cost_per_entry);
       json_obj.private = private;
-      json_obj.roster_size = Number(roster_size);
       json_obj.max_rosters = Number(max_rosters_per_user);
-      json_obj.salary_cap = Number(roster_salary_cap);
+      // json_obj.roster_size = Number(roster_size);
+      // json_obj.salary_cap = Number(roster_salary_cap);
 
       if (settlement_type === "Jackpot") {
         json_obj.jackpot_payouts = jackpot_payouts;
@@ -853,6 +847,16 @@ function create_new_contest()
       console.log(json_obj)
 
       // create_contest_attempt(json_obj, "SetupRoster");
+
+
+      // Roster size & Salary cap validation
+      // else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_size) !== 0) {
+      //   add_error("roster_size");
+      //   alert("Please enter a valid roster size")
+      // } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
+      //   add_error("roster_salary_cap");
+      //   alert("Please enter a valid salary cap (minimum $500)")
+      // }
     }
   }
 
@@ -941,15 +945,15 @@ function create_new_contest()
         get_score_value("props_basketball_over_steals", "steals", scoring, submit_error);
         get_score_value("props_basketball_over_blocks", "blocks", scoring, submit_error);
         get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
-        
+
 
         if (!player && !submit_error.error) {
           alert("Please pick a player");
           submit_error.error = true;
         } else {
-          console.log(player);
+          prop_data.player_id = player;
         }
-        
+
         json_obj.prop_data = prop_data;
         json_obj.scoring_rules = scoring;
       }
@@ -960,6 +964,7 @@ function create_new_contest()
         alert("Please select a prop type");
         submit_error.error = true;
       }
+
 
 
       // golf
@@ -988,8 +993,8 @@ function create_new_contest()
       // build & submit json
       json_obj.private = private;
 
-      console.log(json_obj);
       console.log("Contest created!");
+      console.log(json_obj);
     }
   }
 
