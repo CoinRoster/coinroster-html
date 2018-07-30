@@ -903,7 +903,7 @@ function create_new_contest()
           });
 
           json_obj.scoring_rules = scoring
-          json_obj.prop_data.players = players;
+          json_obj[prop_data].players = players;
         }
       } else if (prop_type === "Over/Under") {
         
