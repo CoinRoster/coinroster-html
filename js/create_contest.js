@@ -976,6 +976,8 @@ function create_new_contest()
         var player = document.getElementById("prop_golf_over_under_player").value;
         var round_tournament = getCheckedValue("prop_golf_over_round_tournament");
 
+        console.log(round_tournament);
+
         if (!over_under_value && !submit_error.error) {
           alert("Please enter a valid over/under value");
           add_error("prop_golf_over_under_value");
