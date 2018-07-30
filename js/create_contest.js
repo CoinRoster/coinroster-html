@@ -637,7 +637,7 @@ function create_contest_attempt(data, method)
    
     if (call.status === "1" && data.private) 
     {
-      alert("Contest created! Your private contest's unique URL: \n\" + call.url);
+      alert(`Contest created! Your private contest's unique URL: \n ` + call.url);
       window.location = call.url; 
     } else if (call.status === "1") 
       {
