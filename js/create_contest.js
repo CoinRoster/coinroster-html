@@ -910,11 +910,6 @@ function create_new_contest()
         Date.parse(set_deadline) + set_deadline_time < Date.now() || 
         Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
       ) {
-
-        console.log(!set_deadline)
-        console.log(Date.parse(set_deadline) + set_deadline_time < Date.now())
-        console.log(Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour)
-
         add_error("misc_settlement_deadline");
         alert("Please set a valid settlement deadline");
     } else if (!number_of_options || !pari_mutuel_table_element) {
@@ -959,42 +954,35 @@ function create_new_contest()
           private
         };
 
-        var json = JSON.stringify(json_obj);
+        var data = JSON.stringify(json_obj);
 
         function create_contest_attempt(data)
-        {
-          var call = api({
-              method: "SetupMisc",
-              args: {
-                  data: data
-              }
-          });
+          {
+            var call = api({
+                method: "SetupMisc",
+                args: {
+                    data: data
+                }
+            });
           
           if (call.status === "1" && data.private) 
             {
-              alert("Your private contest's unique URL: http://165.227.40.220/contest.html?id="
+              alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
                 + call.contest_id + "&code=" + call.code);
-              location.reload();
+              window.location = "/";
             }
           if (call.status === "1") 
             {
-              alert("Contest created! Reloading panel.");
-              location.reload();
+              alert("Your contest has been created successfully!");
+              window.location = "/";
             } else {
               alert("Error: " + call.error); 
             };
-
-          // if (call.status === "1") {
-          //   alert("Contest created successfully!");
-          //   return window.locaion = "/";
-          // } else {
-          //   return alert("There was an error. " + call.error);
-          // }
         }
 
-        console.log(json);
+        console.log(data);
 
-        create_contest_attempt(json);
+        create_contest_attempt(data);
       }
     }
   }
