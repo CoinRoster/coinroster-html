@@ -856,8 +856,6 @@ function create_new_contest()
       }
 
       var json = JSON.stringify(json_obj);
-
-      console.log(json_obj);
       
       // api call
       
@@ -954,14 +952,12 @@ function create_new_contest()
           private
         };
 
-        var data = JSON.stringify(json_obj);
-
         function create_contest_attempt(data)
           {
             var call = api({
                 method: "SetupMisc",
                 args: {
-                    data: data
+                    data
                 }
             });
           
@@ -979,10 +975,8 @@ function create_new_contest()
               alert("Error: " + call.error); 
             };
         }
-
-        console.log(data);
-
-        create_contest_attempt(data);
+        
+        create_contest_attempt(json_obj);
       }
     }
   }
