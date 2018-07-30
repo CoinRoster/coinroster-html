@@ -814,7 +814,7 @@ function create_new_contest()
       alert("Please enter roster per user maximum");
     }  else if (!submit_error.error) {
       // Build the JSON object
-      json_obj.contest_type = "PARI-MUTUEL";
+      json_obj.contest_type = "ROSTER";
       json_obj.cost_per_entry = Number(cost_per_entry);
       json_obj.private = private;
       json_obj.max_rosters = Number(max_rosters_per_user);
@@ -825,9 +825,13 @@ function create_new_contest()
         json_obj.jackpot_payouts = jackpot_payouts;
         json_obj.min_users = Number(roster_jackpot_min_users);
         json_obj.max_users = Number(roster_jackpot_max_users);
+        json_obj.settlement_type = "JACKPOT";
       } else if (settlement_type === "Double-Up") {
         json_obj.min_users = Number(roster_double_up_min_users);
         json_obj.max_users = Number(roster_double_up_max_users);
+        json_obj.settlement_type = "DOUBLE-UP";
+      } else {
+        json_obj.settlement_type = "HEADS-UP";
       }
 
       if (sport === "Golf") {
@@ -887,6 +891,17 @@ function create_new_contest()
     clear_error("prop_golf_over_stats_bogeys");
     clear_error("prop_golf_over_stats_double_bogeys");
     clear_error("prop_golf_over_under_value");
+    clear_error("prop_golf_stats_eagles");
+    clear_error("prop_golf_stats_birdies");
+    clear_error("prop_golf_stats_pars");
+    clear_error("prop_golf_stats_bogeys");
+    clear_error("prop_golf_stats_double_bogeys");
+    clear_error("prop_golf_under_value");
+    clear_error("prop_golf_stats_eagles");
+    clear_error("prop_golf_stats_birdies");
+    clear_error("prop_golf_stats_pars");
+    clear_error("prop_golf_stats_bogeys");
+    clear_error("prop_golf_stats_double_bogeys");
 
     if (!sport) {
       alert("Please select a sport");
@@ -921,6 +936,7 @@ function create_new_contest()
           selected_players.forEach((player) => {
             players.push(player.id);
           });
+        }
 
           var prop_data = {
             prop_type: "MATCH_PLAY",
@@ -1012,14 +1028,49 @@ function create_new_contest()
 
         if (!round_tournament && !submit_error.error) {
           alert("Please select either a round or tournament");
-          submit_error.erro = true;
+          submit_error.error = true;
         } else {
-          prop_data.round_tournament = round_tournament;
+          prop_data.round_tournament = round_tournament.toLowerCase();
         }
 
         json_obj.prop_data = prop_data;
 
       } else if (prop_type === "Match Play") {
+        var prop_data = { prop_type: "MATCH_PLAY"};
+        var multi_stat = selectorValue("prop_golf_multistat_overall");
+        var round_tournament = getCheckedValue("prop_golf_match_round_tournament");
+        var selected_players = document.getElementById("golf_match_selected_players_list").childNodes;
+
+        if (!multi_stat && !submit_error.error) {
+          alert("Please select either multi-stat or score to par");
+          submit_error.error = true;
+        }
+
+        if (multi_stat === "Score to Par") {
+          json_obj.multi_st = "score_to_par"
+          scoring_required.required = false;
+        } else if (multi_stat === "Multi-stat") {
+          get_score_value("prop_golf_stats_eagles", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_stats_birdies", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_stats_pars", "pars", scoring, submit_error);
+          get_score_value("prop_golf_stats_bogeys", "bogeys", scoring, submit_error);
+          get_score_value("prop_golf_stats_double_bogeys", "double-bogeys", scoring, submit_error);
+
+          json_obj.multi_st = "multi-stat"
+          json_obj.scoring_rules = scoring;
+        }
+
+        if (!round_tournament && !submit_error.error) {
+          alert("Please select either a round or tournament");
+          submit_error.error = true;
+        } else {
+          prop_data.round_tournament = round_tournament.toLowerCase();
+        }
+
+
+
+
+        json_obj.prop_data = prop_data;
 
       } else if (prop_type === "Number of Shots") {
         scoring_required.required = false;
