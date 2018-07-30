@@ -639,7 +639,7 @@ function create_contest_attempt(data, method)
     {
       alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
         + call.contest_id + "&code=" + call.code);
-      window.location = "/";
+      window.location = "/contest.html?id=" + call.contest_id + "&code=" + call.code; 
     }
     if (call.status === "1") 
       {
