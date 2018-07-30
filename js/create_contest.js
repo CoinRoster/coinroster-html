@@ -600,17 +600,17 @@ function clear_error(element) {
 }
 
 // Check what scoring options are selected and populate scoring object
-function get_score_value(input, name, score_obj, submit_error) {
+function get_score_value(input, name, score_obj, error) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
+      error = true;
       add_error(input);
       alert("Please set a valid value for " + name);
-      submit_error = true;
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
   } else if (id(input + "_checkbox").checked) {
-    submit_error = true;
+    error = true;
     add_error(input);
     alert("Please enter a valid value for " + name);
   }
@@ -882,6 +882,7 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
+      console.log(submit_error);
       console.log(json_obj);
       
       // api call
