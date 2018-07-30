@@ -920,7 +920,7 @@ function create_new_contest()
       } else if (prop_type === "Over/Under") {
         var prop_data = {}
         var over_under_value = document.getElementById("props_basketball_over_under_value").value;
-        var player = document.getElementById("prop_basketball_over_under_player").value;
+        var player = document.getElementById("prop_basketball_over_under_player");
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           alert("Please enter a valid over/under value");
@@ -938,6 +938,7 @@ function create_new_contest()
         get_score_value("props_basketball_over_blocks", "blocks", scoring, submit_error);
         get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
         
+
         if (!player && !submit_error.error) {
           alert("Please pick a player");
           submit_error.error = true;
@@ -945,7 +946,8 @@ function create_new_contest()
           console.log(player);
         }
         
-        
+        json_obj.prop_data = prop_data;
+        json_obj.scoring_rules = scoring;
       }
     } else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
