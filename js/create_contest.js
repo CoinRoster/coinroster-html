@@ -896,7 +896,6 @@ function create_new_contest()
     clear_error("prop_golf_stats_pars");
     clear_error("prop_golf_stats_bogeys");
     clear_error("prop_golf_stats_double_bogeys");
-    clear_error("prop_golf_under_value");
     clear_error("prop_golf_stats_eagles");
     clear_error("prop_golf_stats_birdies");
     clear_error("prop_golf_stats_pars");
