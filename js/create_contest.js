@@ -666,7 +666,6 @@ function create_new_contest()
     var score_to_par = false;
     var round_tournament;
     var submit_error = {error: false};              
-    var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
     var roster_jackpot_min_users = id("roster_jackpot_min_users").value;
@@ -674,9 +673,9 @@ function create_new_contest()
     var roster_double_up_min_users = id("roster_double_up_min_users").value;
     var roster_double_up_max_users = id ("roster_double_up_max_users").value;
     var max_rosters_per_user = id("max_rosters_per_user").value;
-    var roster_size = id("roster_size").value;
-    var roster_salary_cap = id ("roster_salary_cap").value;
     var jackpot_table_error = false;
+    // var roster_size = id("roster_size").value;
+    // var roster_salary_cap = id ("roster_salary_cap").value;
 
     if (!sport) {
       alert("Please select a sport");
@@ -707,8 +706,8 @@ function create_new_contest()
     clear_error("roster_double_up_min_users");
     clear_error("roster_double_up_max_users");
     clear_error("max_rosters_per_user");
-    clear_error("roster_size");
-    clear_error("roster_salary_cap");
+    // clear_error("roster_size");
+    // clear_error("roster_salary_cap");
 
     if (sport === "Basketball") {
       json_obj.sub_category = "BASKETBALL";
