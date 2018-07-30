@@ -881,6 +881,12 @@ function create_new_contest()
     clear_error("props_basketball_over_steals");
     clear_error("props_basketball_over_blocks");
     clear_error("props_basketball_over_turnovers");
+    clear_error("prop_golf_over_stats_eagles");
+    clear_error("prop_golf_over_stats_birdies");
+    clear_error("prop_golf_over_stats_pars");
+    clear_error("prop_golf_over_stats_bogeys");
+    clear_error("prop_golf_over_stats_double_bogeys");
+    clear_error("prop_golf_over_under_value");
 
     if (!sport) {
       alert("Please select a sport");
@@ -925,7 +931,7 @@ function create_new_contest()
           json_obj.scoring_rules = scoring;
         }
       } else if (prop_type === "Over/Under") {
-        var prop_data = {}
+        var prop_data = { prop_type: "OVER_UNDER"};
         var over_under_value = document.getElementById("props_basketball_over_under_value").value;
         var player = document.getElementById("prop_basketball_over_under_player").value;
 
@@ -945,14 +951,13 @@ function create_new_contest()
         get_score_value("props_basketball_over_blocks", "blocks", scoring, submit_error);
         get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
 
-
         if (!player && !submit_error.error) {
           alert("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
         }
-
+        
         json_obj.prop_data = prop_data;
         json_obj.scoring_rules = scoring;
       }
@@ -964,10 +969,47 @@ function create_new_contest()
         submit_error.error = true;
       }
 
+      if (prop_type === "Over/Under") {
+        var prop_data = { prop_type: "OVER_UNDER"};
+        var multi_stat = selectorValue("prop_golf_multistat_over_overall");
+        var over_under_value = document.getElementById("prop_golf_over_under_value").value;
+        var player = document.getElementById("prop_golf_over_under_player").value;
+
+        if (!multi_stat) {
+          alert("Please select either multi-stat or score to par");
+          submit_error.error = true;
+        }
+
+        if (!over_under_value) {
+          alert("Please enter a valid over/under value");
+          add_error("prop_golf_over_under_value");
+          submit_error.error = true;
+        }
+
+        if (multi_stat === "Score to Par") {
+          json_obj.multi_st = "score_to_par"
+          scoring_required.required = false;
+        } else if (multi_stat === "Multi-stat") {
+          get_score_value("prop_golf_over_stats_eagles", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_birdies", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_pars", "pars", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_bogeys", "bogeys", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_double_bogeys", "double-bogeys", scoring, submit_error);
+
+          json_obj.multi_st = "multi-stat"
+          json_obj.scoring_rules = scoring;
+        }
 
 
-      // golf
-      
+      } else if (prop_type === "Match Play") {
+
+      } else if (prop_type === "Number of Shots") {
+        scoring_required.required = false;
+
+      } else if (prop_type === "Make the Cut") {
+        scoring_required.required = false;
+
+      }      
     } else if (sport === "Baseball") {
       var prop_type = selectorValue("prop_baseball_type");
       
