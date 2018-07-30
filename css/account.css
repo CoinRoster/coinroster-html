@@ -377,6 +377,9 @@
         border: 2px solid #ff5353 !important;
     }
 
-    .input_label {
-        width: 220px !important;
+    .checkbox_title {
+        width: 220px;
+        margin-bottom: 10px;
+        position: relative;
+        left: -13px;
     }
