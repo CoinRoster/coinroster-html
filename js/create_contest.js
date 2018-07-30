@@ -1125,6 +1125,8 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
+      
+        json_obj.prop_data = prop_data;
       }      
     } else if (sport === "Baseball") {
       var prop_type = selectorValue("prop_baseball_type");
