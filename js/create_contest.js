@@ -58,70 +58,75 @@ contest_type_selector.onchange = function()
 
     avaliable_sports = get_available_sports();
 
+    
     function populate_sports()
-     {
-        var basketball = avaliable_sports.BASKETBALL;
-        var golf = avaliable_sports.GOLF_4;
-        var baseball = avaliable_sports.BASEBALL;
+    {
+      var basketball = avaliable_sports.BASKETBALL;
+      var golf = avaliable_sports.GOLF_4;
+      var baseball = avaliable_sports.BASEBALL;
+              
+      roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+      prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
-        roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
-        prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
+      // Set titles
+      if (basketball) {
+        var title = avaliable_sports.basketball_contest;
+        console.log(title);
+      } 
+      
+      if (golf) {
+        var title = avaliable_sports.golf_contest;
+        console.log(title);
+      }
+      
+      if (baseball) {
+        var title = avaliable_sports.baseball_contest;
+        console.log(title);
+      }
 
-        // Set titles
-        if (basketball) {
-          var title = avaliable_sports.basketball_contest;
-          console.log(title);
-        } else if (golf) {
-          var title = avaliable_sports.golf_contest;
-          console.log(title);
-        } else if (baseball) {
-          var title = avaliable_sports.baseball_contest;
-          console.log(title);
-        }
-
-        // Cant have two .add() inside of one statement, only second one is called...?
-        if (basketball) {
-          var option = document.createElement("option");
-          option.text = "Basketball";
-          option.value = "Basketball";
-          roster_sport_selector.add(option);
+      // Cant have two .add() inside of one statement, only second one is called...?
+      if (basketball) {
+        var option = document.createElement("option");
+        option.text = "Basketball";
+        option.value = "Basketball";
+        roster_sport_selector.add(option);
+      } 
+      
+      if (basketball) {
+        var option = document.createElement("option");
+        option.text = "Basketball";
+        option.value = "Basketball";
+        prop_sport_selector.add(option);
         } 
         
-        if (basketball) {
-          var option = document.createElement("option");
-          option.text = "Basketball";
-          option.value = "Basketball";
-          prop_sport_selector.add(option);
-          } 
-          
-        if (golf) {
-          var option = document.createElement("option");
-          option.text = "Golf";
-          option.value = "Golf";
-          roster_sport_selector.add(option);
-          }
+      if (golf) {
+        var option = document.createElement("option");
+        option.text = "Golf";
+        option.value = "Golf";
+        roster_sport_selector.add(option);
+        }
 
-        if (golf) {
-          var option = document.createElement("option");
-          option.text = "Golf";
-          option.value = "Golf";
-          prop_sport_selector.add(option);
-          }
+      if (golf) {
+        var option = document.createElement("option");
+        option.text = "Golf";
+        option.value = "Golf";
+        prop_sport_selector.add(option);
+        }
 
-        if (baseball) {
-          var option = document.createElement("option");
-          option.text = "Baseball";
-          option.value = "Baseball";
-          roster_sport_selector.add(option);
-          }
+      if (baseball) {
+        var option = document.createElement("option");
+        option.text = "Baseball";
+        option.value = "Baseball";
+        roster_sport_selector.add(option);
+        }
 
-        if (baseball) {
-          var option = document.createElement("option");
-          option.text = "Baseball";
-          option.value = "Baseball";
-          prop_sport_selector.add(option);
-          }
-      }
+      if (baseball) {
+        var option = document.createElement("option");
+        option.text = "Baseball";
+        option.value = "Baseball";
+        prop_sport_selector.add(option);
+        }
+    }
 
     switch (selectorHTML(contest_type_selector))
       {
