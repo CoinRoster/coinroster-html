@@ -886,8 +886,17 @@ function create_new_contest()
         get_score_value("props_basketball_match_turnovers", "turnovers", scoring, submit_error);
 
         // Get players
-        var selected_players = document.getElementById("basketball_match_selected_players_list");
+        var selected_players = document.getElementById("basketball_match_selected_players_list").childNodes;
         
+        if (selected_players.length < 2) {
+          alert("Please select at least two players");
+          submit_error.error = true;
+        }
+
+        selected_players.forEach((player) => {
+          console.log(player);
+        });
+
         console.log(selected_players);
 
       } else if (prop_type === "Over/Under") {
