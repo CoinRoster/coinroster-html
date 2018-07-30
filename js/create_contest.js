@@ -305,7 +305,7 @@ prop_basketball_type_selector.onchange = function()
         players.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
-          option.value = player.id;
+          option.value = player.player_id;
           player_select.add(option);
         });
       }
@@ -519,7 +519,7 @@ prop_golf_over_multistat_overall.onchange = function()
          players.forEach((player) => {
           var option = document.createElement("option");
           option.text = player.name;
-          option.value = player.id;
+          option.value = player.player_id;
           player_select.add(option);
         });
        }
