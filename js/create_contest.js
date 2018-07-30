@@ -637,13 +637,12 @@ function create_contest_attempt(data, method)
    
     if (call.status === "1" && data.private) 
     {
-      alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
-        + call.contest_id + "&code=" + call.code);
-      window.location = "/contest.html?id=" + call.contest_id + "&code=" + call.code; 
+      alert("Contest created! Your private contest's unique URL: \n\" + call.url);
+      window.location = call.url; 
     } else if (call.status === "1") 
       {
         alert("Your contest has been created successfully!");
-        window.location = "/";
+        window.location = call.url;
       } else {
         alert("Error: " + call.error); 
       };
@@ -873,6 +872,12 @@ function create_new_contest()
     clear_error("props_basketball_match_blocks");
     clear_error("props_basketball_match_turnovers");
     clear_error("props_basketball_over_under_value");
+    clear_error("props_basketball_over_points");
+    clear_error("props_basketball_over_rebounds");
+    clear_error("props_basketball_over_assists");
+    clear_error("props_basketball_over_steals");
+    clear_error("props_basketball_over_blocks");
+    clear_error("props_basketball_over_turnovers");
 
     if (!sport) {
       alert("Please select a sport");
@@ -919,7 +924,7 @@ function create_new_contest()
       } else if (prop_type === "Over/Under") {
         var prop_data = {}
         var over_under_value = document.getElementById("props_basketball_over_under_value").value;
-        var player = document.getElementById("prop_basketball_over_under_player");
+        var player = document.getElementById("prop_basketball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           alert("Please enter a valid over/under value");
