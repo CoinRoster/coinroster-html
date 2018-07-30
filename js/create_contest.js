@@ -882,6 +882,8 @@ function create_new_contest()
 
     if (sport === "Basketball") {
       var prop_type = selectorValue("prop_basketball_type");
+      json_obj.sub_category = "BASKETBALLPROPS";
+      
       if (prop_type === "Match Play") {
         // Collect and validate scores
         get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
@@ -928,13 +930,14 @@ function create_new_contest()
     //Validation
     var scores_empty = jQuery.isEmptyObject(scoring);
     
-    if (scores_empty && scoring_required && !submit_error.error) {
+    if (scores_empty && scoring_required.required && !submit_error.error) {
       alert("Please select at least one scoring option");
       submit_error.error = true;
     }
     
     if (!submit_error.error) {
       // build & submit json
+      json_obj.category = "FANTASYSPORTS";
       json_obj.private = private;
 
       console.log(json_obj);
