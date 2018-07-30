@@ -835,12 +835,19 @@ function create_new_contest()
       }
 
       if (sport === "Golf") {
-        json_obj.round_tournament = round_tournament;
-        if (score_to_par) {
-          json_obj.multi_st = "score_to_par";
-        } else {
-          json_obj.multi_st = "multi-stat";
+        round_tournament =  round_tournament.toLowerCase();
+        
+        var prop_data = {
+          when: round_tournament
         }
+
+        if (score_to_par) {
+          prop_data.multi_st = "score_to_par";
+        } else {
+          prop_data.multi_st = "multi-stat";
+        }
+
+        json_obj.prop_data = prop_data;
       }
 
       if (sport !== "Golf" || selectorValue(roster_multistat_overall) !== "Score to Par") {
@@ -1005,7 +1012,7 @@ function create_new_contest()
         }
 
         if (multi_stat === "Score to Par") {
-          json_obj.multi_st = "score_to_par"
+          prop_data.multi_st = "score_to_par"
           scoring_required.required = false;
         } else if (multi_stat === "Multi-stat") {
           get_score_value("prop_golf_over_stats_eagles", "eagles", scoring, submit_error);
@@ -1014,7 +1021,7 @@ function create_new_contest()
           get_score_value("prop_golf_over_stats_bogeys", "bogeys", scoring, submit_error);
           get_score_value("prop_golf_over_stats_double_bogeys", "double-bogeys", scoring, submit_error);
 
-          json_obj.multi_st = "multi-stat"
+          prop_data.multi_st = "multi-stat"
           json_obj.scoring_rules = scoring;
         }
 
@@ -1029,7 +1036,7 @@ function create_new_contest()
           alert("Please select either a round or tournament");
           submit_error.error = true;
         } else {
-          prop_data.round_tournament = round_tournament.toLowerCase();
+          prop_data.when = round_tournament.toLowerCase();
         }
 
         json_obj.prop_data = prop_data;
@@ -1047,7 +1054,7 @@ function create_new_contest()
         }
 
         if (multi_stat === "Score to Par") {
-          json_obj.multi_st = "score_to_par"
+          prop_data.multi_st = "score_to_par"
           scoring_required.required = false;
         } else if (multi_stat === "Multi-stat") {
           get_score_value("prop_golf_stats_eagles", "eagles", scoring, submit_error);
@@ -1056,7 +1063,7 @@ function create_new_contest()
           get_score_value("prop_golf_stats_bogeys", "bogeys", scoring, submit_error);
           get_score_value("prop_golf_stats_double_bogeys", "double-bogeys", scoring, submit_error);
 
-          json_obj.multi_st = "multi-stat"
+          prop_data.multi_st = "multi-stat"
           json_obj.scoring_rules = scoring;
         }
 
@@ -1064,7 +1071,7 @@ function create_new_contest()
           alert("Please select either a round or tournament");
           submit_error.error = true;
         } else {
-          prop_data.round_tournament = round_tournament.toLowerCase();
+          prop_data.when = round_tournament.toLowerCase();
         }
 
         if (selected_players.length < 2 && !submit_error.error) {
@@ -1095,7 +1102,7 @@ function create_new_contest()
           alert("Please select either a round or tournament");
           submit_error.error = true;
         } else {
-          prop_data.round_tournament = round_tournament.toLowerCase();
+          prop_data.when = round_tournament.toLowerCase();
         }
 
         if (!player && !submit_error.error) {
