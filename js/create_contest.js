@@ -616,14 +616,6 @@ function get_score_value(input, name, score_obj, error) {
   }
 }
 
-// function any_checked(boxes, flag){
-//   boxes.forEach(function(box) {
-//     if (id(box).checked) {
-//       flag.flag = true;
-//     }
-//   });
-// }
-
 function getCheckedValue(name) {
   var radios = document.getElementsByName(name);
   for ( i=0; i<radios.length; i++ ) {
@@ -783,8 +775,6 @@ function create_new_contest()
     var scores_empty = jQuery.isEmptyObject(scoring);
 
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
-      console.log(scoring)
-      console.log(scoring.length)
       alert("Please select at least one scoring option");
     } else if (sport === "Golf" && round_tournament === "on") {
       alert("Please select either a round or tournament");
@@ -863,7 +853,7 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
-
+      console.log(json_obj)
 
       // create_contest_attempt(json_obj, "SetupRoster");
     }
@@ -871,8 +861,11 @@ function create_new_contest()
 
   if (contest_type === "Prop") {
     var json_obj = {};
+    var players = [];
     var scoring = {};
     var submit_error = {error: false};
+    var scoring_required = {required: true};
+    var scores_empty = jQuery.isEmptyObject(scoring);
     var sport = selectorValue("prop_sport_selector");
 
 
@@ -885,11 +878,11 @@ function create_new_contest()
       var prop_type = selectorValue("prop_basketball_type");
       if (prop_type === "Match Play") {
         get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_rebounds", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_assists", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_steals", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_blocks", "points", scoring, submit_error);
-        get_score_value("props_basketball_match_turnovers", "points", scoring, submit_error);
+        get_score_value("props_basketball_match_rebounds", "reounds", scoring, submit_error)
+        get_score_value("props_basketball_match_assists", "assists", scoring, submit_error)
+        get_score_value("props_basketball_match_steals", "steals", scoring, submit_error)
+        get_score_value("props_basketball_match_blocks", "blocks", scoring, submit_error);
+        get_score_value("props_basketball_match_turnovers", "turnovers", scoring, submit_error);
 
         
         
@@ -909,7 +902,10 @@ function create_new_contest()
 
     };
 
-
+    if (scores_empty && scoring_required) {
+      alert("Please select at least one scoring option");
+      submit_error.error = true;
+    }
 
     if (!submit_error.error) {
       // build & submit json
@@ -1003,6 +999,8 @@ function create_new_contest()
           private
         };
         
+        console.log(json_obj);
+
         create_contest_attempt(json_obj, "SetupMisc");
       }
     }
