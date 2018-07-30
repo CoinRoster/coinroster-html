@@ -902,8 +902,13 @@ function create_new_contest()
             players.push(player.id);
           });
 
-          json_obj.scoring_rules = scoring
-          json_obj[prop_data].players = players;
+          var prop_data = {
+            prop_type: "MATCH_PLAY",
+            players: players
+          };
+
+          json_obj.prop_data = prop_data;
+          json_obj.scoring_rules = scoring;
         }
       } else if (prop_type === "Over/Under") {
         
