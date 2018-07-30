@@ -60,14 +60,10 @@ contest_type_selector.onchange = function()
 
     function populate_sports()
      {
-        // var basketball = avaliable_sports.BASKETBALL;
-        // var golf = avaliable_sports.GOLF_4;
-        // var baseball = avaliable_sports.BASEBALL;
+        var basketball = avaliable_sports.BASKETBALL;
+        var golf = avaliable_sports.GOLF_4;
+        var baseball = avaliable_sports.BASEBALL;
 
-        var basketball = true;
-        var golf = true;
-        var baseball = true;
-        
         roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
         prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
