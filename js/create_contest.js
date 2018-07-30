@@ -823,7 +823,6 @@ function create_new_contest()
       alert("Please enter a valid salary cap (minimum $500)")
     } else if (!submit_error.error) {
       // Build the JSON object
-      json_obj.category = "FANTASYSPORTS";
       json_obj.contest_type = "PARI-MUTUEL";
       json_obj.cost_per_entry = Number(cost_per_entry);
       json_obj.private = private;
@@ -892,10 +891,10 @@ function create_new_contest()
 
       if (prop_type === "Match Play") {
         // Collect and validate scores
-        get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
-        get_score_value("props_basketball_match_rebounds", "rebounds", scoring, submit_error)
-        get_score_value("props_basketball_match_assists", "assists", scoring, submit_error)
-        get_score_value("props_basketball_match_steals", "steals", scoring, submit_error)
+        get_score_value("prop_basketball_match_points", "points", scoring, submit_error);
+        get_score_value("props_basketball_match_rebounds", "rebounds", scoring, submit_error);
+        get_score_value("props_basketball_match_assists", "assists", scoring, submit_error);
+        get_score_value("props_basketball_match_steals", "steals", scoring, submit_error);
         get_score_value("props_basketball_match_blocks", "blocks", scoring, submit_error);
         get_score_value("props_basketball_match_turnovers", "turnovers", scoring, submit_error);
 
@@ -919,19 +918,33 @@ function create_new_contest()
           json_obj.scoring_rules = scoring;
         }
       } else if (prop_type === "Over/Under") {
+        var prop_data = {}
         var over_under_value = document.getElementById("props_basketball_over_under_value").value;
+        var player = document.getElementById("prop_basketball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           alert("Please enter a valid over/under value");
           add_error("props_basketball_over_under_value");
           submit_error.error = true;
         } else {
-          json_obj.over_under = Number(over_under_value);
+          prop_data.over_under_value = Number(over_under_value);
         }
 
+        // Collect and validate scores
+        get_score_value("props_basketball_over_points", "points", scoring, submit_error);
+        get_score_value("props_basketball_over_rebounds", "rebounds", scoring, submit_error);
+        get_score_value("props_basketball_over_assists", "assists", scoring, submit_error);
+        get_score_value("props_basketball_over_steals", "steals", scoring, submit_error);
+        get_score_value("props_basketball_over_blocks", "blocks", scoring, submit_error);
+        get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
         
-
-        // over/under
+        if (!player && !submit_error.error) {
+          alert("Please pick a player");
+          submit_error.error = true;
+        } else {
+          console.log(player);
+        }
+        
         
       }
     } else if (sport === "Golf") {
@@ -967,7 +980,6 @@ function create_new_contest()
     
     if (!submit_error.error) {
       // build & submit json
-      json_obj.category = "FANTASYSPORTS";
       json_obj.private = private;
 
       console.log(json_obj);
