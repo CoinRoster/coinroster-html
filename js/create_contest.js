@@ -877,6 +877,7 @@ function create_new_contest()
     if (sport === "Basketball") {
       var prop_type = selectorValue("prop_basketball_type");
       if (prop_type === "Match Play") {
+        // Collect and validate scores
         get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
         get_score_value("props_basketball_match_rebounds", "reounds", scoring, submit_error)
         get_score_value("props_basketball_match_assists", "assists", scoring, submit_error)
@@ -884,8 +885,10 @@ function create_new_contest()
         get_score_value("props_basketball_match_blocks", "blocks", scoring, submit_error);
         get_score_value("props_basketball_match_turnovers", "turnovers", scoring, submit_error);
 
+        // Get players
+        var selected_players = document.getElementById("basketball_match_selected_players_list");
         
-        
+        console.log(selected_players);
 
       } else if (prop_type === "Over/Under") {
 
@@ -902,7 +905,7 @@ function create_new_contest()
 
     };
 
-    if (scores_empty && scoring_required) {
+    if (scores_empty && scoring_required && !submit_error.error) {
       alert("Please select at least one scoring option");
       submit_error.error = true;
     }
