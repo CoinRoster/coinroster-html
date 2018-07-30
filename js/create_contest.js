@@ -901,6 +901,9 @@ function create_new_contest()
           selected_players.forEach((player) => {
             players.push(player.id);
           });
+
+          json_obj.scoring_rules = scoring
+          json_obj.prop_data.players = players;
         }
       } else if (prop_type === "Over/Under") {
         
@@ -927,7 +930,9 @@ function create_new_contest()
     
     if (!submit_error.error) {
       // build & submit json
-      console.log(players);
+      json_obj.private = private;
+
+      console.log(json_obj);
       console.log("Contest created!");
     }
   }
