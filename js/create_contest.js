@@ -878,11 +878,10 @@ function create_new_contest()
       if (sport !== "Golf" || selectorValue(roster_multistat_overall) !== "Score to Par") {
         json_obj.scoring_rules = scoring;
       }
-
-      var json = JSON.stringify(json_obj);
+      
+      console.log(json_obj)
       
       // api call
-      
     }
   }
 
