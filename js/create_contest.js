@@ -1196,7 +1196,7 @@ function create_new_contest()
       }
     };
       
-    //Validation
+    // Validation
     var scores_empty = jQuery.isEmptyObject(scoring);
     
     if (scores_empty && scoring_required.required && !submit_error.error) {
@@ -1208,8 +1208,9 @@ function create_new_contest()
       // build & submit json
       json_obj.private = private;
 
-      console.log("Contest created!");
       console.log(json_obj);
+
+      // create_contest_attempt(json_obj, "SetupProp");
     }
   }
 
