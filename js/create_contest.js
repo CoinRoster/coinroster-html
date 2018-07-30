@@ -779,17 +779,17 @@ function create_new_contest()
       alert("Please select at least one scoring option");
     } else if (sport === "Golf" && round_tournament === "on") {
       alert("Please select either a round or tournament");
-    } else if (!cost_per_entry || isNaN(cost_per_entry)) {
+    } else if (!cost_per_entry || isNaN(cost_per_entry) && !submit_error.error) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
-    } else if (!settlement_type) {
+    } else if (!settlement_type && !submit_error.error) {
       alert("Please select a settlement type");
-    } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 3)) {
+    } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 3) && !submit_error.error) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be three or more)");
-    } else if (jackpot_table_error) {
+    } else if (jackpot_table_error && !submit_error.error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
-    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1)) {
+    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1) && !submit_error.error) {
       add_error("roster_jackpot_min_users");
       alert("Please enter a valid minimum number of users");
     } else if (settlement_type === "Jackpot" && (
@@ -860,7 +860,9 @@ function create_new_contest()
       
       console.log(json_obj)
 
-      create_contest_attempt(json_obj, "SetupRoster");
+      if (!submit_error.error) {
+        create_contest_attempt(json_obj, "SetupRoster");
+      }
 
       // Roster size & Salary cap validation
       // else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_size) !== 0) {
