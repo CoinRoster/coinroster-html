@@ -376,3 +376,7 @@
     .error {
         border: 2px solid #ff5353 !important;
     }
+
+    .input_label {
+        width: 220px !important;
+    }
