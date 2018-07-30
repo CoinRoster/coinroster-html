@@ -966,28 +966,33 @@ function create_new_contest()
           var call = api({
               method: "SetupMisc",
               args: {
-                  data, data
+                  data: data
               }
           });
           
-          if (call.status === "1") {
-            alert("Contest created successfully!");
-            return window.locaion = "/";
-          } else {
-            return alert("There was an error. " + call.error);
-          }
+          if (call.status === "1" && data.private) 
+            {
+              alert("Your private contest's unique URL: http://165.227.40.220/contest.html?id="
+                + call.contest_id + "&code=" + call.code);
+              location.reload();
+            }
+          if (call.status === "1") 
+            {
+              alert("Contest created! Reloading panel.");
+              location.reload();
+            } else {
+              alert("Error: " + call.error); 
+            };
+
+          // if (call.status === "1") {
+          //   alert("Contest created successfully!");
+          //   return window.locaion = "/";
+          // } else {
+          //   return alert("There was an error. " + call.error);
+          // }
         }
 
-        function isJSON(str) {
-          try {
-              return (JSON.parse(str) && !!str);
-          } catch (e) {
-              return false;
-          }
-      }
-
         console.log(json);
-        console.log(isJSON(json));
 
         create_contest_attempt(json);
       }
