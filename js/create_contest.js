@@ -1013,7 +1013,7 @@ function create_new_contest()
           add_error("prop_golf_over_under_value");
           submit_error.error = true;
         } else {
-          prop_data.over_under_value = over_under_value;
+          prop_data.over_under_value = Number(over_under_value);
         }
 
         if (!multi_stat && !submit_error.error) {
@@ -1180,7 +1180,7 @@ function create_new_contest()
           add_error("prop_baseball_over_under_value");
           submit_error.error = true;
         } else {
-          prop_data.over_under_value = over_under_value;
+          prop_data.over_under_value = Number(over_under_value);
         }
 
         get_score_value("prop_baseball_over_rbi", "RBIs", scoring, submit_error);
