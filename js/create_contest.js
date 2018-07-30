@@ -780,6 +780,8 @@ function create_new_contest()
 
     // Validation
     if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
+      console.log(scoring)
+      console.log(scoring.length)
       alert("Please select at least one scoring option");
     } else if (sport === "Golf" && round_tournament === "on") {
       alert("Please select either a round or tournament");
