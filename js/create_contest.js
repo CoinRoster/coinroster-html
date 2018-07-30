@@ -67,8 +67,17 @@ contest_type_selector.onchange = function()
         roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
         prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
-        console.log(avaliable_sports);
-
+        // Set titles
+        if (basketball) {
+          var title = avaliable_sports.basketball_contest;
+          console.log(title);
+        } else if (golf) {
+          var title = avaliable_sports.golf_contest;
+          console.log(title);
+        } else if (baseball) {
+          var title = avaliable_sports.baseball_contest;
+          console.log(title);
+        }
 
         // Cant have two .add() inside of one statement, only second one is called...?
         if (basketball) {
