@@ -366,6 +366,7 @@
 
     .player_list li:hover {
         background-color: gray;
+        cursor: default;
     }
 
     .submit_container {
@@ -377,5 +378,6 @@
     }
 
     .checkbox_title {
+        width: 220px;
         margin-bottom: 10px;
     }
