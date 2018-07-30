@@ -634,20 +634,20 @@ function create_contest_attempt(data, method)
             data
         }
     });
-  
-  if (call.status === "1" && data.private) 
+   
+    if (call.status === "1" && data.private) 
     {
       alert("Contest created! Your private contest's unique URL: http://165.227.40.220/contest.html?id="
         + call.contest_id + "&code=" + call.code);
       window.location = "/";
     }
-  if (call.status === "1") 
-    {
-      alert("Your contest has been created successfully!");
-      window.location = "/";
-    } else {
-      alert("Error: " + call.error); 
-    };
+    if (call.status === "1") 
+      {
+        alert("Your contest has been created successfully!");
+        window.location = "/";
+      } else {
+        alert("Error: " + call.error); 
+      };
   }
 
 function create_new_contest()
