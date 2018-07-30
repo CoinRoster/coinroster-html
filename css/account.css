@@ -272,8 +272,7 @@
     }
 
     .checkboxes {
-        width: 205px;
-        margin-left: 15px;
+        width: 220px;
     }
 
     .checkboxes div {
@@ -378,8 +377,5 @@
     }
 
     .checkbox_title {
-        width: 220px;
         margin-bottom: 10px;
-        position: relative;
-        left: -13px;
     }
