@@ -606,6 +606,10 @@ function get_score_value(input, name, score_obj, error) {
       error.error = true;
       add_error(input);
       alert("Please set a valid value for " + name);
+    } else if (name === "eagles") {
+      score_obj["eagles+"] = Number(id(input).value);
+    } else if (name === "double-bogeys") {
+      score_obj["double_bogeys+"] = Number(id(input).value);
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
@@ -1022,10 +1026,10 @@ function create_new_contest()
           scoring_required.required = false;
         } else if (multi_stat === "Multi-stat") {
           get_score_value("prop_golf_over_stats_eagles", "eagles", scoring, submit_error);
-          get_score_value("prop_golf_over_stats_birdies", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_birdies", "birdies", scoring, submit_error);
           get_score_value("prop_golf_over_stats_pars", "pars", scoring, submit_error);
           get_score_value("prop_golf_over_stats_bogeys", "bogeys", scoring, submit_error);
-          get_score_value("prop_golf_over_stats_double_bogeys", "double-bogeys", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_double_bogeys", "g", scoring, submit_error);
 
           prop_data.multi_stp = "multi-stat"
           json_obj.scoring_rules = scoring;
