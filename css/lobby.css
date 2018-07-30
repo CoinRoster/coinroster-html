@@ -520,3 +520,12 @@
     .selector_container.my_contests.pari_mutuel_field {
         margin: 0 0 25px;
     }
+
+    .redirect_button {
+        float: right;
+        color: rbg(220,222,224) !important;
+    }
+
+    .redirect_button:hover {
+        border-bottom: 1px solid rbg(220,222,224);
+    }
