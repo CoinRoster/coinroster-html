@@ -1199,5 +1199,4 @@ function create_new_contest()
         create_contest_attempt(json_obj, "SetupMisc");
       }
     }
-  }
 }
