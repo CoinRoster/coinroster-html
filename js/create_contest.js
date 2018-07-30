@@ -977,6 +977,7 @@ function create_new_contest()
       }
     } else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
+      json_obj.sub_category = "GOLFPROPS";
 
       if (!prop_type && !submit_error.error) {
         alert("Please select a prop type");
@@ -1050,7 +1051,7 @@ function create_new_contest()
           scoring_required.required = false;
         } else if (multi_stat === "Multi-stat") {
           get_score_value("prop_golf_stats_eagles", "eagles", scoring, submit_error);
-          get_score_value("prop_golf_stats_birdies", "eagles", scoring, submit_error);
+          get_score_value("prop_golf_stats_birdies", "birdies", scoring, submit_error);
           get_score_value("prop_golf_stats_pars", "pars", scoring, submit_error);
           get_score_value("prop_golf_stats_bogeys", "bogeys", scoring, submit_error);
           get_score_value("prop_golf_stats_double_bogeys", "double-bogeys", scoring, submit_error);
@@ -1073,18 +1074,50 @@ function create_new_contest()
           selected_players.forEach((player) => {
             players.push(player.id);
           });
-
           prop_data.players = players;
+        }
+        json_obj.prop_data = prop_data;
+      } else if (prop_type === "Number of Shots") {
+        scoring_required.required = false;
+        var prop_data = { prop_type: "NUMBER_OF_SHOTS"};
+        var shot_type = selectorValue("prop_golf_number_of_shots_type");
+        var round_tournament = getCheckedValue("prop_golf_shots_round_tournament");
+        var player = document.getElementById("prop_golf_number_of_shots_player").value;
+
+        if (!shot_type && !submit_error.error) {
+          alert("Please select a shot type");
+          submit_error.error = true;
+        } else {
+          prop_data.shot_type = shot_type;
+        }
+
+        if (!round_tournament && !submit_error.error) {
+          alert("Please select either a round or tournament");
+          submit_error.error = true;
+        } else {
+          prop_data.round_tournament = round_tournament.toLowerCase();
+        }
+
+        if (!player && !submit_error.error) {
+          alert("Please pick a player");
+          submit_error.error = true;
+        } else {
+          prop_data.player_id = player;
         }
 
         json_obj.prop_data = prop_data;
 
-      } else if (prop_type === "Number of Shots") {
-        scoring_required.required = false;
-
       } else if (prop_type === "Make the Cut") {
         scoring_required.required = false;
+        var prop_data = { prop_type: "MAKE_THE_CUT"};
+        var player = document.getElementById("prop_golf_make_the_cut_player").value;
 
+        if (!player && !submit_error.error) {
+          alert("Please pick a player");
+          submit_error.error = true;
+        } else {
+          prop_data.player_id = player;
+        }
       }      
     } else if (sport === "Baseball") {
       var prop_type = selectorValue("prop_baseball_type");
