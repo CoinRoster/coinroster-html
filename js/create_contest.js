@@ -964,7 +964,7 @@ function create_new_contest()
     } else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
 
-      if (!prop_type) {
+      if (!prop_type && !submit_error.error) {
         alert("Please select a prop type");
         submit_error.error = true;
       }
@@ -974,15 +974,16 @@ function create_new_contest()
         var multi_stat = selectorValue("prop_golf_multistat_over_overall");
         var over_under_value = document.getElementById("prop_golf_over_under_value").value;
         var player = document.getElementById("prop_golf_over_under_player").value;
+        var round_tournament = getCheckedValue("prop_golf_over_round_tournament");
 
-        if (!multi_stat) {
-          alert("Please select either multi-stat or score to par");
+        if (!over_under_value && !submit_error.error) {
+          alert("Please enter a valid over/under value");
+          add_error("prop_golf_over_under_value");
           submit_error.error = true;
         }
 
-        if (!over_under_value) {
-          alert("Please enter a valid over/under value");
-          add_error("prop_golf_over_under_value");
+        if (!multi_stat && !submit_error.error) {
+          alert("Please select either multi-stat or score to par");
           submit_error.error = true;
         }
 
@@ -1000,6 +1001,21 @@ function create_new_contest()
           json_obj.scoring_rules = scoring;
         }
 
+        if (!player && !submit_error.error) {
+          alert("Please pick a player");
+          submit_error.error = true;
+        } else {
+          prop_data.player_id = player;
+        }
+
+        if (round_tournament === "on" && !submit_error.error) {
+          alert("Please select either a round or tournament");
+          submit_error.erro = true;
+        } else {
+          prop_data.round_tournament = round_tournament;
+        }
+
+        json_obj.prop_data = prop_data;
 
       } else if (prop_type === "Match Play") {
 
