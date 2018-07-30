@@ -919,6 +919,10 @@ function create_new_contest()
     };
     
     if (scores_empty && scoring_required && !submit_error.error) {
+      console.log(scoring);
+      console.log(scores_empty);
+      console.log(!submit_error.error);
+      
       alert("Please select at least one scoring option");
       submit_error.error = true;
     }
