@@ -874,6 +874,7 @@ function create_new_contest()
     clear_error("props_basketball_match_steals");
     clear_error("props_basketball_match_blocks");
     clear_error("props_basketball_match_turnovers");
+    clear_error("props_basketball_over_under_value");
 
     if (!sport) {
       alert("Please select a sport");
@@ -884,6 +885,11 @@ function create_new_contest()
       var prop_type = selectorValue("prop_basketball_type");
       json_obj.sub_category = "BASKETBALLPROPS";
       
+      if (!prop_type) {
+        alert("Please select a prop type");
+        submit_error.error = true;
+      }
+
       if (prop_type === "Match Play") {
         // Collect and validate scores
         get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
@@ -913,16 +919,40 @@ function create_new_contest()
           json_obj.scoring_rules = scoring;
         }
       } else if (prop_type === "Over/Under") {
+        var over_under_value = document.getElementById("props_basketball_over_under_value").value;
+
+        if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
+          alert("Please enter a valid over/under value");
+          add_error("props_basketball_over_under_value");
+          submit_error.error = true;
+        } else {
+          json_obj.over_under = Number(over_under_value);
+        }
+
         
+
         // over/under
         
       }
     } else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
+
+      if (!prop_type) {
+        alert("Please select a prop type");
+        submit_error.error = true;
+      }
+
+
       // golf
       
     } else if (sport === "Baseball") {
       var prop_type = selectorValue("prop_baseball_type");
+      
+      if (!prop_type) {
+        alert("Please select a prop type");
+        submit_error.error = true;
+      }
+
       // baseball
       
     };
