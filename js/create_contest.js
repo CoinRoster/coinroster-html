@@ -600,15 +600,17 @@ function clear_error(element) {
 }
 
 // Check what scoring options are selected and populate scoring object
-function get_score_value(input, name, score_obj) {
+function get_score_value(input, name, score_obj, submit_error) {
   if (id(input).value) {
     if (isNaN(id(input).value)) {
       add_error(input);
       alert("Please set a valid value for " + name);
+      submit_error = true;
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
   } else if (id(input + "_checkbox").checked) {
+    submit_error = true;
     add_error(input);
     alert("Please enter a valid value for " + name);
   }
@@ -673,6 +675,7 @@ function create_new_contest()
     var jackpot_payouts = [];
     var score_to_par = false;
     var round_tournament;
+    var submit_error = false;
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
@@ -719,12 +722,12 @@ function create_new_contest()
 
     if (sport === "Basketball") {
       json_obj.sub_category = "BASKETBALL";
-      get_score_value("roster_basketball_points", "points", scoring);
-      get_score_value("roster_basketball_rebounds", "rebounds", scoring);
-      get_score_value("roster_basketball_assists", "assists", scoring);
-      get_score_value("roster_basketball_steals", "steals", scoring);
-      get_score_value("roster_basketball_blocks", "blocks", scoring);
-      get_score_value("roster_basketball_turnovers", "turnovers", scoring);
+      get_score_value("roster_basketball_points", "points", scoring, submit_error);
+      get_score_value("roster_basketball_rebounds", "rebounds", scoring, submit_error);
+      get_score_value("roster_basketball_assists", "assists", scoring, submit_error);
+      get_score_value("roster_basketball_steals", "steals", scoring, submit_error);
+      get_score_value("roster_basketball_blocks", "blocks", scoring, submit_error);
+      get_score_value("roster_basketball_turnovers", "turnovers", scoring, submit_error);
       
       any_checked([
         "roster_basketball_points_checkbox",
@@ -735,11 +738,11 @@ function create_new_contest()
       ], checked_boxes_flag);
     } else if (sport === "Baseball") {
       json_obj.sub_category = "BASEBALL";
-      get_score_value("roster_baseball_rbi", "RBIs", scoring);
-      get_score_value("roster_baseball_hits", "hits", scoring);
-      get_score_value("roster_baseball_runs", "runs", scoring);
-      get_score_value("roster_baseball_strikeouts", "strikeouts", scoring);
-      get_score_value("roster_baseball_walks", "walks", scoring);
+      get_score_value("roster_baseball_rbi", "RBIs", scoring, submit_error);
+      get_score_value("roster_baseball_hits", "hits", scoring, submit_error);
+      get_score_value("roster_baseball_runs", "runs", scoring, submit_error);
+      get_score_value("roster_baseball_strikeouts", "strikeouts", scoring, submit_error);
+      get_score_value("roster_baseball_walks", "walks", scoring, submit_error);
      
       any_checked([
         "roster_baseball_rbi_checkbox",
@@ -754,11 +757,11 @@ function create_new_contest()
       round_tournament = getCheckedValue("round_tournament");
 
       if (type === "Multi-stat") {
-        get_score_value("roster_golf_eagles", "eagles", scoring);
-        get_score_value("roster_golf_birdies", "birdies", scoring);
-        get_score_value("roster_golf_pars", "pars", scoring);
-        get_score_value("roster_golf_bogeys", "bogeys", scoring);
-        get_score_value("roster_golf_double_bogeys", "double-bogeys", scoring);
+        get_score_value("roster_golf_eagles", "eagles", scoring, submit_error);
+        get_score_value("roster_golf_birdies", "birdies", scoring, submit_error);
+        get_score_value("roster_golf_pars", "pars", scoring, submit_error);
+        get_score_value("roster_golf_bogeys", "bogeys", scoring, submit_error);
+        get_score_value("roster_golf_double_bogeys", "double-bogeys", scoring, submit_error);
 
         any_checked([
           "roster_golf_eagles_checkbox",
@@ -847,7 +850,7 @@ function create_new_contest()
     } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
       add_error("roster_salary_cap");
       alert("Please enter a valid salary cap (minimum $500)")
-    } else {
+    } else if (!submit_error) {
       // Build the JSON object
       json_obj.category = "FANTASYSPORTS";
       json_obj.contest_type = "PARI-MUTUEL";
@@ -879,7 +882,7 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
-      console.log(json_obj)
+      console.log(json_obj);
       
       // api call
     }
