@@ -616,13 +616,13 @@ function get_score_value(input, name, score_obj, error) {
   }
 }
 
-function any_checked(boxes, flag){
-  boxes.forEach(function(box) {
-    if (id(box).checked) {
-      flag.flag = true;
-    }
-  });
-}
+// function any_checked(boxes, flag){
+//   boxes.forEach(function(box) {
+//     if (id(box).checked) {
+//       flag.flag = true;
+//     }
+//   });
+// }
 
 function getCheckedValue(name) {
   var radios = document.getElementsByName(name);
@@ -675,7 +675,7 @@ function create_new_contest()
     var jackpot_payouts = [];
     var score_to_par = false;
     var round_tournament;
-    var submit_error = {error: false};
+    var submit_error = {error: false};              
     var checked_boxes_flag = {flag: false};
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
@@ -690,7 +690,7 @@ function create_new_contest()
 
     if (!sport) {
       alert("Please select a sport");
-      checked_boxes_flag.flag = true;
+      submit_error.error = true;
     }
 
     // Clear errors
@@ -728,14 +728,6 @@ function create_new_contest()
       get_score_value("roster_basketball_steals", "steals", scoring, submit_error);
       get_score_value("roster_basketball_blocks", "blocks", scoring, submit_error);
       get_score_value("roster_basketball_turnovers", "turnovers", scoring, submit_error);
-      
-      any_checked([
-        "roster_basketball_points_checkbox",
-        "roster_basketball_rebounds_checkbox",
-        "roster_basketball_steals_checkbox",
-        "roster_basketball_blocks_checkbox",
-        "roster_basketball_turnovers_checkbox"
-      ], checked_boxes_flag);
     } else if (sport === "Baseball") {
       json_obj.sub_category = "BASEBALL";
       get_score_value("roster_baseball_rbi", "RBIs", scoring, submit_error);
@@ -743,14 +735,6 @@ function create_new_contest()
       get_score_value("roster_baseball_runs", "runs", scoring, submit_error);
       get_score_value("roster_baseball_strikeouts", "strikeouts", scoring, submit_error);
       get_score_value("roster_baseball_walks", "walks", scoring, submit_error);
-     
-      any_checked([
-        "roster_baseball_rbi_checkbox",
-        "roster_baseball_hits_checkbox",
-        "roster_baseball_runs_checkbox",
-        "roster_baseball_strikeouts_checkbox",
-        "roster_baseball_walks_checkbox"
-      ], checked_boxes_flag);
     } else if (sport === "Golf") {
       json_obj.sub_category = "GOLF";
       var type = selectorValue(roster_multistat_overall);
@@ -762,14 +746,6 @@ function create_new_contest()
         get_score_value("roster_golf_pars", "pars", scoring, submit_error);
         get_score_value("roster_golf_bogeys", "bogeys", scoring, submit_error);
         get_score_value("roster_golf_double_bogeys", "double-bogeys", scoring, submit_error);
-
-        any_checked([
-          "roster_golf_eagles_checkbox",
-          "roster_golf_birdies_checkbox",
-          "roster_golf_pars_checkbox",
-          "roster_golf_bogeys_checkbox",
-          "roster_golf_double_bogeys_checkbox"
-        ], checked_boxes_flag);
       } else if (type === "Score to Par") {
         score_to_par = true;
       }
@@ -803,7 +779,7 @@ function create_new_contest()
     }
 
     // Validation
-    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par" && !checked_boxes_flag.flag) {
+    if (!scoring.length && selectorValue(roster_multistat_overall) !== "Score to Par") {
       alert("Please select at least one scoring option");
     } else if (sport === "Golf" && round_tournament === "on") {
       alert("Please select either a round or tournament");
@@ -882,15 +858,58 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
-      console.log(submit_error.error);
-      console.log(json_obj);
-      
-      // api call
+
+
+      // create_contest_attempt(json_obj, "SetupRoster");
     }
   }
 
   if (contest_type === "Prop") {
+    var json_obj = {};
+    var scoring = {};
+    var submit_error = {error: false};
     var sport = selectorValue("prop_sport_selector");
+
+
+    if (!sport) {
+      alert("Please select a sport");
+      submit_error.error = true;
+    }
+
+    if (sport === "Basketball") {
+      var prop_type = selectorValue("prop_basketball_type");
+      if (prop_type === "Match Play") {
+        get_score_value("prop_basketball_match_points", "points", scoring, submit_error)
+        get_score_value("props_basketball_match_rebounds", "points", scoring, submit_error)
+        get_score_value("props_basketball_match_assists", "points", scoring, submit_error)
+        get_score_value("props_basketball_match_steals", "points", scoring, submit_error)
+        get_score_value("props_basketball_match_blocks", "points", scoring, submit_error);
+        get_score_value("props_basketball_match_turnovers", "points", scoring, submit_error);
+
+        
+        
+
+      } else if (prop_type === "Over/Under") {
+
+        // over/under
+
+      }
+    } else if (sport === "Golf") {
+      var prop_type = selectorValue("prop_golf_type");
+      // golf
+
+    } else if (sport === "Baseball") {
+      var prop_type = selectorValue("prop_baseball_type");
+      // baseball
+
+    };
+
+
+
+    if (!submit_error.error) {
+      // build & submit json
+      console.log("Contest created!");
+    }
   }
 
   if (contest_type === "Misc") {
