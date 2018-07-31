@@ -21,33 +21,33 @@ var category = get_url_param("category");
 if (category === "basketball") {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Basketball";
-  contest_type_selector.disabled = true;
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "basketballprops") {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Basketball";
-  contest_type_selector.disabled = true;
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 } else if (category === "golf") {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Golf";
-  contest_type_selector.disabled = true;
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "golfprops") {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Golf";
-  contest_type_selector.disabled = true;
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 } else if (category === "baseball") {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Baseball";
-  contest_type_selector.disabled = true;
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "baseballprops") {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Baseball";
-  contest_type_selector.disabled = true;
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 }
 
  $.each(checkboxes, function(index, data){
