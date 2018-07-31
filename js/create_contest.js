@@ -781,11 +781,6 @@ function create_new_contest()
     // Validation
     var scores_empty = jQuery.isEmptyObject(scoring);
 
-    console.log(settlement_type === "Jackpot");
-    console.log(!roster_double_up_max_users);
-    console.log(roster_double_up_max_users !== 0);
-    console.log(!submit_error.error);
-
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
       alert("Please select at least one scoring option");
     } else if (sport === "Golf" && round_tournament === "on") {
@@ -803,7 +798,7 @@ function create_new_contest()
     } else if (settlement_type === "Jackpot" && (
         !roster_jackpot_max_users || 
         Number(roster_jackpot_max_users) < 0) &&
-        Number(roster_jackpot_max_users) !== 0 && !submit_error.error
+        roster_jackpot_max_users !== 0 && !submit_error.error
       )
     {
       add_error("roster_jackpot_max_users");
@@ -811,7 +806,7 @@ function create_new_contest()
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
         Number(roster_double_up_max_users) < 0) &&
-        Number(roster_double_up_max_users) !== 0 && !submit_error.error
+        roster_double_up_max_users !== 0 && !submit_error.error
       ) 
     {  
       add_error("roster_double_up_max_users");
