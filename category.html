@@ -380,11 +380,24 @@
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
+    function get_available_sports()
+        {
+            var call = api({
+                method: "GetAvailableSports",
+                args: {}
+            });
+            
+            if (call.status === "1") return call;
+            else return null;
+        }
+
     function create_contest_redirect()
         {
-            sub_category = get_url_param("sub");
+            var sub_category = get_url_param("sub");
+            var available_sports = get_available_sports();
+            
 
-            console.log(sub_category);
+            console.log(available_sports);
 
         }
 </script>
