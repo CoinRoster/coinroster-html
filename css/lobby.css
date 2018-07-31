@@ -521,10 +521,13 @@
         margin: 0 0 25px;
     }
 
+    .sub_title {
+        float: left;
+    }
+
     .redirect_button {
         cursor: default;
-        position: fixed;
-        right: 35px;
+        float: right;
         color: rgb(220,222,224) !important;
         -webkit-touch-callout: none; 
         -webkit-user-select: none;
