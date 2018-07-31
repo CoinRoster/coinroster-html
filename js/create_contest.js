@@ -1039,7 +1039,7 @@ function create_new_contest()
           get_score_value("prop_golf_over_stats_birdies", "birdies", scoring, submit_error);
           get_score_value("prop_golf_over_stats_pars", "pars", scoring, submit_error);
           get_score_value("prop_golf_over_stats_bogeys", "bogeys", scoring, submit_error);
-          get_score_value("prop_golf_over_stats_double_bogeys", "g", scoring, submit_error);
+          get_score_value("prop_golf_over_stats_double_bogeys", "double-bogeys", scoring, submit_error);
 
           prop_data.multi_stp = "multi-stat"
           json_obj.scoring_rules = scoring;
