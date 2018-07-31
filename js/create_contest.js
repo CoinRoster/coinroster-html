@@ -1115,7 +1115,7 @@ function create_new_contest()
           alert("Please select a shot type");
           submit_error.error = true;
         } else {
-          prop_data.shot_type = shot_type;
+          prop_data.shot = shot_type;
         }
 
         if (!round_tournament && !submit_error.error) {
