@@ -57,7 +57,7 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Baseball";
   contest_type_selector.onchange();
-  prop_sport_selector.onchange()
+  prop_sport_selector.onchange();
   contest_type_selector.disabled = true;
   prop_sport_selector.disabled = true;
 }
