@@ -20,7 +20,7 @@
         <div id="category_header" class="body_container header">
             <h3 class="section_header to_uppercase" style="clear:both">
                 <span id="path_text" class="sub_title"></span>
-                <span id="contest_redirect" class="redirect_button" onclick="create_contest_redirect();">Create Contest</span>
+                <span id="contest_redirect" class="redirect_button hidden" onclick="create_contest_redirect();">Create Contest</span>
             </h3>
         </div>
         <!--#include virtual="/ssi/contest_status_selector.html" -->
@@ -392,12 +392,10 @@
         }
 
     var available_sports = get_available_sports();
-        
+    var sub_category = get_url_param("sub");
     var basketball = available_sports.BASKETBALL;
     var golf = available_sports.GOLF_4;
     var baseball = available_sports.BASEBALL;
-
-    hide("contest_redirect");
 
     if (sub_category === "basketball" && basketball) {
         show("contest_redirect");
@@ -415,7 +413,6 @@
 
     function create_contest_redirect()
         {
-            var sub_category = get_url_param("sub");
             window.location = "/account/contest.html?category=" + sub_category;
         }
 </script>
