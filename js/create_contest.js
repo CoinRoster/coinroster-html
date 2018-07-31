@@ -16,40 +16,6 @@ var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
 var avaliable_sports;
 
-// Preselect values if coming from sport page
-var category = get_url_param("category");
-if (category === "basketball") {
-  contest_type_selector.value = "Roster";
-  roster_sport_selector.value = "Basketball";
-  // contest_type_selector.disabled = true;
-  // roster_sport_selector.disabled = true;
-} else if (category === "basketballprops") {
-  contest_type_selector.value = "Prop";
-  prop_sport_selector.value = "Basketball";
-  // contest_type_selector.disabled = true;
-  // prop_sport_selector.disabled = true;
-} else if (category === "golf") {
-  contest_type_selector.value = "Roster";
-  roster_sport_selector.value = "Golf";
-  // contest_type_selector.disabled = true;
-  // roster_sport_selector.disabled = true;
-} else if (category === "golfprops") {
-  contest_type_selector.value = "Prop";
-  prop_sport_selector.value = "Golf";
-  // contest_type_selector.disabled = true;
-  // prop_sport_selector.disabled = true;
-} else if (category === "baseball") {
-  contest_type_selector.value = "Roster";
-  roster_sport_selector.value = "Baseball";
-  // contest_type_selector.disabled = true;
-  // roster_sport_selector.disabled = true;
-} else if (category === "baseballprops") {
-  contest_type_selector.value = "Prop";
-  prop_sport_selector.value = "Baseball";
-  // contest_type_selector.disabled = true;
-  // prop_sport_selector.disabled = true;
-}
-
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     if ($(this)[0].checked) {
@@ -1358,4 +1324,38 @@ function create_new_contest()
       }
     }
   }
+}
+
+// Preselect values if coming from sport page
+var category = get_url_param("category");
+if (category === "basketball") {
+  contest_type_selector.value = "Roster";
+  roster_sport_selector.value = "Basketball";
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
+} else if (category === "basketballprops") {
+  contest_type_selector.value = "Prop";
+  prop_sport_selector.value = "Basketball";
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
+} else if (category === "golf") {
+  contest_type_selector.value = "Roster";
+  roster_sport_selector.value = "Golf";
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
+} else if (category === "golfprops") {
+  contest_type_selector.value = "Prop";
+  prop_sport_selector.value = "Golf";
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
+} else if (category === "baseball") {
+  contest_type_selector.value = "Roster";
+  roster_sport_selector.value = "Baseball";
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
+} else if (category === "baseballprops") {
+  contest_type_selector.value = "Prop";
+  prop_sport_selector.value = "Baseball";
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 }
