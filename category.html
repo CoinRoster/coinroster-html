@@ -290,7 +290,7 @@
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
-                "<div class='field_label'>Settlement Deadline:</div>" + (isNaN(settlement_deadline)? "N/A": settlement),
+                "<div class='field_label' style=\"overflow-wrap: normal;\">Settlement Deadline:</div>" + (isNaN(settlement_deadline)? "N/A": settlement),
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
             ]);
