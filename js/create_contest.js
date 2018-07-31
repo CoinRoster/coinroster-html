@@ -1329,42 +1329,42 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Basketball";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Basketball";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 } else if (category === "golf" && avaliable_sports.GOLF_4) {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Golf";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "golfprops" && avaliable_sports.GOLF_4) {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Golf";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 } else if (category === "baseball" && avaliable_sports.BASEBALL) {
   contest_type_selector.value = "Roster";
   roster_sport_selector.value = "Baseball";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // roster_sport_selector.disabled = true;
 } else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
   contest_type_selector.value = "Prop";
   prop_sport_selector.value = "Baseball";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
+  // contest_type_selector.disabled = true;
+  // prop_sport_selector.disabled = true;
 }
