@@ -16,6 +16,9 @@ var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
 var avaliable_sports;
 
+var sub_category = get_url_param("sub");
+console.log(sub_category);
+
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     if ($(this)[0].checked) {
