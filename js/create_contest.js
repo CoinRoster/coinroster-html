@@ -46,7 +46,7 @@ var avaliable_sports;
     hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
   };
 
-contest_type_selector.onchange = function()
+  $("#contest_type_selector").change( function()
   {
     var roster_fields = document.getElementsByClassName("roster_fields");
     var prop_fields = document.getElementsByClassName("prop_fields");
@@ -148,7 +148,7 @@ contest_type_selector.onchange = function()
           hide(prop_fields[0]);
           break;
       }
-  };
+  });
 
 roster_sport_selector.onchange = function()
  {
