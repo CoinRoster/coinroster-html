@@ -783,7 +783,7 @@ function create_new_contest()
 
     console.log(settlement_type === "Jackpot");
     console.log(!roster_double_up_max_users);
-    console.log(Number(roster_double_up_max_users) !== 0);
+    console.log(roster_double_up_max_users !== 0);
     console.log(!submit_error.error);
 
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
