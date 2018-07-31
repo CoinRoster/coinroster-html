@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>CoinRoster | Admin Panel</title>
-    <script type="text/javascript" src="js/error.js"></script>
+    <!-- <script type="text/javascript" src="js/error.js"></script> -->
     <!--#include virtual="/ssi/head_admin.html" -->
 </head>
 <body>   
@@ -759,7 +759,6 @@
         
     if (call.status === "1") 
         {
-        console.log(call.cold_storage_balance);
         cold_storage_input.value = call.cold_storage_balance;
         id("cold_storage_balance_value").innerHTML = '<b>' + call.cold_storage_balance + '</b> BTC';
         }

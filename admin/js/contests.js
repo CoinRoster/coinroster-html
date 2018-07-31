@@ -2079,7 +2079,6 @@
     
     function update_user_contest (args, contest_id) {
         args.contest_id = contest_id;
-        console.log(args);
         api({
             method: 'ApproveUserContest',
             args: args
@@ -2128,8 +2127,6 @@
         button_string = "<button class=\"input_style\" style=\"width:auto\" onclick=\"settle_crowd_contest(" + id + ")\">Settle Contest</button>";
 
         window.contest[id] = contest_item;
- 
-        console.log(id);
         
         new_row(table, row_count++, [
             id,
@@ -2244,8 +2241,6 @@
     function settle_crowd_contest(contest_id) {
 
         window.contest_id_to_settle = contest_id;
-
-        console.log(window.contest);
 
         var 
         

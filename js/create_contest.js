@@ -68,17 +68,14 @@ contest_type_selector.onchange = function()
       // Set titles
       if (basketball) {
         var title = avaliable_sports.basketball_contest;
-        console.log(title);
       } 
       
       if (golf) {
         var title = avaliable_sports.golf_contest;
-        console.log(title);
       }
       
       if (baseball) {
         var title = avaliable_sports.baseball_contest;
-        console.log(title);
       }
 
       // Cant have two .add() inside of one statement, only second one is called...?
