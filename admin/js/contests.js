@@ -22,6 +22,7 @@
                 if (id("category_selector").options.length === 0)
                     {
                     initialize_registration_deadline();
+                    initialize_settlement_deadline();
                     populate_category_selector("category_selector");
                     tinymce.init({
                         selector: 'textarea.do_tinymce',
@@ -66,6 +67,9 @@
                     populate_code_selector("code_selector_progressive");
                     }
                 break; 
+            case 7: /* User Generated Contest */
+                get_pending_contests();
+                break;
             }
         }
                      
@@ -455,6 +459,26 @@
         initialize_calendar
             (
             id("registration_deadline_tcal"),
+            default_date,
+            min_date,
+            max_date
+            );
+        }
+/*----------------------------------------------------------------------*/
+           
+    // Initialize registration deadline calendar
+            
+    function initialize_settlement_deadline()
+        {
+        var date_now = new Date().getTime(),
+
+        default_date = date_now - 86400 * 1000,
+        min_date = date_now,
+        max_date = null;
+
+        initialize_calendar
+            (
+            id("settlement_deadline_tcal"),
             default_date,
             min_date,
             max_date
@@ -919,6 +943,16 @@
         registration_deadline = date + time * 60 * 60 * 1000;
 
         if (registration_deadline - new Date().getTime() < 1 * 60 * 60 * 1000) return alert("Registration deadline must be at least 1 hour from now");
+
+        // get settlement deadline
+
+        var
+
+        date = dateconv_date_start_time(id("settlement_deadline_tcal").date_ms),
+        time = selectorValue("settlement_deadline_time_selector"),
+        settlement_deadline = date + time * 60 * 60 * 1000;
+
+        if (settlement_deadline - registration_deadline < 1 * 60 * 60 * 1000) return alert("settlement deadline must be at least 1 hour from registration deadline");
         
         // validate rake
         
@@ -954,7 +988,8 @@
             description: description,
             registration_deadline: registration_deadline,
             rake: rake,
-            cost_per_entry: cost_per_entry
+            cost_per_entry: cost_per_entry,
+            settlement_deadline: settlement_deadline
         };
             
         switch (contest_type)
@@ -1164,6 +1199,10 @@
         option_rows = pari_mutuel_table.rows,
         option_table = [];
         
+        if (args.category === 'USERGENERATED') {
+            args.settlement_type = selectorValue('settlement_type_selector');
+        }
+
         for (var i=1/*header is 0*/; i<option_rows.length; i++)
             {
             var description = option_rows[i].querySelector("input").value;
@@ -1880,3 +1919,110 @@
             else alert("Error: " + call.error);
             });
         }
+
+/*----------------------------------------------------------------------*/
+              
+    function get_pending_contests() {
+
+        var call = api({ method: "GetUnapprovedContests", args: {} });
+        
+        if (call.status === "1") {
+            
+            var
+            
+            pending_contest_array = call.pending_contests,
+            number_of_contests = pending_contest_array.length,
+            table = new_table("pending_contest_table"),
+            row_count = 0;
+    
+            if (number_of_contests > 0) {
+                for (var i = 0; i < number_of_contests; i++) {
+                    var contest_item = pending_contest_array[i],
+
+                    contest_id = contest_item.contest_id,
+                    created = contest_item.created,
+                    created_date = dateconv_ms_to_string(created),
+                    created_time = dateconv_ms_to_time(created),
+                    created_by = contest_item.created_by,
+                    category = contest_item.category,
+                    title = contest_item.title,
+                    description = contest_item.description,
+                    settlement_type = contest_item.settlement_type,
+                    option_table = contest_item.option_table,
+                    rake = contest_item.rake,
+                    cost_per_entry = contest_item.cost_per_entry;
+                    
+                    var row = new_row(table, row_count++, [
+                        contest_id,
+                        created_date,
+                        created_time,
+                        created_by,
+                        category,
+                        title,
+                        description,
+                        settlement_type,
+                        option_table,
+                        rake,
+                        cost_per_entry,
+                        "<button onclick=\"approve_contest(" + contest_id + ")\">Approve Contest</button>" + 
+                        "&nbsp;" +
+                        "<button onclick=\"reject_contest(" + contest_id + ")\">Reject Contest</button>"
+                    ]);
+
+                    row[1].style.textAlign = "right";
+                    row[6].style.textAlign = "right";
+                    
+                    // highlight if older than 30 days:
+                    
+                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
+                }
+                
+                var header = new_row(table, 0, [
+                    "#",
+                    "Date",
+                    "Time",
+                    "Created By",
+                    "Category",
+                    "Title",
+                    "Description",
+                    "Settlement Type",
+                    "Option Table",
+                    "Rake",
+                    "Cost Per Entry",
+                    "Action"
+                ]);
+                // style headers:
+
+                for (var i=1; i<header.length; i++) header[i].className = "header_cell";
+       
+                header[1].style.textAlign = "center";
+                header[6].style.textAlign = "right";
+            }
+            else id("pending_contest_table").innerHTML = "None";
+        }
+        else id("pending_contest_table").innerHTML = "Error getting transactions";        
+    }
+
+    function approve_contest (contest_id) {
+        var args = {};
+        args.admin_approval = "1";
+        update_user_contest(args, contest_id);
+    }
+
+    function reject_contest (contest_id) {
+        var args = {};
+        args.admin_approval = "0";
+        update_user_contest(args, contest_id);
+    }
+    
+    function update_user_contest (args, contest_id) {
+        args.contest_id = contest_id;
+        console.log(args);
+        api({
+            method: 'ApproveUserContest',
+            args: args
+        }, function (call) {
+            alert('call was successful');
+            window.location.reload();
+        })
+    }

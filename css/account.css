@@ -20,11 +20,11 @@
         width:150px;
         font-family: 'gotham_medium', sans-serif;
     }
-
+  
     .action_button:hover {
         background:rgb(100,102,104);
     }
-
+  
     .underline {
         text-decoration:underline;
     }
@@ -90,21 +90,21 @@
         border-top: 2px solid rgb(44,46,48);
         position:relative;
     }
-
+  
     .clickable_subwindow {
         cursor:pointer;
         font-size: 13px;
     }
-
+  
     .clickable_subwindow:hover {
         background:rgb(100,102,104);
     }
-
+  
     .hidden_subwindow {
         display: none;
         font-size: 13px;
     }
-
+  
     .subwindow_heading {
         font-size:13px !important;
     }
@@ -114,7 +114,7 @@
         text-decoration: none;
         color: white;
     }
-
+  
     .hide_button {
         position:absolute;
         top:0;
@@ -122,15 +122,15 @@
         padding:20px 20px 60px 40px;
         cursor:pointer;
     }
-
+  
     .disclaimer {
         font-size:13px;
     }
-
+  
     .email_input {
         width:220px !important;
     }
-
+  
     .note_input {
         width:600px !important;
     }
@@ -145,31 +145,31 @@
     #newsletter_checkbox {
         cursor:pointer;
     }
-
+  
     #verification_status {
         font-weight:normal;
     }
-
+  
     #verification_message {
         display:none;
     }
-
+  
     .checkbox_label {
         cursor:pointer;
         display:block;
         padding:10px 0;
         width:300px;
     }
-
+  
     #newsletter_label {
         margin-top:20px;
     }
-
+  
     #transaction_report_table table {
         width:100%;
         border-collapse: collapse;
     }
-
+  
     #transaction_report_table tr {
         border-color: rgb(44,46,48);
         border-style: solid;
@@ -260,4 +260,124 @@
     .button_contents li {
         display: table-cell;
         vertical-align: middle;
+    }
+  
+    .content_body {
+        padding-left: 15px !important;
+    }
+
+    .dropdown {
+        height: 37px;
+        width: 220px;
+    }
+
+    .checkboxes {
+        width: 220px;
+    }
+
+    .checkboxes div {
+        padding-bottom: 13px;
+    }
+
+    .checkboxes > div > label {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .checkboxes > div > input {
+        font-family: 'gotham_medium', sans-serif;
+        font-size: 14px;
+        text-align: center;
+        width: 45px !important;
+        float: right;
+        border-radius: 5px;
+        padding: 3px;
+        border: none;
+        outline: line;
+    }
+
+    .checkboxes > div > input:focus {
+        outline: none;
+    }
+
+    .checkboxes > div > input:disabled {
+        background: rgb(155, 155, 155); 
+    }
+
+    .dimmed {
+        color: rgb(155, 155, 155);
+    }
+
+    #number_of_options, #number_of_payouts {
+        width: 40px;
+        margin-left: 15px;
+    }
+
+    .pari_mutuel_button {
+        display: block;
+        widows: 220px;
+        margin-top: 10px;
+    }
+
+    #pari_mutuel_table tr:first-child { /* header */
+        display: none;
+    }
+
+    #pari_mutuel_table input {
+        width: 180px !important;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    #jackpot_table tr:first-child { /* header */
+        display: none;
+    }
+
+    #jackpot_table input {
+        width: 180px !important;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .number_of_payouts {
+        margin-bottom: 0;
+    }
+
+    .player_list {
+        list-style-type: none;
+        max-height: 300px;
+        min-height: 30px;
+        overflow: scroll;
+        padding-left: 0px;
+        border: 1px solid grey;
+        margin-top: 5px;
+        border-radius: 10px;
+        width: 215px;
+    }
+
+    .player_list li {
+        padding: 10px;
+        background-color: rgb(80, 80, 80);
+    }
+
+    .player_list li:hover {
+        background-color: gray;
+        cursor: default;
+    }
+
+    .submit_container {
+        margin-top: 15px;
+    }
+
+    .error {
+        border: 2px solid #ff5353 !important;
+    }
+
+    .checkbox_title {
+        width: 220px;
+        margin-bottom: 10px;
     }

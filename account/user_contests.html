@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Create A Contest</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>YOUR CONTESTS</span>
+                </span>
+            </h3>
+            <div id="user_contest_table" class="report_table"></div>
+            <div id="settle_contest" class="content_body" style="top:68px">
+                <div style="width:800px;background:orange;padding:20px;font-size:18px;">
+                    You are in the Contest Settlement tab! If you only want to update scores, please <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
+                </div>
+                <br/>
+                <h3 style="font-weight:normal">
+                    Contest <span id="contest_id"></span> | <span id="contest_type"></span>
+                </h3>
+                <h2>
+                    <span id="contest_title"></span>
+                </h2>
+                <div id="settle_pari_mutuel">
+                    Select winning outcome:
+                    <br/><br/>
+                    <div id="pari_mutuel_outcome_table" class="report_table"></div>
+                    <br/>
+                    <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+                </div>
+            </div>
+        </div>
+        <br/>
+    </div>   
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script>
+    function init() {
+        hide("settle_contest");
+        populate_user_contest();
+    }
+
+    function cancel_settle_contest() {
+        hide("settle_contest");
+        show("user_contest_table");
+    }
+</script>
+<script type="text/javascript" src="/js/lib.js"></script>
+<script type="text/javascript" src="/js/account.js"></script>
+<script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

@@ -18,8 +18,9 @@
     <div id="centering_container" class="lobby_container">
         <!--#include virtual="/ssi-java/nav" -->
         <div id="category_header" class="body_container header">
-            <h3 class="section_header to_uppercase">
-                <span id="path_text"></span>
+            <h3 class="section_header to_uppercase" style="clear:both">
+                <span id="path_text" class="sub_title"></span>
+                <span id="contest_redirect" class="redirect_button hidden" onclick="create_contest_redirect();">Create Contest</span>
             </h3>
         </div>
         <!--#include virtual="/ssi/contest_status_selector.html" -->
@@ -223,17 +224,28 @@
         var header = new_row(table, -1, [
             "Contest",
             "Game type",
+            "Settlement Deadline",
             "Entry fee",
             "Prize pool"
         ]);
 
-        header[3].className = "right_nowrap";
         header[4].className = "right_nowrap";
+        header[5].className = "right_nowrap";
 
+        var 
+        
+        closest_registration_deadline = 0,
+        count = 0,
+        settlement_expiry_list = [],
+        contest_id_list = [];
+        
         for (var i=0; i<number_of_contests; i++)
             {
+            count ++; 
+
             var contest_item = contest_report[i],
 
+            category = contest_item.category,
             contest_id = contest_item.id,
             title = contest_item.title,
             contest_type = contest_item.contest_type,
@@ -241,7 +253,12 @@
             pay_table = contest_item.pay_table,
             cost_per_entry = contest_item.cost_per_entry,
             max_users = contest_item.max_users,
-            total_prize_pool = contest_item.total_prize_pool;
+            total_prize_pool = contest_item.total_prize_pool,
+            settlement_deadline = contest_item.settlement_deadline,
+            show_countdown = false;
+
+            if (i === 0) closest_registration_deadline = settlement_deadline;
+            if (settlement_deadline === closest_registration_deadline) show_countdown = true;
 
             if (max_users === 0) max_users = "";
             else max_users = "/" + max_users;
@@ -260,10 +277,18 @@
                 {
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li></ul>";
                 }
+            
+            if (category === 'USERGENERATED') 
+                {
+                contest_id_list[i] = contest_id;
+                settlement_expiry_list [i] = settlement_deadline;
+                settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
+                }
 
             var row = new_row(table, -1, [
                 first_cell_text,
                 "<div class='field_label'>Game type:</div>" + game_type,
+                "<div class='field_label'>Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
             ]);
@@ -271,10 +296,25 @@
             row[3].className = "right_nowrap";
             row[4].className = "right_nowrap";
             
+            if (show_countdown) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
+        test(settlement_expiry_list, contest_id_list);
         }
             
+    function test (settlement_expiry_list, contest_id_list) {
+        for (let i = 0; i < settlement_expiry_list.length; i++) {
+            if(settlement_expiry_list[i] - Date.now() === 0) {
+                api({
+                    method: 'ExpireSettlementWindow',
+                    args: {
+                        contest_id: contest_id_list[i]
+                        }
+                    }, function (call){})
+            }
+        }
+    }
+
     function populate_settled_contests(contest_report, number_of_contests, table)
         {
         var header = new_row(table, -1, [
@@ -340,6 +380,41 @@
         id("no_data_message").innerHTML = "<a href='/' class='inline_link'>Return to lobby</a>";
         }
 
+    function get_available_sports()
+        {
+            var call = api({
+                method: "GetAvailableSports",
+                args: {}
+            });
+            
+            if (call.status === "1") return call;
+            else return null;
+        }
+
+    var available_sports = get_available_sports();
+    var sub_category = get_url_param("sub");
+    var basketball = available_sports.BASKETBALL;
+    var golf = available_sports.GOLF_4;
+    var baseball = available_sports.BASEBALL;
+
+    if (sub_category === "basketball" && basketball) {
+        show("contest_redirect");
+    } else if (sub_category === "basketballprops" && basketball) {
+        show("contest_redirect");
+    } else if (sub_category === "golf" && golf) {
+        show("contest_redirect");
+    } else if (sub_category === "golfprops" && golf) {
+        show("contest_redirect");
+    } else if (sub_category === "baseball" && baseball) {
+        show("contest_redirect");
+    } else if (sub_category === "baseballprops" && baseball) {
+        show("contest_redirect");
+    }
+
+    function create_contest_redirect()
+        {
+            window.location = "/account/contest.html?category=" + sub_category;
+        }
 </script>
 <script type="text/javascript" src="/js/contest_status_selector.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>

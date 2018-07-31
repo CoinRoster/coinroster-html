@@ -520,3 +520,24 @@
     .selector_container.my_contests.pari_mutuel_field {
         margin: 0 0 25px;
     }
+
+    .sub_title {
+        float: left;
+    }
+
+    .redirect_button {
+        cursor: default;
+        float: right;
+        color: rgb(220,222,224) !important;
+        -webkit-touch-callout: none; 
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .redirect_button:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
