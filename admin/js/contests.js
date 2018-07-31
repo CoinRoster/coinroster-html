@@ -70,7 +70,7 @@
             case 7: /* User Generated Contest */
                 get_pending_contests('user');
                 break;
-            case 8: /* User Generated Contest */
+            case 8: /* Settle Crowd Contest */
                 hide("settle_crowd_contest");
                 show("crowd_contest_report");
                 crowd_contest_report("crowd_contest_report_table");
@@ -2279,6 +2279,12 @@
             ]);
             }
     }
+
+    function cancel_crowd_settle_contest()
+        {
+        hide("settle_crowd_contest");
+        show("crowd_contest_report_table");
+        }
 
     function settle_crowd_pari_mutuel_contest() {
 
