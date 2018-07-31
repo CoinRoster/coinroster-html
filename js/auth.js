@@ -128,6 +128,19 @@
         
     function create_account()
         {
+
+        var
+
+        target = null,
+        referrer = null,
+        hash = location.hash.slice(1);
+        
+        if (hash.indexOf("redirect") !== -1)
+            {
+            target = hash.split("=")[1];
+            if (typeof target !== "undefined") referrer = get_url_param('ref', decodeURIComponent(target));
+            }
+
         var 
         
         referral_key = window.referral_key,
@@ -162,18 +175,42 @@
             return false;
             }
             
-        api({
-            method: "CreateUser",
-            args: {
-                email_address: email_address,
-                username: username,
-                password: password,
-                referral_key: window.referral_key,
-                promo_code: promo_code
+        var method;
+        
+        if (referrer !== null) {
+            method = {
+                method: "CreateUser",
+                args: {
+                    email_address: email_address,
+                    username: username,
+                    password: password,
+                    referral_key: window.referral_key,
+                    promo_code: promo_code,
+                    referrer: referrer
+                }
             }
-        }, function(call)
+        } else {
+            method = {
+                method: "CreateUser",
+                args: {
+                    email_address: email_address,
+                    username: username,
+                    password: password,
+                    referral_key: window.referral_key,
+                    promo_code: promo_code
+                }
+            }
+        }
+        api(method, function(call)
             {
-            if (call.status === "1") location = "/";
+            if (call.status === "1") {
+                if (target !== null)
+                    {
+                    if (typeof target !== "undefined" || target !== null) return window.location = decodeURIComponent(target);
+                    }
+                // fail over to:
+                window.location = "/";
+            }
             else 
                 {
                 if (call.error === "Invalid promo code") set_auth_message("promo_code_label", "Invalid promo code", "orange");

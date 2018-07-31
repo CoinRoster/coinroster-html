@@ -23,7 +23,7 @@
                 You must <a id="login_link" href="/login.html" class="inline_link orange">log in</a> to enter this contest.
                 <br/>
                 <br/>
-                Don't have an account?&nbsp;&nbsp;<a href="/signup.html" class="inline_link green">Click here to sign up!</a>
+                Don't have an account?&nbsp;&nbsp;<a id="signup_link" href="/signup.html" class="inline_link green">Click here to sign up!</a>
             </div>
             <div id="verify_email_container" class="account_creation_message hidden">
                 You must verify your email in order to enter this contest.
@@ -246,7 +246,12 @@
     function init()
         {                            
         var contest_id = get_url_param("id") | 0;
+        var code = get_url_param("code");
         
+        if (code === null || code === undefined) {
+            code = "";
+        }
+
         window.contest_id = contest_id;
         
         if (contest_id !== 0)
@@ -254,7 +259,8 @@
             api({
                 method: "GetContestDetails",
                 args: {
-                    contest_id: contest_id
+                    contest_id: contest_id,
+                    code: code
                 }
             }, function(call)
                 {
@@ -423,6 +429,7 @@
                             {
                             show("login_prompt_container");
                             id("login_link").href = "/login.html#redirect=" + encodeURIComponent(window.location);
+                            id("signup_link").href = "/signup.html#redirect=" + encodeURIComponent(window.location);
                             }
                         else // user is logged in
                             {
@@ -443,6 +450,17 @@
                                 }
                             else // user is allowed to enter contests - check to see if max users or max entries has been hit
                                 {
+                                var current_href = document.location.href;
+                                if(window.location.href.indexOf('?') > -1) 
+                                    {
+                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.username);
+                                    // document.location = current_url + '&ref=' + window.session.user_id;
+                                    }
+                                else
+                                    {
+                                    window.history.pushState(current_href, 'Contest ' + contest_id, current_href + '&ref=' + window.session.username);
+                                    }
+
                                 if (contest_type === "ROSTER")
                                     {
                                     var active_user_entries = call.active_user_entries,
@@ -555,7 +573,7 @@
                                 reason = "This contest was under-subscribed";
                                 break;
                             case 5 : 
-                                reason = "This contest was cancelled by our admin team";
+                                reason = "This contest is pending approval from our admin team";
                                 break;
                             }
                         id("no_entry").innerHTML = [

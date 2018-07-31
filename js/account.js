@@ -4,7 +4,9 @@
         if (call.status === "1") return call.btc_balance;
         else return "DATA ERROR";
         }
-    
+
+/*----------------------------------------------------------------------*/
+
     function get_ext_address(get_for_active_user)
         {
         var call = api({ 
@@ -16,6 +18,108 @@
         if (call.status === "1") return call.ext_address;
         else return "DATA ERROR";
         }
+
+/*----------------------------------------------------------------------*/
+
+    // retrieve categories and sub-categories, populate drop-downs
+    
+    var category_map = [];
+    
+    function populate_category_selector(_id)
+        {
+        var category_selector = id(_id);
+        
+        category_selector.innerHTML = "<option></option>";
+        
+        api({
+            method: "CategoryReport",
+            args: {
+                request_source: ""
+            }
+        }, function(call)
+            {
+            var category_report = call.category_report;
+
+            for (var i=0; i<category_report.length; i++)
+                {
+                var category = category_report[i],
+
+                category_code = category.code,
+                category_description = category.description,
+                sub_categories = category.sub_categories,
+                number_of_sub_categories = sub_categories.length;
+        
+                var option = document.createElement("option");
+                option.value = category_code;
+                option.innerHTML = "[" + category_code + "] " + category_description;
+
+                category_selector.appendChild(option);
+
+                if (number_of_sub_categories > 0)
+                    {
+                    var sub_category_object = [];
+                    for (var j=0; j<number_of_sub_categories; j++)
+                        {
+                        var sub_category = sub_categories[j],
+
+                        sub_category_code = sub_category.code,
+                        sub_category_description = sub_category.description;
+                
+                        sub_category_object.push(
+                            {
+                            code: sub_category_code,
+                            description: sub_category_description
+                            });
+                        }
+
+                    category_map[category_code] = sub_category_object;
+                    }
+                }
+            
+            $(category_selector).trigger("chosen:updated");
+            
+            category_selector.onchange = function()
+                {
+                populate_sub_category_selector(_id);
+                };
+            });
+        }
+        
+    function populate_sub_category_selector(_id)
+        {
+        var sub_category_selector = id("sub_" + _id);
+        
+        sub_category_selector.innerHTML = "<option></option>";
+        
+        var category_code = selectorValue(_id),
+        sub_category_object = category_map[category_code];
+
+        for (var i=0; i<sub_category_object.length; i++)
+            {
+            var sub_category = sub_category_object[i],
+
+            sub_category_code = sub_category.code,
+            sub_category_description = sub_category.description;
+    
+            var option = document.createElement("option");
+            option.value = sub_category_code;
+            option.innerHTML = "[" + sub_category_code + "] " + sub_category_description;
+
+            sub_category_selector.appendChild(option);
+            }
+            
+        // if (_id === "category_selector")
+        //     {
+        //     sub_category_selector.onchange = function()
+        //         {
+        //         populate_progressive_selector();
+        //         };
+        //     }
+            
+        $(sub_category_selector).trigger("chosen:updated");
+        }
+        
+/*----------------------------------------------------------------------*/
 
     function create_pari_mutuel_table() {
             
@@ -33,7 +137,7 @@
             var rank = i + 1;
             new_row(pari_mutuel_table, row_count++, [
                 rank,
-                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\">"
+                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\" placeholder=\"Description\">"
             ]);
         }
             
@@ -43,11 +147,19 @@
         ]);
             
         for (var i=1; i<header.length; i++) header[i].className = "header_cell";
-    } 
+    }
+
+/*----------------------------------------------------------------------*/
           
     function create_contest() {
         
-        var settlement_type = selectorValue('settlement_type_selector');
+        var settlement_type = selectorValue('settlement_type_selector');    
+        console.log(settlement_type);
+
+        var category = selectorValue('category_selector');
+        var sub_category = selectorValue('sub_category_selector');
+
+        if(!(category !== '' && sub_category !== '')) return alert('Please select category');
 
         // check for title
         
@@ -91,8 +203,8 @@
         if (settlement_deadline - registration_deadline < 1 * 60 * 60 * 1000) return alert("Settlement deadline must be at least 1 hour from registration deadline");
 
         var common_args = {
-            category: 'USERGENERATED',  
-            sub_category: "USERGENERATED",
+            category: category,  
+            sub_category: sub_category,
             progressive: "",  
             contest_type: 'PARI-MUTUEL', 
             title: title,
@@ -145,8 +257,6 @@
         
         do_create_contest(args);
         }
-
-/*----------------------------------------------------------------------*/
 
     // submit contest for creation
     
@@ -261,6 +371,8 @@
         }
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
+
+/*----------------------------------------------------------------------*/
 
     function settle_contest(contest_id) {
 

@@ -9,7 +9,7 @@
 <input type="password" style="position:absolute;top:-1000px;"/>
 <div id="header"></div>
 <!--#include virtual="/ssi-java/nav_admin" -->
-<div id="nav"></div>
+<div id="nav" style="overflow: auto; height: 90px;"></div>
 <div id="pane_0" class="pane" tab_text="Contest Report">
     <div class="content_header" style="height:67px">
         <div class="content_header_title">
@@ -180,6 +180,15 @@
                     <input id="cost_per_entry_input" btc-input="true" type="text" class="input_style text_input">
                     &nbsp;&nbsp;
                     BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Contest Access
+                </td>
+                <td colSpan="2">
+                    <input id="private_radio" type="radio" name="access" value="Private"/> Private <br/>
+                    <input id="public_radio" type="radio" name="access" value="Public"/> Public <br/>
                 </td>
             </tr>
             <tr class="roster_contest_field">
@@ -355,8 +364,8 @@
                     <td>
                         Settlement Type
                     </td>
-                    <td colSpan="2">
-                        <select data-placeholder="Select" id="settlement_type_selector" class="input_style chosen-select" style="width:155px">
+                    <td colSpan="10">
+                        <select data-placeholder="Select" id="settlement_type_selector_pari" style="width:300px" readonly>
                             <option>USER-SETTLED</option>
                             <option>CROWD-SETTLED</option>
                         </select>
@@ -664,11 +673,43 @@
         <div id="pending_contest_table" class="report_table"></div>
     </div>
 </div>
+<div id="pane_8" class="pane" tab_text="Settle Crowd Contest">
+    <div class="content_header" style="height:67px">
+        <div class="content_header_title">
+            Settle Crowd Contest
+        </div>
+    </div>
+    <div id="crowd_contest_report" class="content_body" style="top:68px">
+        <div id="crowd_contest_report_table" class="report_table"></div>
+    </div>
+    <div id="settle_crowd_contest" class="content_body hidden" style="top:68px">
+        <div style="width:800px;background:orange;padding:20px;font-size:18px;">
+            You are in the Crowd Contest Settlement tab! If you only want to update scores, please <button type="button" class="input_style" onclick="cancel_settle_contest();">Go back</button>
+        </div>
+        <br/>
+        <h3 style="font-weight:normal">
+            Contest <span id="contest_id"></span> | <span id="contest_type"></span>
+        </h3>
+        <h2>
+            <span id="contest_title"></span>
+        </h2>
+        <div id="settle_pari_mutuel_crowd">
+            Voting round bets: <span id="entries"></span>
+            <br/><br/>
+            Select winning outcome:
+            <br/><br/>
+            <div id="crowd_outcome_table" class="report_table"></div>
+            <br/>
+            <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="js/contests.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript">
+    hide("settle_contest");
     var call = api({
             method: "GetPromotionBalance",
             args: {}

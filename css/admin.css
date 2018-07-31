@@ -303,3 +303,7 @@
         color: rgb(210,210,210);
         font-size: 13px;
     }
+
+    #settlement_type_selector_pari {
+        width: 300px
+    }
