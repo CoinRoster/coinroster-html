@@ -682,9 +682,7 @@ function create_new_contest()
     var submit_error = {error: false};              
     var cost_per_entry = id("roster_cost_per_entry").value;
     var number_of_payouts = id("number_of_payouts").value;
-    var roster_jackpot_min_users = id("roster_jackpot_min_users").value;
     var roster_jackpot_max_users = id("roster_jackpot_max_users").value;
-    var roster_double_up_min_users = id("roster_double_up_min_users").value;
     var roster_double_up_max_users = id ("roster_double_up_max_users").value;
     var max_rosters_per_user = id("max_rosters_per_user").value;
     var jackpot_table_error = false;
@@ -715,9 +713,7 @@ function create_new_contest()
     clear_error("roster_golf_bogeys");
     clear_error("roster_golf_double_bogeys");
     clear_error("number_of_payouts");
-    clear_error("roster_jackpot_min_users");
     clear_error("roster_jackpot_max_users");
-    clear_error("roster_double_up_min_users");
     clear_error("roster_double_up_max_users");
     clear_error("max_rosters_per_user");
     // clear_error("roster_size");
@@ -799,25 +795,17 @@ function create_new_contest()
       alert("Please enter a valid number of payouts (must be three or more)");
     } else if (jackpot_table_error && !submit_error.error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
-    } else if (settlement_type === "Jackpot" && (!roster_jackpot_min_users || Number(roster_jackpot_min_users) < 1) && !submit_error.error) {
-      add_error("roster_jackpot_min_users");
-      alert("Please enter a valid minimum number of users");
     } else if (settlement_type === "Jackpot" && (
         !roster_jackpot_max_users || 
-        Number(roster_jackpot_max_users) < 0 || 
-        Number(roster_jackpot_max_users) < Number(roster_jackpot_min_users)) &&
+        Number(roster_jackpot_max_users) < 0) &&
         Number(roster_jackpot_max_users) !== 0 && !submit_error.error
-      ) 
+      )
     {
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if (settlement_type === "Double-Up" && !submit_error.error && (!roster_double_up_min_users || Number(roster_double_up_min_users) < 0)) {
-      add_error("roster_double_up_min_users");
-      alert("Please enter a valid minimum number of users");
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
-        Number(roster_double_up_max_users) < 0 ||
-        Number(roster_double_up_max_users) < Number(roster_double_up_min_users)) &&
+        Number(roster_double_up_max_users) < 0) &&
         Number(roster_double_up_max_users) !== 0 && !submit_error.error
       ) 
     {  
@@ -837,11 +825,9 @@ function create_new_contest()
 
       if (settlement_type === "Jackpot") {
         json_obj.jackpot_payouts = jackpot_payouts;
-        json_obj.min_users = Number(roster_jackpot_min_users);
         json_obj.max_users = Number(roster_jackpot_max_users);
         json_obj.settlement_type = "JACKPOT";
       } else if (settlement_type === "Double-Up") {
-        json_obj.min_users = Number(roster_double_up_min_users);
         json_obj.max_users = Number(roster_double_up_max_users);
         json_obj.settlement_type = "DOUBLE-UP";
       } else {
@@ -1328,51 +1314,39 @@ var category = get_url_param("category");
 if (category === "basketball" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 } else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 } else if (category === "golf" && avaliable_sports.GOLF_4) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 } else if (category === "golfprops" && avaliable_sports.GOLF_4) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 } else if (category === "baseball" && avaliable_sports.BASEBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 } else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-  contest_type_selector.disabled = true;
 }
 
 if (category === "basketball" && avaliable_sports.BASKETBALL) {
   roster_sport_selector.value = "Basketball";
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
 } else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
   prop_sport_selector.value = "Basketball";
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
 } else if (category === "golf" && avaliable_sports.GOLF_4) {
   roster_sport_selector.value = "Golf";
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
 } else if (category === "golfprops" && avaliable_sports.GOLF_4) {
   prop_sport_selector.value = "Golf";
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
 } else if (category === "baseball" && avaliable_sports.BASEBALL) {
   roster_sport_selector.value = "Baseball";
   roster_sport_selector.onchange();
-  roster_sport_selector.disabled = true;
 } else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
   prop_sport_selector.value = "Baseball";
   prop_sport_selector.onchange();
-  prop_sport_selector.disabled = true;
 }
