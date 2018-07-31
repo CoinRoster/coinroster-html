@@ -1225,7 +1225,7 @@ function create_new_contest()
 
       console.log(json_obj);
 
-      // create_contest_attempt(json_obj, "SetupProp");
+      create_contest_attempt(json_obj, "SetupPropBet");
     }
   }
 
