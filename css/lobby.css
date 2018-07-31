@@ -524,10 +524,10 @@
     .redirect_button {
         cursor: default;
         float: right;
-        color: rbg(220,222,224) !important;
+        color: rgb(220,222,224) !important;
     }
 
     .redirect_button:hover {
-        cursor: default;
-        border-bottom: 1px solid rbg(220,222,224);
+        cursor: pointed;
+        border-bottom: 1px solid rgb(220,222,224);
     }
