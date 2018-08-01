@@ -54,11 +54,9 @@
         var subs = document.getElementsByClassName("lobby_body_container")[0].children;
         for(i = 0; i < subs.length; i++){
             sub_cat = subs[i].href.split("&sub=")[1].toUpperCase();
-            console.log(sub_cat)
             var open_div = subs[i].getElementsByClassName("open_contests_class")[0];
             var in_play_div = subs[i].getElementsByClassName("in_play_detail")[0];
             var open = rtn[sub_cat].open;
-            console.log("open: " + open);
             if(open > 0){
                 open_div.innerHTML = open + " open";
                 open_div.classList.add("green");
@@ -66,7 +64,6 @@
                  open_div.innerHTML = "0 open";
             }
             var in_play = rtn[sub_cat].in_play;
-            console.log("in play: " + in_play);
             if(in_play > 0){
                 in_play_div.innerHTML = in_play + " in play";
                 in_play_div.classList.add("orange");
