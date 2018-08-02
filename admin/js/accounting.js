@@ -128,8 +128,8 @@
             }
         var red_alert = "rgb(230,0,0)";
         id("number_of_users").innerHTML = number_of_users + " users";
-        id("ledger_balance_btc").innerHTML = btc_accumulator.toString() + " BTC";
-        id("ledger_balance_rc").innerHTML = rc_accumulator + " RC";
+        id("ledger_balance_btc").innerHTML = btc_accumulator.toFixed(8) + " BTC";
+        id("ledger_balance_rc").innerHTML = rc_accumulator.toFixed(8) + " RC";
         if (btc_accumulator !== 0) id("ledger_balance_btc").style.color = red_alert;
         if (rc_accumulator !== 0) id("ledger_balance_rc").style.color = red_alert;
         }
