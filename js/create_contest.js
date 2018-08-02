@@ -68,14 +68,17 @@ contest_type_selector.onchange = function()
       // Set titles
       if (basketball) {
         var title = avaliable_sports.basketball_contest;
+        console.log(title);
       } 
       
       if (golf) {
         var title = avaliable_sports.golf_contest;
+        console.log(title);
       }
       
       if (baseball) {
         var title = avaliable_sports.baseball_contest;
+        console.log(title);
       }
 
       // Cant have two .add() inside of one statement, only second one is called...?
@@ -616,7 +619,7 @@ function get_score_value(input, name, score_obj, error) {
     } else if (name === "eagles") {
       score_obj["eagles+"] = Number(id(input).value);
     } else if (name === "double-bogeys") {
-      score_obj["double_bogeys+"] = Number(id(input).value);
+      score_obj["double_bogeys-"] = Number(id(input).value);
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
@@ -648,9 +651,8 @@ function create_contest_attempt(data, method)
    
     if (call.status === "1" && data.private) 
     {
-      show_simple_modal(`Contest created! Your private contest's unique URL: \n ` + call.url, "good", () => {
-        window.location = call.url; 
-      });
+      alert(`Contest created! Your private contest's unique URL: \n ` + call.url);
+      window.location = call.url; 
     } else if (call.status === "1") 
       {
         alert("Your contest has been created successfully!");
@@ -852,7 +854,7 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
       
-      console.log(json_obj)
+      console.log(json_obj);
 
       create_contest_attempt(json_obj, "SetupRoster");
 
@@ -1190,7 +1192,7 @@ function create_new_contest()
           prop_data.player_id = player;
         }
         
-        prop_data.scoring_rules = scoring;
+        json_obj.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
       }
     };
