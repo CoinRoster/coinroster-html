@@ -220,7 +220,7 @@ and open the template in the editor.
                  position: fixed;
                 z-index: 12;
                 left: -500px;
-                top: -500px;
+                top:  100px;
                 right: -500px;
                 bottom: -500px;
                 overflow: hidden;
