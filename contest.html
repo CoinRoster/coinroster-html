@@ -854,6 +854,41 @@
             });
         }
     
+    function addRowHandlers() {
+        var table = document.getElementById("player_table");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = 
+                function(row) 
+                {
+                    return function() { 
+                        var player_id = row.id.replace("player_", "");
+                        var rtn = get_data(player_id, "GOLF");
+                        console.log(rtn.data);
+                        return rtn;
+                    };
+                };
+
+            currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+window.onload = addRowHandlers();
+function get_data(id, sport)
+  {
+    var call = api({
+        method: "GetPlayerData",
+        args: {
+		sport: sport,
+		player_id: id
+		}
+    });
+    
+    if (call.status === "1") return call;
+    else return null;
+  }
+
+    
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
