@@ -168,8 +168,8 @@
                                     <label for="roster_golf_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="round_tournament" id="roster_golf_tournament" checked/>
-                                    <label for="roster_golf_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="round_tournament" id="roster_golf_tournament"/>
+                                    <label class="dimmed roster_golf_tournament" for="roster_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                         </div>
@@ -486,8 +486,8 @@
                                     <label for="prop_golf_over_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="prop_golf_over_round_tournament" checked id="prop_golf_over_tournament"/>
-                                    <label for="prop_golf_over_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="prop_golf_over_round_tournament" id="prop_over_golf_tournament"/>
+                                    <label class="dimmed prop_over_golf_tournament" for="prop_over_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                         </div>
@@ -563,8 +563,8 @@
                                     <label for="prop_golf_match_play_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="prop_golf_match_round_tournament" checked id="prop_golf_match_play_tournament"/>
-                                    <label for="prop_golf_match_play_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="prop_golf_match_round_tournament" id="prop_match_play_golf_tournament"/>
+                                    <label class="dimmed prop_match_play_golf_tournament" for="prop_match_play_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                             <div class="prop_golf_match_players input_padding">
@@ -611,8 +611,8 @@
                                     <label for="roster_golf_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament"name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_tournament" checked/>
-                                    <label for="roster_golf_tournament">Tournament</label>
+                                    <input type="radio" value="tournament"name="prop_golf_shots_round_tournament" id="prop_number_of_shots_golf_tournament"/>
+                                    <label class="dimmed prop_number_of_shots_golf_tournament" for="roster_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                             <div class="prop_golf_number_of_shots_player input_padding">
@@ -849,9 +849,6 @@
         hide("submit_button_container");
     } else {
         show("submit_button_container");
-    }
-    function init(){
-        populate_category_selector('category_selector');
     }
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
