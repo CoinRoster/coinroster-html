@@ -1375,8 +1375,8 @@ if (avaliable_sports.GOLF_1) {
     labels[index].classList.remove("dimmed");
   })
 } else if (avaliable_sports.GOLF_3) {
-  $.each(round_one_radios, function(index) {
-    round_one_radios[index].disabled = false;
-    round_one_labels[index].classList.remove("dimmed");
+  $.each(round_three_radios, function(index) {
+    round_three_radios[index].disabled = false;
+    round_three_labels[index].classList.remove("dimmed");
   });
 }
