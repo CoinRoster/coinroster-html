@@ -296,7 +296,7 @@
             row_data.push("<span class=\"draft_count_color\">" + count + "</span>");
             }
             
-        row_data.push("<span class=\"get_info\"><i class=\"fas fa-arrow-circle-right\"></i></span>");
+        row_data.push("<span onclick=\"open_dashboard(this)\"><i class=\"fas fa-arrow-circle-right\"></i></span>");
         
         var row = new_row(table, row_index, row_data);
         row[0].id = "player_" + player_id;
