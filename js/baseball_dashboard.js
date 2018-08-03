@@ -234,5 +234,9 @@ function displayBaseballDash(data){
             close();
         }
     };
+    
+    function draft_player(){
+        add_player(data.id);
+    }
 
 }
