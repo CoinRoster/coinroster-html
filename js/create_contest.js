@@ -1397,7 +1397,7 @@ basketball_over_under.onblur = function()
   {
     var value = Number(basketball_over_under.value);
 
-    if (Number.isInteger(value) && !isNaN(value)) {
+    if (Number.isInteger(Number(value)) && !isNaN(value)) {
       document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
     }
   }
@@ -1406,7 +1406,7 @@ golf_over_under.onblur = function()
   {
     var value = Number(golf_over_under.value);
 
-    if (Number.isInteger(value) && !isNaN(value)) {
+    if (Number.isInteger(Number(value)) && !isNaN(value)) {
       console.log('hello');
       document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
      }
@@ -1419,7 +1419,7 @@ baseball_over_under.onblur = function()
     console.log(Number.isInteger(value));
     console.log(!isNaN(value));
 
-    if (Number.isInteger(value) && !isNaN(value) && !value) {
+    if (Number.isInteger(Number(value)) && !isNaN(value) && !value) {
       console.log("conditoins passed");
       document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
     }
