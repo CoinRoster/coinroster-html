@@ -336,9 +336,10 @@
             
         row[2].width = "1";
         row[2].style.textAlign = "right";
-        if (row[3])
+        row[3].width = "1";
+        if (row[4])
             {
-            row[3].width = "1";
+            row[4].width = "1";
             row[3].style.textAlign = "right";
             }   
         }
