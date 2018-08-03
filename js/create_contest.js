@@ -1389,31 +1389,33 @@ if (avaliable_sports.GOLF_1) {
 }
 
 // Enfore decimal on over/under
-function validate_over_under(value) {
-  return Number.isInteger(value);
-}
-
 var basketball_over_under = document.getElementById("props_basketball_over_under_value");
 var golf_over_under = document.getElementById("prop_golf_over_under_value");
 var baseball_over_under = document.getElementById("prop_baseball_over_under_value");
 
 basketball_over_under.onblur = function() 
- {
-   if (validate_over_under(basketball_over_under.value)) {
-      basketball_over_under.value += 0.5;
-   }
- }
-
- golf_over_under.onblur = function()
   {
-    if (validate_over_under(golf_over_under.value)) {
+    var value = basketball_over_under.value;
+
+    if (Number.isInteger(value) && !isNaN(value)) {
+      document.getElementById("props_basketball_over_under_value").value += 0.5;
+    }
+  }
+
+golf_over_under.onblur = function()
+  {
+    var value = golf_over_under.value;
+
+    if (Number.isInteger(value) && !isNaN(value)) {
       golf_over_under.value += 0.5;
-   }
+     }
   }
 
 baseball_over_under.onblue = function()
- {
-  if (validate_over_under(baseball_over_under.value)) {
-    baseball_over_under.value += 0.5;
+  {
+    var value = baseball_over_under.value;
+
+    if (Number.isInteger(value) && !isNaN(value)) {
+      baseball_over_under.value += 0.5;
+    }
   }
- }
