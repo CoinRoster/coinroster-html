@@ -1398,7 +1398,11 @@ basketball_over_under.onblur = function()
     var value = basketball_over_under.value;
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
-      document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
+      if (Number(value) < 0) {
+        document.getElementById("props_basketball_over_under_value").value = Number(value) - 0.5;
+      } else {
+        document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
+      }
     }
   }
 
@@ -1407,7 +1411,11 @@ golf_over_under.onblur = function()
     var value = golf_over_under.value;
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
-      document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
+      if (Number(value) < 0) {
+        document.getElementById("prop_golf_over_under_value").value = Number(value) - 0.5;
+      } else {
+        document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
+      }
      }
   }
 
@@ -1416,6 +1424,10 @@ baseball_over_under.onblur = function()
     var value = baseball_over_under.value;
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
-      document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
+      if (Number(value) < 0) {
+        document.getElementById("prop_baseball_over_under_value").value = Number(value) - 0.5;
+      } else {
+        document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
+      }
     }
   }
