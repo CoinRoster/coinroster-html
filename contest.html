@@ -874,10 +874,10 @@ function get_data(id, sport)
 function open_dashboard(span){
     var player_id  = span.parentElement.parentElement.id;
     console.log(player_id);
-    var sport = "GOLF";
+    var sport = document.getElementById("sub_category").innerText.replace("Fantasy", "").replace("Props", "").toUpperCase();
     var rtn = get_data(player_id.replace("player_", ""), sport);
     var data = rtn.data;
-    displayAll(data);
+    displayGolfDash(data);
 }
 
 </script>
