@@ -1414,7 +1414,7 @@ golf_over_under.onblur = function()
 
 baseball_over_under.onblur = function()
   {
-    var value = Number(baseball_over_under.value);
+    var value = baseball_over_under.value;
 
     console.log("onblur called");
 
