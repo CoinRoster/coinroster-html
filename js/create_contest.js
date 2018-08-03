@@ -1399,21 +1399,21 @@ var baseball_over_under = document.getElementById("prop_baseball_over_under_valu
 
 basketball_over_under.onblur = function() 
  {
-   var value = basketball_over_under.value;
-
-   console.log(value);
+   if (validate_over_under(basketball_over_under.value)) {
+      basketball_over_under.value += 0.5;
+   }
  }
 
  golf_over_under.onblur = function()
   {
-    var value = golf_over_under.value;
-
-    console.log(value);
+    if (validate_over_under(golf_over_under.value)) {
+      golf_over_under.value += 0.5;
+   }
   }
 
 baseball_over_under.onblue = function()
  {
-  var value = baseball_over_under.value;
-
-  console.log(value);
+  if (validate_over_under(baseball_over_under.value)) {
+    baseball_over_under.value += 0.5;
+  }
  }
