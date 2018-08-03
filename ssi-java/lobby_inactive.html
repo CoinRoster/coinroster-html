@@ -8,8 +8,7 @@
                 <h3 class="lobby_tagline">
                     Daily Fantasy Sports for Bitcoin
                 </h3>
-                <div class="lobby_value_prop">
-                    <a class="orange" href="/signup.html" style="text-decoration:none">JOIN NOW</a> TO PLAY<br/>BITCOIN FANTASY SPORTS!
+                <div id="lobby_value_prop">
                 </div>
                 <a class="lobby_play_now_button green_background" href="/signup.html">PLAY NOW</a>
                 <a class="lobby_login link steel" href="/login.html">Log in</a>
@@ -17,3 +16,14 @@
         </tr>
     </table>
 </div>
+<script>
+function change_text(){
+    var call = api({
+        method: "GetLandingString",
+        args: {}
+    });
+    if (call.status === "1") return call.html;
+    else return null;
+}
+document.getElementById("lobby_value_prop").innerHTML = change_text();
+</script>
