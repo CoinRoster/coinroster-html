@@ -1,0 +1,117 @@
+<!-- SSI: golf_dashboard.html -->
+<link rel="stylesheet" href="/css/golf_stats.css">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<div id="stats_modal" class="modal">
+    <!-- Modal content -->
+
+    <div class="modal-content">
+        <div class="modal-body">
+        <span class="close">&times;</span>
+
+        <div id="mobile_header" class="container-fluid">
+            <div class="col-md-6 col-sm-6" style="padding: 0px;"></div>
+            <div class="col-md-6 col-sm-6" style="padding: 0px;">                                 
+                <h1 id="mobile_playername"></h1>    
+                <hr class="seperator">                                       
+            </div>    
+        </div>
+
+        <div class="container-fluid">
+                <div id="playerphoto" class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
+                    <div id="frame">
+                        <div id="headshot_frame">                    
+                            <img alt="playerpic" width="230" height="160" id="headshot" class="img-responsive">
+                        </div>
+                        <div id="country_frame">
+                            <img alt="flag" id="flag" class="img-responsive">
+                        </div>
+                        <div id="spot_frame">
+                            <img src="/img/spotlight.png" alt="spot" width="230" height="175" id="spot" class="img-responsive">  
+                        </div>
+                    </div>
+                </div>
+                <div id="playerinfo" class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
+                    <div id="header">
+                        <h1 id="player_name"></h1>    
+                        <hr id="underline" class="seperator">
+                    </div>
+                    <div id="listinfo">                       
+                        <p id="country_list"></p>
+                        <p id="height_list"></p>
+                        <p id="weight_list"></p>
+                        <p id="born_list"></p>
+                    </div>
+                    <div id="tableinfo" class="table-responsive">
+                        <table>
+                            <tr>
+                                <td class="table_header dash_col">Country</td>
+                                <td class="table_header dash_col">Height</td>
+                                <td class="table_header dash_col">Weight</td>
+                            </tr>
+                            <tr>
+                                <td id="country_table dash_col"></td>
+                                <td id="height_table dash_col"></td>
+                                <td id="weight_table dash_col"></td>
+                            </tr>
+                            <tr>
+                                <td class="table_header dash_col" colspan="4">Born</td>
+                            </tr>
+                            <tr>
+                                <td id="born_table dash_col" colspan="4"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>           
+        </div>
+
+        <hr class="seperator">
+        <button id="stats_tab" class="tab">STATS</button>
+        <button id="news_tab" class="tab">NEWS</button>
+
+        <div id="stats_table" class="table-responsive" style="overflow-x: scroll;">
+            <table id="season_stats_table">
+                <caption id="season_stats"></caption>
+                    <tr>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                    </tr>
+                    <tr>   
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                        <td class="dash_col stat_category"></td>
+                    </tr>
+                    <tr>   
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+            </table>
+            <table id="prev_games_table">
+                <caption id="prev_games"></caption>
+            </table>
+        </div>
+
+        <div id="newsfeed">
+            <a class="twitter-timeline" data-lang="en" data-width="100%" data-height="400" data-theme="dark" href="https://twitter.com/RotoworldGolf?ref_src=twsrc%5Etfw">Tweets by @RotoworldGolf</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                
+        </div>
+
+        </div>
+        <div id="footer">                    
+            <button id="draft_button">DRAFT</button>
+        </div>
+    </div>
+
+</div>
+<!-- end SSI Include -->

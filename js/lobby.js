@@ -287,6 +287,7 @@
             
         var row_data = [
             "<span class=\"\">" + name + "</span>",
+            "<span class=\"get_info\">Info</span>",
             "<span class=\"green\">$" + commas(price) + "</span>"
         ];
         
@@ -297,7 +298,6 @@
             }
         
         var row = new_row(table, row_index, row_data);
-        
         row[0].id = "player_" + player_id;
         row[0].player_id = player_id,
         row[0].name = name;
