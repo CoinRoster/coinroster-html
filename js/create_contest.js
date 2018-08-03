@@ -1176,7 +1176,7 @@ function create_new_contest()
         }
 
         get_score_value("prop_baseball_over_rbi", "RBIs", scoring, submit_error);
-        get_score_value("roster_baseball_over_hits", "hits", scoring, submit_error);
+        get_score_value("prop_baseball_over_hits", "hits", scoring, submit_error);
         get_score_value("prop_baseball_over_runs", "runs", scoring, submit_error);
         get_score_value("prop_baseball_over_strikeouts", "strikeouts", scoring, submit_error);
         get_score_value("prop_baseball_over_walks", "walks", scoring, submit_error);
