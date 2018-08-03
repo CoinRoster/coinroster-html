@@ -1000,7 +1000,7 @@ function create_new_contest()
         var player = document.getElementById("prop_golf_over_under_player").value;
         var round_tournament = getCheckedValue("prop_golf_over_round_tournament");
 
-        if (!over_under_value && !submit_error.error) {
+        if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           alert("Please enter a valid over/under value");
           add_error("prop_golf_over_under_value");
           submit_error.error = true;
@@ -1167,7 +1167,7 @@ function create_new_contest()
         var over_under_value = document.getElementById("prop_baseball_over_under_value").value;
         var player = document.getElementById("prop_baseball_over_under_player").value;
 
-        if (!over_under_value && !submit_error.error) {
+        if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           alert("Please enter a valid over/under value");
           add_error("prop_baseball_over_under_value");
           submit_error.error = true;
@@ -1387,3 +1387,33 @@ if (avaliable_sports.GOLF_1) {
 } else if (avaliable_sports.GOLF_3) {
   enable_radios(round_three_radios, round_three_labels);
 }
+
+// Enfore decimal on over/under
+function validate_over_under(value) {
+  return Number.isInteger(value);
+}
+
+var basketball_over_under = document.getElementById("props_basketball_over_under_value");
+var golf_over_under = document.getElementById("prop_golf_over_under_value");
+var baseball_over_under = document.getElementById("prop_baseball_over_under_value");
+
+basketball_over_under.onblur = function() 
+ {
+   var value = basketball_over_under.value;
+
+   console.log(value);
+ }
+
+ golf_over_under.onblur = function()
+  {
+    var value = golf_over_under.value;
+
+    console.log(value);
+  }
+
+baseball_over_under.onblue = function()
+ {
+  var value = baseball_over_under.value;
+
+  console.log(value);
+ }
