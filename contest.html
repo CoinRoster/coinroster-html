@@ -10,7 +10,8 @@
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
-<!--#include virtual="/ssi/golf_dashboard.html" -->
+<!--#include virtual="/ssi/baseball_dashboard.html" -->
+    
 <div id="page_body">
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
@@ -243,6 +244,7 @@
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script src="/js/golf_stats.js"></script>
+<script src="/js/baseball_dashboard.js"></script>
 
 <script>
 
@@ -873,13 +875,15 @@ function get_data(id, sport)
     
 function open_dashboard(span){
     var player_id  = span.parentElement.parentElement.id;
-    console.log(player_id);
-    var sport = document.getElementById("sub_category").innerText.replace("Fantasy", "").replace("Props", "").toUpperCase();
+    var sport = document.getElementById("sub_category").innerText.replace("Fantasy ", "").replace(" Props", "").toUpperCase();
     var rtn = get_data(player_id.replace("player_", ""), sport);
-    var data = rtn.data;
-    displayGolfDash(data);
+    if(sport === "GOLF")
+        displayGolfDash(rtn.data);
+    else if(sport === "BASEBALL")
+        displayBaseballDash(rtn.data);
+    else if(sport === "BASKETBALL")
+        displayBasketballDash(rtn.data);
 }
-
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 
