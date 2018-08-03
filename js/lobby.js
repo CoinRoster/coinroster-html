@@ -298,7 +298,6 @@
             }
         
         var row = new_row(table, row_index, row_data);
-        console.log(row);
         row[0].id = "player_" + player_id;
         row[0].player_id = player_id,
         row[0].name = name;
