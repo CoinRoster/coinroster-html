@@ -241,6 +241,8 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script src="/js/golf_stats.js"></script>
+
 <script>
 
     function init()
@@ -857,11 +859,13 @@
     var info_buttons = document.getElementsByClassName("get_info");
     for (i = 0; i < info_buttons.length; i++) {
         info_buttons[i].addEventListener("click", function() {
-            var player_id  = this.parent.parent.parent.id;
+            var player_id  = this.parentElement.parentElement.id;
             console.log(player_id);
             var sport = "GOLF";
             var rtn = get_data(player_id.replace("player_", ""), sport);
-            console.log(rtn);
+            var data = rtn.data;
+            displayAll(data);
+            
         });
     }
 function get_data(id, sport)
@@ -881,6 +885,7 @@ function get_data(id, sport)
     
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
+
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>
