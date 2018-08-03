@@ -3,9 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
-    Created on : 19-Jul-2018, 1:28:46 PM
-*/
+
 /*
             .modal-body::-webkit-scrollbar {
                 width: 0px;
@@ -20,7 +18,8 @@ and open the template in the editor.
             table{
                 width:100%;       
             }
-            th, td {
+*/
+            .dash_col{
                 padding: 4px;
                 padding-left: 10px;
                 padding-right: 10px;
@@ -32,7 +31,7 @@ and open the template in the editor.
                 color: rgb(55,56,57);//#c9dee0;
                 background-color: grey;  
             }
-            caption{
+            #season_stats, #prev_games{
                 padding-left: 5px;
                 font-size: 15px; 
                 margin-bottom: 0%;
@@ -41,11 +40,10 @@ and open the template in the editor.
                 background-color: #232426;
                 font-weight: bold;
             }
-            p{
+            .p_list{
                 //margin-top: 0%;
                 margin-bottom: 0%;
             }
-*/
             #playerphoto{
                 margin-top: 2%;
             }
@@ -218,11 +216,11 @@ and open the template in the editor.
                 #season_stats_table, #prev_games_table{
                     width: 150%;
                 }
-                caption{
+                #season_stats, #prev_games{
                     font-size: 4vw;
                     padding-left: 5px;
                 }
-                th,td{
+                .dash_col{
                     font-size: 3vw;
                 }
                 .modal{
@@ -286,7 +284,7 @@ and open the template in the editor.
                 }
             }
             @media screen and (max-width: 767px) and (min-width: 415px) {
-                th,td{
+                .dash_col{
                     font-size: 2vw;
                 }
                 #country_table, #pos_table, #height_table, #weight_table, #born_table{
@@ -303,7 +301,7 @@ and open the template in the editor.
                     font-size:2vw;
                     text-align: center;
                 }
-                caption{
+                #season_stats, #prev_games{
                     font-size: 2vw;
                     padding-left: 5px;
                 }
