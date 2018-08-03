@@ -1414,12 +1414,12 @@ golf_over_under.onblur = function()
 
 baseball_over_under.onblur = function()
   {
-    var value = Number(baseball_over_under.value);
+    var value = baseball_over_under.value;
 
     console.log(Number.isInteger(value));
     console.log(!isNaN(value));
 
-    if (Number.isInteger(value) && !isNaN(value)) {
+    if (Number.isInteger(value) && !isNaN(value) && !value) {
       console.log("conditoins passed");
       document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
     }
