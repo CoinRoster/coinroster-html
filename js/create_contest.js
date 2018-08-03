@@ -16,6 +16,7 @@ var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
 var avaliable_sports = get_available_sports();
 
+// Link scoring checkboxes and input fields
  $.each(checkboxes, function(index, data){
   $(data).on('change', function(){
     if ($(this)[0].checked) {
@@ -691,7 +692,6 @@ function create_new_contest()
       submit_error.error = true;
     }
 
-    // Clear errors
     clear_error("roster_cost_per_entry");
     clear_error("roster_basketball_points");
     clear_error("roster_basketball_rebounds");
@@ -780,7 +780,8 @@ function create_new_contest()
 
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
       alert("Please select at least one scoring option");
-    } else if (sport === "Golf" && round_tournament === "on") {
+    } else if (sport === "Golf" && (round_tournament === "on" || !round_tournament) && !submit_error.error) {
+      submit_error.error = true;
       alert("Please select either a round or tournament");
     } else if ((!cost_per_entry || isNaN(cost_per_entry)) && !submit_error.error) {
       add_error("roster_cost_per_entry");
@@ -874,7 +875,6 @@ function create_new_contest()
     var scoring_required = {required: true};
     var sport = selectorValue("prop_sport_selector");
 
-    // Clear errors
     clear_error("prop_basketball_match_points");
     clear_error("props_basketball_match_rebounds");
     clear_error("props_basketball_match_assists");
@@ -911,7 +911,6 @@ function create_new_contest()
     clear_error("prop_baseball_match_strikeouts");
     clear_error("prop_baseball_match_walks");
     
-
     if (!sport) {
       alert("Please select a sport");
       submit_error.error = true;
@@ -1353,10 +1352,12 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
 var round_one_radios = $("*[id$='_round_one']");
 var round_two_radios = $("*[id$='_round_two']");
 var round_three_radios = $("*[id$='_round_three']");
+var tournament_radios = $("*[id$='_golf_tournament']");
 
 var round_one_labels = $("*[class$='_round_one']");
 var round_two_labels = $("*[class$='_round_two']");
 var round_three_labels = $("*[class$='_round_three']");
+var tournament_labels = $("*[class$='_golf_tournament']");
 
 function enable_radios(radios, labels) {
   $.each(radios, function(index) {
@@ -1366,8 +1367,18 @@ function enable_radios(radios, labels) {
 }
 
 if (avaliable_sports.GOLF_1) {
-  var radios = $.merge(round_one_radios, round_two_radios, round_three_radios);
-  var labels = $.merge(round_one_labels, round_two_labels, round_three_labels);
+  var radios = $.merge(
+    round_one_radios, 
+    round_two_radios, 
+    round_three_radios, 
+    tournament_radios
+  );
+  var labels = $.merge(
+    round_one_labels, 
+    round_two_labels, 
+    round_three_labels, 
+    tournament_labels
+  );
   enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_2) {
   var radios = $.merge(round_two_radios, round_three_radios);
