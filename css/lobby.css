@@ -414,11 +414,17 @@
     .player_table tr {
         background: rgb(80,82,84);
         border: 1px solid rgb(100,102,104);
-        cursor: pointer;
+        
     }
     /*.player_table tr:hover {
         background: rgb(100,102,104);
     }*/
+    .dashboard_opener{
+        cursor: pointer;
+    }
+    .player_table td:first-child{
+        cursor: pointer;
+    }
     .player_table td {
         font-size: 14px;
         padding: 5px 0 5px 20px;
