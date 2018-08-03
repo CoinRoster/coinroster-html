@@ -1349,7 +1349,7 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
   prop_sport_selector.onchange();
 }
 
-// Enable correct round radio buttons
+// Enable correct round / tournament radio buttons
 var round_one_radios = $("*[id$='_round_one']");
 var round_two_radios = $("*[id$='_round_two']");
 var round_three_radios = $("*[id$='_round_three']");
@@ -1358,25 +1358,21 @@ var round_one_labels = $("*[class$='_round_one']");
 var round_two_labels = $("*[class$='_round_two']");
 var round_three_labels = $("*[class$='_round_three']");
 
+function enable_radios(radios, labels) {
+  $.each(radios, function(index) {
+    radios[index].disabled = false;
+    labels[index].classList.remove("dimmed");
+  });
+}
+
 if (avaliable_sports.GOLF_1) {
   var radios = $.merge(round_one_radios, round_two_radios, round_three_radios);
   var labels = $.merge(round_one_labels, round_two_labels, round_three_labels);
-
-  $.each(radios, function(index) {
-    radios[index].disabled = false;
-    labels[index].classList.remove("dimmed");
-  });
+  enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_2) {
   var radios = $.merge(round_two_radios, round_three_radios);
   var labels = $.merge(round_two_labels, round_three_labels);
-
-  $.each(radios, function(index) {
-    radios[index].disabled = false;
-    labels[index].classList.remove("dimmed");
-  })
+  enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_3) {
-  $.each(round_three_radios, function(index) {
-    round_three_radios[index].disabled = false;
-    round_three_labels[index].classList.remove("dimmed");
-  });
+  enable_radios(round_three_radios, round_three_labels);
 }
