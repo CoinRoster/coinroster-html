@@ -1416,8 +1416,9 @@ baseball_over_under.onblur = function()
   {
     var value = baseball_over_under.value;
 
-    console.log(Number.isInteger(value));
+    console.log(Number.isInteger(Number(value)));
     console.log(!isNaN(value));
+    console.log(!value);
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && !value) {
       console.log("conditoins passed");
