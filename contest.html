@@ -853,28 +853,17 @@
                 }
             });
         }
-    
-//    function addRowHandlers() {
-//        var table = document.getElementById("player_table");
-//        var rows = table.getElementsByTagName("tr");
-//        for (i = 0; i < rows.length; i++) {
-//            var currentRow = table.rows[i].
-//            var player_id = currentRow.id.replace("player_", "");
-//            var createClickHandler = 
-//                function(row) 
-//                {
-//                    return function() { 
-//                        var p_id = row.id.replace("player_");
-//                        var rtn = get_data(player_id, "GOLF");
-//                        console.log(rtn.data);
-//                        return rtn;
-//                    };
-//                };
-//
-//            currentRow.onclick = createClickHandler(currentRow);
-//    }
-}
-window.onload = addRowHandlers();
+
+    var info_buttons = document.getElementsByClassName("get_info");
+    for (i = 0; i < info_buttons.length; i++) {
+        info_buttons[i].addEventListener("click", function() {
+            var player_id  = this.parent.parent.parent.id;
+            console.log(player_id);
+            var sport = "GOLF";
+            var rtn = get_data(player_id.replace("player_", ""), sport);
+            console.log(rtn);
+        });
+    }
 function get_data(id, sport)
   {
     var call = api({
