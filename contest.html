@@ -857,18 +857,6 @@
             });
         }
 
-    var info_buttons = document.getElementsByClassName("get_info");
-    for (i = 0; i < info_buttons.length; i++) {
-        info_buttons[i].addEventListener("click", function() {
-            var player_id  = this.parentElement.parentElement.id;
-            console.log(player_id);
-            var sport = "GOLF";
-            var rtn = get_data(player_id.replace("player_", ""), sport);
-            var data = rtn.data;
-            displayAll(data);
-            
-        });
-    }
 function get_data(id, sport)
   {
     var call = api({
@@ -882,6 +870,20 @@ function get_data(id, sport)
     if (call.status === "1") return call;
     else return null;
   }
+
+var info_buttons = document.getElementsByClassName("get_info");
+for (i = 0; i < info_buttons.length; i++) {
+    info_buttons[i].addEventListener("click", function() {
+        var player_id  = this.parentElement.parentElement.id;
+        console.log(player_id);
+        var sport = "GOLF";
+        var rtn = get_data(player_id.replace("player_", ""), sport);
+        var data = rtn.data;
+        displayAll(data);
+
+    });
+}
+
 
     
 </script>
