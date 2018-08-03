@@ -854,25 +854,25 @@
             });
         }
     
-    function addRowHandlers() {
-        var table = document.getElementById("player_table");
-        var rows = table.getElementsByTagName("tr");
-        for (i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i].
-            var player_id = currentRow.id.replace("player_", "");
-            var createClickHandler = 
-                function(row) 
-                {
-                    return function() { 
-                        var p_id = row.id.replace("player_");
-                        var rtn = get_data(player_id, "GOLF");
-                        console.log(rtn.data);
-                        return rtn;
-                    };
-                };
-
-            currentRow.onclick = createClickHandler(currentRow);
-    }
+//    function addRowHandlers() {
+//        var table = document.getElementById("player_table");
+//        var rows = table.getElementsByTagName("tr");
+//        for (i = 0; i < rows.length; i++) {
+//            var currentRow = table.rows[i].
+//            var player_id = currentRow.id.replace("player_", "");
+//            var createClickHandler = 
+//                function(row) 
+//                {
+//                    return function() { 
+//                        var p_id = row.id.replace("player_");
+//                        var rtn = get_data(player_id, "GOLF");
+//                        console.log(rtn.data);
+//                        return rtn;
+//                    };
+//                };
+//
+//            currentRow.onclick = createClickHandler(currentRow);
+//    }
 }
 window.onload = addRowHandlers();
 function get_data(id, sport)
