@@ -296,7 +296,7 @@
             row_data.push("<span class=\"draft_count_color\">" + count + "</span>");
             }
             
-        row_data.push("<span onclick=\"open_dashboard(this)\"><i class=\"fas fa-arrow-circle-right\"></i></span>");
+        row_data.push("<span onclick=\"open_dashboard(this)\"><i class=\"fas fa-user-circle\"></i></span>");
         
         var row = new_row(table, row_index, row_data);
         row[0].id = "player_" + player_id;
@@ -315,7 +315,7 @@
             };
         if (table_id === "player_table") 
             {
-            row[0].onclick = (function(player_id)
+            row[1].onclick = (function(player_id)
                 {
                 return function()
                     {
@@ -325,7 +325,7 @@
             }
         else 
             {
-            row[0].onclick = (function(player_id)
+            row[1].onclick = (function(player_id)
                 {
                 return function()
                     {
