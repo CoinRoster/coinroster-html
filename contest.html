@@ -858,12 +858,13 @@
         var table = document.getElementById("player_table");
         var rows = table.getElementsByTagName("tr");
         for (i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i];
+            var currentRow = table.rows[i].
+            var player_id = currentRow.id.replace("player_", "");
             var createClickHandler = 
                 function(row) 
                 {
                     return function() { 
-                        var player_id = row.id.replace("player_", "");
+                        var p_id = row.id.replace("player_");
                         var rtn = get_data(player_id, "GOLF");
                         console.log(rtn.data);
                         return rtn;

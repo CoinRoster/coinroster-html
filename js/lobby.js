@@ -287,6 +287,7 @@
             
         var row_data = [
             "<span class=\"\">" + name + "</span>",
+            "<span> <button id=\"" + player_id + "\" class=\"get_dashboard\">i</button></span>" 
             "<span class=\"green\">$" + commas(price) + "</span>"
         ];
         
