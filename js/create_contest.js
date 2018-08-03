@@ -68,17 +68,14 @@ contest_type_selector.onchange = function()
       // Set titles
       if (basketball) {
         var title = avaliable_sports.basketball_contest;
-        console.log(title);
       } 
       
       if (golf) {
         var title = avaliable_sports.golf_contest;
-        console.log(title);
       }
       
       if (baseball) {
         var title = avaliable_sports.baseball_contest;
-        console.log(title);
       }
 
       // Cant have two .add() inside of one statement, only second one is called...?
@@ -227,7 +224,7 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
 
-  if (avaliable_sports.GOLF_1 || avaliable_sports.GOLF_2 || avaliable_sports.GOLF_3) {
+  if (avaliable_sports.GOLF_1) {
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
@@ -779,7 +776,7 @@ function create_new_contest()
 
     
     // Validation
-    var scores_empty = jQuery.isEmptyObject(scoring);
+    var scores_empty = $.isEmptyObject(scoring);
 
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
       alert("Please select at least one scoring option");
@@ -1311,6 +1308,7 @@ function create_new_contest()
 
 // Preselect values if coming from sport page
 var category = get_url_param("category");
+
 if (category === "basketball" && avaliable_sports.BASKETBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
@@ -1349,4 +1347,36 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
 } else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
   prop_sport_selector.value = "Baseball";
   prop_sport_selector.onchange();
+}
+
+// Enable correct round radio buttons
+var round_one_radios = $("*[id$='_round_one']");
+var round_two_radios = $("*[id$='_round_two']");
+var round_three_radios = $("*[id$='_round_three']");
+
+var round_one_labels = $("*[class$='_round_one']");
+var round_two_labels = $("*[class$='_round_two']");
+var round_three_labels = $("*[class$='_round_three']");
+
+if (avaliable_sports.GOLF_1) {
+  var radios = $.merge(round_one_radios, round_two_radios, round_three_radios);
+  var labels = $.merge(round_one_labels, round_two_labels, round_three_labels);
+
+  $.each(radios, function(index) {
+    radios[index].disabled = false;
+    labels[index].classList.remove("dimmed");
+  });
+} else if (avaliable_sports.GOLF_2) {
+  var radios = $.merge(round_two_radios, round_three_radios);
+  var labels = $.merge(round_two_labels, round_three_labels);
+
+  $.each(radios, function(index) {
+    radios[index].disabled = false;
+    labels[index].classList.remove("dimmed");
+  })
+} else if (avaliable_sports.GOLF_3) {
+  $.each(round_one_radios, function(index) {
+    round_one_radios[index].disabled = false;
+    round_one_labels[index].classList.remove("dimmed");
+  });
 }
