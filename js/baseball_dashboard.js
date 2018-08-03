@@ -3,10 +3,6 @@ function displayBaseballDash(data){
     // Get the modal
     document.getElementById('stats_modal').style.display = "block";
 
-    $(document).ready(function() {
-        $(".modal-body").customScrollbar();
-    });
-
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
     var news_tab = document.getElementById("newsfeed");
@@ -229,12 +225,12 @@ function displayBaseballDash(data){
     }       
 
     function close(){
-        document.getElementById("modal").style.display = "none";
+        document.getElementById("stats_modal").style.display = "none";
     }
     
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == document.getElementById("modal")) {
+        if (event.target == document.getElementById("stats_modal")) {
             close();
         }
     };
