@@ -1395,7 +1395,7 @@ var baseball_over_under = document.getElementById("prop_baseball_over_under_valu
 
 basketball_over_under.onblur = function() 
   {
-    var value = basketball_over_under.value;
+    var value = Number(basketball_over_under.value);
 
     if (Number.isInteger(value) && !isNaN(value)) {
       document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
@@ -1404,7 +1404,7 @@ basketball_over_under.onblur = function()
 
 golf_over_under.onblur = function()
   {
-    var value = golf_over_under.value;
+    var value = Number(golf_over_under.value);
 
     if (Number.isInteger(value) && !isNaN(value)) {
       console.log('hello');
@@ -1414,7 +1414,7 @@ golf_over_under.onblur = function()
 
 baseball_over_under.onblue = function()
   {
-    var value = baseball_over_under.value;
+    var value = Number(baseball_over_under.value);
 
     if (Number.isInteger(value) && !isNaN(value)) {
       console.log('hello');
