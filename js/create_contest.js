@@ -1368,9 +1368,9 @@ function enable_radios(radios, labels) {
 
 if (avaliable_sports.GOLF_1) {
   var radios = $.merge(
-    round_one_radios, 
-    round_two_radios, 
-    round_three_radios, 
+    round_one_radios,
+    round_two_radios,
+    round_three_radios,
     tournament_radios
   );
   var labels = $.merge(
@@ -1398,7 +1398,7 @@ basketball_over_under.onblur = function()
     var value = basketball_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
-      document.getElementById("props_basketball_over_under_value").value += 0.5;
+      document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
     }
   }
 
@@ -1408,7 +1408,7 @@ golf_over_under.onblur = function()
 
     if (Number.isInteger(value) && !isNaN(value)) {
       console.log('hello');
-      document.getElementById("prop_golf_over_under_value").value += 0.5;
+      document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
      }
   }
 
@@ -1418,6 +1418,6 @@ baseball_over_under.onblue = function()
 
     if (Number.isInteger(value) && !isNaN(value)) {
       console.log('hello');
-      document.getElementById("prop_baseball_over_under_value").value += 0.5;
+      document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
     }
   }
