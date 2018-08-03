@@ -15,10 +15,10 @@ and open the template in the editor.
             body{
                 background-color: rgb(35,36,38);
             }
-            table{
+*/
+            #season_stats_table, #info, #prev_games_table{
                 width:100%;       
             }
-*/
             .dash_col{
                 padding: 4px;
                 padding-left: 10px;
