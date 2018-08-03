@@ -1389,9 +1389,13 @@ if (avaliable_sports.GOLF_1) {
 }
 
 // Enfore decimal on over/under
+var basketball_over_under = document.getElementById("props_basketball_over_under_value");
+var golf_over_under = document.getElementById("prop_golf_over_under_value");
+var baseball_over_under = document.getElementById("prop_baseball_over_under_value");
+
 basketball_over_under.onblur = function() 
   {
-    var value = document.getElementById("props_basketball_over_under_value").value;
+    var value = basketball_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
       document.getElementById("props_basketball_over_under_value").value += 0.5;
@@ -1400,7 +1404,7 @@ basketball_over_under.onblur = function()
 
 golf_over_under.onblur = function()
   {
-    var value = document.getElementById("prop_golf_over_under_value").value;
+    var value = golf_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
       document.getElementById("prop_golf_over_under_value").value += 0.5;
@@ -1409,7 +1413,7 @@ golf_over_under.onblur = function()
 
 baseball_over_under.onblue = function()
   {
-    var value = document.getElementById("prop_baseball_over_under_value").value;
+    var value = baseball_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
       document.getElementById("prop_baseball_over_under_value").value += 0.5;
