@@ -1407,6 +1407,7 @@ golf_over_under.onblur = function()
     var value = golf_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
+      console.log('hello');
       document.getElementById("prop_golf_over_under_value").value += 0.5;
      }
   }
@@ -1416,6 +1417,7 @@ baseball_over_under.onblue = function()
     var value = baseball_over_under.value;
 
     if (Number.isInteger(value) && !isNaN(value)) {
+      console.log('hello');
       document.getElementById("prop_baseball_over_under_value").value += 0.5;
     }
   }
