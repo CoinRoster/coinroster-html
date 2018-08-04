@@ -232,6 +232,10 @@ function displayBaseballDash(data){
         }
     };
     
+    $('#close').click(function() {
+        close()
+    });
+    
 //    document.getElementsByClassName("close")[0].onclick = close();
 
 }
