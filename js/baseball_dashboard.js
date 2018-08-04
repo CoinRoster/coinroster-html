@@ -5,7 +5,7 @@ function displayBaseballDash(data){
     document.getElementById('stats_model_content').style.display = "table";
     document.getElementsByClassName("modal-body")[0].scrollTop = 0;
     document.getElementById("news_tab").style.display = "none";
-    document.getElementById("stats_tab").style.display = "none";
+    document.getElementById("stats_tab").style.display = "block";
     
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
@@ -232,11 +232,11 @@ function displayBaseballDash(data){
     }       
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target !== document.getElementsByClassName("modal-content")[0]) {
-            close_dash();
-        }
-    };
+//    window.onclick = function(event) {
+//        if (event.target !== document.getElementsByClassName("modal-content")[0]) {
+//            close_dash();
+//        }
+//    };
     
     $('#close').click(function() {
         close_dash();
