@@ -2,3 +2,5 @@ crsqlpanel
 js/contest_counts.js
 lobby.html
 sitemap.xml
+.DS_Store
+*/.DS_Store
