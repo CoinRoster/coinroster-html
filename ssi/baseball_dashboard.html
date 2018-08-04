@@ -156,11 +156,12 @@
     function close(){
         document.getElementById("stats_modal").style.display = "none";
     }
+   
+    document.getElementsByClassName("close")[0].onclick = close();
+    
     function draft_player(){
         close();
-        console.log(data.name);
-        add_player(data.id);
-    }
+        add_player(window.player_id);
     }
 </script>
 <!-- end SSI Include -->
