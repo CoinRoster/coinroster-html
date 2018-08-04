@@ -8,7 +8,7 @@
 
     <div class="modal-content">
         <div class="modal-body">
-        <span onclick="close()" class="close">&times;</span>
+        <span id="close" class="close">&times;</span>
 
         <div id="mobile_header" class="container-fluid">
             <div class="responsive" style="padding: 0px;"></div>
@@ -169,5 +169,10 @@
         }
         add_player(window.player_id);
     }
+    
+    $('#close').click(function() {
+        close();
+    }
+});
 </script>
 <!-- end SSI Include -->
