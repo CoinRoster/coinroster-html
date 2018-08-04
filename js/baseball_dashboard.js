@@ -228,12 +228,12 @@ function displayBaseballDash(data){
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == document.getElementById("stats_modal")) {
-            close();
+            close_dash();
         }
     };
     
     $('#close').click(function() {
-        close()
+        close_dash();
     });
     
 //    document.getElementsByClassName("close")[0].onclick = close();
