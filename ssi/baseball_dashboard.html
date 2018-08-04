@@ -161,6 +161,12 @@
     
     function draft_player(){
         close();
+        var roster_table = document.getElementById("roster_table");
+        for (var i = 0, row; row = roster_table.rows[i]; i++) {
+            if(row.id === "player_" + window.player_id){
+                return;
+            }
+        }
         add_player(window.player_id);
     }
 </script>
