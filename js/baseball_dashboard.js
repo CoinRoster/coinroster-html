@@ -232,6 +232,6 @@ function displayBaseballDash(data){
         }
     };
     
-    document.getElementsByClassName("close")[0].onclick = close();
+//    document.getElementsByClassName("close")[0].onclick = close();
 
 }
