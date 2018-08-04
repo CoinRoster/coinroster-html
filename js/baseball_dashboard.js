@@ -40,6 +40,7 @@ function displayBaseballDash(data){
     photo_align(media_query); // Call listener function at run time
     media_query.addListener(photo_align); // Attach listener function on state changes
 
+    window["player_id"] = data.id;
     var header = document.getElementById("player_name").innerHTML = data.name;
     document.getElementById("mobile_playername").innerHTML = data.name;
 
