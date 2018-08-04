@@ -4,8 +4,8 @@ function displayBaseballDash(data){
     document.getElementById('stats_modal').style.display = "block";
     document.getElementById('stats_model_content').style.display = "table";
     document.getElementsByClassName("modal-body")[0].scrollTop = 0;
-    document.getElementById("news_tab").style.display = "none";
-    document.getElementById("stats_tab").style.display = "block";
+    document.getElementById("stats_table").style.display = "block";
+    document.getElementById("newsfeed").style.display = "none";
     
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
