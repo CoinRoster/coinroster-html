@@ -178,5 +178,11 @@
     $('#close').click(function() {
         close_dash();
     });
+    
+    $(document).keyup(function(e) {
+     if (e.keyCode == 27) { // escape key maps to keycode `27`
+       close_dash();
+    }
+});
 </script>
 <!-- end SSI Include -->
