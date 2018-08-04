@@ -4,6 +4,8 @@ function displayBaseballDash(data){
     document.getElementById('stats_modal').style.display = "block";
     document.getElementById('stats_model_content').style.display = "table";
     document.getElementsByClassName("modal-body")[0].scrollTop = 0;
+    document.getElementById("news_tab").style.display = "none";
+    document.getElementById("stats_tab").style.display = "none";
     
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
@@ -20,6 +22,8 @@ function displayBaseballDash(data){
             for (var i = 0; i < tweets.length; i++) {
                 tweets[i].style.fontSize = "100%";
                 tweets[i].style.lineHeight = "16px";
+            }
+            for (var i = 0; i < media.length; i++){
                 media[i].style.display = "none";
             }
        }, 100);
@@ -229,7 +233,7 @@ function displayBaseballDash(data){
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == document.getElementById("stats_modal")) {
+        if (event.target !== document.getElementsByClassName("modal-content")[0]) {
             close_dash();
         }
     };
