@@ -73,6 +73,7 @@ and open the template in the editor.
             }
             .dashboard_p{
                 margin: 0;
+                font-size:14px;
             }
             #playerphoto{
                 margin-top: 2%;
@@ -102,6 +103,7 @@ and open the template in the editor.
                 font-size: 1.2vw; 
                 font-family: sans-serif;
                 font-weight: bold;
+                cursor: pointer;
             }
             #newsfeed{
                 display: none;
@@ -116,7 +118,7 @@ and open the template in the editor.
                 font-weight: bold; 
             }
             #player_name, #mobile_playername{
-                font-size: 2.2vw;
+                /*font-size: 2.2vw;*/
                 margin-bottom: 2%;
                 //line-height: 5px;
                 font-family: sans-serif;//Arial;
@@ -271,7 +273,7 @@ and open the template in the editor.
                 #mobile_playername{
                     font-size: 8vw;
                     text-align: center;
-                    margin-top: -5%;
+/*                    margin-top: -5%;*/
                     margin-bottom: 5%;
                 }
                 #season_stats_table, #career_stats_table, #prev_games_table{
