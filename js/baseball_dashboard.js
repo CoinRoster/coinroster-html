@@ -2,6 +2,7 @@ function displayBaseballDash(data){
 
     // Get the modal
     document.getElementById('stats_modal').style.display = "block";
+    document.getElementById('stats_model_content').style.display = "table";
 
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
