@@ -17,14 +17,14 @@ and open the template in the editor.
             .container-fluid{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
             .img-responsive{display:block;max-width:100%;height:auto}
             
-            @media screen and (min-width: 576px) {
+            @media screen and (min-width: 768px) {
                 .responsive{
                     width: 50%;
                     float: left;
                     position: relative;
                 }
             }
-            @media screen and (max-width: 576px) {
+            @media screen and (max-width: 767px) {
                 .responsive{
                     width: 100%;
                     float: left;
