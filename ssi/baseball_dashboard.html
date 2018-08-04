@@ -153,14 +153,12 @@
 
 </div>
 <script>
-    function close(){
+    function close_dash(){
         document.getElementById("stats_modal").style.display = "none";
     }
-   
-    document.getElementsByClassName("close")[0].onclick = close();
     
     function draft_player(){
-        close();
+        close_dash();
         var roster_table = document.getElementById("roster_table");
         for (var i = 0, row; row = roster_table.rows[i]; i++) {
             if(row.id === "player_" + window.player_id){
@@ -171,8 +169,7 @@
     }
     
     $('#close').click(function() {
-        close();
-    }
-});
+        close_dash();
+    });
 </script>
 <!-- end SSI Include -->
