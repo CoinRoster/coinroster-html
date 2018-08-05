@@ -40,7 +40,7 @@ var avaliable_sports = get_available_sports();
                   `${game.name} + " " ${new Date(game.date_milli).toLocaleTimeString()}` + 
                 "</label>"
 
-      div.appendChild(row);
+      div.add(row);
     });
   };
 
