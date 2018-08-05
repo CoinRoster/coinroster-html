@@ -39,7 +39,7 @@ var avaliable_sports = get_available_sports();
       var title_div = document.createElement("span");
 
       input.type = 'checkbox';
-      input.value = game.id;
+      input.value = game.gameID;
       input.checked = true;
       
       title_div.class ="game_checkbox_title";
