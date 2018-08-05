@@ -699,15 +699,25 @@ function create_contest_attempt(data, method)
 
 function populate_gameIDs(games, gameID)
   {
-    games.forEach((game) => {
-      console.log(game)
-      var checked = game.childNodes[0].checked;
+    // games.forEach((game) => {
+    //   console.log(game)
+    //   var checked = game.childNodes[0].checked;
+
+    //   if (checked) {
+    //     gameID.push(game.childNodes[0].value);
+    //     console.log(gameID);
+    //   }
+    // });
+    console.log(games)
+
+    for (var i=0; i<games.length; i++) {
+      var checked = games[i].childNodes[0].checked;
 
       if (checked) {
-        gameID.push(game.childNodes[0].value);
+        gameID.push(games[i].childNodes[0].value);
         console.log(gameID);
       }
-    });
+    }
   }
 
 function create_new_contest()
