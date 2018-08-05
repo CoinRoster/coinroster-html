@@ -33,6 +33,7 @@ var avaliable_sports = get_available_sports();
  // Generate checkboxes for avaliable games
  function generate_game_checkboxes(games, div)
   {
+    console.log(games);
     games.forEach((game) => {
       var row = "<label>" + 
                   `<input type='checkbox' value='${game.id}' checked>` + 
@@ -170,6 +171,8 @@ roster_sport_selector.onchange = function()
 
   var roster_baseball_games = document.getElementById("roster_baseball_games");
   
+  console.log(avaliable_sports.baseball);
+
   if (avaliable_sports.baseball) {
     generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
   }
