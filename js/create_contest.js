@@ -30,6 +30,19 @@ var avaliable_sports = get_available_sports();
   })
  });
 
+ // Generate checkboxes for avaliable games
+ function generate_game_checkboxes(games, div)
+  {
+    games.forEach((game) => {
+      var row = "<label>" + 
+                  `<input type='checkbox' value='${game.id}' checked>` + 
+                  `${game.name} + " " ${new Date(game.date_milli).toLocaleTimeString()}` + 
+                "</label>"
+
+      div.appendChild(row);
+    });
+  };
+
  var reset_elements = function()
   {
     hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
@@ -63,6 +76,10 @@ contest_type_selector.onchange = function()
       var golf = avaliable_sports.GOLF_4;
       var baseball = avaliable_sports.BASEBALL;
               
+      // var basketball = true;
+      // var golf = true;
+      // var baseball = true;
+
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
@@ -151,20 +168,31 @@ roster_sport_selector.onchange = function()
   var golf_scoring = document.getElementsByClassName("roster_golf_scoring");
   var baseball_scoring = document.getElementsByClassName("roster_baseball_scoring");
 
+  var roster_baseball_games = document.getElementById("roster_baseball_games");
+  
+  if (baseball) {
+    generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
+  }
+
+  // document.querySelector('.messageCheckbox').checked;
+
   switch (selectorHTML(roster_sport_selector))
     {
       case "Basketball":
         show(basketball_scoring[0]);
         hide(golf_scoring[0]);
         hide(baseball_scoring[0]);
+        hide(roster_baseball_games);
         break;
       case "Golf":
         show(golf_scoring[0]);
         hide(basketball_scoring[0]);
         hide(baseball_scoring[0]);
+        hide(roster_baseball_games);
         break;
-      case "Baseball":
+        case "Baseball":
         show(baseball_scoring[0]);
+        show(roster_baseball_games);
         hide(basketball_scoring[0]);
         hide(golf_scoring[0]);
         break;
