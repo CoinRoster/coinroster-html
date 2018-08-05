@@ -33,14 +33,6 @@ var avaliable_sports = get_available_sports();
  // Generate checkboxes for avaliable games
  function generate_game_checkboxes(games, div)
   {
-    console.log(games);
-    games.forEach((game) => {
-      var row = "<label>" + 
-                  `<input type='checkbox' value='${game.id}' checked>` + 
-                  `${game.name} + " " ${new Date(game.date_milli).toLocaleTimeString()}` + 
-                "</label>"
-
-      var row;
       var label = document.createElement("label");
       var input = document.createElement("input");
 
@@ -49,10 +41,9 @@ var avaliable_sports = get_available_sports();
       input.checked = true;
 
       label.appendChild(input);
-      label.innerHTML = game.name + "  at  " + new Date(game.date_milli).toLocaleTimeString();
+      label.innerHTML = game.name + " - " + new Date(game.date_milli).toLocaleTimeString();
 
       div.appendChild(label);
-    });
   };
 
  var reset_elements = function()
