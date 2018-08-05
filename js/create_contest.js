@@ -42,8 +42,8 @@ var avaliable_sports = get_available_sports();
       input.value = game.gameID;
       input.checked = true;
       
-      title_div.classList.add = "game_checkbox_title";
       title_div.innerHTML = game.name + " - " + new Date(game.date_milli).toLocaleTimeString();
+      title_div.classList.add = "game_checkbox_title";
       
       label.appendChild(input);
       label.appendChild(title_div);
