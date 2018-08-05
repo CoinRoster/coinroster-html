@@ -36,13 +36,16 @@ var avaliable_sports = get_available_sports();
     games.forEach((game) => {
       var label = document.createElement("label");
       var input = document.createElement("input");
+      var title_div = document.createElement("div");
 
       input.type = 'checkbox';
       input.value = game.id;
       input.checked = true;
-
+      
+      title_div.innerHTML = game.name + " - " + new Date(game.date_milli).toLocaleTimeString();
+      
       label.appendChild(input);
-      label.innerHTML = game.name + " - " + new Date(game.date_milli).toLocaleTimeString();
+      label.appendChild(title_div);
 
       div.appendChild(label);
     });
