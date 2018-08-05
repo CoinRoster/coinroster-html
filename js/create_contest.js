@@ -51,7 +51,7 @@ var avaliable_sports = get_available_sports();
       label.innerHTML = game.name + " " + new Date(game.date_milli).toLocaleTimeString();
       label.appendChild(input);
 
-      div.appendChild(row);
+      div.appendChild(label);
     });
   };
 
