@@ -40,7 +40,18 @@ var avaliable_sports = get_available_sports();
                   `${game.name} + " " ${new Date(game.date_milli).toLocaleTimeString()}` + 
                 "</label>"
 
-      div.add(row);
+      var row;
+      var label = document.createElement("label");
+      var input = document.createElement("input");
+
+      input.type = text;
+      input.value = game.id;
+      input.checked = true;
+
+      label.innerHTML = game.name + " " + new Date(game.date_milli).toLocaleTimeString();
+      label.appendChild(input);
+
+      div.appendChild(row);
     });
   };
 
