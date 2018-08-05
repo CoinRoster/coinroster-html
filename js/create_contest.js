@@ -170,10 +170,8 @@ roster_sport_selector.onchange = function()
   var baseball_scoring = document.getElementsByClassName("roster_baseball_scoring");
 
   var roster_baseball_games = document.getElementById("roster_baseball_games");
-  
-  console.log(avaliable_sports);
 
-  if (avaliable_sports.baseball) {
+  if (avaliable_sports.BASEBALL) {
     generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
   }
 
