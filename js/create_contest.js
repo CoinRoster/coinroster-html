@@ -42,7 +42,7 @@ var avaliable_sports = get_available_sports();
       input.value = game.gameID;
       input.checked = true;
       
-      title_div.class ="game_checkbox_title";
+      title_div.classList.add = "game_checkbox_title";
       title_div.innerHTML = game.name + " - " + new Date(game.date_milli).toLocaleTimeString();
       
       label.appendChild(input);
@@ -697,6 +697,17 @@ function create_contest_attempt(data, method)
       };
   }
 
+function populate_gameIDs(games, gameID)
+  {
+    games.forEach((game) => {
+      var checked = game.childNodes[0].checked;
+
+      if (checked) {
+        gameID.push(game.childNodes[0].value);
+      }
+    });
+  }
+
 function create_new_contest()
   {
     var contest_type = selectorValue("contest_type_selector");
@@ -711,6 +722,7 @@ function create_new_contest()
     var settlement_type = selectorValue("roster_settlement_type");
     var json_obj = {};
     var scoring = {};
+    var gameIDs = [];
     var jackpot_payouts = [];
     var score_to_par = false;
     var round_tournament;
@@ -761,6 +773,11 @@ function create_new_contest()
       get_score_value("roster_basketball_steals", "steals", scoring, submit_error);
       get_score_value("roster_basketball_blocks", "blocks", scoring, submit_error);
       get_score_value("roster_basketball_turnovers", "turnovers", scoring, submit_error);
+
+
+      var basketball_games = document.getElementById("roster_baseball_games").children;
+
+      populate_gameIDs(basketball_games, gameIDs);
     } else if (sport === "Baseball") {
       json_obj.sub_category = "BASEBALL";
       get_score_value("roster_baseball_rbi", "RBIs", scoring, submit_error);
@@ -810,10 +827,16 @@ function create_new_contest()
         }
       } 
     }
-
     
     // Validation
     var scores_empty = $.isEmptyObject(scoring);
+
+    if (gameIDs.length < 1) {
+      alert("Please select at least one game");
+      submit_error.error = true;
+    } else {
+      json_obj.gameIDs = gameIDs;
+    }
 
     if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
       alert("Please select at least one scoring option");
