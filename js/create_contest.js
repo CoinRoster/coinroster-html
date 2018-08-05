@@ -700,10 +700,12 @@ function create_contest_attempt(data, method)
 function populate_gameIDs(games, gameID)
   {
     games.forEach((game) => {
+      console.log(game)
       var checked = game.childNodes[0].checked;
 
       if (checked) {
         gameID.push(game.childNodes[0].value);
+        console.log(gameID);
       }
     });
   }
@@ -774,9 +776,9 @@ function create_new_contest()
       get_score_value("roster_basketball_blocks", "blocks", scoring, submit_error);
       get_score_value("roster_basketball_turnovers", "turnovers", scoring, submit_error);
 
-
       var basketball_games = document.getElementById("roster_baseball_games").children;
 
+      console.log(basketball_games);
       populate_gameIDs(basketball_games, gameIDs);
     } else if (sport === "Baseball") {
       json_obj.sub_category = "BASEBALL";
@@ -832,7 +834,6 @@ function create_new_contest()
     var scores_empty = $.isEmptyObject(scoring);
 
     console.log(gameIDs);
-    console.log(gameIDs.length);
 
     if (gameIDs.length < 1 && !submit_error.error) {
       alert("Please select at least one game");
