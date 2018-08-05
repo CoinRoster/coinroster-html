@@ -48,8 +48,8 @@ var avaliable_sports = get_available_sports();
       input.value = game.id;
       input.checked = true;
 
-      label.innerHTML = game.name + " " + new Date(game.date_milli).toLocaleTimeString();
       label.appendChild(input);
+      label.innerHTML = game.name + "  at  " + new Date(game.date_milli).toLocaleTimeString();
 
       div.appendChild(label);
     });
