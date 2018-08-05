@@ -52,6 +52,18 @@ var avaliable_sports = get_available_sports();
     });
   };
 
+// Collect data from game checkboxes
+function populate_gameIDs(games, gameID)
+  {
+    for (var i=0; i<games.length; i++) {
+      var checked = games[i].childNodes[0].checked;
+
+      if (checked) {
+        gameID.push(games[i].childNodes[0].value);
+      }
+    }
+  }
+
  var reset_elements = function()
   {
     hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
@@ -183,8 +195,6 @@ roster_sport_selector.onchange = function()
   if (avaliable_sports.BASEBALL) {
     generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
   }
-
-  
 
   switch (selectorHTML(roster_sport_selector))
     {
@@ -696,17 +706,6 @@ function create_contest_attempt(data, method)
       } else {
         alert("Error: " + call.error); 
       };
-  }
-
-function populate_gameIDs(games, gameID)
-  {
-    for (var i=0; i<games.length; i++) {
-      var checked = games[i].childNodes[0].checked;
-
-      if (checked) {
-        gameID.push(games[i].childNodes[0].value);
-      }
-    }
   }
 
 function create_new_contest()
