@@ -831,7 +831,10 @@ function create_new_contest()
     // Validation
     var scores_empty = $.isEmptyObject(scoring);
 
-    if (gameIDs.length < 1) {
+    console.log(gameIDs);
+    console.log(gameIDs.length);
+
+    if (gameIDs.length < 1 && !submit_error.error) {
       alert("Please select at least one game");
       submit_error.error = true;
     } else {
