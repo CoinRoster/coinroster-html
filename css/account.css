@@ -381,3 +381,7 @@
         width: 220px;
         margin-bottom: 10px;
     }
+
+    .game_checkbox_title {
+        text-align: right;
+    }
