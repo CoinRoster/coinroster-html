@@ -6,4 +6,6 @@ function change_text(){
     if (call.status === "1") return call.html;
     else return null;
 }
-document.getElementById("lobby_value_prop").innerHTML = change_text();
+var field = document.getElementById("lobby_value_prop");
+if(field !== null)
+    field.innerHTML = change_text();

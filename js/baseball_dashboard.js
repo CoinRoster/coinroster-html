@@ -2,7 +2,11 @@ function displayBaseballDash(data){
 
     // Get the modal
     document.getElementById('stats_modal').style.display = "block";
-
+    document.getElementById('stats_model_content').style.display = "table";
+    document.getElementsByClassName("modal-body")[0].scrollTop = 0;
+    document.getElementById("stats_table").style.display = "block";
+    document.getElementById("newsfeed").style.display = "none";
+    
     var news_button = document.getElementById("news_tab");
     var stats_button = document.getElementById("stats_tab");
     var news_tab = document.getElementById("newsfeed");
@@ -18,6 +22,8 @@ function displayBaseballDash(data){
             for (var i = 0; i < tweets.length; i++) {
                 tweets[i].style.fontSize = "100%";
                 tweets[i].style.lineHeight = "16px";
+            }
+            for (var i = 0; i < media.length; i++){
                 media[i].style.display = "none";
             }
        }, 100);
@@ -40,6 +46,7 @@ function displayBaseballDash(data){
     photo_align(media_query); // Call listener function at run time
     media_query.addListener(photo_align); // Attach listener function on state changes
 
+    window["player_id"] = data.id;
     var header = document.getElementById("player_name").innerHTML = data.name;
     document.getElementById("mobile_playername").innerHTML = data.name;
 
@@ -224,19 +231,16 @@ function displayBaseballDash(data){
         }*/               
     }       
 
-    function close(){
-        document.getElementById("stats_modal").style.display = "none";
-    }
-    
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == document.getElementById("stats_modal")) {
-            close();
-        }
-    };
+//    window.onclick = function(event) {
+//        if (event.target !== document.getElementsByClassName("modal-content")[0]) {
+//            close_dash();
+//        }
+//    };
     
-    function draft_player(){
-        add_player(data.id);
-    }
+    $('#close').click(function() {
+        close_dash();
+    });
+    
 
 }
