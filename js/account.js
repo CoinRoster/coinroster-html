@@ -118,7 +118,7 @@
                     if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
                 }
                 
-                var header = new_row(table, -1, [
+                var header = new_row(table, 0, [
                     "#",
                     "Date",
                     "Time",
