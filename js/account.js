@@ -115,7 +115,10 @@
                     
                     // highlight if older than 30 days:
                     
-                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
+                    if (new Date().getTime()-30*1440*60*1000 > created) {
+                        row[2].style.background = "rgb(255,231,166)";
+                        row[2].style.class = "tooltip"
+                    }
                 }
                 
                 var header = new_row(table, 0, [
