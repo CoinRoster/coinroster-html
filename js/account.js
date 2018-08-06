@@ -86,7 +86,8 @@
                         category: category,
                         title: title,
                         description: description,
-                        option_table: contest_item.option_table
+                        option_table: contest_item.option_table,
+                        contest_type: contest_item.contest_type
                     };
 
                     // var header = new_row(table, -1, [
