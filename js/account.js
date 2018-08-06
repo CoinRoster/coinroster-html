@@ -86,6 +86,7 @@
                         category: category,
                         title: title,
                         description: description,
+                        option_table: contest_item.option_table
                     };
 
                     // var header = new_row(table, -1, [
