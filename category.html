@@ -49,15 +49,15 @@
         
         if (!contest_counts) return;
         
-        var
+        // var
 
-        open_count = contest_counts.open,
-        in_play_count = contest_counts.in_play,
-        settled_count = contest_counts.settled;
+        // open_count = contest_counts.open,
+        // in_play_count = contest_counts.in_play,
+        // settled_count = contest_counts.settled;
 
-        id("open_count").innerHTML = "(" + open_count + ")";
-        id("in_play_count").innerHTML = "(" + in_play_count + ")";
-        id("settled_count").innerHTML = "(" + settled_count + ")";
+        // id("open_count").innerHTML = "(" + open_count + ")";
+        // id("in_play_count").innerHTML = "(" + in_play_count + ")";
+        // id("settled_count").innerHTML = "(" + settled_count + ")";
             
         })();
         
@@ -138,12 +138,15 @@
                 {
                 case 1 : // open
                     populate_open_contests(contest_report, number_of_contests, table);
+                    id("in_play_count").innerHTML = "(" + number_of_contests + ")";
                     break;
                 case 2 : // in play
                     populate_in_play_contests(contest_report, number_of_contests, table);
+                    id("in_play_count").innerHTML = "(" + number_of_contests + ")";
                     break;
                 case 3 : // settled
                     populate_settled_contests(contest_report, number_of_contests, table);
+                    id("in_play_count").innerHTML = "(" + number_of_contests + ")";
                     break;
                 }
             
