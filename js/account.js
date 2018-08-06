@@ -76,11 +76,7 @@
                     created_by = contest_item.created_by,
                     category = contest_item.category,
                     title = contest_item.title,
-                    description = contest_item.description,
-                    settlement_type = contest_item.settlement_type,
-                    option_table = contest_item.option_table,
-                    rake = contest_item.rake,
-                    cost_per_entry = contest_item.cost_per_entry;
+                    description = contest_item.description;
                     
                     window.contest_obj[contest_id] = {
                         contest_id: contest_id,
@@ -90,10 +86,6 @@
                         category: category,
                         title: title,
                         description: description,
-                        settlement_type: settlement_type,
-                        option_table: option_table,
-                        rake: rake,
-                        cost_per_entry: cost_per_entry,
                     };
 
                     var row = new_row(table, row_count++, [
@@ -123,10 +115,6 @@
                     "Category",
                     "Title",
                     "Description",
-                    "Settlement Type",
-                    "Option Table",
-                    "Rake",
-                    "Cost Per Entry",
                     "Settle"
                 ]);
                 // style headers:
