@@ -293,9 +293,6 @@
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
             ]);
-
-            // row[3].className = "right_nowrap";
-            // row[4].className = "right_nowrap";
             
             if (show_countdown && !(settlement_deadline === undefined || isNaN(settlement_deadline) || settlement_deadline === null)) {
                 bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
