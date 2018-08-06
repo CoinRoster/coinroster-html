@@ -88,6 +88,17 @@
                         description: description,
                     };
 
+                    // var header = new_row(table, -1, [
+                    //     "Contest",
+                    //     "Created",
+                    //     "Created By",
+                    //     "Category",
+                    //     "Title"
+                    // ]);
+            
+                    // header[4].className = "right_nowrap";
+                    // header[5].className = "right_nowrap";
+
                     var row = new_row(table, row_count++, [
                         contest_id,
                         created_date,
@@ -107,7 +118,7 @@
                     if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
                 }
                 
-                var header = new_row(table, 0, [
+                var header = new_row(table, -1, [
                     "#",
                     "Date",
                     "Time",
