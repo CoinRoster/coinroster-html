@@ -104,10 +104,6 @@
                         category,
                         title,
                         description,
-                        settlement_type,
-                        option_table,
-                        rake,
-                        cost_per_entry ,
                         "<button onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
