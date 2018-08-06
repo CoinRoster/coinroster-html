@@ -109,7 +109,8 @@
                         category,
                         title,
                         description,
-                        "<button class=\"action_button\" onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
+                        "<button class=\"action_button\" style=\"display: inline-block; text-align: center;" + 
+                            "\"onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
