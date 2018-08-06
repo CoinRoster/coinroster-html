@@ -297,7 +297,7 @@
             row[3].className = "right_nowrap";
             row[4].className = "right_nowrap";
             
-            if (show_countdown) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
+            if (show_countdown && !(settlement_deadline === undefined || isNaN(settlement_deadline) || settlement_deadline === null)) bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         test(settlement_expiry_list, contest_id_list);
