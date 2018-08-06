@@ -308,6 +308,24 @@
         background: rgb(155, 155, 155); 
     }
 
+    .contest_table, .player_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .contest_table tr {
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 1px;
+        background: rgb(100,102,104);
+    }
+        
+    .contest_table td {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+         
+
     .dimmed {
         color: rgb(155, 155, 155);
     }
