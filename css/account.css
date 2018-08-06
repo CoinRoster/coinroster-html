@@ -323,8 +323,21 @@
     .contest_table td {
         padding: 10px 20px;
         font-size: 13px;
+    }         
+    
+    .contest_table tr:first-child { /* header */
+        background: none;
+        border: none;
+        white-space: nowrap !important
     }
-         
+    
+    .contest_table tr:first-child td { /* header cells */
+        background: none;
+        border: none;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 8px !important;
+    }
 
     .dimmed {
         color: rgb(155, 155, 155);
