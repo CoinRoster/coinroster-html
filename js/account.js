@@ -61,7 +61,7 @@
             
             pending_contest_array = call.pending_contests,
             number_of_contests = pending_contest_array.length,
-            table = new_table("user_contest_table"),
+            table = id("user_contest_table"),
             row_count = 0;
             table.border = "1";
 
