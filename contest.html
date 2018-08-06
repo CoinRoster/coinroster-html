@@ -10,6 +10,8 @@
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
+<!--#include virtual="/ssi/baseball_dashboard.html" -->
+    
 <div id="page_body">
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
@@ -241,6 +243,9 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
+<script src="/js/golf_stats.js"></script>
+<script src="/js/baseball_dashboard.js"></script>
+
 <script>
 
     function init()
@@ -397,7 +402,7 @@
                         
                         id("entries_label").innerHTML = "Wagers:";
                           
-                        var default_sort_scheme = "odds";
+                        var default_sort_scheme = "order";
                         selectByValue("option_order_selector", default_sort_scheme);
                         
                         $('select:not(.ignore)').niceSelect();
@@ -855,9 +860,35 @@
                 }
             });
         }
+
+function get_data(id, sport)
+  {
+    var call = api({
+        method: "GetPlayerData",
+        args: {
+		sport: sport,
+		player_id: id
+		}
+    });
     
+    if (call.status === "1") return call;
+    else return null;
+  }
+    
+function open_dashboard(span){
+    var player_id  = span.parentElement.parentElement.id;
+    var sport = document.getElementById("sub_category").innerText.replace("Fantasy ", "").replace(" Props", "").toUpperCase();
+    var rtn = get_data(player_id.replace("player_", ""), sport);
+    if(sport === "GOLF")
+        displayGolfDash(rtn.data);
+    else if(sport === "BASEBALL")
+        displayBaseballDash(rtn.data);
+    else if(sport === "BASKETBALL")
+        displayBasketballDash(rtn.data);
+}
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
+
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
 </html>

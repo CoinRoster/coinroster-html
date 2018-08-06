@@ -57,6 +57,7 @@
                                 <option value="" selected disabled hidden>Select</option>
                             </select>
                         </div>
+                        <div class="hidden input_padding roster_basketball_games" id="roster_basketball_games"></div>
                         <div class="roster_basketball_scoring checkboxes hidden input_padding">
                             <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
                             <div class="dimmed dynamic_checkbox_label">
@@ -116,7 +117,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="roster_golf_eagles_checkbox" class="roster_golf_checkbox"/>
-                                        Eagles +
+                                        Eagles+
                                     </label>
                                     <input type="number" placeholder="   #" id="roster_golf_eagles" class="checkbox_input" disabled/>
                                 </div>
@@ -144,7 +145,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="roster_golf_double_bogeys_checkbox" class="roster_golf_checkbox"/>
-                                        Double-Bogeys +
+                                        Double-Bogeys-
                                     </label>
                                     <input type="number" placeholder="   #" id="roster_golf_double_bogeys" class="checkbox_input" disabled/>
                                 </div>
@@ -152,27 +153,28 @@
                             <div class="roster_round_tournament input_padding">
                                 <span class="input_label">Round or Tournament</span>
                                 <div>
-                                    <input type="radio" value="1" name="round_tournament" id="roster_golf_round_one" checked/>
-                                    <label for="roster_golf_round_one">1</label>
+                                    <input type="radio" value="1" name="round_tournament" disabled id="roster_golf_round_one"/>
+                                    <label class="dimmed roster_golf_round_one" for="roster_golf_round_one">1</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="2" name="round_tournament" id="roster_golf_round_two"/>
-                                    <label for="roster_golf_round_two">2</label>
+                                    <input type="radio" value="2" name="round_tournament" disabled id="roster_golf_round_two"/>
+                                    <label class="dimmed roster_golf_round_two" for="roster_golf_round_two">2</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="3" name="round_tournament" id="roster_golf_round_three"/>
-                                    <label for="roster_golf_round_three">3</label>
+                                    <input type="radio" value="3" name="round_tournament" disabled id="roster_golf_round_three"/>
+                                    <label class="dimmed roster_golf_round_three" for="roster_golf_round_three">3</label>
                                 </div>
                                 <div>
                                     <input type="radio" value="4" name="round_tournament" id="roster_golf_round_four"/>
                                     <label for="roster_golf_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="round_tournament" id="roster_golf_tournament"/>
-                                    <label for="roster_golf_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="round_tournament"  disabled id="roster_golf_tournament"/>
+                                    <label class="dimmed roster_golf_tournament" for="roster_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                         </div>
+                        <div class="hidden input_padding roster_baseball_games" id="roster_baseball_games"></div>
                         <div class="roster_baseball_scoring checkboxes hidden input_padding">
                             <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
                             <div class="dimmed dynamic_checkbox_label">
@@ -428,7 +430,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="prop_golf_over_stats_eagles_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Eagles +
+                                        Eagles+
                                     </label>
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_over_stats_eagles"/>
                                 </div>
@@ -456,7 +458,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="prop_golf_over_stats_double_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Double-Bogeys +
+                                        Double-Bogeys-
                                     </label>
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_over_stats_double_bogeys"/>
                                 </div>
@@ -470,24 +472,24 @@
                             <div class="prop_golf_over_under_round_tournament input_padding">
                                 <span class="input_label">Round or Tournament</span>
                                 <div>
-                                    <input type="radio" value="1" name="prop_golf_over_round_tournament" id="prop_golf_over_round_one"/>
-                                    <label for="prop_golf_over_round_one">1</label>
+                                    <input type="radio" value="1" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_one"/>
+                                    <label class="dimmed prop_golf_over_round_one" for="prop_golf_over_round_one">1</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="2" name="prop_golf_over_round_tournament" id="prop_golf_over_round_two"/>
-                                    <label for="prop_golf_over_round_two">2</label>
+                                    <input type="radio" value="2" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_two"/>
+                                    <label class="dimmed prop_golf_over_round_two" for="prop_golf_over_round_two">2</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="3" name="prop_golf_over_round_tournament" id="prop_golf_over_round_three"/>
-                                    <label for="prop_golf_over_round_three">3</label>
+                                    <input type="radio" value="3" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_three"/>
+                                    <label class="dimmed prop_golf_over_round_three" for="prop_golf_over_round_three">3</label>
                                 </div>
                                 <div>
                                     <input type="radio" value="4" name="prop_golf_over_round_tournament" id="prop_golf_over_round_four"/>
                                     <label for="prop_golf_over_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="prop_golf_over_round_tournament" id="prop_golf_over_tournament"/>
-                                    <label for="prop_golf_over_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="prop_golf_over_round_tournament" disabled id="prop_over_golf_tournament"/>
+                                    <label class="dimmed prop_over_golf_tournament" for="prop_over_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                         </div>
@@ -505,7 +507,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="prop_golf_stats_eagles_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Eagles +
+                                        Eagles+
                                     </label>
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_stats_eagles"/>
                                 </div>
@@ -533,7 +535,7 @@
                                 <div class="dimmed dynamic_checkbox_label">
                                     <label>
                                         <input type="checkbox" id="prop_golf_stats_double_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Double-Bogeys +
+                                        Double-Bogeys-
                                     </label>
                                     <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_golf_stats_double_bogeys"/>
                                 </div>
@@ -547,24 +549,24 @@
                             <div class="prop_golf_match_play_round_tournament input_padding">
                                 <span class="input_label">Round or Tournament</span>
                                 <div>
-                                    <input type="radio" value="1" name="prop_golf_match_round_tournament" id="prop_golf_match_play_round_one"/>
-                                    <label for="prop_golf_match_play_round_one">1</label>
+                                    <input type="radio" value="1" name="prop_golf_match_round_tournament" disabled id="prop_golf_match_play_round_one"/>
+                                    <label class="dimmed prop_golf_match_play_round_one" for="prop_golf_match_play_round_one">1</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="2" name="prop_golf_match_round_tournament" id="prop_golf_match_play_round_two"/>
-                                    <label for="prop_golf_match_play_round_two">2</label>
+                                    <input type="radio" value="2" name="prop_golf_match_round_tournament" disabled id="prop_golf_match_play_round_two"/>
+                                    <label class="dimmed prop_golf_match_play_round_two" for="prop_golf_match_play_round_two">2</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="3" name="prop_golf_match_round_tournament" id="prop_golf_over_round_three"/>
-                                    <label for="prop_golf_over_round_three">3</label>
+                                    <input type="radio" value="3" name="prop_golf_match_round_tournament" disabled id="prop_golf_over_round_three"/>
+                                    <label class="dimmed prop_golf_over_round_three" for="prop_golf_over_round_three">3</label>
                                 </div>
                                 <div>
                                     <input type="radio" value="4" name="prop_golf_match_round_tournament" id="prop_golf_match_play_round_four"/>
                                     <label for="prop_golf_match_play_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament" name="prop_golf_match_round_tournament" id="prop_golf_match_play_tournament"/>
-                                    <label for="prop_golf_match_play_tournament">Tournament</label>
+                                    <input type="radio" value="tournament" name="prop_golf_match_round_tournament" disabled  id="prop_match_play_golf_tournament"/>
+                                    <label class="dimmed prop_match_play_golf_tournament" for="prop_match_play_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                             <div class="prop_golf_match_players input_padding">
@@ -585,34 +587,34 @@
                                 <span class="input_label">Shot Type </span>
                                 <select data-placeholder="Select" id="prop_golf_number_of_shots_type" class="input_style chosen-select dropdown">
                                     <option value="" selected disabled hidden>Select</option>
-                                    <option value="eagles+">Eagles +</option>
+                                    <option value="eagles+">Eagles+</option>
                                     <option value="birdies">Birdies</option>
                                     <option value="pars">Pars</option>
                                     <option value="bogeys">Bogeys</option>
-                                    <option value="double_bogeys+">Double-Bogeys +</option>
+                                    <option value="double_bogeys-">Double-Bogeys-</option>
                                 </select>
                             </div>
                             <div class="prop_golf_number_of_shots_round_tournament input_padding">
                                 <span class="input_label">Round or Tournament</span>
                                 <div>
-                                    <input type="radio" value="1" name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_round_one" checked/>
-                                    <label for="roster_golf_round_one">1</label>
+                                    <input type="radio" value="1" name="prop_golf_shots_round_tournament" disabled id="prop_golf_number_of_shots_round_one"/>
+                                    <label class="dimmed prop_golf_number_of_shots_round_one" for="roster_golf_round_one">1</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="2" name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_round_two"/>
-                                    <label for="roster_golf_round_two">2</label>
+                                    <input type="radio" value="2" name="prop_golf_shots_round_tournament" disabled id="prop_golf_number_of_shots_round_two"/>
+                                    <label class="dimmed prop_golf_number_of_shots_round_two" for="roster_golf_round_two">2</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="3" name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_round_three"/>
-                                    <label for="roster_golf_round_three">3</label>
+                                    <input type="radio" value="3" name="prop_golf_shots_round_tournament" disabled id="prop_golf_number_of_shots_round_three"/>
+                                    <label class="dimmed prop_golf_number_of_shots_round_three" for="roster_golf_round_three">3</label>
                                 </div>
                                 <div>
                                     <input type="radio" value="4" name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_round_four"/>
                                     <label for="roster_golf_round_four">4</label>
                                 </div>
                                 <div>
-                                    <input type="radio" value="tournament"name="prop_golf_shots_round_tournament" id="prop_golf_number_of_shots_tournament"/>
-                                    <label for="roster_golf_tournament">Tournament</label>
+                                    <input type="radio" value="tournament"name="prop_golf_shots_round_tournament"  disabled id="prop_number_of_shots_golf_tournament"/>
+                                    <label class="dimmed prop_number_of_shots_golf_tournament" for="roster_golf_tournament">Tournament</label>
                                 </div>
                             </div>
                             <div class="prop_golf_number_of_shots_player input_padding">
@@ -680,7 +682,7 @@
                                 <input type="number" class="input_style" placeholder="Over/under value" id="prop_baseball_over_under_value"/>
                             </div>
                             <div class="prop_baseball_over_under_stats input_padding">
-                                <span class="input_label">Choose the scoring value for each stat you select</span>
+                                <span class="input_label">Set scoring values for your chosen stats</span>
                                 <div class="prop_baseball_match_play_stats checkboxes input_padding">    
                                     <div class="dimmed dynamic_checkbox_label">
                                         <label>
@@ -694,7 +696,7 @@
                                             <input type="checkbox" id="prop_baseball_over_hits_checkbox" class="roster_baseball_checkbox"/>
                                             Hits
                                         </label>
-                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="roster_baseball_over_hits"/>
+                                        <input type="number" class="checkbox_input" placeholder="   #" disabled id="prop_baseball_over_hits"/>
                                     </div>
                                     <div class="dimmed dynamic_checkbox_label">
                                         <label>
@@ -830,7 +832,6 @@
                             <label for="contest_public">Public</label>
                         </div>
                         <div>
-
                             <input type="radio" name="public_private" id="contest_private"/>
                             <label for="contest_private">Private</label>
                         </div>
@@ -852,14 +853,13 @@
         show("submit_button_container");
     }
     function init(){
-        populate_category_selector('category_selector');
+        // populate_category_selector('category_selector');
     }
 </script>
 <script type="text/javascript" src="/js/lib.js"></script>
 <script type="text/javascript" src="/js/account.js"></script>
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript" src="/js/nav.js"></script>
-<script type="text/javascript" src="/js/simple_modal.js"></script>
 <script type="text/javascript" src="/js/create_contest.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
