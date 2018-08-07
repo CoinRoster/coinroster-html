@@ -115,35 +115,35 @@ contest_type_selector.onchange = function()
         option.text = "Basketball";
         option.value = "Basketball";
         prop_sport_selector.add(option);
-      } 
+        } 
         
       if (golf) {
         var option = document.createElement("option");
         option.text = "Golf";
         option.value = "Golf";
         roster_sport_selector.add(option);
-      }
+        }
 
       if (golf) {
         var option = document.createElement("option");
         option.text = "Golf";
         option.value = "Golf";
         prop_sport_selector.add(option);
-      }
+        }
 
       if (baseball) {
         var option = document.createElement("option");
         option.text = "Baseball";
         option.value = "Baseball";
         roster_sport_selector.add(option);
-      }
+        }
 
       if (baseball) {
         var option = document.createElement("option");
         option.text = "Baseball";
         option.value = "Baseball";
         prop_sport_selector.add(option);
-      }
+        }
     }
 
     switch (selectorHTML(contest_type_selector))
@@ -632,7 +632,7 @@ function create_jackpot_table()
         var rank = i + 1;
         new_row(jackpot_table, row_count++, [
             rank,
-            "<input type=\"text\" placeholder=\"% of payout\" class=\"input_style text_input\">"
+            "<input type=\"number\" placeholder=\"% of payout\" class=\"input_style text_input\">"
         ]);
     }
         
