@@ -48,6 +48,7 @@ var avaliable_sports = get_available_sports();
       label.appendChild(input);
       label.appendChild(title_div);
 
+      div.innerHTML = "";
       div.appendChild(label);
     });
   };
