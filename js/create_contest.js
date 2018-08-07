@@ -1499,7 +1499,7 @@ baseball_over_under.onblur = function()
 // Automatically build jackpot table
 var jackpot_input = document.getElementById("number_of_payouts");
 
-jackpot_input.onblue = fucntion()
+jackpot_input.onblue = function()
   {
     create_jackpot_table();
   }
