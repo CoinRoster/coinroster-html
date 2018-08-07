@@ -1427,6 +1427,8 @@ function enable_radios(radios, labels) {
   });
 }
 
+avaliable_sports.GOLF_1 = false;
+
 if (avaliable_sports.GOLF_1) {
   var radios_one_two = $.merge(round_one_radios, round_two_radios);
   var radios_three_tour = $.merge(round_three_radios, tournament_radios);
@@ -1436,9 +1438,6 @@ if (avaliable_sports.GOLF_1) {
 
   var radios = $.merge(radios_one_two, radios_three_tour);
   var labels = $.merge(labels_one_two, labels_three_tour);
-
-  console.log(radios);
-  console.log(labels);
 
   enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_2) {
