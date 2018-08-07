@@ -1501,5 +1501,5 @@ var jackpot_input = document.getElementById("number_of_payouts");
 
 jackpot_input.onblue = function()
   {
-    create_jackpot_table();
+    $("#create_jackpot_table").click();
   }
