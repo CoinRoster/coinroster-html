@@ -163,8 +163,8 @@
         hide("user_contest_table");
         show("settle_contest");
 
-        id("contest_type").innerHTML = contest_type;
-        id("contest_id").innerHTML = contest_id;
+        // id("contest_type").innerHTML = contest_type;
+        // id("contest_id").innerHTML = contest_id;
         id("contest_title").innerHTML = contest_title;
 
         show("settle_pari_mutuel");
