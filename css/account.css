@@ -449,6 +449,6 @@
         display: none;
     }
 
-    #roster_baseball_games, #roster_basketball_games label {
+    #roster_baseball_games label {
         display: block;
     }
