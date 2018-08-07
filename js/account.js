@@ -86,7 +86,20 @@
                         category: category,
                         title: title,
                         description: description,
+                        option_table: contest_item.option_table,
+                        contest_type: contest_item.contest_type
                     };
+
+                    // var header = new_row(table, -1, [
+                    //     "Contest",
+                    //     "Created",
+                    //     "Created By",
+                    //     "Category",
+                    //     "Title"
+                    // ]);
+            
+                    // header[4].className = "right_nowrap";
+                    // header[5].className = "right_nowrap";
 
                     var row = new_row(table, row_count++, [
                         contest_id,
@@ -96,7 +109,8 @@
                         category,
                         title,
                         description,
-                        "<button onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
+                        "<button class=\"action_button\" style=\"display: inline-block; text-align: center;" + 
+                            "\"onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -104,7 +118,10 @@
                     
                     // highlight if older than 30 days:
                     
-                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
+                    if (new Date().getTime()-30*1440*60*1000 > created) {
+                        row[2].style.background = "rgb(255,231,166)";
+                        row[2].style.class = "tooltip"
+                    }
                 }
                 
                 var header = new_row(table, 0, [
@@ -146,8 +163,8 @@
         hide("user_contest_table");
         show("settle_contest");
 
-        id("contest_type").innerHTML = contest_type;
-        id("contest_id").innerHTML = contest_id;
+        // id("contest_type").innerHTML = contest_type;
+        // id("contest_id").innerHTML = contest_id;
         id("contest_title").innerHTML = contest_title;
 
         show("settle_pari_mutuel");
@@ -173,20 +190,19 @@
         var winning_outcome = get_radio_selection("pari_mutuel_outcome_radio");
         
         if (winning_outcome === null) return alert("Please select winning outcome!");
-        alert('success');
+
         api({
             method: "UserSettleContest",
             args: {
                 contest_id: window.contest_id_to_settle,
                 winning_outcome: winning_outcome
             }
-        }, function(call)
-            {
-            if (call.status === "1") 
-                {
-                alert("Contest has been settled! Reloading panel.");
-                location.reload();
-                }
+        }, function(call) {
+            if (call.status === "1") {
+                show_simple_modal("Contest has been settled! Reloading panel", "good", () => {
+                    location.reload();
+                });
+            }
             else alert("Error: " + call.error);
-            });
+        });
     }

@@ -308,6 +308,37 @@
         background: rgb(155, 155, 155); 
     }
 
+    .contest_table, .player_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .contest_table tr {
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 1px;
+        background: rgb(100,102,104);
+    }
+        
+    .contest_table td {
+        padding: 10px 20px;
+        font-size: 13px;
+    }         
+    
+    .contest_table tr:first-child { /* header */
+        background: none;
+        border: none;
+        white-space: nowrap !important
+    }
+    
+    .contest_table tr:first-child td { /* header cells */
+        background: none;
+        border: none;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 8px !important;
+    }
+
     .dimmed {
         color: rgb(155, 155, 155);
     }
@@ -371,6 +402,33 @@
 
     .submit_container {
         margin-top: 15px;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+    
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+    }
+
+    /* Show the tooltip text when you mouse over the tooltip container */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
     }
 
     .error {
