@@ -856,7 +856,7 @@ function create_new_contest()
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
     } else if (settlement_type === "Jackpot" && (
         !roster_jackpot_max_users || 
-        Number(roster_jackpot_max_users) < 0) &&
+        Number(roster_jackpot_max_users) < 2) &&
         roster_jackpot_max_users !== 0 && !submit_error.error
       )
     {
@@ -870,7 +870,8 @@ function create_new_contest()
     {  
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
-    } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) && Number(max_rosters_per_user) !== 0 && !submit_error.error) {
+    // } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) && Number(max_rosters_per_user) !== 0 && !submit_error.error) {
+    } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0)  && !submit_error.error ) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
     }  else if (!submit_error.error) {
