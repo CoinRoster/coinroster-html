@@ -604,7 +604,7 @@ function create_jackpot_table()
     row_count = 0,
     number_of_payouts = +id("number_of_payouts").value;
 
-    if (isNaN(number_of_payouts) || number_of_payouts < 3) return alert("There must be 2 or more payouts");
+    if (isNaN(number_of_payouts) || number_of_payouts < 3) return alert("There must be 3 or more payouts");
     else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
 
     for (var i=0; i < number_of_payouts; i++) {
