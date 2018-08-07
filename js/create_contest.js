@@ -847,11 +847,14 @@ function create_new_contest()
     } else if ((!cost_per_entry || isNaN(cost_per_entry)) && !submit_error.error) {
       add_error("roster_cost_per_entry");
       alert("Please provide a valid cost to enter the contest");
+      submit_error.error = true;
     } else if (!settlement_type && !submit_error.error) {
       alert("Please select a settlement type");
+      submit_error.error = true;
     } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 3) && !submit_error.error) {
       add_error("number_of_payouts");
       alert("Please enter a valid number of payouts (must be three or more)");
+      submit_error.error = true;
     } else if (jackpot_table_error && !submit_error.error) {
       alert("Please enter valid jackpot payout values (must add up to 100.0%)");
     } else if (settlement_type === "Jackpot" && (
@@ -862,18 +865,21 @@ function create_new_contest()
     {
       add_error("roster_jackpot_max_users");
       alert("Please enter a valid maximum number of users");
+      submit_error.error = true;
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
-        Number(roster_double_up_max_users) < 0) &&
+        Number(roster_double_up_max_users) < 2) &&
         roster_double_up_max_users !== 0 && !submit_error.error
       ) 
     {  
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
+      submit_error.error = true;
     // } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) && Number(max_rosters_per_user) !== 0 && !submit_error.error) {
     } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0)  && !submit_error.error ) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
+      submit_error.error = true;
     }  else if (!submit_error.error) {
       // Build the JSON object
       json_obj.contest_type = "ROSTER";
