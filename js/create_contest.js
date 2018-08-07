@@ -869,13 +869,12 @@ function create_new_contest()
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
         Number(roster_double_up_max_users) < 2) &&
-        roster_double_up_max_users !== 0 && !submit_error.error
+        Number(roster_double_up_max_users) !== 0 && !submit_error.error
       ) 
     {  
       add_error("roster_double_up_max_users");
       alert("Please enter a valid maximum number of users");
       submit_error.error = true;
-    // } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0) && Number(max_rosters_per_user) !== 0 && !submit_error.error) {
     } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0)  && !submit_error.error ) {
       add_error("max_rosters_per_user");
       alert("Please enter roster per user maximum");
