@@ -33,6 +33,8 @@ var avaliable_sports = get_available_sports();
  // Generate checkboxes for avaliable games
  function generate_game_checkboxes(games, div)
   {
+    div.innerHTML = "";
+    
     games.forEach((game) => {
       var label = document.createElement("label");
       var input = document.createElement("input");
@@ -48,7 +50,6 @@ var avaliable_sports = get_available_sports();
       label.appendChild(input);
       label.appendChild(title_div);
 
-      div.innerHTML = "";
       div.appendChild(label);
     });
   };

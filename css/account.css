@@ -449,6 +449,10 @@
         display: none;
     }
 
+    #roster_basketball_games label {
+        display: block;
+    }
+
     #roster_baseball_games label {
         display: block;
     }
