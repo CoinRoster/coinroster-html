@@ -188,17 +188,17 @@ roster_sport_selector.onchange = function()
   }
 
   // Set titles
-  if (basketball) {
+  if (avaliable_sports.BASKETBALL) {
     var title = avaliable_sports.basketball_contest;
     basketball_title.innerHTML = title;
   } 
   
-  if (golf) {
+  if (avaliable_sports.GOLF_1) {
     var title = avaliable_sports.golf_contest;
     golf_title.innerHTML = title;
   }
   
-  if (baseball) {
+  if (avaliable_sports.BASEBALL) {
     var title = avaliable_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
