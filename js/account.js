@@ -190,20 +190,19 @@
         var winning_outcome = get_radio_selection("pari_mutuel_outcome_radio");
         
         if (winning_outcome === null) return alert("Please select winning outcome!");
-        alert('success');
+
         api({
             method: "UserSettleContest",
             args: {
                 contest_id: window.contest_id_to_settle,
                 winning_outcome: winning_outcome
             }
-        }, function(call)
-            {
-            if (call.status === "1") 
-                {
-                alert("Contest has been settled! Reloading panel.");
-                location.reload();
-                }
+        }, function(call) {
+            if (call.status === "1") {
+                show_simple_modal("Contest has been settled! Reloading panel", "good", () => {
+                    location.reload();
+                });
+            }
             else alert("Error: " + call.error);
-            });
+        });
     }
