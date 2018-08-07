@@ -1420,9 +1420,6 @@ var round_two_labels = $("*[class$='_round_two']");
 var round_three_labels = $("*[class$='_round_three']");
 var tournament_labels = $("*[class$='_golf_tournament']");
 
-console.log(round_three_radios);
-console.log(round_three_labels);
-
 function enable_radios(radios, labels) {
   $.each(radios, function(index) {
     radios[index].disabled = false;
@@ -1431,18 +1428,17 @@ function enable_radios(radios, labels) {
 }
 
 if (avaliable_sports.GOLF_1) {
-  var radios = $.merge(
-    round_one_radios,
-    round_two_radios,
-    round_three_radios,
-    tournament_radios
-  );
-  var labels = $.merge(
-    round_one_labels, 
-    round_two_labels, 
-    round_three_labels, 
-    tournament_labels
-  );
+  var radios_one_two = $.merge(round_one_radios, round_two_radios);
+  var radios_three_tour = $.merge(round_three_radios, tournament_radios);
+
+  var labels_one_two = $.merge(round_one_labels, round_two_labels);
+  var labels_three_tour = $.merge(round_three_labels, tournament_labels);
+
+  var radios = $.merge(radios_one_two, radios_three_tour);
+  var labels = $.merge(labels_one_two, labels_three_tour);
+
+  console.log(radios);
+  console.log(labels);
 
   enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_2) {
