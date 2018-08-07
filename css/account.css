@@ -385,3 +385,8 @@
     .game_checkbox_title {
         margin-left: 3px;
     }
+
+
+    #create_jackpot_table {
+        display: none;
+    }
