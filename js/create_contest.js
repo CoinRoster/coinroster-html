@@ -869,7 +869,7 @@ function create_new_contest()
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
         Number(roster_double_up_max_users) < 2) &&
-        Number(roster_double_up_max_users) !== 0 && !submit_error.error
+        roster_double_up_max_users !== 0 && !submit_error.error
       ) 
     {  
       add_error("roster_double_up_max_users");
