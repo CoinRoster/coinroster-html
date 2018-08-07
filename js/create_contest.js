@@ -1440,6 +1440,8 @@ if (avaliable_sports.GOLF_1) {
     round_three_labels, 
     tournament_labels
   );
+  console.log(radios);
+  console.log(labels);
   enable_radios(radios, labels);
 } else if (avaliable_sports.GOLF_2) {
   var radios = $.merge(round_two_radios, round_three_radios);
