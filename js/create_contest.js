@@ -190,17 +190,17 @@ roster_sport_selector.onchange = function()
   // Set titles
   if (basketball) {
     var title = avaliable_sports.basketball_contest;
-    basketball_title.value = title;
+    basketball_title.innerHTML = title;
   } 
   
   if (golf) {
     var title = avaliable_sports.golf_contest;
-    golf_title.value = title;
+    golf_title.innerHTML = title;
   }
   
   if (baseball) {
     var title = avaliable_sports.baseball_contest;
-    baseball_title.value = title;
+    baseball_title.innerHTML = title;
   }
 
   switch (selectorHTML(roster_sport_selector))
@@ -208,6 +208,7 @@ roster_sport_selector.onchange = function()
       case "Basketball":
         show(basketball_title);
         show(basketball_scoring[0]);
+        show(roster_basketball_games);
         hide(golf_title);
         hide(baseball_title);
         hide(golf_scoring[0]);
@@ -222,6 +223,7 @@ roster_sport_selector.onchange = function()
         hide(basketball_scoring[0]);
         hide(baseball_scoring[0]);
         hide(roster_baseball_games);
+        hide(roster_basketball_games);
         break;
       case "Baseball":
         show(baseball_title);
@@ -231,6 +233,7 @@ roster_sport_selector.onchange = function()
         hide(basketball_title);
         hide(basketball_scoring[0]);
         hide(golf_scoring[0]);
+        hide(roster_basketball_games);
         break;
     }
  };
