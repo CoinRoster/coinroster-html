@@ -100,19 +100,6 @@ contest_type_selector.onchange = function()
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
 
-      // Set titles
-      if (basketball) {
-        var title = avaliable_sports.basketball_contest;
-      } 
-      
-      if (golf) {
-        var title = avaliable_sports.golf_contest;
-      }
-      
-      if (baseball) {
-        var title = avaliable_sports.baseball_contest;
-      }
-
       // Cant have two .add() inside of one statement, only second one is called...?
       if (basketball) {
         var option = document.createElement("option");
@@ -188,6 +175,10 @@ roster_sport_selector.onchange = function()
   var roster_basketball_games = document.getElementById("roster_basketball_games");
   var roster_baseball_games = document.getElementById("roster_baseball_games");
 
+  var basketball_title = document.getElementById("roster_basketball_title");
+  var golf_title = document.getElementById("roster_golf_title");
+  var baseball_title = document.getElementById("roster_baseball_title");
+
   if (avaliable_sports.BASKETBALL) {
     generate_game_checkboxes(avaliable_sports.basketball_games, roster_basketball_games);
   }
@@ -196,23 +187,48 @@ roster_sport_selector.onchange = function()
     generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
   }
 
+  // Set titles
+  if (basketball) {
+    var title = avaliable_sports.basketball_contest;
+    basketball_title.value = title;
+  } 
+  
+  if (golf) {
+    var title = avaliable_sports.golf_contest;
+    golf_title.value = title;
+  }
+  
+  if (baseball) {
+    var title = avaliable_sports.baseball_contest;
+    baseball_title.value = title;
+  }
+
   switch (selectorHTML(roster_sport_selector))
     {
       case "Basketball":
+        show(basketball_title);
         show(basketball_scoring[0]);
+        hide(golf_title);
+        hide(baseball_title);
         hide(golf_scoring[0]);
         hide(baseball_scoring[0]);
         hide(roster_baseball_games);
         break;
       case "Golf":
+        show(golf_title);
         show(golf_scoring[0]);
+        hide(basketball_title);
+        hide(baseball_title);
         hide(basketball_scoring[0]);
         hide(baseball_scoring[0]);
         hide(roster_baseball_games);
         break;
-        case "Baseball":
+      case "Baseball":
+        show(baseball_title);
         show(baseball_scoring[0]);
         show(roster_baseball_games);
+        hide(golf_title);
+        hide(basketball_title);
         hide(basketball_scoring[0]);
         hide(golf_scoring[0]);
         break;

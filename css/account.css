@@ -448,3 +448,7 @@
     #create_jackpot_table {
         display: none;
     }
+
+    #roster_baseball_games, #roster_basketball_games label {
+        display: block;
+    }
