@@ -61,7 +61,7 @@
             
             pending_contest_array = call.pending_contests,
             number_of_contests = pending_contest_array.length,
-            table = new_table("user_contest_table"),
+            table = id("user_contest_table"),
             row_count = 0;
             table.border = "1";
 
@@ -76,11 +76,7 @@
                     created_by = contest_item.created_by,
                     category = contest_item.category,
                     title = contest_item.title,
-                    description = contest_item.description,
-                    settlement_type = contest_item.settlement_type,
-                    option_table = contest_item.option_table,
-                    rake = contest_item.rake,
-                    cost_per_entry = contest_item.cost_per_entry;
+                    description = contest_item.description;
                     
                     window.contest_obj[contest_id] = {
                         contest_id: contest_id,
@@ -90,11 +86,20 @@
                         category: category,
                         title: title,
                         description: description,
-                        settlement_type: settlement_type,
-                        option_table: option_table,
-                        rake: rake,
-                        cost_per_entry: cost_per_entry,
+                        option_table: contest_item.option_table,
+                        contest_type: contest_item.contest_type
                     };
+
+                    // var header = new_row(table, -1, [
+                    //     "Contest",
+                    //     "Created",
+                    //     "Created By",
+                    //     "Category",
+                    //     "Title"
+                    // ]);
+            
+                    // header[4].className = "right_nowrap";
+                    // header[5].className = "right_nowrap";
 
                     var row = new_row(table, row_count++, [
                         contest_id,
@@ -104,11 +109,8 @@
                         category,
                         title,
                         description,
-                        settlement_type,
-                        option_table,
-                        rake,
-                        cost_per_entry ,
-                        "<button onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
+                        "<button class=\"action_button\" style=\"display: inline-block; text-align: center;" + 
+                            "\"onclick=\"settle_contest(" + contest_id + ")\">Settle Contest</button>"
                     ]);
 
                     row[1].style.textAlign = "right";
@@ -116,7 +118,10 @@
                     
                     // highlight if older than 30 days:
                     
-                    if (new Date().getTime()-30*1440*60*1000 > created) row[2].style.background = "rgb(255,231,166)";
+                    if (new Date().getTime()-30*1440*60*1000 > created) {
+                        row[2].style.background = "rgb(255,231,166)";
+                        row[2].style.class = "tooltip"
+                    }
                 }
                 
                 var header = new_row(table, 0, [
@@ -127,10 +132,6 @@
                     "Category",
                     "Title",
                     "Description",
-                    "Settlement Type",
-                    "Option Table",
-                    "Rake",
-                    "Cost Per Entry",
                     "Settle"
                 ]);
                 // style headers:
@@ -162,8 +163,8 @@
         hide("user_contest_table");
         show("settle_contest");
 
-        id("contest_type").innerHTML = contest_type;
-        id("contest_id").innerHTML = contest_id;
+        // id("contest_type").innerHTML = contest_type;
+        // id("contest_id").innerHTML = contest_id;
         id("contest_title").innerHTML = contest_title;
 
         show("settle_pari_mutuel");
