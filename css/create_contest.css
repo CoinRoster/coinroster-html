@@ -1,6 +1,6 @@
 .dropdown {
     height: 37px;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .checkboxes {
@@ -149,5 +149,5 @@
 }
 
 .input_padding .input_style {
-    width: calc(100% - 20px) !important;
+    width: 100% !important;
 }
