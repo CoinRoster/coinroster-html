@@ -268,7 +268,8 @@
 
     .dropdown {
         height: 37px;
-        width: 220px;
+        width: 100%;
+        /* width: 220px; */
     }
 
     .checkboxes {
@@ -386,7 +387,6 @@
         margin-left: 3px;
     }
 
-
     #create_jackpot_table {
         display: none;
     }
@@ -409,4 +409,14 @@
 
     #roster_basketball_games {
         margin-left: 5px;
+    }
+
+    .create_contest_form {
+        width: 80%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .input_padding input {
+        width: 100%;
     }
