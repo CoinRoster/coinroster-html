@@ -150,8 +150,19 @@
 .input_padding .dropdown {
     height: 37px;
     width: calc(95% + 20px) !important;
+    width: -moz-calc(95% + 20px) !important;
+    width: -webkit-calc(95% + 20px) !important;
+    width: -o-calc(95% + 20px) !important;
 }
 
 .text_button {
     width: calc(95% + 20px) !important;
+    width: -moz-calc(95% + 20px) !important;
+    width: -webkit-calc(95% + 20px) !important;
+    width: -o-calc(95% + 20px) !important;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
 }
