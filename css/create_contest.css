@@ -196,5 +196,5 @@
 }
 
 input:active {
-    border: 2px solid gray;
+    border: 2px solid gray !important;
 }
