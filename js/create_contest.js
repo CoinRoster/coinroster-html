@@ -844,7 +844,12 @@ function create_new_contest()
           }
     
           jackpot_payouts.forEach(function(percent) {
-            counter += percent;
+            
+            if (Number(percent) <= 0) {
+              jackpot_table_error = true;
+            } else {
+              counter += percent;
+            }
           });
     
           if (counter !== 100) {
