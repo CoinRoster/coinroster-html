@@ -170,7 +170,7 @@
 }
 
 .push_left {
-    margin-left: 100px;
+    margin-left: 0px;
 }
 
 #misc_registration_deadline, #misc_registration_deadline_time_selector {
@@ -204,8 +204,8 @@
     flex-direction: row;
 }
 
-/* @media only screen and (min-width: 650px) {
+@media only screen and (min-width: 650px) {
     .push_left {
         margin-left: 100px;
     }
-} */
+}
