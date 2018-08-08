@@ -40,7 +40,7 @@
 }
 
 #number_of_options, #number_of_payouts {
-    width: 40px;
+    width: 40px !important;
     margin-left: 15px;
 }
 
