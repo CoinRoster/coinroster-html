@@ -144,11 +144,10 @@
 }
 
 .input_padding .input_style {
-    width: 100% !important;
+    width: 95% !important;
 }
 
 .input_padding .dropdown {
     height: 37px;
-    /* width: 1000px !important;  */
-    width: calc(100% + 20px) !important;
+    width: calc(95% + 20px) !important;
 }
