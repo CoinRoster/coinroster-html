@@ -468,13 +468,3 @@
     #roster_basketball_games {
         margin-left: 5px;
     }
-
-    @media only screen and (min-width: 555px) {
-        .dropdown {
-            width: 500px;
-        }
-
-        .input_padding > input {
-            width: 478px;
-        }
-    }
