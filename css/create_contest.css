@@ -60,10 +60,6 @@
     margin-left: 10px;
 }
 
-#pari_mutuel_table_element {
-    width: calc(100% - 40px) !important;
-}
-
 #jackpot_table tr:first-child { /* header */
     display: none;
 }
@@ -181,4 +177,8 @@
 
 #misc_settlement_deadline, #misc_settlement_deadline_time_selector {
     width: 45% !important;
+}
+
+#pari_mutuel_table_element {
+    width: calc(100% - 40px) !important;
 }
