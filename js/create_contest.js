@@ -1524,3 +1524,11 @@ jackpot_input.onblur = function()
   {
     $("#create_jackpot_table").click();
   }
+
+// Automatically build options table
+var options_input = document.getElementById("number_of_options");
+
+options_input.onblur = function()
+  {
+    $("#create_pari_mutuel_table").click();
+  }

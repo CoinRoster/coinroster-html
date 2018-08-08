@@ -808,11 +808,11 @@
                             </div>
                         </div>
                         <div class="misc_pari_mutuel_options input_padding">
-                            <span class="input_label">Pari-mutuel Options</span>
+                            <!-- <span class="input_label">Pari-mutuel Options</span> -->
                             <div class="misc_pari_mutuel_options">
                                 Number of Options: 
-                                <input id="number_of_options" type="number" class="input_style text_input" placeholder=" #">
-                                <button type="button" class="text_button pari_mutuel_button" onclick="create_pari_mutuel_table();">Apply</button>
+                                <input id="number_of_options" type="text" class="input_style text_input" placeholder=" #">
+                                <button id="create_pari_mutuel_table" type="button" class="text_button hidden pari_mutuel_button" onclick="create_pari_mutuel_table();">Apply</button>
                             </div>
                             <div id="pari_mutuel_table" class="report_table"></div>
                         </div>
