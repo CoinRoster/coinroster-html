@@ -149,5 +149,6 @@
 
 .dropdown {
     height: 37px;
-    width: calc(100% + 20px) !important;
+    width: 1000px;
+    /* width: calc(100% + 20px) !important; */
 }
