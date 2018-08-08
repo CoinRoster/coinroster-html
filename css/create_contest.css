@@ -116,7 +116,7 @@
     margin-left: 3px;
 }
 
-#create_jackpot_table {
+#create_jackpot_table, #create_pari_mutuel_table {
     display: none;
 }
 
@@ -171,10 +171,10 @@
     width: -o-calc(95% + 20px) !important;
 }
 
-#misc_settlement_deadline input {
+#misc_registration_deadline, #misc_registration_deadline_time_selector {
     width: 45% !important;
 }
 
-#misc_settlement_deadline select {
+#misc_settlement_deadline, #misc_settlement_deadline {
     width: 45% !important;
 }
