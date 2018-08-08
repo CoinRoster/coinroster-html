@@ -65,8 +65,7 @@
 
 #jackpot_table input {
     width: 160px !important;
-    margin-top: 10px;
-    margin-left: 10px;
+    margin: 5px 0 5px 0 !important;
 }
 
 .number_of_payouts {
@@ -179,10 +178,19 @@
 }
 
 #pari_mutuel_table_element {
-    margin-top: 10px;
+    margin-top: 5px;
     width: calc(100% - 40px) !important;
 }
 
 #pari_mutuel_table_element input {
+    width: 100% !important;
+}
+
+#jackpot_table_element {
+    margin-top: 5px;
+    width: calc(100% - 40px) !important;
+}
+
+#jackpot_table_element input {
     width: 100% !important;
 }
