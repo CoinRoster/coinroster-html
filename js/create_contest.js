@@ -625,8 +625,8 @@ function create_jackpot_table()
     row_count = 0,
     number_of_payouts = +id("number_of_payouts").value;
 
-    if (isNaN(number_of_payouts) || number_of_payouts < 3) return alert("There must be 3 or more payouts");
-    else if (number_of_payouts > 10) return alert("There can be up to 10 payouts");
+    if (isNaN(number_of_payouts) || number_of_payouts < 3) return show_simple_modal("There must be 3 or more payouts");
+    else if (number_of_payouts > 10) return show_simple_modal("There can be up to 10 payouts");
 
     for (var i=0; i < number_of_payouts; i++) {
         var rank = i + 1;
@@ -682,7 +682,7 @@ function get_score_value(input, name, score_obj, error) {
     if (isNaN(id(input).value)) {
       error.error = true;
       add_error(input);
-      alert("Please set a valid value for " + name);
+      show_simple_modal("Please set a valid value for " + name);
     } else if (name === "eagles") {
       score_obj["eagles+"] = Number(id(input).value);
     } else if (name === "double-bogeys") {
@@ -693,7 +693,7 @@ function get_score_value(input, name, score_obj, error) {
   } else if (id(input + "_checkbox").checked) {
     error.error = true;
     add_error(input);
-    alert("Please enter a valid value for " + name);
+    show_simple_modal("Please enter a valid value for " + name);
   }
 }
 
@@ -718,14 +718,14 @@ function create_contest_attempt(data, method)
    
     if (call.status === "1" && data.private) 
     {
-      alert(`Contest created! Your private contest's unique URL: \n ` + call.url);
+      show_simple_modal(`Contest created! Your private contest's unique URL: \n ` + call.url);
       window.location = call.url; 
     } else if (call.status === "1") 
       {
-        alert("Your contest has been created successfully!");
+        show_simple_modal("Your contest has been created successfully!");
         window.location = call.url;
       } else {
-        alert("Error: " + call.error); 
+        show_simple_modal("Error: " + call.error); 
       };
   }
 
@@ -735,7 +735,7 @@ function create_new_contest()
     var private = id("contest_private").checked;
 
     if (!contest_type) {
-      alert("Please select a contest type");
+      show_simple_modal("Please select a contest type");
     }
 
   if (contest_type === "Roster") {
@@ -758,7 +758,7 @@ function create_new_contest()
     // var roster_salary_cap = id ("roster_salary_cap").value;
 
     if (!sport) {
-      alert("Please select a sport");
+      show_simple_modal("Please select a sport");
       submit_error.error = true;
     }
 
@@ -858,26 +858,26 @@ function create_new_contest()
     var scores_empty = $.isEmptyObject(scoring);
 
     if (gameIDs.length < 1 && sport !== "Golf" && !submit_error.error) {
-      alert("Please select at least one game");
+      show_simple_modal("Please select at least one game");
       submit_error.error = true;
     } else if (scores_empty && selectorValue(roster_multistat_overall) !== "Score to Par" && !submit_error.error) {
-      alert("Please select at least one scoring option");
+      show_simple_modal("Please select at least one scoring option");
     } else if (sport === "Golf" && (round_tournament === "on" || !round_tournament) && !submit_error.error) {
       submit_error.error = true;
-      alert("Please select either a round or tournament");
+      show_simple_modal("Please select either a round or tournament");
     } else if ((!cost_per_entry || isNaN(cost_per_entry)) && !submit_error.error) {
       add_error("roster_cost_per_entry");
-      alert("Please provide a valid cost to enter the contest");
+      show_simple_modal("Please provide a valid cost to enter the contest");
       submit_error.error = true;
     } else if (!settlement_type && !submit_error.error) {
-      alert("Please select a settlement type");
+      show_simple_modal("Please select a settlement type");
       submit_error.error = true;
     } else if (settlement_type === "Jackpot" && (!number_of_payouts || Number(number_of_payouts) < 3) && !submit_error.error) {
       add_error("number_of_payouts");
-      alert("Please enter a valid number of payouts (must be three or more)");
+      show_simple_modal("Please enter a valid number of payouts (must be three or more)");
       submit_error.error = true;
     } else if (jackpot_table_error && !submit_error.error) {
-      alert("Please enter valid jackpot payout values (must add up to 100.0%)");
+      show_simple_modal("Please enter valid jackpot payout values (must add up to 100.0%)");
     } else if (settlement_type === "Jackpot" && (
         !roster_jackpot_max_users || 
         Number(roster_jackpot_max_users) < 2) &&
@@ -885,7 +885,7 @@ function create_new_contest()
       )
     {
       add_error("roster_jackpot_max_users");
-      alert("Please enter a valid maximum number of users");
+      show_simple_modal("Please enter a valid maximum number of users");
       submit_error.error = true;
     } else if (settlement_type === "Double-Up" && (
         !roster_double_up_max_users || 
@@ -894,11 +894,11 @@ function create_new_contest()
       ) 
     {  
       add_error("roster_double_up_max_users");
-      alert("Please enter a valid maximum number of users");
+      show_simple_modal("Please enter a valid maximum number of users");
       submit_error.error = true;
     } else if ( (!max_rosters_per_user || isNaN(max_rosters_per_user) || Number(max_rosters_per_user) < 0)  && !submit_error.error ) {
       add_error("max_rosters_per_user");
-      alert("Please enter roster per user maximum");
+      show_simple_modal("Please enter roster per user maximum");
       submit_error.error = true;
     }  else if (!submit_error.error) {
       // Build the JSON object
@@ -947,10 +947,10 @@ function create_new_contest()
       // Roster size & Salary cap validation
       // else if (!roster_size || isNaN(roster_size) || Number(roster_size) < 1 && Number(roster_size) !== 0) {
       //   add_error("roster_size");
-      //   alert("Please enter a valid roster size")
+      //   show_simple_modal("Please enter a valid roster size")
       // } else if (!roster_salary_cap || isNaN(roster_salary_cap) || Number(roster_salary_cap) < 500) {
       //   add_error("roster_salary_cap");
-      //   alert("Please enter a valid salary cap (minimum $500)")
+      //   show_simple_modal("Please enter a valid salary cap (minimum $500)")
       // }
     }
   }
@@ -1000,7 +1000,7 @@ function create_new_contest()
     clear_error("prop_baseball_match_walks");
     
     if (!sport) {
-      alert("Please select a sport");
+      show_simple_modal("Please select a sport");
       submit_error.error = true;
     }
 
@@ -1009,7 +1009,7 @@ function create_new_contest()
       json_obj.sub_category = "BASKETBALLPROPS";
       
       if (!prop_type) {
-        alert("Please select a prop type");
+        show_simple_modal("Please select a prop type");
         submit_error.error = true;
       }
 
@@ -1026,7 +1026,7 @@ function create_new_contest()
         var selected_players = document.getElementById("basketball_match_selected_players_list").childNodes;
         
         if (selected_players.length < 2) {
-          alert("Please select at least two players");
+          show_simple_modal("Please select at least two players");
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
@@ -1047,7 +1047,7 @@ function create_new_contest()
         var player = document.getElementById("prop_basketball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
-          alert("Please enter a valid over/under value");
+          show_simple_modal("Please enter a valid over/under value");
           add_error("props_basketball_over_under_value");
           submit_error.error = true;
         } else {
@@ -1063,7 +1063,7 @@ function create_new_contest()
         get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
 
         if (!player && !submit_error.error) {
-          alert("Please pick a player");
+          show_simple_modal("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
@@ -1077,7 +1077,7 @@ function create_new_contest()
       json_obj.sub_category = "GOLFPROPS";
 
       if (!prop_type && !submit_error.error) {
-        alert("Please select a prop type");
+        show_simple_modal("Please select a prop type");
         submit_error.error = true;
       }
 
@@ -1089,7 +1089,7 @@ function create_new_contest()
         var round_tournament = getCheckedValue("prop_golf_over_round_tournament");
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
-          alert("Please enter a valid over/under value");
+          show_simple_modal("Please enter a valid over/under value");
           add_error("prop_golf_over_under_value");
           submit_error.error = true;
         } else {
@@ -1097,7 +1097,7 @@ function create_new_contest()
         }
 
         if (!multi_stat && !submit_error.error) {
-          alert("Please select either multi-stat or score to par");
+          show_simple_modal("Please select either multi-stat or score to par");
           submit_error.error = true;
         }
 
@@ -1116,14 +1116,14 @@ function create_new_contest()
         }
 
         if (!player && !submit_error.error) {
-          alert("Please pick a player");
+          show_simple_modal("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
         }
 
         if (!round_tournament && !submit_error.error) {
-          alert("Please select either a round or tournament");
+          show_simple_modal("Please select either a round or tournament");
           submit_error.error = true;
         } else {
           prop_data.when = round_tournament.toLowerCase();
@@ -1139,7 +1139,7 @@ function create_new_contest()
         var selected_players = document.getElementById("golf_match_selected_players_list").childNodes;
 
         if (!multi_stat && !submit_error.error) {
-          alert("Please select either multi-stat or score to par");
+          show_simple_modal("Please select either multi-stat or score to par");
           submit_error.error = true;
         }
 
@@ -1158,14 +1158,14 @@ function create_new_contest()
         }
 
         if (!round_tournament && !submit_error.error) {
-          alert("Please select either a round or tournament");
+          show_simple_modal("Please select either a round or tournament");
           submit_error.error = true;
         } else {
           prop_data.when = round_tournament.toLowerCase();
         }
 
         if (selected_players.length < 2 && !submit_error.error) {
-          alert("Please select at least two players");
+          show_simple_modal("Please select at least two players");
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
@@ -1182,21 +1182,21 @@ function create_new_contest()
         var player = document.getElementById("prop_golf_number_of_shots_player").value;
 
         if (!shot_type && !submit_error.error) {
-          alert("Please select a shot type");
+          show_simple_modal("Please select a shot type");
           submit_error.error = true;
         } else {
           prop_data.shot = shot_type;
         }
 
         if (!round_tournament && !submit_error.error) {
-          alert("Please select either a round or tournament");
+          show_simple_modal("Please select either a round or tournament");
           submit_error.error = true;
         } else {
           prop_data.when = round_tournament.toLowerCase();
         }
 
         if (!player && !submit_error.error) {
-          alert("Please pick a player");
+          show_simple_modal("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
@@ -1210,7 +1210,7 @@ function create_new_contest()
         var player = document.getElementById("prop_golf_make_the_cut_player").value;
 
         if (!player && !submit_error.error) {
-          alert("Please pick a player");
+          show_simple_modal("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
@@ -1223,7 +1223,7 @@ function create_new_contest()
       json_obj.sub_category = "BASEBALLPROPS";
       
       if (!prop_type) {
-        alert("Please select a prop type");
+        show_simple_modal("Please select a prop type");
         submit_error.error = true;
       }
 
@@ -1239,7 +1239,7 @@ function create_new_contest()
         get_score_value("prop_baseball_match_walks", "walks", scoring, submit_error);
 
         if (selected_players.length < 2 && !submit_error.error) {
-          alert("Please select at least two players");
+          show_simple_modal("Please select at least two players");
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
@@ -1256,7 +1256,7 @@ function create_new_contest()
         var player = document.getElementById("prop_baseball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
-          alert("Please enter a valid over/under value");
+          show_simple_modal("Please enter a valid over/under value");
           add_error("prop_baseball_over_under_value");
           submit_error.error = true;
         } else {
@@ -1270,7 +1270,7 @@ function create_new_contest()
         get_score_value("prop_baseball_over_walks", "walks", scoring, submit_error);
         
         if (!player && !submit_error.error) {
-          alert("Please pick a player");
+          show_simple_modal("Please pick a player");
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
@@ -1285,7 +1285,7 @@ function create_new_contest()
     var scores_empty = jQuery.isEmptyObject(scoring);
     
     if (scores_empty && scoring_required.required && !submit_error.error) {
-      alert("Please select at least one scoring option");
+      show_simple_modal("Please select at least one scoring option");
       submit_error.error = true;
     }
     
@@ -1329,26 +1329,26 @@ function create_new_contest()
     // Validation
     if (!title || title.length < 2) {
       add_error("misc_title");
-      alert("Please enter a valid contest title");
+      show_simple_modal("Please enter a valid contest title");
     } else if (!description || description.length < 2) {
       add_error("misc_description");
-      alert("Please enter a valid contest description");
+      show_simple_modal("Please enter a valid contest description");
     } else if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
         add_error("misc_registration_deadline");
-        alert("Please set a valid registration deadline");
+        show_simple_modal("Please set a valid registration deadline");
     } else if (
         !set_deadline || 
         Date.parse(set_deadline) + set_deadline_time < Date.now() || 
         Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
       ) {
         add_error("misc_settlement_deadline");
-        alert("Please set a valid settlement deadline");
+        show_simple_modal("Please set a valid settlement deadline");
     } else if (!number_of_options || Number(number_of_options) < 2 || !pari_mutuel_table_element) {
         add_error("number_of_options");
-        alert("Please select at least 2 pari-mutuel options");        
+        show_simple_modal("Please select at least 2 pari-mutuel options");        
     } else if (!min_wager || isNaN(min_wager)) {
       add_error("misc_min_wager");
-      alert("Please enter a valid minimum wager amount");
+      show_simple_modal("Please enter a valid minimum wager amount");
     } else {
       // Get values from pari-mutuel table
       var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
@@ -1364,7 +1364,7 @@ function create_new_contest()
       }
 
       if (table_error) {
-        alert("Please enter valid pari-mutuel option descriptions");
+        show_simple_modal("Please enter valid pari-mutuel option descriptions");
       } else {
         // Make the JSON call now that all validation has passed
         var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
