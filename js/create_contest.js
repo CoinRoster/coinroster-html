@@ -1343,10 +1343,13 @@ function create_new_contest()
       ) {
         add_error("misc_settlement_deadline");
         show_simple_modal("Please set a valid settlement deadline");
-    } else if (!number_of_options || Number(number_of_options) < 2 || !pari_mutuel_table_element) {
+    } else if (!number_of_options || 
+        Number(number_of_options) < 2 || 
+        pari_mutuel_table_element.childElementCount === 0
+      ) {
         add_error("number_of_options");
         show_simple_modal("Please select at least 2 pari-mutuel options");        
-    } else if (!min_wager || isNaN(min_wager)) {
+    } else if (!min_wager || isNaN(min_wager) || Number(min_wager) <= 0) {
       add_error("misc_min_wager");
       show_simple_modal("Please enter a valid minimum wager amount");
     } else {
@@ -1364,7 +1367,7 @@ function create_new_contest()
       }
 
       if (table_error) {
-        show_simple_modal("Please enter valid pari-mutuel option descriptions");
+        show_simple_modal("Please enter valid option descriptions");
       } else {
         // Make the JSON call now that all validation has passed
         var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
