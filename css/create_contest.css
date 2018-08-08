@@ -1,7 +1,7 @@
-
     .dropdown {
       height: 37px;
       width: 100%;
+      max-width: 550px;
       /* width: 220px; */
   }
 
@@ -152,4 +152,5 @@
 
   .input_padding .input_style {
     width: 100% !important;
+    max-width: 550px;
   }
