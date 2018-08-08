@@ -169,6 +169,10 @@
     width: -o-calc(95% + 20px) !important;
 }
 
+.push_left {
+    margin-left: 100px;
+}
+
 #misc_registration_deadline, #misc_registration_deadline_time_selector {
     width: 45% !important;
 }
@@ -200,8 +204,8 @@
     flex-direction: row;
 }
 
-@media only screen and (min-width: 650px) {
-    .prop_golf_over_under_round_tournament {
+/* @media only screen and (min-width: 650px) {
+    .push_left {
         margin-left: 100px;
     }
-}
+} */
