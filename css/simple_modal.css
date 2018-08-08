@@ -57,6 +57,7 @@
         color: white;
         line-height:1.5;
         cursor: default;
+        word-break: break-word;
     }
     
     #simple_modal_close {
