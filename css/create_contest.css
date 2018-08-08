@@ -56,8 +56,7 @@
 
 #pari_mutuel_table input {
     width: 180px !important;
-    margin-top: 10px;
-    margin-left: 10px;
+    margin: 5px 0 5px 0 !important;
 }
 
 #jackpot_table tr:first-child { /* header */
@@ -180,6 +179,7 @@
 }
 
 #pari_mutuel_table_element {
+    margin-top: 10px;
     width: calc(100% - 40px) !important;
 }
 
