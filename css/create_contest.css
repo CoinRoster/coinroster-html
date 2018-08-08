@@ -119,10 +119,16 @@
 
 #roster_basketball_games label {
     display: block;
+    width: 200px;
+    overflow: visible;
+    padding: 0 5px 5px 5px;
 }
 
 #roster_baseball_games label {
     display: block;
+    width: 200px;
+    overflow: visible;
+    padding: 0 5px 5px 5px;
 }
 
 #roster_basketball_title {
@@ -160,9 +166,4 @@
     width: -moz-calc(95% + 20px) !important;
     width: -webkit-calc(95% + 20px) !important;
     width: -o-calc(95% + 20px) !important;
-}
-
-.flex {
-    display: flex;
-    flex-direction: row;
 }
