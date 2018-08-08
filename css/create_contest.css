@@ -170,3 +170,11 @@
     width: -webkit-calc(95% + 20px) !important;
     width: -o-calc(95% + 20px) !important;
 }
+
+#misc_settlement_deadline input {
+    width: 45% !important;
+}
+
+#misc_settlement_deadline select {
+    width: 45% !important;
+}
