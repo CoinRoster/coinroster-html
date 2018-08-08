@@ -40,7 +40,7 @@
 }
 
 #number_of_options, #number_of_payouts {
-    width: 40px !important;
+    width: 20px !important;
     margin-left: 15px;
 }
 
@@ -65,7 +65,7 @@
 }
 
 #jackpot_table input {
-    width: 180px !important;
+    width: 160px !important;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -149,5 +149,9 @@
 
 .input_padding .dropdown {
     height: 37px;
+    width: calc(95% + 20px) !important;
+}
+
+.text_button {
     width: calc(95% + 20px) !important;
 }
