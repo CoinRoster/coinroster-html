@@ -61,7 +61,7 @@
 }
 
 #pari_mutuel_table_element {
-    width: calc(100% - 40px);
+    width: calc(100% - 40px) !important;
 }
 
 #jackpot_table tr:first-child { /* header */
