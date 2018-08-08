@@ -149,5 +149,5 @@
 }
 
 .input_padding .input_style {
-    width: 100% !important;
+    width: calc(100% - 20px) !important;
 }
