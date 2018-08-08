@@ -83,11 +83,14 @@
     border: 1px solid grey;
     margin-top: 5px;
     border-radius: 10px;
-    width: 215px;
+    width: calc(95% + 20px) !important;
+    width: -moz-calc(95% + 20px) !important;
+    width: -webkit-calc(95% + 20px) !important;
+    width: -o-calc(95% + 20px) !important;
 }
 
 .player_list li {
-    padding: 10px;
+    padding: 10px 10px 10px 20px;
     background-color: rgb(80, 80, 80);
 }
 
@@ -139,7 +142,7 @@
     margin-left: 15px;
 }
 
-#roster_basketball_title {
+#roster_baseball_title {
     margin-left: 15px;
 }
 
