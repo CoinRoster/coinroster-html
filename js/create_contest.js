@@ -718,12 +718,22 @@ function create_contest_attempt(data, method)
    
     if (call.status === "1" && data.private) 
     {
-      show_simple_modal(`Contest created! Your private contest's unique URL: \n ` + call.url);
-      window.location = call.url; 
+      show_simple_modal(
+        `Contest created! Your private contest's unique URL: \n ` + call.url,
+        "good",
+        function() {
+          window.location = call.url;
+        }
+      );
     } else if (call.status === "1") 
       {
-        show_simple_modal("Your contest has been created successfully!");
-        window.location = call.url;
+        show_simple_modal(
+          "Your contest has been created successfully!",
+          "good",
+          function() {
+            window.location = call.url;    
+          }
+        );
       } else {
         show_simple_modal("Error: " + call.error); 
       };
