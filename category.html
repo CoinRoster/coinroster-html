@@ -266,16 +266,18 @@
             
             var 
 
-            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            title_link,
             game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
             first_cell_text = "";
 
             if (contest_type === "ROSTER")
                 {
+                title_link = "<a href='/rosters.html?contest_id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Leaderboard</li></ul>";
                 }
             else if (contest_type === "PARI-MUTUEL")
                 {
+                title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";    
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li></ul>";
                 }
             
@@ -348,16 +350,18 @@
             
             var 
 
-            title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
+            title_link,
             game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
             first_cell_text = "";
 
             if (contest_type === "ROSTER")
                 {
+                title_link = "<a href='/rosters.html?contest_id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_leaderboard(" + contest_id + ")'>Results</li></ul>";
                 }
             else if (contest_type === "PARI-MUTUEL")
                 {
+                title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";
                 first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Results</li></ul>";
                 }
 
