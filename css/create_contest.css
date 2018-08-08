@@ -60,6 +60,10 @@
     margin-left: 10px;
 }
 
+#pari_mutuel_table_element {
+    width: calc(100% - 40px);
+}
+
 #jackpot_table tr:first-child { /* header */
     display: none;
 }
