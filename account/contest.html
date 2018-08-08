@@ -421,6 +421,12 @@
                                 <span class="input_label">Over/Under Value</span>
                                 <input type="text" class="input_style" placeholder="Over/under value" id="prop_golf_over_under_value"/>
                             </div>
+                            <div class="prop_golf_over_under_player">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                </select>
+                            </div>
                             <div class="prop_golf_multistat_overall input_padding">
                                 <span class="input_label">Multi-stat or Score to Par</span>
                                 <select data-placeholder="Select" id="prop_golf_multistat_over_overall" class="input_style chosen-select dropdown">
@@ -429,72 +435,68 @@
                                     <option value="Score to Par">Score to Par</option>
                                 </select>
                             </div>
-                            <div class="prop_golf_over_under_player">
-                                <span class="input_label">Select Player </span>
-                                <select data-placeholder="Select" id="prop_golf_over_under_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                </select>
-                            </div>
-                            <div class="prop_golf_over_stats_multistat checkboxes hidden input_padding">
-                                <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
-                                <div class="dimmed dynamic_checkbox_label">
-                                    <label>
-                                        <input type="checkbox" id="prop_golf_over_stats_eagles_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Eagles+
-                                    </label>
-                                    <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_eagles"/>
-                                </div>
-                                <div class="dimmed dynamic_checkbox_label">
-                                    <label>
-                                        <input type="checkbox" id="prop_golf_over_stats_birdies_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Birdies
-                                    </label> 
-                                    <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_birdies"/>
-                                </div>
-                                <div class="dimmed dynamic_checkbox_label">
-                                    <label>
-                                        <input type="checkbox" id="prop_golf_over_stats_pars_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Pars
-                                    </label>
-                                    <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_pars"/>
-                                </div>
-                                <div class="dimmed dynamic_checkbox_label">
-                                    <label>
-                                        <input type="checkbox" id="prop_golf_over_stats_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Bogeys
-                                    </label>
-                                    <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_bogeys"/>
-                                </div>
-                                <div class="dimmed dynamic_checkbox_label">
-                                    <label>
-                                        <input type="checkbox" id="prop_golf_over_stats_double_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
-                                        Double-Bogeys-
-                                    </label>
-                                    <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_double_bogeys"/>
-                                </div>
-                            </div>
-                            <div class="prop_golf_over_under_round_tournament input_padding">
-                                <span class="input_label">Round or Tournament</span>
-                                <div>
-                                    <input type="radio" value="1" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_one"/>
-                                    <label class="dimmed prop_golf_over_round_one" for="prop_golf_over_round_one">1</label>
-                                </div>
-                                <div>
-                                    <input type="radio" value="2" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_two"/>
-                                    <label class="dimmed prop_golf_over_round_two" for="prop_golf_over_round_two">2</label>
-                                </div>
-                                <div>
-                                    <input type="radio" value="3" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_three"/>
-                                    <label class="dimmed prop_golf_over_round_three" for="prop_golf_over_round_three">3</label>
-                                </div>
-                                <div>
-                                    <input type="radio" value="4" name="prop_golf_over_round_tournament" id="prop_golf_over_round_four"/>
-                                    <label for="prop_golf_over_round_four">4</label>
-                                </div>
-                                <div>
-                                    <input type="radio" value="tournament" name="prop_golf_over_round_tournament" disabled id="prop_over_golf_tournament"/>
-                                    <label class="dimmed prop_over_golf_tournament" for="prop_over_golf_tournament">Tournament</label>
-                                </div>
+                            <div class="flex">
+                                        <div class="prop_golf_over_stats_multistat checkboxes hidden input_padding">
+                                            <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
+                                            <div class="dimmed dynamic_checkbox_label">
+                                                <label>
+                                                    <input type="checkbox" id="prop_golf_over_stats_eagles_checkbox" class="prop_golf_stats_checkbox"/>
+                                                    Eagles+
+                                                </label>
+                                                <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_eagles"/>
+                                            </div>
+                                            <div class="dimmed dynamic_checkbox_label">
+                                                <label>
+                                                    <input type="checkbox" id="prop_golf_over_stats_birdies_checkbox" class="prop_golf_stats_checkbox"/>
+                                                    Birdies
+                                                </label> 
+                                                <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_birdies"/>
+                                            </div>
+                                            <div class="dimmed dynamic_checkbox_label">
+                                                <label>
+                                                    <input type="checkbox" id="prop_golf_over_stats_pars_checkbox" class="prop_golf_stats_checkbox"/>
+                                                    Pars
+                                                </label>
+                                                <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_pars"/>
+                                            </div>
+                                            <div class="dimmed dynamic_checkbox_label">
+                                                <label>
+                                                    <input type="checkbox" id="prop_golf_over_stats_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
+                                                    Bogeys
+                                                </label>
+                                                <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_bogeys"/>
+                                            </div>
+                                            <div class="dimmed dynamic_checkbox_label">
+                                                <label>
+                                                    <input type="checkbox" id="prop_golf_over_stats_double_bogeys_checkbox" class="prop_golf_stats_checkbox"/>
+                                                    Double-Bogeys-
+                                                </label>
+                                                <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_golf_over_stats_double_bogeys"/>
+                                            </div>
+                                        </div>
+                                        <div class="prop_golf_over_under_round_tournament input_padding">
+                                            <span class="input_label">Round or Tournament</span>
+                                            <div>
+                                                <input type="radio" value="1" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_one"/>
+                                                <label class="dimmed prop_golf_over_round_one" for="prop_golf_over_round_one">1</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" value="2" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_two"/>
+                                                <label class="dimmed prop_golf_over_round_two" for="prop_golf_over_round_two">2</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" value="3" name="prop_golf_over_round_tournament" disabled id="prop_golf_over_round_three"/>
+                                                <label class="dimmed prop_golf_over_round_three" for="prop_golf_over_round_three">3</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" value="4" name="prop_golf_over_round_tournament" id="prop_golf_over_round_four"/>
+                                                <label for="prop_golf_over_round_four">4</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" value="tournament" name="prop_golf_over_round_tournament" disabled id="prop_over_golf_tournament"/>
+                                                <label class="dimmed prop_over_golf_tournament" for="prop_over_golf_tournament">Tournament</label>
+                                            </div>
+                                        </div>
                             </div>
                         </div>
                         <div class="prop_golf_match_play hidden">
