@@ -182,3 +182,7 @@
 #pari_mutuel_table_element {
     width: calc(100% - 40px) !important;
 }
+
+#pari_mutuel_table_element input {
+    width: 100% !important;
+}
