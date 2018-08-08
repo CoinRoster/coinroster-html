@@ -19,7 +19,7 @@
 
         if (pathname.indexOf("/admin/") !== -1) return init(); // avoid all mobile stuff below if admin
         else if (pathname.indexOf("/contests/") !== -1) target = "contests";
-        else if (pathname.indexOf("/account/contests.html/") !== -1) target = "create";
+        else if (pathname.indexOf("/account/contests.html") !== -1) target = "create";
         else if (pathname.indexOf("/account/") !== -1) target = "account";
 
         tab_id = "ssi_header_" + target;
