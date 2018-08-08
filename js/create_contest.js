@@ -528,9 +528,11 @@ prop_golf_over_multistat_overall.onchange = function()
      {
         case "Multi-stat":
           show(prop_golf_over_stats_multistat[0]);
+          id("prop_golf_over_under_round_tournament").classList.add("push_left");
           break;
         case "Score to Par":
           hide(prop_golf_over_stats_multistat[0]);
+          id("prop_golf_over_under_round_tournament").classList.remove("push_left");
           break;
      }
  };
@@ -1119,9 +1121,6 @@ function create_new_contest()
         if (multi_stat === "Score to Par") {
           prop_data.multi_stp = "score_to_par"
           scoring_required.required = false;
-          
-          // Styling
-          id("prop_golf_over_under_round_tournament").classList.remove("push_left");
         } else if (multi_stat === "Multi-stat") {
           get_score_value("prop_golf_over_stats_eagles", "eagles", scoring, submit_error);
           get_score_value("prop_golf_over_stats_birdies", "birdies", scoring, submit_error);
@@ -1131,9 +1130,6 @@ function create_new_contest()
 
           prop_data.multi_stp = "multi-stat"
           json_obj.scoring_rules = scoring;
-
-          // Styling
-          id("prop_golf_over_under_round_tournament").classList.add("push_left");
         }
 
         if (!player && !submit_error.error) {
