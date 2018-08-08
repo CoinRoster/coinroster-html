@@ -194,3 +194,7 @@
 #jackpot_table_element input {
     width: 100% !important;
 }
+
+*:active {
+    border: 2px solid gray;
+}
