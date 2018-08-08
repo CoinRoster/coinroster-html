@@ -1,156 +1,153 @@
-    .dropdown {
-      height: 37px;
-      width: 100%;
-      max-width: 550px;
-      /* width: 220px; */
-  }
+.dropdown {
+    height: 37px;
+    width: 100%;
+}
 
-  .checkboxes {
-      width: 220px;
-  }
+.checkboxes {
+    width: 220px;
+}
 
-  .checkboxes div {
-      padding-bottom: 13px;
-  }
+.checkboxes div {
+    padding-bottom: 13px;
+}
 
-  .checkboxes > div > label {
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-  }
+.checkboxes > div > label {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
-  .checkboxes > div > input {
-      font-family: 'gotham_medium', sans-serif;
-      font-size: 14px;
-      text-align: center;
-      width: 45px !important;
-      float: right;
-      border-radius: 5px;
-      padding: 3px;
-      border: none;
-      outline: line;
-  }
+.checkboxes > div > input {
+    font-family: 'gotham_medium', sans-serif;
+    font-size: 14px;
+    text-align: center;
+    width: 45px !important;
+    float: right;
+    border-radius: 5px;
+    padding: 3px;
+    border: none;
+    outline: line;
+}
 
-  .checkboxes > div > input:focus {
-      outline: none;
-  }
+.checkboxes > div > input:focus {
+    outline: none;
+}
 
-  .checkboxes > div > input:disabled {
-      background: rgb(155, 155, 155); 
-  }
+.checkboxes > div > input:disabled {
+    background: rgb(155, 155, 155); 
+}
 
-  .dimmed {
-      color: rgb(155, 155, 155);
-  }
+.dimmed {
+    color: rgb(155, 155, 155);
+}
 
-  #number_of_options, #number_of_payouts {
-      width: 40px;
-      margin-left: 15px;
-  }
+#number_of_options, #number_of_payouts {
+    width: 40px;
+    margin-left: 15px;
+}
 
-  .pari_mutuel_button {
-      display: block;
-      widows: 220px;
-      margin-top: 10px;
-  }
+.pari_mutuel_button {
+    display: block;
+    widows: 220px;
+    margin-top: 10px;
+}
 
-  #pari_mutuel_table tr:first-child { /* header */
-      display: none;
-  }
+#pari_mutuel_table tr:first-child { /* header */
+    display: none;
+}
 
-  #pari_mutuel_table input {
-      width: 180px !important;
-      margin-top: 10px;
-      margin-left: 10px;
-  }
+#pari_mutuel_table input {
+    width: 180px !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 
-  #jackpot_table tr:first-child { /* header */
-      display: none;
-  }
+#jackpot_table tr:first-child { /* header */
+    display: none;
+}
 
-  #jackpot_table input {
-      width: 180px !important;
-      margin-top: 10px;
-      margin-left: 10px;
-  }
+#jackpot_table input {
+    width: 180px !important;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 
-  .number_of_payouts {
-      margin-bottom: 0;
-  }
+.number_of_payouts {
+    margin-bottom: 0;
+}
 
-  .player_list {
-      list-style-type: none;
-      max-height: 300px;
-      min-height: 30px;
-      overflow: scroll;
-      padding-left: 0px;
-      border: 1px solid grey;
-      margin-top: 5px;
-      border-radius: 10px;
-      width: 215px;
-  }
+.player_list {
+    list-style-type: none;
+    max-height: 300px;
+    min-height: 30px;
+    overflow: scroll;
+    padding-left: 0px;
+    border: 1px solid grey;
+    margin-top: 5px;
+    border-radius: 10px;
+    width: 215px;
+}
 
-  .player_list li {
-      padding: 10px;
-      background-color: rgb(80, 80, 80);
-  }
+.player_list li {
+    padding: 10px;
+    background-color: rgb(80, 80, 80);
+}
 
-  .player_list li:hover {
-      background-color: gray;
-      cursor: default;
-  }
+.player_list li:hover {
+    background-color: gray;
+    cursor: default;
+}
 
-  .submit_container {
-      margin-top: 15px;
-  }
+.submit_container {
+    margin-top: 15px;
+}
 
-  .error {
-      border: 2px solid #ff5353 !important;
-  }
+.error {
+    border: 2px solid #ff5353 !important;
+}
 
-  .checkbox_title {
-      width: 220px;
-      margin-bottom: 10px;
-  }
+.checkbox_title {
+    width: 220px;
+    margin-bottom: 10px;
+}
 
-  .game_checkbox_title {
-      margin-left: 3px;
-  }
+.game_checkbox_title {
+    margin-left: 3px;
+}
 
-  #create_jackpot_table {
-      display: none;
-  }
+#create_jackpot_table {
+    display: none;
+}
 
-  #roster_basketball_games label {
-      display: block;
-  }
+#roster_basketball_games label {
+    display: block;
+}
 
-  #roster_baseball_games label {
-      display: block;
-  }
+#roster_baseball_games label {
+    display: block;
+}
 
-  #roster_basketball_title {
-      margin-left: 5px;
-  }
+#roster_basketball_title {
+    margin-left: 5px;
+}
 
-  #roster_golf_title {
-      margin-left: 5px;
-  }
+#roster_golf_title {
+    margin-left: 5px;
+}
 
-  #roster_basketball_games {
-      margin-left: 5px;
-  }
+#roster_basketball_games {
+    margin-left: 5px;
+}
 
-  .create_contest_form {
-      width: 80%;
-      max-width: 600px;
-      margin: 0 auto;
-  }
+.create_contest_form {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
-  .input_padding .input_style {
+.input_padding .input_style {
     width: 100% !important;
-    max-width: 550px;
-  }
+}
