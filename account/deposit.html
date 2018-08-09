@@ -52,6 +52,9 @@
                     <span id="user_ext_address" class="orange small_text"></span>
                     <br/>
                     <br/>
+                    <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_wallet_to_clipboard()" class="inline_link teal">copy to clipboard</a>
+                    <br/>
+                    <br/>
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
                     <br/>
                     <br/>
@@ -180,6 +183,11 @@
         return false;
         }
         
+    function copy_wallet_to_clipboard()
+        {
+            id("user_ext_address").select();
+            document.execCommand("Copy");
+        }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
