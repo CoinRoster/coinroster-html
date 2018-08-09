@@ -271,6 +271,9 @@
                                 <option value="" selected disabled hidden>Select</option>
                             </select>
                         </div>
+                        <div id="prop_basketball_title" class="hidden input_label prop_basketball_title"></div>
+                        <div id="prop_golf_title" class="hidden input_label prop_golf_title"></div>
+                        <div id="prop_baseball_title" class="hidden input_label prop_baseball_title"></div>
                         <div class="prop_basketball_type hidden input_padding">
                             <span class="input_label">Prop Type</span>
                             <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select dropdown">
@@ -687,9 +690,15 @@
                                 <span class="input_label">Over/Under Value</span>
                                 <input type="text" class="input_style" placeholder="Over/under value" id="prop_baseball_over_under_value"/>
                             </div>
+                            <div class="prop_baseball_over_under_player input_padding">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                </select>
+                            </div>
                             <div class="prop_baseball_over_under_stats input_padding">
                                 <span class="input_label">Set scoring values for your chosen stats</span>
-                                <div class="prop_baseball_match_play_stats checkboxes input_padding">    
+                                <div class="prop_baseball_match_play_stats checkboxes input_padding">   
                                     <div class="dimmed dynamic_checkbox_label">
                                         <label>
                                             <input type="checkbox" id="prop_baseball_over_rbi_checkbox" class="roster_baseball_checkbox"/>
@@ -726,12 +735,6 @@
                                         <input type="text" class="checkbox_input" placeholder=" #" disabled id="prop_baseball_over_walks"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="prop_baseball_over_under_player input_padding">
-                                <span class="input_label">Select Player </span>
-                                <select data-placeholder="Select" id="prop_baseball_over_under_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                </select>
                             </div>
                         </div>
                     </div>

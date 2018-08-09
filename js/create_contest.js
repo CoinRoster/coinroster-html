@@ -301,20 +301,49 @@ prop_sport_selector.onchange = function()
     prop_golf_type_selector.add(option);
   }
 
+  var basketball_title = document.getElementById("prop_basketball_title");
+  var golf_title = document.getElementById("prop_golf_title");
+  var baseball_title = document.getElementById("prop_baseball_title");
+
+  // Set titles
+  if (avaliable_sports.BASKETBALL) {
+    var title = avaliable_sports.basketball_contest;
+    basketball_title.innerHTML = title;
+  } 
+  
+  if (avaliable_sports.GOLF_1) {
+    var title = avaliable_sports.golf_contest;
+    golf_title.innerHTML = title;
+  }
+  
+  if (avaliable_sports.BASEBALL) {
+    var title = avaliable_sports.baseball_contest;
+    baseball_title.innerHTML = title;
+  }
+
   switch (selectorHTML(prop_sport_selector))
   {
     case "Basketball":
+      show(basketball_title);
       show(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
+      hide(golf_title);
+      hide(baseball_title);
       hide(prop_baseball_type[0]);
       break;
     case "Golf":
+      show(golf_title);
       show(prop_golf_type[0]);
+      hide(basketball_title);
+      hide(baseball_title);
       hide(prop_basketball_type[0]);
       hide(prop_baseball_type[0]);
       break;
     case "Baseball":
+      show(baseball_title)
       show(prop_baseball_type[0]);
+      hide(golf_title);
+      hide(basketball_title);
       hide(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
       break;
