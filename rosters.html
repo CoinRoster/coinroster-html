@@ -24,6 +24,7 @@
         <div class="body_container header">
             <div id="no_data_message" class="low_grade_alert hidden"></div>
         </div>
+        <div id="player_scores" class="section_header"></div>
         <div class="table_body_container">
             <table id="roster_entry_report_table" class="contest_table entry_report_table"></table>
         </div>
@@ -66,6 +67,10 @@
                 
                 scores_updated_ms = contest.scores_updated,
                 scores_updated = scores_updated_ms > 0 ? true : false;
+                
+                if(scores_updated){
+                    id("player_scores").innerHTML = "<a href=\"/scores.html?contest_id=" + contest_id + "\" class=\"inline_link orange\">Player Scores</a>";
+                }
                 
                 if (scores_updated && contest_status === 2)
                     {
