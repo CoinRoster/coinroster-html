@@ -19,8 +19,11 @@ function setupDashboard(index){
 
 }
 
-var news_button = document.getElementById("news_tab");
-var stats_button = document.getElementById("stats_tab");
+news_button = "news_tab_" + index;
+stats_button = "stats_tab_" + index;
+var news_button = document.getElementById(news_button);
+var stats_button = document.getElementById(stats_button);
+
 var news_tab = document.getElementsByClassName("newsfeed")[index];
 var stats_tab = document.getElementsByClassName("stats_table")[index];
 twitter_class = "twitter-widget-" + index;
