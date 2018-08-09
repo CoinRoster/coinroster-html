@@ -1,5 +1,6 @@
 function setupDashboard(index){
     // Get the modal
+    window['dash_index'] = index;
     document.getElementById('stats_modal').style.display = "block";
     document.getElementsByClassName("modal-body")[index].scrollTop = 0;
     document.getElementsByClassName("stats_table")[index].style.display = "block";
@@ -19,6 +20,7 @@ function setupDashboard(index){
 
 }
 
+var index = window['dash_index'];
 news_button = "news_tab_" + index;
 stats_button = "stats_tab_" + index;
 var news_button = document.getElementById(news_button);
