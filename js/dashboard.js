@@ -1,6 +1,5 @@
 function setupDashboard(index){
     // Get the modal
-    window['dash_index'] = index;
     document.getElementById('stats_modal').style.display = "block";
     document.getElementsByClassName("modal-body")[index].scrollTop = 0;
     document.getElementsByClassName("stats_table")[index].style.display = "block";
@@ -45,7 +44,7 @@ stats_button.onclick = function() {
    news_tab.style.display = "none";
    stats_tab.style.display = "block";
 };
-doc.getElementsByClassName("timeline-LoadMore-prompt")[0].onclick = function() {
+doc.getElementsByClassName("timeline-LoadMore-prompt")[index].onclick = function() {
     setTimeout(function() {
        resize_twitter();
     }, 500);

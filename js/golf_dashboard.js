@@ -7,7 +7,6 @@ function displayGolfDashboard(data){
     
     // cole needs this to draft player 
     window["player_id"] = data.pga_id;
-    console.log(window.player_id);   
     
     document.getElementById("golf_player_name").innerHTML = data.name;
     document.getElementById("golf_mobile_playername").innerHTML = data.name;
