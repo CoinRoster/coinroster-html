@@ -191,13 +191,7 @@
         insert_player_row("player_table", player_id, name, price, count);
 
         var players_left = max_players - drafted;
-
-        console.log("Max Players " + max_players);
-        console.log("Drafted " + drafted);
-        console.log("Salary Cap " + salary_cap);
-
-
-        id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
+        id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / players_left));
         }
         
     function sort_player_tables()
