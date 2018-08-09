@@ -24,7 +24,7 @@ function displayGolfDashboard(data){
     document.getElementById('golf_logo').src = 'http://a.espncdn.com/golfonline/img/flags/' +data.country_abr+ '.jpg';
            
     document.getElementById("golf_team_list").innerHTML = 'Country: ' + data.country_abr;;
-    document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.Weight;
+    document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     document.getElementById("golf_born_list").innerHTML = 'Born: ' + data.birthString;
 
     document.getElementById("golf_team_table").innerHTML = data.country_abr;
