@@ -261,6 +261,93 @@
         display: table-cell;
         vertical-align: middle;
     }
+  
+    .content_body {
+        padding-left: 15px !important;
+    }
+
+    .dropdown {
+        height: 37px;
+        width: 220px;
+    }
+
+    .checkboxes {
+        width: 220px;
+    }
+
+    .checkboxes div {
+        padding-bottom: 13px;
+    }
+
+    .checkboxes > div > label {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .checkboxes > div > input {
+        font-family: 'gotham_medium', sans-serif;
+        font-size: 14px;
+        text-align: center;
+        width: 45px !important;
+        float: right;
+        border-radius: 5px;
+        padding: 3px;
+        border: none;
+        outline: line;
+    }
+
+    .checkboxes > div > input:focus {
+        outline: none;
+    }
+
+    .checkboxes > div > input:disabled {
+        background: rgb(155, 155, 155); 
+    }
+
+    /* TEST */
+    .contest_table, .player_table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .contest_table tr {
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 1px;
+        background: rgb(100,102,104);
+    }
+        
+    .contest_table td {
+        padding: 10px 20px;
+        font-size: 13px;
+    }         
+    
+    .contest_table tr:first-child { /* header */
+        background: none;
+        border: none;
+        white-space: nowrap !important
+    }
+    
+    .contest_table tr:first-child td { /* header cells */
+        background: none;
+        border: none;
+        font-size: 12px;
+        padding-top: 0px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .dimmed {
+        color: rgb(155, 155, 155);
+    }
+
+    #number_of_options, #number_of_payouts {
+        width: 40px;
+        margin-left: 15px;
+    }
 
     .pari_mutuel_button {
         display: block;
