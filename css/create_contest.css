@@ -146,7 +146,7 @@
 
 .create_contest_form {
     width: 80%;
-    max-width: 600px;
+    max-width: 400px;
     margin: 0 auto;
 }
 
@@ -167,10 +167,6 @@
     width: -moz-calc(95% + 20px) !important;
     width: -webkit-calc(95% + 20px) !important;
     width: -o-calc(95% + 20px) !important;
-}
-
-.push_left {
-    margin-left: 0px;
 }
 
 #misc_registration_deadline, #misc_registration_deadline_time_selector {
@@ -197,21 +193,4 @@
 
 #jackpot_table_element input {
     width: 100% !important;
-}
-
-.flex {
-    display: flex;
-    flex-direction: row;
-}
-
-@media only screen and (min-width: 650px) {    
-    .push_left {
-        margin-left: 100px;
-    }
-}
-
-@media only screen and (max-width: 650px) {    
-    .flex {
-        flex-direction: column;
-    }
 }
