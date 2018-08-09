@@ -141,7 +141,7 @@
                 header[1].style.textAlign = "center";
                 header[6].style.textAlign = "right";
             }
-            else id("user_contest_table").innerHTML = "None";
+            else id("user_contest_table").innerHTML = "No available contests";
         }
         else id("user_contest_table").innerHTML = "Error getting transactions";       
     }
@@ -199,7 +199,7 @@
             }
         }, function(call) {
             if (call.status === "1") {
-                show_simple_modal("Contest has been settled! Reloading panel", "good", () => {
+                show_simple_modal("Contest has been settled!", "good", () => {
                     location.reload();
                 });
             }
