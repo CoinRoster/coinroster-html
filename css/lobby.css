@@ -541,3 +541,9 @@
         cursor: pointer;
         text-decoration: underline;
     }
+    
+    #player_scores{
+        padding-left: 20px;
+        padding-bottom: 15px;
+        font-size: 14px;
+    }
