@@ -1471,7 +1471,7 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
 } else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "contest_redirect") {
+} else if (category === "usergenerated") {
   contest_type_selector.value = "Misc";
   contest_type_selector.onchange();
 }
