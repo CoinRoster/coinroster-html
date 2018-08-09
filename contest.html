@@ -251,7 +251,8 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
-<script src="/js/golf_stats.js"></script>
+<script src="/js/dashboard.js"></script>    
+<script src="/js/golf_dashboard.js"></script>
 <script src="/js/baseball_dashboard.js"></script>
 
 <script>
@@ -893,11 +894,11 @@ function open_dashboard(span){
     var sport = document.getElementById("sub_category").innerText.replace("Fantasy ", "").replace(" Props", "").toUpperCase();
     var rtn = get_data(player_id.replace("player_", ""), sport);
     if(sport === "GOLF")
-        displayGolfDash(rtn.data);
+        displayGolfDashboard(rtn.data);
     else if(sport === "BASEBALL")
-        displayBaseballDash(rtn.data);
+        displayBaseballDashboard(rtn.data);
     else if(sport === "BASKETBALL")
-        displayBasketballDash(rtn.data);
+        displayBasketballDashboard(rtn.data);
 }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>

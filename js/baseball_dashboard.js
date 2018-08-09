@@ -1,72 +1,37 @@
-function displayBaseballDash(data){
+//var data = {"pos":"3B","last_ten_games":[{"BB":"1","AB":"4","SCORE":"L 3-4","H":"0","HR":"0","K":"1","OPP":"vs SEA","3B":"0","SB":"0","2B":"0","DATE":"08/06","R":"1","AVG":".281","RBI":"0"},{"BB":"0","AB":"4","SCORE":"W 3-1","H":"0","HR":"0","K":"2","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/04","R":"1","AVG":".285","RBI":"0"},{"BB":"0","AB":"4","SCORE":"W 11-3","H":"1","HR":"0","K":"0","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/03","R":"1","AVG":".289","RBI":"0"},{"BB":"1","AB":"5","SCORE":"W 17-8","H":"2","HR":"0","K":"1","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/02","R":"1","AVG":".289","RBI":"0"},{"BB":"0","AB":"4","SCORE":"L 0-6","H":"0","HR":"0","K":"2","OPP":"@ ARI","3B":"0","SB":"0","2B":"0","DATE":"07/31","R":"0","AVG":".287","RBI":"0"},{"BB":"1","AB":"4","SCORE":"W 9-5","H":"1","HR":"0","K":"1","OPP":"@ ARI","3B":"0","SB":"0","2B":"0","DATE":"07/30","R":"1","AVG":".292","RBI":"0"},{"BB":"0","AB":"5","SCORE":"W 7-3","H":"1","HR":"0","K":"2","OPP":"@ HOU","3B":"0","SB":"0","2B":"0","DATE":"07/28","R":"1","AVG":".292","RBI":"1"},{"BB":"0","AB":"5","SCORE":"W 11-2","H":"3","HR":"0","K":"0","OPP":"@ HOU","3B":"0","SB":"0","2B":"0","DATE":"07/27","R":"1","AVG":".294","RBI":"0"},{"BB":"0","AB":"5","SCORE":"L 6-7","H":"3","HR":"0","K":"1","OPP":"vs OAK","3B":"0","SB":"0","2B":"0","DATE":"07/26","R":"1","AVG":".288","RBI":"1"},{"BB":"0","AB":"4","SCORE":"L 5-6","H":"2","HR":"0","K":"0","OPP":"vs OAK","3B":"0","SB":"0","2B":"1","DATE":"07/25","R":"0","AVG":".282","RBI":"1"}],"year_stats":{"BB":"24","AB":"292","STAT_TYPE":"2018 Regular Season","H":"82","GP":"79","HR":"5","K":"68","3B":"1","SB":"0","SLG":".384","2B":"13","CS":"0","R":"29","AVG":".281","OPS":".720","RBI":"33","OBP":".336"},"name":"Adrian Beltre","weight":"220 lbs","id":"3878","career_stats":{"BB":"837","AB":"10923","STAT_TYPE":"Career","H":"3130","GP":"2892","HR":"467","K":"1703","3B":"38","SB":"120","SLG":".479","2B":"626","CS":"42","R":"1503","AVG":".287","OPS":".819","RBI":"1675","OBP":".340"},"birthString":"April 7, 1979 in Santo Domingo, Dominican Republic (Age: 39)","height":"5'11\"","team_abr":"TEX"};
 
-    // Get the modal
-    document.getElementById('stats_modal').style.display = "block";
-    document.getElementById('stats_model_content').style.display = "table";
-    document.getElementsByClassName("modal-body")[0].scrollTop = 0;
-    document.getElementById("stats_table").style.display = "block";
-    document.getElementById("newsfeed").style.display = "none";
+function displayBaseballDashboard(data){
     
-    var news_button = document.getElementById("news_tab");
-    var stats_button = document.getElementById("stats_tab");
-    var news_tab = document.getElementById("newsfeed");
-    var stats_tab = document.getElementById("stats_table");
-
-    news_button.onclick = function() {
-       news_tab.style.display = "block";
-       stats_tab.style.display = "none";
-       setTimeout(function() {
-            var doc = document.getElementById('twitter-widget-0').contentWindow.document;
-            var tweets = doc.getElementsByClassName("timeline-Tweet-text");
-            var media = doc.getElementsByClassName("timeline-Tweet-media");
-            for (var i = 0; i < tweets.length; i++) {
-                tweets[i].style.fontSize = "100%";
-                tweets[i].style.lineHeight = "16px";
-            }
-            for (var i = 0; i < media.length; i++){
-                media[i].style.display = "none";
-            }
-       }, 100);
-    };
-    
-    stats_button.onclick = function() {
-       news_tab.style.display = "none";
-       stats_tab.style.display = "block";
-    };
-
-    function photo_align(media_query) {
-        if (media_query.matches) { // If media query matches
-            document.getElementById('playerphoto').setAttribute('align', 'center');
-        }
-        else {
-            document.getElementById('playerphoto').setAttribute('align', 'auto');
-        }
-    }
-    var media_query = window.matchMedia("(max-width: 767px)");
-    photo_align(media_query); // Call listener function at run time
-    media_query.addListener(photo_align); // Attach listener function on state changes
-
+    setupDashboard();
+    // cole needs this to draft player 
     window["player_id"] = data.id;
-    var header = document.getElementById("player_name").innerHTML = data.name;
-    document.getElementById("mobile_playername").innerHTML = data.name;
-
-    document.getElementById('headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/' + data.id + '.png&w=350&h=254';
-    document.getElementById('logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/' + data.team_abr + '.png&w=110&h=110&transparent=true';
-
-    document.getElementById("team_list").innerHTML = 'Team: ' + data.team_abr;
-    document.getElementById("pos_list").innerHTML = 'Pos: ' + data.pos;
-    document.getElementById("height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
-    document.getElementById("born_list").innerHTML = 'Born: ' + data.birthString;
-
-    document.getElementById("team_table").innerHTML = data.team_abr;
-    document.getElementById("pos_table").innerHTML = data.pos;
-    document.getElementById("height_table").innerHTML = data.height;
-    document.getElementById("weight_table").innerHTML = data.weight;
-    document.getElementById("born_table").innerHTML = data.birthString;
+       
+    document.getElementById("baseball_player_name").innerHTML = data.name;
+    document.getElementById("baseball_mobile_playername").innerHTML = data.name;
     
-    document.getElementById("season_stats").innerHTML = data.year_stats.STAT_TYPE;
+    //document.getElementById('baseball_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/32516.png&w=350&h=254';
+    document.getElementById('baseball_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/' + data.id + '.png&w=350&h=254';
+    function onImageLoadError() {
+        document.getElementById('baseball_headshot').src = '/img/default-baseball.png';
+    }
+    document.getElementById('baseball_headshot').addEventListener("error", onImageLoadError);     
+    
+    document.getElementById('baseball_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/mlb/500/' + data.team_abr + '.png&w=110&h=110&transparent=true';
+           
+    document.getElementById("baseball_team_list").innerHTML = 'Team: ' + data.team_abr;
+    document.getElementById("baseball_pos_list").innerHTML = 'Pos: ' + data.pos;
+    document.getElementById("baseball_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
+    document.getElementById("baseball_born_list").innerHTML = 'Born: ' + data.birthString;
 
-    var sst = document.getElementById("season_stats_table").rows[0].cells;
+    document.getElementById("baseball_team_table").innerHTML = data.team_abr;
+    document.getElementById("baseball_pos_table").innerHTML = data.pos;
+    document.getElementById("baseball_height_table").innerHTML = data.height;
+    document.getElementById("baseball_weight_table").innerHTML = data.weight;
+    document.getElementById("baseball_born_table").innerHTML = data.birthString;
+    
+    document.getElementById("baseball_season_stats").innerHTML = data.year_stats.STAT_TYPE;
+
+    var sst = document.getElementById("baseball_season_stats_table").rows[0].cells;
     for(i = 0;i <= 10;i++){
        sst[i].className = "stat_category";
     }
@@ -82,7 +47,7 @@ function displayBaseballDash(data){
     sst[9].innerHTML = "K";
     sst[10].innerHTML = "OPS";
     
-    var cells = document.getElementById("season_stats_table").rows[1].cells;
+    var cells = document.getElementById("baseball_season_stats_table").rows[1].cells;
     for(i = 0;i <= 10;i++){
        cells[i].className = "dashboard_td";
     }
@@ -98,9 +63,9 @@ function displayBaseballDash(data){
     cells[9].innerHTML = data.year_stats.K;
     cells[10].innerHTML = data.year_stats.OPS;
 
-    document.getElementById("career_stats").innerHTML = "Career Stats";
+    document.getElementById("baseball_career_stats").innerHTML = "Career Stats";
 
-    var cst = document.getElementById("career_stats_table").rows[0].cells;
+    var cst = document.getElementById("baseball_career_stats_table").rows[0].cells;
     for(i = 0;i <= 10;i++){
        cst[i].className = "stat_category";
     }
@@ -116,7 +81,7 @@ function displayBaseballDash(data){
     cst[9].innerHTML = "K";
     cst[10].innerHTML = "OPS";
     
-    var cst = document.getElementById("career_stats_table").rows[1].cells;
+    var cst = document.getElementById("baseball_career_stats_table").rows[1].cells;
     for(i = 0;i <= 10;i++){
        cst[i].className = "dashboard_td";
     }
@@ -132,9 +97,9 @@ function displayBaseballDash(data){
     cst[9].innerHTML = data.career_stats.K;
     cst[10].innerHTML = data.career_stats.OPS;
 
-    document.getElementById("prev_games").innerHTML = "Game Log";
+    document.getElementById("baseball_prev_games").innerHTML = "Game Log";
 
-    var game_log_table = document.getElementById("prev_games_table");
+    var game_log_table = document.getElementById("baseball_prev_games_table");
     var games = data.last_ten_games;
 
     //INSERT HEADER ROW
@@ -143,26 +108,29 @@ function displayBaseballDash(data){
     //row.className = "stat_category";
 
     if(game_log_table.rows.length == 1){
-
-        var OPP = row.insertCell(0);
+        
+        var DATE = row.insertCell(0);
+        DATE.className = "stat_category";
+        var OPP = row.insertCell(1);
         OPP.className = "stat_category";
-        var H = row.insertCell(1);
+        var H = row.insertCell(2);
         H.className = "stat_category";
-        var AB = row.insertCell(2);
+        var AB = row.insertCell(3);
         AB.className = "stat_category";
-        var HR = row.insertCell(3);
+        var HR = row.insertCell(4);
         HR.className = "stat_category";
-        var RBI = row.insertCell(4);
+        var RBI = row.insertCell(5);
         RBI.className = "stat_category";
-        var R = row.insertCell(5);
+        var R = row.insertCell(6);
         R.className = "stat_category";
-        var SB = row.insertCell(6);
+        var SB = row.insertCell(7);
         SB.className = "stat_category";
-        var BB = row.insertCell(7);
+        var BB = row.insertCell(8);
         BB.className = "stat_category";
-        var K = row.insertCell(8);
+        var K = row.insertCell(9);
         K.className = "stat_category";
 
+        DATE.innerHTML = "Date"
         OPP.innerHTML = "OPP";
         H.innerHTML = "H";
         AB.innerHTML = "AB";
@@ -179,23 +147,24 @@ function displayBaseballDash(data){
             // Create an empty <tr> element and add it to the 2nd position of the table (header row is first):
             var row = game_log_table.insertRow(i);
             //row.className = "td";
+            var DATE = row.insertCell(0);
+            var OPP = row.insertCell(1);
+            var H = row.insertCell(2);
+            var AB = row.insertCell(3);
+            var HR = row.insertCell(4);
+            var RBI = row.insertCell(5);
+            var R = row.insertCell(6);
+            var SB = row.insertCell(7);
+            var BB = row.insertCell(8);
+            var K = row.insertCell(9);
 
-            var OPP = row.insertCell(0);
-            var H = row.insertCell(1);
-            var AB = row.insertCell(2);
-            var HR = row.insertCell(3);
-            var RBI = row.insertCell(4);
-            var R = row.insertCell(5);
-            var SB = row.insertCell(6);
-            var BB = row.insertCell(7);
-            var K = row.insertCell(8);
 
-
-            var stat_type = [OPP, H, AB, HR, RBI, R, SB, BB, K];
+            var stat_type = [DATE, OPP, H, AB, HR, RBI, R, SB, BB, K];
             for(var j = 0;j < stat_type.length;j++){
                 stat_type[j].className = "dashboard_td";
             } 
             // Add some text to the new cells:
+            DATE.innerHTML = games[i-1].DATE;
             OPP.innerHTML = games[i-1].OPP + "<br/>" + games[i-1].SCORE;
             H.innerHTML = games[i-1].H;
             AB.innerHTML = games[i-1].AB;
@@ -206,41 +175,6 @@ function displayBaseballDash(data){
             BB.innerHTML = games[i-1].BB;
             K.innerHTML = games[i-1].K;
         }
-        /* 
-        var pgt = document.getElementById("prev_games_table").rows[0].cells;
-        pgt[0].innerHTML = "Opp";
-        pgt[1].innerHTML = "H";
-        pgt[2].innerHTML = "AB";
-        pgt[3].innerHTML = "HR";
-        pgt[4].innerHTML = "RBI";
-        pgt[5].innerHTML = "R";
-        pgt[6].innerHTML = "SB";
-        pgt[7].innerHTML = "BB";                   
-        pgt[8].innerHTML = "K";
-        for(var i = 1;i <= 10;i++){
-            var pgt = document.getElementById("prev_games_table").rows[i].cells;
-            pgt[0].innerHTML = data.last_ten_games[i-1].OPP + "<br />" + data.last_ten_games[i-1].SCORE;
-            pgt[1].innerHTML = data.last_ten_games[i-1].H;
-            pgt[2].innerHTML = data.last_ten_games[i-1].AB;
-            pgt[3].innerHTML = data.last_ten_games[i-1].HR;                  
-            pgt[4].innerHTML = data.last_ten_games[i-1].RBI;
-            pgt[5].innerHTML = data.last_ten_games[i-1].R;
-            pgt[6].innerHTML = data.last_ten_games[i-1].SB;
-            pgt[7].innerHTML = data.last_ten_games[i-1].BB;
-            pgt[8].innerHTML = data.last_ten_games[i-1].K;
-        }*/               
-    }       
-
-    // When the user clicks anywhere outside of the modal, close it
-//    window.onclick = function(event) {
-//        if (event.target !== document.getElementsByClassName("modal-content")[0]) {
-//            close_dash();
-//        }
-//    };
-    
-    $('#close').click(function() {
-        close_dash();
-    });
-    
-
+    }
 }
+  

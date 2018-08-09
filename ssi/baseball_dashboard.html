@@ -1,54 +1,60 @@
 <!-- SSI: baseball_dashboard.html -->    
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="/css/baseball_dashboard.css">
 
-<div id="stats_modal" class="modal"></div>
-      <!-- Modal content -->
-    <table id="stats_model_content" class="modal_table_container">
-        <tbody>
-            <tr>
-                <td>
-                    <div class="modal-content">
-                        <div class="modal-body">
-                        <span id="close" class="close">&times;</span>
+<!--
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="baseball_dashboard.css">
+-->
 
-                        <div id="mobile_header" class="container-fluid">
+<div id="stats_modal" class="modal"></div>
+<!-- Modal content -->
+<table id="stats_model_content" class="modal_table_container">
+    <tbody>
+        <tr>
+            <td>
+                <div class="modal-content">
+                    <span id="close" class="close" onclick="close_dash()">&times;</span>
+                    <div class="modal-body">
+
+                        <div class="container-fluid mobile_header">
                             <div class="responsive" style="padding: 0px;"></div>
                             <div class="responsive" style="padding: 0px;">                                 
-                                <h1 id="mobile_playername"></h1>    
+                                <h1 id="baseball_mobile_playername" class="dashboard_h1"></h1>    
                                 <hr class="seperator">                                       
                             </div>    
                         </div>
 
                         <div class="container-fluid">
-                                <div id="playerphoto" class="responsive" style="padding: 0px;">
-                                    <div id="frame">
-                                        <div id="headshot_frame">                    
-                                            <img alt="playerpic" width="219" height="160" id="headshot" class="img-responsive">
+                                <div class="responsive playerphoto" style="padding: 0px;">
+                                    <div class="frame">
+                                        <div id="baseball_headshot_frame">                    
+                                            <img alt="playerpic" width="219" height="160" id="baseball_headshot" class="img-responsive">
                                         </div>
-                                        <div id="logo_frame">
-                                            <img alt="teamlogo" id="logo" class="img-responsive">
+                                        <div id="baseball_logo_frame">
+                                            <img alt="logo" id="baseball_logo" class="img-responsive">
                                         </div>
-                                        <div id="spot_frame">
+                                        <div class="spot_frame">
                                             <img src="/img/spotlight.png" alt="spot" width="230" height="175" id="spot" class="img-responsive">  
                                         </div>
                                     </div>
                                 </div>
 
                                 <div id="playerinfo" class="responsive" style="padding: 0px;">
-                                    <div id="header">
-                                        <h1 id="player_name"></h1>    
-                                        <hr id="underline" class="seperator">
+                                    <div class="header">
+                                        <h1 id="baseball_player_name" class="dashboard_h1"></h1>    
+                                        <hr class="seperator underline">
                                     </div>
-                                    <div id="listinfo">      
-                                        <p id="team_list" class="dashboard_p"></p>
-                                        <p id="pos_list" class="dashboard_p"></p>
-                                        <p id="height_list" class="dashboard_p"></p>
-                                        <p id="weight_list" class="dashboard_p"></p>
-                                        <p id="born_list" class="dashboard_p"></p>
+                                    <div class="listinfo">      
+                                        <p id="baseball_team_list" class="dashboard_p"></p>
+                                        <p id="baseball_pos_list" class="dashboard_p"></p>
+                                        <p id="baseball_height_list" class="dashboard_p"></p>
+                                        <p id="baseball_weight_list" class="dashboard_p"></p>
+                                        <p id="baseball_born_list" class="dashboard_p"></p>
                                     </div>
-                                    <div id="tableinfo">
+                                    <div class="tableinfo">
                                         <table class="dashboard_table">
                                             <tr>
                                                 <td class="table_header">Team</td>
@@ -57,16 +63,16 @@
                                                 <td class="table_header">Weight</td>
                                             </tr>
                                             <tr>
-                                                <td id="team_table" class="dashboard_td"></td>
-                                                <td id="pos_table" class="dashboard_td"></td>
-                                                <td id="height_table" class="dashboard_td"></td>
-                                                <td id="weight_table" class="dashboard_td"></td>
+                                                <td id="baseball_team_table" class="dashboard_td info_td"></td>
+                                                <td id="baseball_pos_table" class="dashboard_td info_td"></td>
+                                                <td id="baseball_height_table" class="dashboard_td info_td"></td>
+                                                <td id="baseball_weight_table" class="dashboard_td info_td"></td>
                                             </tr>
                                             <tr>
                                                 <td class="table_header" colspan="4">Born</td>
                                             </tr>
                                             <tr>
-                                                <td id="born_table" colspan="4" class="dashboard_td"></td>
+                                                <td id="baseball_born_table" colspan="4" class="dashboard_td info_td"></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -74,12 +80,13 @@
                         </div>
 
                         <hr class="seperator">
+                        
                         <button id="stats_tab" class="tab">STATS</button>
                         <button id="news_tab" class="tab">NEWS</button>
 
-                        <div id="stats_table">
-                            <table id="season_stats_table" class="dashboard_table">
-                                <caption id="season_stats" class="dashboard_caption"></caption>
+                        <div class="stats_table">
+                            <table id="baseball_season_stats_table" class="dashboard_table sst_table">
+                                <caption id="baseball_season_stats" class="dashboard_caption"></caption>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -108,8 +115,8 @@
                                     </tr>
                             </table>
 
-                            <table id="career_stats_table" class="dashboard_table">
-                                <caption id="career_stats" class="dashboard_caption"></caption>
+                            <table id="baseball_career_stats_table" class="dashboard_table cst_table">
+                                <caption id="baseball_career_stats" class="dashboard_caption"></caption>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -138,25 +145,28 @@
                                     </tr>
                             </table>
 
-                            <table id="prev_games_table" class="dashboard_table">
-                                <caption id="prev_games" class="dashboard_caption"></caption>
+                            <table id="baseball_prev_games_table" class="dashboard_table pst_table">
+                                <caption id="baseball_prev_games" class="dashboard_caption"></caption>
                             </table>
                         </div>
 
-                        <div id="newsfeed">
+                        <div class="newsfeed">
                             <a class="twitter-timeline" data-lang="en" data-width="100%" data-height="400" data-theme="dark" href="https://twitter.com/Rotoworld_BB?ref_src=twsrc%5Etfw">Tweets by @Rotoworld_BB</a>
                             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
                         </div>
 
                     </div>
-                    <div id="footer">                    
-                        <button onclick="draft_player()" id="draft_button">DRAFT</button>
+                    <div class="footer">                    
+                        <button onclick="draft_player()" class="draft_button">DRAFT</button>
                     </div>
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
+
+<script src="/js/dashboard.js"></script>
+<script src="/js/baseball_dashboard.js"></script>
 
 <script>
     function close_dash(){
@@ -175,14 +185,10 @@
         add_player(window.player_id);
     }
     
-    $('#close').click(function() {
-        close_dash();
-    });
-    
     $(document).keyup(function(e) {
-     if (e.keyCode == 27) { // escape key maps to keycode `27`
-       close_dash();
-    }
-});
+        if (e.keyCode == 27) {
+            close_dash();
+        }
+    });
 </script>
 <!-- end SSI Include -->
