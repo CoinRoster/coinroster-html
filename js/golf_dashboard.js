@@ -29,7 +29,7 @@ function displayGolfDashboard(data){
 
     document.getElementById("golf_team_table").innerHTML = data.country_abr;
     document.getElementById("golf_height_table").innerHTML = data.height;
-    document.getElementById("golf_weight_table").innerHTML = data.Weight;
+    document.getElementById("golf_weight_table").innerHTML = data.weight;
     document.getElementById("golf_born_table").innerHTML = data.birthString;
     
     document.getElementById("golf_prev_games").innerHTML = "Previous Tournaments";                
