@@ -641,7 +641,8 @@
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
         if (roster_size !== 0) {
-            show(left_to_spend);
+            
+            id("left_to_spend").style.display = "inline";
             id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / roster_size));
         }
 

@@ -541,7 +541,3 @@
         cursor: pointer;
         text-decoration: underline;
     }
-
-    #left_to_spend {
-        display: inline !important;
-    }
