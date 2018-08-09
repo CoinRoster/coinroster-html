@@ -139,7 +139,7 @@
 #prop_golf_title,
 #prop_baseball_title,
  {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .create_contest_form {
