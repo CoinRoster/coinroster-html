@@ -203,7 +203,7 @@ roster_sport_selector.onchange = function()
     basketball_title.innerHTML = title;
   } 
   
-  if (avaliable_sports.GOLF_1) {
+  if (avaliable_sports.GOLF_4) {
     var title = avaliable_sports.golf_contest;
     golf_title.innerHTML = title;
   }
