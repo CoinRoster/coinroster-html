@@ -1,7 +1,7 @@
 function setupDashboard(){
     // Get the modal
     document.getElementById('stats_modal').style.display = "block";
-    document.getElementById('stats_model_content').style.display = "table";
+   // document.getElementById('stats_model_content').style.display = "table";
     document.getElementsByClassName("modal-body")[0].scrollTop = 0;
     document.getElementsByClassName("stats_table")[0].style.display = "block";
     document.getElementsByClassName("newsfeed")[0].style.display = "none";
