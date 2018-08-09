@@ -119,6 +119,7 @@
     function add_player(player_id)
         {
         var row = id("player_" + player_id),
+        left_to_spend = document.getElementById("left_to_spend"),
                 
         name = row.name,
         price = row.price,
@@ -140,8 +141,13 @@
             }
         else drafted = remaining_players;
 
-            console.log(drafted);
+            console.log(salary_cap);
             console.log(remaining_players);
+
+
+
+
+
 
         if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
         else if (price <= salary_cap)
