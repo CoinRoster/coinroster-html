@@ -141,14 +141,6 @@
             }
         else drafted = remaining_players;
 
-            console.log(salary_cap);
-            console.log(remaining_players);
-
-
-
-
-
-
         if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
         else if (price <= salary_cap)
             {
@@ -157,6 +149,10 @@
             else id("remaining_players").innerHTML = ++drafted;
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
+
+            console.log(salary_cap);
+            console.log(remaining_players);
+
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
