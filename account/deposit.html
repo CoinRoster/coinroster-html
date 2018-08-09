@@ -185,8 +185,8 @@
         
     function copy_wallet_to_clipboard()
         {
-            var address = window.session.cgs_address;
-            address.select();
+            var address = document.getElementById("user_ext_address");
+            address.innerText.select();
             document.execCommand("Copy");
             show_simple_modal("Your address has been copied!", "good");
         }
