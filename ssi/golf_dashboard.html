@@ -136,7 +136,10 @@
 <script>
     function close_dash(){
         document.getElementById("stats_modal").style.display = "none";
-        document.getElementById("stats_model_content_golf").style.display = "none";
+        var modals = document.getElementsByClassName("modal_table_container");
+        for(i = 0; i < modals.length; i++){
+            modals[i].style.display = "none";
+        }
     }
     
     function draft_player(){
