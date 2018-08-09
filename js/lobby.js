@@ -119,7 +119,6 @@
     function add_player(player_id)
         {
         var row = id("player_" + player_id),
-        left_to_spend = document.getElementById("left_to_spend"),
                 
         name = row.name,
         price = row.price,
@@ -150,11 +149,8 @@
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
 
-            
-
-            console.log(subtract(salary_cap, price));
-            console.log(max_players - drafted);
-
+            var left_to_spend = subtract(salary_cap, price) / (max_players - drafted);
+            id("left_to_spend".innerHTML = left_to_spend);
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
