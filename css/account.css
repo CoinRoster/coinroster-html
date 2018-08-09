@@ -366,5 +366,5 @@
     }
 
     .copy_wallet_address {
-        padding-left: 90px;
+        padding-left: 90px !important;
     }
