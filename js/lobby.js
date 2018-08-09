@@ -151,12 +151,7 @@
 
             var left_to_spend = subtract(salary_cap, price);
             var players_left = max_players - drafted;
-
-            id("remaining_money_per_player").innerHTML = left_to_spend / players_left;
-
-            console.log(left_to_spend);
-            console.log(players_left);
-
+            id("remaining_money_per_player").innerHTML = "$" + commas(left_to_spend / players_left);
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
