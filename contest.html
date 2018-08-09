@@ -647,7 +647,10 @@
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
-        if (roster_size !== 0) show(left_to_spend);
+        if (roster_size !== 0) {
+            show(left_to_spend);
+            id("remaining_money_per_player").innerHTML = "$" + commas(salary_cap);
+        }
 
         for (var i=0; i<option_table.length; i++)
             {
