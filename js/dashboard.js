@@ -17,38 +17,37 @@ function setupDashboard(index){
     photo_align(media_query); // Call listener function at run time
     media_query.addListener(photo_align); // Attach listener function on state changes
 
+    news_button = "news_tab_" + index;
+    stats_button = "stats_tab_" + index;
+    var news_button = document.getElementById(news_button);
+    var stats_button = document.getElementById(stats_button);
+
+    var news_tab = document.getElementsByClassName("newsfeed")[index];
+    var stats_tab = document.getElementsByClassName("stats_table")[index];
+    twitter_class = "twitter-widget-" + index;
+    console.log(twitter_class);
+    var doc = document.getElementById(twitter_class).contentWindow.document;
+
+    news_button.onclick = function() {
+        console.log("news tab clicked");
+       news_tab.style.display = "block";
+       stats_tab.style.display = "none";
+       setTimeout(function() {
+           resize_twitter();
+       }, 100);
+    };
+    stats_button.onclick = function() {
+        console.log("stats tab clicked");
+       news_tab.style.display = "none";
+       stats_tab.style.display = "block";
+    };
+    doc.getElementsByClassName("timeline-LoadMore-prompt")[index].onclick = function() {
+        setTimeout(function() {
+           resize_twitter();
+        }, 500);
+    };
 }
 
-var index = window.dash_index;
-news_button = "news_tab_" + index;
-stats_button = "stats_tab_" + index;
-var news_button = document.getElementById(news_button);
-var stats_button = document.getElementById(stats_button);
-
-var news_tab = document.getElementsByClassName("newsfeed")[index];
-var stats_tab = document.getElementsByClassName("stats_table")[index];
-twitter_class = "twitter-widget-" + index;
-console.log(twitter_class);
-var doc = document.getElementById(twitter_class).contentWindow.document;
-
-news_button.onclick = function() {
-    console.log("news tab clicked");
-   news_tab.style.display = "block";
-   stats_tab.style.display = "none";
-   setTimeout(function() {
-       resize_twitter();
-   }, 100);
-};
-stats_button.onclick = function() {
-    console.log("stats tab clicked");
-   news_tab.style.display = "none";
-   stats_tab.style.display = "block";
-};
-doc.getElementsByClassName("timeline-LoadMore-prompt")[index].onclick = function() {
-    setTimeout(function() {
-       resize_twitter();
-    }, 500);
-};
 function resize_twitter(){
 
     var tweets = doc.getElementsByClassName("timeline-Tweet-text");
