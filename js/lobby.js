@@ -364,6 +364,8 @@
         number_of_players = rows.length,
         roster = [];
 
+            console.log(number_of_players);
+
         if (number_of_players === 0) return show_simple_modal("You must draft at least one player", "bad", null);
         
         for (var i=0; i<number_of_players; i++)

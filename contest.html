@@ -188,6 +188,14 @@
                         <span id="remaining_players" class="green">0</span>
                     </li>
                 </ul>
+                <ul class="roster_parameter_table hidden" id="left_to_spend">
+                    <li class="roster_parameter_label">
+                        Left to spend per player:
+                    </li>
+                    <li>
+                        <span id="remaining_money_per_player" class="green"></span>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="body_container selector_container lobby roster_field hidden">
@@ -606,7 +614,8 @@
     function initialize_roster_UI(option_table, salary_cap, roster_size, show_counts)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
-        
+        var left_to_spend = document.getElementById("left_to_spend");
+
         for (var i=0; i<roster_fields.length; i++)
             {
             var 
@@ -632,6 +641,12 @@
         
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
   
+        if (roster_size !== 0) {
+            show(left_to_spend);
+
+            
+        }
+
         for (var i=0; i<option_table.length; i++)
             {
             var player_item = option_table[i],
