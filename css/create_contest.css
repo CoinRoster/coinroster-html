@@ -192,3 +192,7 @@
 #jackpot_table_element input {
     width: 100% !important;
 }
+
+.content_body {
+    padding-left: 0px !important;
+}
