@@ -150,7 +150,7 @@
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
 
-            console.log(salary_cap);
+            console.log(id("salary_cap").innerHTML);
             console.log(remaining_players);
 
             }
