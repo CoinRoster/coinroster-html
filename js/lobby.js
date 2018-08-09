@@ -140,6 +140,9 @@
             }
         else drafted = remaining_players;
 
+            console.log(drafted);
+            console.log(remaining_players);
+
         if (max_players > 0 && drafted === max_players) show_simple_modal("Your roster is full", "bad", null);
         else if (price <= salary_cap)
             {
@@ -365,8 +368,6 @@
         rows = id("roster_table").rows,
         number_of_players = rows.length,
         roster = [];
-
-            console.log(number_of_players);
 
         if (number_of_players === 0) return show_simple_modal("You must draft at least one player", "bad", null);
         
