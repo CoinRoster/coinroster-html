@@ -20,7 +20,7 @@ function setupDashboard(index){
 
 }
 
-var index = window['dash_index'];
+var index = window.dash_index;
 news_button = "news_tab_" + index;
 stats_button = "stats_tab_" + index;
 var news_button = document.getElementById(news_button);
