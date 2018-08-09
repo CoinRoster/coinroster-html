@@ -29,6 +29,7 @@ var stats_button = document.getElementById(stats_button);
 var news_tab = document.getElementsByClassName("newsfeed")[index];
 var stats_tab = document.getElementsByClassName("stats_table")[index];
 twitter_class = "twitter-widget-" + index;
+console.log(twitter_class);
 var doc = document.getElementById(twitter_class).contentWindow.document;
 
 news_button.onclick = function() {
