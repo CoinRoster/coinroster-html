@@ -3,7 +3,7 @@
 function displayBaseballDashboard(data){
      
     document.getElementById('stats_model_content_baseball').style.display = "table";
-    setupDashboard();
+    setupDashboard(0);
     
     // cole needs this to draft player 
     window["player_id"] = data.id;

@@ -3,7 +3,7 @@
 function displayGolfDashboard(data){
     
     document.getElementById('stats_model_content_golf').style.display = "table";
-    setupDashboard();
+    setupDashboard(1);
     
     // cole needs this to draft player 
     window["player_id"] = data.pga_id;
