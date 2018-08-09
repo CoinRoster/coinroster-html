@@ -192,6 +192,12 @@
 
         var players_left = max_players - drafted;
         var left_to_spend = subtract(salary_cap, price);
+
+        console.log("Max Players " + max_players);
+        console.log("Drafted " + drafted);
+        console.log("Left to spend " + left_to_spend);
+
+
         id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
         }
         
