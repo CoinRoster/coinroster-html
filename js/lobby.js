@@ -191,6 +191,10 @@
         insert_player_row("player_table", player_id, name, price, count);
 
         var players_left = max_players - drafted;
+
+        console.log(salary_cap);
+        console.log(players_left);
+
         id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / players_left));
         }
         
