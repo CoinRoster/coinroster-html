@@ -23,24 +23,19 @@
                 <table id="user_contest_table" class="contest_table"></table>
             </div>
             <div id="settle_contest" class="content_body hidden" style="top:68px">
-                <div style="width:800px;font-size:18px;">
-                    </br>
-                    </br>
-                    <button type="button" class="action_button" style="display: inline-block; padding:10px; text-align: center;" onclick="cancel_settle_contest();">Go back</button>
-                </div>
-                <br/>
                 <!-- <h3 style="font-weight:normal">
                     Contest <span id="contest_id"></span> | <span id="contest_type" class="green"></span>
                 </h3> -->
                 <h2>
-                    <span id="contest_title" class="green"></span>
+                    Contest Title: <span id="contest_title" class="green"></span>
                 </h2>
                 <div id="settle_pari_mutuel">
                     Select winning outcome:
                     <br/><br/>
                     <div id="pari_mutuel_outcome_table" class="report_table"></div>
                     <br/>
-                    <button type="button" class="input_style" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+                    <button type="button" class="action_button" style="padding-right: 10px" onclick="settle_pari_mutuel_contest();">Settle Contest</button>
+                    <button type="button" class="action_button" style="display: inline-block; padding:10px; text-align: center;" onclick="cancel_settle_contest();">Go back</button>
                 </div>
             </div>
         </div>
