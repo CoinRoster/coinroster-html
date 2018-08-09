@@ -149,13 +149,14 @@
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
 
-            // if () {
-
-            // } else {
+            var players_left = max_players - drafted;
+            
+            if (players_left == 0) {
+                id("remaining_money_per_player").innerHTML = "$0";
+            } else {
                 var left_to_spend = subtract(salary_cap, price);
-                var players_left = max_players - drafted;
                 id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
-            // }
+            }
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
@@ -188,6 +189,10 @@
         id("roster_table").deleteRow(row.rowIndex);
         
         insert_player_row("player_table", player_id, name, price, count);
+
+        var players_left = max_players - drafted;
+        var left_to_spend = subtract(salary_cap, price);
+        id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
         }
         
     function sort_player_tables()
