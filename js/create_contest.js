@@ -81,6 +81,12 @@ function populate_gameIDs(games, gameID)
     hide(document.getElementsByClassName("prop_baseball_match_play")[0]);
     hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
     hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
+    hide(document.getElementsByClassName("prop_basketball_title")[0]);
+    hide(document.getElementsByClassName("prop_golf_title")[0]);
+    hide(document.getElementsByClassName("prop_baseball_title")[0]);
+    hide(document.getElementsByClassName("roster_basketball_title")[0]);
+    hide(document.getElementsByClassName("roster_golf_title")[0]);
+    hide(document.getElementsByClassName("roster_baseball_title")[0]);
   };
 
 contest_type_selector.onchange = function()
@@ -180,6 +186,8 @@ roster_sport_selector.onchange = function()
   var basketball_title = document.getElementById("roster_basketball_title");
   var golf_title = document.getElementById("roster_golf_title");
   var baseball_title = document.getElementById("roster_baseball_title");
+
+  reset_elements();
 
   if (avaliable_sports.BASKETBALL) {
     generate_game_checkboxes(avaliable_sports.basketball_games, roster_basketball_games);
