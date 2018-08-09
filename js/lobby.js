@@ -149,9 +149,14 @@
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
 
-            var left_to_spend = subtract(salary_cap, price) / (max_players - drafted);
+            var left_to_spend = subtract(salary_cap, price);
+            var players_left = max_players - drafted;
+
+            id("remaining_money_per_player").innerHTML = left_to_spend / players_left;
+
             console.log(left_to_spend);
-            id("left_to_spend").innerHTML = left_to_spend;
+            console.log(players_left);
+
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
