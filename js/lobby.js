@@ -155,7 +155,8 @@
                 id("remaining_money_per_player").innerHTML = "$0";
             } else {
                 var left_to_spend = subtract(salary_cap, price);
-                id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
+                var label = "$" + commas(Math.floor(left_to_spend / players_left));
+                id("remaining_money_per_player").innerHTML = label;
             }
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
@@ -192,7 +193,8 @@
 
         var players_left = max_players - drafted;
         var left_to_spend = add(salary_cap, price);
-        id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(left_to_spend / players_left));
+        var label = "$" + commas(Math.floor(left_to_spend / players_left));
+        id("remaining_money_per_player").innerHTML = label;
         }
         
     function sort_player_tables()
