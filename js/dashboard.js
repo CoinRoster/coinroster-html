@@ -1,19 +1,16 @@
-function setupDashboard(){
+function setupDashboard(index){
     // Get the modal
     document.getElementById('stats_modal').style.display = "block";
-   // document.getElementById('stats_model_content').style.display = "table";
-    document.getElementsByClassName("modal-body")[0].scrollTop = 0;
-    document.getElementsByClassName("stats_table")[0].style.display = "block";
-    document.getElementsByClassName("newsfeed")[0].style.display = "none";
-    
-    
+    document.getElementsByClassName("modal-body")[index].scrollTop = 0;
+    document.getElementsByClassName("stats_table")[index].style.display = "block";
+    document.getElementsByClassName("newsfeed")[index].style.display = "none";
     
     function photo_align(media_query) {
         if (media_query.matches) { // If media query matches
-            document.getElementsByClassName('playerphoto')[0].setAttribute('align', 'center');
+            document.getElementsByClassName('playerphoto')[index].setAttribute('align', 'center');
         }
         else {
-            document.getElementsByClassName('playerphoto')[0].setAttribute('align', 'auto');
+            document.getElementsByClassName('playerphoto')[index].setAttribute('align', 'auto');
         }
     }
     var media_query = window.matchMedia("(max-width: 767px)");
@@ -24,9 +21,10 @@ function setupDashboard(){
 
 var news_button = document.getElementById("news_tab");
 var stats_button = document.getElementById("stats_tab");
-var news_tab = document.getElementsByClassName("newsfeed")[0];
-var stats_tab = document.getElementsByClassName("stats_table")[0];
-var doc = document.getElementById('twitter-widget-0').contentWindow.document;
+var news_tab = document.getElementsByClassName("newsfeed")[index];
+var stats_tab = document.getElementsByClassName("stats_table")[index];
+twitter_class = "twitter-widget-" + index;
+var doc = document.getElementById(twitter_class).contentWindow.document;
 
 news_button.onclick = function() {
     console.log("news tab clicked");
