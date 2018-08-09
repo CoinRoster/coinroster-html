@@ -151,7 +151,7 @@
             insert_player_row("roster_table", player_id, name, price, count);
 
             console.log(subtract(salary_cap, price));
-            console.log(remaining_players);
+            console.log(max_players - (++drafted));
 
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
