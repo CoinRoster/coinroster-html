@@ -33,7 +33,7 @@ function setupDashboard(index){
        news_tab.style.display = "block";
        stats_tab.style.display = "none";
        setTimeout(function() {
-           resize_twitter();
+           resize_twitter(doc);
        }, 100);
     };
     stats_button.onclick = function() {
@@ -41,14 +41,14 @@ function setupDashboard(index){
        news_tab.style.display = "none";
        stats_tab.style.display = "block";
     };
-    doc.getElementsByClassName("timeline-LoadMore-prompt")[index].onclick = function() {
+    doc.getElementsByClassName("timeline-LoadMore-prompt")[0].onclick = function() {
         setTimeout(function() {
-           resize_twitter();
+           resize_twitter(doc);
         }, 500);
     };
 }
 
-function resize_twitter(){
+function resize_twitter(doc){
 
     var tweets = doc.getElementsByClassName("timeline-Tweet-text");
     var media = doc.getElementsByClassName("timeline-Tweet-media");
