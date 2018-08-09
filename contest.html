@@ -11,7 +11,7 @@
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
 <!--#include virtual="/ssi/baseball_dashboard.html" -->
-    
+
 <div id="page_body">
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
@@ -893,6 +893,7 @@ function open_dashboard(span){
     var player_id  = span.parentElement.parentElement.id;
     var sport = document.getElementById("sub_category").innerText.replace("Fantasy ", "").replace(" Props", "").toUpperCase();
     var rtn = get_data(player_id.replace("player_", ""), sport);
+    console.log(rtn.data);
     if(sport === "GOLF")
         displayGolfDashboard(rtn.data);
     else if(sport === "BASEBALL")
