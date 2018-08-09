@@ -150,7 +150,8 @@
             insert_player_row("roster_table", player_id, name, price, count);
 
             var left_to_spend = subtract(salary_cap, price) / (max_players - drafted);
-            id("left_to_spend".innerHTML = left_to_spend);
+            console.log(left_to_spend);
+            id("left_to_spend").innerHTML = left_to_spend;
             }
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
