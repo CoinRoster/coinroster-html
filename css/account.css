@@ -282,13 +282,13 @@
         display: inline-flex;
         flex-direction: row;
         background-color: gray;
-        height:25px;
-        width: 375px;
+        height: 40px;
+        width: 370px;
     }
 
     .copy_to_clipboard {
         background-color: gray;
-        width: 40px;
+        width: 50px;
     }
 
     .copy_to_clipboard:hover {
@@ -299,7 +299,12 @@
         background-color: gray;
     }
 
-    .clipboard_img img {
-        height: 20px;
-        margin: 0 auto;
+    .copy_to_clipboard img {
+        height: 25px;
+        padding: 5px;
+        margin-left: 10px;
+    }
+
+    .wallet_address {
+        padding: 9px 10px;
     }
