@@ -44,44 +44,46 @@
                     <div id="user_ext_address" class="wallet_address orange small_text"></div>
                     <div class="copy_to_clipboard" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
                 </div>
-                <div>
+                <div class="inquiries">
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
                 </div>
-                <div class="check_deposit">
-                    <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
-                        <ul class="button_contents">
-                            <li>
-                                <img src="/img/B_logo.png" height="30" style="margin-right:20px"/>
-                            </li>
-                            <li>
-                                Check my deposit
-                            </li>
-                        </ul>
+                <div class="buttons">
+                    <div class="check_deposit">
+                        <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
+                            <ul class="button_contents">
+                                <li>
+                                    <img src="/img/B_logo.png" height="30" style="margin-right:20px"/>
+                                </li>
+                                <li>
+                                    Check my deposit
+                                </li>
+                            </ul>
+                            </button>
+                        <div id="confirmation_container" class="hidden">
+                            <span>We have received your deposit of:</span>
+                        <div class="description_text">
+                            <h2 id="amount_deposited" class="lucida orange"></h2>
+                        </div>
+                        </div>
+                    </div><!-- Check Deposit -->
+                    <div class="bitcoins_interac">
+                        <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
+                            <ul class="button_contents">
+                                <li>
+                                    <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
+                                </li>
+                                <li>
+                                    Canadians can click here to buy Bitcoins with Interac Online
+                                </li>
+                            </ul>
                         </button>
-                    <div id="confirmation_container" class="hidden">
-                        <span>We have received your deposit of:</span>
-                    <div class="description_text">
-                        <h2 id="amount_deposited" class="lucida orange"></h2>
                     </div>
-                    </div>
-                </div><!-- Check Deposit -->
-                <div>
-                    <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
-                        <ul class="button_contents">
-                            <li>
-                                <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
-                            </li>
-                            <li>
-                                Canadians can click here to buy Bitcoins with Interac Online
-                            </li>
-                        </ul>
-                    </button>
-                </div>
-                <div style="margin-bottom:20px;text-align: left;" class="well example-area">
-                    <a onclick="go_to_shapeshift()" class="text_button">
-                        <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" class="ss-button">
-                    </a>
-                </div><!-- Shape Shift-->
+                    <div style="margin-bottom:20px;text-align: left;" class="altcoins well example-area">
+                        <a onclick="go_to_shapeshift()" class="text_button">
+                            <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" class="ss-button">
+                        </a>
+                    </div><!-- Shape Shift-->
+                </div><!-- Buttons -->
             </div><!-- First flex child -->
             <div>
                 <img id="qr_code" ></img>
