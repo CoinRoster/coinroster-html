@@ -283,12 +283,12 @@
         {
             var el = document.createElement("textarea");
             el.value = session.referral_link;
-            document.body.className += 'position_fixed';
+            document.body.classList.add("position_fixed");
             document.body.appendChild(el);
             el.select();
             document.execCommand("Copy");
             document.body.removeChild(el);
-            document.body.className -= 'position_fixed';
+            document.body.classList.remove("position_fixed");
         }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
