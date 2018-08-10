@@ -343,27 +343,22 @@
     }
 
     .buttons {
+        text-align: center;
         margin-top: 25px;
         width:280px;
     }
 
-    .check_deposit {
-        margin: 0 auto;
-    }
-
     .bitcoins_interac {
-        margin: 0 auto;
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     .altcoins {
-        margin: 0 auto;
-        margin-top: 10px;
+        margin-top: 20px;
     }
 
     .inquiries {
         margin-top: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
 
     @media only screen and (max-width: 850px) {
