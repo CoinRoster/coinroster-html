@@ -5,6 +5,7 @@
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
@@ -56,7 +57,7 @@
 
                     <div id="referral_link" class="wallet_address orange small_text"></div>
                     
-                    <div class="copy_to_clipboard" onclick="copy_referral_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
+                    <div class="copy_to_clipboard" data-clipboard-target="#user_ext_address"><img src="../img/copy_clipboard.png"></div>
                 </div>
                 <br/>
                 <br/>
@@ -193,6 +194,9 @@
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
+    
+    new ClipboardJS('.copy_to_clipboard');
+
     id("user_affiliate_id").innerHTML = window.session.username;
     id("user_affiliate_balance").innerHTML = window.session.btc_balance + " BTC";
       
@@ -279,64 +283,6 @@
             });
         }
     }
-
-    window.Clipboard = (function(window, document, navigator) {
-        var textArea,
-            copy;
-
-        function isOS() {
-            return navigator.userAgent.match(/ipad|iphone/i);
-        }
-
-        function createTextArea(text) {
-            textArea = document.createElement('textArea');
-            textArea.value = text;
-            document.body.appendChild(textArea);
-        }
-
-        function selectText() {
-            var range,
-                selection;
-
-            if (isOS()) {
-                range = document.createRange();
-                range.selectNodeContents(textArea);
-                selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-                textArea.setSelectionRange(0, 999999);
-            } else {
-                textArea.select();
-            }
-        }
-
-        function copyToClipboard() {        
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-        }
-
-        copy = function(text) {
-            createTextArea(text);
-            selectText();
-            copyToClipboard();
-        };
-
-        return {
-            copy: copy
-        };
-    })(window, document, navigator);
-
-    function copy_referral_to_clipboard()
-        {
-            var el = document.createElement("textarea");
-            var value = window.session.referral_link; 
-            el.value = value;
-            Clipboard.copy(value);
-            document.body.insertBefore(el, document.body.firstChild);
-            el.select();
-            document.execCommand("Copy");
-            document.body.removeChild(el);
-        }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
