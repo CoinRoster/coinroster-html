@@ -3,6 +3,12 @@
 function displayGolfDashboard(data){
     
     document.getElementById('stats_model_content_golf').style.display = "table";
+    function clearDashboard(){
+        document.getElementById("golf_prev_games_table").innerHTML = "";
+        document.getElementById("golf_season_stats_table").innerHTML = "";
+    }
+    clearDashboard();
+    
     setupDashboard(1);
     
     // cole needs this to draft player 
