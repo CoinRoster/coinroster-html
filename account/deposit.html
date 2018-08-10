@@ -4,8 +4,8 @@
     <title>CoinRoster | Deposit BTC</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
@@ -43,10 +43,7 @@
                 </div><!-- Description text -->
                 <div class="flex">
                     <div id="user_ext_address" class="wallet_address orange small_text"></div>
-                    <div class="copy_to_clipboard" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
-                    <button data-clipboard-target="#user_ext_address">
-                        copy
-                    </button>
+                    <div class="copy_to_clipboard" data-clipboard-target="#user_ext_address" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
                 </div>
                 <div class="inquiries">
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
@@ -220,6 +217,8 @@
     //         copy: copy
     //     };
     // })(window, document, navigator);
+
+    new ClipboardJS('.copy_to_clipboard');
 
     function copy_wallet_to_clipboard()
         {
