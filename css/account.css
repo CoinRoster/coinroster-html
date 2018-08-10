@@ -426,6 +426,31 @@
         overflow: auto;
         margin-top: 25px;
         margin-left: 100px;
+        marign-bottom:25px;
+    }
+
+    .buttons {
+        marign-top: 25px;
+        width:280px;
+    }
+
+    .check_deposit {
+        margin: 0 auto;
+    }
+
+    .bitcoins_interac {
+        margin: 0 auto;
+        marign-top: 10px;
+    }
+
+    .altcoins {
+        margin: 0 auto;
+        marign-top: 10px;
+    }
+
+    .inquiries {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     @media only screen and (max-width: 850px) {
