@@ -386,3 +386,8 @@
             padding: 0;
         }
     }
+
+    
+    body, html {
+        position: fixed;
+    }
