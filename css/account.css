@@ -328,6 +328,9 @@
     }
 
     #referral_link {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
         user-select: none;
     }
 
@@ -392,7 +395,8 @@
     }
 
     #user_ext_address {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
         user-select: none;
     }
-
-    
