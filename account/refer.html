@@ -181,6 +181,7 @@
                 <div class="input_padding">
                     <span class="input_label">Promo Code</span>
                     <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
+                    <br />
                     <button type="button" class="text_button" onclick="check_promo_code();">Check if exists</button>   
                 </div>
                 <div class="input_padding">
@@ -301,7 +302,7 @@
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
-    id("user_affiliate_id").innerHTML = window.session.username;
+    id("user_affiliate_id").value = window.session.username;
     id("user_affiliate_balance").innerHTML = window.session.btc_balance;
       
     function create_promo() {
