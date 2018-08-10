@@ -216,9 +216,9 @@
         };
     })(window, document, navigator);
 
-    function copy_wallet_to_clipboard()
+    function copy_wallet_to_clipboard(e)
         {
-            event.preventDefault();
+            e.preventDefault();
             var el = document.createElement("textarea");
             var value = window.session.cgs_address;
             el.value = value;
