@@ -76,6 +76,9 @@ and open the template in the editor.
             .playerphoto{
                 margin-top: 2%;
             }
+            .playerinfo_div{
+                margin-top: 2%;
+            }
             .mobile_header{
                 display: none;
             }
@@ -209,7 +212,6 @@ and open the template in the editor.
             }
             /* Modal Content */
             .modal-content {
-               
                 margin: 0 auto;
                 max-width: 600px;
                 background-color: rgb(55,56,57);//rgb(35,36,38);
@@ -218,7 +220,7 @@ and open the template in the editor.
                 border: 5px solid rgb(220,222,224);//#5ea600;
                 border-radius: 15px;
                 max-height: 510px;
-                overflow: scroll;
+                overflow: hidden;
             }
             /* The Close Button */
             .close {

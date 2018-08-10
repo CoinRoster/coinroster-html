@@ -27,7 +27,7 @@ and open the template in the editor.
             #golf_prev_games_table td:nth-child(2){
                 width:30%;
             }
-            #golf_prev_games_table td:nth-child(2){
+            #golf_prev_games_table td:nth-child(3){
                 width:10%;
             }
             @media screen and (max-width: 767px) {              
