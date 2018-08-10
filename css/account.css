@@ -432,4 +432,14 @@
         .qr_flex {
             flex-direction: column;
         }
+
+        #qr_code {
+            margin-left: 0;
+        }
+    }
+
+    @media only screen and (max-width: 376) {
+        .link {
+            padding: 0;
+        }
     }
