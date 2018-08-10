@@ -13,20 +13,16 @@ function displayGolfDashboard(data){
     
     //document.getElementById('golf_headshot').src = 'https://pga-tour-res.cloudinary.com/image/upload/c_fill,d_headshots_default.png,dpr_2.0,f_auto,g_face:center,h_160,q_auto,w_250/headshots_30921.png';
     document.getElementById('golf_headshot').src = 'https://pga-tour-res.cloudinary.com/image/upload/c_fill,d_headshots_default.png,dpr_2.0,f_auto,g_face:center,h_160,q_auto,w_250/headshots_' + data.pga_id + '.png';
-    function onImageLoadError() {
-        document.getElementById('golf_headshot').src = '/img/default-golf.png';
-        //document.getElementById('golf_headshot').style.height = "160";
-        //document.getElementById('golf_headshot').style.weight = "5";
-    }
-    document.getElementById('golf_headshot').addEventListener("error", onImageLoadError);     
-    
     document.getElementById('golf_logo').src = 'http://a.espncdn.com/golfonline/img/flags/' +data.country_abr+ '.jpg';
-           
-    document.getElementById("golf_team_list").innerHTML = 'Country: ' + data.country_abr;;
+    
+    function onImageLoadError() {
+        document.getElementById('golf_logo').style.visibility = "hidden";
+    }
+    document.getElementById('golf_logo').addEventListener("error", onImageLoadError);     
+       
     document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     document.getElementById("golf_born_list").innerHTML = 'Born: ' + data.birthString;
 
-    document.getElementById("golf_team_table").innerHTML = data.country_abr;
     document.getElementById("golf_height_table").innerHTML = data.height;
     document.getElementById("golf_weight_table").innerHTML = data.weight;
     document.getElementById("golf_born_table").innerHTML = data.birthString;
