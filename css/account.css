@@ -426,11 +426,11 @@
         overflow: auto;
         margin-top: 25px;
         margin-left: 100px;
-        marign-bottom:25px;
+        margin-bottom:25px;
     }
 
     .buttons {
-        marign-top: 25px;
+        margin-top: 25px;
         width:280px;
     }
 
@@ -440,12 +440,12 @@
 
     .bitcoins_interac {
         margin: 0 auto;
-        marign-top: 10px;
+        margin-top: 10px;
     }
 
     .altcoins {
         margin: 0 auto;
-        marign-top: 10px;
+        margin-top: 10px;
     }
 
     .inquiries {
