@@ -60,7 +60,7 @@
             </div>
             <!-- Promo code div -->
             <div id="pane_4" class="pane" tab_text="Create Promo">
-                <br/>
+                <!-- <br/>
                 <hr noshade />
                 <br/>
                 <div class="content_header" style="height:67px">
@@ -165,13 +165,49 @@
                                 EST
                             </td>
                         </tr> -->
-                        <tr></tr>
+                        <!-- <tr></tr>
                         <tr>
                             <td>
                                 <button type="button" class="input_style" onclick="create_promo();">Create Promo</button>
                             </td>
                         </tr>
-                    </table>
+                    </table> -->
+                <!-- </div> -->
+                <div class="page_title">
+                    <h3>
+                        Create Your Own Promo Code!
+                    </h3>
+                </div>
+                <div>
+                    <span class="input_label">Promo Code</span>
+                    <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
+                    <button type="button" class="text_button" onclick="check_promo_code();">Check if exists</button>   
+                </div>
+                <div>
+                    <span class="input_label">Affiliate</span>
+                    <!-- <span id="user_affiliate_id"></span>   -->
+                    <input type="text" id="user_affiliate_id" class="input_style" disabled>
+                    (All users who sign up with your code will have you as their affiliate)
+                </div>
+                <div>
+                    <span class="input_label">Free Play Amount</span>
+                    <input id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
+                    BTC
+                </div>
+                <div>
+                    <span class="input_label">Rollover</span>
+                    5 x free play amount
+                </div>
+                <div>
+                    <span class="input_label">Max Promo Allowance (balance)</span>
+                    <span id="user_affiliate_balance"></span>
+                </div>
+                <div>
+                    <span class="input_label">Max Use (optional)</span>
+                    <input id="create_promo__max_use_input" type="text" class="input_style text_input">
+                </div>
+                <div>
+                    <button type="button" class="text_button" onclick="create_promo();">Create Promo</button>
                 </div>
             </div>
             <!--  -->
