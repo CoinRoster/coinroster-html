@@ -410,3 +410,8 @@
         margin-top: 3px;
         color: rgb(175, 175, 175);
     }
+
+    #referral_link_container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
