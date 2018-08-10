@@ -218,18 +218,14 @@
 
     function copy_wallet_to_clipboard()
         {
-            var el = document.createElement("textarea");
+            // var el = document.createElement("textarea");
             var value = window.session.cgs_address;
-            el.value = value;
+            // el.value = value;
             Clipboard.copy(value);
-            
             // document.body.appendChild(el);
-            id("user_ext_address").appendChild(el);
-
-            el.select();
-            document.execCommand("Copy");
+            // el.select();
+            // document.execCommand("Copy");
             // document.body.removeChild(el);
-            id("user_ext_address").removeChild(el);
         }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
