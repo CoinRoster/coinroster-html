@@ -75,7 +75,7 @@
                 <div class="input_padding">
                     <span class="input_label">Affiliate</span>
                     <!-- <span id="user_affiliate_id"></span>   -->
-                    <input type="text" id="user_affiliate_id" class="input_style" disabled>
+                    <div class="fake_textbox" id="user_affiliate_id"></div>
                     <br />
                     <span class="input_label dim_message">(All users who sign up with your code will have you as their affiliate)</span>
                 </div>
@@ -191,7 +191,7 @@
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
-    id("user_affiliate_id").value = window.session.username;
+    id("user_affiliate_id").innerHTML = window.session.username;
     id("user_affiliate_balance").innerHTML = window.session.btc_balance + " BTC";
       
     function create_promo() {
