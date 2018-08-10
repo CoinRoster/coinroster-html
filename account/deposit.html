@@ -42,7 +42,7 @@
                 </div><!-- Description text -->
                 <div class="flex">
                     <div id="user_ext_address" class="wallet_address orange small_text"></div>
-                    <div class="copy_to_clipboard" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
+                    <div class="copy_to_clipboard" onclick="copy_wallet_to_clipboard(event)"><img src="../img/copy_clipboard.png"></div>
                 </div>
                 <div class="inquiries">
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
@@ -218,6 +218,7 @@
 
     function copy_wallet_to_clipboard()
         {
+            event.preventDefault();
             var el = document.createElement("textarea");
             var value = window.session.cgs_address;
             el.value = value;
