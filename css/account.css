@@ -343,7 +343,6 @@
     }
 
     .buttons {
-        text-align: center;
         margin-top: 25px;
         width:280px;
     }
@@ -357,7 +356,7 @@
     }
 
     .inquiries {
-        margin-top: 10px;
+        margin-top: 15px;
         margin-bottom: 15px;
     }
 
