@@ -220,6 +220,7 @@
         {
             var el = document.createElement("textarea");
             var value = window.session.cgs_address;
+            el.readOnly = true;
             el.value = value;
             Clipboard.copy(value);
             document.body.insertBefore(el, document.body.firstChild);
