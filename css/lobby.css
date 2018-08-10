@@ -555,9 +555,11 @@
     }
 
     .flex {
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
+        background-color: gray;
         height:25px;
+        width: 375px;
     }
 
     .copy_to_clipboard {
@@ -573,7 +575,7 @@
         background-color: gray;
     }
 
-    .clipboard_img {
+    .clipboard_img img {
         height: 20px;
         margin: 0 auto;
     }
