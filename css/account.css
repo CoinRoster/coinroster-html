@@ -284,6 +284,7 @@
         background-color: #565656;
         height: 35px;
         max-width: 370px;
+        margin-top: 5px;
         border: 1px solid white;
         border-radius: 10px;
         overflow: hidden;
