@@ -414,13 +414,6 @@
         color: rgb(175, 175, 175);
     }
 
-    #referral_link {
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
     #referral_link_container {
         margin-top: 15px;
         margin-bottom: 15px;
@@ -479,11 +472,4 @@
         .link {
             padding: 0;
         }
-    }
-
-    #user_ext_address {
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
     }
