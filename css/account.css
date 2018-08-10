@@ -475,6 +475,6 @@
     }
 
     
-    body, html {
+    .position_fixed {
         position: fixed;
     }
