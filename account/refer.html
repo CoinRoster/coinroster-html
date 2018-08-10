@@ -211,8 +211,8 @@
         
         if (free_play_amount !== "") 
             {
-            if (isNaN(free_play_amount)) return show_simple_modal("Free play must be a number");
-            if (free_play_amount < 0) return show_simple_modal("Free play must be a positive number");
+            if (isNaN(free_play_amount)) return show_simple_modal("Free play amount must be a number");
+            if (free_play_amount < 0) return show_simple_modal("Free play amount must be a positive number");
             }
         else free_play_amount = 0;
         
