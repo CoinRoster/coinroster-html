@@ -222,10 +222,14 @@
             var value = window.session.cgs_address;
             el.value = value;
             Clipboard.copy(value);
-            document.body.insertBefore(el, document.body.firstChild);
+            
+            // document.body.appendChild(el);
+            id("user_ext_address").appendChild(el);
+
             el.select();
             document.execCommand("Copy");
-            document.body.removeChild(el);
+            // document.body.removeChild(el);
+            id("user_ext_address").removeChild(el);
         }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
