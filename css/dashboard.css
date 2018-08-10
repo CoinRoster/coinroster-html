@@ -178,6 +178,12 @@ iframe{
         max-height: 310px;
     }
 }
+
+@media screen and (max-height: 400px) {
+    .modal-body{
+        max-height: 170px;
+    }
+}
     
 .seperator{
     width: 105%;
