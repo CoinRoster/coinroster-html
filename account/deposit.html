@@ -43,7 +43,7 @@
                 </div><!-- Description text -->
                 <div class="flex">
                     <div id="user_ext_address" class="wallet_address orange small_text"></div>
-                    <div class="copy_to_clipboard" data-clipboard-target="#user_ext_address" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
+                    <div class="copy_to_clipboard" data-clipboard-target="#user_ext_address"><img src="../img/copy_clipboard.png"></div>
                 </div>
                 <div class="inquiries">
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
@@ -102,6 +102,8 @@
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
     
+    new ClipboardJS('.copy_to_clipboard');
+
     window.nav_text = "MY ACCOUNT";
     
     var focus_to_input = function()
@@ -170,66 +172,6 @@
             });
 
         return false;
-        }
-        
-    // window.Clipboard = (function(window, document, navigator) {
-    //     var textArea,
-    //         copy;
-
-    //     function isOS() {
-    //         return navigator.userAgent.match(/ipad|iphone/i);
-    //     }
-
-    //     function createTextArea(text) {
-    //         textArea = document.createElement('textArea');
-    //         textArea.value = text;
-    //         document.body.appendChild(textArea);
-    //     }
-
-    //     function selectText() {
-    //         var range,
-    //             selection;
-
-    //         if (isOS()) {
-    //             range = document.createRange();
-    //             range.selectNodeContents(textArea);
-    //             selection = window.getSelection();
-    //             selection.removeAllRanges();
-    //             selection.addRange(range);
-    //             textArea.setSelectionRange(0, 999999);
-    //         } else {
-    //             textArea.select();
-    //         }
-    //     }
-
-    //     function copyToClipboard() {        
-    //         document.execCommand('copy');
-    //         document.body.removeChild(textArea);
-    //     }
-
-    //     copy = function(text) {
-    //         createTextArea(text);
-    //         selectText();
-    //         copyToClipboard();
-    //     };
-
-    //     return {
-    //         copy: copy
-    //     };
-    // })(window, document, navigator);
-
-    new ClipboardJS('.copy_to_clipboard');
-
-    function copy_wallet_to_clipboard()
-        {
-            // var el = document.createElement("textarea");
-            // var value = window.session.cgs_address;
-            // el.value = value;
-            // Clipboard.copy(value);
-            // document.body.insertBefore(el, document.body.firstChild);
-            // el.select();
-            // document.execCommand("Copy");
-            // document.body.removeChild(el);
         }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
