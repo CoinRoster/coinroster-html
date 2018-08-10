@@ -65,7 +65,7 @@ iframe{
     font-size:14px;
 }
 .dashboard_h1{
-    font-size: 32px;
+    font-size: 26px;
     margin-bottom: 2%;
     //line-height: 5px;
     font-family: sans-serif;//Arial;
@@ -271,7 +271,6 @@ iframe{
         font-size: 10px;
     }
     .dashboard_h1{
-        font-size: 26px;
         text-align: center;
     }
     .modal{
