@@ -6,7 +6,7 @@ function clearDashboard(){
 
 function displayBaseballDashboard(data){
     
-    clearDashBoard();
+    clearDashboard();
     document.getElementById('stats_model_content_baseball').style.display = "table";
     setupDashboard(0);
     
