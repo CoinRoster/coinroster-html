@@ -22,10 +22,13 @@ and open the template in the editor.
                 font-weight: bold;
             }
             #golf_prev_games_table td:nth-child(1){
-                width:13%;
+                width:17%;
             }
             #golf_prev_games_table td:nth-child(2){
-                width:40%;
+                width:30%;
+            }
+            #golf_prev_games_table td:nth-child(2){
+                width:10%;
             }
             @media screen and (max-width: 767px) {              
                 #golf_logo_frame{
