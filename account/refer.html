@@ -329,7 +329,7 @@
     function copy_referral_to_clipboard()
         {
             var el = document.createElement("textarea");
-            var value = session.referral_link; 
+            var value = window.session.referral_link; 
             el.value = value;
             Clipboard.copy(value);
             document.body.insertBefore(el, document.body.firstChild);
