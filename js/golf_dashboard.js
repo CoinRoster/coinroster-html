@@ -96,7 +96,7 @@ function displayGolfDashboard(data){
         for(i = 0; i < 4; i++){
            if(data.stats[i] !== undefined){
                 title[i].innerHTML = (data.stats[q].name).replace("Percentage", "%").replace("Average", "AVG");
-                if(data.stats[q].name = "Cuts Made Percentage")
+                if(data.stats[q].name === "Cuts Made Percentage")
                     val[i].innerHTML = Number.parseFloat(data.stats[q].value).toFixed(2) + '%';
                 else if(data.stats[i].rank !== undefined)
                    val[i].innerHTML = data.stats[q].value + ' (' + data.stats[q].rank + ')';
