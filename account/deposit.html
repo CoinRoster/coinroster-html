@@ -222,7 +222,7 @@
             var value = window.session.cgs_address;
             el.value = value;
             // Clipboard.copy(value);
-            document.body.appendChild(el);
+            document.body.insertBefore(el, document.body.firstChild);
             el.select();
             document.execCommand("Copy");
             document.body.removeChild(el);

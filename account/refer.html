@@ -332,7 +332,7 @@
             var el = document.createElement("textarea");
             var value = session.referral_link; 
             el.value = value;
-            Clipboard.copy(value);
+            // Clipboard.copy(value);
             document.body.appendChild(el);
             el.select();
             document.execCommand("Copy");
