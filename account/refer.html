@@ -68,7 +68,7 @@
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Promo Code</span>
-                    <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
+                    <input id="create_promo__code_input" placeholder="Promo code" type="text" class="input_style text_input" maxlength="20">
                     <br />
                     <button type="button" class="text_button promo_button" onclick="check_promo_code();">Check if exists</button>   
                 </div>
@@ -81,20 +81,20 @@
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Free Play Amount</span>
-                    <input id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
+                    <input placeholder="#" id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
                     BTC
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Rollover</span>
-                    5 x free play amount
+                    <span class="fake_textbox">5 x free play amount</span>
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Max Promo Allowance (balance)</span>
-                    <span class="green" id="user_affiliate_balance"></span>
+                    <span class="fake_textbox green" id="user_affiliate_balance"></span>
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Max Use (optional)</span>
-                    <input id="create_promo__max_use_input" type="text" class="input_style text_input">
+                    <input placeholder="Max use" id="create_promo__max_use_input" type="text" class="input_style text_input">
                 </div>
                 <div class="input_padding">
                     <button type="button" class="text_button" onclick="create_promo();">Create Promo</button>

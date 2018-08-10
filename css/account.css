@@ -318,6 +318,7 @@
 
     .promo_button {
         margin-top: 10px;
+        width: 125px;
     }
 
     .dim_message {
@@ -358,6 +359,15 @@
     .inquiries {
         margin-top: 15px;
         margin-bottom: 15px;
+    }
+
+    .fake_textbox {
+        border: 1px solid gray;
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 5px;
+        width: 200px;
+        background-color: #2a2a2a;
     }
 
     @media only screen and (max-width: 850px) {
