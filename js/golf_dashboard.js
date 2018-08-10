@@ -28,6 +28,7 @@
                                         <td class="dashboard_td"></td>
                                     </tr>`;
         document.getElementById("golf_prev_games_table").innerHTML = `<caption id="golf_prev_games" class="dashboard_caption"></caption>`;
+        document.getElementById('golf_logo').style.visibility = "visible";
         
     }
     
@@ -53,12 +54,12 @@ function displayGolfDashboard(data){
     }
     document.getElementById('golf_logo').addEventListener("error", onImageLoadError);     
        
-    if(data.weight !== undefined && data.height !== undefined)
+    if(data.weight !== "" && data.height !== "")
         document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     else
         document.getElementById("golf_height_list").innerHTML = "";
     
-    if(data.birthString !== undefined)
+    if(data.birthString !== "")
         document.getElementById("golf_born_list").innerHTML = 'Born: ' + data.birthString;
     else
         document.getElementById("golf_born_list").innerHTML = "";
@@ -77,27 +78,34 @@ function displayGolfDashboard(data){
     }
     else{
         
-        var sst = document.getElementById("golf_season_stats_table").rows[0].cells;
-        sst[0].innerHTML = data.stats[0].name;
-        sst[1].innerHTML = (data.stats[1].name).replace("Percentage", "%");
-        sst[2].innerHTML = (data.stats[2].name).replace("Percentage", "%");
-        sst[3].innerHTML = data.stats[3].name;
-        var sst = document.getElementById("golf_season_stats_table").rows[2].cells;
-        sst[0].innerHTML = (data.stats[4].name).replace("Average", "AVG");
-        sst[1].innerHTML = (data.stats[5].name).replace("Average", "AVG");
-        sst[2].innerHTML = data.stats[6].name;
-        sst[3].innerHTML = (data.stats[7].name).replace("Percentage", "%");
-
-        var sst = document.getElementById("golf_season_stats_table").rows[1].cells;
-        sst[0].innerHTML = data.stats[0].value + ' (' + data.stats[0].rank + ')';
-        sst[1].innerHTML = data.stats[1].value + ' (' + data.stats[1].rank + ')';
-        sst[2].innerHTML = data.stats[2].value + ' (' + data.stats[2].rank + ')';
-        sst[3].innerHTML = data.stats[3].value + ' (' + data.stats[3].rank + ')';
-        var sst = document.getElementById("golf_season_stats_table").rows[3].cells;
-        sst[0].innerHTML = data.stats[4].value + ' (' + data.stats[4].rank + ')';
-        sst[1].innerHTML = data.stats[5].value + ' (' + data.stats[5].rank + ')';
-        sst[2].innerHTML = data.stats[6].value + ' (' + data.stats[6].rank + ')';
-        sst[3].innerHTML = Number.parseFloat(data.stats[7].value).toFixed(2) + '%';
+        var title = document.getElementById("golf_season_stats_table").rows[0].cells;
+        var val = document.getElementById("golf_season_stats_table").rows[1].cells;
+        for(i = 0; i < 4; i++){
+           if(data.stats[i] !== undefined){
+                title[i].innerHTML = (data.stats[i].name).replace("Percentage", "%").replace("Average", "AVG");
+                if(data.stats[i].rank !== undefined)
+                   val[i].innerHTML = data.stats[i].value + ' (' + data.stats[i].rank + ')';
+                else
+                    val[i].innerHTML = data.stats[0].value;
+            }  
+        }
+        
+        var title = document.getElementById("golf_season_stats_table").rows[2].cells;
+        var val = document.getElementById("golf_season_stats_table").rows[3].cells;
+        var q = 4;
+        for(i = 0; i < 4; i++){
+           if(data.stats[i] !== undefined){
+                title[i].innerHTML = (data.stats[q].name).replace("Percentage", "%").replace("Average", "AVG");
+                if(q === 7)
+                    val[i].innerHTML = Number.parseFloat(data.stats[q].value).toFixed(2) + '%';
+                else if(data.stats[i].rank !== undefined)
+                   val[i].innerHTML = data.stats[q].value + ' (' + data.stats[q].rank + ')';
+                else
+                    val[i].innerHTML = data.stats[q].value;
+            }
+            q++;
+            
+        }
     }
     
     document.getElementById("golf_prev_games").innerHTML = "Previous Tournaments";                
