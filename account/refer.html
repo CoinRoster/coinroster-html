@@ -182,13 +182,14 @@
                     <span class="input_label">Promo Code</span>
                     <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
                     <br />
-                    <button type="button" class="text_button" onclick="check_promo_code();">Check if exists</button>   
+                    <button type="button" class="text_button promo_button" onclick="check_promo_code();">Check if exists</button>   
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Affiliate</span>
                     <!-- <span id="user_affiliate_id"></span>   -->
                     <input type="text" id="user_affiliate_id" class="input_style" disabled>
-                    (All users who sign up with your code will have you as their affiliate)
+                    <br />
+                    <span class="input_label dim_message">(All users who sign up with your code will have you as their affiliate)</span>
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Free Play Amount</span>
@@ -201,7 +202,7 @@
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Max Promo Allowance (balance)</span>
-                    <span id="user_affiliate_balance"></span>
+                    <span class="green" id="user_affiliate_balance"></span>
                 </div>
                 <div class="input_padding">
                     <span class="input_label">Max Use (optional)</span>
@@ -303,7 +304,7 @@
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
     id("user_affiliate_id").value = window.session.username;
-    id("user_affiliate_balance").innerHTML = window.session.btc_balance;
+    id("user_affiliate_balance").innerHTML = window.session.btc_balance + " BTC";
       
     function create_promo() {
         promo_code = id("create_promo__code_input").value.trim(),
@@ -315,32 +316,32 @@
         // DO NOT CHANGE
         description = "User Generated Promo Code";
 
-        if (promo_code === "") return alert("Please enter a promo code");
-        if (description === "") return alert("Please enter a description");
+        if (promo_code === "") return show_simple_modal("Please enter a promo code");
+        if (description === "") return show_simple_modal("Please enter a description");
         
         if (free_play_amount !== "") 
             {
-            if (isNaN(free_play_amount)) return alert("Free play must be a number");
-            if (free_play_amount < 0) return alert("Free play must be a positive number");
+            if (isNaN(free_play_amount)) return show_simple_modal("Free play must be a number");
+            if (free_play_amount < 0) return show_simple_modal("Free play must be a positive number");
             }
         else free_play_amount = 0;
         
-        if (free_play_amount === 0) return alert("Please enter a free play amount");
+        if (free_play_amount === 0) return show_simple_modal("Please enter a free play amount");
         
         if (rollover_multiple !== "") 
             {
-            if (!isInt(rollover_multiple)) return alert("Rollover multiple must be an integer");
-            if (rollover_multiple < 0) return alert("Rollover multiple must be a positive number");
+            if (!isInt(rollover_multiple)) return show_simple_modal("Rollover multiple must be an integer");
+            if (rollover_multiple < 0) return show_simple_modal("Rollover multiple must be a positive number");
             }
         else rollover_multiple = 0;
 
-        if (rollover_multiple === 0) return alert("Please provide a rollover multiple");
+        if (rollover_multiple === 0) return show_simple_modal("Please provide a rollover multiple");
         
         if (max_use !== "") 
             {
-            if (!isInt(max_use)) return alert("Max use must be an integer");
-            if (isNaN(max_use)) return alert("Max use must be a number");
-            if (max_use <= 0) return alert("Max use must be positive");
+            if (!isInt(max_use)) return show_simple_modal("Max use must be an integer");
+            if (isNaN(max_use)) return show_simple_modal("Max use must be a number");
+            if (max_use <= 0) return show_simple_modal("Max use must be positive");
             }
         else max_use = 1;
 
@@ -358,10 +359,10 @@
         }, function(call) {
             if (call.status === "1") 
                 {
-                alert("Promo has been created! Reloading panel.");
+                show_simple_modal("Promo has been created! Reloading panel.");
                 location.reload();
                 }
-            else return alert(call.error);
+            else return show_simple_modal(call.error);
         });
     }
 
@@ -369,7 +370,7 @@
     {
     var promo_code = id("create_promo__code_input").value.trim();
     
-    if (promo_code === "") return alert("Please enter a promo code");
+    if (promo_code === "") return show_simple_modal("Please enter a promo code");
     else 
         {
         api({
@@ -379,11 +380,11 @@
             }
         }, function(call)
             {
-            if (call.status === "1") return alert("Promo code [" + promo_code + "] is available");
+            if (call.status === "1") return show_simple_modal("Promo code [" + promo_code + "] is available");
             else 
                 {
                 id("create_promo__code_input").value = "";
-                return alert(call.error);
+                return show_simple_modal(call.error);
                 }
             });
         }

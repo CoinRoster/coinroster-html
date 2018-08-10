@@ -388,7 +388,7 @@
     }
 
     .copy_to_clipboard:active {
-        background-color: gray;
+        background-color: rgb(66, 66, 66);
     }
 
     .copy_to_clipboard img {
@@ -400,4 +400,12 @@
 
     .wallet_address {
         padding: 7px 10px;
+    }
+
+    .promo_button {
+        margin-top: 10px;
+    }
+
+    .dim_message {
+        color: rgb(175, 175, 175);
     }
