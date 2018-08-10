@@ -278,6 +278,28 @@
         margin-left: 10px;
     }
 
-    .copy_wallet_address {
-        padding-left: 90px !important;
+    .flex {
+        display: inline-flex;
+        flex-direction: row;
+        background-color: gray;
+        height:25px;
+        width: 375px;
+    }
+
+    .copy_to_clipboard {
+        background-color: gray;
+        width: 40px;
+    }
+
+    .copy_to_clipboard:hover {
+        background-color: rgb(200, 200, 200);
+    }
+
+    .copy_to_clipboard:active {
+        background-color: gray;
+    }
+
+    .clipboard_img img {
+        height: 20px;
+        margin: 0 auto;
     }
