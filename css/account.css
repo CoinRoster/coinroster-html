@@ -410,6 +410,7 @@
 
     .dim_message {
         margin-top: 3px;
+        text-align: center;
         color: rgb(175, 175, 175);
     }
 
