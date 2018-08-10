@@ -48,23 +48,10 @@
                 </div>
             </form>
             <div id="referral_link_container" class="hidden">
-
-
-                <br/>
-                <hr noshade />
-                <br/>
-                You can also use the following link to generate referrals:
-                <br/>
-                <br/>
-                <input id="referral_link" type="text" class="light_on_dark_input orange" style="width:270px;text-align:left;padding-bottom:10px;font-size:13px" />
-                <br/>
-                <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_referral_link_to_clipboard()" class="inline_link teal">copy to clipboard</a>
-            
                 <div class="flex">
                     <div id="referral_link" class="wallet_address orange small_text"></div>
-                    <div class="copy_to_clipboard" onclick="copy_wallet_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
+                    <div class="copy_to_clipboard" onclick="copy_referral_to_clipboard()"><img src="../img/copy_clipboard.png"></div>
                 </div>
-            
             </div>
             <!-- Promo code div -->
             <div id="pane_4" class="pane" tab_text="Create Promo">
@@ -285,7 +272,7 @@
         }
     }
 
-    function copy_wallet_to_clipboard()
+    function copy_referral_to_clipboard()
         {
             var el = document.createElement("textarea");
             el.value = session.referral_link;
