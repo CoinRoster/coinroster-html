@@ -170,7 +170,7 @@
         return false;
         }
         
-        window.Clipboard = (function(window, document, navigator) {
+    window.Clipboard = (function(window, document, navigator) {
         var textArea,
             copy;
 
@@ -210,6 +210,8 @@
             selectText();
             copyToClipboard();
         };
+
+        event.preventDefault();
 
         return {
             copy: copy
