@@ -416,3 +416,8 @@
         margin-top: 15px;
         margin-bottom: 15px;
     }
+
+    .qr_flex {
+        display: flex;
+        flex-direction: row;
+    }
