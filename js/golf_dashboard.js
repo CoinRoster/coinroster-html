@@ -10,10 +10,10 @@
                                         <td class=\"stat_category\"></td>
                                     </tr>
                                     <tr>   
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                        <td class=\"stat_category\"></td>
@@ -22,13 +22,15 @@
                                         <td class=\"stat_category\"></td>
                                     </tr>
                                     <tr>   
-                                       <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
+                                       <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>`;
+        document.getElementById("golf_prev_games_table").innerHTML = `<caption id="golf_prev_games" class="dashboard_caption"></caption>`
         
     }
+    
     
     
 function displayGolfDashboard(data){
@@ -65,13 +67,15 @@ function displayGolfDashboard(data){
 
     var row = game_log_table.insertRow(0);
     if (data.last_five_tournaments.length == 0){
-        var End_Date = row.insertCell(0);
-        End_Date.innerHTML = "NO STATS AVAILABLE";
+        end_date = row.insertCell(0);
+        end_date.colSpan  = "4";
+        end_date.innerHTML = "NO STATS AVAILABLE";
     }   
 
     document.getElementById("golf_season_stats").innerHTML = "2018 PGA TOUR Season Stats";
     var sst = document.getElementById("golf_season_stats_table").rows[0].cells;                
     if (data.stats.length == 0){
+        sst[0].colSpan = "4";
         sst[0].innerHTML = "NO STATS AVAILABLE";
     }
 
