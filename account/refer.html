@@ -331,12 +331,12 @@
         {
             var el = document.createElement("textarea");
             var value = session.referral_link; 
-            // el.value = value;
+            el.value = value;
             Clipboard.copy(value);
-            // document.body.appendChild(el);
-            // el.select();
-            // document.execCommand("Copy");
-            // document.body.removeChild(el);
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand("Copy");
+            document.body.removeChild(el);
         }
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
