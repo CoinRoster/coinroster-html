@@ -199,11 +199,11 @@ function displayGolfDashboard(data){
             End_Date.className = "dashboard_td";
             Tournament.className = "dashboard_td";
             POS.className = "dashboard_td";
-            TOT.className = "dashboard_td";                  
             R1.className = "dashboard_td";
             R2.className = "dashboard_td";
             R3.className = "dashboard_td";
-            R4.className = "dashboard_td right-align";
+            TOT.className = "dashboard_td right-align";   
+            R4.className = "dashboard_td";
         }
     }
 }

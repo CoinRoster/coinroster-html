@@ -124,6 +124,7 @@ iframe{
     font-size: 12px;
     color: #c9dee0;
     background-color: grey;
+    vertical-align: top;
 }
 .tableinfo{
     display: none;
