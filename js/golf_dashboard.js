@@ -53,14 +53,20 @@ function displayGolfDashboard(data){
     }
     document.getElementById('golf_logo').addEventListener("error", onImageLoadError);     
        
-    document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
-    document.getElementById("golf_born_list").innerHTML = 'Born: ' + data.birthString;
-
+    if(data.weight !== undefined && data.height !== undefined)
+        document.getElementById("golf_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
+    else
+        document.getElementById("golf_height_list").innerHTML = "";
+    
+    if(data.birthString !== undefined)
+        document.getElementById("golf_born_list").innerHTML = 'Born: ' + data.birthString;
+    else
+        document.getElementById("golf_born_list").innerHTML = "";
+    
     document.getElementById("golf_height_table").innerHTML = data.height;
     document.getElementById("golf_weight_table").innerHTML = data.weight;
     document.getElementById("golf_born_table").innerHTML = data.birthString;
     
- 
     document.getElementById("golf_season_stats").innerHTML = "2018 PGA TOUR Season Stats";
     var sst = document.getElementById("golf_season_stats_table").rows[0].cells;    
     
@@ -202,8 +208,8 @@ function displayGolfDashboard(data){
             R1.className = "dashboard_td";
             R2.className = "dashboard_td";
             R3.className = "dashboard_td";
-            TOT.className = "dashboard_td right-align";   
             R4.className = "dashboard_td";
+            TOT.className = "dashboard_td right-align";   
         }
     }
 }
