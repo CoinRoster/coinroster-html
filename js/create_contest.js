@@ -1299,9 +1299,6 @@ function create_new_contest()
     clear_error("misc_min_wager");
     clear_error("number_of_options");
 
-    console.log(Number(min_wager).toFixed(8));
-    return;
-
     // Validation
     if (!title || title.length < 2) {
       add_error("misc_title");
