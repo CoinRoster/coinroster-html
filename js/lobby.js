@@ -144,21 +144,26 @@
         else if (price <= salary_cap)
             {
             id("salary_cap").innerHTML = "$" + commas(subtract(salary_cap, price));
-            if (show_max_players) id("remaining_players").innerHTML = ++drafted + "/" + max_players;
-            else id("remaining_players").innerHTML = ++drafted;
+            if (show_max_players){
+                var players_left = max_players - drafted;
+                id("remaining_players").innerHTML = ++drafted + "/" + max_players;
+                if (players_left == 0) {
+                    id("remaining_money_per_player").innerHTML = "$0";
+                } 
+                else {
+                    var left_to_spend = subtract(salary_cap, price);
+                    var label = "$" + commas(Math.floor(left_to_spend / players_left));
+                    id("remaining_money_per_player").innerHTML = label;
+                }
+            }
+            else{
+                id("remaining_players").innerHTML = ++drafted;
+            }
+            
             id("player_table").deleteRow(row.rowIndex);
             insert_player_row("roster_table", player_id, name, price, count);
-
-            var players_left = max_players - drafted;
-            
-            if (players_left == 0) {
-                id("remaining_money_per_player").innerHTML = "$0";
-            } else {
-                var left_to_spend = subtract(salary_cap, price);
-                var label = "$" + commas(Math.floor(left_to_spend / players_left));
-                id("remaining_money_per_player").innerHTML = label;
             }
-            }
+        
         else show_simple_modal("You cannot afford to draft " + name, "bad", null);
         }
         
