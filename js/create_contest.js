@@ -1403,7 +1403,7 @@ function create_new_contest()
       ) {
         add_error("number_of_options");
         show_simple_modal("Please select at least 2 pari-mutuel options");        
-    } else if (!min_wager || isNaN(min_wager) || Number(min_wager) <= 0) {
+    } else if (!min_wager || isNaN(min_wager) || Number(min_wager).toFixed(8) <= 0) {
       add_error("misc_min_wager");
       show_simple_modal("Please enter a valid minimum wager amount");
     } else {
