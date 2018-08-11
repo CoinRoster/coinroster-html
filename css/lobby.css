@@ -357,8 +357,8 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        display: inline;
         white-space: nowrap;
+        display: inline;
     }
     
     .roster_parameter_table li {
@@ -367,7 +367,10 @@
         font-size: 14px;
         display: inline-block;
     }
-    
+    #left_to_spend{
+        display: none;
+    }
+
     .augment_vertical_padding li {
         padding-top: 12px;
     }

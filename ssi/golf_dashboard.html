@@ -1,117 +1,133 @@
-<!-- SSI: golf_dashboard.html -->
-<link rel="stylesheet" href="/css/golf_stats.css">
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<div id="stats_modal" class="modal">
-    <!-- Modal content -->
+<!-- SSI: golf_dashboard.html -->    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/golf_dashboard.css">
 
-    <div class="modal-content">
-        <div class="modal-body">
-        <span class="close" onclick="close()">&times;</span>
+<!--
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="golf_dashboard.css">
+-->
 
-        <div id="mobile_header" class="container-fluid">
-            <div class="col-md-6 col-sm-6" style="padding: 0px;"></div>
-            <div class="col-md-6 col-sm-6" style="padding: 0px;">                                 
-                <h1 id="mobile_playername"></h1>    
-                <hr class="seperator">                                       
-            </div>    
-        </div>
+<div id="stats_modal" class="modal"></div>
+<!-- Modal content -->
+<table id="stats_model_content_golf" class="modal_table_container">
+    <tbody>
+        <tr>
+            <td>
+                <div class="modal-content">
+                    <span id="close" class="close" onclick="close_dash()">&times;</span>
+                    <div class="modal-body">
 
-        <div class="container-fluid">
-                <div id="playerphoto" class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
-                    <div id="frame">
-                        <div id="headshot_frame">                    
-                            <img alt="playerpic" width="230" height="160" id="headshot" class="img-responsive">
+                        <div class="container-fluid mobile_header">
+                            <div class="responsive" style="padding: 0px;"></div>
+                            <div class="responsive" style="padding: 0px;">                                 
+                                <h1 id="golf_mobile_playername" class="dashboard_h1"></h1>    
+                                <hr class="seperator">                                       
+                            </div>    
                         </div>
-                        <div id="country_frame">
-                            <img alt="flag" id="flag" class="img-responsive">
+
+                        <div class="container-fluid">
+                                <div class="responsive playerphoto" style="padding: 0px;">
+                                    <div class="frame">
+                                        <div id="golf_headshot_frame">                    
+                                            <img alt="playerpic" width="219" height="160" id="golf_headshot" class="img-responsive">
+                                        </div>
+                                        <div id="golf_logo_frame">
+                                            <img alt="logo" id="golf_logo" class="img-responsive">
+                                        </div>
+                                        <div class="spot_frame">
+                                            <img src="/img/spotlight.png" alt="spot" width="230" height="175" id="spot" class="img-responsive">  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="playerinfo" class="responsive playerinfo_div" style="padding: 0px;">
+                                    <div class="header">
+                                        <h1 id="golf_player_name" class="dashboard_h1"></h1>    
+                                        <hr class="seperator underline">
+                                    </div>
+                                    <div class="listinfo">      
+                                        <p id="golf_height_list" class="dashboard_p"></p>
+                                        <p id="golf_weight_list" class="dashboard_p"></p>
+                                        <p id="golf_born_list" class="dashboard_p"></p>
+                                    </div>
+                                    <div class="tableinfo">
+                                        <table class="dashboard_table">
+                                            <tr>
+                                                <td class="table_header">Height</td>
+                                                <td class="table_header">Weight</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="golf_height_table" class="dashboard_td info_td"></td>
+                                                <td id="golf_weight_table" class="dashboard_td info_td"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table_header" colspan="2">Born</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="golf_born_table" colspan="2" class="dashboard_td info_td"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>           
                         </div>
-                        <div id="spot_frame">
-                            <img src="/img/spotlight.png" alt="spot" width="230" height="175" id="spot" class="img-responsive">  
+
+                        <hr class="seperator">
+                        
+                        <button id="stats_tab_1" class="tab">STATS</button>
+                        <button id="news_tab_1" class="tab">NEWS</button>
+
+                        <div class="stats_table">
+                            <table id="golf_season_stats_table" class="dashboard_table sst_table">
+                            </table>
+                            
+                            <table id="golf_prev_games_table" class="dashboard_table pst_table">
+                            </table>
                         </div>
+
+                        <div class="newsfeed">
+                            <a class="twitter-timeline" data-lang="en" data-width="100%" data-height="400" data-theme="dark" href="https://twitter.com/RotoworldGolf?ref_src=twsrc%5Etfw">Tweets by @Rotoworld_Golf</a>
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+                        </div>
+
+                    </div>
+                    <div class="footer">                    
+                        <button onclick="draft_player()" class="draft_button">DRAFT</button>
                     </div>
                 </div>
-                <div id="playerinfo" class="col-md-6 col-sm-6 col-xs-12" style="padding: 0px;">
-                    <div id="header">
-                        <h1 id="player_name"></h1>    
-                        <hr id="underline" class="seperator">
-                    </div>
-                    <div id="listinfo">                       
-                        <p id="country_list"></p>
-                        <p id="height_list"></p>
-                        <p id="weight_list"></p>
-                        <p id="born_list"></p>
-                    </div>
-                    <div id="tableinfo" class="table-responsive">
-                        <table>
-                            <tr>
-                                <td class="table_header dash_col">Country</td>
-                                <td class="table_header dash_col">Height</td>
-                                <td class="table_header dash_col">Weight</td>
-                            </tr>
-                            <tr>
-                                <td id="country_table dash_col"></td>
-                                <td id="height_table dash_col"></td>
-                                <td id="weight_table dash_col"></td>
-                            </tr>
-                            <tr>
-                                <td class="table_header dash_col" colspan="4">Born</td>
-                            </tr>
-                            <tr>
-                                <td id="born_table dash_col" colspan="4"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>           
-        </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
-        <hr class="seperator">
-        <button id="stats_tab" class="tab">STATS</button>
-        <button id="news_tab" class="tab">NEWS</button>
+<script src="/js/dashboard.js"></script>
+<script src="/js/golf_dashboard.js"></script>
 
-        <div id="stats_table" class="table-responsive" style="overflow-x: scroll;">
-            <table id="season_stats_table">
-                <caption id="season_stats"></caption>
-                    <tr>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                    </tr>
-                    <tr>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                        <td class="dash_col stat_category"></td>
-                    </tr>
-                    <tr>   
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-            </table>
-            <table id="prev_games_table">
-                <caption id="prev_games"></caption>
-            </table>
-        </div>
-
-        <div id="newsfeed">
-            <a class="twitter-timeline" data-lang="en" data-width="100%" data-height="400" data-theme="dark" href="https://twitter.com/RotoworldGolf?ref_src=twsrc%5Etfw">Tweets by @RotoworldGolf</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                
-        </div>
-
-        </div>
-        <div id="footer">                    
-            <button id="draft_button">DRAFT</button>
-        </div>
-    </div>
-
-</div>
+<script>
+    function close_dash(){
+        document.getElementById("stats_modal").style.display = "none";
+        var modals = document.getElementsByClassName("modal_table_container");
+        for(i = 0; i < modals.length; i++){
+            modals[i].style.display = "none";
+        }
+    }
+    
+    function draft_player(){
+        close_dash();
+        var roster_table = document.getElementById("roster_table");
+        for (var i = 0, row; row = roster_table.rows[i]; i++) {
+            if(row.id === "player_" + window.player_id){
+                return;
+            }
+        }
+        add_player(window.player_id);
+    }
+    
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            close_dash();
+        }
+    });
+</script>
 <!-- end SSI Include -->

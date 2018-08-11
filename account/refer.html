@@ -4,6 +4,8 @@
     <title>CoinRoster | Refer a friend</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
     <script type="text/javascript" src="/js/account.js"></script>
 </head>
 <body>
@@ -48,130 +50,55 @@
                 </div>
             </form>
             <div id="referral_link_container" class="hidden">
+                <hr noshade="">
                 <br/>
-                <hr noshade />
+                <span class="input_label" style="width: 240px;">Use the following link to generate referrals</span>
+                <div class="flex">
+                    <div id="referral_link" class="wallet_address orange small_text"></div>
+                    <div class="copy_to_clipboard" data-clipboard-target="#referral_link"><img src="../img/copy_clipboard.png"></div>
+                </div>
                 <br/>
-                You can also use the following link to generate referrals:
                 <br/>
-                <br/>
-                <input id="referral_link" type="text" class="light_on_dark_input orange" style="width:270px;text-align:left;padding-bottom:10px;font-size:13px" />
-                <br/>
-                <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_referral_link_to_clipboard()" class="inline_link teal">copy to clipboard</a>
             </div>
+            <hr noshade="">
             <!-- Promo code div -->
             <div id="pane_4" class="pane" tab_text="Create Promo">
-                <br/>
-                <hr noshade />
-                <br/>
-                <div class="content_header" style="height:67px">
-                    <div class="content_header_title">
+                <div class="page_title">
+                    <h3>
                         Create Your Own Promo Code!
-                    </div>
+                    </h3>
                 </div>
-                <div class="content_body" style="top:68px">
-                    <table class="settings" style="top:20px">
-                        <tr>
-                            <td>
-                                Promo code:
-                            </td>
-                            <td colspan="2">
-                                <input id="create_promo__code_input" type="text" class="input_style text_input" maxlength="20">
-                                <button type="button" class="input_style" onclick="check_promo_code();">Check if exists</button>   
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                Affiliate:
-                            </td>
-                            <td colspan="2">
-                                <span id="user_affiliate_id"></span>  
-                                (All users who sign up with your code will have you as their affiliate)
-                            </td>  
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                Free play amount:
-                            </td>
-                            <td colspan="2">
-                                <input id="create_promo__freeplay_amount_input" type="text" btc-input="true" class="input_style text_input">
-                                BTC
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                Rollover:
-                            </td>
-                            <td colspan="2">
-                                5 x free play amount
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                Max Promo Allowance (your account balance):
-                            </td>
-                            <td colspan="2">
-                                <span id="user_affiliate_balance"></span>
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                Max use (optional):
-                            </td>
-                            <td colSpan="2">
-                                <input id="create_promo__max_use_input" type="text" class="input_style text_input">
-                            </td>
-                        </tr>
-                        <tr></tr>
-                        <!-- <tr>
-                            <td>
-                                Expires (optional):
-                            </td>
-                            <td>
-                                <input id="create_promo__deadline_tcal" type="text" class="input_style text_input tcal">
-                            </td>
-                            <td>
-                                <select data-placeholder="Select" id="create_promo__time_selector" class="input_style chosen-select" style="width:100px">
-                                    <option value="0">12:00 AM</option>
-                                    <option value="1">1:00 AM</option>
-                                    <option value="2">2:00 AM</option>
-                                    <option value="3">3:00 AM</option>
-                                    <option value="4">4:00 AM</option>
-                                    <option value="5">5:00 AM</option>
-                                    <option value="6">6:00 AM</option>
-                                    <option value="7">7:00 AM</option>
-                                    <option value="8">8:00 AM</option>
-                                    <option value="9">9:00 AM</option>
-                                    <option value="10">10:00 AM</option>
-                                    <option value="11">11:00 AM</option>
-                                    <option value="12">12:00 PM</option>
-                                    <option value="13">1:00 PM</option>
-                                    <option value="14">2:00 PM</option>
-                                    <option value="15">3:00 PM</option>
-                                    <option value="16">4:00 PM</option>
-                                    <option value="17">5:00 PM</option>
-                                    <option value="18" selected>6:00 PM</option>
-                                    <option value="19">7:00 PM</option>
-                                    <option value="20">8:00 PM</option>
-                                    <option value="21">9:00 PM</option>
-                                    <option value="22">10:00 PM</option>
-                                    <option value="23">11:00 PM</option>
-                                </select>
-                                &nbsp;&nbsp;
-                                EST
-                            </td>
-                        </tr> -->
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="input_style" onclick="create_promo();">Create Promo</button>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="input_padding">
+                    <span class="input_label">Promo Code</span>
+                    <input id="create_promo__code_input" placeholder="Promo code" type="text" class="input_style text_input" maxlength="20">
+                    <br />
+                    <button type="button" class="text_button promo_button" onclick="check_promo_code();">Check if exists</button>   
+                </div>
+                <div class="input_padding">
+                    <span class="input_label">Affiliate</span>
+                    <!-- <span id="user_affiliate_id"></span>   -->
+                    <div class="fake_textbox" id="user_affiliate_id"></div>
+                    <span class="input_label dim_message">(All users who sign up with your code will have you as their affiliate)</span>
+                </div>
+                <div class="input_padding">
+                    <span class="input_label">Free Play Amount</span>
+                    <input placeholder="&#xf15a;" id="create_promo__freeplay_amount_input" type="text" btc-input="true" style="font-family:FontAwesome, 'gotham_medium'; width: 170px;" class="input_style text_input">
+                    BTC
+                </div>
+                <div class="input_padding">
+                    <span class="input_label">Rollover</span>
+                    <div class="fake_textbox">5 x free play amount</div>
+                </div>
+                <div class="input_padding">
+                    <span class="input_label">Max Promo Allowance (balance)</span>
+                    <div class="fake_textbox green" id="user_affiliate_balance"></div>
+                </div>
+                <div class="input_padding">
+                    <span class="input_label">Max Use (optional)</span>
+                    <input placeholder="Max use" id="create_promo__max_use_input" type="text" class="input_style text_input">
+                </div>
+                <div class="input_padding">
+                    <button type="button" class="text_button" onclick="create_promo();">Create Promo</button>
                 </div>
             </div>
             <!--  -->
@@ -200,7 +127,7 @@
         if (referral_link)
             {
             show("referral_link_container");
-            id("referral_link").value = referral_link;
+            id("referral_link").innerHTML = referral_link;
             }
         }
         
@@ -265,8 +192,11 @@
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/tcal.js"></script>
 <script type="text/javascript">
+    
+    new ClipboardJS('.copy_to_clipboard');
+
     id("user_affiliate_id").innerHTML = window.session.username;
-    id("user_affiliate_balance").innerHTML = window.session.btc_balance;
+    id("user_affiliate_balance").innerHTML = window.session.btc_balance + " BTC";
       
     function create_promo() {
         promo_code = id("create_promo__code_input").value.trim(),
@@ -278,32 +208,32 @@
         // DO NOT CHANGE
         description = "User Generated Promo Code";
 
-        if (promo_code === "") return alert("Please enter a promo code");
-        if (description === "") return alert("Please enter a description");
+        if (promo_code === "") return show_simple_modal("Please enter a promo code");
+        if (description === "") return show_simple_modal("Please enter a description");
         
         if (free_play_amount !== "") 
             {
-            if (isNaN(free_play_amount)) return alert("Free play must be a number");
-            if (free_play_amount < 0) return alert("Free play must be a positive number");
+            if (isNaN(free_play_amount)) return show_simple_modal("Free play amount must be a number");
+            if (free_play_amount < 0) return show_simple_modal("Free play amount must be a positive number");
             }
         else free_play_amount = 0;
         
-        if (free_play_amount === 0) return alert("Please enter a free play amount");
+        if (free_play_amount === 0) return show_simple_modal("Please enter a free play amount");
         
         if (rollover_multiple !== "") 
             {
-            if (!isInt(rollover_multiple)) return alert("Rollover multiple must be an integer");
-            if (rollover_multiple < 0) return alert("Rollover multiple must be a positive number");
+            if (!isInt(rollover_multiple)) return show_simple_modal("Rollover multiple must be an integer");
+            if (rollover_multiple < 0) return show_simple_modal("Rollover multiple must be a positive number");
             }
         else rollover_multiple = 0;
 
-        if (rollover_multiple === 0) return alert("Please provide a rollover multiple");
+        if (rollover_multiple === 0) return show_simple_modal("Please provide a rollover multiple");
         
         if (max_use !== "") 
             {
-            if (!isInt(max_use)) return alert("Max use must be an integer");
-            if (isNaN(max_use)) return alert("Max use must be a number");
-            if (max_use <= 0) return alert("Max use must be positive");
+            if (!isInt(max_use)) return show_simple_modal("Max use must be an integer");
+            if (isNaN(max_use)) return show_simple_modal("Max use must be a number");
+            if (max_use <= 0) return show_simple_modal("Max use must be positive");
             }
         else max_use = 1;
 
@@ -321,10 +251,10 @@
         }, function(call) {
             if (call.status === "1") 
                 {
-                alert("Promo has been created! Reloading panel.");
+                show_simple_modal("Promo has been created! Reloading panel.");
                 location.reload();
                 }
-            else return alert(call.error);
+            else return show_simple_modal(call.error);
         });
     }
 
@@ -332,7 +262,7 @@
     {
     var promo_code = id("create_promo__code_input").value.trim();
     
-    if (promo_code === "") return alert("Please enter a promo code");
+    if (promo_code === "") return show_simple_modal("Please enter a promo code");
     else 
         {
         api({
@@ -342,11 +272,11 @@
             }
         }, function(call)
             {
-            if (call.status === "1") return alert("Promo code [" + promo_code + "] is available");
+            if (call.status === "1") return show_simple_modal("Promo code [" + promo_code + "] is available");
             else 
                 {
                 id("create_promo__code_input").value = "";
-                return alert(call.error);
+                return show_simple_modal(call.error);
                 }
             });
         }

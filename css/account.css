@@ -365,6 +365,112 @@
         margin-left: 10px;
     }
 
-    .copy_wallet_address {
-        padding-left: 90px !important;
+    .flex {
+        display: inline-flex;
+        flex-direction: row;
+        background-color: #565656;
+        height: 35px;
+        max-width: 370px;
+        margin-top: 5px;
+        border: 1px solid white;
+        border-radius: 10px;
+        overflow: hidden;
     }
+
+    .copy_to_clipboard {
+        background-color: #c9c9c9;
+        width: 35px;
+        border-left: 1px solid white;
+    }
+
+    .copy_to_clipboard:hover {
+        background-color: #858585;
+        cursor: pointer;
+    }
+
+    .copy_to_clipboard:active {
+        background-color: rgb(66, 66, 66);
+    }
+
+    .copy_to_clipboard img {
+        height: 20px;
+        padding: 5px;
+        margin-left: 4px;
+        margin-top: 1px;
+    }
+
+    .wallet_address {
+        padding: 7px 10px;
+    }
+
+    .promo_button {
+        margin-top: 10px;
+        width: 125px;
+    }
+
+    .dim_message {
+        margin-top: 3px;
+        text-align: center;
+        color: rgb(175, 175, 175);
+    }
+
+    #referral_link_container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .qr_flex {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #qr_code {
+        overflow: auto;
+        margin-top: 25px;
+        margin-left: 100px;
+        margin-bottom:25px;
+    }
+
+    .buttons {
+        margin-top: 25px;
+        width:280px;
+    }
+
+    .bitcoins_interac {
+        margin-top: 20px;
+    }
+
+    .altcoins {
+        margin-top: 20px;
+    }
+
+    .inquiries {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .fake_textbox {
+        border: 1px solid white;
+        padding: 10px;
+        border-radius: 8px;
+        margin-top: 5px;
+        width: 200px;
+        background-color: rgb(90, 90, 90);
+    }
+
+    @media only screen and (max-width: 850px) {
+        .qr_flex {
+            flex-direction: column;
+        }
+
+        #qr_code {
+            margin-left: 0;
+        }
+    }
+
+    @media only screen and (max-width: 376px) {
+        .link {
+            padding: 0;
+        }
+    }
+i

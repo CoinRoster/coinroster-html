@@ -11,7 +11,8 @@
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
 <!--#include virtual="/ssi/baseball_dashboard.html" -->
-    
+<!--#include virtual="/ssi/golf_dashboard.html" -->
+
 <div id="page_body">
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
@@ -190,6 +191,14 @@
                         <span id="remaining_players" class="green">0</span>
                     </li>
                 </ul>
+                <ul class="hidden roster_parameter_table" id="left_to_spend">
+                    <li class="roster_parameter_label">
+                        Left to spend per player:
+                    </li>
+                    <li>
+                        <span id="remaining_money_per_player" class="green"></span>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="body_container selector_container lobby roster_field hidden">
@@ -243,7 +252,8 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
-<script src="/js/golf_stats.js"></script>
+<script src="/js/dashboard.js"></script>    
+<script src="/js/golf_dashboard.js"></script>
 <script src="/js/baseball_dashboard.js"></script>
 
 <script>
@@ -613,7 +623,8 @@
     function initialize_roster_UI(option_table, salary_cap, roster_size, show_counts)
         {
         var roster_fields = document.getElementsByClassName("roster_field");
-        
+        var left_to_spend = document.getElementById("left_to_spend");
+
         for (var i=0; i<roster_fields.length; i++)
             {
             var 
@@ -637,8 +648,16 @@
         
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
+        console.log(roster_size);
+            
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
-  
+
+        if (roster_size !== 0) {
+            console.log(roster_size);
+            show(left_to_spend, "inline");
+            id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / roster_size));
+        }
+
         for (var i=0; i<option_table.length; i++)
             {
             var player_item = option_table[i],
@@ -879,12 +898,15 @@ function open_dashboard(span){
     var player_id  = span.parentElement.parentElement.id;
     var sport = document.getElementById("sub_category").innerText.replace("Fantasy ", "").replace(" Props", "").toUpperCase();
     var rtn = get_data(player_id.replace("player_", ""), sport);
-    if(sport === "GOLF")
-        displayGolfDash(rtn.data);
-    else if(sport === "BASEBALL")
-        displayBaseballDash(rtn.data);
-    else if(sport === "BASKETBALL")
-        displayBasketballDash(rtn.data);
+    if(sport === "GOLF"){
+        displayGolfDashboard(rtn.data);
+    }
+    else if(sport === "BASEBALL"){
+        displayBaseballDashboard(rtn.data);
+    }
+    else if(sport === "BASKETBALL"){
+        displayBasketballDashboard(rtn.data);
+    }
 }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>

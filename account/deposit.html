@@ -5,115 +5,105 @@
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <script type="text/javascript" src="/js/account.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
 <div id="page_body">
-    <div id="centering_container">
-        <!--#include virtual="/ssi-java/nav" -->
-        <div id="category_header" class="body_container header">
-            <h3 class="section_header">
-                <span id="path_text">
-                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
-                    --><span class='path_slash red_orange'>/</span><!--
-                    --><span class='orange'>DEPOSIT</span>
-                </span>
-            </h3>
-        </div>
-        <div class="body_container extra_body_container_padding">
-            <!-- INITIAL CONTAINER ************************************************************************** -->
-            <div id="initial_container">
-                <img id="qr_code" style="float: right;overflow: auto;margin-right: 37%; margin-top: 5%"></img>
-                <br/>
+<div id="centering_container">
+<!--#include virtual="/ssi-java/nav" -->
+<div id="category_header" class="body_container header">
+<h3 class="section_header">
+<span id="path_text">
+<a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+--><span class='path_slash red_orange'>/</span><!--
+--><span class='orange'>DEPOSIT</span>
+</span>
+</h3>
+</div>
+<div class="body_container extra_body_container_padding">
+<!-- INITIAL CONTAINER ************************************************************************** -->
+    <div id="initial_container">
+        <div class="qr_flex">
+            <div>
                 <div id="deposit_bonus_prompt" class="hidden">
                     Your account is eligible for a <span class="green">100% Deposit Match</span> bonus!
-                    <br/>
-                    <br/>
                     <div style="font-size:12px" class="constrain_width">
                         We will match 100% of your first deposit <span class="orange">
-                            up to <span id="deposit_bonus_cap"></span> BTC
-                            <span id="deposit_bonus_fiat" class="steel"></span>
-                        </span>.
-                        <br/>
-                        <br/>
+                        up to <span id="deposit_bonus_cap"></span> BTC
+                        <span id="deposit_bonus_fiat" class="steel"></span></span>.
                         You will need to meet a <span class="orange">
-                            <span id="deposit_bonus_rollover"></span>x playing requirement
+                        <span id="deposit_bonus_rollover"></span>x playing requirement
                         </span> before you are able to withdraw funds.
-                        <br/>
-                        <br/>
                         The Deposit Match bonus is <span class="orange">optional</span> - you do not have to claim it.
                     </div>
-                    <br/>
-                </div>
+                </div><!-- Deposit Bonus Prompt-->
                 <div class="input_padding description_text">
                     To make a deposit, transfer BTC to the following dedicated wallet:
-                    <br/>
-                    <br/>
-                    <span id="user_ext_address" class="orange small_text"></span>
-                    <br/>
-                    <br/>
-                    <a style="font-size:12px;display:inline-block;padding:8px 0" onclick="copy_wallet_to_clipboard()" class="inline_link teal copy_wallet_address">copy to clipboard</a>
-                    <br/>
-                    <br/>
+                </div><!-- Description text -->
+                <div class="flex">
+                    <div id="user_ext_address" class="wallet_address orange small_text"></div>
+                    <div class="copy_to_clipboard" data-clipboard-target="#user_ext_address"><img src="../img/copy_clipboard.png"></div>
+                </div>
+                <div class="inquiries">
                     <a class="link teal" href="http://blog.coinroster.com/contact/">Click here for any support or inquiries</a>
-                    <br/>
-                    <br/>
                 </div>
-                <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
-                    <ul class="button_contents">
-                        <li>
-                            <img src="/img/B_logo.png" height="30" style="margin-right:20px"/>
-                        </li>
-                        <li>
-                            Check my deposit
-                        </li>
-                    </ul>
-                </button>
-                <div id="confirmation_container" class="hidden">
-                    <span>
-                        We have received your deposit of:
-                    </span>
-                    <br/>
-                    <br/>
-                    <div class="description_text">
-                        <h2 id="amount_deposited" class="lucida orange"></h2>
+                <div class="buttons">
+                    <div class="check_deposit">
+                        <button id="check_deposit_button" class="text_button" onclick="check_deposit()" style="width:260px !important;margin-top:10px">
+                            <ul class="button_contents">
+                                <li>
+                                    <img src="/img/B_logo.png" height="30" style="margin-right:20px"/>
+                                </li>
+                                <li>
+                                    Check my deposit
+                                </li>
+                            </ul>
+                            </button>
+                        <div id="confirmation_container" class="hidden">
+                            <span>We have received your deposit of:</span>
+                        <div class="description_text">
+                            <h2 id="amount_deposited" class="lucida orange"></h2>
+                        </div>
+                        </div>
+                    </div><!-- Check Deposit -->
+                    <div class="bitcoins_interac">
+                        <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
+                            <ul class="button_contents">
+                                <li>
+                                    <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
+                                </li>
+                                <li>
+                                    Canadians can click here to buy Bitcoins with Interac Online
+                                </li>
+                            </ul>
+                        </button>
                     </div>
-                </div>
-                <br/>
-                <br/>
-                <br/>
-                <button class="text_button" onclick="go_to_quickbt()" style="width:260px !important">
-                    <ul class="button_contents">
-                        <li>
-                            <img src="/img/can_interac.png" height="66" style="margin-right:20px"/>
-                        </li>
-                        <li>
-                            Canadians can click here to buy Bitcoins with Interac Online
-                        </li>
-                    </ul>
-                </button>
-                <br/>
-                <br/>
-                <br/>
-                <div style="margin-bottom:20px;text-align: left;" class="well example-area">
-                    <a onclick="go_to_shapeshift()" class="text_button">
-                        <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" class="ss-button">
-                    </a>
-                </div>
-                <br/>
-                <br/>
-            </div>
-            <!-- DEPOSIT FORM ************************************************************************** -->
-            <div id="ext_address_deposit_container" class="hidden">
-            </div>
-        </div>
-        <br/>
-    </div>
+                    <div style="margin-bottom:20px;" class="altcoins well example-area">
+                        <a onclick="go_to_shapeshift()" class="text_button">
+                            <img src="https://shapeshift.io/images/shifty/small_light_altcoins.png" class="ss-button">
+                        </a>
+                    </div><!-- Shape Shift-->
+                </div><!-- Buttons -->
+            </div><!-- First flex child -->
+            <div>
+                <img id="qr_code" ></img>
+            </div><!-- Second flex child -->
+        </div><!-- QR Flexbox -->
+    </div><!-- Initial Container -->
+<!-- DEPOSIT FORM ************************************************************************** -->
+<div id="ext_address_deposit_container" class="hidden">
+</div>
+</div>
+
+</div>
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript" src="/js/btc_inputs.js"></script>
 <script type="text/javascript">
     
+    new ClipboardJS('.copy_to_clipboard');
+
     window.nav_text = "MY ACCOUNT";
     
     var focus_to_input = function()
@@ -162,6 +152,7 @@
         var cgs_address = window.session.cgs_address;
 
         id("user_ext_address").innerHTML = cgs_address;
+        id("user_ext_address").value = cgs_address;
         //id("user_ext_address_confirm").innerHTML = cgs_address;
         document.getElementById("qr_code").src = 'https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=' + cgs_address;
         }
@@ -181,17 +172,6 @@
             });
 
         return false;
-        }
-        
-    function copy_wallet_to_clipboard()
-        {
-            var el = document.createElement("textarea");
-            el.value = window.session.cgs_address;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand("Copy");
-            document.body.removeChild(el);
-            show_simple_modal("Your address has been copied!", "good");
         }
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
