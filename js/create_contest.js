@@ -1287,9 +1287,6 @@ function create_new_contest()
     var pari_mutuel_table_element = id("pari_mutuel_table_element");
     var table_values = [];
 
-    console.log(Number(min_wager).toFixed(8));
-    return;
-    
     var hour = 3600000;
     reg_deadline_time *= 60 * 60 * 1000;
     set_deadline_time *= 60 * 60 * 1000;
@@ -1322,7 +1319,7 @@ function create_new_contest()
     } else if (!number_of_options || Number(number_of_options) < 2 || !pari_mutuel_table_element) {
         add_error("number_of_options");
         alert("Please select at least 2 pari-mutuel options");        
-    } else if (!min_wager || isNaN(min_wager) || Number(min_wager).toFixed(8) > 0) {
+    } else if (!min_wager || isNaN(min_wager) || Number(min_wager).toFixed(8) <= 0) {
       add_error("misc_min_wager");
       alert("Please enter a valid minimum wager amount");
     } else {
