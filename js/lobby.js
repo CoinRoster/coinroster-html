@@ -145,8 +145,9 @@
             {
             id("salary_cap").innerHTML = "$" + commas(subtract(salary_cap, price));
             if (show_max_players){
-                var players_left = max_players - drafted;
                 id("remaining_players").innerHTML = ++drafted + "/" + max_players;
+                
+                var players_left = max_players - drafted;
                 if (players_left == 0) {
                     id("remaining_money_per_player").innerHTML = "$0";
                 } 
