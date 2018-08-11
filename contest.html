@@ -630,8 +630,16 @@
         
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
+        console.log(roster_size);
+            
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
-  
+
+        if (roster_size !== 0) {
+            console.log(roster_size);
+            show(left_to_spend, "inline");
+            id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / roster_size));
+        }
+
         for (var i=0; i<option_table.length; i++)
             {
             var player_item = option_table[i],
