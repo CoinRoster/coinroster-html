@@ -367,7 +367,10 @@
         font-size: 14px;
         display: inline-block;
     }
-    
+    #left_to_spend{
+        display: none;
+    }
+
     .augment_vertical_padding li {
         padding-top: 12px;
     }
