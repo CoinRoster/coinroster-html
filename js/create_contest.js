@@ -1368,6 +1368,9 @@ function create_new_contest()
     var pari_mutuel_table_element = id("pari_mutuel_table_element");
     var table_values = [];
 
+    console.log(Number(min_wager).toFixed(8));
+    return;
+    
     var hour = 3600000;
     reg_deadline_time *= 60 * 60 * 1000;
     set_deadline_time *= 60 * 60 * 1000;
