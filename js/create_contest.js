@@ -725,7 +725,7 @@ function get_score_value(input, name, score_obj, error) {
     } else if (name === "eagles") {
       score_obj["eagles+"] = Number(id(input).value);
     } else if (name === "double-bogeys") {
-      score_obj["double_bogeys-"] = Number(id(input).value);
+      score_obj["double-bogeys-"] = Number(id(input).value);
     } else {
       score_obj[name.toLowerCase()] = Number(id(input).value);
     }
