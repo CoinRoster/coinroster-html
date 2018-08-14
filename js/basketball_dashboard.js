@@ -49,7 +49,7 @@ function displayBasketballDashboard(data){
     sst[4].innerHTML = "STL";
     sst[5].innerHTML = "BLK";
     sst[6].innerHTML = "TO";    
-    var cells = document.getElementById("basketball_season_stats_table").rows[1].cells;
+    var cells = document.getElementById("basketball_career_stats_table").rows[1].cells;
     for(i = 0;i <= 6;i++){
        cells[i].className = "dashboard_td";
     }
