@@ -45,9 +45,16 @@
     }
 
     .ssi_header_table td {
-        padding:0 10px;
+        padding:0 6px;
         font-size:14px;
         white-space:nowrap;
+    }
+
+   @media only screen and (max-width: 994px) {
+       .ssi_header_table td {
+           font-size: 13px;
+           padding: 0 3px;
+       }
     }
         
     #ssi_header_spacer_cell {
