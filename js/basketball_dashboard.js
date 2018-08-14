@@ -1,6 +1,6 @@
 function clearDashboard(){
-    document.getElementById("basketball_prev_games_table").innerHTML = 
-        `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
+    //document.getElementById("basketball_prev_games_table").innerHTML = 
+    //    `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayBasketballDashboard(data){
@@ -33,7 +33,7 @@ function displayBasketballDashboard(data){
     document.getElementById("basketball_team_table").innerHTML = data.team;
     document.getElementById("basketball_pos_table").innerHTML = data.pos;
     document.getElementById("basketball_height_table").innerHTML = data.height;
-    document.getElementById("basketball_weight_table").innerHTML = data.Weight;
+    document.getElementById("basketball_weight_table").innerHTML = data.weight;
     document.getElementById("basketball_born_table").innerHTML = data.birthString;
     
     document.getElementById("basketball_season_stats").innerHTML = data.year_stats.STAT_TYPE;
