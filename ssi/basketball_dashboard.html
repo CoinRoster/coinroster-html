@@ -1,0 +1,196 @@
+<!-- SSI: basketball_dashboard.html -->    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/basketball_dashboard.css">
+
+<!--
+<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="basketball_dashboard.css">
+-->
+
+<div id="stats_modal" class="modal"></div>
+<!-- Modal content -->
+<table id="stats_model_content_basketball" class="modal_table_container">
+    <tbody>
+        <tr>
+            <td>
+                <div class="modal-content">
+                    <span id="close" class="close" onclick="close_dash()">&times;</span>
+                    <div class="modal-body">
+
+                        <div class="container-fluid mobile_header">
+                            <div class="responsive" style="padding: 0px;"></div>
+                            <div class="responsive" style="padding: 0px;">                                 
+                                <h1 id="basketball_mobile_playername" class="dashboard_h1"></h1>    
+                                <hr class="seperator">                                       
+                            </div>    
+                        </div>
+
+                        <div class="container-fluid">
+                                <div class="responsive playerphoto" style="padding: 0px;">
+                                    <div class="frame">
+                                        <div id="basketball_headshot_frame">                    
+                                            <img alt="playerpic" width="219" height="160" id="basketball_headshot" class="img-responsive">
+                                        </div>
+                                        <div id="basketball_logo_frame">
+                                            <img alt="logo" id="basketball_logo" class="img-responsive">
+                                        </div>
+                                        <div class="spot_frame">
+                                            <img src="/img/spotlight.png" alt="spot" width="230" height="175" id="spot" class="img-responsive">  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="playerinfo" class="responsive playerinfo_div" style="padding: 0px;">
+                                    <div class="header">
+                                        <h1 id="basketball_player_name" class="dashboard_h1"></h1>    
+                                        <hr class="seperator underline">
+                                    </div>
+                                    <div class="listinfo">      
+                                        <p id="basketball_team_list" class="dashboard_p"></p>
+                                        <p id="basketball_pos_list" class="dashboard_p"></p>
+                                        <p id="basketball_height_list" class="dashboard_p"></p>
+                                        <p id="basketball_weight_list" class="dashboard_p"></p>
+                                        <p id="basketball_born_list" class="dashboard_p"></p>
+                                    </div>
+                                    <div class="tableinfo">
+                                        <table class="dashboard_table">
+                                            <tr>
+                                                <td class="table_header">Team</td>
+                                                <td class="table_header">Pos</td>
+                                                <td class="table_header">Height</td>
+                                                <td class="table_header">Weight</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="basketball_team_table" class="dashboard_td info_td"></td>
+                                                <td id="basketball_pos_table" class="dashboard_td info_td"></td>
+                                                <td id="basketball_height_table" class="dashboard_td info_td"></td>
+                                                <td id="basketball_weight_table" class="dashboard_td info_td"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table_header" colspan="4">Born</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="basketball_born_table" colspan="4" class="dashboard_td info_td"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>           
+                        </div>
+
+                        <hr class="seperator">
+                        
+                        <button id="stats_tab_2" class="tab">STATS</button>
+                        <button id="news_tab_2" class="tab">NEWS</button>
+
+                        <div class="stats_table">
+                            <table id="basketball_season_stats_table" class="dashboard_table sst_table">
+                                <caption id="basketball_season_stats" class="dashboard_caption"></caption>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>   
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+
+                            <table id="basketball_career_stats_table" class="dashboard_table cst_table">
+                                <caption id="basketball_career_stats" class="dashboard_caption"></caption>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>   
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                            </table>
+
+                            <table id="basketball_prev_games_table" class="dashboard_table pst_table">
+                                <caption id="basketball_prev_games" class="dashboard_caption"></caption>
+                            </table>
+                        </div>
+
+                        <div class="newsfeed">
+                            <a class="twitter-timeline" data-lang="en" data-width="100%" data-height="400" data-theme="dark" href="https://twitter.com/Rotoworld_BK?ref_src=twsrc%5Etfw">Tweets by @Rotoworld_BK</a>
+                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+                        </div>
+
+                    </div>
+                    <div class="footer">                    
+                        <button onclick="draft_player()" class="draft_button">DRAFT</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script src="/js/dashboard.js"></script>
+<script src="/js/basketball_dashboard.js"></script>
+
+<script>
+    function close_dash(){
+        document.getElementById("stats_modal").style.display = "none";
+        var modals = document.getElementsByClassName("modal_table_container");
+        for(i = 0; i < modals.length; i++){
+            modals[i].style.display = "none";
+        }}
+    
+    function draft_player(){
+        close_dash();
+        var roster_table = document.getElementById("roster_table");
+        for (var i = 0, row; row = roster_table.rows[i]; i++) {
+            if(row.id === "player_" + window.player_id){
+                return;
+            }
+        }
+        add_player(window.player_id);
+    }
+    
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) {
+            close_dash();
+        }
+    });
+</script>
+<!-- end SSI Include -->

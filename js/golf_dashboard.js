@@ -1,45 +1,42 @@
-//var data = {"last_five_tournaments":[{"finPos":{"playOffFlg":"","value":"CUT","finCode":"C"},"scr":{"relToPar":"+6","totalScr":"148","rounds":[{"rndNum":"Round 1","posInField":"T129","rndScr":"76"},{"rndNum":"Round 2","posInField":"T104","rndScr":"72"}]},"endDate":"7/22/18","schwabCupPoints":"","ssFinPos":"999","offMoney":"","fedexEvtPts":"","trn":{"trnName":"The Open Championship","permNum":"100","trnNum":"420","officialFlg":"Y"},"ssFinPosFinCode":"","fedexRnkReg":"1","ssMoney":"","fedexRnkPO":"","schwabCupRank":""},{"finPos":{"playOffFlg":"","value":"3","finCode":""},"scr":{"relToPar":"+3","totalScr":"283","rounds":[{"rndNum":"Round 1","posInField":"T1","rndScr":"69"},{"rndNum":"Round 2","posInField":"1","rndScr":"67"},{"rndNum":"Round 3","posInField":"T1","rndScr":"77"},{"rndNum":"Round 4","posInField":"3","rndScr":"70"}]},"endDate":"6/17/18","schwabCupPoints":"","ssFinPos":"999","offMoney":"$812,927.00","fedexEvtPts":"210","trn":{"trnName":"U.S. Open","permNum":"026","trnNum":"360","officialFlg":"Y"},"ssFinPosFinCode":"","fedexRnkReg":"1","ssMoney":"","fedexRnkPO":"","schwabCupRank":""},{"finPos":{"playOffFlg":"","value":"1","finCode":""},"scr":{"relToPar":"-19","totalScr":"261","rounds":[{"rndNum":"Round 1","posInField":"T13","rndScr":"67"},{"rndNum":"Round 2","posInField":"1","rndScr":"63"},{"rndNum":"Round 3","posInField":"T1","rndScr":"65"},{"rndNum":"Round 4","posInField":"1","rndScr":"66"}]},"endDate":"6/10/18","schwabCupPoints":"","ssFinPos":"999","offMoney":"$1,188,000.00","fedexEvtPts":"500","trn":{"trnName":"FedEx St. Jude Classic","permNum":"025","trnNum":"350","officialFlg":"Y"},"ssFinPosFinCode":"","fedexRnkReg":"2","ssMoney":"","fedexRnkPO":"","schwabCupRank":""},{"finPos":{"playOffFlg":"","value":"T8","finCode":"T"},"scr":{"relToPar":"-11","totalScr":"277","rounds":[{"rndNum":"Round 1","posInField":"T47","rndScr":"72"},{"rndNum":"Round 2","posInField":"T14","rndScr":"66"},{"rndNum":"Round 3","posInField":"T28","rndScr":"72"},{"rndNum":"Round 4","posInField":"T8","rndScr":"67"}]},"endDate":"6/03/18","schwabCupPoints":"","ssFinPos":"999","offMoney":"$240,300.00","fedexEvtPts":"75","trn":{"trnName":"the Memorial Tournament presented by Nationwide","permNum":"023","trnNum":"340","officialFlg":"Y"},"ssFinPosFinCode":"","fedexRnkReg":"8","ssMoney":"","fedexRnkPO":"","schwabCupRank":""},{"finPos":{"playOffFlg":"","value":"T17","finCode":"T"},"scr":{"relToPar":"-10","totalScr":"278","rounds":[{"rndNum":"Round 1","posInField":"T1","rndScr":"66"},{"rndNum":"Round 2","posInField":"T11","rndScr":"71"},{"rndNum":"Round 3","posInField":"3","rndScr":"69"},{"rndNum":"Round 4","posInField":"T17","rndScr":"72"}]},"endDate":"5/13/18","schwabCupPoints":"","ssFinPos":"999","offMoney":"$148,866.66","fedexEvtPts":"52","trn":{"trnName":"THE PLAYERS Championship","permNum":"011","trnNum":"310","officialFlg":"Y"},"ssFinPosFinCode":"","fedexRnkReg":"7","ssMoney":"","fedexRnkPO":"","schwabCupRank":""}],"stats":[{"statID":"101","additionals":[{"title":"Total Distance","value":"23,745"},{"title":"Total Drives","value":"76"}],"name":"Driving Distance","rank":"8","projRank":"","value":"312.4"},{"statID":"102","additionals":[{"title":"Fairways Hit","value":"342"},{"title":"Possible Fairways","value":"593"}],"name":"Driving Accuracy Percentage","rank":"152","projRank":"","value":"57.67%"},{"statID":"103","additionals":[{"title":"Greens Hit","value":"524"},{"title":"# Holes","value":"756"}],"name":"Greens in Regulation Percentage","rank":"33","projRank":"","value":"69.31%"},{"statID":"155","additionals":[{"title":"# of Holes","value":"828"},{"title":"# of Eagles","value":"11"}],"name":"Eagles (Holes per)","rank":"2","projRank":"","value":"75.3"},{"statID":"156","additionals":[{"title":"# of Birdies","value":"211"},{"title":"Total Rounds","value":"46"}],"name":"Birdie Average","rank":"1","projRank":"","value":"4.59"},{"statID":"120","additionals":[{"title":"Total Strokes","value":"3,174"},{"title":"Total Adjustment","value":"- 11.469"}],"name":"Scoring Average","rank":"1","projRank":"","value":"68.751"},{"statID":"186","additionals":[{"title":"Total Points","value":"414.22"},{"title":"Points lost","value":"-264.10"}],"name":"Official World Golf Ranking","rank":"1","projRank":"","value":"9.63"},{"name":"Cuts Made Percentage","value":"92.3076923076923"}],"pga_id":"30925","name":"Dustin Johnson","country_abr":"USA","Weight":"190 lbs","birthString":"June 22, 1984 in Columbia, South Carolina (Age: 34)","height":"6' 4\""};
-    
-    function remakeDashboard(){
-        document.getElementById("golf_season_stats_table").innerHTML = 
-                                `<caption id=\"golf_season_stats\" class=\"dashboard_caption\"></caption>
-                                    <tr>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                    </tr>
-                                    <tr>   
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                        <td class=\"stat_category\"></td>
-                                    </tr>
-                                    <tr>   
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                        <td class="dashboard_td"></td>
-                                    </tr>`;
-        document.getElementById("golf_prev_games_table").innerHTML = `<caption id="golf_prev_games" class="dashboard_caption"></caption>`;
-        document.getElementById('golf_logo').style.visibility = "visible";
-        
-    }
-    
+function remakeDashboard(){
+    document.getElementById("golf_season_stats_table").innerHTML = 
+        `<caption id=\"golf_season_stats\" class=\"dashboard_caption\"></caption>
+            <tr>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+            </tr>
+            <tr>   
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+            </tr>
+            <tr>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+                <td class=\"stat_category\"></td>
+            </tr>
+            <tr>   
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+                <td class="dashboard_td"></td>
+            </tr>`;
+    document.getElementById("golf_prev_games_table").innerHTML = `<caption id="golf_prev_games" class="dashboard_caption"></caption>`;
+    document.getElementById('golf_logo').style.visibility = "visible";
+}
     
 function displayGolfDashboard(data){
     
     document.getElementById('stats_model_content_golf').style.display = "table";
     remakeDashboard();
+    
+    // the 1 is because its the second dashboard sourced on contest.html
     setupDashboard(1);
     
-    // cole needs this to draft player 
     window["player_id"] = data.pga_id;
     
     document.getElementById("golf_player_name").innerHTML = data.name;
@@ -94,17 +91,16 @@ function displayGolfDashboard(data){
         var val = document.getElementById("golf_season_stats_table").rows[3].cells;
         var q = 4;
         for(i = 0; i < 4; i++){
-           if(data.stats[i] !== undefined){
+           if(data.stats[q] !== undefined){
                 title[i].innerHTML = (data.stats[q].name).replace("Percentage", "%").replace("Average", "AVG");
                 if(data.stats[q].name === "Cuts Made Percentage")
                     val[i].innerHTML = Number.parseFloat(data.stats[q].value).toFixed(2) + '%';
-                else if(data.stats[i].rank !== undefined)
+                else if(data.stats[q].rank !== undefined)
                    val[i].innerHTML = data.stats[q].value + ' (' + data.stats[q].rank + ')';
                 else
                     val[i].innerHTML = data.stats[q].value;
             }
-            q++;
-            
+            q++;    
         }
     }
     

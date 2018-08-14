@@ -1,4 +1,3 @@
-//var data = {"pos":"3B","last_ten_games":[{"BB":"1","AB":"4","SCORE":"L 3-4","H":"0","HR":"0","K":"1","OPP":"vs SEA","3B":"0","SB":"0","2B":"0","DATE":"08/06","R":"1","AVG":".281","RBI":"0"},{"BB":"0","AB":"4","SCORE":"W 3-1","H":"0","HR":"0","K":"2","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/04","R":"1","AVG":".285","RBI":"0"},{"BB":"0","AB":"4","SCORE":"W 11-3","H":"1","HR":"0","K":"0","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/03","R":"1","AVG":".289","RBI":"0"},{"BB":"1","AB":"5","SCORE":"W 17-8","H":"2","HR":"0","K":"1","OPP":"vs BAL","3B":"0","SB":"0","2B":"0","DATE":"08/02","R":"1","AVG":".289","RBI":"0"},{"BB":"0","AB":"4","SCORE":"L 0-6","H":"0","HR":"0","K":"2","OPP":"@ ARI","3B":"0","SB":"0","2B":"0","DATE":"07/31","R":"0","AVG":".287","RBI":"0"},{"BB":"1","AB":"4","SCORE":"W 9-5","H":"1","HR":"0","K":"1","OPP":"@ ARI","3B":"0","SB":"0","2B":"0","DATE":"07/30","R":"1","AVG":".292","RBI":"0"},{"BB":"0","AB":"5","SCORE":"W 7-3","H":"1","HR":"0","K":"2","OPP":"@ HOU","3B":"0","SB":"0","2B":"0","DATE":"07/28","R":"1","AVG":".292","RBI":"1"},{"BB":"0","AB":"5","SCORE":"W 11-2","H":"3","HR":"0","K":"0","OPP":"@ HOU","3B":"0","SB":"0","2B":"0","DATE":"07/27","R":"1","AVG":".294","RBI":"0"},{"BB":"0","AB":"5","SCORE":"L 6-7","H":"3","HR":"0","K":"1","OPP":"vs OAK","3B":"0","SB":"0","2B":"0","DATE":"07/26","R":"1","AVG":".288","RBI":"1"},{"BB":"0","AB":"4","SCORE":"L 5-6","H":"2","HR":"0","K":"0","OPP":"vs OAK","3B":"0","SB":"0","2B":"1","DATE":"07/25","R":"0","AVG":".282","RBI":"1"}],"year_stats":{"BB":"24","AB":"292","STAT_TYPE":"2018 Regular Season","H":"82","GP":"79","HR":"5","K":"68","3B":"1","SB":"0","SLG":".384","2B":"13","CS":"0","R":"29","AVG":".281","OPS":".720","RBI":"33","OBP":".336"},"name":"Adrian Beltre","weight":"220 lbs","id":"3878","career_stats":{"BB":"837","AB":"10923","STAT_TYPE":"Career","H":"3130","GP":"2892","HR":"467","K":"1703","3B":"38","SB":"120","SLG":".479","2B":"626","CS":"42","R":"1503","AVG":".287","OPS":".819","RBI":"1675","OBP":".340"},"birthString":"April 7, 1979 in Santo Domingo, Dominican Republic (Age: 39)","height":"5'11\"","team_abr":"TEX"};
 function clearDashboard(){
     document.getElementById("baseball_prev_games_table").innerHTML = 
         `<caption id="baseball_prev_games" class="dashboard_caption"></caption>`;
@@ -8,9 +7,10 @@ function displayBaseballDashboard(data){
     
     clearDashboard();
     document.getElementById('stats_model_content_baseball').style.display = "table";
+    
+    // the 0 is because its the first dashboard sourced on contest.html
     setupDashboard(0);
     
-    // cole needs this to draft player 
     window["player_id"] = data.id;
        
     document.getElementById("baseball_player_name").innerHTML = data.name;
