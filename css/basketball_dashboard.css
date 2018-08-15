@@ -15,6 +15,8 @@ and open the template in the editor.
             //.modal-body{position:relative;padding:15px}
 */
             #basketball_headshot_frame{
+                width: 200px;
+                margin-left: 5%;
                 z-index: 2;
                 position: relative;
             }
