@@ -4,7 +4,7 @@ function clearDashboard(){
 }
 
 function displayBasketballDashboard(data){
-    
+    var i;
     clearDashboard();
     document.getElementById('stats_model_content_basketball').style.display = "table";
     
