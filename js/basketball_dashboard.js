@@ -101,23 +101,26 @@ function displayBasketballDashboard(data){
 
     if(game_log_table.rows.length == 1){
         
-        var OPP = row.insertCell(0);
+        var DATE = row.insertCell(0);
+        DATE.className = "stat_category";
+        var OPP = row.insertCell(1);
         OPP.className = "stat_category";
-        var MIN = row.insertCell(1);
+        var MIN = row.insertCell(2);
         MIN.className = "stat_category";
-        var PTS = row.insertCell(2);
+        var PTS = row.insertCell(3);
         PTS.className = "stat_category";
-        var REB = row.insertCell(3);
+        var REB = row.insertCell(4);
         REB.className = "stat_category";
-        var AST = row.insertCell(4);
+        var AST = row.insertCell(5);
         AST.className = "stat_category";
-        var STL = row.insertCell(5);
+        var STL = row.insertCell(6);
         STL.className = "stat_category";
-        var BLK = row.insertCell(6);
+        var BLK = row.insertCell(7);
         BLK.className = "stat_category";
-        var TO = row.insertCell(7);
+        var TO = row.insertCell(8);
         TO.className = "stat_category";
-
+        
+        DATE.innerHTML = "Date";
         OPP.innerHTML = "OPP";
         MIN.innerHTML = "MIN";
         PTS.innerHTML = "PTS";
@@ -133,20 +136,22 @@ function displayBasketballDashboard(data){
             // Create an empty <tr> element and add it to the 2nd position of the table (header row is first):
             var row = game_log_table.insertRow(i);
             //row.className = "td";
-            var OPP = row.insertCell(0);
-            var MIN = row.insertCell(1);
-            var PTS = row.insertCell(2);
-            var REB = row.insertCell(3);
-            var AST = row.insertCell(4);
-            var STL = row.insertCell(5);
-            var BLK = row.insertCell(6);
-            var TO = row.insertCell(7);
+            var DATE = row.insertCell(0);
+            var OPP = row.insertCell(1);
+            var MIN = row.insertCell(2);
+            var PTS = row.insertCell(3);
+            var REB = row.insertCell(4);
+            var AST = row.insertCell(5);
+            var STL = row.insertCell(6);
+            var BLK = row.insertCell(7);
+            var TO = row.insertCell(8);
 
-            var stat_type = [OPP, MIN, PTS, REB, AST, STL, BLK, TO];
+            var stat_type = [DATE, OPP, MIN, PTS, REB, AST, STL, BLK, TO];
             for(var j = 0;j < stat_type.length;j++){
                 stat_type[j].className = "dashboard_td";
             } 
             // Add some text to the new cells:
+            DATE.innerHTML = games[i-1].DATE;
             OPP.innerHTML = games[i-1].OPP + "<br/>" + games[i-1].SCORE;
             MIN.innerHTML = games[i-1].MIN;
             PTS.innerHTML = games[i-1].PTS;
