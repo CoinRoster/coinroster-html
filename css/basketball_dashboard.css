@@ -40,6 +40,9 @@ and open the template in the editor.
                 #basketball_logo_frame{
                     left: -12vw;
                 }
+                .sst_table,.cst_table,.pst_table{
+                    width: 160%;
+                }
             }
             /*
             @media screen and (max-width: 767px) and (min-width: 415px) {
