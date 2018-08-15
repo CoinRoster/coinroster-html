@@ -28,7 +28,7 @@ and open the template in the editor.
                 left: 1vw;
                 z-index: 1;
             }
-            basketball_prev_games_table td:nth-child(1){
+            #basketball_prev_games_table td:nth-child(1){
                 width:15%;
             }
             #basketball_prev_games_table td:nth-child(2){
