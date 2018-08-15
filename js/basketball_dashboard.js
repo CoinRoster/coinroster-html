@@ -4,7 +4,7 @@ function clearDashboard(){
 }
 
 function displayBasketballDashboard(data){
-    
+    var i;
     clearDashboard();
     document.getElementById('stats_model_content_basketball').style.display = "table";
     
@@ -48,10 +48,12 @@ function displayBasketballDashboard(data){
     sst[3].innerHTML = "AST";
     sst[4].innerHTML = "STL";
     sst[5].innerHTML = "BLK";
-    sst[6].innerHTML = "TO";    
-    var cells = document.getElementById("basketball_season_stats_table").rows[1].cells;
+    sst[6].innerHTML = "TO";   
+    
+    var sst = document.getElementById("basketball_season_stats_table").rows[1].cells;
+
     for(i = 0;i <= 6;i++){
-       cells[i].className = "dashboard_td";
+       sst[i].className = "dashboard_td";
     }
     sst[0].innerHTML = data.year_stats.MPG;
     sst[1].innerHTML = data.year_stats.PPG;
