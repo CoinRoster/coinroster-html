@@ -24,27 +24,27 @@
         </div>
         <div class="body_container extra_body_container_padding">
             <br/>
-            <div class="description_text constrain_width">
+            <div class="description_text ">
                 View/Modify your AUTO-PLAY entries
-                <br/>
-                <br/>
-                <div class="table_body_container">
-                    <table id="user_autoplay_entries" class="contest_table"></table>
-                </div>
-                <br/>
-                <br/>
             </div>
+            <br/>
+            <br/>
+            <div class="table_body_container">
+                <table id="user_autoplay_entries" class="contest_table"></table>
+            </div>
+            <br/>
+            <br/>
             <hr>
             <div class="description_text constrain_width">
                 Enter new AUTO-PLAY entries
-                <br/>
-                <br/>
-                <div class="table_body_container">
-                    <table id="possible_contests" class="contest_table"></table>
-                </div>
-                <br/>
-                <br/>
             </div>
+            <br/>
+            <br/>
+            <div class="table_body_container">
+                <table id="possible_contests" class="contest_table"></table>
+            </div>
+            <br/>
+            <br/>
         </div>
         <br/>
     </div>
@@ -113,7 +113,7 @@
             "<div class='field_label'>End Date:</div>" + end_date,
             "<div class='field_label'>Algorithm:</div>" + algorithm,
             "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
-            "<div class='field_label'>Active:</div>" + (active ? `<input type='checkbox' checked disabled />` : `<input type='checkbox' disabled />`),
+            "<div class='field_label'>Active:</div>" + (active ? `<input type='checkbox' style='margin: 0;' checked disabled />` : `<input type='checkbox' style='margin: 0;' disabled />`),
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         }
