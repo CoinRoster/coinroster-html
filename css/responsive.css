@@ -92,6 +92,40 @@
             padding-left: 20px;
         }
         
+        
+        /* Autoplay table */
+        
+        #user_autoplay_entries tr:first-child { /* header */
+            display: none;
+        }
+        
+        #user_autoplay_entries td {
+            display: block;
+            text-align: left !important;
+            padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
+        }
+        
+        #user_autoplay_entries td:nth-child(2) { /* title / button */
+            padding-top: 10px !important;
+        }
+        #user_autoplay_entries td:last-child { /* prize pool */
+            padding-bottom: 11px !important;
+        }
+        
+        #user_autoplay_entries .field_label {
+            display: inline-block !important;
+            padding-right: 20px;
+            font-size: 12px;
+        }
+        #user_autoplay_entries .payout_info_link {
+            display: inline-block !important;
+        }
+        
+        #user_autoplay_entries .fiat_display.allow_inline {
+            display: inline-block !important;
+            padding-left: 20px;
+        }
+        
         /* My Contests */
             
         #contest_report_table tr:first-child { /* header */
