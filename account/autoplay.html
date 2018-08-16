@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Auto-Play</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>AUTO-PLAY</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div class="description_text constrain_width">
+                View/Modify your AUTO-PLAY entries
+                <br/>
+                <br/>
+                <div class="table_body_container">
+                    <table id="user_autoplay_entries" class="contest_table"></table>
+                </div>
+                <br/>
+                <br/>
+            </div>
+            <hr>
+            <div class="description_text constrain_width">
+                Enter new AUTO-PLAY entries
+                <br/>
+                <br/>
+                <div class="table_body_container">
+                    <table id="possible_contests" class="contest_table"></table>
+                </div>
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <br/>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init(){
+        var 
+        user_table = id("user_autoplay_entries");
+                
+        api({ 
+            method: "GetUserAutoplays", 
+            args: {} 
+        }, 
+        function(call){
+            var entries = call.entries;
+            if(entries.length === 0){
+                user_table.innerHTML = `<tr>No AUTO-PLAY entries</tr>`;
+            }
+            else{
+                populate_user_entries(call.entries, user_table);
+            }
+        });
+    }
+    
+    function populate_user_entries(data, table){
+        var header = new_row(table, -1, [
+            "Sport",
+            "Contest Title",
+            "Settlement Type",
+            "Cost per Entry",
+            "Start Date",
+            "End Date",
+            "Algorithm",
+            "Number of Rosters",
+            "Active"
+        ]);
+
+    for (var i=0; i<data.length; i++){
+
+        var contest_item = data[i],
+
+        entry_id = contest_item.id,
+        sport = contest_item.sport,
+        title = contest_item.contest_title,
+        desc = contest_item.contest_desc,
+        settlement_type = contest_item.settlement_type,
+        pay_table = contest_item.pay_table,
+        cost_per_entry = contest_item.cost_per_entry,
+        start_date = contest_item.start_date,
+        end_date = contest_item.end_date,
+        algorithm = contest_item.algorithm,
+        num_rosters = contest_item.num_rosters,
+        active = contest_item.active;
+
+        var 
+
+        title_link = sport + " | " + title,
+        game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+
+        row = new_row(table, -1, [
+            "<ul><li>" + title_link + "</li><li class='draft_button' onclick='modify(" + entry_id + ")'>" + "Modify" + "</li></ul>",
+            "<div class='field_label'>Game Type:</div>" + settlement_type,
+            "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
+            "<div class='field_label'>Start Date:</div>" + start_date,
+            "<div class='field_label'>End Date:</div>" + end_date,
+            "<div class='field_label'>Algorithm:</div>" + algorithm,
+            "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
+            "<div class='field_label'>Active:</div>" + (active ? `"<input type='checkbox' checked disabled />` : `"<input type='checkbox' disabled />`),
+        ]);
+        bind_payout_window(id("payout_info_" + entry_id), settlement_type, pay_table);
+        }
+    }
+        
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>
