@@ -52,7 +52,9 @@
             <br/>
             
             <div id="modify" class="autoplay_modify hidden">
-                <table id="entry_being_modified" class="contest_table"></table>        
+                <div class="table_body_container">
+                    <table id="entry_to_modify" class="contest_table"></table>
+                </div>      
                 <div class="misc_reg_deadline input_padding">
                     <span class="input_label">Start Date</span>
                     <div class="contest_registration_options">
@@ -181,10 +183,21 @@
         var entries = window.user_autoplay_entries;
         for(i = 0; i < entries.length; i++){
             if(entries[i].id === entry_id){
+                
                 var data = entries[i];
                 document.getElementById("modify").style.display = "block";
+                var table = id("entry_to_modify");
+                var 
+                title_link = data.sport + " | " + data.contest_title,
+                game_type = "<span id=\"payout_" + data.id + "\" class=\"payout_info_link teal\">" + settlement_type_string(data.settlement_type) + "</span>",
+
+                row = new_row(table, -1, [
+                    "<ul><li>" + title_link + "</li></ul>",
+                    "<div class='field_label'>Game Type:</div>" + game_type,
                 
-                id("entry_to_modify").appendChild(parent);
+                ]);
+                bind_payout_window(id("payout_" + data.id), data.settlement_type, data.pay_table);
+                
                 var s_date = data.start_date;
                 s_date = s_date.split("-");
                 var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
