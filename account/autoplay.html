@@ -51,7 +51,7 @@
             <br/>
             <br/>
             
-            <div class="misc_fields">
+            <div id="modify" class="autoplay_modify hidden">
                         
                 <div class="misc_reg_deadline input_padding">
                     <span class="input_label">Start Date</span>
@@ -181,19 +181,24 @@
         var entries = window.user_autoplay_entries;
         for(i = 0; i < entries.length; i++){
             if(entries[i].id === entry_id){
-                mod_div = create_modification_div(entries[i])
-                parent.append(mod_div);
+                var data = entries[i];
+                document.getElementById("modify").style.display = "block";
+                id("start_date").value = data.start_date;
+                id("start_date").placeholder = data.start_date;
+                id("end_date").value = data.end_date;
+                id("end_date").placeholder = data.end_date;
+                var algo = data.algorithm;
+                id(algo).checked = true;
+                id("number_rosters").value = data.num_rosters;
+                id("number_rosters").placeholder = data.num_rosters;
+                if(data.active)
+                    id("true").checked = true;
+                else
+                    id("false").checked = false;
             }
         }
     }
-    
-    function create_modification_div(data){
-        var rtn_div = document.createElement("tr");
-        rtn_div.innerHTML= "<div>" + data.start_date + "</div>";
-        rtn_div.setAttribute('class', 'modification_row');
-        return rtn_div;
-    }
-        
+           
 </script>
 <script>
         var dateToday = new Date();
