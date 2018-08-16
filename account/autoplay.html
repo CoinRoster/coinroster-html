@@ -53,7 +53,6 @@
             <div id="modify" class="autoplay_modify hidden">
                 <div class="table_body_container">
                     <table id="entry_to_modify" class="contest_table">
-                        <tr></tr>
                     </table>
                 </div>      
 <!--
@@ -184,7 +183,7 @@
     function modify_entry(element, entry_id){
         var mod_div;
         var parent = element.closest("tr");
-        id("entry_to_modify").innerHTML = "<tr></tr>";
+        id("entry_to_modify").innerHTML = "";
         var entries = window.user_autoplay_entries;
         for(i = 0; i < entries.length; i++){
             if(entries[i].id === entry_id){
