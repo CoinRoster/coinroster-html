@@ -7,6 +7,21 @@
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <link rel="stylesheet" type="text/css" href="/css/autoplay.css">
     <script type="text/javascript" src="/js/lobby.js"></script>
+    <script>
+        var dateToday = new Date();
+        var dates = $("#start_date, #end_date").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 1,
+            minDate: dateToday,
+            onSelect: function(selectedDate) {
+                var option = this.id == "start_date" ? "minDate" : "maxDate",
+                    instance = $(this).data("datepicker"),
+                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+                dates.not(this).datepicker("option", option, date);
+            }
+        });
+  </script>
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
