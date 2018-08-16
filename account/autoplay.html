@@ -192,10 +192,6 @@
                 var data = entries[i];
                 document.getElementById("modify").style.display = "block";
                 var table = id("entry_to_modify");
-               
-                var 
-                title_link = data.sport + " | " + data.contest_title,
-                game_type = "<span id=\"payout_modify_" + data.id + "\" class=\"payout_info_link teal\">" + settlement_type_string(data.settlement_type) + "</span>",
                 
                 var header = new_row(table, -1, [
                     "Contest",
@@ -207,6 +203,10 @@
                     "Number of Rosters",
                     "Active"
                 ]);
+                
+                var 
+                title_link = data.sport + " | " + data.contest_title,
+                game_type = "<span id=\"payout_modify_" + data.id + "\" class=\"payout_info_link teal\">" + settlement_type_string(data.settlement_type) + "</span>",
                 
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
