@@ -133,8 +133,9 @@
     }
     
     function create_modification_div(data){
-        var rtn_div;
-        rtn_div = "<tr class='modification_row'><div>" + data.start_date + "</div></tr>";
+        var rtn_div = document.createElement("tr");
+        rtn_div.innerHTML= "<div>" + data.start_date + "</div>";
+        rtn_div.setAttribute('class', 'modification_row');
         return rtn_div;
     }
         
