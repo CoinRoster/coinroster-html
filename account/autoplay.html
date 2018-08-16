@@ -169,7 +169,7 @@
             "<div class='field_label'>End Date:</div>" + end_date,
             "<div class='field_label'>Algorithm:</div>" + algorithm,
             "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
-            "<div class='field_label'>Active:</div>" + (active ? `<input type='checkbox' style='margin: 0;' checked disabled />` : `<input type='checkbox' style='margin: 0;' disabled />`),
+            "<div class='field_label'>Active:</div>" + (active ? Yes : No),
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         }
