@@ -209,7 +209,6 @@
         
         // start date
         var start_date = id(entry_id +  "_start_date").value;
-        console.log(start_date);
         
         // end date
         var end_date = id(entry_id +  "_end_date").value;
@@ -220,7 +219,6 @@
         
         // algorithm
         var algorithm = id(entry_id +  "_algorithm_selector").value;    
-        console.log(algorithm);  
         
         // num_rosters  
         var num_rosters =id(entry_id + "_number_rosters").value;
@@ -234,8 +232,17 @@
         
         //active
         var active = id(entry_id + "_active").checked;
-        console.log(active);
 
+        json.start_date = start_date;
+        json.end_date = end_date;
+        json.algorithm = algorithm;
+        json.num_rosters = num_rosters;
+        json.active = active;
+        json.process = "MODIFY";
+        json.autoplay_id = entry_id;
+        
+        make_api_call(json);
+        
     }
     
     function delete_entry(entry_id){
