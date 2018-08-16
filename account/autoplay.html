@@ -56,12 +56,14 @@
                         <tr></tr>
                     </table>
                 </div>      
+<!--
                 <div class="misc_reg_deadline input_padding">
-<!--                    <span class="input_label">Start Date</span>-->
+                    <span class="input_label">Start Date</span>
                     <input type="text" id="start_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
-<!--                    <span class="input_label">End Date</span>-->
+                    <span class="input_label">End Date</span>
                     <input type="text" id="end_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
                 </div>
+-->
 
 <!--
                 <div class="misc_set_deadline input_padding">
@@ -199,10 +201,10 @@
                     "<ul><li>" + title_link + "</li></ul>",
                     "<div class='field_label'>Game Type:</div>" + game_type,
                     "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline"),
-                    "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' readonly='true'>",
-                    "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' readonly='true'>",
-                    "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + data.algorithm + "' id='algorithm_selector' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
-                     "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, 'gotham_medium'; width: 100px;' placeholder='1' class='input_style' id='number_rosters'/>",
+                    "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+                    "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+                    "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + data.algorithm + "' id='algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
+                     "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, 'gotham_medium'; width: 50px;' placeholder='1' class='input_style' id='number_rosters'/>",
                     "<div class='field_label'>Active:</div>" + "<input type='checkbox' id='active'/>"
                 ]);
                 bind_payout_window(id("payout_modify_" + data.id), data.settlement_type, data.pay_table);
