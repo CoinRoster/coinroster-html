@@ -179,16 +179,17 @@
             "<ul><li>" + title_link + "</li></ul>",
             "<div class='field_label'>Game Type:</div>" + game_type,
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-            "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='input_style chosen-select' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
-            "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='input_style chosen-select' placeholder='" + e_date_to_show + "' style='width:95px' readonly='true' value='" + e_date_to_show + "'>",
+            "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='start_date input_style chosen-select' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
+            "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='end_date input_style chosen-select' placeholder='" + e_date_to_show + "' style='width:95px' readonly='true' value='" + e_date_to_show + "'>",
             "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + algorithm + "' id='algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
             "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='" + num_rosters + "' class='input_style' id='number_rosters' value='" + num_rosters + "'/>",
             "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='active' checked/>" : "<input type='checkbox' id='active'/>"),
-            "<button type='button' class='text_button' onclick='save_entry(this)'>Save</button>"
+            "<button type='button' class='text_button' style='width:60px !important; 'onclick='save_entry(this, " + entry_id + ")'>Save</button>"
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         
         }
+        activate_datepicker();
     }
     
     function modify_entry(element, entry_id){
@@ -255,7 +256,7 @@
 <script>
         function activate_datepicker(){
             var dateToday = new Date();
-            var dates = $("#start_date, #end_date").datepicker({
+            var dates = $(".start_date, .end_date").datepicker({
                 defaultDate: "+1w",
                 changeMonth: true,
                 numberOfMonths: 1,
