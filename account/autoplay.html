@@ -114,7 +114,7 @@
             "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
             "<div class='field_label'>Active:</div>" + (active ? `<input type='checkbox' checked disabled />` : `<input type='checkbox' disabled />`),
         ]);
-        bind_payout_window(id("payout_info_" + entry_id), settlement_type, pay_table);
+        bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         }
     }
         
