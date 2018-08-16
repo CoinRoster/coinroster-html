@@ -38,6 +38,7 @@
             <div class="description_text constrain_width">
                 Enter new AUTO-PLAY entries
             </div>
+            
             <br/>
             <br/>
             <div class="table_body_container">
@@ -45,6 +46,56 @@
             </div>
             <br/>
             <br/>
+            
+            <div class="misc_fields">
+                        
+                <div class="misc_reg_deadline input_padding">
+                    <span class="input_label">Start Date</span>
+                    <div class="contest_registration_options">
+                        <input type="text" id="start_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                    </div>
+                </div>
+
+                <div class="misc_set_deadline input_padding">
+                    <span class="input_label">End Date</span>
+                    <div class="contest_registration_options">
+                        <input type="text" id="end_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                    </div>
+                </div>
+
+                <div class="prop_golf_number_of_shots_round_tournament input_padding">
+                        <span class="input_label">Roster Draft Algorithm</span>
+                        <div>
+                            <input type="radio" value="BARBELL" name="prop_golf_shots_round_tournament" id="BARBELL"/>
+                            <label class="dimmed prop_golf_number_of_shots_round_one" for="BARBELL">BARBELL</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="SAFE" name="prop_golf_shots_round_tournament" id="SAFE"/>
+                            <label class="dimmed prop_golf_number_of_shots_round_one" for="SAFE">SAFE</label>
+                        </div>
+                        <div>
+                            <input type="radio" value="RANDOM" name="prop_golf_shots_round_tournament" id="RANDOM"/>
+                            <label class="dimmed prop_golf_number_of_shots_round_one" for="RANDOM">RANDOM</label>
+                        </div>
+                    </div>
+
+                <div class="misc_min_wager input_padding">
+                    <span class="input_label">Number of Rosters</span>
+                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="" class="input_style" id="number_rosters"/>
+                </div>
+                <div class="misc_settlement_type input_padding">
+                    <span class="input_label">Active?</span>
+                    <div>
+                        <input type="radio" value="true" name="active_radio" id="true"/>
+                        <label class="dimmed prop_golf_number_of_shots_round_one" for="true">Yes</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="false" name="active_radio" id="false"/>
+                        <label class="dimmed prop_golf_number_of_shots_round_one" for="false">No</label>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <br/>
     </div>
