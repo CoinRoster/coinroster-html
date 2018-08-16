@@ -15,6 +15,8 @@ and open the template in the editor.
             //.modal-body{position:relative;padding:15px}
 */
             #basketball_headshot_frame{
+                width: 200px;
+                margin-left: 5%;
                 z-index: 2;
                 position: relative;
             }
@@ -26,17 +28,20 @@ and open the template in the editor.
                 left: 1vw;
                 z-index: 1;
             }
-            basketball_prev_games_table td:nth-child(1){
-                width:13%;
+            #basketball_prev_games_table td:nth-child(1){
+                width:15%;
             }
             #basketball_prev_games_table td:nth-child(2){
-                width:13%;
+                width:20%;
             }
             
             
             @media screen and (max-width: 767px) {              
                 #basketball_logo_frame{
                     left: -12vw;
+                }
+                .sst_table,.cst_table,.pst_table{
+                    width: 160%;
                 }
             }
             /*
