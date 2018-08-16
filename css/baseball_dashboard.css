@@ -32,7 +32,9 @@ and open the template in the editor.
             #baseball_prev_games_table td:nth-child(2){
                 width:13%;
             }
-            
+            #baseball_prev_games_table td:nth-child(3){
+                width:11%;
+            }
             
             @media screen and (max-width: 767px) {              
                 #baseball_logo_frame{
