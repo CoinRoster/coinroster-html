@@ -206,19 +206,27 @@
     
     function save_entry(entry_id){
         var json = {};
-        var data = [
-            "_start_date",
-            "_end_date",
-            "_algorithm_selector",
-            "_number_rosters",
-            "_active"
-        ];
-        for(i = 0; i < data.length; i++){
-            var id_to_get = entry_id + data[i];
-            console.log(id_to_get);
-            var value = id(id_to_get).value;
-            console.log(value);
-        }
+        
+        // start date
+        var start_date = id(entry_id +  "_start_date").value;
+        console.log(start_date);
+        
+        // end date
+        var end_date = id(entry_id +  "_end_date").value;
+        console.log(end_date);
+        
+        // algorithm
+        var algorithm = id(entry_id +  "_algorithm_selector").value;    
+        console.log(algorithm);  
+        
+        // num_rosters  
+        var num_rosters =id(entry_id + "_number_rosters").value;
+        console.log(num_rosters);   
+        
+        //active
+        var active = id(entry_id + "_active").checked;
+        console.log(active);
+
     }
     
     function delete_entry(entry_id){
