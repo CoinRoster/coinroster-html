@@ -209,9 +209,9 @@
     }
     
     function delete_entry(entry_id){
-        var json;
-        json['process'] = "REMOVE";
-        json['autoplay_id'] = entry_id;
+        var json = {};
+        json.process = "REMOVE";
+        json.autoplay_id = entry_id;
         make_api_call(json);
     }
     
