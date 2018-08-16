@@ -198,7 +198,12 @@
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
                     "<div class='field_label'>Game Type:</div>" + game_type,
-                    "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline") 
+                    "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline"),
+                    "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' readonly='true'>",
+                    "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' readonly='true'>",
+                    "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + data.algorithm + "' id='algorithm_selector' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
+                     "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, 'gotham_medium'; width: 100px;' placeholder='1' class='input_style' id='number_rosters'/>",
+                    "<div class='field_label'>Active:</div>" + "<input type='checkbox' id='active'/>
                 ]);
                 bind_payout_window(id("payout_modify_" + data.id), data.settlement_type, data.pay_table);
                 
@@ -214,14 +219,12 @@
                 id("start_date").placeholder = s_date_to_show;
                 id("end_date").value = e_date_to_show;
                 id("end_date").placeholder = e_date_to_show;
-                var algo = data.algorithm;
-                id(algo).checked = true;
                 id("number_rosters").value = data.num_rosters;
                 id("number_rosters").placeholder = data.num_rosters;
                 if(data.active)
-                    id("true").checked = true;
+                    id("active").checked = true;
                 else
-                    id("false").checked = false;
+                    id("active").checked = false;
             }
         }
     }
