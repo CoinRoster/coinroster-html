@@ -30,9 +30,9 @@ and open the template in the editor.
                 width:13%;
             }
             #baseball_prev_games_table td:nth-child(2){
-                width:13%;
+                width:17%;
             }
-            #baseball_prev_games_table td:nth-child(3){
+            #baseball_career_games_table,#baseball_season_games_table td:nth-child(3){
                 width:11%;
             }
             
