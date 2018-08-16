@@ -142,6 +142,7 @@
             "Algorithm",
             "Number of Rosters",
             "Active"
+            "Modify"
         ]);
 
     for (var i=0; i<data.length; i++){
@@ -160,6 +161,14 @@
         algorithm = contest_item.algorithm,
         num_rosters = contest_item.num_rosters,
         active = contest_item.active;
+        
+        var s_date = start_date;
+        s_date = s_date.split("-");
+        var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
+
+        var e_date = end_date;
+        e_date = e_date.split("-");
+        var e_date_to_show = e_date[1] + "/" + e_date[2] + "/" + e_date[0];
 
         var 
 
@@ -167,16 +176,18 @@
         game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
 
         row = new_row(table, -1, [
-            "<ul><li>" + title_link + "</li><li class='draft_button' onclick='modify_entry(this, " + entry_id + ")'>" + "Modify" + "</li></ul>",
+            "<ul><li>" + title_link + "</li></ul>",
             "<div class='field_label'>Game Type:</div>" + game_type,
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-            "<div class='field_label'>Start Date:</div>" + start_date,
-            "<div class='field_label'>End Date:</div>" + end_date,
-            "<div class='field_label'>Algorithm:</div>" + algorithm,
-            "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
-            "<div class='field_label'>Active:</div>" + (active ? "Yes" : "No"),
+            "<div class='field_label'>Start Date:</div>" + "<input type='text' id='start_date' class='input_style chosen-select' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
+            "<div class='field_label'>End Date:</div>" + "<input type='text' id='end_date' class='input_style chosen-select' placeholder='" + e_date_to_show + "' style='width:95px' readonly='true' value='" + e_date_to_show + "'>",
+            "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + algorithm + "' id='algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
+            "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='" + num_rosters + "' class='input_style' id='number_rosters' value='" + num_rosters + "'/>",
+            "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='active' checked/>" : "<input type='checkbox' id='active'/>"),
+            "<button type='button' class='text_button' onclick='save_entry(this)'>Save</button>"
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
+        
         }
     }
     
@@ -227,10 +238,7 @@
                 e_date = e_date.split("-");
                 var e_date_to_show = e_date[1] + "/" + e_date[2] + "/" + e_date[0];
                 
-                id("start_date").value = s_date_to_show;
-                id("start_date").placeholder = s_date_to_show;
-                id("end_date").value = e_date_to_show;
-                id("end_date").placeholder = e_date_to_show;
+               
                 id("number_rosters").value = data.num_rosters;
                 id("number_rosters").placeholder = data.num_rosters;
                 if(data.active)
