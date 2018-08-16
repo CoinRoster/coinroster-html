@@ -62,6 +62,7 @@
         }, 
         function(call){
             var entries = call.entries;
+            window["user_autoplay_entries"] = entries;
             if(entries.length === 0){
                 user_table.innerHTML = `<tr>No AUTO-PLAY entries</tr>`;
             }
@@ -106,7 +107,7 @@
         game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
 
         row = new_row(table, -1, [
-            "<ul><li>" + title_link + "</li><li class='draft_button' onclick='modify(" + entry_id + ")'>" + "Modify" + "</li></ul>",
+            "<ul><li>" + title_link + "</li><li class='draft_button' onclick='modify_entry(this, " + entry_id + ")'>" + "Modify" + "</li></ul>",
             "<div class='field_label'>Game Type:</div>" + game_type,
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
             "<div class='field_label'>Start Date:</div>" + start_date,
@@ -117,6 +118,24 @@
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         }
+    }
+    
+    function modify_entry(element, entry_id){
+        var mod_div;
+        var parent = element.closest("tr");
+        var entries = window.user_autoplay_entries;
+        for(i = 0; i < entries.length(); i++){
+            if(entries[i].id === entry_id){
+                mod_div = create_modification_div(entries[i])
+                parent.appendChild(mod_div);
+            }
+        }
+    }
+    
+    function create_modification_div(data){
+        var rtn_div;
+        rtn_div.innerHTML = "<div>" + data.start_date + "</div>";
+        return rtn_div;
     }
         
 </script>
