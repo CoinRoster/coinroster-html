@@ -70,32 +70,32 @@
                 <div class="prop_golf_number_of_shots_round_tournament input_padding">
                         <span class="input_label">Roster Draft Algorithm</span>
                         <div>
-                            <input type="radio" value="BARBELL" name="prop_golf_shots_round_tournament" id="BARBELL"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="BARBELL">BARBELL</label>
+                            <input type="radio" value="BARBELL" name="algorithm" id="BARBELL"/>
+                            <label class="algorithm_label" for="BARBELL">BARBELL</label>
                         </div>
                         <div>
-                            <input type="radio" value="SAFE" name="prop_golf_shots_round_tournament" id="SAFE"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="SAFE">SAFE</label>
+                            <input type="radio" value="SAFE" name="algorithm" id="SAFE"/>
+                            <label class="algorithm_label" for="SAFE">SAFE</label>
                         </div>
                         <div>
-                            <input type="radio" value="RANDOM" name="prop_golf_shots_round_tournament" id="RANDOM"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="RANDOM">RANDOM</label>
+                            <input type="radio" value="RANDOM" name="algorithm" id="RANDOM"/>
+                            <label class="algorithm_label" for="RANDOM">RANDOM</label>
                         </div>
                     </div>
 
                 <div class="misc_min_wager input_padding">
                     <span class="input_label">Number of Rosters</span>
-                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="" class="input_style" id="number_rosters"/>
+                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 100px;" placeholder="1" class="input_style" id="number_rosters"/>
                 </div>
                 <div class="misc_settlement_type input_padding">
                     <span class="input_label">Active?</span>
                     <div>
                         <input type="radio" value="true" name="active_radio" id="true"/>
-                        <label class="dimmed prop_golf_number_of_shots_round_one" for="true">Yes</label>
+                        <label class="active_label" for="true">Yes</label>
                     </div>
                     <div>
                         <input type="radio" value="false" name="active_radio" id="false"/>
-                        <label class="dimmed prop_golf_number_of_shots_round_one" for="false">No</label>
+                        <label class="active_label" for="false">No</label>
                     </div>
                 </div>
             </div>
@@ -209,12 +209,7 @@
                 dates.not(this).datepicker("option", option, date);
             }
         });
-//         $( function() {
-//            $( "#start_date" ).datepicker();
-//            $( "#end_date" ).datepicker();
-//        } );
-        
-  </script>
+</script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
