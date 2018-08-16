@@ -259,6 +259,7 @@
             var entries = window.user_autoplay_entries;
             for(i = 0; i < entries.length; i++){
                 var s_id = "#" + entries[i].id + "_start_date";
+                console.log(s_id);
                 var e_id = "#" + entries[i].id + "_end_date";
                 var dates = $(s_id, e_id).datepicker({
                     defaultDate: "+1w",
