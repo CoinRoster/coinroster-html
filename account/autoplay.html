@@ -6,23 +6,29 @@
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <link rel="stylesheet" type="text/css" href="/css/autoplay.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="/js/lobby.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         var dateToday = new Date();
-        var dates = $("#start_date, #end_date").datepicker({
-            defaultDate: "+1w",
-            changeMonth: true,
-            numberOfMonths: 1,
-            minDate: dateToday,
-            onSelect: function(selectedDate) {
-                var option = this.id == "start_date" ? "minDate" : "maxDate",
-                    instance = $(this).data("datepicker"),
-                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-                dates.not(this).datepicker("option", option, date);
-            }
-        });
+//        var dates = $("#start_date, #end_date").datepicker({
+//            defaultDate: "+1w",
+//            changeMonth: true,
+//            numberOfMonths: 1,
+//            minDate: dateToday,
+//            onSelect: function(selectedDate) {
+//                var option = this.id == "start_date" ? "minDate" : "maxDate",
+//                    instance = $(this).data("datepicker"),
+//                    date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+//                dates.not(this).datepicker("option", option, date);
+//            }
+//        });
+         $( function() {
+            $( "#start_date" ).datepicker();
+            $( "#end_date" ).datepicker();
+        } );
+        
   </script>
 </head>
 <body>
