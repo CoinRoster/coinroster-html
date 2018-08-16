@@ -198,7 +198,7 @@
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
                     "<div class='field_label'>Game Type:</div>" + game_type,
-                    "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline") 
+                    "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline") 
                 ]);
                 bind_payout_window(id("payout_modify_" + data.id), data.settlement_type, data.pay_table);
                 
