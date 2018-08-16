@@ -111,6 +111,12 @@
         #user_autoplay_entries td:last-child { /* prize pool */
             padding-bottom: 11px !important;
         }
+        #user_autoplay_entries td:nth-child(4), #user_autoplay_entries td:nth-child(5), { 
+            white-space: nowrap;
+        }
+        #user_autoplay_entries td:nth-child(7){
+            text-align: right;
+        }
         
         #user_autoplay_entries .field_label {
             display: inline-block !important;
