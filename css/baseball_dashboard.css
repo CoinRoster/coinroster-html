@@ -35,7 +35,6 @@ and open the template in the editor.
             #baseball_career_games_table,#baseball_season_games_table td:nth-child(3){
                 width:11%;
             }
-            
             @media screen and (max-width: 767px) {              
                 #baseball_logo_frame{
                     left: -12vw;
