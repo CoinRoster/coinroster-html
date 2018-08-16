@@ -2,11 +2,14 @@
     white-space: nowrap;
 }
 #user_autoplay_entries td:nth-child(7){
-    text-align: center;
+    white-space: normal;
 }
 .modification_row{
     background-color: darkgrey;
     padding:10px;
+}
+#user_autoplay_entries td {
+    padding: 10px 14px;
 }
 @media only screen and (max-width: 994px) {
    
