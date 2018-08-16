@@ -29,7 +29,7 @@
         <div class="body_container extra_body_container_padding">
             <br/>
             <div class="description_text ">
-                View/Modify your AUTO-PLAY entries
+                My AUTO-PLAY entries
             </div>
             <br/>
             <br/>
@@ -52,7 +52,7 @@
             <br/>
             
             <div id="modify" class="autoplay_modify hidden">
-                        
+                <table id="entry_being_modified" class="contest_table"></table>        
                 <div class="misc_reg_deadline input_padding">
                     <span class="input_label">Start Date</span>
                     <div class="contest_registration_options">
@@ -184,6 +184,7 @@
                 var data = entries[i];
                 document.getElementById("modify").style.display = "block";
                 
+                id("entry_to_modify").appendChild(parent);
                 var s_date = data.start_date;
                 s_date = s_date.split("-");
                 var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
