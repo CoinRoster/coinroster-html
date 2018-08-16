@@ -213,7 +213,10 @@
         
         // end date
         var end_date = id(entry_id +  "_end_date").value;
-        console.log(end_date);
+        if(Date.parse(end_date)< Date.parse(start_date)){
+            show_simple_modal("Please enter a valid end date", "bad");
+            return;
+        }
         
         // algorithm
         var algorithm = id(entry_id +  "_algorithm_selector").value;    
