@@ -1587,8 +1587,14 @@ jackpot_input.onblur = function()
 
 // Automatically build options table
 var options_input = document.getElementById("number_of_options");
+var fixed_odds = document.getElementById("fixed_odds");
 
 options_input.onblur = function()
+  {
+    $("#create_pari_mutuel_table").click();
+  }
+
+fixed_odds.onclick = function()
   {
     $("#create_pari_mutuel_table").click();
   }
