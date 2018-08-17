@@ -1429,8 +1429,6 @@ function create_new_contest()
           table_values.push(desc);
         }
       }
-      if (id('fixed_odds').checked === true) table_values['risk'] = id('risk').value;
-      console.log(table_values);
 
       if (table_error) {
         show_simple_modal("Please enter valid option descriptions", () => {});
@@ -1453,7 +1451,9 @@ function create_new_contest()
           pari_mutuel_options: table_values,
           private
         };
-        
+
+        if (id('fixed_odds').checked === true) json_obj['risk'] = id('risk').value;
+
         console.log(json_obj);
 
         create_contest_attempt(json_obj, "SetupMisc");
