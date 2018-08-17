@@ -1585,7 +1585,7 @@ jackpot_input.onblur = function()
     $("#create_jackpot_table").click();
   }
 
-// Automatically build options table
+// Automatically build/update options table
 var options_input = document.getElementById("number_of_options");
 var fixed_odds = document.getElementById("fixed_odds");
 
@@ -1594,6 +1594,8 @@ options_input.onblur = function()
     $("#create_pari_mutuel_table").click();
   }
 
-fixed_odds.change(function() {
+fixed_odds.change = function()
+  {
+    options_input.blur();
     $("#create_pari_mutuel_table").click();
-});
+  }
