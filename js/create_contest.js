@@ -774,7 +774,7 @@ function create_contest_attempt(data, method)
           }
         );
       } else {
-        show_simple_modal("Error: " + call.error); 
+        show_simple_modal("Error: " + call.error);
       };
   }
 
