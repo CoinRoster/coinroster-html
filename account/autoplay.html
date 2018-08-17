@@ -188,7 +188,7 @@
         
         var
         row = new_row(table, -1, [
-            "<ul><li onclick='display_description(" + entry_id + ")'>" + title_link + "</li></ul>",
+            "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ")'>" + title_link + "</li></ul>",
             "<div class='field_label'>Game Type:</div>" + game_type,
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
             "<div class='field_label'>Start Date:</div>" + "<input type='text' id='" + entry_id + "_start_date' class='start_date input_style chosen-select' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
@@ -208,7 +208,7 @@
         var entries = window.user_autoplay_entries;
         for(i = 0; i < entries.length; i++){
             if(entries[i].id === entry_id)
-                show_simple_modal(entries[i].contest_desc, "good");
+                show_simple_modal(entries[i].contest_desc, "good", null);
         }
     }
     

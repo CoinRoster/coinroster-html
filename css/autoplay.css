@@ -11,6 +11,12 @@
 #user_autoplay_entries td {
     padding: 10px 14px;
 }
+.contest_title_link{
+    cursor: pointer;
+}
+.contest_title_link:hover{
+    text-decoration: underline;
+}
 @media only screen and (max-width: 994px) {
    
     #user_autoplay_entries tr:first-child { /* header */
