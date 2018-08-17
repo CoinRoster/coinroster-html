@@ -20,6 +20,9 @@
 #user_autoplay_entries tr:first-child td:first-child{
     white-space: normal;
 }
+#user_autoplay_entries tr:first-child td:nth-child(2){
+    white-space: normal;
+}
 @media only screen and (max-width: 994px) {
    
     #user_autoplay_entries tr:first-child { /* header */
