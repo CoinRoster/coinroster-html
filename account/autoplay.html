@@ -28,6 +28,18 @@
         </div>
         <div class="body_container extra_body_container_padding">
             <br/>
+            
+            <div class="description_text constrain_width">
+                Enter new AUTO-PLAY entries
+            </div>
+            <br/>
+            <br/>
+            <div class="table_body_container">
+                <table id="possible_contests" class="contest_table"></table>
+            </div>
+            <br/>
+            <br/>
+            <hr>
             <div class="description_text ">
                 My AUTO-PLAY entries
             </div>
@@ -38,16 +50,6 @@
             </div>
             <br/>
             <br/>
-            <hr>
-            <div class="description_text constrain_width">
-                Enter new AUTO-PLAY entries
-            </div>
-            
-            <br/>
-            <br/>
-            <div class="table_body_container">
-                <table id="possible_contests" class="contest_table"></table>
-            </div>
             <br/>
             
             <div id="modify" class="autoplay_modify hidden">
@@ -113,9 +115,24 @@
 <script type="text/javascript">
 
     function init(){
+        
         var 
-        user_table = id("user_autoplay_entries");
-                
+        user_table = id("user_autoplay_entries"),
+        avail_table = id("possible_contests");
+          
+        // Populate the available contests table
+        api({ 
+            method: "GetApplicableContests_Autoplay", 
+            args: {} 
+        }, 
+        function(call){
+            var contests = call.contests;
+            window["avail_contests"] = entries;
+            show_all_contests(contests, avail_table);
+            }
+        });
+        
+        // Populate the My AUTO-PLAY entries table
         api({ 
             method: "GetUserAutoplays", 
             args: {} 
@@ -129,7 +146,43 @@
             else{
                 populate_user_entries(call.entries, user_table);
             }
-        });
+        });        
+    }
+    
+    function show_all_contests(data, table){
+        var header = new_row(table, -1, [
+            "Contest (Click for Description)",
+            "Game Type",
+            "Entry Fee",            
+            ""
+        ]);
+
+        for (var i=0; i<data.length; i++){
+
+            var contest_item = data[i],
+
+            entry_id = contest_item.id,
+            sport = contest_item.sport,
+            title = contest_item.contest_title,
+            desc = contest_item.contest_desc,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            cost_per_entry = contest_item.cost_per_entry;
+            
+            var 
+            title_link = sport + " | " + title,
+            game_type = "<span id=\"payout_avail" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>";
+            
+            var
+            row = new_row(table, -1, [
+                "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ")'>" + title_link + "</li></ul>",
+                "<div class='field_label'>Game Type:</div>" + game_type,
+                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(" + entry_id + ")'>Add</button>";
+                ]);
+            
+            bind_payout_window(id("payout_avail_" + entry_id), settlement_type, pay_table);
+        }  
     }
     
     function populate_user_entries(data, table){
