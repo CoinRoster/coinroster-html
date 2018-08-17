@@ -51,7 +51,7 @@
         }
         if (id('fixed_odds').checked === true) new_row(pari_mutuel_table, row_count++, [
             null,
-            "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Risk\">",        
+            "<input id=\"risk\" type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Risk\">",        
         ]);
             
         var header = new_row(pari_mutuel_table, 0, [
