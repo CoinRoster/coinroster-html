@@ -29,6 +29,10 @@
 .datepicker{
     cursor: pointer;
 }
+#possible_contests_tbody{
+    max-width:300px;
+    overflow-y: scroll;
+}
 @media only screen and (max-width: 994px) {
    
     #user_autoplay_entries tr:first-child { /* header */
