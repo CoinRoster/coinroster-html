@@ -23,6 +23,9 @@
 #user_autoplay_entries tr:first-child td:nth-child(2){
     white-space: normal;
 }
+.datepicker{
+    cursor: pointer;
+}
 @media only screen and (max-width: 994px) {
    
     #user_autoplay_entries tr:first-child { /* header */
