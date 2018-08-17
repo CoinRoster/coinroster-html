@@ -129,7 +129,6 @@
             var contests = call.contests;
             window["avail_contests"] = entries;
             show_all_contests(contests, avail_table);
-            }
         });
         
         // Populate the My AUTO-PLAY entries table
@@ -146,9 +145,9 @@
             else{
                 populate_user_entries(call.entries, user_table);
             }
-        });        
+        });
     }
-    
+        
     function show_all_contests(data, table){
         var header = new_row(table, -1, [
             "Contest (Click for Description)",
