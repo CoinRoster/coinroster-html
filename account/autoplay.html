@@ -290,13 +290,13 @@
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
             "<div class='field_label'>Start Date:</div>" + "<input type='text' id='new_" + entry_id + "_start_date' class='start_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
             "<div class='field_label'>End Date:</div>" + "<input type='text' id='new_" + entry_id + "_end_date' class='end_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
-            "<div class='field_label'>Algorithm:</div>" + "<select id='new_" + entry_id + "_algorithm_selector' style='width:115px' class='input_style chosen-select dropdown'><option value='' selected>Select/option>" + other_algorithms + "</select>",
+            "<div class='field_label'>Algorithm:</div>" + "<select id='new_" + entry_id + "_algorithm_selector' style='width:115px' class='input_style chosen-select dropdown'><option value='' selected>Select</option>" + other_algorithms + "</select>",
             "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style' id='new_" + entry_id + "_number_rosters'/>",
             "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='new_" + entry_id + "_active' checked/>" : "<input type='checkbox' id='new_" + entry_id + "_active'/>"),
             "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='enter_entry(this, " + entry_id + ")'>Enter</button>"
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
-        
+        activate_datepicker();
         table.lastChild.style.backgroundColor = "green";
     }
     
