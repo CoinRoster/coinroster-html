@@ -177,7 +177,7 @@
                 "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ")'>" + title_link + "</li></ul>",
                 "<div class='field_label'>Game Type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(" + entry_id + ")'>Add</button>";
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(" + entry_id + ")'>Add</button>"
                 ]);
             
             bind_payout_window(id("payout_avail_" + entry_id), settlement_type, pay_table);
