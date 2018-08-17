@@ -297,7 +297,7 @@
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         activate_datepicker();
-        table.lastChild.style.backgroundColor = "green";
+        table.lastChild.lastChild.style.backgroundColor = "green";
     }
     
     function save_entry(entry_id){
