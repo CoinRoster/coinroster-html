@@ -365,7 +365,7 @@
             return;
         }
         // num_rosters  
-        var num_rosters = element.getElementsByClassName("num_rosters").value;
+        var num_rosters = element.getElementsByClassName("num_rosters")[0].value;
         if(Number(num_rosters) < 1 || isNaN(num_rosters)){
             show_simple_modal("Please enter a valid number of rosters", "bad", null);
             return;
