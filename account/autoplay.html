@@ -42,6 +42,7 @@
             <br/>
             <br/>
             <hr>
+            <br/>
             <div class="description_text ">
                 My AUTO-PLAY entries
             </div>
@@ -52,51 +53,6 @@
             </div>
             <br/>
             <br/>
-            <br/>
-            
-<!--
-            <div id="modify" class="autoplay_modify hidden">
-                <div class="table_body_container">
-                    <table id="entry_to_modify" class="contest_table">
-                    </table>
-                </div>      
-
-
-
-            <div class="prop_golf_number_of_shots_round_tournament input_padding">
-                        <span class="input_label">Roster Draft Algorithm</span>
-                        <div>
-                            <input type="radio" value="BARBELL" name="algorithm" id="BARBELL"/>
-                            <label class="algorithm_label" for="BARBELL">BARBELL</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="SAFE" name="algorithm" id="SAFE"/>
-                            <label class="algorithm_label" for="SAFE">SAFE</label>
-                        </div>
-                        <div>
-                            <input type="radio" value="RANDOM" name="algorithm" id="RANDOM"/>
-                            <label class="algorithm_label" for="RANDOM">RANDOM</label>
-                        </div>
-                    </div>
-
-                <div class="misc_min_wager input_padding">
-                    <span class="input_label">Number of Rosters</span>
-                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 100px;" placeholder="1" class="input_style" id="number_rosters"/>
-                </div>
-                <div class="misc_settlement_type input_padding">
-                    <span class="input_label">Active?</span>
-                    <div>
-                        <input type="radio" value="true" name="active_radio" id="true"/>
-                        <label class="active_label" for="true">Yes</label>
-                    </div>
-                    <div>
-                        <input type="radio" value="false" name="active_radio" id="false"/>
-                        <label class="active_label" for="false">No</label>
-                    </div>
-                </div>
-            </div>
--->
-
         </div>
         <br/>
     </div>
@@ -429,67 +385,6 @@
                 minDate: dateToday
         });
     }
-
-    
-//    function modify_entry(element, entry_id){
-//        var mod_div;
-//        var parent = element.closest("tr");
-//        id("entry_to_modify").innerHTML = "";
-//        var entries = window.user_autoplay_entries;
-//        for(i = 0; i < entries.length; i++){
-//            if(entries[i].id === entry_id){
-//                
-//                var data = entries[i];
-//                document.getElementById("modify").style.display = "block";
-//                var table = id("entry_to_modify");
-//                
-//                var header = new_row(table, -1, [
-//                    "Contest",
-//                    "Settlement Type",
-//                    "Cost per Entry",
-//                    "Start Date",
-//                    "End Date",
-//                    "Algorithm",
-//                    "Number of Rosters",
-//                    "Active"
-//                ]);
-//                
-//                var 
-//                title_link = data.sport + " | " + data.contest_title,
-//                game_type = "<span id=\"payout_modify_" + data.id + "\" class=\"payout_info_link teal\">" + settlement_type_string(data.settlement_type) + "</span>",
-//                
-//                row = new_row(table, -1, [
-//                    "<ul><li>" + title_link + "</li></ul>",
-//                    "<div class='field_label'>Game Type:</div>" + game_type,
-//                    "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline"),
-//                    "<div class='field_label'>Start Date:</div>" + "<input type='text' id='" + entry_id + "_start_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
-//                    "<div class='field_label'>End Date:</div>" + "<input type='text' id='" + entry_id + "_end_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
-//                    "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + data.algorithm + "' id='" + entry_id + "_algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
-//                    "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style' id='" + entry_id + "_number_rosters'/>",
-//                    "<div class='field_label'>Active:</div>" + "<input type='checkbox' id='" + entry_id + "_active'/>"
-//                ]);
-//                bind_payout_window(id("payout_modify_" + data.id), data.settlement_type, data.pay_table);
-//                
-//                var s_date = data.start_date;
-//                s_date = s_date.split("-");
-//                var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
-//                
-//                var e_date = data.end_date;
-//                e_date = e_date.split("-");
-//                var e_date_to_show = e_date[1] + "/" + e_date[2] + "/" + e_date[0];
-//                
-//               
-//                id("number_rosters").value = data.num_rosters;
-//                id("number_rosters").placeholder = data.num_rosters;
-//                if(data.active)
-//                    id("active").checked = true;
-//                else
-//                    id("active").checked = false;
-//                
-//                activate_datepicker();
-//            }
-//        }
-//    }
            
 </script>
 
