@@ -36,7 +36,7 @@
 
         for (var i=0; i < number_of_options; i++) {
             var rank = i + 1;
-            if (id('fixed-odds').checked === true) {
+            if (id('fixed_odds').checked === true) {
                 new_row(pari_mutuel_table, row_count++, [
                     rank,
                     "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
