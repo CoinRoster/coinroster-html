@@ -161,7 +161,7 @@
                 "<ul><li class='contest_title_link' onclick='display_description(\"AVAIL\", " + entry_id + ")'>" + title_link + "</li></ul>",
                 "<div class='field_label'>Game Type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(this, " + entry_id + ")'>Add</button>"
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(" + entry_id + ")'>Add</button>"
                 ]);
             
             bind_payout_window(id("payout_avail_" + entry_id), settlement_type, pay_table);
@@ -256,11 +256,48 @@
         }
     }
     
-    function add_to_my_entries(element, entry_id){
-        var row = element.parent.parent;
-        console.log(row);
+    function add_to_my_entries(entry_id){
         var table = id("user_autoplay_entries");
+        var contests = window.avail_contests;
+        for(i = 0; i < contests.length; i++){
+            if(entry_id === contests[i].id){
+                add_new_row(table, contests[i]);
+            }
+        }
+    }
+    
+    function add_new_row(table, contest_data){
+        var
+        entry_id = contest_data.id,
+        sport = contest_data.sport,
+        title = contest_data.contest_title,
+        desc = contest_data.contest_desc,
+        settlement_type = contest_data.settlement_type,
+        pay_table = contest_data.pay_table,
+        cost_per_entry = contest_data.cost_per_entry;
+
+        var 
+
+        title_link = sport + " | " + title,
+        game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+        other_algorithms = "<option value='RANDOM'>RANDOM</option><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option>";
+        active = true;
         
+        var
+        row = new_row(table, -1, [
+            "<ul><li class='contest_title_link' onclick='display_description(\"AVAIL\", " + entry_id + ")'>" + title_link + "</li></ul>",
+            "<div class='field_label'>Game Type:</div>" + game_type,
+            "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
+            "<div class='field_label'>Start Date:</div>" + "<input type='text' id='new_" + entry_id + "_start_date' class='start_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+            "<div class='field_label'>End Date:</div>" + "<input type='text' id='new_" + entry_id + "_end_date' class='end_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+            "<div class='field_label'>Algorithm:</div>" + "<select style='width:115px' class='algorithm_selector input_style chosen-select dropdown'><option value='' selected>Select</option>" + other_algorithms + "</select>",
+            "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style num_rosters' id='new_" + entry_id + "_number_rosters'/>",
+            "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' class='active' id='new_" + entry_id + "_active' checked/>" : "<input type='checkbox' class='active' id='new_" + entry_id + "_active'/>"),
+            "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='enter_entry(this, " + entry_id + ")'>Enter</button>"
+        ]);
+        bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
+        activate_datepicker();
+        table.lastChild.lastChild.style.backgroundColor = "#224222bf";
     }
     
     function save_entry(entry_id){
@@ -304,6 +341,53 @@
         
     }
     
+    function enter_entry(element, contest_id)
+        var json = {};
+        json.contest_id = contest_id;
+        
+        // start date
+        var start_date = element.getElementsByClassName("start_date")[0].value;
+        if(start_date === ""){
+            show_simple_modal("Please enter a valid start date", "bad", null);
+            return;
+        }
+        // end date
+        var end_date = element.getElementsByClassName("end_date")[0].value;
+        if(end_date === "" || Date.parse(end_date)< Date.parse(start_date)){
+            show_simple_modal("Please enter a valid end date", "bad", null);
+            return;
+        }
+        
+        // algorithm
+        var algorithm = element.getElementsByClassName("algorithm_selector")[0].value;    
+        if(algorithm === ""){
+            show_simple_modal("Please enter a valid algorithm", "bad", null);
+            return;
+        }
+        // num_rosters  
+        var num_rosters = element.getElementsByClassName("num_rosters").value;
+        if(Number(num_rosters) < 1 || isNaN(num_rosters)){
+            show_simple_modal("Please enter a valid number of rosters", "bad", null);
+            return;
+        }
+        else{
+           num_rosters = Number(num_rosters);                   
+        } 
+        
+        //active
+        var active = document.getElementsByClassName("active")[0].checked;
+        
+        json.start_date = start_date;
+        json.end_date = end_date;
+        json.algorithm = algorithm;
+        json.num_rosters = num_rosters;
+        json.active = active;
+        json.process = "INSERT";
+    
+        make_api_call(json);
+        
+    }
+    
     function delete_entry(entry_id){
         var json = {};
         json.process = "REMOVE";
@@ -331,25 +415,14 @@
     }
     
     function activate_datepicker(){
-            var dateToday = new Date();
-            var entries = window.user_autoplay_entries;
-            for(i = 0; i < entries.length; i++){
-                var s_id = entries[i].id + "_start_date";
-                var e_id = entries[i].id + "_end_date";
-                $("#" + s_id).datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    numberOfMonths: 1,
-                    minDate: dateToday
-                });
-               $("#" + e_id).datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    numberOfMonths: 1,
-                    minDate: dateToday
-                });
-            }
-        }
+        var dateToday = new Date();
+        $(".datepicker").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                minDate: dateToday
+        });
+    }
 
     
 //    function modify_entry(element, entry_id){
