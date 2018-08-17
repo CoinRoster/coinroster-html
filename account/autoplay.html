@@ -258,11 +258,17 @@
     }
     
     
-    function display_description(entry_id){
-        var entries = window.user_autoplay_entries;
-        for(i = 0; i < entries.length; i++){
-            if(entries[i].id === entry_id)
-                show_simple_modal(entries[i].contest_desc, "good", null);
+    function display_description(entry_id, type){
+       
+        var data;
+        if(type === "ENTRIES")
+            data = window.user_autoplay_entries;
+        else if(type === "AVAIL")
+             data = window.avail_contests;
+        
+        for(i = 0; i < data.length; i++){
+            if(data[i].id === entry_id)
+                show_simple_modal(data[i].contest_desc, "good", null);
         }
     }
     
