@@ -86,7 +86,6 @@
             var entries = call.entries;
             window["user_autoplay_entries"] = entries;
             if(entries.length === 0){
-                user_table.innerHTML = `<tr>No AUTO-PLAY entries</tr>`;
             }
             else{
                 populate_user_entries(call.entries, user_table);
@@ -223,6 +222,21 @@
     }
     
     function add_new_row(table, contest_data){
+        
+        if(id("user_autoplay_entries").children.length === 0){
+            var header = new_row(table, -1, [
+                "Contest (Click for Description)",
+                "Game Type",
+                "Entry Fee",
+                "Start Date",
+                "End Date",
+                "Algorithm",
+                "# Rosters",
+                "Active",
+                ""
+            ]);
+        }
+        
         var
         entry_id = contest_data.id,
         sport = contest_data.sport,
