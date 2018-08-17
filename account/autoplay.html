@@ -44,6 +44,8 @@
                             <td></td>
                         </tr>
                     </thead>
+                    <tbody id="possible_contests_tbody">
+                    </tbody>
                 </table>
             </div>
             <br/>
@@ -127,7 +129,7 @@
         
         var 
         user_table = id("user_autoplay_entries"),
-        avail_table = id("possible_contests");
+        avail_table = id("possible_contests_tbody");
           
         // Populate the available contests table
         api({ 
@@ -158,12 +160,6 @@
     }
         
     function show_all_contests(data, table){
-//        var header = new_row(table, -1, [
-//            "Contest (Click for Description)",
-//            "Game Type",
-//            "Entry Fee",            
-//            ""
-//        ]);
 
         for (var i=0; i<data.length; i++){
 
