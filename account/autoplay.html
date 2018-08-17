@@ -290,14 +290,14 @@
             "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
             "<div class='field_label'>Start Date:</div>" + "<input type='text' id='new_" + entry_id + "_start_date' class='start_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
             "<div class='field_label'>End Date:</div>" + "<input type='text' id='new_" + entry_id + "_end_date' class='end_date input_style chosen-select datepicker' placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
-            "<div class='field_label'>Algorithm:</div>" + "<select id='new_" + entry_id + "_algorithm_selector' style='width:115px' class='input_style chosen-select dropdown'><option value='' selected>Select</option>" + other_algorithms + "</select>",
-            "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style' id='new_" + entry_id + "_number_rosters'/>",
-            "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='new_" + entry_id + "_active' checked/>" : "<input type='checkbox' id='new_" + entry_id + "_active'/>"),
+            "<div class='field_label'>Algorithm:</div>" + "<select style='width:115px' class='algorithm_selector input_style chosen-select dropdown'><option value='' selected>Select</option>" + other_algorithms + "</select>",
+            "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style num_rosters' id='new_" + entry_id + "_number_rosters'/>",
+            "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' class='active' id='new_" + entry_id + "_active' checked/>" : "<input type='checkbox' class='active' id='new_" + entry_id + "_active'/>"),
             "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='enter_entry(this, " + entry_id + ")'>Enter</button>"
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         activate_datepicker();
-        table.lastChild.lastChild.style.backgroundColor = "#218121bf";
+        table.lastChild.lastChild.style.backgroundColor = "#224222bf";
     }
     
     function save_entry(entry_id){
@@ -341,6 +341,53 @@
         
     }
     
+    function enter_entry(element, contest_id)
+        var json = {};
+        json.contest_id = contest_id;
+        
+        // start date
+        var start_date = element.getElementsByClassName("start_date")[0].value;
+        if(start_date === ""){
+            show_simple_modal("Please enter a valid start date", "bad", null);
+            return;
+        }
+        // end date
+        var end_date = element.getElementsByClassName("end_date")[0].value;
+        if(end_date === "" || Date.parse(end_date)< Date.parse(start_date)){
+            show_simple_modal("Please enter a valid end date", "bad", null);
+            return;
+        }
+        
+        // algorithm
+        var algorithm = element.getElementsByClassName("algorithm_selector")[0].value;    
+        if(algorithm === ""){
+            show_simple_modal("Please enter a valid algorithm", "bad", null);
+            return;
+        }
+        // num_rosters  
+        var num_rosters = element.getElementsByClassName("num_rosters").value;
+        if(Number(num_rosters) < 1 || isNaN(num_rosters)){
+            show_simple_modal("Please enter a valid number of rosters", "bad", null);
+            return;
+        }
+        else{
+           num_rosters = Number(num_rosters);                   
+        } 
+        
+        //active
+        var active = document.getElementsByClassName("active")[0].checked;
+        
+        json.start_date = start_date;
+        json.end_date = end_date;
+        json.algorithm = algorithm;
+        json.num_rosters = num_rosters;
+        json.active = active;
+        json.process = "INSERT";
+    
+        make_api_call(json);
+        
+    }
+    
     function delete_entry(entry_id){
         var json = {};
         json.process = "REMOVE";
@@ -368,26 +415,14 @@
     }
     
     function activate_datepicker(){
-            var dateToday = new Date();
-            $(".datepicker").datepicker({
-                    defaultDate: "+1w",
-                    changeMonth: true,
-                    numberOfMonths: 1,
-                    minDate: dateToday
-            });
-//            var entries = window.user_autoplay_entries;
-//            for(i = 0; i < entries.length; i++){
-//                var s_id = entries[i].id + "_start_date";
-//                var e_id = entries[i].id + "_end_date";
-//                
-////               $("#" + e_id).datepicker({
-////                    defaultDate: "+1w",
-////                    changeMonth: true,
-////                    numberOfMonths: 1,
-////                    minDate: dateToday
-////                });
-//            }
-        }
+        var dateToday = new Date();
+        $(".datepicker").datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 1,
+                minDate: dateToday
+        });
+    }
 
     
 //    function modify_entry(element, entry_id){
