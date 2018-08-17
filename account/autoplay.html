@@ -344,7 +344,7 @@
     function enter_entry(element, contest_id){
         var json = {};
         json.contest_id = contest_id;
-        
+        var element = element.parentElement.parentElement;
         // start date
         var start_date = element.getElementsByClassName("start_date")[0].value;
         if(start_date === ""){
