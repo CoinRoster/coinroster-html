@@ -1413,7 +1413,7 @@ function create_new_contest()
       
       for (i=1; i<table_rows;i++) {
         var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes);
+        console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value);
         if (!desc) {
           table_error = true;
         } else {
