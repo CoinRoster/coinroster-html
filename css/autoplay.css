@@ -29,8 +29,8 @@
 .datepicker{
     cursor: pointer;
 }
-#possible_contests_tbody{
-    max-width:300px;
+.avail_contests{
+    max-height: 300px;
     overflow-y: scroll;
 }
 @media only screen and (max-width: 994px) {
@@ -72,29 +72,29 @@
 
     
     /* entry to modify table */
-    #entry_to_modify td {
+    #possible_contests td {
         display: block;
         text-align: left !important;
         padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
     }
 
-    #entry_to_modify td:nth-child(2) { /* title / button */
+    #possible_contests td:nth-child(2) { /* title / button */
         padding-top: 10px !important;
     }
-    #entry_to_modify td:last-child { /* prize pool */
+    #possible_contests td:last-child { /* prize pool */
         padding-bottom: 11px !important;
     }
 
-    #entry_to_modify .field_label {
+    #possible_contests .field_label {
         display: inline-block !important;
         padding-right: 20px;
         font-size: 12px;
     }
-    #entry_to_modify .payout_info_link {
+    #possible_contests .payout_info_link {
         display: inline-block !important;
     }
 
-    #entry_to_modify .fiat_display.allow_inline {
+    #possible_contests .fiat_display.allow_inline {
         display: inline-block !important;
         padding-left: 20px;
     }

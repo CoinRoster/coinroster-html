@@ -34,19 +34,8 @@
             </div>
             <br/>
             <br/>
-            <div class="table_body_container">
+            <div class="table_body_container avail_contests">
                 <table id="possible_contests" class="contest_table">
-                    <thead>
-                        <tr>
-                            <td>Contest (Click for Description)</td>
-                            <td>Game Type</td>
-                            <td>Entry Fee</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody id="possible_contests_tbody">
-                        <tr></tr>
-                    </tbody>
                 </table>
             </div>
             <br/>
@@ -130,7 +119,7 @@
         
         var 
         user_table = id("user_autoplay_entries"),
-        avail_table = id("possible_contests_tbody");
+        avail_table = id("possible_contests");
           
         // Populate the available contests table
         api({ 
