@@ -1594,7 +1594,7 @@ options_input.onblur = function()
     $("#create_pari_mutuel_table").click();
   }
 
-fixed_odds.onclick = function()
+fixed_odds.change = function()
   {
     $("#create_pari_mutuel_table").click();
   }
