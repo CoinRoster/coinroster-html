@@ -158,10 +158,10 @@
             
             var
             row = new_row(table, -1, [
-                "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ", 'AVAIL')'>" + title_link + "</li></ul>",
+                "<ul><li class='contest_title_link' onclick='display_description(\"AVAIL\", " + entry_id + ")'>" + title_link + "</li></ul>",
                 "<div class='field_label'>Game Type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(" + entry_id + ")'>Add</button>"
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='add_to_my_entries(this, " + entry_id + ")'>Add</button>"
                 ]);
             
             bind_payout_window(id("payout_avail_" + entry_id), settlement_type, pay_table);
@@ -225,7 +225,7 @@
 
             var
             row = new_row(table, -1, [
-                "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ", 'ENTRIES')'>" + title_link + "</li></ul>",
+                "<ul><li class='contest_title_link' onclick='display_description(\"ENTRIES\", " + entry_id + ")'>" + title_link + "</li></ul>",
                 "<div class='field_label'>Game Type:</div>" + game_type,
                 "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
                 "<div class='field_label'>Start Date:</div>" + "<input type='text' id='" + entry_id + "_start_date' class='start_date input_style chosen-select datepicker' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
@@ -242,7 +242,7 @@
     }
     
     
-    function display_description(entry_id, type){
+    function display_description(type, entry_id){
        
         var data;
         if(type === "ENTRIES")
@@ -254,6 +254,13 @@
             if(data[i].id === entry_id)
                 show_simple_modal(data[i].contest_desc, "good", null);
         }
+    }
+    
+    function add_to_my_entries(element, entry_id){
+        var row = element.parent.parent;
+        console.log(row);
+        var table = id("user_autoplay_entries");
+        
     }
     
     function save_entry(entry_id){
