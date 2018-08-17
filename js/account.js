@@ -25,6 +25,7 @@
             
         pari_mutuel_table = new_table("pari_mutuel_table");
         pari_mutuel_table.id = 'pari_mutuel_table_element';
+
         var
         
         row_count = 0,
@@ -35,10 +36,18 @@
 
         for (var i=0; i < number_of_options; i++) {
             var rank = i + 1;
-            new_row(pari_mutuel_table, row_count++, [
-                rank,
-                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\" placeholder=\"Description\">"
-            ]);
+            if (id('fixed-odds').checked === true) {
+                new_row(pari_mutuel_table, row_count++, [
+                    rank,
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
+                    "<input type=\"number\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
+                ]);
+            } else {
+                new_row(pari_mutuel_table, row_count++, [
+                    rank,
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\" placeholder=\"Description\">",
+                ]);
+            }
         }
             
         var header = new_row(pari_mutuel_table, 0, [
