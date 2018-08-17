@@ -6,7 +6,11 @@
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <link rel="stylesheet" type="text/css" href="/css/lobby.css">
     <link rel="stylesheet" type="text/css" href="/css/autoplay.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="/js/lobby.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 </head>
 <body>
 <!--#include virtual="/ssi/simple_modal.html" -->
@@ -25,7 +29,7 @@
         <div class="body_container extra_body_container_padding">
             <br/>
             <div class="description_text ">
-                View/Modify your AUTO-PLAY entries
+                My AUTO-PLAY entries
             </div>
             <br/>
             <br/>
@@ -45,53 +49,58 @@
                 <table id="possible_contests" class="contest_table"></table>
             </div>
             <br/>
-            <br/>
             
-            <div class="misc_fields">
-                        
+            <div id="modify" class="autoplay_modify hidden">
+                <div class="table_body_container">
+                    <table id="entry_to_modify" class="contest_table">
+                    </table>
+                </div>      
+<!--
                 <div class="misc_reg_deadline input_padding">
                     <span class="input_label">Start Date</span>
-                    <div class="contest_registration_options">
-                        <input type="text" id="start_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
-                    </div>
-                </div>
-
-                <div class="misc_set_deadline input_padding">
+                    <input type="text" id="start_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
                     <span class="input_label">End Date</span>
+                    <input type="text" id="end_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                </div>
+-->
+
+<!--
+                <div class="misc_set_deadline input_padding">
                     <div class="contest_registration_options">
-                        <input type="text" id="end_date" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                        
                     </div>
                 </div>
+-->
 
                 <div class="prop_golf_number_of_shots_round_tournament input_padding">
                         <span class="input_label">Roster Draft Algorithm</span>
                         <div>
-                            <input type="radio" value="BARBELL" name="prop_golf_shots_round_tournament" id="BARBELL"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="BARBELL">BARBELL</label>
+                            <input type="radio" value="BARBELL" name="algorithm" id="BARBELL"/>
+                            <label class="algorithm_label" for="BARBELL">BARBELL</label>
                         </div>
                         <div>
-                            <input type="radio" value="SAFE" name="prop_golf_shots_round_tournament" id="SAFE"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="SAFE">SAFE</label>
+                            <input type="radio" value="SAFE" name="algorithm" id="SAFE"/>
+                            <label class="algorithm_label" for="SAFE">SAFE</label>
                         </div>
                         <div>
-                            <input type="radio" value="RANDOM" name="prop_golf_shots_round_tournament" id="RANDOM"/>
-                            <label class="dimmed prop_golf_number_of_shots_round_one" for="RANDOM">RANDOM</label>
+                            <input type="radio" value="RANDOM" name="algorithm" id="RANDOM"/>
+                            <label class="algorithm_label" for="RANDOM">RANDOM</label>
                         </div>
                     </div>
 
                 <div class="misc_min_wager input_padding">
                     <span class="input_label">Number of Rosters</span>
-                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="" class="input_style" id="number_rosters"/>
+                    <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 100px;" placeholder="1" class="input_style" id="number_rosters"/>
                 </div>
                 <div class="misc_settlement_type input_padding">
                     <span class="input_label">Active?</span>
                     <div>
                         <input type="radio" value="true" name="active_radio" id="true"/>
-                        <label class="dimmed prop_golf_number_of_shots_round_one" for="true">Yes</label>
+                        <label class="active_label" for="true">Yes</label>
                     </div>
                     <div>
                         <input type="radio" value="false" name="active_radio" id="false"/>
-                        <label class="dimmed prop_golf_number_of_shots_round_one" for="false">No</label>
+                        <label class="active_label" for="false">No</label>
                     </div>
                 </div>
             </div>
@@ -124,73 +133,238 @@
     }
     
     function populate_user_entries(data, table){
+        
         var header = new_row(table, -1, [
-            "Contest",
-            "Settlement Type",
-            "Cost per Entry",
+            "Contest (Click for Description)",
+            "Game Type",
+            "Entry Fee",
             "Start Date",
             "End Date",
             "Algorithm",
-            "Number of Rosters",
-            "Active"
+            "# Rosters",
+            "Active",
+            ""
         ]);
 
-    for (var i=0; i<data.length; i++){
+        for (var i=0; i<data.length; i++){
 
-        var contest_item = data[i],
+            var contest_item = data[i],
 
-        entry_id = contest_item.id,
-        sport = contest_item.sport,
-        title = contest_item.contest_title,
-        desc = contest_item.contest_desc,
-        settlement_type = contest_item.settlement_type,
-        pay_table = contest_item.pay_table,
-        cost_per_entry = contest_item.cost_per_entry,
-        start_date = contest_item.start_date,
-        end_date = contest_item.end_date,
-        algorithm = contest_item.algorithm,
-        num_rosters = contest_item.num_rosters,
-        active = contest_item.active;
+            entry_id = contest_item.id,
+            sport = contest_item.sport,
+            title = contest_item.contest_title,
+            desc = contest_item.contest_desc,
+            settlement_type = contest_item.settlement_type,
+            pay_table = contest_item.pay_table,
+            cost_per_entry = contest_item.cost_per_entry,
+            start_date = contest_item.start_date,
+            end_date = contest_item.end_date,
+            algorithm = contest_item.algorithm,
+            num_rosters = contest_item.num_rosters,
+            active = contest_item.active;
 
-        var 
+            var s_date = start_date;
+            s_date = s_date.split("-");
+            var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
 
-        title_link = sport + " | " + title,
-        game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            var e_date = end_date;
+            e_date = e_date.split("-");
+            var e_date_to_show = e_date[1] + "/" + e_date[2] + "/" + e_date[0];
 
-        row = new_row(table, -1, [
-            "<ul><li>" + title_link + "</li><li class='draft_button' onclick='modify_entry(this, " + entry_id + ")'>" + "Modify" + "</li></ul>",
-            "<div class='field_label'>Game Type:</div>" + game_type,
-            "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-            "<div class='field_label'>Start Date:</div>" + start_date,
-            "<div class='field_label'>End Date:</div>" + end_date,
-            "<div class='field_label'>Algorithm:</div>" + algorithm,
-            "<div class='field_label'>Number of Rosters:</div>" + num_rosters,
-            "<div class='field_label'>Active:</div>" + (active ? `<input type='checkbox' style='margin: 0;' checked disabled />` : `<input type='checkbox' style='margin: 0;' disabled />`),
-        ]);
-        bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
+            var 
+
+            title_link = sport + " | " + title,
+            game_type = "<span id=\"payout_" + entry_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            other_algorithms;
+
+            if(algorithm === "BARBELL"){
+                other_algorithms = "<option value='RANDOM'>RANDOM</option><option value='SAFE'>SAFE</option>";
+            }
+            else if(algorithm === "SAFE"){
+                other_algorithms = "<option value='RANDOM'>RANDOM</option><option value='BARBELL'>BARBELL</option>";
+            }
+            else{
+                other_algorithms = "<option value='SAFE'>SAFE</option><option value='BARBELL'>BARBELL</option>";
+            }
+
+            var
+            row = new_row(table, -1, [
+                "<ul><li class='contest_title_link' onclick='display_description(" + entry_id + ")'>" + title_link + "</li></ul>",
+                "<div class='field_label'>Game Type:</div>" + game_type,
+                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
+                "<div class='field_label'>Start Date:</div>" + "<input type='text' id='" + entry_id + "_start_date' class='start_date input_style chosen-select datepicker' placeholder='" + s_date_to_show + "' style='width:95px' readonly='true' value='" + s_date_to_show + "'>",
+                "<div class='field_label'>End Date:</div>" + "<input type='text' id='" + entry_id + "_end_date' class='end_date input_style chosen-select datepicker' placeholder='" + e_date_to_show + "' style='width:95px' readonly='true' value='" + e_date_to_show + "'>",
+                "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + algorithm + "' id='" + entry_id + "_algorithm_selector'  style='width:115px' class='input_style chosen-select dropdown'><option value='" + algorithm + "' selected>" + algorithm + "</option>" + other_algorithms + "</select>",
+                "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='" + num_rosters + "' class='input_style' id='" + entry_id + "_number_rosters' value='" + num_rosters + "'/>",
+                "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='" + entry_id + "_active' checked/>" : "<input type='checkbox' id='" + entry_id + "_active'/>"),
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='save_entry(" + entry_id + ")'>Modify</button><button type='button' class='text_button' style='width:70px !important; margin: 5px; background-color: #ee070780;'onclick='delete_entry(" + entry_id + ")'>Delete</button>"
+            ]);
+            bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
+
         }
+        activate_datepicker();
     }
     
-    function modify_entry(element, entry_id){
-        var mod_div;
-        var parent = element.closest("tr");
+    
+    function display_description(entry_id){
         var entries = window.user_autoplay_entries;
         for(i = 0; i < entries.length; i++){
-            if(entries[i].id === entry_id){
-                mod_div = create_modification_div(entries[i])
-                parent.append(mod_div);
-            }
+            if(entries[i].id === entry_id)
+                show_simple_modal(entries[i].contest_desc, "good", null);
         }
     }
     
-    function create_modification_div(data){
-        var rtn_div = document.createElement("tr");
-        rtn_div.innerHTML= "<div>" + data.start_date + "</div>";
-        rtn_div.setAttribute('class', 'modification_row');
-        return rtn_div;
-    }
+    function save_entry(entry_id){
+        var json = {};
         
+        // start date
+        var start_date = id(entry_id +  "_start_date").value;
+        
+        // end date
+        var end_date = id(entry_id +  "_end_date").value;
+        if(Date.parse(end_date)< Date.parse(start_date)){
+            show_simple_modal("Please enter a valid end date", "bad", null);
+            return;
+        }
+        
+        // algorithm
+        var algorithm = id(entry_id +  "_algorithm_selector").value;    
+        
+        // num_rosters  
+        var num_rosters =id(entry_id + "_number_rosters").value;
+        if(Number(num_rosters) < 1 || isNaN(num_rosters)){
+            show_simple_modal("Please enter a valid number of rosters", "bad", null);
+            return;
+        }
+        else{
+           num_rosters = Number(num_rosters);                   
+        } 
+        
+        //active
+        var active = id(entry_id + "_active").checked;
+
+        json.start_date = start_date;
+        json.end_date = end_date;
+        json.algorithm = algorithm;
+        json.num_rosters = num_rosters;
+        json.active = active;
+        json.process = "MODIFY";
+        json.autoplay_id = entry_id;
+        
+        make_api_call(json);
+        
+    }
+    
+    function delete_entry(entry_id){
+        var json = {};
+        json.process = "REMOVE";
+        json.autoplay_id = entry_id;
+        make_api_call(json);
+    }
+    
+    function make_api_call(data){
+        var call = api({
+            method: "EnterAutoplay", 
+            args: {
+                data
+            } 
+        });
+   
+        if (call.status === "1") {
+            show_simple_modal(call.msg, "good",
+              function() {
+                location.reload();   
+              }
+            );
+        }else {
+            show_simple_modal("Error: " + call.error); 
+        };
+    }
+    
+    function activate_datepicker(){
+            var dateToday = new Date();
+            var entries = window.user_autoplay_entries;
+            for(i = 0; i < entries.length; i++){
+                var s_id = entries[i].id + "_start_date";
+                var e_id = entries[i].id + "_end_date";
+                $("#" + s_id).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                    minDate: dateToday
+                });
+               $("#" + e_id).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1,
+                    minDate: dateToday
+                });
+            }
+        }
+
+    
+//    function modify_entry(element, entry_id){
+//        var mod_div;
+//        var parent = element.closest("tr");
+//        id("entry_to_modify").innerHTML = "";
+//        var entries = window.user_autoplay_entries;
+//        for(i = 0; i < entries.length; i++){
+//            if(entries[i].id === entry_id){
+//                
+//                var data = entries[i];
+//                document.getElementById("modify").style.display = "block";
+//                var table = id("entry_to_modify");
+//                
+//                var header = new_row(table, -1, [
+//                    "Contest",
+//                    "Settlement Type",
+//                    "Cost per Entry",
+//                    "Start Date",
+//                    "End Date",
+//                    "Algorithm",
+//                    "Number of Rosters",
+//                    "Active"
+//                ]);
+//                
+//                var 
+//                title_link = data.sport + " | " + data.contest_title,
+//                game_type = "<span id=\"payout_modify_" + data.id + "\" class=\"payout_info_link teal\">" + settlement_type_string(data.settlement_type) + "</span>",
+//                
+//                row = new_row(table, -1, [
+//                    "<ul><li>" + title_link + "</li></ul>",
+//                    "<div class='field_label'>Game Type:</div>" + game_type,
+//                    "<div class='field_label'>Entry fee:</div>" + toBTC(data.cost_per_entry) + " BTC" + getFiatDisplay(data.cost_per_entry, "allow_inline"),
+//                    "<div class='field_label'>Start Date:</div>" + "<input type='text' id='" + entry_id + "_start_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+//                    "<div class='field_label'>End Date:</div>" + "<input type='text' id='" + entry_id + "_end_date' class='input_style chosen-select'  placeholder='mm/dd/yyyy' style='width:95px' readonly='true'>",
+//                    "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + data.algorithm + "' id='" + entry_id + "_algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='BARBELL'>BARBELL</option><option value='SAFE'>SAFE</option><option value='RANDOM'>RANDOM</option></select>",
+//                    "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' class='input_style' id='" + entry_id + "_number_rosters'/>",
+//                    "<div class='field_label'>Active:</div>" + "<input type='checkbox' id='" + entry_id + "_active'/>"
+//                ]);
+//                bind_payout_window(id("payout_modify_" + data.id), data.settlement_type, data.pay_table);
+//                
+//                var s_date = data.start_date;
+//                s_date = s_date.split("-");
+//                var s_date_to_show = s_date[1] + "/" + s_date[2] + "/" + s_date[0];
+//                
+//                var e_date = data.end_date;
+//                e_date = e_date.split("-");
+//                var e_date_to_show = e_date[1] + "/" + e_date[2] + "/" + e_date[0];
+//                
+//               
+//                id("number_rosters").value = data.num_rosters;
+//                id("number_rosters").placeholder = data.num_rosters;
+//                if(data.active)
+//                    id("active").checked = true;
+//                else
+//                    id("active").checked = false;
+//                
+//                activate_datepicker();
+//            }
+//        }
+//    }
+           
 </script>
+
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
