@@ -197,7 +197,7 @@
                 "<div class='field_label'>Algorithm:</div>" + "<select data-placeholder='" + algorithm + "' id='" + entry_id + "_algorithm_selector'  style='width:95px' class='input_style chosen-select dropdown'><option value='" + algorithm + "' selected>" + algorithm + "</option>" + other_algorithms + "</select>",
                 "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='" + num_rosters + "' class='input_style' id='" + entry_id + "_number_rosters' value='" + num_rosters + "'/>",
                 "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' id='" + entry_id + "_active' checked/>" : "<input type='checkbox' id='" + entry_id + "_active'/>"),
-                "<button type='button' class='text_button' style='width:60px !important; 'onclick='save_entry(" + entry_id + ")'>Modify</button><button type='button' class='text_button' style='width:60px !important; background-color: red;'onclick='delete_entry(" + entry_id + ")'>Delete</button>"
+                "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='save_entry(" + entry_id + ")'>Modify</button><button type='button' class='text_button' style='width:70px !important; margin: 5px; background-color: #ee070780;'onclick='delete_entry(" + entry_id + ")'>Delete</button>"
             ]);
             bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
 
