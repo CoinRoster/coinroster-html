@@ -40,7 +40,7 @@
                 new_row(pari_mutuel_table, row_count++, [
                     rank,
                     "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
-                    "<input type=\"number\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
+                    "<input type=\"number\" step=\"0.01\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
                 ]);
             } else {
                 new_row(pari_mutuel_table, row_count++, [
