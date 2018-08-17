@@ -1419,6 +1419,7 @@ function create_new_contest()
           table_values.push(desc);
         }
       }
+      console.log(table_values);
 
       if (table_error) {
         show_simple_modal("Please enter valid option descriptions");
@@ -1594,6 +1595,7 @@ options_input.onblur = function()
     $("#create_pari_mutuel_table").click();
   }
 
+/* ??? */
 fixed_odds.change = function()
   {
     options_input.blur();
