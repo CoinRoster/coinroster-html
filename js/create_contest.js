@@ -1412,9 +1412,10 @@ function create_new_contest()
       var table_error = false;
       
       for (i=1; i<table_rows;i++) {
-        if (id('fixed_odds').checked === true) {
+        if (id('fixed_odds').checked !== true) {
           var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
         } else {
+          if(i === table_rows - 1) break;
           desc = {
             description: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value,
             odds: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value
