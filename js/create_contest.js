@@ -1416,21 +1416,23 @@ function create_new_contest()
           var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
         } else {
           desc = {
-            
+            description: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value,
+            odds: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value
           }
         }
-        var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value);
+        // var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        // console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value);
         if (!desc) {
           table_error = true;
         } else {
           table_values.push(desc);
         }
       }
+      if (id('fixed_odds').checked === true) table_values['risk'] = id('risk').value;
       console.log(table_values);
 
       if (table_error) {
-        show_simple_modal("Please enter valid option descriptions");
+        show_simple_modal("Please enter valid option descriptions", () => {});
       } else {
         // Make the JSON call now that all validation has passed
         var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
