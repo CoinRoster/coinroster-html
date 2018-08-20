@@ -263,11 +263,11 @@
             "<div class='field_label'>Algorithm:</div>" + "<select style='width:115px' class='algorithm_selector input_style chosen-select dropdown'><option value='' selected>Select</option>" + other_algorithms + "</select>",
             "<div class='field_label'>Number of Rosters:</div>" + "<input type='number' style='font-family:FontAwesome, gotham_medium; width: 50px; placeholder='1' value='1' class='input_style num_rosters' id='new_" + entry_id + "_number_rosters'/>",
             "<div class='field_label'>Active:</div>" +(active ? "<input type='checkbox' class='active' id='new_" + entry_id + "_active' checked/>" : "<input type='checkbox' class='active' id='new_" + entry_id + "_active'/>"),
-            "<button type='button' class='text_button' style='width:70px !important; margin: 5px;' onclick='enter_entry(this, " + entry_id + ")'>Enter</button><button type='button' class='text_button' style='width:80px !important; margin: 5px; background-color: #ee070780;'onclick='remove_entry(this)'>Remove</button>"
+            "<button type='button' class='text_button' style='width:70px !important; margin: 5px;text-align:center;' onclick='enter_entry(this, " + entry_id + ")'>Enter</button><button type='button' class='text_button' style='width:80px !important; margin: 5px; background-color: #ee070780;'onclick='remove_entry(this)'>Remove</button>"
         ]);
         bind_payout_window(id("payout_" + entry_id), settlement_type, pay_table);
         activate_datepicker();
-        table.lastChild.lastChild.style.backgroundColor = "#224222bf";
+        table.lastChild.lastChild.scrollIntoView(true);       table.lastChild.lastChild.style.backgroundColor = "#224222bf";
         table.lastChild.lastChild.firstChild.style.backgroundColor = "#224222bf";
     }
     
