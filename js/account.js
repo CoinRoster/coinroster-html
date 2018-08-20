@@ -39,8 +39,8 @@
             if (id('fixed_odds').checked === true) {
                 new_row(pari_mutuel_table, row_count++, [
                     rank,
-                    "<input id=\"odds_" + i + "\" type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
-                    "<input type=\"number\" step=\"0.01\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
+                    "<input id=\"odds_" + i + "\" type=\"number\" step=\"0.01\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
                 ]);
                 $('#odds_' + i).onblur = () => {
                     let value = id('odds_' + i).value;
