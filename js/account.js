@@ -105,17 +105,6 @@
                         contest_type: contest_item.contest_type
                     };
 
-                    // var header = new_row(table, -1, [
-                    //     "Contest",
-                    //     "Created",
-                    //     "Created By",
-                    //     "Category",
-                    //     "Title"
-                    // ]);
-            
-                    // header[4].className = "right_nowrap";
-                    // header[5].className = "right_nowrap";
-
                     var row = new_row(table, row_count++, [
                         contest_id,
                         created_date,
