@@ -42,7 +42,8 @@
                     "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
                     "<input id=\"odds_" + i + "\" type=\"number\" step=\"0.01\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
                 ]);
-                $('#odds_' + i).onblur = () => {
+                let id = '#odds_' + i;
+                $(id).onblur = () => {
                     console.log(i);
                     let value = id('odds_' + i).value;
                     id('odds_' + i).value = value + ':1';
