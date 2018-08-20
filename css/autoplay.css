@@ -38,6 +38,10 @@
     #user_autoplay_entries tr:first-child { /* header */
         display: none;
     }
+    
+    #user_autoplay_entries li, #possible_contests li{
+        padding-bottom: 10px;
+    }
 
     #user_autoplay_entries td {
         display: block;
