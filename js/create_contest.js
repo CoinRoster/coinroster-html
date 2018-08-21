@@ -755,6 +755,7 @@ function create_contest_attempt(data, method)
         }
     });
    
+    console.log(call);
     if (call.status === "1" && data.private) 
     {
       show_simple_modal(
@@ -1452,7 +1453,7 @@ function create_new_contest()
           private
         };
 
-        if (id('fixed_odds').checked === true) json_obj['risk'] = id('risk').value;
+        if (id('fixed_odds').checked === true) json_obj.risk = id('risk').value;
 
         console.log(json_obj);
 
