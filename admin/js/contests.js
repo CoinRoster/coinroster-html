@@ -2055,6 +2055,8 @@
                     "Option Table",
                     "Rake",
                     "Cost Per Entry",
+                    "Registration Deadline",
+                    "Settlement Deadline",
                     "Action"
                 ]);
                 // style headers:
