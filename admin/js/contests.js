@@ -2014,7 +2014,7 @@
                     rake = contest_item.rake,
                     cost_per_entry = contest_item.cost_per_entry,
                     registration_deadline = contest_item.registration_deadline,
-                    settlement_deadline = contest_item.settlement_deadline,
+                    settlement_deadline = contest_item.settlement_deadline;
                     
                     var row = new_row(table, row_count++, [
                         contest_id,
