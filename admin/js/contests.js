@@ -2056,7 +2056,7 @@
                     "Rake",
                     "Cost Per Entry",
                     "Registration Deadline",
-                    "Settlement Deadline",
+                    // "Settlement Deadline",
                     "Action"
                 ]);
                 // style headers:
