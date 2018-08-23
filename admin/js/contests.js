@@ -2015,10 +2015,6 @@
                     cost_per_entry = contest_item.cost_per_entry,
                     registration_deadline = contest_item.registration_deadline,
                     settlement_deadline = contest_item.settlement_deadline,
-
-                    
-                    registration_string = new Date(registration_deadline).toString,
-                    settlement_string = new Date(settlement_deadline).toString;
                     
                     var row = new_row(table, row_count++, [
                         contest_id,
