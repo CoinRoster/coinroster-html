@@ -2055,7 +2055,7 @@
                     "Option Table",
                     "Rake",
                     "Cost Per Entry",
-                    "Registration Deadline",
+                    // "Registration Deadline",
                     // "Settlement Deadline",
                     "Action"
                 ]);
