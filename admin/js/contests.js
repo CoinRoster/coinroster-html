@@ -2028,8 +2028,8 @@
                         option_table,
                         rake,
                         cost_per_entry,
-                        new Date(registration_deadline).toDateString,
-                        new Date(settlement_deadline).toDateString,
+                        new Date(registration_deadline).toString,
+                        new Date(settlement_deadline).toString,
                         "<button onclick=\"approve_contest(" + contest_id + ")\">Approve Contest</button>" + 
                         "&nbsp;" +
                         "<button onclick=\"reject_contest(" + contest_id + ")\">Reject Contest</button>"
