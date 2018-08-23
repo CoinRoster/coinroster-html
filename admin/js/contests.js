@@ -2012,7 +2012,9 @@
                     settlement_type = contest_item.settlement_type,
                     option_table = contest_item.option_table,
                     rake = contest_item.rake,
-                    cost_per_entry = contest_item.cost_per_entry;
+                    cost_per_entry = contest_item.cost_per_entry,
+                    registration_deadline = contest_item.registration_deadline,
+                    settlement_deadline = contest_item.settlement_deadline;
                     
                     var row = new_row(table, row_count++, [
                         contest_id,
@@ -2026,6 +2028,8 @@
                         option_table,
                         rake,
                         cost_per_entry,
+                        new Date(registration_deadline),
+                        new Date(settlement_deadline),
                         "<button onclick=\"approve_contest(" + contest_id + ")\">Approve Contest</button>" + 
                         "&nbsp;" +
                         "<button onclick=\"reject_contest(" + contest_id + ")\">Reject Contest</button>"
