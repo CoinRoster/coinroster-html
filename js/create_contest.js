@@ -1453,7 +1453,9 @@ function create_new_contest()
           private
         };
 
-        if (id('fixed_odds').checked === true) json_obj.risk = Number(id('risk').value).toFixed(8);
+        if (id('fixed_odds').checked === true) {
+          json_obj.risk = Number(id('risk').value);
+        }
 
         console.log(json_obj);
 

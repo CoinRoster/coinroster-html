@@ -40,7 +40,7 @@
                 new_row(pari_mutuel_table, row_count++, [
                     rank,
                     "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
-                    "<input id=\"odds_" + i + "\" type=\"number\" step=\"0.01\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
+                    "<input id=\"odds_" + i + "\" type=\"number\" step=\"1\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
                 ]);
                 let id = '#odds_' + i;
                 $(id).onblur = () => {
@@ -57,7 +57,7 @@
         }
         if (id('fixed_odds').checked === true) new_row(pari_mutuel_table, row_count++, [
             null,
-            "<input id=\"risk\" type=\"number\" step=\"0.000001\"class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Risk\">",        
+            "<input id=\"risk\" type=\"number\" step=\"0.00001\"class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Risk\">",        
         ]);
             
         var header = new_row(pari_mutuel_table, 0, [
