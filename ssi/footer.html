@@ -45,16 +45,11 @@
             }
         });
     } 
-
-/*     var ref = get_url_param(ref, url);
-    if (ref !== null || ref !== undefined || ref !== "") {
-        // var call = api({
-        //     method: "LogAffiliate",
-        //     args: {
-        //         affiliate: affiliate
-        //     }
-        // });
-        
-    } */
+    
+    var ref = params['ref'];
+    if(ref !== undefined && get_cookie('referrer_username') === undefined){
+        console.log(ref);
+        set_cookie('referrer_username', ref);
+    }
 
 </script>

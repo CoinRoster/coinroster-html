@@ -148,7 +148,12 @@
         username = id("username").value,
         password = id("password").value,
         promo_code = "";
-
+            
+        var referrer_username = get_cookie("referrer_username");
+        if(typeof referrer_username !== undefined){
+            console.log(referrer_username);
+        }
+            
         if (username === "")
             {
             set_auth_message("username_label", "Enter a username", "orange");
