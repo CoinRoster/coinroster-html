@@ -167,31 +167,17 @@
             }
             
         var method;
-        
-        if (referrer_username !== undefined) {
-            method = {
-                method: "CreateUser",
-                args: {
-                    email_address: email_address,
-                    username: username,
-                    password: password,
-                    referral_key: window.referral_key,
-                    promo_code: promo_code,
-                    referrer_username: referrer_username
-                }
-            }
-        } else {
-            method = {
-                method: "CreateUser",
-                args: {
-                    email_address: email_address,
-                    username: username,
-                    password: password,
-                    referral_key: window.referral_key,
-                    promo_code: promo_code
-                }
+        method = {
+            method: "CreateUser",
+            args: {
+                email_address: email_address,
+                username: username,
+                password: password,
+                referral_key: window.referral_key,
+                promo_code: promo_code
             }
         }
+        
         api(method, function(call)
             {
             if (call.status === "1") {
