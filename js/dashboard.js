@@ -25,11 +25,9 @@ function setupDashboard(index){
     var news_tab = document.getElementsByClassName("newsfeed")[index];
     var stats_tab = document.getElementsByClassName("stats_table")[index];
     twitter_class = "twitter-widget-" + index;
-    console.log(twitter_class);
     var doc = document.getElementById(twitter_class).contentWindow.document;
 
     news_button.onclick = function() {
-        console.log("news tab clicked");
        news_tab.style.display = "block";
        stats_tab.style.display = "none";
        setTimeout(function() {
@@ -37,7 +35,6 @@ function setupDashboard(index){
        }, 100);
     };
     stats_button.onclick = function() {
-        console.log("stats tab clicked");
        news_tab.style.display = "none";
        stats_tab.style.display = "block";
     };
