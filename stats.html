@@ -232,7 +232,8 @@
         if (call.status === "1") return call.stats;
         else return null;
     }
-    document.getElementById("stats_info").innerHTML = get_site_stats();
+    var stats = get_site_stats()
+    document.getElementById("stats_info").innerHTML = stats;
     
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
