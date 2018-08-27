@@ -136,7 +136,7 @@
         email_address = "",
         username = id("username").value,
         password = id("password").value,
-        promo_code = "",       
+        promo_code = "";       
             
         if (username === "")
             {
