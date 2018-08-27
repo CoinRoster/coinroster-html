@@ -55,8 +55,8 @@
         var 
 
         search_variable = location.search.split("?")[1];
-
-        if (typeof search_variable === "undefined") 
+        
+        if (typeof search_variable === "undefined" || search_variable.includes("=") !== -1 ) 
             {
             window.referral_key = "";
             id("email_address").onkeyup = function()
@@ -68,7 +68,7 @@
                 check_email();
                 };
             }
-        else 
+        else
             {
             destroy("email_input_container");
             destroy("promo_code_container");
