@@ -136,9 +136,7 @@
         email_address = "",
         username = id("username").value,
         password = id("password").value,
-        promo_code = "",
-        referrer_username = get_cookie("referrer_username");
-       
+        promo_code = "",       
             
         if (username === "")
             {
