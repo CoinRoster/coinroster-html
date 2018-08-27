@@ -132,27 +132,13 @@
         var
 
         target = null,
-        referrer = null,
-        hash = location.hash.slice(1);
-        
-        if (hash.indexOf("redirect") !== -1)
-            {
-            target = hash.split("=")[1];
-            if (typeof target !== "undefined") referrer = get_url_param('ref', decodeURIComponent(target));
-            }
-
-        var 
-        
         referral_key = window.referral_key,
         email_address = "",
         username = id("username").value,
         password = id("password").value,
-        promo_code = "";
-            
-        var referrer_username = get_cookie("referrer_username");
-        if(typeof referrer_username !== undefined){
-            console.log(referrer_username);
-        }
+        promo_code = "",
+        referrer_username = get_cookie("referrer_username");
+       
             
         if (username === "")
             {
@@ -182,7 +168,7 @@
             
         var method;
         
-        if (referrer !== null) {
+        if (referrer_username !== undefined) {
             method = {
                 method: "CreateUser",
                 args: {
@@ -191,7 +177,7 @@
                     password: password,
                     referral_key: window.referral_key,
                     promo_code: promo_code,
-                    referrer: referrer
+                    referrer_username: referrer_username
                 }
             }
         } else {

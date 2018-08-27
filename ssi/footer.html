@@ -29,7 +29,7 @@
 <!--<script type="text/javascript" src="/js/setup_lobby.js"></script>-->
 
 <script>
-   var regex = /[?&]([^=#]+)=([^&#]*)/g,
+    var regex = /[?&]([^=#]+)=([^&#]*)/g,
     url = window.location.href,
     params = {},
     match;
@@ -48,7 +48,6 @@
     
     var ref = params['ref'];
     if(ref !== undefined && get_cookie('referrer_username') === undefined){
-        console.log(ref);
         set_cookie('referrer_username', ref);
     }
 

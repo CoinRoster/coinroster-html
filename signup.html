@@ -97,6 +97,20 @@
             };
         })();
 
+    var regex = /[?&]([^=#]+)=([^&#]*)/g,
+    url = window.location.href,
+    params = {},
+    match;
+    while(match = regex.exec(url)) {
+        params[match[1]] = match[2];
+    }
+    var ref = params['ref'];
+    console.log(ref);
+    if(ref !== undefined && get_cookie('referrer_username') === undefined){
+        set_cookie('referrer_username', ref);
+    }
+
+    
 </script>
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
