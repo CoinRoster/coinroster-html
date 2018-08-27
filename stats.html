@@ -158,7 +158,10 @@
             </h3>
         </div>
         <div class="table_body_container transaction_table_body">
-            <div id="transaction_report_table"></div>
+            <div id="transaction_report_table">
+                <h1>stats</h1>
+                <p id="stats_info"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -218,6 +221,19 @@
         
     } */
 
+</script>
+<script>
+    function get_site_stats(){
+        var call = api({
+            method: "GetSiteStats",
+            args: {}
+        });
+
+        if (call.status === "1") return call.stats;
+        else return null;
+    }
+    document.getElementById("stats_info").innerHTML = get_site_stats();
+    
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!-- SSI: google_analytics.html -->
