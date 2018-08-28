@@ -23,23 +23,16 @@
     // TRANSACTION REPORT
     function transaction_report()
         {
-        var 
-        start_date_ms = 0, 
-        end_date_ms = 9999999999999;
         api({
-            method: "TransactionReport",
-            args: {
-                start_date_ms: start_date_ms,
-                end_date_ms: end_date_ms,
-                request_source: "account_panel"
-            }
+            method: "GetSiteStats",
+            args: {}
         }, function(call)
             {
             if (call.status === "1") 
                 {
                 var
-                transaction_report_array = call.transaction_report,
-                number_of_transactions = transaction_report_array.length;
+                transaction_report_array = call.stats,
+                number_of_transactions = transaction_report_array[0].length;
                 function new_row(table, row_index, data)
                     {
                     var row = table.insertRow(row_index),
@@ -50,12 +43,19 @@
                         cell.innerHTML = data[i];
                         array.push(cell);
                         }
-                    array[1].style.textAlign = "right";
-                    array[4].style.textAlign = "right";
                     return array;
                     }
                 var table = new_table("transaction_report_table"),
                 row_count = 0;
+                var stat_type = "num_users",
+                    number = transaction_report_array.num_users;
+            
+                var row = new_row(table, row_count++, [
+                            stat_type,
+                            number
+                        ]);
+                
+                /*
                 if (number_of_transactions > 0)
                     {
                     // create rows:
@@ -99,8 +99,8 @@
                                 })(memo);
                             }
                         }
-                    }
-                else id("transaction_report_table").innerHTML = "No transactions found";
+                    }*/
+                //else id("transaction_report_table").innerHTML = "No transactions found";
                 }
             });
         }
