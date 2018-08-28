@@ -725,7 +725,7 @@
             implied_odds = 0,
             outcome = option_item.outcome;
             
-            if(option_item.has("odds")) implied_odds = option_item.odds;    
+            if(option_item.hasOwnProperty("odds")) implied_odds = option_item.odds;    
             else if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
             else if (contest_status === 1) implied_odds = divide(wager_grand_total, cost_per_entry, 2);
             else implied_odds = 0;
