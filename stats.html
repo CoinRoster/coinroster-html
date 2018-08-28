@@ -12,9 +12,7 @@
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
         <div class="table_body_container transaction_table_body">
-            <div id="transaction_report_table">
-                <h1 id="stat_info"></h1>
-            </div>
+            <div id="transaction_report_table"></div>
         </div>
     </div>
 </div>
@@ -33,16 +31,35 @@
             else 
                 return null;
         }
-            stats = get_site_stats();
-            document.getElementById("stat_info").innerHTML = "num_users" + stats.num_users;
-            
+            stats = get_site_stats();           
             var table = new_table("transaction_report_table");
-            var row = table.insertRow(0);
-            var stat_type = row.insertCell(0);
-            stat_type.innerHTML = "num_users";
-            var value = row.insertCell(1);
-            value.innerHTML = stats.num_users;
-        
+
+                var row = table.insertRow(0);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Users";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.num_users;
+                
+                var row = table.insertRow(1);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Transactions";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.total_transactions;
+                
+                var row = table.insertRow(2);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Bets";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.num_bets;
+                
+                var row = table.insertRow(3);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Contests Settled";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.contests_settled;
+                
+                
+                 
         
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
