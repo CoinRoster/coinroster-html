@@ -12,7 +12,9 @@
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
         <div class="table_body_container transaction_table_body">
-            <div id="transaction_report_table"></div>
+            <div id="transaction_report_table">
+                <h1 id="stat_info"></h1>
+            </div>
         </div>
     </div>
 </div>
@@ -32,6 +34,7 @@
                 return null;
         }
             stats = get_site_stats();
+            document.getElementById("stat_info").innerHTML = "num_users" + stats.num_users;
             var table = document.getElementById("transaction_report_table");
             var row = table.insertRow(0);
             var stat_type = row.insertCell(0);
@@ -39,11 +42,6 @@
             var value = row.insertCell(1);
             value.innerHTML = stats.num_users;
         
-    // INIT FUNCTION
-    function init()
-        {
-        get_site_stats();
-        }
         
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
