@@ -31,8 +31,8 @@
         row_count = 0,
         number_of_options = +id("number_of_options").value;
 
-        if (isNaN(number_of_options) || number_of_options < 2) return alert("There must be 2 or more options");
-        else if (number_of_options > 20) return alert("There can be up to 20 options");
+        if (isNaN(number_of_options) || number_of_options < 2) show_simple_modal("There must be 2 or more options");
+        else if (number_of_options > 20) show_simple_modal("There can be up to 20 options");
 
         for (var i=0; i < number_of_options; i++) {
             var rank = i + 1;
