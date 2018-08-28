@@ -35,7 +35,8 @@
         }
             stats = get_site_stats();
             document.getElementById("stat_info").innerHTML = "num_users" + stats.num_users;
-            var table = document.getElementById("transaction_report_table");
+            
+            var table = new_table("transaction_report_table");
             var row = table.insertRow(0);
             var stat_type = row.insertCell(0);
             stat_type.innerHTML = "num_users";
