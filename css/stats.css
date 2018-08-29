@@ -48,7 +48,7 @@
         }
         #site_stats_table td:first-child { /* trans no. */
             float: left;
-            margin-left: -6%;
+            margin-left: -3%;
             margin-right: 100%;
         }
         #site_stats_table td:nth-child(3) { /* date */
@@ -79,6 +79,12 @@
         #site_stats_table td {
             font-size: 11px !important;
         }
+        #site_stats_table td:first-child { /* trans no. */
+            float: left;
+            margin-left: -6%;
+            margin-right: 100%;
+        }
+
         #site_stats_table td:nth-child(3) { /* date */
             font-size: 10px !important;
         }
