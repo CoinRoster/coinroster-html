@@ -18,97 +18,48 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript">
-     
-    window.nav_text = "MY ACCOUNT";
-    // TRANSACTION REPORT
-    function transaction_report()
+
+    function get_site_stats()
         {
-        var 
-        start_date_ms = 0, 
-        end_date_ms = 9999999999999;
-        api({
-            method: "TransactionReport",
-            args: {
-                start_date_ms: start_date_ms,
-                end_date_ms: end_date_ms,
-                request_source: "account_panel"
-            }
-        }, function(call)
-            {
-            if (call.status === "1") 
-                {
-                var
-                transaction_report_array = call.transaction_report,
-                number_of_transactions = transaction_report_array.length;
-                function new_row(table, row_index, data)
-                    {
-                    var row = table.insertRow(row_index),
-                    array = [row];
-                    for (var i=0; i<data.length; i++)
-                        {
-                        var cell = row.insertCell(i); 
-                        cell.innerHTML = data[i];
-                        array.push(cell);
-                        }
-                    array[1].style.textAlign = "right";
-                    array[4].style.textAlign = "right";
-                    return array;
-                    }
-                var table = new_table("transaction_report_table"),
-                row_count = 0;
-                if (number_of_transactions > 0)
-                    {
-                    // create rows:
-                    for (var i=number_of_transactions-1; i>=0; i--)
-                        {
-                        var transaction_item = transaction_report_array[i],
-                        transaction_id = transaction_item.transaction_id,
-                        created = transaction_item.created,
-                        trans_type = transaction_item.trans_type,
-                        amount = transaction_item.amount,
-                        from_currency = transaction_item.from_currency,
-                        memo = transaction_item.memo,
-                        memo_link = "<a class=\"memo_link teal\">Memo</a>",
-                        pending_flag = transaction_item.pending_flag,
-                        created_date = dateconv_ms_to_string(created),
-                        created_time = dateconv_ms_to_time(created);
-                        //if (pending_flag === "1") trans_type += " (pending)";
-                        
-                        if (memo === "") memo_link = "";
-                        
-                        if (from_currency === "RC") from_currency = "RC&nbsp";
-                        
-                        var row = new_row(table, row_count++, [
-                            "#" + transaction_id,
-                            trans_type,
-                            //"<ul class=\"right_left\"><li>" + "#" + transaction_id + "</li><li>" + trans_type + "</li></ul>",
-                            created_date + " at " + created_time,
-                            "<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
-                            getFiatDisplay(amount, "allow_inline"),
-                            memo_link
-                        ]);
-                                         
-                        if (memo !== "")
-                            {
-                            row[6].onclick = (function(memo)
-                                {
-                                return function()
-                                    {
-                                    show_simple_modal(memo, "good", null);
-                                    }
-                                })(memo);
-                            }
-                        }
-                    }
-                else id("transaction_report_table").innerHTML = "No transactions found";
-                }
+            var call = api({
+                method: "GetSiteStats",
+                args: {}
             });
+
+            if (call.status === "1") 
+                return call.stats;
+            else 
+                return null;
         }
-    // INIT FUNCTION
-    function init()
-        {
-        transaction_report();
-        }
+            stats = get_site_stats();           
+            var table = new_table("transaction_report_table");
+
+                var row = table.insertRow(0);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Users";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.num_users;
+                
+                var row = table.insertRow(1);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Transactions";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.total_transactions;
+                
+                var row = table.insertRow(2);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Bets";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.num_bets;
+                
+                var row = table.insertRow(3);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = "Contests Settled";               
+                var value = row.insertCell(1);
+                value.innerHTML = stats.contests_settled;
+                
+                
+                 
         
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
