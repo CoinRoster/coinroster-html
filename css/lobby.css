@@ -348,7 +348,6 @@
         .contest_detail_table td:first-child {
             padding-right: 0;
             width: 160px;
-            white-space: nowrap;
         }
     }
     .contest_detail_table .payout_info_link {
