@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>CoinRoster | Transaction History</title>
+    <title>CoinRoster | Site Stats</title>
     <!--#include virtual="/ssi/head.html" -->
     <link rel="stylesheet" type="text/css" href="/css/account.css">
     <script type="text/javascript" src="/js/account.js"></script>
@@ -51,20 +51,12 @@
                     name = stat.name,
                     value = stat.value,
                     from_currency = null;
-                                        
-                    var
-                    btc = false,
-                    rc = false, 
-                    number = false;
+                    var number = false;
                         
-                    if(name.includes("BTC")){
-                        btc = true;
+                    if(name.includes("BTC"))
                         from_currency = "BTC";
-                    }
-                    else if(name.includes("RC")){
-                        rc = true;
+                    else if(name.includes("RC"))
                         from_currency = "RC";
-                    }
                     else
                         number = true;
 
@@ -81,11 +73,9 @@
         };
     
     // INIT FUNCTION
-
-    function init()
-        {
+    function init(){
         get_site_stats();
-        }               
+    }               
        
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
