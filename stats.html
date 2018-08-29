@@ -43,12 +43,18 @@
             } 
             
 */            
-            
-     function transaction_report()
+    function transaction_report()
         {
+        var 
+        start_date_ms = 0, 
+        end_date_ms = 9999999999999;
         api({
             method: "GetSiteStats",
-            args: {}
+            args: {
+                start_date_ms: start_date_ms,
+                end_date_ms: end_date_ms,
+                request_source: "account_panel"
+            }
         }, function(call)
             {
             if (call.status === "1") 
@@ -78,18 +84,25 @@
                     for (var i=number_of_transactions-1; i>=0; i--)
                         {
                         var transaction_item = transaction_report_array[i],
-                        stat_name = transaction_item.name,
-                        value = transaction_item.value,
+                        transaction_id = transaction_item.name,
+                        created = transaction_item.value;
                         //trans_type = transaction_item.trans_type,
                         //amount = transaction_item.amount,
                         //from_currency = transaction_item.from_currency,
+                        //memo = transaction_item.memo,
+                        //memo_link = "<a class=\"memo_link teal\">Memo</a>",
+                        //pending_flag = transaction_item.pending_flag,
+                        //created_date = dateconv_ms_to_string(created),
+                        //created_time = dateconv_ms_to_time(created);
                         //if (pending_flag === "1") trans_type += " (pending)";
-                                              
+                        
+                        //if (memo === "") memo_link = "";
+                        
                         //if (from_currency === "RC") from_currency = "RC&nbsp";
                         
                         var row = new_row(table, row_count++, [
-                            stat_name,
-                            value
+                            "#" + transaction_id,
+                            created
                             //"<ul class=\"right_left\"><li>" + "#" + transaction_id + "</li><li>" + trans_type + "</li></ul>",
                             //created_date + " at " + created_time,
                             //"<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
@@ -97,15 +110,28 @@
                             //memo_link
                         ]);
                                          
-
+                        /*if (memo !== "")
+                            {
+                            row[6].onclick = (function(memo)
+                                {
+                                return function()
+                                    {
+                                    show_simple_modal(memo, "good", null);
+                                    }
+                                })(memo);
+                            }*/
                         }
                     }
                 //else id("transaction_report_table").innerHTML = "No transactions found";
                 }
             });
         }
+    // INIT FUNCTION
+    function init()
+        {
         transaction_report();
-
+        }
+            
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
