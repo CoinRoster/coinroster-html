@@ -34,33 +34,13 @@
             stats = get_site_stats();           
             var table = new_table("transaction_report_table");
 
-                var row = table.insertRow(0);
+            for(var i = 0;i < stats.length;i++){
+                var row = table.insertRow(i);
                 var stat_type = row.insertCell(0);
-                stat_type.innerHTML = "Users";               
+                stat_type.innerHTML = stats[i].name;
                 var value = row.insertCell(1);
-                value.innerHTML = stats.num_users;
-                
-                var row = table.insertRow(1);
-                var stat_type = row.insertCell(0);
-                stat_type.innerHTML = "Transactions";               
-                var value = row.insertCell(1);
-                value.innerHTML = stats.total_transactions;
-                
-                var row = table.insertRow(2);
-                var stat_type = row.insertCell(0);
-                stat_type.innerHTML = "Bets";               
-                var value = row.insertCell(1);
-                value.innerHTML = stats.num_bets;
-                
-                var row = table.insertRow(3);
-                var stat_type = row.insertCell(0);
-                stat_type.innerHTML = "Contests Settled";               
-                var value = row.insertCell(1);
-                value.innerHTML = stats.contests_settled;
-                
-                
-                 
-        
+                value.innerHTML = stats[i].value;
+            }                
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
