@@ -18,8 +18,13 @@
 </div>
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript">
+<<<<<<< HEAD
 
    function site_stats()
+=======
+/*
+    function get_site_stats()
+>>>>>>> 3e095f3abbd9f28021530b9f1e4c336d9e0e6160
         {
         api({
             method: "GetSiteStats",
@@ -81,12 +86,87 @@
             });
         }
 
+<<<<<<< HEAD
     // INIT FUNCTION
 
     function init()
         {
         site_stats();
         }               
+=======
+            for(var i = 0;i < stats.length;i++){
+                var row = table.insertRow(i);
+                var stat_type = row.insertCell(0);
+                stat_type.innerHTML = stats[i].name;
+                var value = row.insertCell(1);
+                value.innerHTML = stats[i].value;
+            } 
+            
+*/            
+            
+     function transaction_report()
+        {
+        api({
+            method: "GetSiteStats",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var
+                transaction_report_array = call.stats,
+                number_of_transactions = transaction_report_array.length;
+                function new_row(table, row_index, data)
+                    {
+                    var row = table.insertRow(row_index),
+                    array = [row];
+                    for (var i=0; i<data.length; i++)
+                        {
+                        var cell = row.insertCell(i); 
+                        cell.innerHTML = data[i];
+                        array.push(cell);
+                        }
+                    array[1].style.textAlign = "right";
+                    array[4].style.textAlign = "right";
+                    return array;
+                    }
+                var table = new_table("transaction_report_table"),
+                row_count = 0;
+                if (number_of_transactions > 0)
+                    {
+                    // create rows:
+                    for (var i=number_of_transactions-1; i>=0; i--)
+                        {
+                        var transaction_item = transaction_report_array[i],
+                        stat_name = transaction_item.name,
+                        value = transaction_item.value,
+                        //trans_type = transaction_item.trans_type,
+                        //amount = transaction_item.amount,
+                        //from_currency = transaction_item.from_currency,
+                        //if (pending_flag === "1") trans_type += " (pending)";
+                                              
+                        //if (from_currency === "RC") from_currency = "RC&nbsp";
+                        
+                        var row = new_row(table, row_count++, [
+                            stat_name,
+                            value
+                            //"<ul class=\"right_left\"><li>" + "#" + transaction_id + "</li><li>" + trans_type + "</li></ul>",
+                            //created_date + " at " + created_time,
+                            //"<ul class=\"right_left\"><li>" + amount + "</li><li>" + from_currency + "</li></ul>",
+                            //getFiatDisplay(amount, "allow_inline"),
+                            //memo_link
+                        ]);
+                                         
+
+                        }
+                    }
+                //else id("transaction_report_table").innerHTML = "No transactions found";
+                }
+            });
+        }
+        transaction_report();
+
+>>>>>>> 3e095f3abbd9f28021530b9f1e4c336d9e0e6160
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
