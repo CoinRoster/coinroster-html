@@ -627,9 +627,8 @@ prop_golf_over_multistat_overall.onchange = function()
           li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
           li.id = player.player_id;
           selected_players_list.appendChild(li);
-          var span = id(player.player_id).getElementsByClassName("span")[0];
-          console.log(span);
-          span.onclick = function() {
+          var li = id(player.player_id);
+          li.onclick = function() {
             console.log("removing!");
             remove_player(player);
           }
