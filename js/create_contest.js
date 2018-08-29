@@ -624,7 +624,7 @@ prop_golf_over_multistat_overall.onchange = function()
 
         selected_players.forEach((player) => {
           var li = document.createElement("li");
-          li.innerHTML = player.name + `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 10px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">`;
+          li.innerHTML = fixed_odds ? player.name + `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : player.name;
           li.id = player.player_id;
           li.onclick = function() {
             remove_player(player);
