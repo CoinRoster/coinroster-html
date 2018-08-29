@@ -598,18 +598,23 @@ prop_golf_over_multistat_overall.onchange = function()
      function populate_match_play_players()
       {
         var players_to_populate = players;
+        
+        var fixed_odds = false;
+        if(id("baseball_match_fixed_odds").checked)
+            fixed_odds = true;
+          
         var player_select = document.getElementById("baseball_match_player_list");
         var selected_players_list = document.getElementById("baseball_match_selected_players_list");
         player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
-
+          
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
 
         players_to_populate.forEach((player) => {
           var li = document.createElement("li");
-          li.innerHTML = player.name;
+          li.innerHTML = player.name + `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 10px; placeholder=" Odds'="" class="input_style" id="` + player.player_id + `_odds" value="">`
           li.value = player.player_id;
           li.onclick = function() {
             add_player(player);
