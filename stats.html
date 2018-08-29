@@ -19,28 +19,74 @@
 <!--#include virtual="/ssi/footer.html" -->
 <script type="text/javascript">
 
-    function get_site_stats()
+   function site_stats()
         {
-            var call = api({
-                method: "GetSiteStats",
-                args: {}
-            });
-
+        api({
+            method: "GetSiteStats",
+            args: {}
+        }, function(call)
+            {
             if (call.status === "1") 
-                return call.stats;
-            else 
-                return null;
-        }
-            stats = get_site_stats();           
-            var table = new_table("transaction_report_table");
+                {
+                var
+                stats = call.stats,
+                function new_row(table, row_index, data)
+                    {
+                    var row = table.insertRow(row_index),
+                    array = [row];
+                    for (var i=0; i<data.length; i++)
+                        {
+                        var cell = row.insertCell(i); 
+                        cell.innerHTML = data[i];
+                        array.push(cell);
+                        }
 
-            for(var i = 0;i < stats.length;i++){
-                var row = table.insertRow(i);
-                var stat_type = row.insertCell(0);
-                stat_type.innerHTML = stats[i].name;
-                var value = row.insertCell(1);
-                value.innerHTML = stats[i].value;
-            }                
+//                    array[1].style.textAlign = "right";
+//                    array[4].style.textAlign = "right";
+
+                    return array;
+                    }
+
+                var table = new_table("transaction_report_table"),
+                for (var i=0; i < stats.length; i++)
+                    {
+                    var stat = stats[i],
+                    name = stat.name,
+                    value = stats.value;
+                    from_currency = null;
+                        
+                    var
+                    btc = false,
+                    rc = false, 
+                    number = false;
+                        
+                    if(name.includes("BTC")){
+                        btc = true;
+                        from_currency = "BTC";
+                    }
+                    else if(name.includes("RC")){
+                        rc = true;
+                        from_currency = "RC";
+                    }
+                    else
+                        number = true;
+
+                    var row = new_row(table, i, [
+                        name,
+                        number ? "<ul class=\"right_left\"><li>" + value + "</li>" : "<ul class=\"right_left\"><li>" + value + "</li><li>" + from_currency + "</li></ul>",
+                        getFiatDisplay(amount, "allow_inline")
+                        
+                    ]);
+                   
+            });
+        }
+
+    // INIT FUNCTION
+
+    function init()
+        {
+        site_stats();
+        }               
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
