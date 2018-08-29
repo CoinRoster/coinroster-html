@@ -1306,7 +1306,7 @@ function create_new_contest()
           selected_players.forEach((player) => {
             p = {}
             if(id("baseball_match_fixed_odds").checked){
-                var id_to_get = player.player_id + "_odds";
+                var id_to_get = player.id + "_odds";
                 console.log(id_to_get);
                 odds = id(id_to_get).value;
                 console.log(odds);
@@ -1316,7 +1316,7 @@ function create_new_contest()
                 }
                 else{
                     odds = Number(odds); 
-                    p['id'] = player.player_id
+                    p['id'] = player.id
                     p['odds'] = odds;
                     players.push(p);
                 }
