@@ -592,7 +592,7 @@ prop_golf_over_multistat_overall.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        //populate_match_play_players();
+        populate_match_play_players();
      }
 
      function populate_match_play_players()
