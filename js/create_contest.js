@@ -592,7 +592,7 @@ prop_golf_over_multistat_overall.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        populate_match_play_players();
+        //populate_match_play_players();
      }
 
      function populate_match_play_players()
@@ -1307,9 +1307,7 @@ function create_new_contest()
             p = {}
             if(id("baseball_match_fixed_odds").checked){
                 var id_to_get = player.id + "_odds";
-                console.log(id_to_get);
                 odds = id(id_to_get).value;
-                console.log(odds);
                 if(isNaN(odds) || Number(odds) < 1){
                     show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
                     add_error("prop_baseball_match_play_odds");
@@ -1319,11 +1317,13 @@ function create_new_contest()
                     p['id'] = player.id
                     p['odds'] = odds;
                     players.push(p);
-                }
-                
+                }  
             }
-            else
-                players.push(player.id);
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
+            
           });
           prop_data.players = players;
         }
