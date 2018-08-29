@@ -47,9 +47,7 @@
             padding-left: 1px !important;
         }
         #site_stats_table td:first-child { /* trans no. */
-            float: left;
-            margin-left: -3%;
-            margin-right: 100%;
+            display: table;
         }
         #site_stats_table td:nth-child(3) { /* date */
             display: block;
@@ -67,7 +65,7 @@
         #site_stats_table td:last-child  { /* memo */
             position: absolute;
             right: 20px;
-            top: 29px;
+            top: 24px;
         }
         
         #site_stats_table .memo_link {
@@ -79,12 +77,6 @@
         #site_stats_table td {
             font-size: 11px !important;
         }
-        #site_stats_table td:first-child { /* trans no. */
-            float: left;
-            margin-left: -6%;
-            margin-right: 100%;
-        }
-
         #site_stats_table td:nth-child(3) { /* date */
             font-size: 10px !important;
         }
