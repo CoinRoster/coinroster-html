@@ -311,6 +311,7 @@
                     option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
                     contest_status = call.contest_status,
+                    amount_left = call.amount_left,
                     scores_updated = call.scores_updated;
             
                     var max_users_string = "";
@@ -320,6 +321,11 @@
                     
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
+                        
+                    if(amount_left >= 0){
+                        entries_per_user_string = amount_left;
+                        id("entries_label").innerHTML = "Amount Left to Wager";
+                    }
                     
                     var contest_open = contest_status === 1;
                     
