@@ -324,7 +324,6 @@
                         
                     if(amount_left >= 0){
                         entries_per_user_string = amount_left;
-                        id("entries_label").innerHTML = "Amount Left to Wager";
                     }
                     
                     var contest_open = contest_status === 1;
@@ -418,7 +417,11 @@
                         destroy("contest_second_hr");
                         show("pari_mutuel_second_hr");
                         
-                        id("entries_label").innerHTML = "Wagers:";
+                        
+                        if(amount_left < 0)
+                            id("entries_label").innerHTML = "Wagers:";
+                        else
+                            id("entries_label").innerHTML = "Amount Left to Wager:";
                           
                         var default_sort_scheme = "order";
                         selectByValue("option_order_selector", default_sort_scheme);
