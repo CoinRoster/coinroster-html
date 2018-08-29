@@ -1,0 +1,86 @@
+    #site_stats_table table {
+        width:100%;
+        border-collapse: collapse;
+    }
+  
+    #site_stats_table tr {
+        border-color: rgb(44,46,48);
+        border-style: solid;
+        border-width: 2px 0px;
+        background: rgb(55,56,57);
+    }
+    
+    #site_stats_table td {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    #site_stats_table td:first-child { /* trans no. */
+        white-space:nowrap
+    }
+    #site_stats_table td:nth-child(3) { /* date */
+        color: rgb(230,230,230);
+    }
+    #site_stats_table td:nth-child(5) { /* fiat value */
+        text-align: right;
+        white-space: nowrap;
+    }
+    #site_stats_table td:last-child { /* memo */
+        text-align: right;
+    }
+    @media only screen and (max-width: 994px) {
+        #site_stats_table td:first-child {
+            padding-left: 20px !important;
+        }
+    }
+    
+    @media only screen and (max-width: 767px) {    
+        #site_stats_table tr {
+            display: block;
+            position: relative;
+            border-bottom: 0 !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        #site_stats_table td {
+            display: inline-block;
+            padding-right: 1px !important;
+            padding-left: 1px !important;
+        }
+        #site_stats_table td:first-child { /* trans no. */
+            float: right;
+        }
+        #site_stats_table td:nth-child(3) { /* date */
+            display: block;
+            font-size: 11px;
+            padding-top: 0px !important;
+            padding-bottom: 8px !important;
+        }
+        #site_stats_table td:nth-child(4)  { /* btc value */
+            float: left;
+        }
+        #site_stats_table td:nth-child(5)  { /* fiat value */
+            display: block;
+            text-align: left;
+        }
+        #site_stats_table td:last-child  { /* memo */
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        
+        #site_stats_table .memo_link {
+            padding-right: 0 !important;
+        }
+    }
+    
+    @media only screen and (max-width: 500px) {
+        #site_stats_table td {
+            font-size: 11px !important;
+        }
+        #site_stats_table td:nth-child(3) { /* date */
+            font-size: 10px !important;
+        }
+    }
+
+    
+
