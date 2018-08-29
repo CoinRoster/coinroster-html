@@ -28,8 +28,7 @@
             {
             if (call.status === "1") 
                 {
-                var
-                stats = call.stats;
+                var stats = call.stats;
                     
                 function new_row(table, row_index, data)
                     {
@@ -42,22 +41,17 @@
                         array.push(cell);
                         }
 
-//                    array[1].style.textAlign = "right";
-//                    array[4].style.textAlign = "right";
-
                     return array;
                     }
 
                 var table = new_table("transaction_report_table");
                 for(i=0; i < stats.length; i++)
-                {
+                    {
                     var stat = stats[i],
                     name = stat.name,
                     value = stat.value,
                     from_currency = null;
-                    
-                    console.log(value);
-                    
+                                        
                     var
                     btc = false,
                     rc = false, 
@@ -83,7 +77,8 @@
                    
                     }
                 }
-        })};
+            })
+        };
     
     // INIT FUNCTION
 
@@ -91,8 +86,7 @@
         {
         get_site_stats();
         }               
-
-            
+       
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 <!--#include virtual="/ssi/google_analytics.html" -->
