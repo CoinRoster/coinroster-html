@@ -11,7 +11,7 @@
     }
     
     #site_stats_table td {
-        padding: 5px 10px;
+        padding: 10px 10px;
         font-size: 12px;
     }
     #site_stats_table td:first-child { /* trans no. */
@@ -40,6 +40,8 @@
             border-bottom: 0 !important;
             padding-left: 20px !important;
             padding-right: 20px !important;
+            padding-top: 5px;
+            min-height: 50px;
         }
         #site_stats_table td {
             display: inline-block;
@@ -65,7 +67,7 @@
         #site_stats_table td:last-child  { /* memo */
             position: absolute;
             right: 20px;
-            top: 24px;
+            top: 30px;
         }
         
         #site_stats_table .memo_link {
