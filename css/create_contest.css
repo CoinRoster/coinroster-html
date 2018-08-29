@@ -196,3 +196,6 @@
 .content_body {
     padding-left: 0px !important;
 }
+.pointer{
+    cursor: pointer;
+}
