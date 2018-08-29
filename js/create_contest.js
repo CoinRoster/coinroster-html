@@ -1306,8 +1306,11 @@ function create_new_contest()
           selected_players.forEach((player) => {
             p = {}
             if(id("baseball_match_fixed_odds").checked){
-                odds = id(player.player_id + "_odds").value;
-                if(isNaN(odds) || odds < 1){
+                var id_to_get = player.player_id + "_odds";
+                console.log(id_to_get);
+                odds = id(id_to_get).value;
+                console.log(odds);
+                if(isNaN(odds) || Number(odds) < 1){
                     show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
                     add_error("prop_baseball_match_play_odds");
                 }
