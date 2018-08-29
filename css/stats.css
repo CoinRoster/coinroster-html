@@ -84,5 +84,23 @@
         }
     }
 
+@media only screen and (min-width: 768px){
+    .right_left li:first-child {
+        display: table-cell;
+        font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
+        font-weight: bold;
+        padding-right: 20px;
+        width: 25px;
+        text-align:  right;
+    }
+    .right_left li:last-child {
+        display: table-cell;
+        font-family: "Inconsolata", "Lucida Console", Monaco, monospace;
+        font-weight: bold;
+        padding-right: 20px;
+        width: 25px;
+        text-align:  left;
+    }
+}
     
 
