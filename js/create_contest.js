@@ -1235,6 +1235,25 @@ function create_new_contest()
         } else {
           prop_data.when = round_tournament.toLowerCase();
         }
+          
+        if(id("golf_over_fixed_odds").checked){
+            over = id("prop_golf_over_odds").value;
+            under = id("prop_golf_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+            risk = id("golf_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            else
+                prop_data['risk'] = Number(risk);
+        }
 
         json_obj.prop_data = prop_data;
 
@@ -1373,11 +1392,14 @@ function create_new_contest()
             
           });
         prop_data.players = players;
-        risk = id("baseball_match_risk").value;
-        if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
-            show_simple_modal("Please ensure that the risk is valid", "bad", null);
-        else
-            prop_data['risk'] = Number(risk);
+        
+        if(id("baseball_match_fixed_odds").checked){        
+            risk = id("baseball_match_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            else
+                prop_data['risk'] = Number(risk);
+            }
         }
 
         json_obj.scoring_rules = scoring;
@@ -1681,7 +1703,7 @@ golf_over_under.onblur = function()
         value = Number(value) + 0.5;
       }
      }
-      id("golf_over_odds_label").innerHTML = "Over " + value;
+    id("golf_over_odds_label").innerHTML = "Over " + value;
     id("golf_under_odds_label").innerHTML = "Under " + value;
   }
 

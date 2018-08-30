@@ -348,7 +348,7 @@
                             </div>
                             <div class="prop_basketball_match_fixed_odds_check">
                                 <input type="checkbox" id="basketball_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('basketball')"/>
-                                <label for="fixed_odds">Fixed-Odds</label>
+                                <label for="basketball_match_fixed_odds">Fixed-Odds</label>
                             </div>
                             <div class="hidden" id="basketball_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Risk</span>
@@ -527,6 +527,20 @@
                                     <label class="dimmed prop_over_golf_tournament" for="prop_over_golf_tournament">Tournament</label>
                                 </div>
                             </div>
+                            <div class="prop_golf_over_under_odds_check">
+                                <input type="checkbox" id="golf_over_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_over_under_odds('golf')"/>
+                                <label for="golf_over_fixed_odds">Fixed-Odds</label>
+                            </div>
+                            <div id="prop_golf_over_under_odds" class="hidden prop_golf_over_under_odds">
+                                <div class="input_padding">
+                                    <span id="golf_over_odds_label" class="input_label">Over</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_golf_over_odds"/>
+                                    <span style="padding-top:5px;" id="golf_under_odds_label" class="input_label">Under</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_golf_under_odds"/>
+                                    <span style="padding-top:5px;" class="input_label">Risk</span>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="golf_over_under_risk"/>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="prop_golf_match_play hidden">
@@ -701,7 +715,7 @@
                             </div>
                             <div class="prop_baseball_match_fixed_odds_check">
                                 <input type="checkbox" id="baseball_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('baseball')"/>
-                                <label for="fixed_odds">Fixed-Odds</label>
+                                <label for="baseball_match_fixed_odds">Fixed-Odds</label>
                             </div>
                             <div class="hidden" id="baseball_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Risk</span>
