@@ -362,6 +362,13 @@
                                 <span class="input_label">Over/Under Value</span>
                                 <input type="text" class="input_style" placeholder="Over/under value" id="props_basketball_over_under_value"/>
                             </div>
+                            <div class="prop_basketball_over_under_players">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                </select>
+                            </div>
+                            
                             <div class="prop_basketball_scoring checkboxes input_padding">
                                 <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
                                 <div class="dimmed dynamic_checkbox_label">
@@ -406,14 +413,23 @@
                                     </label>
                                     <input type="text" class="checkbox_input" placeholder=" #" disabled id="props_basketball_over_turnovers"/>
                                 </div>
+                            </div> 
+                            
+                            <div class="prop_basketball_over_under_odds_check">
+                                <input type="checkbox" id="basketball_over_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_over_under_odds('basketball')"/>
+                                <label for="basketball_over_fixed_odds">Fixed-Odds</label>
                             </div>
-                            <div class="prop_basketball_over_under_players">
-                                <span class="input_label">Select Player </span>
-                                <select data-placeholder="Select" id="prop_basketball_over_under_player" class="input_style chosen-select dropdown">
-                                    <option value="" selected disabled hidden>Select</option>
-                                </select>
+                            <div id="prop_basketball_over_under_odds" class="hidden prop_basketball_over_under_odds">
+                                <div class="input_padding">
+                                    <span id="basketball_over_odds_label" class="input_label">Over</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_basketball_over_odds"/>
+                                    <span style="padding-top:5px;" id="basketball_under_odds_label" class="input_label">Under</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_basketball_under_odds"/>
+                                </div>
                             </div>
                         </div>
+                        
+                        
                         <div class="prop_golf_make_the_cut hidden input_padding">
                             <span class="input_label">Select Player </span>
                             <select data-placeholder="Select" id="prop_golf_make_the_cut_player" class="input_style chosen-select dropdown">
