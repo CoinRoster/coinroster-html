@@ -79,6 +79,46 @@ function toggle_over_under_odds(sport){
     }
 }
 
+function populate_match_play_players(sport)
+  {
+    var players_to_populate = players;
+       
+    var fixed_odds = false;
+    if(id(sport + "_match_fixed_odds").checked)
+        fixed_odds = true;
+      
+    var player_select = document.getElementById(sport + "_match_player_list");
+    var selected_players_list = document.getElementById(sport + "_match_selected_players_list");
+    player_select.innerHTML = "";
+    selected_players_list.innerHTML = "";
+
+    for (i = 0;i < selected_players.length; i++) {
+      players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
+    }      
+
+    players_to_populate.forEach((player) => {
+      var li = document.createElement("li");
+      li.innerHTML = player.name;
+      li.value = player.player_id;
+      li.onclick = function() {
+        add_player(player);
+      }
+      player_select.appendChild(li);
+    });
+
+    selected_players.forEach((player) => {
+      var li = document.createElement("li");
+      li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
+      li.id = player.player_id;
+      selected_players_list.appendChild(li);
+      li.getElementsByTagName("span")[0].onclick = function() {
+        remove_player(player);
+      }
+
+    });
+  }
+
+
 function toggle_make_cut_odds(sport){
     // fixed odds
     if(id(sport + "_make_cut_fixed_odds").checked){
@@ -94,13 +134,11 @@ function toggle_match_odds(sport){
     // fixed odds
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
-        populate_match_play_players();
-        
-        
+        populate_match_play_players(sport);
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
-        populate_match_play_players();
+        populate_match_play_players(sport);
     }
 }
 
@@ -406,7 +444,7 @@ prop_basketball_type_selector.onchange = function()
    function add_player(player) 
     {
         selected_players.push(player);
-        populate_match_play_players();
+        populate_match_play_players("basketball");
     }
 
     function remove_player(player)
@@ -414,42 +452,8 @@ prop_basketball_type_selector.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        populate_match_play_players();
+        populate_match_play_players("basketball");
      }
-
-    function populate_match_play_players()
-      {
-        var players_to_populate = players;
-        var player_select = document.getElementById("basketball_match_player_list");
-        var selected_players_list = document.getElementById("basketball_match_selected_players_list");
-        player_select.innerHTML = "";
-        selected_players_list.innerHTML = "";
-
-        for (i = 0;i < selected_players.length; i++) {
-          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
-        }      
-
-        players_to_populate.forEach((player) => {
-          var li = document.createElement("li");
-          li.innerHTML = player.name;
-          li.value = player.player_id;
-          li.onclick = function() {
-            add_player(player);
-          }
-          player_select.appendChild(li);
-        });
-
-        selected_players.forEach((player) => {
-          var li = document.createElement("li");
-          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
-          li.id = player.player_id;
-          selected_players_list.appendChild(li);
-          li.getElementsByTagName("span")[0].onclick = function() {
-            remove_player(player);
-          }
-          
-        });
-      }
 
     function populate_over_under_players()
       {
@@ -522,7 +526,7 @@ prop_golf_type_selector.onchange = function()
         li.innerHTML = player.name;
         li.value = player.player_id;
         li.onclick = function() {
-          add_player(player);
+          add_player(p layer);
         }
         match_players.appendChild(li);
       });
@@ -623,7 +627,7 @@ prop_golf_over_multistat_overall.onchange = function()
     function add_player(player) 
     {
         selected_players.push(player);
-        populate_match_play_players();
+        populate_match_play_players("baseball");
     }
 
     function remove_player(player)
@@ -631,47 +635,47 @@ prop_golf_over_multistat_overall.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        populate_match_play_players();
+        populate_match_play_players("baseball");
      }
 
-     function populate_match_play_players()
-      {
-        var players_to_populate = players;
-        
-        var fixed_odds = false;
-        if(id("baseball_match_fixed_odds").checked)
-            fixed_odds = true;
-          
-        var player_select = document.getElementById("baseball_match_player_list");
-        var selected_players_list = document.getElementById("baseball_match_selected_players_list");
-        player_select.innerHTML = "";
-        selected_players_list.innerHTML = "";
-          
-        for (i = 0;i < selected_players.length; i++) {
-          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
-        }      
-
-        players_to_populate.forEach((player) => {
-          var li = document.createElement("li");
-          li.innerHTML = player.name;
-          li.value = player.player_id;
-          li.onclick = function() {
-            add_player(player);
-          }
-          player_select.appendChild(li);
-        });
-
-        selected_players.forEach((player) => {
-          var li = document.createElement("li");
-          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
-          li.id = player.player_id;
-          selected_players_list.appendChild(li);
-          li.getElementsByTagName("span")[0].onclick = function() {
-            remove_player(player);
-          }
-          
-        });
-      }
+//     function populate_match_play_players()
+//      {
+//        var players_to_populate = players;
+//        
+//        var fixed_odds = false;
+//        if(id("baseball_match_fixed_odds").checked)
+//            fixed_odds = true;
+//          
+//        var player_select = document.getElementById("baseball_match_player_list");
+//        var selected_players_list = document.getElementById("baseball_match_selected_players_list");
+//        player_select.innerHTML = "";
+//        selected_players_list.innerHTML = "";
+//          
+//        for (i = 0;i < selected_players.length; i++) {
+//          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
+//        }      
+//
+//        players_to_populate.forEach((player) => {
+//          var li = document.createElement("li");
+//          li.innerHTML = player.name;
+//          li.value = player.player_id;
+//          li.onclick = function() {
+//            add_player(player);
+//          }
+//          player_select.appendChild(li);
+//        });
+//
+//        selected_players.forEach((player) => {
+//          var li = document.createElement("li");
+//          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
+//          li.id = player.player_id;
+//          selected_players_list.appendChild(li);
+//          li.getElementsByTagName("span")[0].onclick = function() {
+//            remove_player(player);
+//          }
+//          
+//        });
+//      }
 
       function populate_over_under_player()
        {
