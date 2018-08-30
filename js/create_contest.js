@@ -1502,7 +1502,7 @@ function create_new_contest()
             console.log(isNaN(risk));
             if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
                 show_simple_modal("Please ensure that the risk is valid", "bad", null);
-                submit_error.error = true;
+//                submit_error.error = true;
             }
             else{
                 prop_data['risk'] = Number(risk);
@@ -1512,7 +1512,7 @@ function create_new_contest()
             console.log(tie_odds);
             if (!tie_odds || isNaN(tie_odds) ){
                 show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-                submit_error.error = true;
+//                submit_error.error = true;
             }
             else{
                 prop_data['tie_odds'] = Number(tie_odds);
