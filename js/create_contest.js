@@ -1379,7 +1379,6 @@ function create_new_contest()
             under = id("prop_baseball_under_odds").value;
             if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
                 show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
-                add_error("prop_baseball_over_odds");
             }
             else{
                 over = Number(over);
