@@ -79,7 +79,7 @@ function toggle_over_under_odds(sport){
     }
 }
 
-function populate_match_play_players(sport, players)
+function populate_match_play_players(sport, players, selected_players)
   {
     var players_to_populate = players;
        
@@ -135,11 +135,11 @@ function toggle_match_odds(sport){
     players = get_all_players(sport.toUpperCase());
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
-        populate_match_play_players(sport, players);
+        populate_match_play_players(sport, players, []);
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
-        populate_match_play_players(sport, players);
+        populate_match_play_players(sport, players, []);
     }
 }
 
@@ -628,7 +628,7 @@ prop_golf_over_multistat_overall.onchange = function()
     function add_player(player) 
     {
         selected_players.push(player);
-        populate_match_play_players("baseball");
+        populate_match_play_players("baseball", selected_players);
     }
 
     function remove_player(player)
@@ -636,7 +636,7 @@ prop_golf_over_multistat_overall.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        populate_match_play_players("baseball");
+        populate_match_play_players("baseball", selected_players);
      }
 
 //     function populate_match_play_players()
@@ -695,7 +695,7 @@ prop_golf_over_multistat_overall.onchange = function()
         case "Match Play":
           show(prop_baseball_match_play[0]);
           hide(prop_baseball_over_under[0]);
-          populate_match_play_players();
+          populate_match_play_players("baseball", players, selected_players);
           break;
         case "Over/Under":
           show(prop_baseball_over_under[0]);
