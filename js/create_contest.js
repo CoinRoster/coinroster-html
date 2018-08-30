@@ -135,13 +135,9 @@ contest_type_selector.onchange = function()
     
     function populate_sports()
     {
-//      var basketball = avaliable_sports.BASKETBALL;
-//      var golf = avaliable_sports.GOLF_4;
-//      var baseball = avaliable_sports.BASEBALL;
-        
-      var basketball = true;
-      var golf = true;
-      var baseball = true;
+      var basketball = avaliable_sports.BASKETBALL;
+      var golf = avaliable_sports.GOLF_4;
+      var baseball = avaliable_sports.BASEBALL;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
@@ -340,8 +336,7 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
    
-//if(available_sports.GOLF_1)    
-  if (true) {
+if(available_sports.GOLF_1) {   
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
