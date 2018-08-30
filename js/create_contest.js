@@ -79,7 +79,7 @@ function toggle_over_under_odds(sport){
     }
 }
 
-function populate_match_play_players(sport)
+function populate_match_play_players(sport, players)
   {
     var players_to_populate = players;
        
@@ -132,13 +132,14 @@ function toggle_make_cut_odds(sport){
 
 function toggle_match_odds(sport){
     // fixed odds
+    players = get_all_players(sport.toUpperCase());
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
-        populate_match_play_players(sport);
+        populate_match_play_players(sport, players);
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
-        populate_match_play_players(sport);
+        populate_match_play_players(sport, players);
     }
 }
 
@@ -444,7 +445,7 @@ prop_basketball_type_selector.onchange = function()
    function add_player(player) 
     {
         selected_players.push(player);
-        populate_match_play_players("basketball");
+        populate_match_play_players("basketball", players);
     }
 
     function remove_player(player)
@@ -452,7 +453,7 @@ prop_basketball_type_selector.onchange = function()
         for (i = 0;i < selected_players.length; i++) {
           selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
         }  
-        populate_match_play_players("basketball");
+        populate_match_play_players("basketball", players);
      }
 
     function populate_over_under_players()
