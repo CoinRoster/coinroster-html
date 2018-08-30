@@ -329,6 +329,8 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
 
+  available_sports.GOLF_1 = true;
+    
   if (avaliable_sports.GOLF_1) {
     var option = document.createElement("option");
     option.text = "Make the Cut";
