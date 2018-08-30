@@ -79,6 +79,17 @@ function toggle_over_under_odds(sport){
     }
 }
 
+function toggle_make_cut_odds(sport){
+    // fixed odds
+    if(id(sport + "_make_cut_fixed_odds").checked){
+        id("prop_" + sport + "_make_cut_odds").classList.remove("hidden");
+    }
+    else{
+        id("prop_" + sport + "_make_cut_odds").classList.add("hidden");
+    }
+}
+
+
 function toggle_match_odds(sport){
     // fixed odds
     if(id(sport + "_match_fixed_odds").checked){
@@ -1382,6 +1393,25 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
+        }
+          
+         if(id("golf_make_cut_fixed_odds").checked){
+            yes = id("prop_golf_make_cut_yes_odds").value;
+            no = id("prop_golf_make_cut_no_odds").value;
+            if(isNaN(yes) || Number(yes) < 1 || isNaN(no) || Number(no) < 1 ){
+                show_simple_modal("Please ensure that the odds for Yes and No are valid", "bad", null);
+            }
+            else{
+                yes = Number(yes);
+                no = Number(no);
+                prop_data['yes_odds'] = yes;
+                prop_data['no_odds'] = no;
+            }
+            risk = id("golf_make_cut_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            else
+                prop_data['risk'] = Number(risk);
         }
       
         json_obj.prop_data = prop_data;
