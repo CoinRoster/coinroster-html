@@ -94,6 +94,12 @@ function toggle_match_odds(sport){
     // fixed odds
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
+        var selected = id(sport + "_match_selected_players_list").getElementsByTagName("li");
+        for(i = 0; i < selected.lenth; i++){
+            li = selected[i];
+            player_id = li.id;
+            li.innerHTML += `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player_id + `_odds" value="">`
+        }
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
