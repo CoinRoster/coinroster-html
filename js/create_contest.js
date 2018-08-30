@@ -430,12 +430,13 @@ prop_basketball_type_selector.onchange = function()
 
         selected_players.forEach((player) => {
           var li = document.createElement("li");
-          li.innerHTML = player.name;
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
           li.id = player.player_id;
-          li.onclick = function() {
+          selected_players_list.appendChild(li);
+          li.getElementsByTagName("span")[0].onclick = function() {
             remove_player(player);
           }
-          selected_players_list.appendChild(li);
+          
         });
       }
 
@@ -516,13 +517,13 @@ prop_golf_type_selector.onchange = function()
       });
 
       selected_players.forEach((player) => {
-        var li = document.createElement("li");
-        li.innerHTML = player.name;
-        li.id = player.player_id;
-        li.onclick = function() {
-          remove_player(player);
-        }
-        match_selected_players.appendChild(li);
+          var li = document.createElement("li");
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
+          li.id = player.player_id;
+          li.getElementsByTagName("span")[0].onclick = function() {
+            remove_player(player);
+          }
+          match_selected_players.appendChild(li);
       });
     }
 
@@ -1118,7 +1119,26 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
-            players.push(player.id);
+            p = {}
+            if(id("basketball_match_fixed_odds").checked){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_basketball_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
           });
           
           var prop_data = {
@@ -1295,12 +1315,33 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
-            players.push(player.id);
+            p = {}
+            if(id("golf_match_fixed_odds").checked){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_golf_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
           });
           prop_data.players = players;
         }
         json_obj.prop_data = prop_data;
-      } else if (prop_type === "Number of Shots") {
+          
+      } 
+    else if (prop_type === "Number of Shots") {
         scoring_required.required = false;
         var prop_data = { prop_type: "NUMBER_SHOTS"};
         var shot_type = selectorValue("prop_golf_number_of_shots_type");
