@@ -14,7 +14,7 @@ var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
 var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
-var avaliable_sports = get_available_sports();
+var available_sports = get_available_sports();
 
 // Link scoring checkboxes and input fields
  $.each(checkboxes, function(index, data){
@@ -30,7 +30,7 @@ var avaliable_sports = get_available_sports();
   })
  });
 
- // Generate checkboxes for avaliable games
+ // Generate checkboxes for available games
  function generate_game_checkboxes(games, div)
   {
     div.innerHTML = "";
@@ -135,9 +135,9 @@ contest_type_selector.onchange = function()
     
     function populate_sports()
     {
-      var basketball = avaliable_sports.BASKETBALL;
-      var golf = avaliable_sports.GOLF_4;
-      var baseball = avaliable_sports.BASEBALL;
+      var basketball = available_sports.BASKETBALL;
+      var golf = available_sports.GOLF_4;
+      var baseball = available_sports.BASEBALL;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
@@ -223,27 +223,27 @@ roster_sport_selector.onchange = function()
 
   reset_elements();
 
-  if (avaliable_sports.BASKETBALL) {
-    generate_game_checkboxes(avaliable_sports.basketball_games, roster_basketball_games);
+  if (available_sports.BASKETBALL) {
+    generate_game_checkboxes(available_sports.basketball_games, roster_basketball_games);
   }
 
-  if (avaliable_sports.BASEBALL) {
-    generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
+  if (available_sports.BASEBALL) {
+    generate_game_checkboxes(available_sports.baseball_games, roster_baseball_games);
   }
 
   // Set titles
-  if (avaliable_sports.BASKETBALL) {
-    var title = avaliable_sports.basketball_contest;
+  if (available_sports.BASKETBALL) {
+    var title = available_sports.basketball_contest;
     basketball_title.innerHTML = title;
   } 
   
-  if (avaliable_sports.GOLF_4) {
-    var title = avaliable_sports.golf_contest;
+  if (available_sports.GOLF_4) {
+    var title = available_sports.golf_contest;
     golf_title.innerHTML = title;
   }
   
-  if (avaliable_sports.BASEBALL) {
-    var title = avaliable_sports.baseball_contest;
+  if (available_sports.BASEBALL) {
+    var title = available_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
 
@@ -326,7 +326,7 @@ prop_sport_selector.onchange = function()
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
   var prop_golf_type_selector = document.getElementById("prop_golf_type");
 
-  avaliable_sports = get_available_sports();
+  available_sports = get_available_sports();
 
   $('#prop_golf_type option[value="Make the Cut"]').remove();
   
@@ -348,18 +348,18 @@ if(available_sports.GOLF_1) {
   var baseball_title = document.getElementById("prop_baseball_title");
 
   // Set titles
-  if (avaliable_sports.BASKETBALL) {
-    var title = avaliable_sports.basketball_contest;
+  if (available_sports.BASKETBALL) {
+    var title = available_sports.basketball_contest;
     basketball_title.innerHTML = title;
   } 
   
-  if (avaliable_sports.GOLF_4) {
-    var title = avaliable_sports.golf_contest;
+  if (available_sports.GOLF_4) {
+    var title = available_sports.golf_contest;
     golf_title.innerHTML = title;
   }
   
-  if (avaliable_sports.BASEBALL) {
-    var title = avaliable_sports.baseball_contest;
+  if (available_sports.BASEBALL) {
+    var title = available_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
 
@@ -1725,22 +1725,22 @@ function create_new_contest()
 // Preselect values if coming from sport page
 var category = get_url_param("category");
 
-if (category === "basketball" && avaliable_sports.BASKETBALL) {
+if (category === "basketball" && available_sports.BASKETBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
+} else if (category === "basketballprops" && available_sports.BASKETBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "golf" && avaliable_sports.GOLF_4) {
+} else if (category === "golf" && available_sports.GOLF_4) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "golfprops" && avaliable_sports.GOLF_4) {
+} else if (category === "golfprops" && available_sports.GOLF_4) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "baseball" && avaliable_sports.BASEBALL) {
+} else if (category === "baseball" && available_sports.BASEBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
+} else if (category === "baseballprops" && available_sports.BASEBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
 } else if (category === "usergenerated") {
@@ -1748,22 +1748,22 @@ if (category === "basketball" && avaliable_sports.BASKETBALL) {
   contest_type_selector.onchange();
 }
 
-if (category === "basketball" && avaliable_sports.BASKETBALL) {
+if (category === "basketball" && available_sports.BASKETBALL) {
   roster_sport_selector.value = "Basketball";
   roster_sport_selector.onchange();
-} else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
+} else if (category === "basketballprops" && available_sports.BASKETBALL) {
   prop_sport_selector.value = "Basketball";
   prop_sport_selector.onchange();
-} else if (category === "golf" && avaliable_sports.GOLF_4) {
+} else if (category === "golf" && available_sports.GOLF_4) {
   roster_sport_selector.value = "Golf";
   roster_sport_selector.onchange();
-} else if (category === "golfprops" && avaliable_sports.GOLF_4) {
+} else if (category === "golfprops" && available_sports.GOLF_4) {
   prop_sport_selector.value = "Golf";
   prop_sport_selector.onchange();
-} else if (category === "baseball" && avaliable_sports.BASEBALL) {
+} else if (category === "baseball" && available_sports.BASEBALL) {
   roster_sport_selector.value = "Baseball";
   roster_sport_selector.onchange();
-} else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
+} else if (category === "baseballprops" && available_sports.BASEBALL) {
   prop_sport_selector.value = "Baseball";
   prop_sport_selector.onchange();
 }
@@ -1786,7 +1786,7 @@ function enable_radios(radios, labels) {
   });
 }
 
-if (avaliable_sports.GOLF_1) {
+if (available_sports.GOLF_1) {
   var radios_one_two = $.merge(round_one_radios, round_two_radios);
   var radios_three_tour = $.merge(round_three_radios, tournament_radios);
 
@@ -1797,11 +1797,11 @@ if (avaliable_sports.GOLF_1) {
   var labels = $.merge(labels_one_two, labels_three_tour);
 
   enable_radios(radios, labels);
-} else if (avaliable_sports.GOLF_2) {
+} else if (available_sports.GOLF_2) {
   var radios = $.merge(round_two_radios, round_three_radios);
   var labels = $.merge(round_two_labels, round_three_labels);
   enable_radios(radios, labels);
-} else if (avaliable_sports.GOLF_3) {
+} else if (available_sports.GOLF_3) {
   enable_radios(round_three_radios, round_three_labels);
 }
 
