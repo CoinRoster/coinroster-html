@@ -1504,7 +1504,7 @@ function create_new_contest()
                 prop_data['risk'] = Number(risk);
        
             tie_odds = id("baseball_match_tie").value;
-            cosole.log(tie_odds);
+            console.log(tie_odds);
             if (!tie_odds || isNaN(tie_odds) )
                 show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
             else
