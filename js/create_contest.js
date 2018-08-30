@@ -79,6 +79,16 @@ function toggle_over_under_odds(sport){
     }
 }
 
+function toggle_match_odds(sport){
+    // fixed odds
+    if(id(sport + "_match_fixed_odds").checked){
+        id(sport + "_match_risk_div").classList.remove("hidden");
+    }
+    else{
+        id(sport + "_match_risk_div").classList.add("hidden");
+    }
+}
+
  var reset_elements = function()
   {
     hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
@@ -1151,6 +1161,9 @@ function create_new_contest()
         if(id("basketball_over_fixed_odds").checked){
             over = id("prop_basketball_over_odds").value;
             under = id("prop_basketball_under_odds").value;
+            risk = id("basketball_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
             if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
                 show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
             }
@@ -1159,6 +1172,7 @@ function create_new_contest()
                 under = Number(under);
                 prop_data['over_odds'] = over;
                 prop_data['under_odds'] = under;
+                prop_data['risk'] = Number(risk);
             }
         }  
         
@@ -1339,6 +1353,7 @@ function create_new_contest()
             p = {}
             if(id("baseball_match_fixed_odds").checked){
                 var id_to_get = player.id + "_odds";
+                
                 odds = id(id_to_get).value;
                 if(isNaN(odds) || Number(odds) < 1){
                     show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
@@ -1357,7 +1372,12 @@ function create_new_contest()
             }
             
           });
-          prop_data.players = players;
+        prop_data.players = players;
+        risk = id("baseball_match_risk").value;
+        if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+            show_simple_modal("Please ensure that the risk is valid", "bad", null);
+        else
+            prop_data['risk'] = Number(risk);
         }
 
         json_obj.scoring_rules = scoring;
@@ -1401,6 +1421,11 @@ function create_new_contest()
                 prop_data['over_odds'] = over;
                 prop_data['under_odds'] = under;
             }
+            risk = id("baseball_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            else
+                prop_data['risk'] = Number(risk);
         }
         
         json_obj.scoring_rules = scoring;

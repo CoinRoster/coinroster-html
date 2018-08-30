@@ -425,6 +425,8 @@
                                     <input type="number" class="input_style" placeholder="Odds" id="prop_basketball_over_odds"/>
                                     <span style="padding-top:5px;" id="basketball_under_odds_label" class="input_label">Under</span>
                                     <input type="number" class="input_style" placeholder="Odds" id="prop_basketball_under_odds"/>
+                                    <span style="padding-top:5px;" class="input_label">Risk</span>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="basketball_over_under_risk"/>
                                 </div>
                             </div>
                         </div>
@@ -690,9 +692,14 @@
                                 </div>
                             </div>
                             <div class="prop_baseball_match_fixed_odds_check">
-                                <input type="checkbox" id="baseball_match_fixed_odds" name="feature" value="fixed_odds" />
+                                <input type="checkbox" id="baseball_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('baseball')"/>
                                 <label for="fixed_odds">Fixed-Odds</label>
                             </div>
+                            <div class="hidden input_label" id="basketball_match_risk_div">
+                                <span style="padding-top:5px;" class="input_label">Risk</span>
+                                <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="basketball_match_risk"/>
+                            </div>
+                            
                             <div class="prop_baseball_match_players input_padding">
                                 <div class="prop_basketball_match_players input_padding">
                                     <div>
@@ -767,6 +774,8 @@
                                     <input type="number" class="input_style" placeholder="Odds" id="prop_baseball_over_odds"/>
                                     <span style="padding-top:5px;" id="baseball_under_odds_label" class="input_label">Under</span>
                                     <input type="number" class="input_style" placeholder="Odds" id="prop_baseball_under_odds"/>
+                                    <span style="padding-top:5px;" class="input_label">Risk</span>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="baseball_over_under_risk"/>
                                 </div>
                             </div>
                         </div>
