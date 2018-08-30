@@ -66,16 +66,16 @@ function populate_gameIDs(games, gameID)
     }
   }
 
-function toggle_baseball_over_under_odds(){
+function toggle_over_under_odds(sport){
     // fixed odds
-    if(id("baseball_over_fixed_odds").checked){
-        id("prop_baseball_over_under_odds").classList.remove("hidden");
-        o_u = id("prop_baseball_over_under_value").value;
-        id("baseball_over_odds_label").innerHTML = "Over " + o_u;
-        id("baseball_under_odds_label").innerHTML = "Under " + o_u;
+    if(id(sport + "_over_fixed_odds").checked){
+        id("prop_" + sport + "_over_under_odds").classList.remove("hidden");
+        o_u = id("prop_" + sport + "_over_under_value").value;
+        id(sport + "_over_odds_label").innerHTML = "Over " + o_u;
+        id(sport + "_under_odds_label").innerHTML = "Under " + o_u;
     }
     else{
-        id("prop_baseball_over_under_odds").classList.add("hidden");
+        id("prop_" + sport + "_over_under_odds").classList.add("hidden");
     }
 }
 
