@@ -94,9 +94,13 @@ function toggle_match_odds(sport){
     // fixed odds
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
+        populate_match_play_players();
+        
+        
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
+        populate_match_play_players();
     }
 }
 
