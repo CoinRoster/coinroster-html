@@ -96,8 +96,7 @@ function toggle_match_odds(sport){
         id(sport + "_match_risk_div").classList.remove("hidden");
         var selected = id(sport + "_match_selected_players_list").getElementsByTagName("li");
         console.log(selected);
-        for(i = 0; i < selected.lenth; i++){
-          
+        for(i = 0; i < selected.length; i++){
             li = selected[i];
             console.log(li);
             player_id = li.id;
