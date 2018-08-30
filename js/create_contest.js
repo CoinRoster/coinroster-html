@@ -526,7 +526,7 @@ prop_golf_type_selector.onchange = function()
         li.innerHTML = player.name;
         li.value = player.player_id;
         li.onclick = function() {
-          add_player(p layer);
+          add_player(player);
         }
         match_players.appendChild(li);
       });
