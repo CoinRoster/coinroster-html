@@ -1498,17 +1498,25 @@ function create_new_contest()
         
         if(id("baseball_match_fixed_odds").checked){        
             risk = id("baseball_match_risk").value;
-            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+            console.log(!risk);
+            console.log(isNaN(risk));
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
                 show_simple_modal("Please ensure that the risk is valid", "bad", null);
-            else
+                submit_error.error = true;
+            }
+            else{
                 prop_data['risk'] = Number(risk);
+            }
        
             tie_odds = id("baseball_match_tie").value;
             console.log(tie_odds);
-            if (!tie_odds || isNaN(tie_odds) )
+            if (!tie_odds || isNaN(tie_odds) ){
                 show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-            else
+                submit_error.error = true;
+            }
+            else{
                 prop_data['tie_odds'] = Number(tie_odds);
+            }
         }
         
         json_obj.scoring_rules = scoring;
