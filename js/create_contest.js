@@ -1629,9 +1629,13 @@ baseball_over_under.onblur = function()
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
         document.getElementById("prop_baseball_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
         document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
+      id("baseball_over_odds_label").innerHTML = "Over " + value;
+      id("baseball_under_odds_label").innerHTML = "Under " + value;
     }
   }
 
