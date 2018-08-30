@@ -66,6 +66,19 @@ function populate_gameIDs(games, gameID)
     }
   }
 
+function toggle_baseball_over_under_odds(){
+    // fixed odds
+    if(id("baseball_over_fixed_odds").checked){
+        id("prop_baseball_over_under_odds").classList.remove("hidden");
+        o_u = id("prop_baseball_over_under_value").value;
+        id("baseball_over_odds_label").innerHTML = "Over " + o_u;
+        id("baseball_under_odds_label").innerHTML = "Under " + o_u;
+    }
+    else{
+        id("prop_baseball_over_under_odds").classList.add("hidden");
+    }
+}
+
  var reset_elements = function()
   {
     hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
