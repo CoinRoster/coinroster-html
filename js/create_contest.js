@@ -1047,7 +1047,7 @@ function create_new_contest()
     clear_error("props_basketball_match_steals");
     clear_error("props_basketball_match_blocks");
     clear_error("props_basketball_match_turnovers");
-    clear_error("props_basketball_over_under_value");
+    clear_error("prop_basketball_over_under_value");
     clear_error("props_basketball_over_points");
     clear_error("props_basketball_over_rebounds");
     clear_error("props_basketball_over_assists");
@@ -1121,12 +1121,12 @@ function create_new_contest()
         }
       } else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
-        var over_under_value = document.getElementById("props_basketball_over_under_value").value;
+        var over_under_value = document.getElementById("prop_basketball_over_under_value").value;
         var player = document.getElementById("prop_basketball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           show_simple_modal("Please enter a valid over/under value");
-          add_error("props_basketball_over_under_value");
+          add_error("prop_basketball_over_under_value");
           submit_error.error = true;
         } else {
           prop_data.over_under_value = Number(over_under_value);
@@ -1146,6 +1146,21 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
+          
+        // fixed odds  
+        if(id("basketball_over_fixed_odds").checked){
+            over = id("prop_basketball_over_odds").value;
+            under = id("prop_basketball_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+        }  
         
         json_obj.prop_data = prop_data;
         json_obj.scoring_rules = scoring;
@@ -1607,7 +1622,7 @@ if (avaliable_sports.GOLF_1) {
 }
 
 // Enfore decimal on over/under
-var basketball_over_under = document.getElementById("props_basketball_over_under_value");
+var basketball_over_under = document.getElementById("prop_basketball_over_under_value");
 var golf_over_under = document.getElementById("prop_golf_over_under_value");
 var baseball_over_under = document.getElementById("prop_baseball_over_under_value");
 
@@ -1617,11 +1632,15 @@ basketball_over_under.onblur = function()
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
-        document.getElementById("props_basketball_over_under_value").value = Number(value) - 0.5;
+        document.getElementById("prop_basketball_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
-        document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
+        document.getElementById("prop_basketball_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
     }
+    id("basketball_over_odds_label").innerHTML = "Over " + value;
+    id("basketball_under_odds_label").innerHTML = "Under " + value;
   }
 
 golf_over_under.onblur = function()
@@ -1631,10 +1650,14 @@ golf_over_under.onblur = function()
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
         document.getElementById("prop_golf_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
         document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
      }
+      id("golf_over_odds_label").innerHTML = "Over " + value;
+    id("golf_under_odds_label").innerHTML = "Under " + value;
   }
 
 baseball_over_under.onblur = function()
@@ -1649,7 +1672,6 @@ baseball_over_under.onblur = function()
         document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
         value = Number(value) + 0.5;
       }
-      
     }
     id("baseball_over_odds_label").innerHTML = "Over " + value;
     id("baseball_under_odds_label").innerHTML = "Under " + value;
