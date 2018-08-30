@@ -1153,15 +1153,29 @@ function create_new_contest()
             }
           });
           
-          var prop_data = {
-            prop_type: "MATCH_PLAY",
-            players: players
-          };
+          prop_data = {};
+          if(id("basketball_match_fixed_odds").checked){
+              risk = id("basketball_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+              else
+                  prop_data['risk'] = Number(risk);
+              
+              tie_odds = id("basketball_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) )
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+              else
+                  prop_data['tie_odds'] = Number(tie_odds);
+          }
+            
+          prop_data['prop_type'] = "MATCH_PLAY";
+          prop_data['players'] = players;
 
           json_obj.prop_data = prop_data;
           json_obj.scoring_rules = scoring;
         }
-      } else if (prop_type === "Over/Under") {
+      } 
+    else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
         var over_under_value = document.getElementById("prop_basketball_over_under_value").value;
         var player = document.getElementById("prop_basketball_over_under_player").value;
@@ -1348,7 +1362,22 @@ function create_new_contest()
                 players.push(p);
             }
           });
+            
+          if(id("golf_match_fixed_odds").checked){
+              risk = id("golf_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+              else
+                  prop_data['risk'] = Number(risk);
+              
+              tie_odds = id("golf_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) )
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+              else
+                  prop_data['tie_odds'] = Number(tie_odds);
+          }
           prop_data.players = players;
+            
         }
         json_obj.prop_data = prop_data;
           
@@ -1461,6 +1490,8 @@ function create_new_contest()
                 p['id'] = player.id;
                 players.push(p);
             }
+              
+              
             
           });
         prop_data.players = players;
@@ -1471,12 +1502,21 @@ function create_new_contest()
                 show_simple_modal("Please ensure that the risk is valid", "bad", null);
             else
                 prop_data['risk'] = Number(risk);
-            }
+       
+            tie_odds = id("baseball_match_tie").value;
+            if (!tie_odds || isNaN(tie_odds) )
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+            else
+                prop_data['tie_odds'] = Number(tie_odds);
         }
+        
+        prop_data['prop_type'] = "MATCH_PLAY";
 
         json_obj.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
-      } else if (prop_type === "Over/Under") {
+                   
+      } 
+    else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
         var over_under_value = document.getElementById("prop_baseball_over_under_value").value;
         var player = document.getElementById("prop_baseball_over_under_player").value;
