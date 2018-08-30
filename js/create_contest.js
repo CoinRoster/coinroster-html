@@ -1372,6 +1372,22 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
+          
+        // fixed odds  
+        if(id("baseball_over_fixed_odds").checked){
+            over = id("prop_baseball_over_odds").value;
+            under = id("prop_baseball_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                add_error("prop_baseball_over_odds");
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+        }
         
         json_obj.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
