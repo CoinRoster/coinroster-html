@@ -92,20 +92,21 @@ function toggle_make_cut_odds(sport){
 
 function toggle_match_odds(sport){
     // fixed odds
+    var selected = id(sport + "_match_selected_players_list").getElementsByTagName("li");
     if(id(sport + "_match_fixed_odds").checked){
         id(sport + "_match_risk_div").classList.remove("hidden");
-        var selected = id(sport + "_match_selected_players_list").getElementsByTagName("li");
-        console.log(selected);
         for(i = 0; i < selected.length; i++){
             li = selected[i];
-            console.log(li);
             player_id = li.id;
-            console.log(player_id);
             li.innerHTML += `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player_id + `_odds" value="">`
         }
     }
     else{
         id(sport + "_match_risk_div").classList.add("hidden");
+        for(i = 0; i < selected.length; i++){
+            li = selected[i];
+            li.removeChild(li.getElementsByTagName("input")[0]);
+        }
     }
 }
 
