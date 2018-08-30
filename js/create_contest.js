@@ -1634,9 +1634,10 @@ baseball_over_under.onblur = function()
         document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
         value = Number(value) + 0.5;
       }
-      id("baseball_over_odds_label").innerHTML = "Over " + value;
-      id("baseball_under_odds_label").innerHTML = "Under " + value;
+      
     }
+    id("baseball_over_odds_label").innerHTML = "Over " + value;
+    id("baseball_under_odds_label").innerHTML = "Under " + value;
   }
 
 // Automatically build jackpot table
