@@ -1504,18 +1504,18 @@ function create_new_contest()
                 prop_data['risk'] = Number(risk);
        
             tie_odds = id("baseball_match_tie").value;
+            cosole.log(tie_odds);
             if (!tie_odds || isNaN(tie_odds) )
                 show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
             else
                 prop_data['tie_odds'] = Number(tie_odds);
         }
         
-        prop_data['prop_type'] = "MATCH_PLAY";
-
         json_obj.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
                    
       } 
+    }
     else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
         var over_under_value = document.getElementById("prop_baseball_over_under_value").value;
