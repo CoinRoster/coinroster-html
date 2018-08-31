@@ -1700,12 +1700,24 @@ function create_new_contest()
           table_values.push(desc);
         }
       }
-
+      risk_error = false;
+      if (id('fixed_odds').checked === true) {
+          risk = id("risk").value;
+          if(!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+              risk_error = true;
+          }
+          else{
+            json_obj.risk = Number(risk);
+          }
+      }
       if (table_error) {
         show_simple_modal("Please enter valid option descriptions", () => {});
       } 
       else if(odds_error){
         show_simple_modal("Please enter valid odds", "bad", null);
+      }
+     else if(risk_error){
+        show_simple_modal("Please enter a valid risk", "bad", null);
       }
       else {
         // Make the JSON call now that all validation has passed
@@ -1726,18 +1738,7 @@ function create_new_contest()
           pari_mutuel_options: table_values,
           private
         };
-
-        if (id('fixed_odds').checked === true) {
-          risk = id("risk").value;
-          if(!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
-              show_simple_modal("Please enter a valid risk", "bad", null);
-              add_error("risk");
-          }
-          else{
-            json_obj.risk = Number(risk);
-          }
-        }
-
+          
         console.log(json_obj);
 
         create_contest_attempt(json_obj, "SetupMisc");
