@@ -806,7 +806,6 @@ function create_contest_attempt(data, method)
         }
     });
    
-    console.log(call);
     if (call.status === "1" && data.private) 
     {
       show_simple_modal(
@@ -1522,8 +1521,6 @@ function create_new_contest()
         
         if(id("baseball_match_fixed_odds").checked){        
             risk = id("baseball_match_risk").value;
-            console.log(!risk);
-            console.log(isNaN(risk));
             if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
                 show_simple_modal("Please ensure that the risk is valid", "bad", null);
                 submit_error.error = true;
@@ -1533,7 +1530,6 @@ function create_new_contest()
             }
        
             tie_odds = id("baseball_match_tie").value;
-            console.log(tie_odds);
             if (!tie_odds || isNaN(tie_odds) ){
                 show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
                 submit_error.error = true;

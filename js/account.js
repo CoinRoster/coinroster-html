@@ -44,7 +44,6 @@
                 ]);
                 let id = '#odds_' + i;
                 $(id).onblur = () => {
-                    console.log(i);
                     let value = id('odds_' + i).value;
                     id('odds_' + i).value = value + ':1';
                 }
