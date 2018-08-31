@@ -1677,20 +1677,24 @@ function create_new_contest()
       // Get values from pari-mutuel table
       var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
       var table_error = false;
-      
+      var odds_error = false;
       for (i=1; i<table_rows;i++) {
         if (id('fixed_odds').checked !== true) {
           var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        } else {
+        } 
+        else {
           if(i === table_rows - 1) break;
           desc = {
             description: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value,
             odds: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value
           }
+          if(isNaN(desc.odds) || Number(desc.odds) < 1){
+            odds_error = true;
+          }
         }
         // var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
         // console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value);
-        if (!desc) {
+        if (!desc ) {
           table_error = true;
         } else {
           table_values.push(desc);
@@ -1699,7 +1703,11 @@ function create_new_contest()
 
       if (table_error) {
         show_simple_modal("Please enter valid option descriptions", () => {});
-      } else {
+      } 
+      else if(odds_error){
+        show_simple_modal("Please enter valid odds", "bad", null);
+      }
+      else {
         // Make the JSON call now that all validation has passed
         var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
         var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
@@ -1720,8 +1728,14 @@ function create_new_contest()
         };
 
         if (id('fixed_odds').checked === true) {
-          console.log(Number(id('risk').value));
-          json_obj.risk = Number(id('risk').value);
+          risk = id("risk").value;
+          if(!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+              show_simple_modal("Please enter a valid risk", "bad", null);
+              add_error("risk");
+          }
+          else{
+            json_obj.risk = Number(risk);
+          }
         }
 
         console.log(json_obj);
