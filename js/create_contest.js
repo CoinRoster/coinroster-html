@@ -430,7 +430,8 @@ prop_basketball_type_selector.onchange = function()
         var selected_players_list = document.getElementById("basketball_match_selected_players_list");
         player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
-
+        fixed_odds = id("basketball_match_fixed_odds").checked;
+          
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
@@ -518,7 +519,8 @@ prop_golf_type_selector.onchange = function()
       var players_to_populate = players;
       match_players.innerHTML = "";
       match_selected_players.innerHTML = "";
-
+      fixed_odds = id("golf_match_fixed_odds").checked;
+        
       for (i = 0;i < selected_players.length; i++) {
         players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
       }   
