@@ -1296,28 +1296,28 @@ function create_new_contest()
           prop_data.when = round_tournament.toLowerCase();
         }
           
-//        if(id("golf_over_fixed_odds").checked){
-//            over = id("prop_golf_over_odds").value;
-//            under = id("prop_golf_under_odds").value;
-//            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
-//                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
-//                submit_error.error = true;
-//            }
-//            else{
-//                over = Number(over);
-//                under = Number(under);
-//                prop_data['over_odds'] = over;
-//                prop_data['under_odds'] = under;
-//            }
-//            risk = id("golf_over_under_risk").value;
-//            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
-//                show_simple_modal("Please ensure that the risk is valid", "bad", null);
-//                submit_error.error = true;
-//            }
-//            else{
-//                prop_data['risk'] = Number(risk);
-//            }
-//        }
+        if(id("golf_over_fixed_odds").checked){
+            over = id("prop_golf_over_odds").value;
+            under = id("prop_golf_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+            risk = id("golf_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
+        }
 
         json_obj.prop_data = prop_data;
 
@@ -1383,25 +1383,25 @@ function create_new_contest()
             }
           });
             
-//          if(id("golf_match_fixed_odds").checked){
-//              risk = id("golf_match_risk").value;
-//              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
-//                show_simple_modal("Please ensure that the risk is valid", "bad", null);
-//                submit_error.error = true;
-//              }
-//              else{
-//                  prop_data['risk'] = Number(risk);
-//              }
-//              
-//              tie_odds = id("golf_match_tie").value;
-//              if (!tie_odds || isNaN(tie_odds) ){
-//                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-//                submit_error.error = true;
-//              }
-//              else{
-//                  prop_data['tie_odds'] = Number(tie_odds);
-//              }
-//          }
+          if(id("golf_match_fixed_odds").checked){
+              risk = id("golf_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['risk'] = Number(risk);
+              }
+              
+              tie_odds = id("golf_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) ){
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['tie_odds'] = Number(tie_odds);
+              }
+          }
           prop_data.players = players;
             
         }
@@ -1450,28 +1450,28 @@ function create_new_contest()
           prop_data.player_id = player;
         }
           
-//         if(id("golf_make_cut_fixed_odds").checked){
-//            yes = id("prop_golf_make_cut_yes_odds").value;
-//            no = id("prop_golf_make_cut_no_odds").value;
-//            if(isNaN(yes) || Number(yes) < 1 || isNaN(no) || Number(no) < 1 ){
-//                show_simple_modal("Please ensure that the odds for Yes and No are valid", "bad", null);
-//                submit_error.error = true;
-//            }
-//            else{
-//                yes = Number(yes);
-//                no = Number(no);
-//                prop_data['yes_odds'] = yes;
-//                prop_data['no_odds'] = no;
-//            }
-//            risk = id("golf_make_cut_risk").value;
-//            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
-//                show_simple_modal("Please ensure that the risk is valid", "bad", null);
-//                submit_error.error = true;
-//            }
-//            else{
-//                prop_data['risk'] = Number(risk);
-//            }
-//        }
+         if(id("golf_make_cut_fixed_odds").checked){
+            yes = id("prop_golf_make_cut_yes_odds").value;
+            no = id("prop_golf_make_cut_no_odds").value;
+            if(isNaN(yes) || Number(yes) < 1 || isNaN(no) || Number(no) < 1 ){
+                show_simple_modal("Please ensure that the odds for Yes and No are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                yes = Number(yes);
+                no = Number(no);
+                prop_data['yes_odds'] = yes;
+                prop_data['no_odds'] = no;
+            }
+            risk = id("golf_make_cut_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
+        }
       
         json_obj.prop_data = prop_data;
       }      
