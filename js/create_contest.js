@@ -520,9 +520,7 @@ prop_golf_type_selector.onchange = function()
       var players_to_populate = players;
       match_players.innerHTML = "";
       match_selected_players.innerHTML = "";
-      
-      //fixed_odds = id("golf_match_fixed_odds").checked;
-      fixed_odds = false;    
+      fixed_odds = id("golf_match_fixed_odds").checked;
 
       for (i = 0;i < selected_players.length; i++) {
         players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
@@ -1703,16 +1701,19 @@ function create_new_contest()
           table_values.push(desc);
         }
       }
+      
       risk_error = false;
+      var risk = null;
       if (id('fixed_odds').checked === true) {
           risk = id("risk").value;
           if(!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
               risk_error = true;
           }
           else{
-            json_obj.risk = Number(risk);
+            risk = Number(risk);
           }
       }
+        
       if (table_error) {
         show_simple_modal("Please enter valid option descriptions", () => {});
       } 
@@ -1730,7 +1731,7 @@ function create_new_contest()
         settlement_deadline += set_deadline_time;
 
         min_wager = Number(min_wager);
-
+          
         var json_obj = {
           title,
           description,
@@ -1741,6 +1742,10 @@ function create_new_contest()
           pari_mutuel_options: table_values,
           private
         };
+          
+        if(risk !== null){
+            json_obj.risk = risk;
+        }
           
         console.log(json_obj);
 
