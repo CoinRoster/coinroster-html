@@ -1361,7 +1361,6 @@ function create_new_contest()
           selected_players.forEach((player) => {
             p = {}
             fixed_odds = id("golf_match_fixed_odds").checked
-           
             if(fixed_odds){
                 var id_to_get = player.id + "_odds";
                 

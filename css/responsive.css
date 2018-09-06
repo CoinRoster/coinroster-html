@@ -514,6 +514,7 @@
         
         #pari_mutuel_table td {
             font-size: 11px !important;
+            display: block;
         }
         #pari_mutuel_table .wagers_and_odds li {
             display: block !important;
