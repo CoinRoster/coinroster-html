@@ -386,17 +386,18 @@
             args: {
                 data
             } 
-        });
-   
-        if (call.status === "1") {
-            show_simple_modal(call.msg, "good",
-              function() {
-                location.reload();   
-              }
-            );
-        }else {
+        }, function(call){
+            if (call.status === "1") {
+                show_simple_modal(call.msg, "good",
+                function() {
+                    location.reload();   
+                });
+            }
+            else {
             show_simple_modal("Error: " + call.error); 
-        };
+            };
+        }
+        );
     }
     
     function activate_datepicker(){
