@@ -363,18 +363,12 @@
         var json = {};
         json.process = "REMOVE";
         json.autoplay_id = entry_id;
-        show_simple_modal("Are you sure you'd like to delete this Auto-Play entry?", "bad", function(){
-            make_api_call(json)
-        });
+//        show_simple_modal("Are you sure you'd like to delete this Auto-Play entry?", "bad", function(){
+//            make_api_call(json)
+//        });
+        make_api_call(json);
     }
-    
-//    function delete_entry_callback(entry_id){
-//        var json = {};
-//        json.process = "REMOVE";
-//        json.autoplay_id = entry_id;
-//        make_api_call(json);
-//    }
-//    
+   
     function remove_entry(element){
         var row = element.parentNode.parentNode.rowIndex;
         id("user_autoplay_entries").deleteRow(row);
