@@ -210,7 +210,7 @@ contest_type_selector.onchange = function()
         roster_sport_selector.add(option);
       } 
       
-      if (basketball) {
+      if (hockey) {
         var option = document.createElement("option");
         option.text = "Hockey";
         option.value = "Hockey";
