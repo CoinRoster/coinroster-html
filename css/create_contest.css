@@ -135,9 +135,11 @@
 #roster_basketball_title, 
 #roster_golf_title,
 #roster_baseball_title,
+#roster_hockey_title,
 #prop_basketball_title,
 #prop_golf_title,
-#prop_baseball_title
+#prop_baseball_title,
+#prop_hockey_title
  {
     font-size: 14px !important;
 }
