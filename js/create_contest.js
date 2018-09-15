@@ -154,8 +154,7 @@ contest_type_selector.onchange = function()
       var basketball = available_sports.BASKETBALL;
       var golf = available_sports.GOLF_4;
       var baseball = available_sports.BASEBALL;
-      //var hockey = available_sports.HOCKEY;
-        var hockey = true;
+      var hockey = available_sports.HOCKEY;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
