@@ -154,7 +154,8 @@ contest_type_selector.onchange = function()
       var basketball = available_sports.BASKETBALL;
       var golf = available_sports.GOLF_4;
       var baseball = available_sports.BASEBALL;
-      var hockey = available_sports.HOCKEY;
+      //var hockey = available_sports.HOCKEY;
+        var hockey = true;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
@@ -1039,7 +1040,7 @@ function create_new_contest()
     clear_error("roster_hockey_goals");
     clear_error("roster_hockey_assists");
     clear_error("roster_hockey_plus_minus");
-    clear_error("roster_hockey_sog);
+    clear_error("roster_hockey_sog");
     clear_error("roster_hockey_bs");
     clear_error("roster_baseball_rbi");
     clear_error("roster_baseball_hits");
