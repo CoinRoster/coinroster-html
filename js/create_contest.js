@@ -1297,16 +1297,16 @@ function create_new_contest()
     clear_error("prop_baseball_match_runs");
     clear_error("prop_baseball_match_strikeouts");
     clear_error("prop_baseball_match_walks");
-    clear_error("prop_hockey_match_goals");
-    clear_error("prop_hockey_match_assists");
-    clear_error("prop_hockey_match_plus_minus");
-    clear_error("prop_hockey_match_sog");
-    clear_error("prop_hockey_match_bs");
-    clear_error("prop_hockey_over_goals");
-    clear_error("prop_hockey_over_assists");
-    clear_error("prop_hockey_over_plus_minus");
-    clear_error("prop_hockey_over_sog");
-    clear_error("prop_hockey_over_bs");
+    clear_error("props_hockey_match_goals");
+    clear_error("props_hockey_match_assists");
+    clear_error("props_hockey_match_plus_minus");
+    clear_error("props_hockey_match_sog");
+    clear_error("props_hockey_match_bs");
+    clear_error("props_hockey_over_goals");
+    clear_error("props_hockey_over_assists");
+    clear_error("props_hockey_over_plus_minus");
+    clear_error("props_hockey_over_sog");
+    clear_error("props_hockey_over_bs");
     
     
     if (!sport) {
