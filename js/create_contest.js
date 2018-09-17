@@ -244,13 +244,16 @@ roster_sport_selector.onchange = function()
   var basketball_scoring = document.getElementsByClassName("roster_basketball_scoring");
   var golf_scoring = document.getElementsByClassName("roster_golf_scoring");
   var baseball_scoring = document.getElementsByClassName("roster_baseball_scoring");
-
+  var hockey_scoring = document.getElementsByClassName("roster_hockey_scoring");
+    
   var roster_basketball_games = document.getElementById("roster_basketball_games");
   var roster_baseball_games = document.getElementById("roster_baseball_games");
-
+  var roster_hockey_games = document.getElementById("roster_hockey_games");
+    
   var basketball_title = document.getElementById("roster_basketball_title");
   var golf_title = document.getElementById("roster_golf_title");
   var baseball_title = document.getElementById("roster_baseball_title");
+  var hockey_title = document.getElementById("roster_hockey_title");
 
   reset_elements();
 
