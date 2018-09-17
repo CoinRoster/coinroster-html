@@ -118,7 +118,7 @@
     display: none;
 }
 
-#roster_basketball_games label {
+.roster_games label {
     display: block;
     width: 200px;
     overflow: visible;
