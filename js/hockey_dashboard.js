@@ -154,7 +154,7 @@ function displayHockeyDashboard(data){
             PTS.innerHTML = games[i-1].PTS;
             PLUS.innerHTML = games[i-1]["+/-"];                  
             SOG.innerHTML = games[i-1].SOG;
-            TOI.innerHTML = games[i-1]["TOI/G";
+            TOI.innerHTML = games[i-1]["TOI/G"];
         }
     }
 }
