@@ -23,9 +23,9 @@ function displayHockeyDashboard(data){
     }
     document.getElementById('hockey_headshot').addEventListener("error", onImageLoadError);     
     
-    document.getElementById('hockey_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/' +data.team +'.png&w=110&h=110&transparent=true';
+    document.getElementById('hockey_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nhl/500/' +data.team_abr +'.png&w=110&h=110&transparent=true';
            
-    document.getElementById("hockey_team_list").innerHTML = 'Team: ' + data.team;
+    document.getElementById("hockey_team_list").innerHTML = 'Team: ' + data.team_abr;
     document.getElementById("hockey_pos_list").innerHTML = 'Pos: ' + data.pos;
     document.getElementById("hockey_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     document.getElementById("hockey_born_list").innerHTML = 'Born: ' + data.birthString;
