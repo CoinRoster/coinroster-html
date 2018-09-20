@@ -30,7 +30,7 @@ function displayHockeyDashboard(data){
     document.getElementById("hockey_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     document.getElementById("hockey_born_list").innerHTML = 'Born: ' + data.birthString;
 
-    document.getElementById("hockey_team_table").innerHTML = data.team;
+    document.getElementById("hockey_team_table").innerHTML = data.team_abr;
     document.getElementById("hockey_pos_table").innerHTML = data.pos;
     document.getElementById("hockey_height_table").innerHTML = data.height;
     document.getElementById("hockey_weight_table").innerHTML = data.weight;
