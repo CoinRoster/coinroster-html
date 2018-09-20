@@ -1,6 +1,6 @@
 function clearDashboard(){
-    //document.getElementById("basketball_prev_games_table").innerHTML = 
-    //    `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
+    document.getElementById("basketball_prev_games_table").innerHTML = 
+        `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayBasketballDashboard(data){

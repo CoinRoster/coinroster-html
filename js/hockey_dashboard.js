@@ -1,6 +1,6 @@
 function clearDashboard(){
-    //document.getElementById("hockey_prev_games_table").innerHTML = 
-    //    `<caption id="hockey_prev_games" class="dashboard_caption"></caption>`;
+    document.getElementById("hockey_prev_games_table").innerHTML = 
+        `<caption id="hockey_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayHockeyDashboard(data){
@@ -8,7 +8,7 @@ function displayHockeyDashboard(data){
     clearDashboard();
     document.getElementById('stats_model_content_hockey').style.display = "table";
     
-    // the 2 is because its the third dashboard sourced on contest.html
+    // the 3 is because its the fourth dashboard sourced on contest.html
     setupDashboard(3);
     
     window["player_id"] = data.player_id;
@@ -47,8 +47,8 @@ function displayHockeyDashboard(data){
     sst[2].innerHTML = "A";
     sst[3].innerHTML = "PTS";
     sst[4].innerHTML = "+/-";
-    sst[5].innerHTML = "PIM";
-    sst[6].innerHTML = "SOG";   
+    sst[5].innerHTML = "SOG";  
+    sst[6].innerHTML = "TOI/G";  
     
     var sst = document.getElementById("hockey_season_stats_table").rows[1].cells;
     for(i = 0;i <= 6;i++){
@@ -58,9 +58,9 @@ function displayHockeyDashboard(data){
     sst[1].innerHTML = data.year_stats.G;
     sst[2].innerHTML = data.year_stats.A;
     sst[3].innerHTML = data.year_stats.PTS;
-    sst[4].innerHTML = data.year_stats.PLUS;
-    sst[5].innerHTML = data.year_stats.PIM;
-    sst[6].innerHTML = data.year_stats.SOG;
+    sst[4].innerHTML = data.year_stats["+/-"];
+    sst[5].innerHTML = data.year_stats.SOG;
+    sst[6].innerHTML = data.year_stats["TOI/G"];
 
     document.getElementById("hockey_career_stats").innerHTML = "Career Stats";
 
@@ -68,26 +68,28 @@ function displayHockeyDashboard(data){
     for(i = 0;i <= 6;i++){
        cst[i].className = "stat_category";
     }
+   
     cst[0].innerHTML = "GP";
     cst[1].innerHTML = "G";
     cst[2].innerHTML = "A";
     cst[3].innerHTML = "PTS";
     cst[4].innerHTML = "+/-";
-    cst[5].innerHTML = "PIM";
-    cst[6].innerHTML = "SOG";    
+    cst[5].innerHTML = "SOG";  
+    cst[6].innerHTML = "TOI/G";  
     
     var cst = document.getElementById("hockey_career_stats_table").rows[1].cells;
-    for(i = 0;i <= 6;i++){
+    
+    for(i = 0; i <= 6; i++){
        cst[i].className = "dashboard_td";
     }
     cst[0].innerHTML = data.career_stats.GP;
     cst[1].innerHTML = data.career_stats.G;
     cst[2].innerHTML = data.career_stats.A;
     cst[3].innerHTML = data.career_stats.PTS;
-    cst[4].innerHTML = data.career_stats.PLUS;
-    cst[5].innerHTML = data.career_stats.PIM;
-    cst[6].innerHTML = data.career_stats.SOG;
-
+    cst[4].innerHTML = data.career_stats["+/-"];
+    cst[5].innerHTML = data.career_stats.SOG;
+    cst[6].innerHTML = data.career_stats["TOI/G"];
+    
     document.getElementById("hockey_prev_games").innerHTML = "Game Log";
 
     var game_log_table = document.getElementById("hockey_prev_games_table");
@@ -112,12 +114,10 @@ function displayHockeyDashboard(data){
         PTS.className = "stat_category";
         var PLUS = row.insertCell(5);
         PLUS.className = "stat_category";
-        var PIM = row.insertCell(6);
-        PIM.className = "stat_category";
-        var SOG = row.insertCell(7);
+        var SOG = row.insertCell(6);
         SOG.className = "stat_category";
-        var HITS = row.insertCell(8);
-        HITS.className = "stat_category";
+        var TOI = row.insertCell(7);
+        TOI.className = "stat_category";
         
         DATE.innerHTML = "Date";
         OPP.innerHTML = "OPP";
@@ -125,27 +125,24 @@ function displayHockeyDashboard(data){
         A.innerHTML = "A";
         PTS.innerHTML = "PTS";
         PLUS.innerHTML = "+/-";
-        PIM.innerHTML = "PIM";
         SOG.innerHTML = "SOG"; 
-        HITS.innerHTML = "Hits";               
+        TOI.innerHTML = "TOI/G";               
 
         //INSERT GAMES
         for(i = 1; i <= games.length; i++){
 
             // Create an empty <tr> element and add it to the 2nd position of the table (header row is first):
             var row = game_log_table.insertRow(i);
-            //row.className = "td";
             var DATE = row.insertCell(0);
             var OPP = row.insertCell(1);
             var G = row.insertCell(2);
             var A = row.insertCell(3);
             var PTS = row.insertCell(4);
             var PLUS = row.insertCell(5);
-            var PIM = row.insertCell(6);
-            var SOG = row.insertCell(7);
-            var HITS = row.insertCell(8);
+            var SOG = row.insertCell(6);
+            var TOI = row.insertCell(7);
 
-            var stat_type = [DATE, OPP, G, A, PTS, PLUS, PIM, SOG, HITS];
+            var stat_type = [DATE, OPP, G, A, PTS, PLUS, SOG, TOI];
             for(var j = 0;j < stat_type.length;j++){
                 stat_type[j].className = "dashboard_td";
             } 
@@ -155,10 +152,9 @@ function displayHockeyDashboard(data){
             G.innerHTML = games[i-1].G;
             A.innerHTML = games[i-1].A;
             PTS.innerHTML = games[i-1].PTS;
-            PLUS.innerHTML = games[i-1].PLUS;                  
-            PIM.innerHTML = games[i-1].PIM;
+            PLUS.innerHTML = games[i-1]["+/-"];                  
             SOG.innerHTML = games[i-1].SOG;
-            HITS.innerHTML = games[i-1].HITS;
+            TOI.innerHTML = games[i-1]["TOI/G";
         }
     }
 }
