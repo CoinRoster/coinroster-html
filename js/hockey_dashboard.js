@@ -11,13 +11,13 @@ function displayHockeyDashboard(data){
     // the 3 is because its the fourth dashboard sourced on contest.html
     setupDashboard(3);
     
-    window["player_id"] = data.player_id;
+    window["player_id"] = data.id;
        
     document.getElementById("hockey_player_name").innerHTML = data.name;
     document.getElementById("hockey_mobile_playername").innerHTML = data.name;
     
     //document.getElementById('hockey_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/32516.png&w=350&h=254';
-    document.getElementById('hockey_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/nhl/players/full/' + data.player_id + '.png&w=350&h=254';
+    document.getElementById('hockey_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/nhl/players/full/' + data.id + '.png&w=350&h=254';
     function onImageLoadError() {
         document.getElementById('hockey_headshot').src = '/img/default-basketball.png';
     }
