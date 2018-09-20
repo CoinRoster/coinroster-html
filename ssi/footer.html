@@ -11,10 +11,16 @@
                 <a href="http://blog.coinroster.com/contact" target="_blank" class="steel">Contact</a>
             </li>
             <li>
+                <a href="http://blog.coinroster.com/faq" target="_blank" class="steel">Help</a>
+            </li>
+            <li>
                 <a href="http://blog.coinroster.com/terms-of-service" target="_blank" class="steel">Terms</a>
             </li>
             <li>
                 <a href="http://blog.coinroster.com/coinroster-privacy-policy" target="_blank" class="steel">Privacy</a>
+            </li>
+             <li>
+                <a href="/stats.html" class="steel">Stats</a>
             </li>
         </ul>
     </div>
@@ -23,7 +29,7 @@
 <!--<script type="text/javascript" src="/js/setup_lobby.js"></script>-->
 
 <script>
-   var regex = /[?&]([^=#]+)=([^&#]*)/g,
+    var regex = /[?&]([^=#]+)=([^&#]*)/g,
     url = window.location.href,
     params = {},
     match;
@@ -39,16 +45,10 @@
             }
         });
     } 
-
-/*     var ref = get_url_param(ref, url);
-    if (ref !== null || ref !== undefined || ref !== "") {
-        // var call = api({
-        //     method: "LogAffiliate",
-        //     args: {
-        //         affiliate: affiliate
-        //     }
-        // });
-        
-    } */
+    
+    var ref = params['ref'];
+    if(ref !== undefined && get_cookie('referrer_username') === undefined){
+        set_cookie('referrer_username', ref);
+    }
 
 </script>

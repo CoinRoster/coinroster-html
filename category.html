@@ -279,7 +279,6 @@
                 settlement_expiry_list [i] = settlement_deadline;
                 settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
                 }
-                console.log(settlement_deadline);
             
             var row = new_row(table, -1, [
                 first_cell_text,
@@ -394,7 +393,8 @@
     var basketball = available_sports.BASKETBALL;
     var golf = available_sports.GOLF_4;
     var baseball = available_sports.BASEBALL;
-
+    var hockey = available_sports.HOCKEY;
+    
     if (sub_category === "basketball" && basketball) {
         show("contest_redirect");
     } else if (sub_category === "basketballprops" && basketball) {
@@ -408,6 +408,10 @@
     } else if (sub_category === "baseballprops" && baseball) {
         show("contest_redirect");
     } else if (sub_category === "usergenerated") {
+        show("contest_redirect");
+    } else if (sub_category === "hockey" && hockey) {
+        show("contest_redirect");
+    } else if (sub_category === "hockeyprops" && hockey) {
         show("contest_redirect");
     }
 

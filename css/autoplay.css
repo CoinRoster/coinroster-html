@@ -1,0 +1,107 @@
+#user_autoplay_entries td:nth-child(4), #user_autoplay_entries td:nth-child(5) { 
+    white-space: nowrap;
+}
+#user_autoplay_entries td:nth-child(7){
+    white-space: normal;
+}
+.modification_row{
+    background-color: darkgrey;
+    padding:10px;
+}
+#user_autoplay_entries td {
+    padding: 10px 10px;
+}
+.contest_title_link{
+    cursor: pointer;
+}
+.contest_title_link:hover{
+    text-decoration: underline;
+}
+#user_autoplay_entries tr:first-child td:first-child{
+    white-space: normal;
+}
+#user_autoplay_entries tr td:nth-child(3){
+    white-space: nowrap;
+}
+#user_autoplay_entries tr td:last-child{
+    text-align: center;
+}
+.datepicker{
+    cursor: pointer;
+}
+.avail_contests{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+@media only screen and (max-width: 994px) {
+   
+    #user_autoplay_entries tr:first-child { /* header */
+        display: none;
+    }
+    
+    #user_autoplay_entries li, #possible_contests li{
+        padding-bottom: 10px;
+    }
+
+    #user_autoplay_entries td {
+        display: block;
+        text-align: left !important;
+        padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
+    }
+
+    #user_autoplay_entries td:nth-child(2) { /* title / button */
+        padding-top: 10px !important;
+    }
+    #user_autoplay_entries td:last-child { /* prize pool */
+        padding-bottom: 11px !important;
+    }
+
+    #user_autoplay_entries .field_label {
+        display: inline-block !important;
+        padding-right: 20px;
+        font-size: 12px;
+    }
+    #user_autoplay_entries .payout_info_link {
+        display: inline-block !important;
+    }
+
+    #user_autoplay_entries .fiat_display.allow_inline {
+        display: inline-block !important;
+        padding-left: 20px;
+    }
+    
+     #user_autoplay_entries tr:first-child { /* header */
+        display: none;
+    }
+
+    
+    /* entry to modify table */
+    #possible_contests td {
+        display: block;
+        text-align: left !important;
+        padding-bottom: 0px !important; /* make sure to add padding bottom to 1st and last td */
+    }
+
+    #possible_contests td:nth-child(2) { /* title / button */
+        padding-top: 10px !important;
+    }
+    #possible_contests td:last-child { /* prize pool */
+        padding-bottom: 11px !important;
+    }
+
+    #possible_contests .field_label {
+        display: inline-block !important;
+        padding-right: 20px;
+        font-size: 12px;
+    }
+    #possible_contests .payout_info_link {
+        display: inline-block !important;
+    }
+
+    #possible_contests .fiat_display.allow_inline {
+        display: inline-block !important;
+        padding-left: 20px;
+    }
+    
+}
+

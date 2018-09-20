@@ -1,14 +1,14 @@
 function get_counts(data){
-        var call = api({
-          method: "IncludePrivateContests",
-          args: {
-              active_subs: data
-          }
-        });
-        if (call.status === "1") 
-          return call.counts;
-        else return null;
-    }
+    var call = api({
+      method: "IncludePrivateContests",
+      args: {
+          active_subs: data
+      }
+    });
+    if (call.status === "1") 
+      return call.counts;
+    else return null;
+}
 
 function get_active_subs(){
     var arr = [];

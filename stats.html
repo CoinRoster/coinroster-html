@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Site Stats</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <link rel="stylesheet" type="text/css" href="/css/stats.css">
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div class="table_body_container transaction_table_body">
+            <div id="site_stats_table"></div>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function get_site_stats()
+        {
+        api({
+            method: "GetSiteStats",
+            args: {}
+        }, function(call)
+            {
+            if (call.status === "1") 
+                {
+                var stats = call.stats;
+                    
+                function new_row(table, row_index, data)
+                    {
+                    var row = table.insertRow(row_index),
+                    array = [row];
+                    for (var i=0; i<data.length; i++)
+                        {
+                        var cell = row.insertCell(i); 
+                        cell.innerHTML = data[i];
+                        array.push(cell);
+                        }
+
+                    return array;
+                    }
+
+                var table = new_table("site_stats_table");
+                for(i=0; i < stats.length; i++)
+                    {
+                    var stat = stats[i],
+                    name = stat.name,
+                    value = stat.value,
+                    from_currency = null;
+                    var number = false;
+                        
+                    if(name.includes("BTC"))
+                        from_currency = "BTC";
+                    else if(name.includes("RC"))
+                        from_currency = "RC";
+                    else
+                        number = true;
+
+                    var row = new_row(table, i, [
+                        name,
+                        number ? "<ul class=\"right_left\"><li>" + value + "</li>" : "<ul class=\"right_left\"><li>" + value + "</li><li>" + from_currency + "</li></ul>",
+                        number ? "" : getFiatDisplay(value, "allow_inline")
+                        
+                    ]);
+                   
+                    }
+                }
+            })
+        };
+    
+    // INIT FUNCTION
+    function init(){
+        get_site_stats();
+    }               
+       
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>

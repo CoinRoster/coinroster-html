@@ -25,21 +25,39 @@
             
         pari_mutuel_table = new_table("pari_mutuel_table");
         pari_mutuel_table.id = 'pari_mutuel_table_element';
+
         var
         
         row_count = 0,
         number_of_options = +id("number_of_options").value;
 
-        if (isNaN(number_of_options) || number_of_options < 2) return alert("There must be 2 or more options");
-        else if (number_of_options > 20) return alert("There can be up to 20 options");
+        if (isNaN(number_of_options) || number_of_options < 2) show_simple_modal("There must be 2 or more options");
+        else if (number_of_options > 20) show_simple_modal("There can be up to 20 options");
 
         for (var i=0; i < number_of_options; i++) {
             var rank = i + 1;
-            new_row(pari_mutuel_table, row_count++, [
-                rank,
-                "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\" placeholder=\"Description\">"
-            ]);
+            if (id('fixed_odds').checked === true) {
+                new_row(pari_mutuel_table, row_count++, [
+                    rank,
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Description\">",
+                    "<input id=\"odds_" + i + "\" type=\"number\" step=\"1\" class=\"input_style text_input\" style=\"width:200px;\" placeholder=\"Odds\">"
+                ]);
+                let id = '#odds_' + i;
+                $(id).onblur = () => {
+                    let value = id('odds_' + i).value;
+                    id('odds_' + i).value = value + ':1';
+                }
+            } else {
+                new_row(pari_mutuel_table, row_count++, [
+                    rank,
+                    "<input type=\"text\" class=\"input_style text_input\" style=\"width:500px;\" placeholder=\"Description\">",
+                ]);
+            }
         }
+        if (id('fixed_odds').checked === true) new_row(pari_mutuel_table, row_count++, [
+            null,
+            "<input id=\"risk\" type=\"number\" step=\"0.00001\"class=\"input_style text_input\" style=\"width:300px;\" placeholder=\"Risk\">",        
+        ]);
             
         var header = new_row(pari_mutuel_table, 0, [
             "Id",
@@ -87,17 +105,6 @@
                         option_table: contest_item.option_table,
                         contest_type: contest_item.contest_type
                     };
-
-                    // var header = new_row(table, -1, [
-                    //     "Contest",
-                    //     "Created",
-                    //     "Created By",
-                    //     "Category",
-                    //     "Title"
-                    // ]);
-            
-                    // header[4].className = "right_nowrap";
-                    // header[5].className = "right_nowrap";
 
                     var row = new_row(table, row_count++, [
                         contest_id,

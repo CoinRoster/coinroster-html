@@ -51,6 +51,7 @@ function displayBasketballDashboard(data){
     sst[6].innerHTML = "TO";   
     
     var sst = document.getElementById("basketball_season_stats_table").rows[1].cells;
+
     for(i = 0;i <= 6;i++){
        sst[i].className = "dashboard_td";
     }

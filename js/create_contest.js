@@ -5,6 +5,7 @@ var roster_multistat_overall = id("roster_multistat_overall");
 var roster_settlement_type = id("roster_settlement_type");
 var prop_sport_selector = id("prop_sport_selector");
 var prop_basketball_type_selector = id("prop_basketball_type");
+var prop_hockey_type_selector = id("prop_hockey_type");
 var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_match_multistat_overall = id("prop_golf_multistat_overall");
@@ -14,7 +15,7 @@ var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
 var inputs_labels = $("*[class$='dynamic_checkbox_label']");
 
-var avaliable_sports = get_available_sports();
+var available_sports = get_available_sports();
 
 // Link scoring checkboxes and input fields
  $.each(checkboxes, function(index, data){
@@ -30,7 +31,7 @@ var avaliable_sports = get_available_sports();
   })
  });
 
- // Generate checkboxes for avaliable games
+ // Generate checkboxes for available games
  function generate_game_checkboxes(games, div)
   {
     div.innerHTML = "";
@@ -66,13 +67,60 @@ function populate_gameIDs(games, gameID)
     }
   }
 
+function toggle_over_under_odds(sport){
+    // fixed odds
+    if(id(sport + "_over_fixed_odds").checked){
+        id("prop_" + sport + "_over_under_odds").classList.remove("hidden");
+        o_u = id("prop_" + sport + "_over_under_value").value;
+        id(sport + "_over_odds_label").innerHTML = "Over " + o_u;
+        id(sport + "_under_odds_label").innerHTML = "Under " + o_u;
+    }
+    else{
+        id("prop_" + sport + "_over_under_odds").classList.add("hidden");
+    }
+}
+
+function toggle_make_cut_odds(sport){
+    // fixed odds
+    if(id(sport + "_make_cut_fixed_odds").checked){
+        id("prop_" + sport + "_make_cut_odds").classList.remove("hidden");
+    }
+    else{
+        id("prop_" + sport + "_make_cut_odds").classList.add("hidden");
+    }
+}
+
+
+function toggle_match_odds(sport){
+    // fixed odds
+    var selected = id(sport + "_match_selected_players_list").getElementsByTagName("li");
+    if(id(sport + "_match_fixed_odds").checked){
+        id(sport + "_match_risk_div").classList.remove("hidden");
+        for(i = 0; i < selected.length; i++){
+            li = selected[i];
+            player_id = li.id;
+            li.innerHTML += `<input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player_id + `_odds" value="">`
+        }
+    }
+    else{
+        id(sport + "_match_risk_div").classList.add("hidden");
+        for(i = 0; i < selected.length; i++){
+            li = selected[i];
+            li.removeChild(li.getElementsByTagName("input")[0]);
+        }
+    }
+}
+
  var reset_elements = function()
   {
     hide(document.getElementsByClassName("roster_basketball_scoring")[0]);
+    hide(document.getElementsByClassName("roster_hockey_scoring")[0]);  
     hide(document.getElementsByClassName("roster_golf_scoring")[0]);
     hide(document.getElementsByClassName("roster_baseball_scoring")[0]);
     hide(document.getElementsByClassName("prop_basketball_match_play")[0]);
     hide(document.getElementsByClassName("prop_basketball_over_under")[0]);
+    hide(document.getElementsByClassName("prop_hockey_match_play")[0]);
+    hide(document.getElementsByClassName("prop_hockey_over_under")[0]);
     hide(document.getElementsByClassName("prop_golf_make_the_cut")[0]);
     hide(document.getElementsByClassName("prop_golf_over_under")[0]);
     hide(document.getElementsByClassName("prop_golf_match_play")[0]);
@@ -82,9 +130,11 @@ function populate_gameIDs(games, gameID)
     hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
     hide(document.getElementsByClassName("prop_baseball_over_under")[0]);
     hide(document.getElementsByClassName("prop_basketball_title")[0]);
+    hide(document.getElementsByClassName("prop_hockey_title")[0]);  
     hide(document.getElementsByClassName("prop_golf_title")[0]);
     hide(document.getElementsByClassName("prop_baseball_title")[0]);
     hide(document.getElementsByClassName("roster_basketball_title")[0]);
+    hide(document.getElementsByClassName("roster_hockey_title")[0]);  
     hide(document.getElementsByClassName("roster_golf_title")[0]);
     hide(document.getElementsByClassName("roster_baseball_title")[0]);
   };
@@ -101,9 +151,10 @@ contest_type_selector.onchange = function()
     
     function populate_sports()
     {
-      var basketball = avaliable_sports.BASKETBALL;
-      var golf = avaliable_sports.GOLF_4;
-      var baseball = avaliable_sports.BASEBALL;
+      var basketball = available_sports.BASKETBALL;
+      var golf = available_sports.GOLF_4;
+      var baseball = available_sports.BASEBALL;
+      var hockey = available_sports.HOCKEY;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
@@ -150,6 +201,20 @@ contest_type_selector.onchange = function()
         option.value = "Baseball";
         prop_sport_selector.add(option);
         }
+    
+      if (hockey) {
+        var option = document.createElement("option");
+        option.text = "Hockey";
+        option.value = "Hockey";
+        roster_sport_selector.add(option);
+      } 
+      
+      if (hockey) {
+        var option = document.createElement("option");
+        option.text = "Hockey";
+        option.value = "Hockey";
+        prop_sport_selector.add(option);
+        } 
     }
 
     switch (selectorHTML(contest_type_selector))
@@ -179,37 +244,49 @@ roster_sport_selector.onchange = function()
   var basketball_scoring = document.getElementsByClassName("roster_basketball_scoring");
   var golf_scoring = document.getElementsByClassName("roster_golf_scoring");
   var baseball_scoring = document.getElementsByClassName("roster_baseball_scoring");
-
+  var hockey_scoring = document.getElementsByClassName("roster_hockey_scoring");
+    
   var roster_basketball_games = document.getElementById("roster_basketball_games");
   var roster_baseball_games = document.getElementById("roster_baseball_games");
-
+  var roster_hockey_games = document.getElementById("roster_hockey_games");
+    
   var basketball_title = document.getElementById("roster_basketball_title");
   var golf_title = document.getElementById("roster_golf_title");
   var baseball_title = document.getElementById("roster_baseball_title");
+  var hockey_title = document.getElementById("roster_hockey_title");
 
   reset_elements();
 
-  if (avaliable_sports.BASKETBALL) {
-    generate_game_checkboxes(avaliable_sports.basketball_games, roster_basketball_games);
+  if (available_sports.BASKETBALL) {
+    generate_game_checkboxes(available_sports.basketball_games, roster_basketball_games);
+  }
+    
+  if (available_sports.HOCKEY) {
+    generate_game_checkboxes(available_sports.hockey_games, roster_hockey_games);
   }
 
-  if (avaliable_sports.BASEBALL) {
-    generate_game_checkboxes(avaliable_sports.baseball_games, roster_baseball_games);
+  if (available_sports.BASEBALL) {
+    generate_game_checkboxes(available_sports.baseball_games, roster_baseball_games);
   }
 
   // Set titles
-  if (avaliable_sports.BASKETBALL) {
-    var title = avaliable_sports.basketball_contest;
+  if (available_sports.BASKETBALL) {
+    var title = available_sports.basketball_contest;
     basketball_title.innerHTML = title;
   } 
   
-  if (avaliable_sports.GOLF_4) {
-    var title = avaliable_sports.golf_contest;
+  if (available_sports.HOCKEY) {
+    var title = available_sports.hockey_contest;
+    hockey_title.innerHTML = title;
+  }
+    
+  if (available_sports.GOLF_4) {
+    var title = available_sports.golf_contest;
     golf_title.innerHTML = title;
   }
   
-  if (avaliable_sports.BASEBALL) {
-    var title = avaliable_sports.baseball_contest;
+  if (available_sports.BASEBALL) {
+    var title = available_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
 
@@ -219,6 +296,22 @@ roster_sport_selector.onchange = function()
         show(basketball_title);
         show(basketball_scoring[0]);
         show(roster_basketball_games);
+        hide(golf_title);
+        hide(baseball_title);
+        hide(golf_scoring[0]);
+        hide(baseball_scoring[0]);
+        hide(roster_baseball_games);
+        hide(hockey_title);
+        hide(hockey_scoring[0]);
+        hide(roster_hockey_games);
+        break;
+      case "Hockey":
+        show(hockey_title);
+        show(hockey_scoring[0]);
+        show(roster_hockey_games);
+        hide(basketball_title);
+        hide(basketball_scoring[0]);
+        hide(roster_basketball_games);
         hide(golf_title);
         hide(baseball_title);
         hide(golf_scoring[0]);
@@ -234,6 +327,9 @@ roster_sport_selector.onchange = function()
         hide(baseball_scoring[0]);
         hide(roster_baseball_games);
         hide(roster_basketball_games);
+        hide(hockey_title);
+        hide(hockey_scoring[0]);
+        hide(roster_hockey_games);
         break;
       case "Baseball":
         show(baseball_title);
@@ -244,6 +340,9 @@ roster_sport_selector.onchange = function()
         hide(basketball_scoring[0]);
         hide(golf_scoring[0]);
         hide(roster_basketball_games);
+        hide(hockey_title);
+        hide(hockey_scoring[0]);
+        hide(roster_hockey_games);
         break;
     }
  };
@@ -288,21 +387,23 @@ roster_settlement_type.onchange = function()
 prop_sport_selector.onchange = function()
  {
   var prop_basketball_type = document.getElementsByClassName("prop_basketball_type");
+  var prop_hockey_type = document.getElementsByClassName("prop_hockey_type");  
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
   var prop_golf_type_selector = document.getElementById("prop_golf_type");
 
-  avaliable_sports = get_available_sports();
+  available_sports = get_available_sports();
 
   $('#prop_golf_type option[value="Make the Cut"]').remove();
   
   reset_elements();
   
   document.getElementById("prop_basketball_type").selectedIndex = "0";
+  document.getElementById("prop_hockey_type").selectedIndex = "0";
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
-
-  if (avaliable_sports.GOLF_1) {
+   
+if(available_sports.GOLF_1) {   
     var option = document.createElement("option");
     option.text = "Make the Cut";
     option.value = "Make the Cut";
@@ -310,22 +411,28 @@ prop_sport_selector.onchange = function()
   }
 
   var basketball_title = document.getElementById("prop_basketball_title");
+  var hockey_title = document.getElementById("prop_hockey_title");  
   var golf_title = document.getElementById("prop_golf_title");
   var baseball_title = document.getElementById("prop_baseball_title");
 
   // Set titles
-  if (avaliable_sports.BASKETBALL) {
-    var title = avaliable_sports.basketball_contest;
+  if (available_sports.BASKETBALL) {
+    var title = available_sports.basketball_contest;
     basketball_title.innerHTML = title;
   } 
+
+  if (available_sports.HOCKEY) {
+    var title = available_sports.hockey_contest;
+    hockey_title.innerHTML = title;
+  } 
   
-  if (avaliable_sports.GOLF_4) {
-    var title = avaliable_sports.golf_contest;
+  if (available_sports.GOLF_4) {
+    var title = available_sports.golf_contest;
     golf_title.innerHTML = title;
   }
   
-  if (avaliable_sports.BASEBALL) {
-    var title = avaliable_sports.baseball_contest;
+  if (available_sports.BASEBALL) {
+    var title = available_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
 
@@ -338,6 +445,18 @@ prop_sport_selector.onchange = function()
       hide(golf_title);
       hide(baseball_title);
       hide(prop_baseball_type[0]);
+      hide(hockey_title);
+      hide(prop_hockey_type[0]);
+      break;
+    case "Hockey":
+      show(hockey_title);
+      show(prop_hockey_type[0]);
+      hide(prop_golf_type[0]);
+      hide(golf_title);
+      hide(baseball_title);
+      hide(prop_baseball_type[0]);
+      hide(basketball_title);
+      hide(prop_basketball_type[0]);
       break;
     case "Golf":
       show(golf_title);
@@ -346,6 +465,8 @@ prop_sport_selector.onchange = function()
       hide(baseball_title);
       hide(prop_basketball_type[0]);
       hide(prop_baseball_type[0]);
+      hide(hockey_title);
+      hide(prop_hockey_type[0]);
       break;
     case "Baseball":
       show(baseball_title)
@@ -354,10 +475,13 @@ prop_sport_selector.onchange = function()
       hide(basketball_title);
       hide(prop_basketball_type[0]);
       hide(prop_golf_type[0]);
+      hide(hockey_title);
+      hide(prop_hockey_type[0]);
       break;
   }
  };
 
+// BASKETBALL PROP
 prop_basketball_type_selector.onchange = function()
  {
    var prop_basketball_match_play = document.getElementsByClassName("prop_basketball_match_play");
@@ -386,6 +510,8 @@ prop_basketball_type_selector.onchange = function()
         var selected_players_list = document.getElementById("basketball_match_selected_players_list");
         player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
+        
+        fixed_odds = id("basketball_match_fixed_odds").checked;
 
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
@@ -403,12 +529,13 @@ prop_basketball_type_selector.onchange = function()
 
         selected_players.forEach((player) => {
           var li = document.createElement("li");
-          li.innerHTML = player.name;
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
           li.id = player.player_id;
-          li.onclick = function() {
+          selected_players_list.appendChild(li);
+          li.getElementsByTagName("span")[0].onclick = function() {
             remove_player(player);
           }
-          selected_players_list.appendChild(li);
+          
         });
       }
 
@@ -439,6 +566,94 @@ prop_basketball_type_selector.onchange = function()
     }
  };
 
+
+// HOCKEY PROP
+prop_hockey_type_selector.onchange = function()
+ {
+   var prop_hockey_match_play = document.getElementsByClassName("prop_hockey_match_play");
+   var prop_hockey_over_under = document.getElementsByClassName("prop_hockey_over_under");
+   var players = get_all_players("HOCKEY");
+   var selected_players = [];
+
+   function add_player(player) 
+    {
+        selected_players.push(player);
+        populate_match_play_players();
+    }
+
+    function remove_player(player)
+     {
+        for (i = 0;i < selected_players.length; i++) {
+          selected_players = selected_players.filter((el) =>  el.player_id !== player.player_id);
+        }  
+        populate_match_play_players();
+     }
+
+    function populate_match_play_players()
+      {
+        var players_to_populate = players;
+        var player_select = document.getElementById("hockey_match_player_list");
+        var selected_players_list = document.getElementById("hockey_match_selected_players_list");
+        player_select.innerHTML = "";
+        selected_players_list.innerHTML = "";
+        
+        fixed_odds = id("hockey_match_fixed_odds").checked;
+
+        for (i = 0;i < selected_players.length; i++) {
+          players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
+        }      
+
+        players_to_populate.forEach((player) => {
+          var li = document.createElement("li");
+          li.innerHTML = player.name;
+          li.value = player.player_id;
+          li.onclick = function() {
+            add_player(player);
+          }
+          player_select.appendChild(li);
+        });
+
+        selected_players.forEach((player) => {
+          var li = document.createElement("li");
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
+          li.id = player.player_id;
+          selected_players_list.appendChild(li);
+          li.getElementsByTagName("span")[0].onclick = function() {
+            remove_player(player);
+          }
+          
+        });
+      }
+
+    function populate_over_under_players()
+      {
+        var player_select = document.getElementById("prop_hockey_over_under_player");
+
+        players.forEach((player) => {
+          var option = document.createElement("option");
+          option.text = player.name;
+          option.value = player.player_id;
+          player_select.add(option);
+        });
+      }
+
+   switch (selectorHTML(prop_basketball_type_selector))
+    {
+      case "Match Play":
+        show(prop_hockey_match_play[0]);
+        hide(prop_hockey_over_under[0]);
+        populate_match_play_players();
+        break;
+      case "Over/Under":
+        show(prop_hockey_over_under[0]);
+        hide(prop_hockey_match_play[0]);
+        populate_over_under_players();
+        break;
+    }
+ };
+
+
+// GOLF PROP
 prop_golf_type_selector.onchange = function()
  {
    var prop_golf_make_the_cut = document.getElementsByClassName("prop_golf_make_the_cut");
@@ -473,6 +688,7 @@ prop_golf_type_selector.onchange = function()
       var players_to_populate = players;
       match_players.innerHTML = "";
       match_selected_players.innerHTML = "";
+      fixed_odds = id("golf_match_fixed_odds").checked;
 
       for (i = 0;i < selected_players.length; i++) {
         players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
@@ -489,13 +705,13 @@ prop_golf_type_selector.onchange = function()
       });
 
       selected_players.forEach((player) => {
-        var li = document.createElement("li");
-        li.innerHTML = player.name;
-        li.id = player.player_id;
-        li.onclick = function() {
-          remove_player(player);
-        }
-        match_selected_players.appendChild(li);
+          var li = document.createElement("li");
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
+          li.id = player.player_id;
+          li.getElementsByTagName("span")[0].onclick = function() {
+            remove_player(player);
+          }
+          match_selected_players.appendChild(li);
       });
     }
 
@@ -598,11 +814,16 @@ prop_golf_over_multistat_overall.onchange = function()
      function populate_match_play_players()
       {
         var players_to_populate = players;
+        
+        var fixed_odds = false;
+        if(id("baseball_match_fixed_odds").checked)
+            fixed_odds = true;
+          
         var player_select = document.getElementById("baseball_match_player_list");
         var selected_players_list = document.getElementById("baseball_match_selected_players_list");
         player_select.innerHTML = "";
         selected_players_list.innerHTML = "";
-
+          
         for (i = 0;i < selected_players.length; i++) {
           players_to_populate = players_to_populate.filter(player => player.player_id !== selected_players[i].player_id);
         }      
@@ -619,12 +840,13 @@ prop_golf_over_multistat_overall.onchange = function()
 
         selected_players.forEach((player) => {
           var li = document.createElement("li");
-          li.innerHTML = player.name;
+          li.innerHTML = fixed_odds ? "<span class='pointer'>" + player.name + `</span><input type="number" style="font-family:FontAwesome, gotham_medium; width: 50px !important; float:right; height: 5px;" placeholder="Odds" class="input_style" id="` + player.player_id + `_odds" value="">` : "<span class='pointer'>" + player.name + "</span>";
           li.id = player.player_id;
-          li.onclick = function() {
+          selected_players_list.appendChild(li);
+          li.getElementsByTagName("span")[0].onclick = function() {
             remove_player(player);
           }
-          selected_players_list.appendChild(li);
+          
         });
       }
 
@@ -774,7 +996,7 @@ function create_contest_attempt(data, method)
           }
         );
       } else {
-        show_simple_modal("Error: " + call.error); 
+        show_simple_modal("Error: " + call.error);
       };
   }
 
@@ -817,7 +1039,11 @@ function create_new_contest()
     clear_error("roster_basketball_assists");
     clear_error("roster_basketball_steals");
     clear_error("roster_basketball_blocks");
-    clear_error("roster_basketball_turnovers");
+    clear_error("roster_hockey_goals");
+    clear_error("roster_hockey_assists");
+    clear_error("roster_hockey_plus_minus");
+    clear_error("roster_hockey_sog");
+    clear_error("roster_hockey_bs");
     clear_error("roster_baseball_rbi");
     clear_error("roster_baseball_hits");
     clear_error("roster_baseball_runs");
@@ -848,7 +1074,24 @@ function create_new_contest()
       var basketball_games = document.getElementById("roster_basketball_games").children;
       populate_gameIDs(basketball_games, gameIDs);
       json_obj.gameIDs = gameIDs;
-    } else if (sport === "Baseball") {
+        
+    }
+    else if (sport === "Hockey") {
+      json_obj.sub_category = "HOCKEY";
+      get_score_value("roster_hockey_goals", "goals", scoring, submit_error);
+      get_score_value("roster_hockey_assists", "assists", scoring, submit_error);
+      get_score_value("roster_hockey_plus_minus", "plus-minus", scoring, submit_error);
+      get_score_value("roster_hockey_sog", "sog", scoring, submit_error);
+      get_score_value("roster_hockey_bs", "bs", scoring, submit_error);
+      
+      // Populate gameID's
+      var hockey_games = document.getElementById("roster_hockey_games").children;
+      populate_gameIDs(hockey_games, gameIDs);
+      json_obj.gameIDs = gameIDs;
+        
+    } 
+      
+    else if (sport === "Baseball") {
       json_obj.sub_category = "BASEBALL";
       get_score_value("roster_baseball_rbi", "RBIs", scoring, submit_error);
       get_score_value("roster_baseball_hits", "hits", scoring, submit_error);
@@ -860,7 +1103,9 @@ function create_new_contest()
       var baseball_games = document.getElementById("roster_baseball_games").children;
       populate_gameIDs(baseball_games, gameIDs);
       json_obj.gameIDs = gameIDs;
-    } else if (sport === "Golf") {
+    } 
+      
+      else if (sport === "Golf") {
       json_obj.sub_category = "GOLF";
       var type = selectorValue(roster_multistat_overall);
       round_tournament = getCheckedValue("round_tournament");
@@ -1023,7 +1268,7 @@ function create_new_contest()
     clear_error("props_basketball_match_steals");
     clear_error("props_basketball_match_blocks");
     clear_error("props_basketball_match_turnovers");
-    clear_error("props_basketball_over_under_value");
+    clear_error("prop_basketball_over_under_value");
     clear_error("props_basketball_over_points");
     clear_error("props_basketball_over_rebounds");
     clear_error("props_basketball_over_assists");
@@ -1052,6 +1297,17 @@ function create_new_contest()
     clear_error("prop_baseball_match_runs");
     clear_error("prop_baseball_match_strikeouts");
     clear_error("prop_baseball_match_walks");
+    clear_error("props_hockey_match_goals");
+    clear_error("props_hockey_match_assists");
+    clear_error("props_hockey_match_plus_minus");
+    clear_error("props_hockey_match_sog");
+    clear_error("props_hockey_match_bs");
+    clear_error("props_hockey_over_goals");
+    clear_error("props_hockey_over_assists");
+    clear_error("props_hockey_over_plus_minus");
+    clear_error("props_hockey_over_sog");
+    clear_error("props_hockey_over_bs");
+    
     
     if (!sport) {
       show_simple_modal("Please select a sport");
@@ -1084,25 +1340,64 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
-            players.push(player.id);
+            p = {}
+            if(id("basketball_match_fixed_odds").checked){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_basketball_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
           });
           
-          var prop_data = {
-            prop_type: "MATCH_PLAY",
-            players: players
-          };
+          prop_data = {};
+          if(id("basketball_match_fixed_odds").checked){
+              risk = id("basketball_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                  show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                  submit_error.error = true;
+              }
+              else{
+                  prop_data['risk'] = Number(risk);
+              }
+              
+              tie_odds = id("basketball_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) ){
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['tie_odds'] = Number(tie_odds);
+              }
+          }
+            
+          prop_data['prop_type'] = "MATCH_PLAY";
+          prop_data['players'] = players;
 
           json_obj.prop_data = prop_data;
           json_obj.scoring_rules = scoring;
         }
-      } else if (prop_type === "Over/Under") {
+      } 
+    else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
-        var over_under_value = document.getElementById("props_basketball_over_under_value").value;
+        var over_under_value = document.getElementById("prop_basketball_over_under_value").value;
         var player = document.getElementById("prop_basketball_over_under_player").value;
 
         if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
           show_simple_modal("Please enter a valid over/under value");
-          add_error("props_basketball_over_under_value");
+          add_error("prop_basketball_over_under_value");
           submit_error.error = true;
         } else {
           prop_data.over_under_value = Number(over_under_value);
@@ -1122,11 +1417,161 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
+          
+        // fixed odds  
+        if(id("basketball_over_fixed_odds").checked){
+            over = id("prop_basketball_over_odds").value;
+            under = id("prop_basketball_under_odds").value;
+            risk = id("basketball_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+                prop_data['risk'] = Number(risk);
+            }
+        }  
         
         json_obj.prop_data = prop_data;
         json_obj.scoring_rules = scoring;
       }
-    } else if (sport === "Golf") {
+    } 
+      
+    // HOCKEY PROP  
+    else if (sport === "Hockey") {
+      var prop_type = selectorValue("prop_hockey_type");
+      json_obj.sub_category = "HOCKEYPROPS";
+      
+      if (!prop_type) {
+        show_simple_modal("Please select a prop type");
+        submit_error.error = true;
+      }
+
+      if (prop_type === "Match Play") {
+        // Collect and validate scores
+        get_score_value("prop_hockey_match_goals", "goals", scoring, submit_error);
+        get_score_value("prop_hockey_match_assists", "assists", scoring, submit_error);
+        get_score_value("prop_hockey_match_plus_minus", "plus-minus", scoring, submit_error);
+        get_score_value("prop_hockey_match_sog", "sog", scoring, submit_error);
+        get_score_value("prop_hockey_match_bs", "bs", scoring, submit_error);
+
+        // Get players
+        var selected_players = document.getElementById("hockey_match_selected_players_list").childNodes;
+        
+        if (selected_players.length < 2) {
+          show_simple_modal("Please select at least two players");
+          submit_error.error = true;
+        } else {
+          selected_players.forEach((player) => {
+            p = {}
+            if(id("hockey_match_fixed_odds").checked){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_hockey_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
+          });
+          
+          prop_data = {};
+          if(id("hockey_match_fixed_odds").checked){
+              risk = id("hockey_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                  show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                  submit_error.error = true;
+              }
+              else{
+                  prop_data['risk'] = Number(risk);
+              }
+              
+              tie_odds = id("hockey_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) ){
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['tie_odds'] = Number(tie_odds);
+              }
+          }
+            
+          prop_data['prop_type'] = "MATCH_PLAY";
+          prop_data['players'] = players;
+
+          json_obj.prop_data = prop_data;
+          json_obj.scoring_rules = scoring;
+        }
+      } 
+    else if (prop_type === "Over/Under") {
+        var prop_data = { prop_type: "OVER_UNDER"};
+        var over_under_value = document.getElementById("prop_hockey_over_under_value").value;
+        var player = document.getElementById("prop_hockey_over_under_player").value;
+
+        if ((!over_under_value || isNaN(over_under_value)) && !submit_error.error) {
+          show_simple_modal("Please enter a valid over/under value");
+          add_error("prop_hockey_over_under_value");
+          submit_error.error = true;
+        } else {
+          prop_data.over_under_value = Number(over_under_value);
+        }
+
+        // Collect and validate scores
+        get_score_value("prop_hockey_over_goals", "goals", scoring, submit_error);
+        get_score_value("prop_hockey_over_assists", "assists", scoring, submit_error);
+        get_score_value("prop_hockey_over_plus_minus", "plus-minus", scoring, submit_error);
+        get_score_value("prop_hockey_over_sog", "sog", scoring, submit_error);
+        get_score_value("prop_hockey_over_bs", "bs", scoring, submit_error);
+
+        if (!player && !submit_error.error) {
+          show_simple_modal("Please pick a player");
+          submit_error.error = true;
+        } else {
+          prop_data.player_id = player;
+        }
+          
+        // fixed odds  
+        if(id("hockey_over_fixed_odds").checked){
+            over = id("prop_hockey_over_odds").value;
+            under = id("prop_hockey_under_odds").value;
+            risk = id("hockey_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+                prop_data['risk'] = Number(risk);
+            }
+        }  
+        
+        json_obj.prop_data = prop_data;
+        json_obj.scoring_rules = scoring;
+      }
+    } 
+      
+    else if (sport === "Golf") {
       var prop_type = selectorValue("prop_golf_type");
       json_obj.sub_category = "GOLFPROPS";
 
@@ -1182,6 +1627,29 @@ function create_new_contest()
         } else {
           prop_data.when = round_tournament.toLowerCase();
         }
+          
+        if(id("golf_over_fixed_odds").checked){
+            over = id("prop_golf_over_odds").value;
+            under = id("prop_golf_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+            risk = id("golf_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
+        }
 
         json_obj.prop_data = prop_data;
 
@@ -1223,12 +1691,55 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
-            players.push(player.id);
+            p = {}
+            fixed_odds = id("golf_match_fixed_odds").checked
+            if(fixed_odds){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_golf_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
           });
+            
+          if(id("golf_match_fixed_odds").checked){
+              risk = id("golf_match_risk").value;
+              if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['risk'] = Number(risk);
+              }
+              
+              tie_odds = id("golf_match_tie").value;
+              if (!tie_odds || isNaN(tie_odds) ){
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+                submit_error.error = true;
+              }
+              else{
+                  prop_data['tie_odds'] = Number(tie_odds);
+              }
+          }
           prop_data.players = players;
+            
         }
         json_obj.prop_data = prop_data;
-      } else if (prop_type === "Number of Shots") {
+          
+      } 
+    else if (prop_type === "Number of Shots") {
         scoring_required.required = false;
         var prop_data = { prop_type: "NUMBER_SHOTS"};
         var shot_type = selectorValue("prop_golf_number_of_shots_type");
@@ -1269,6 +1780,29 @@ function create_new_contest()
         } else {
           prop_data.player_id = player;
         }
+          
+         if(id("golf_make_cut_fixed_odds").checked){
+            yes = id("prop_golf_make_cut_yes_odds").value;
+            no = id("prop_golf_make_cut_no_odds").value;
+            if(isNaN(yes) || Number(yes) < 1 || isNaN(no) || Number(no) < 1 ){
+                show_simple_modal("Please ensure that the odds for Yes and No are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                yes = Number(yes);
+                no = Number(no);
+                prop_data['yes_odds'] = yes;
+                prop_data['no_odds'] = no;
+            }
+            risk = id("golf_make_cut_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
+        }
       
         json_obj.prop_data = prop_data;
       }      
@@ -1297,14 +1831,56 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           selected_players.forEach((player) => {
-            players.push(player.id);
+            p = {}
+            if(id("baseball_match_fixed_odds").checked){
+                var id_to_get = player.id + "_odds";
+                
+                odds = id(id_to_get).value;
+                if(isNaN(odds) || Number(odds) < 1){
+                    show_simple_modal("Please ensure that each player has valid odds assigned", "bad", null);
+                    add_error("prop_baseball_match_play_odds");
+                }
+                else{
+                    odds = Number(odds); 
+                    p['id'] = player.id
+                    p['odds'] = odds;
+                    players.push(p);
+                }  
+            }
+            else{
+                p['id'] = player.id;
+                players.push(p);
+            }
+              
           });
-          prop_data.players = players;
+        prop_data.players = players;
+        
+        if(id("baseball_match_fixed_odds").checked){        
+            risk = id("baseball_match_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
+       
+            tie_odds = id("baseball_match_tie").value;
+            if (!tie_odds || isNaN(tie_odds) ){
+                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['tie_odds'] = Number(tie_odds);
+            }
         }
-
+        
         json_obj.scoring_rules = scoring;
         json_obj.prop_data = prop_data;
-      } else if (prop_type === "Over/Under") {
+                   
+      } 
+    }
+    else if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER"};
         var over_under_value = document.getElementById("prop_baseball_over_under_value").value;
         var player = document.getElementById("prop_baseball_over_under_player").value;
@@ -1328,6 +1904,29 @@ function create_new_contest()
           submit_error.error = true;
         } else {
           prop_data.player_id = player;
+        }
+          
+        // fixed odds  
+        if(id("baseball_over_fixed_odds").checked){
+            over = id("prop_baseball_over_odds").value;
+            under = id("prop_baseball_under_odds").value;
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+            }
+            risk = id("baseball_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                prop_data['risk'] = Number(risk);
+            }
         }
         
         json_obj.scoring_rules = scoring;
@@ -1410,19 +2009,52 @@ function create_new_contest()
       // Get values from pari-mutuel table
       var table_rows = pari_mutuel_table.firstChild.childNodes[0].children.length;
       var table_error = false;
-      
+      var odds_error = false;
       for (i=1; i<table_rows;i++) {
-        var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
-        if (!desc) {
+        if (id('fixed_odds').checked !== true) {
+          var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        } 
+        else {
+          if(i === table_rows - 1) break;
+          desc = {
+            description: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value,
+            odds: pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value
+          }
+          if(isNaN(desc.odds) || Number(desc.odds) < 1){
+            odds_error = true;
+          }
+        }
+        // var desc = pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[1].childNodes[0].value;
+        // console.log(pari_mutuel_table.firstChild.childNodes[0].children[i].childNodes[2].childNodes[0].value);
+        if (!desc ) {
           table_error = true;
         } else {
           table_values.push(desc);
         }
       }
-
+      
+      risk_error = false;
+      var risk = null;
+      if (id('fixed_odds').checked === true) {
+          risk = id("risk").value;
+          if(!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0){
+              risk_error = true;
+          }
+          else{
+            risk = Number(risk);
+          }
+      }
+        
       if (table_error) {
-        show_simple_modal("Please enter valid option descriptions");
-      } else {
+        show_simple_modal("Please enter valid option descriptions", () => {});
+      } 
+      else if(odds_error){
+        show_simple_modal("Please enter valid odds", "bad", null);
+      }
+     else if(risk_error){
+        show_simple_modal("Please enter a valid risk", "bad", null);
+      }
+      else {
         // Make the JSON call now that all validation has passed
         var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
         var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
@@ -1430,7 +2062,7 @@ function create_new_contest()
         settlement_deadline += set_deadline_time;
 
         min_wager = Number(min_wager);
-
+          
         var json_obj = {
           title,
           description,
@@ -1441,7 +2073,11 @@ function create_new_contest()
           pari_mutuel_options: table_values,
           private
         };
-        
+          
+        if(risk !== null){
+            json_obj.risk = risk;
+        }
+          
         console.log(json_obj);
 
         create_contest_attempt(json_obj, "SetupMisc");
@@ -1453,45 +2089,67 @@ function create_new_contest()
 // Preselect values if coming from sport page
 var category = get_url_param("category");
 
-if (category === "basketball" && avaliable_sports.BASKETBALL) {
+if (category === "basketball" && available_sports.BASKETBALL) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
+}
+else if (category === "basketballprops" && available_sports.BASKETBALL) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "golf" && avaliable_sports.GOLF_4) {
+} 
+else if (category === "hockey" && available_sports.HOCKEY) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "golfprops" && avaliable_sports.GOLF_4) {
+} 
+else if (category === "hockeyprops" && available_sports.HOCKEY) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "baseball" && avaliable_sports.BASEBALL) {
+}
+else if (category === "golf" && available_sports.GOLF_4) {
   contest_type_selector.value = "Roster";
   contest_type_selector.onchange();
-} else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
+} 
+else if (category === "golfprops" && available_sports.GOLF_4) {
   contest_type_selector.value = "Prop";
   contest_type_selector.onchange();
-} else if (category === "usergenerated") {
+} 
+else if (category === "baseball" && available_sports.BASEBALL) {
+  contest_type_selector.value = "Roster";
+  contest_type_selector.onchange();
+} 
+else if (category === "baseballprops" && available_sports.BASEBALL) {
+  contest_type_selector.value = "Prop";
+  contest_type_selector.onchange();
+} 
+else if (category === "usergenerated") {
   contest_type_selector.value = "Misc";
   contest_type_selector.onchange();
 }
 
-if (category === "basketball" && avaliable_sports.BASKETBALL) {
+if (category === "basketball" && available_sports.BASKETBALL) {
   roster_sport_selector.value = "Basketball";
   roster_sport_selector.onchange();
-} else if (category === "basketballprops" && avaliable_sports.BASKETBALL) {
+} else if (category === "basketballprops" && available_sports.BASKETBALL) {
   prop_sport_selector.value = "Basketball";
   prop_sport_selector.onchange();
-} else if (category === "golf" && avaliable_sports.GOLF_4) {
+}
+else if (category === "hockey" && available_sports.HOCKEY) {
+  roster_sport_selector.value = "Hockey";
+  roster_sport_selector.onchange();
+} else if (category === "hockeyprops" && available_sports.HOCKEY) {
+  prop_sport_selector.value = "Hockey";
+  prop_sport_selector.onchange();
+}
+else if (category === "golf" && available_sports.GOLF_4) {
   roster_sport_selector.value = "Golf";
   roster_sport_selector.onchange();
-} else if (category === "golfprops" && avaliable_sports.GOLF_4) {
+} else if (category === "golfprops" && available_sports.GOLF_4) {
   prop_sport_selector.value = "Golf";
   prop_sport_selector.onchange();
-} else if (category === "baseball" && avaliable_sports.BASEBALL) {
+} else if (category === "baseball" && available_sports.BASEBALL) {
   roster_sport_selector.value = "Baseball";
   roster_sport_selector.onchange();
-} else if (category === "baseballprops" && avaliable_sports.BASEBALL) {
+} else if (category === "baseballprops" && available_sports.BASEBALL) {
   prop_sport_selector.value = "Baseball";
   prop_sport_selector.onchange();
 }
@@ -1514,7 +2172,7 @@ function enable_radios(radios, labels) {
   });
 }
 
-if (avaliable_sports.GOLF_1) {
+if (available_sports.GOLF_1) {
   var radios_one_two = $.merge(round_one_radios, round_two_radios);
   var radios_three_tour = $.merge(round_three_radios, tournament_radios);
 
@@ -1525,16 +2183,17 @@ if (avaliable_sports.GOLF_1) {
   var labels = $.merge(labels_one_two, labels_three_tour);
 
   enable_radios(radios, labels);
-} else if (avaliable_sports.GOLF_2) {
+} else if (available_sports.GOLF_2) {
   var radios = $.merge(round_two_radios, round_three_radios);
   var labels = $.merge(round_two_labels, round_three_labels);
   enable_radios(radios, labels);
-} else if (avaliable_sports.GOLF_3) {
+} else if (available_sports.GOLF_3) {
   enable_radios(round_three_radios, round_three_labels);
 }
 
 // Enfore decimal on over/under
-var basketball_over_under = document.getElementById("props_basketball_over_under_value");
+var basketball_over_under = document.getElementById("prop_basketball_over_under_value");
+var hockey_over_under = document.getElementById("prop_hockey_over_under_value");
 var golf_over_under = document.getElementById("prop_golf_over_under_value");
 var baseball_over_under = document.getElementById("prop_baseball_over_under_value");
 
@@ -1544,11 +2203,32 @@ basketball_over_under.onblur = function()
 
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
-        document.getElementById("props_basketball_over_under_value").value = Number(value) - 0.5;
+        document.getElementById("prop_basketball_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
-        document.getElementById("props_basketball_over_under_value").value = Number(value) + 0.5;
+        document.getElementById("prop_basketball_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
     }
+    id("basketball_over_odds_label").innerHTML = "Over " + value;
+    id("basketball_under_odds_label").innerHTML = "Under " + value;
+  }
+
+hockey_over_under.onblur = function()
+  {
+    var value = hockey_over_under.value;
+
+    if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
+      if (Number(value) < 0) {
+        document.getElementById("prop_hockey_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
+      } else {
+        document.getElementById("prop_hockey_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
+      }
+    }
+    id("hockey_over_odds_label").innerHTML = "Over " + value;
+    id("hockey_under_odds_label").innerHTML = "Under " + value;
   }
 
 golf_over_under.onblur = function()
@@ -1558,10 +2238,14 @@ golf_over_under.onblur = function()
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
         document.getElementById("prop_golf_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
         document.getElementById("prop_golf_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
      }
+    id("golf_over_odds_label").innerHTML = "Over " + value;
+    id("golf_under_odds_label").innerHTML = "Under " + value;
   }
 
 baseball_over_under.onblur = function()
@@ -1571,10 +2255,14 @@ baseball_over_under.onblur = function()
     if (Number.isInteger(Number(value)) && !isNaN(value) && value) {
       if (Number(value) < 0) {
         document.getElementById("prop_baseball_over_under_value").value = Number(value) - 0.5;
+        value = Number(value) - 0.5;
       } else {
         document.getElementById("prop_baseball_over_under_value").value = Number(value) + 0.5;
+        value = Number(value) + 0.5;
       }
     }
+    id("baseball_over_odds_label").innerHTML = "Over " + value;
+    id("baseball_under_odds_label").innerHTML = "Under " + value;
   }
 
 // Automatically build jackpot table
@@ -1585,8 +2273,9 @@ jackpot_input.onblur = function()
     $("#create_jackpot_table").click();
   }
 
-// Automatically build options table
+// Automatically build/update options table
 var options_input = document.getElementById("number_of_options");
+var fixed_odds = document.getElementById("fixed_odds");
 
 options_input.onblur = function()
   {

@@ -340,10 +340,16 @@
     }
     
     .contest_detail_table td:first-child {
-        width: 100px; 
-        white-space: nowrap;
+        padding-right: 12px;
+        white-space: normal;
     }
     
+    @media only screen and (max-width: 767px) {
+        .contest_detail_table td:first-child {
+            padding-right: 0;
+            width: 110px;
+        }
+    }
     .contest_detail_table .payout_info_link {
         padding: 0 20px;
     }   

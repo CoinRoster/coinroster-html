@@ -30,8 +30,8 @@
 
                             rank = pay_table_item.rank,
                             payout = pay_table_item.payout;
-
-                            payout_info += "<tr><td>" + rank + "<sup>" + get_ordinal_suffix(rank) + "</sup>" + "</td><td>" + multiply(payout, 100) + "%</td></tr>";
+                            
+                            payout_info += "<tr><td>" + rank + "<sup>" + get_ordinal_suffix(rank) + "</sup>" + "</td><td>" + (payout > 1 ? payout : multiply(payout, 100)) + "%</td></tr>";
                             }
 
                         payout_info += "</table>";

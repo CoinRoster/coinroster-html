@@ -334,6 +334,12 @@
                                         implied_odds_full_precision = get_implied_odds(wager_grand_total, option_item, true),
                                         implied_payout = 0, // default is no wager, therefore no payout
                                         scenario_PL = -exposure_value; // default is no wager, therefore total loss;
+                                         
+                                        // FIXED ODDS    
+                                        if(option_item.hasOwnProperty("odds")){
+                                            implied_odds = option_item.odds;
+                                            implied_odds_full_precision = option_item.odds;
+                                        }
 
                                         if (typeof user_wagers[option_id] !== "undefined") // user has a wager
                                             {

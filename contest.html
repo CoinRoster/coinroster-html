@@ -311,6 +311,7 @@
                     option_table = JSON.parse(call.option_table),
                     pay_table = call.pay_table,
                     contest_status = call.contest_status,
+                    amount_left = call.amount_left,
                     scores_updated = call.scores_updated;
             
                     var max_users_string = "";
@@ -320,6 +321,10 @@
                     
                     var entries_per_user_string = "Unlimited";
                     if (entries_per_user !== 0) entries_per_user_string = entries_per_user + " per user";
+                        
+                    if(amount_left >= 0){
+                        entries_per_user_string = amount_left;
+                    }
                     
                     var contest_open = contest_status === 1;
                     
@@ -412,7 +417,11 @@
                         destroy("contest_second_hr");
                         show("pari_mutuel_second_hr");
                         
-                        id("entries_label").innerHTML = "Wagers:";
+                        
+                        if(amount_left < 0)
+                            id("entries_label").innerHTML = "Wagers:";
+                        else
+                            id("entries_label").innerHTML = "Amount Left to Wager:";
                           
                         var default_sort_scheme = "order";
                         selectByValue("option_order_selector", default_sort_scheme);
@@ -592,7 +601,8 @@
                                 reason = "This contest was under-subscribed";
                                 break;
                             case 5 : 
-                                reason = "This contest is pending approval from our admin team";
+                                main_line = "This contest is pending approval from our admin team";
+                                date_string = '';
                                 break;
                             }
                         id("no_entry").innerHTML = [
@@ -650,12 +660,10 @@
         
         id("salary_cap").innerHTML = "$" + commas(salary_cap);
         
-        console.log(roster_size);
             
         if (roster_size !== 0) id("remaining_players").innerHTML = "0/" + roster_size;
 
         if (roster_size !== 0) {
-            console.log(roster_size);
             show(left_to_spend, "inline");
             id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(salary_cap / roster_size));
         }
@@ -725,8 +733,9 @@
             wager_value = 0,
             implied_odds = 0,
             outcome = option_item.outcome;
-    
-            if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
+            
+            if(option_item.hasOwnProperty("odds")) implied_odds = option_item.odds;    
+            else if (wager_total !== 0) implied_odds = divide(wager_grand_total, wager_total, 2);
             else if (contest_status === 1) implied_odds = divide(wager_grand_total, cost_per_entry, 2);
             else implied_odds = 0;
             
