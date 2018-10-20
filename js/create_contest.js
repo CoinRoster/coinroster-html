@@ -637,7 +637,7 @@ prop_hockey_type_selector.onchange = function()
         });
       }
 
-   switch (selectorHTML(prop_basketball_type_selector))
+   switch (selectorHTML(prop_hockey_type_selector))
     {
       case "Match Play":
         show(prop_hockey_match_play[0]);
