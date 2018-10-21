@@ -1,13 +1,11 @@
 function clearBasketballDashboard(){
     document.getElementById("basketball_prev_games_table").innerHTML = 
         `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
-    console.log("cleared");
 }
 
 function displayBasketballDashboard(data){
     var i;
     clearBasketballDashboard();
-    console.log(document.getElementById("basketball_prev_games_table").innerHTML);
     document.getElementById('stats_model_content_basketball').style.display = "table";
     
     // the 2 is because its the third dashboard sourced on contest.html

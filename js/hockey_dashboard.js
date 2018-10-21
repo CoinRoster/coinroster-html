@@ -1,11 +1,11 @@
-function clearDashboard(){
+function clearHockeyDashboard(){
     document.getElementById("hockey_prev_games_table").innerHTML = 
         `<caption id="hockey_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayHockeyDashboard(data){
     var i;
-    clearDashboard();
+    clearHockeyDashboard();
     document.getElementById('stats_model_content_hockey').style.display = "table";
     
     // the 3 is because its the fourth dashboard sourced on contest.html
