@@ -145,23 +145,12 @@
         
     function populate_open_contests(contest_report, number_of_contests, table)
         {
-        var header = new_row(table, -1, [
-            "Contest",
-            "Game type",
-            "Goes live",
-            "Entry fee",
-            "Prize pool"
-        ]);
-
-        header[4].className = "right_nowrap";
-        header[5].className = "right_nowrap";
-
         var closest_registration_deadline = 0;
         
         for (var i=0; i<number_of_contests; i++)
             {
             var contest_item = contest_report[i],
-
+            
             contest_id = contest_item.id,
             title = contest_item.title,
             settlement_type = contest_item.settlement_type,
@@ -196,6 +185,11 @@
                 
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
+                var header = new_row(table, -1, [
+                    "Contest",
+                    "Goes live"
+                ]);
+
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
                     "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string)
@@ -203,6 +197,17 @@
             }
             else 
             {
+                var header = new_row(table, -1, [
+                    "Contest",
+                    "Game type",
+                    "Goes live",
+                    "Entry fee",
+                    "Prize pool"
+                ]);
+
+                header[4].className = "right_nowrap";
+                header[5].className = "right_nowrap";
+                
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>" + button_text + "</li></ul>",
                     "<div class='field_label'>Game type:</div>" + game_type,
