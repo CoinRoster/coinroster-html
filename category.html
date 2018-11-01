@@ -147,6 +147,27 @@
         {
         var closest_registration_deadline = 0;
         
+        var contestType = contest_report && contest_report.length > 0 ? contest_report[0].contest_type : null;
+        var header = null;
+            
+        if(contestType === 'PARI-MUTUEL')
+            {
+                header = new_row(table, -1, [
+                    "Contest",
+                    "Goes live"
+                ]);
+            }
+        else 
+            {
+                header = new_row(table, -1, [
+                    "Contest",
+                    "Game type",
+                    "Goes live",
+                    "Entry fee",
+                    "Prize pool"
+                ]);
+            }
+            
         for (var i=0; i<number_of_contests; i++)
             {
             var contest_item = contest_report[i],
@@ -185,11 +206,6 @@
                 
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Goes live"
-                ]);
-
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
                     "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string)
@@ -197,14 +213,6 @@
             }
             else 
             {
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Game type",
-                    "Goes live",
-                    "Entry fee",
-                    "Prize pool"
-                ]);
-
                 header[4].className = "right_nowrap";
                 header[5].className = "right_nowrap";
                 
