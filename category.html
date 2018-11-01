@@ -148,6 +148,7 @@
         var closest_registration_deadline = 0;
         
         var contestType = contest_report && contest_report.length > 0 ? contest_report[0].contest_type : null;
+        console.log('Number of contests: ' + contest_report.length);
         var header = null;
             
         if(contestType === 'PARI-MUTUEL')
