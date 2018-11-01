@@ -207,13 +207,14 @@
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
             game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            game_type_empty = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\"></span>",
             row = null;
                 
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
                 row = new_row(table, -1, [
-                    "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>" + button_text + "</li></ul>",
-                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string)
+                    "<ul><li>" + title_link + "</li></ul>",
+                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string) + game_type_empty
                 ]);
             }
             else 
