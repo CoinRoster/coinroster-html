@@ -147,6 +147,28 @@
         {
         var closest_registration_deadline = 0;
         
+        var contestType = contest_report && contest_report.length > 0 ? contest_report[0].contest_type : null;
+        console.log('Number of contests: ' + contest_report.length);
+        var header = null;
+            
+        if(contestType === 'PARI-MUTUEL')
+            {
+                header = new_row(table, -1, [
+                    "Contest",
+                    "Goes live"
+                ]);
+            }
+        else 
+            {
+                header = new_row(table, -1, [
+                    "Contest",
+                    "Game type",
+                    "Goes live",
+                    "Entry fee",
+                    "Prize pool"
+                ]);
+            }
+            
         for (var i=0; i<number_of_contests; i++)
             {
             var contest_item = contest_report[i],
@@ -175,36 +197,28 @@
                 case "ROSTER" :
                     button_text = "Draft!";
                     break;
+
+                case "PARI-MUTUEL" :
+                    button_text = "";
+                    break;
                 }
 
             var 
 
             title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>",
             game_type = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\">" + settlement_type_string(settlement_type) + "</span>",
+            game_type_empty = "<span id=\"payout_info_" + contest_id + "\" class=\"payout_info_link teal\"></span>",
             row = null;
                 
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Goes live"
-                ]);
-
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
-                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string)
+                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string) + game_type_empty
                 ]);
             }
             else 
             {
-                var header = new_row(table, -1, [
-                    "Contest",
-                    "Game type",
-                    "Goes live",
-                    "Entry fee",
-                    "Prize pool"
-                ]);
-
                 header[4].className = "right_nowrap";
                 header[5].className = "right_nowrap";
                 
