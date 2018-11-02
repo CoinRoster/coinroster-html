@@ -325,7 +325,7 @@
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
                 row = new_row(table, -1, [
-                    first_cell_text,
+                    first_cell_text + game_type_empty,
                     "<div class='field_label' style=\"overflow-wrap: normal;\">Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),// (isNaN(settlement_deadline)? "N/A": settlement),
                     "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
                 ]);
