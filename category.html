@@ -213,7 +213,7 @@
             {
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
-                    "<div class='field_label'>Goes live:</div>" + registration_deadline_string + game_type_empty
+                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : "") + registration_deadline_string + game_type_empty
                 ]);
             }
             else 
