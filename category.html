@@ -213,7 +213,7 @@
             {
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
-                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span class='hidden' id='countdown_" + i + "'></span>") : "") + registration_deadline_string + game_type_empty
+                    "<div class='field_label'>Goes live:</div>" + registration_deadline_string + game_type_empty
                 ]);
             }
             else 
@@ -233,7 +233,7 @@
                 row[5].className = "right_nowrap";
             }
 
-            if (show_countdown) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
+            if (show_countdown && !(contest_item.contest_type === "PARI-MUTUEL")) bind_registration_countdown(id("countdown_" + i), registration_deadline_ms);
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
         }
