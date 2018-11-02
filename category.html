@@ -148,7 +148,6 @@
         var closest_registration_deadline = 0;
         
         var contestType = contest_report && contest_report.length > 0 ? contest_report[0].contest_type : null;
-        console.log('Number of contests: ' + contest_report.length);
         var header = null;
             
         if(contestType === 'PARI-MUTUEL')
@@ -214,7 +213,7 @@
             {
                 row = new_row(table, -1, [
                     "<ul><li>" + title_link + "</li></ul>",
-                    "<div class='field_label'>Goes live:</div>" + (show_countdown ? ("<span id='countdown_" + i + "'></span>") : registration_deadline_string) + game_type_empty
+                    "<div class='field_label'>Goes live:</div>" + registration_deadline_string + game_type_empty
                 ]);
             }
             else 
@@ -241,17 +240,31 @@
         
     function populate_in_play_contests(contest_report, number_of_contests, table)
         {
-        var header = new_row(table, -1, [
-            "Contest",
-            "Game type",
-            "Settlement Deadline",
-            "Entry fee",
-            "Prize pool"
-        ]);
-
-        header[4].className = "right_nowrap";
-        header[5].className = "right_nowrap";
-
+            var contestType = contest_report && contest_report.length > 0 ? contest_report[0].contest_type : null;
+            var header = null;
+        
+            if(contestType === 'PARI-MUTUEL')
+                    {
+                        header = new_row(table, -1, [
+                            "Contest",
+                            "Settlement Deadline",
+                            "Prize pool"
+                        ]);
+                    }
+            else 
+                {
+                    header = new_row(table, -1, [
+                        "Contest",
+                        "Game type",
+                        "Settlement Deadline",
+                        "Entry fee",
+                        "Prize pool"
+                    ]);
+                    
+                    header[4].className = "right_nowrap";
+                    header[5].className = "right_nowrap";
+                }
+            
         var 
         
         closest_registration_deadline = 0,
@@ -297,23 +310,35 @@
             else if (contest_type === "PARI-MUTUEL")
                 {
                 title_link = "<a href='/contest.html?id=" + contest_id + "' class='first_cell_link'>" + title + "</a>";    
-                first_cell_text = "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li></ul>";
+                first_cell_text = "<ul><li>" + title_link + "</li></ul>";
                 }
-            
+            //<li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>Odds</li>
             if (category === 'USERGENERATED') 
                 {
                 contest_id_list[i] = contest_id;
                 settlement_expiry_list [i] = settlement_deadline;
                 settlement_deadline_string = get_registration_deadline_string(settlement_deadline);
                 }
-            
-            var row = new_row(table, -1, [
-                first_cell_text,
-                "<div class='field_label'>Game type:</div>" + game_type,
-                "<div class='field_label' style=\"overflow-wrap: normal;\">Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),// (isNaN(settlement_deadline)? "N/A": settlement),
-                "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
-                "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
-            ]);
+
+            var row = null;
+            if (contest_item.contest_type ===  "PARI-MUTUEL")
+            {
+                row = new_row(table, -1, [
+                    first_cell_text,
+                    "<div class='field_label' style=\"overflow-wrap: normal;\">Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),// (isNaN(settlement_deadline)? "N/A": settlement),
+                    "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
+                ]);
+            }
+            else
+            {
+                row = new_row(table, -1, [
+                    first_cell_text,
+                    "<div class='field_label'>Game type:</div>" + game_type,
+                    "<div class='field_label' style=\"overflow-wrap: normal;\">Settlement Deadline:</div>" + (show_countdown ? ("<span id='settlement_countdown_" + i + "'></span>") : settlement_deadline_string),// (isNaN(settlement_deadline)? "N/A": settlement),
+                    "<div class='field_label'>Entry fee:</div>" + toBTC(cost_per_entry) + " BTC" + getFiatDisplay(cost_per_entry, "allow_inline"),
+                    "<div class='field_label'>Prize pool:</div>" + toBTC(total_prize_pool) + " BTC" + getFiatDisplay(total_prize_pool, "allow_inline")
+                ]);
+            }
             
             if (show_countdown && !(settlement_deadline === undefined || isNaN(settlement_deadline) || settlement_deadline === null)) {
                 bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
