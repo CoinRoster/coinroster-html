@@ -343,7 +343,7 @@
             
             if (show_countdown && !(settlement_deadline === undefined || isNaN(settlement_deadline) || settlement_deadline === null)) {
                 bind_registration_countdown(id("settlement_countdown_" + i), settlement_deadline);
-            } else id("settlement_countdown_" + i).innerHTML = 'N/A'
+            } else if (show_countdown) id("settlement_countdown_" + i).innerHTML = 'N/A'
             
             bind_payout_window(id("payout_info_" + contest_id), settlement_type, pay_table);
             }
