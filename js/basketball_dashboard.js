@@ -1,36 +1,36 @@
-function clearDashboard(){
-    //document.getElementById("basketball_prev_games_table").innerHTML = 
-    //    `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
+function clearBasketballDashboard(){
+    document.getElementById("basketball_prev_games_table").innerHTML = 
+        `<caption id="basketball_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayBasketballDashboard(data){
     var i;
-    clearDashboard();
+    clearBasketballDashboard();
     document.getElementById('stats_model_content_basketball').style.display = "table";
     
     // the 2 is because its the third dashboard sourced on contest.html
     setupDashboard(2);
     
-    window["player_id"] = data.player_id;
+    window["player_id"] = data.id;
        
     document.getElementById("basketball_player_name").innerHTML = data.name;
     document.getElementById("basketball_mobile_playername").innerHTML = data.name;
     
     //document.getElementById('basketball_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/mlb/players/full/32516.png&w=350&h=254';
-    document.getElementById('basketball_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/' + data.player_id + '.png&w=350&h=254';
+    document.getElementById('basketball_headshot').src = 'http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/' + data.id + '.png&w=350&h=254';
     function onImageLoadError() {
         document.getElementById('basketball_headshot').src = '/img/default-basketball.png';
     }
     document.getElementById('basketball_headshot').addEventListener("error", onImageLoadError);     
     
-    document.getElementById('basketball_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/' +data.team +'.png&w=110&h=110&transparent=true';
+    document.getElementById('basketball_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/' +data.team_abr +'.png&w=110&h=110&transparent=true';
            
-    document.getElementById("basketball_team_list").innerHTML = 'Team: ' + data.team;
+    document.getElementById("basketball_team_list").innerHTML = 'Team: ' + data.team_abr;
     document.getElementById("basketball_pos_list").innerHTML = 'Pos: ' + data.pos;
     document.getElementById("basketball_height_list").innerHTML = 'Height: ' + data.height + ' · Weight: ' + data.weight;
     document.getElementById("basketball_born_list").innerHTML = 'Born: ' + data.birthString;
 
-    document.getElementById("basketball_team_table").innerHTML = data.team;
+    document.getElementById("basketball_team_table").innerHTML = data.team_abr;
     document.getElementById("basketball_pos_table").innerHTML = data.pos;
     document.getElementById("basketball_height_table").innerHTML = data.height;
     document.getElementById("basketball_weight_table").innerHTML = data.weight;

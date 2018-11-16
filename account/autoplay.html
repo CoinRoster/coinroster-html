@@ -363,9 +363,12 @@
         var json = {};
         json.process = "REMOVE";
         json.autoplay_id = entry_id;
+//        show_simple_modal("Are you sure you'd like to delete this Auto-Play entry?", "bad", function(){
+//            make_api_call(json)
+//        });
         make_api_call(json);
     }
-    
+   
     function remove_entry(element){
         var row = element.parentNode.parentNode.rowIndex;
         id("user_autoplay_entries").deleteRow(row);
@@ -377,17 +380,18 @@
             args: {
                 data
             } 
-        });
-   
-        if (call.status === "1") {
-            show_simple_modal(call.msg, "good",
-              function() {
-                location.reload();   
-              }
-            );
-        }else {
+        }, function(call){
+            if (call.status === "1") {
+                show_simple_modal(call.msg, "good",
+                function() {
+                    location.reload();   
+                });
+            }
+            else {
             show_simple_modal("Error: " + call.error); 
-        };
+            };
+        }
+        );
     }
     
     function activate_datepicker(){

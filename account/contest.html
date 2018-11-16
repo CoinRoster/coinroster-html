@@ -60,9 +60,10 @@
                             </select>
                         </div>
                         <div id="roster_basketball_title" class="hidden input_label roster_basketball_title"></div>
+                        <div id="roster_hockey_title" class="hidden input_label roster_hockey_title"></div>
                         <div id="roster_golf_title" class="hidden input_label roster_golf_title"></div>
                         <div id="roster_baseball_title" class="hidden input_label roster_baseball_title"></div>
-                        <div class="hidden input_padding roster_basketball_games" id="roster_basketball_games"></div>
+                        <div class="hidden input_padding roster_games" id="roster_basketball_games"></div>
                         <div class="roster_basketball_scoring checkboxes hidden input_padding">
                             <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
                             <div class="dimmed dynamic_checkbox_label">
@@ -106,6 +107,46 @@
                                     Turnovers 
                                 </label>
                                 <input type="text" placeholder=" #" class="checkbox_input" id="roster_basketball_turnovers" disabled/>
+                            </div>
+                        </div>
+                        
+                        <div class="hidden input_padding roster_games" id="roster_hockey_games"></div>
+                        <div class="roster_hockey_scoring checkboxes hidden input_padding">
+                            <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
+                            <div class="dimmed dynamic_checkbox_label">
+                                <label>
+                                    <input type="checkbox" class="roster_hockey_checkbox"  id="roster_hockey_goals_checkbox" />
+                                    Goals 
+                                </label>
+                                <input type="text" placeholder=" #" class="checkbox_input" id="roster_hockey_goals" disabled/>
+                            </div>
+                            <div class="dimmed dynamic_checkbox_label">
+                                <label>
+                                    <input type="checkbox" class="roster_hockey_checkbox"  id="roster_hockey_assists_checkbox" />
+                                    Assists 
+                                </label>
+                                <input type="text" placeholder=" #" class="checkbox_input" id="roster_hockey_assists" disabled/>
+                            </div>
+                            <div class="dimmed dynamic_checkbox_label">
+                                <label>
+                                    <input type="checkbox" class="roster_hockey_checkbox"  id="roster_hockey_plus_minus_checkbox" />
+                                    Plus-Minus 
+                                </label>
+                                <input type="text" placeholder=" #" class="checkbox_input" id="roster_hockey_plus_minus" disabled/>
+                            </div>
+                            <div class="dimmed dynamic_checkbox_label">
+                                <label>
+                                    <input type="checkbox" class="roster_hockey_checkbox"  id="roster_hockey_sog_checkbox" />
+                                    Shots on Goal 
+                                </label>
+                                <input type="text" placeholder=" #" class="checkbox_input" id="roster_hockey_sog" disabled/>
+                            </div>
+                            <div class="dimmed dynamic_checkbox_label">
+                                <label>
+                                    <input type="checkbox" class="roster_hockey_checkbox"  id="roster_hockey_bs_checkbox" />
+                                    Blocked Shots 
+                                </label>
+                                <input type="text" placeholder=" #" class="checkbox_input" id="roster_hockey_bs" disabled/>
                             </div>
                         </div>
                         <div class="roster_golf_scoring hidden input_padding">
@@ -179,7 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden input_padding roster_baseball_games" id="roster_baseball_games"></div>
+                        <div class="hidden input_padding roster_games" id="roster_baseball_games"></div>
                         <div class="roster_baseball_scoring checkboxes hidden input_padding">
                             <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
                             <div class="dimmed dynamic_checkbox_label">
@@ -273,11 +314,20 @@
                             </select>
                         </div>
                         <div id="prop_basketball_title" class="hidden input_label prop_basketball_title"></div>
+                        <div id="prop_hockey_title" class="hidden input_label prop_hockey_title"></div>
                         <div id="prop_golf_title" class="hidden input_label prop_golf_title"></div>
                         <div id="prop_baseball_title" class="hidden input_label prop_baseball_title"></div>
                         <div class="prop_basketball_type hidden input_padding">
                             <span class="input_label">Prop Type</span>
                             <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Match Play">Match Play</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
+                        <div class="prop_hockey_type hidden input_padding">
+                            <span class="input_label">Prop Type</span>
+                            <select data-placeholder="Select" id="prop_hockey_type" class="input_style chosen-select dropdown">
                                 <option value="" selected disabled hidden>Select</option>
                                 <option value="Match Play">Match Play</option>
                                 <option value="Over/Under">Over/Under</option>
@@ -441,7 +491,136 @@
                             </div>
                         </div>
                         
+                        <!-- HOCKEY PROPS --->
+                        <div class="prop_hockey_match_play hidden input_padding">
+                            <div class="prop_hockey_scoring checkboxes input_padding">
+                                <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>
+
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_match_goals_checkbox" />
+                                        Goals 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_match_goals" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_match_assists_checkbox" />
+                                        Assists 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_match_assists" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_match_plus_minus_checkbox" />
+                                        Plus-Minus 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_match_plus_minus" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_match_sog_checkbox" />
+                                        Shots on Goal 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_match_sog" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_match_bs_checkbox" />
+                                        Blocked Shots 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_match_bs" disabled/>
+                                </div>
+                            </div>
+                            <div class="prop_hockey_match_fixed_odds_check">
+                                <input type="checkbox" id="hockey_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('hockey')"/>
+                                <label for="hockey_match_fixed_odds">Fixed-Odds</label>
+                            </div>
+                            <div class="hidden" id="hockey_match_risk_div">
+                                <span style="padding-top:5px;" class="input_label">Tie</span>
+                                <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="Odds" class="input_style" id="hockey_match_tie"/>
+                                <span style="padding-top:5px;" class="input_label">Risk</span>
+                                <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="hockey_match_risk"/>
+                            </div>
+                            <div class="prop_hockey_match_players input_padding">
+                                <div>
+                                    <span class="input_label">Select Players (2 or more)</span>
+                                    <ul class="player_list" id="hockey_match_player_list"></ul>
+                                </div>
+                                <div>
+                                    <span class="input_label">My Players</span>
+                                    <ul class="player_list" id="hockey_match_selected_players_list"></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="prop_hockey_over_under hidden input_padding">
+                            <div class="input_padding">
+                                <span class="input_label">Over/Under Value</span>
+                                <input type="text" class="input_style" placeholder="Over/under value" id="prop_hockey_over_under_value"/>
+                            </div>
+                            <div class="prop_hockey_over_under_players">
+                                <span class="input_label">Select Player </span>
+                                <select data-placeholder="Select" id="prop_hockey_over_under_player" class="input_style chosen-select dropdown">
+                                    <option value="" selected disabled hidden>Select</option>
+                                </select>
+                            </div>
+                            
+                            <div class="prop_hockey_scoring checkboxes input_padding">
+                                <span class="input_label checkbox_title">Set scoring values for your chosen stats</span>                              
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox" id="props_hockey_over_goals_checkbox" />
+                                        Goals 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_over_goals" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_over_assists_checkbox" />
+                                        Assists 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_over_assists" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_over_plus_minus_checkbox" />
+                                        Plus-Minus 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_over_plus_minus" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_over_sog_checkbox" />
+                                        Shots on Goal 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_over_sog" disabled/>
+                                </div>
+                                <div class="dimmed dynamic_checkbox_label">
+                                    <label>
+                                        <input type="checkbox" class="roster_hockey_checkbox"  id="props_hockey_over_bs_checkbox" />
+                                        Blocked Shots 
+                                    </label>
+                                    <input type="text" placeholder=" #" class="checkbox_input" id="props_hockey_over_bs" disabled/>
+                                </div>    
+                            </div> 
+                            
+                            <div class="prop_hockey_over_under_odds_check">
+                                <input type="checkbox" id="hockey_over_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_over_under_odds('hockey')"/>
+                                <label for="hockey_over_fixed_odds">Fixed-Odds</label>
+                            </div>
+                            <div id="prop_hockey_over_under_odds" class="hidden prop_hockey_over_under_odds">
+                                <div class="input_padding">
+                                    <span id="hockey_over_odds_label" class="input_label">Over</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_hockey_over_odds"/>
+                                    <span style="padding-top:5px;" id="hockey_under_odds_label" class="input_label">Under</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_hockey_under_odds"/>
+                                    <span style="padding-top:5px;" class="input_label">Risk</span>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="hockey_over_under_risk"/>
+                                </div>
+                            </div>
+                        </div>
                         
+                         <!-- GOLF PROPS --->
                         <div class="prop_golf_make_the_cut hidden input_padding">
                             <span class="input_label">Select Player </span>
                             <select data-placeholder="Select" id="prop_golf_make_the_cut_player" class="input_style chosen-select dropdown">

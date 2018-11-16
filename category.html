@@ -393,7 +393,8 @@
     var basketball = available_sports.BASKETBALL;
     var golf = available_sports.GOLF_4;
     var baseball = available_sports.BASEBALL;
-
+    var hockey = available_sports.HOCKEY;
+    
     if (sub_category === "basketball" && basketball) {
         show("contest_redirect");
     } else if (sub_category === "basketballprops" && basketball) {
@@ -407,6 +408,10 @@
     } else if (sub_category === "baseballprops" && baseball) {
         show("contest_redirect");
     } else if (sub_category === "usergenerated") {
+        show("contest_redirect");
+    } else if (sub_category === "hockey" && hockey) {
+        show("contest_redirect");
+    } else if (sub_category === "hockeyprops" && hockey) {
         show("contest_redirect");
     }
 

@@ -1,11 +1,11 @@
-function clearDashboard(){
+function clearBaseballDashboard(){
     document.getElementById("baseball_prev_games_table").innerHTML = 
         `<caption id="baseball_prev_games" class="dashboard_caption"></caption>`;
 }
 
 function displayBaseballDashboard(data){
     
-    clearDashboard();
+    clearBaseballDashboard();
     document.getElementById('stats_model_content_baseball').style.display = "table";
     
     // the 0 is because its the first dashboard sourced on contest.html
