@@ -1063,12 +1063,15 @@ function create_new_contest()
 
     if (sport === "Basketball") {
       json_obj.sub_category = "BASKETBALL";
-      get_score_value("roster_basketball_points", "points", scoring, submit_error);
-      get_score_value("roster_basketball_rebounds", "rebounds", scoring, submit_error);
-      get_score_value("roster_basketball_assists", "assists", scoring, submit_error);
-      get_score_value("roster_basketball_steals", "steals", scoring, submit_error);
-      get_score_value("roster_basketball_blocks", "blocks", scoring, submit_error);
-      get_score_value("roster_basketball_turnovers", "turnovers", scoring, submit_error);
+      get_score_value("roster_basketball_points", "pts", scoring, submit_error);
+      get_score_value("roster_basketball_rebounds", "reb", scoring, submit_error);
+      get_score_value("roster_basketball_assists", "ast", scoring, submit_error);
+      get_score_value("roster_basketball_steals", "stl", scoring, submit_error);
+      get_score_value("roster_basketball_blocks", "blk", scoring, submit_error);
+      get_score_value("roster_basketball_turnovers", "tov", scoring, submit_error);
+      get_score_value("roster_basketball_fgm", "fgm", scoring, submit_error);
+      get_score_value("roster_basketball_fga", "fga", scoring, submit_error);
+      get_score_value("roster_basketball_3pm", "3pm", scoring, submit_error);
       
       // Populate gameID's
       var basketball_games = document.getElementById("roster_basketball_games").children;
@@ -1325,12 +1328,15 @@ function create_new_contest()
 
       if (prop_type === "Match Play") {
         // Collect and validate scores
-        get_score_value("prop_basketball_match_points", "points", scoring, submit_error);
-        get_score_value("props_basketball_match_rebounds", "rebounds", scoring, submit_error);
-        get_score_value("props_basketball_match_assists", "assists", scoring, submit_error);
-        get_score_value("props_basketball_match_steals", "steals", scoring, submit_error);
-        get_score_value("props_basketball_match_blocks", "blocks", scoring, submit_error);
-        get_score_value("props_basketball_match_turnovers", "turnovers", scoring, submit_error);
+        get_score_value("prop_basketball_match_points", "pts", scoring, submit_error);
+        get_score_value("props_basketball_match_rebounds", "reb", scoring, submit_error);
+        get_score_value("props_basketball_match_assists", "ast", scoring, submit_error);
+        get_score_value("props_basketball_match_steals", "stl", scoring, submit_error);
+        get_score_value("props_basketball_match_blocks", "blk", scoring, submit_error);
+        get_score_value("props_basketball_match_turnovers", "tov", scoring, submit_error);
+        get_score_value("props_basketball_match_fgm", "fgm", scoring, submit_error);
+        get_score_value("props_basketball_match_fga", "fga", scoring, submit_error);
+        get_score_value("props_basketball_match_3pm", "3pm", scoring, submit_error);
 
         // Get players
         var selected_players = document.getElementById("basketball_match_selected_players_list").childNodes;
@@ -1404,12 +1410,15 @@ function create_new_contest()
         }
 
         // Collect and validate scores
-        get_score_value("props_basketball_over_points", "points", scoring, submit_error);
-        get_score_value("props_basketball_over_rebounds", "rebounds", scoring, submit_error);
-        get_score_value("props_basketball_over_assists", "assists", scoring, submit_error);
-        get_score_value("props_basketball_over_steals", "steals", scoring, submit_error);
-        get_score_value("props_basketball_over_blocks", "blocks", scoring, submit_error);
-        get_score_value("props_basketball_over_turnovers", "turnovers", scoring, submit_error);
+       get_score_value("props_basketball_over_points", "pts", scoring, submit_error);
+        get_score_value("props_basketball_over_rebounds", "reb", scoring, submit_error);
+        get_score_value("props_basketball_over_assists", "ast", scoring, submit_error);
+        get_score_value("props_basketball_over_steals", "stl", scoring, submit_error);
+        get_score_value("props_basketball_over_blocks", "blk", scoring, submit_error);
+        get_score_value("props_basketball_over_turnovers", "tov", scoring, submit_error);
+        get_score_value("props_basketball_over_fgm", "fgm", scoring, submit_error);
+        get_score_value("props_basketball_over_fga", "fga", scoring, submit_error);
+        get_score_value("props_basketball_over_3pm", "3pm", scoring, submit_error);
 
         if (!player && !submit_error.error) {
           show_simple_modal("Please pick a player");
