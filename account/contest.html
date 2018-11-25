@@ -820,6 +820,10 @@
                                 <input type="checkbox" id="golf_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('golf')"/>
                                 <label for="golf_match_fixed_odds">Fixed-Odds</label>
                             </div>
+                            <div class="prop_golf_match_fixed_odds_check">
+                                <input type="checkbox" id="golf_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push()"/>
+                                <label for="golf_match_tie_push">Tie is Push</label>
+                            </div>
                             <div class="hidden" id="golf_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Tie</span>
                                 <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="Odds" class="input_style" id="golf_match_tie"/>
@@ -1137,7 +1141,22 @@
     } else {
         show("submit_button_container");
     }
+    
+    function add_tie_push() {
+        let tie_push = document.getElementById("golf_match_tie_push");
+        let tie = document.getElementById("golf_match_tie");
+        if(tie_push.checked === true) {
+            tie.value =  1;
+            tie.value.disabled = true;
+            tie.onblur = () => {
+                if(parseInt(tie.value) !== 1) {
+                    tie_push.checked = false;
+                }
+            }
+        }
+    }  
     function init(){
+         id('golf_match_tie').value
         // populate_category_selector('category_selector');
     }
 </script>
