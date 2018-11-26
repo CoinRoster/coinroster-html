@@ -1411,6 +1411,7 @@ function create_new_contest()
 
         // Collect and validate scores
         get_score_value("props_basketball_over_points", "pts", scoring, submit_error);
+
         get_score_value("props_basketball_over_rebounds", "reb", scoring, submit_error);
         get_score_value("props_basketball_over_assists", "ast", scoring, submit_error);
         get_score_value("props_basketball_over_steals", "stl", scoring, submit_error);
@@ -1419,7 +1420,6 @@ function create_new_contest()
         get_score_value("props_basketball_over_fgm", "fgm", scoring, submit_error);
         get_score_value("props_basketball_over_fga", "fga", scoring, submit_error);
         get_score_value("props_basketball_over_3pm", "3pm", scoring, submit_error);
-        
 
         if (!player && !submit_error.error) {
           show_simple_modal("Please pick a player");
