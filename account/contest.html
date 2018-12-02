@@ -442,6 +442,10 @@
                                 <input type="checkbox" id="basketball_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('basketball')"/>
                                 <label for="basketball_match_fixed_odds">Fixed-Odds</label>
                             </div>
+                            <div class="prop_basketball_match_fixed_odds_check">
+                                <input type="checkbox" id="basketball_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push('basketball_match_tie_push', 'basketball_match_tie')"/>
+                                <label for="basketball_match_tie_push">Tie is Push</label>
+                            </div>
                             <div class="hidden" id="basketball_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Tie</span>
                                 <input type="number" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="Odds" class="input_style" id="basketball_match_tie"/>
@@ -598,6 +602,10 @@
                             <div class="prop_hockey_match_fixed_odds_check">
                                 <input type="checkbox" id="hockey_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('hockey')"/>
                                 <label for="hockey_match_fixed_odds">Fixed-Odds</label>
+                            </div>
+                            <div class="prop_hockey_match_fixed_odds_check">
+                                <input type="checkbox" id="hockey_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push('hockey_match_tie_push', 'hockey_match_tie')"/>
+                                <label for="hockey_match_tie_push">Tie is Push</label>
                             </div>
                             <div class="hidden" id="hockey_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Tie</span>
@@ -884,7 +892,7 @@
                                 <label for="golf_match_fixed_odds">Fixed-Odds</label>
                             </div>
                             <div class="prop_golf_match_fixed_odds_check">
-                                <input type="checkbox" id="golf_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push()"/>
+                                <input type="checkbox" id="golf_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push('golf_match_tie_push', 'golf_match_tie')"/>
                                 <label for="golf_match_tie_push">Tie is Push</label>
                             </div>
                             <div class="hidden" id="golf_match_risk_div">
@@ -990,6 +998,10 @@
                             <div class="prop_baseball_match_fixed_odds_check">
                                 <input type="checkbox" id="baseball_match_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_match_odds('baseball')"/>
                                 <label for="baseball_match_fixed_odds">Fixed-Odds</label>
+                            </div>
+                            <div class="prop_baseball_match_fixed_odds_check">
+                                <input type="checkbox" id="baseball_match_tie_push" name="feature" value="fixed_odds" onclick="add_tie_push('baseball_match_tie_push', 'baseball_match_tie')"/>
+                                <label for="baseball_match_tie_push">Tie is Push</label>
                             </div>
                             <div class="hidden" id="baseball_match_risk_div">
                                 <span style="padding-top:5px;" class="input_label">Tie</span>
@@ -1204,22 +1216,8 @@
     } else {
         show("submit_button_container");
     }
-    
-    function add_tie_push() {
-        let tie_push = document.getElementById("golf_match_tie_push");
-        let tie = document.getElementById("golf_match_tie");
-        if(tie_push.checked === true) {
-            tie.value =  1;
-            tie.value.disabled = true;
-            tie.onblur = () => {
-                if(parseInt(tie.value) !== 1) {
-                    tie_push.checked = false;
-                }
-            }
-        }
-    }  
+  
     function init(){
-         id('golf_match_tie').value
         // populate_category_selector('category_selector');
     }
 </script>

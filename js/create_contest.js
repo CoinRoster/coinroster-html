@@ -2290,3 +2290,18 @@ options_input.onblur = function()
   {
     $("#create_pari_mutuel_table").click();
   }
+
+    
+function add_tie_push(self, tie_element) {
+    let tie_push = document.getElementById(self);
+    let tie = document.getElementById(tie_element);
+    if(tie_push.checked === true) {
+        tie.value =  1;
+        tie.value.disabled = true;
+        tie.onblur = () => {
+            if(parseInt(tie.value) !== 1) {
+                tie_push.checked = false;
+            }
+        }
+    }
+}
