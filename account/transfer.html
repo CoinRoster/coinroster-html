@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>CoinRoster | Transfer Funds</title>
+    <!--#include virtual="/ssi/head.html" -->
+    <link rel="stylesheet" type="text/css" href="/css/account.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/js/account.js"></script>
+</head>
+<body>
+<!--#include virtual="/ssi/simple_modal.html" -->
+<div id="page_body">
+    <div id="centering_container">
+        <!--#include virtual="/ssi-java/nav" -->
+        <div id="category_header" class="body_container header">
+            <h3 class="section_header">
+                <span id="path_text">
+                    <a href="/account" class='inline_link steel'>MY ACCOUNT</a><!--
+                    --><span class='path_slash red_orange'>/</span><!--
+                    --><span class='orange'>TRANSFER FUNDS</span>
+                </span>
+            </h3>
+        </div>
+        <div class="body_container extra_body_container_padding">
+            <br/>
+            <div>
+                Transfer your BTC or RC funds to your friends!
+            </div>
+            <br/>
+            <form onsubmit="return transfer();">
+                
+                <div class="input_padding">
+                    <span id="receiver_username_label" class="input_label">To</span>
+                    <input id="receiver_username" type="text" class="input_style" placeholder="CoinRoster username" />
+                </div>
+                <div class="btc_rc input_padding">
+                    <span class="input_label">BTC or RC</span>
+                    <div>
+                        <input type="radio" name="btc_rc" id="BTC" checked/>
+                        <label for="BTC">BTC</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="btc_rc" id="RC"/>
+                        <label for="RC">RC</label>
+                    </div>
+                </div>
+                <div id="amount_div" class="input_padding">
+                    <span id="amount_label" class="input_label">Amount</span>
+                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="amount"/>
+                    BTC
+                </div>
+                <div class="input_padding">
+                    <span id="memo_label" class="input_label">Memo</span>
+                    <input id="memo" type="text" class="input_style" placeholder="Optional Memo" />
+                </div>
+                
+                <div class="input_padding">
+                    <button type="submit" class="text_button auto_width">Transfer</button>
+                </div>
+                
+            </form>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+<!--#include virtual="/ssi/footer.html" -->
+<script type="text/javascript">
+
+    function init()
+        {
+        }
+        
+//--------------------------------------------------------------------------------------------------
+
+    // transfer 
+    function transfer()
+        {
+        var 
+
+        receiver = id("receiver_username").value,
+        btc_rc = document.querySelector('input[name="btc_rc"]:checked').value,
+        amount = id("amount").value,
+        memo = id("memo").value;
+            
+        if (!amount || isNaN(amount) || Number(amount).toFixed(8) <= 0)
+            {
+            set_message("amount_label", "Please enter a valid amount", "orange");
+            return false;
+            }
+        
+        api({
+            method: "TransferFunds",
+            args: {
+                receiver: receiver,
+                btc_rc: btc_rc,
+                amount: amount,
+                memo: memo;
+            }
+        }, function(call)
+            {
+            if (call.status === "1")
+                {
+                show_simple_modal("Transfer Successful!", "good", function()
+                    {
+                    location.reload();
+                    });
+                }
+            else show_simple_modal(call.error, "bad", null);
+            });
+
+        return false;
+        }
+
+</script>
+<script type="text/javascript" src="/js/nav.js"></script>
+<script type="text/javascript" src="/js/tcal.js"></script>
+
+<!--#include virtual="/ssi/google_analytics.html" -->
+</body>
+</html>
