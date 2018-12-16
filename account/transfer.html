@@ -83,6 +83,7 @@
         amount = id("amount").value,
         memo = id("memo").value;
             
+        console.log(btc_rc)
         if (!amount || isNaN(amount) || Number(amount).toFixed(8) <= 0)
             {
             set_message("amount_label", "Please enter a valid amount", "orange");
@@ -95,7 +96,7 @@
                 receiver: receiver,
                 btc_rc: btc_rc,
                 amount: amount,
-                memo: memo;
+                memo: memo
             }
         }, function(call)
             {
