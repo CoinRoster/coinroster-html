@@ -89,6 +89,12 @@
         memo = id("memo").value;
             
         console.log(btc_rc)
+        if (!receiver || receiver === "")
+            {
+            set_message("receiver_username_label", "Please enter a valid username", "orange");
+            return false;
+            }
+        
         if (!amount || isNaN(amount) || Number(amount).toFixed(8) <= 0)
             {
             set_message("amount_label", "Please enter a valid amount", "orange");
