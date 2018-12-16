@@ -716,7 +716,6 @@
     function transfer_funds()
         {
         var 
-        
         transaction_view = id("new_trans_view_" + new_transaction_type),
         transaction_type = transaction_view.getElementsByClassName("new_transaction_type")[0].innerHTML,
         display_as_adjustment = selectorHTML("display_as_adjustment_selector"),
@@ -726,9 +725,6 @@
         receiver_balance = transaction_view.getElementsByClassName("transaction_user_balance")[1].innerHTML,
         transaction_amount = transaction_view.getElementsByClassName("transaction_amount")[0].value,
         transaction_memo = transaction_view.getElementsByClassName("transaction_memo")[0].value;
-
-        console.log(sender_account);
-        console.log(receiver_account);
             
         if (sender_account === "") return alert("No sender account selected");
         if (receiver_account === "") return alert("No receiver account selected");
@@ -736,35 +732,31 @@
         transaction_amount = Number(transaction_amount);
         if (isNaN(transaction_amount)) return alert("Amount is not a number");
         if (transaction_amount <= 0) return alert("Amount cannot be less than or equal to 0");
-
-        // for withdrawals, amounnt cannot be greater than balance:
-        
-        if (transaction_type === "BTC-USER-TRANSFER" || transaction_type === "RC-USER-TRANSFER")
-            {
-            if (transaction_amount > Number(sender_balance)) return alert("Sender has insufficient funds");
+        if(sender_account === receiver_account) return alert("Cannot transfer to/from the same account");
+        if (transaction_amount > Number(sender_balance)) return alert("Sender has insufficient funds");
+                    
+        if (transaction_type === "BTC-USER-TRANSFER") btc_rc = "BTC"
+        else btc_rc = "RC"
+    
+        var call = api({
+            method: "TransferFunds_Admin",
+            args: {
+                sender: sender_account,
+                receiver: receiver_account,
+                amount: transaction_amount,
+                memo: transaction_memo,
+                btc_rc: btc_rc
             }
-            
-        if (display_as_adjustment === "Yes") display_as_adjustment = true;
-        else display_as_adjustment = false;
-
-//        var call = api({
-//            method: "CreateTransaction",
-//            args: {
-//                transaction_type: transaction_type,
-//                display_as_adjustment: display_as_adjustment,
-//                user_account: user_account,
-//                amount: transaction_amount,
-//                memo: transaction_memo
-//            }
-//        });
-//        
-//        if (call.status === "1") 
-//            {
-//            alert("Transaction created! Reloading panel.");
-//            location.reload();
-//            }
-//        else alert("Error: " + call.error);
+        });
+        
+        if (call.status === "1") 
+            {
+            alert("Transaction created! Reloading panel.");
+            location.reload();
+            }
+        else alert("Error: " + call.error);
         }
+
 /*----------------------------------------------------------------------*/
 
     // Pending Referrals
