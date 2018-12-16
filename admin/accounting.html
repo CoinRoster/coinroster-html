@@ -154,6 +154,8 @@
                         <option>BTC-WITHDRAWAL</option>
                         <option>RC-DEPOSIT</option>
                         <option>RC-WITHDRAWAL</option>
+                        <option>BTC-USER-TRANSFER</option>
+                        <option>RC-USER-TRANSFER</option>
                     </select>
                 </td>
                 <td>
@@ -399,6 +401,138 @@
             <tr>
                 <td>
                     <button type="button" class="input_style" onclick="submit_new_trans();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_5" class="content_body new_trans_window">
+        <!-- BTC-USER-TRANSFER -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">BTC-USER-TRANSFER</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'BTC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="transfer_funds();">Submit Transaction</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="new_trans_view_6" class="content_body new_trans_window">
+        <!-- RC-USER-TRANSFER -->
+        <table class="settings">
+            <tr>
+                <td>
+                    Create new
+                </td>
+                <td>
+                    <span class="new_transaction_type" style="font-weight:bold">RC-USER-TRANSFER</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    From:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    To:
+                </td>
+                <td>
+                    <select data-placeholder="Select" class="input_style chosen-select user_selector" onchange="new_trans_user_balance(this, 'RC');" style="width:330px">
+                        <option></option>
+                    </select>
+                </td>
+                <td class="transaction_user_balance">
+                    <!-- BALANCE -->
+                </td>
+                <td>
+                    BTC
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Amount (BTC):
+                </td>
+                <td>
+                    <input type="text" btc-input="true" class="input_style text_input transaction_amount">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Memo:
+                </td>
+                <td>
+                    <input type="text" class="input_style text_input transaction_memo" maxlength="500" style="width:330px">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" class="input_style" onclick="transfer_funds();">Submit Transaction</button>
                 </td>
             </tr>
         </table>
