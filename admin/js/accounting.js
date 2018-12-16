@@ -739,7 +739,7 @@
 
         // for withdrawals, amounnt cannot be greater than balance:
         
-        if (transaction_type === "BTC-WITHDRAWAL" || transaction_type === "RC-WITHDRAWAL")
+        if (transaction_type === "BTC-USER-TRANSFER" || transaction_type === "RC-USER-TRANSFER")
             {
             if (transaction_amount > Number(sender_balance)) return alert("Sender has insufficient funds");
             }
