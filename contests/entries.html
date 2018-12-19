@@ -543,6 +543,13 @@
         id("salary_cap").innerHTML = "$" + commas(contest.salary_cap | 0);
         if (contest.roster_size !== 0) id("remaining_players").innerHTML = "0/" + contest.roster_size;
         else id("remaining_players").innerHTML = 0;
+       
+        var left_to_spend = document.getElementById("left_to_spend");
+        if (contest.roster_size !== 0) {
+            show(left_to_spend, "inline");
+            id("remaining_money_per_player").innerHTML = "$" + commas(Math.floor(contest.salary_cap / contest.roster_size));
+        }
+    
             
         for (var i=0; i<option_table.length; i++)
             {
