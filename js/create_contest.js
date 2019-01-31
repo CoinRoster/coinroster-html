@@ -10,6 +10,7 @@ var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_match_multistat_overall = id("prop_golf_multistat_overall");
 var prop_golf_over_multistat_overall = id("prop_golf_multistat_over_overall");
+var prop_bitcoin_type_selector = id("prop_bitcoin_type");
 
 var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
