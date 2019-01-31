@@ -791,7 +791,6 @@ prop_golf_type_selector.onchange = function()
     }
  };
 
-// BITCOIN PROP
 prop_bitcoin_type_selector.onchange = function()
 {
     switch (selectorHTML(prop_bitcoin_type_selector))
@@ -801,7 +800,8 @@ prop_bitcoin_type_selector.onchange = function()
       break;
     }
     
-}
+};
+
 prop_golf_match_multistat_overall.onchange = function()
  {
    var prop_golf_stats_multistat = document.getElementsByClassName("prop_golf_stats_multistat");
