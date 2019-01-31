@@ -379,24 +379,24 @@
                                 <option value="Over/Under">Over/Under</option>
                             </select>
                         </div>
-                        <div class="prop_bitcoin_over_under hidden input_padding">
+                        <div class="prop_bitcoin_higher_lower hidden input_padding">
                             <div class="input_padding">
-                                <span class="input_label">Over/Under Value</span>
-                                <input type="text" class="input_style" placeholder="Over/under value" id="prop_bitcoin_over_under_value"/>
+                                <span class="input_label">Higher/Lower Value</span>
+                                <input type="text" class="input_style" placeholder="Higher/Lower value" id="prop_bitcoin_higher_lower_value"/>
                             </div>
                             
-                            <div class="prop_bitcoin_over_under_odds_check">
-                                <input type="checkbox" id="bitcoin_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_over_under_odds('bitcoin')"/>
-                                <label for="bitcoin_over_fixed_odds">Fixed-Odds</label>
+                            <div class="prop_bitcoin_higher_lower_odds_check">
+                                <input type="checkbox" id="bitcoin_fixed_odds" name="feature" value="fixed_odds" onclick="toggle_higher_lower_odds('bitcoin')"/>
+                                <label for="bitcoin_higher_fixed_odds">Fixed-Odds</label>
                             </div>
-                            <div id="prop_bitcoin_over_under_odds" class="hidden prop_bitcoin_over_under_odds">
+                            <div id="prop_bitcoin_higher_lower_odds" class="hidden prop_bitcoin_higher_lower_odds">
                                 <div class="input_padding">
-                                    <span id="bitcoin_over_odds_label" class="input_label">Over</span>
-                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_over_odds"/>
-                                    <span style="padding-top:5px;" id="bitcoin_under_odds_label" class="input_label">Under</span>
-                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_under_odds"/>
+                                    <span id="bitcoin_higher_odds_label" class="input_label">Over</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_higher_odds"/>
+                                    <span style="padding-top:5px;" id="bitcoin_lower_odds_label" class="input_label">Under</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_lower_odds"/>
                                     <span style="padding-top:5px;" class="input_label">Risk</span>
-                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="bitcoin_over_under_risk"/>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="bitcoin_higher_lower_risk"/>
                                 </div>
                             </div>
                         </div>

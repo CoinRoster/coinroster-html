@@ -794,10 +794,11 @@ prop_golf_type_selector.onchange = function()
 
 prop_bitcoin_type_selector.onchange = function()
 {
+    var prop_bitcoin_higher_lower = document.getElementsByClassName("prop_bitcoin_higher_lower");
     switch (selectorHTML(prop_bitcoin_type_selector))
     {
       case "Higher/Lower":
-        show(prop_bitcoin_over_under[0]);
+        show(prop_bitcoin_higher_lower[0]);
       break;
     }
     
