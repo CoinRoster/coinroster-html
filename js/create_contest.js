@@ -1510,9 +1510,8 @@ function create_new_contest()
         var over_under_value = document.getElementById("prop_bitcoin_higher_lower_value").value;
       }
         
-        json_obj.prop_data = prop_data;
-        json_obj.scoring_rules = scoring;
-      }
+      json_obj.prop_data = prop_data;
+      json_obj.scoring_rules = scoring;
     }     
     // HOCKEY PROP  
     else if (sport === "Hockey") {
