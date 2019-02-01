@@ -794,11 +794,11 @@ prop_golf_type_selector.onchange = function()
 
 prop_bitcoin_type_selector.onchange = function()
 {
-    var prop_bitcoin_higher_lower = document.getElementsByClassName("prop_bitcoin_higher_lower");
+    var prop_bitcoin_over_under = document.getElementsByClassName("prop_bitcoin_over_under");
     switch (selectorHTML(prop_bitcoin_type_selector))
     {
-      case "Higher/Lower":
-        show(prop_bitcoin_higher_lower[0]);
+      case "Over/Under":
+        show(prop_bitcoin_over_under[0]);
       break;
     }
     
@@ -1507,9 +1507,9 @@ function create_new_contest()
         show_simple_modal("Please select a prop type");
         submit_error.error = true;
       }
-      if (prop_type === "Higher/Lower") {
+      if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "HIGHER_LOWER"};
-        var over_under_value = document.getElementById("prop_bitcoin_higher_lower_value").value;
+        var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
       }
         
       json_obj.prop_data = prop_data;
