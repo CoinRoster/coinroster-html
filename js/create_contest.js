@@ -1511,6 +1511,7 @@ function create_new_contest()
       if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER_BTC"};
         var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
+        prop_data.over_under_value = Number(over_under_value);
         
         // fixed odds  
         if(id("bitcoin_over_fixed_odds").checked){
