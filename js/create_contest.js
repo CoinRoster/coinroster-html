@@ -138,6 +138,7 @@ function toggle_match_odds(sport){
     hide(document.getElementsByClassName("roster_hockey_title")[0]);  
     hide(document.getElementsByClassName("roster_golf_title")[0]);
     hide(document.getElementsByClassName("roster_baseball_title")[0]);
+    hide(document.getElementsByClassName("prop_bitcoin_over_under")[0]);
   };
 
 contest_type_selector.onchange = function()
