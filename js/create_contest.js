@@ -1500,6 +1500,7 @@ function create_new_contest()
     } 
     // BITCOIN PROP  
     else if (sport === "Bitcoin") {
+      scoring_required.required = false;
       var prop_type = selectorValue("prop_bitcoin_type");
       json_obj.sub_category = "BITCOINS";
       
@@ -1510,6 +1511,26 @@ function create_new_contest()
       if (prop_type === "Over/Under") {
         var prop_data = { prop_type: "OVER_UNDER_BTC"};
         var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
+        
+        // fixed odds  
+        if(id("bitcoin_over_fixed_odds").checked){
+            over = id("prop_bitcoin_over_odds").value;
+            under = id("prop_bitcoin_under_odds").value;
+            risk = id("bitcoin_over_under_risk").value;
+            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+                show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+                submit_error.error = true;
+            }
+            else{
+                over = Number(over);
+                under = Number(under);
+                prop_data['over_odds'] = over;
+                prop_data['under_odds'] = under;
+                prop_data['risk'] = Number(risk);
+            }
+        } 
       }
         
       json_obj.prop_data = prop_data;
