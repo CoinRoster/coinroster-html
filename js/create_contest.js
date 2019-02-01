@@ -1501,14 +1501,14 @@ function create_new_contest()
     // BITCOIN PROP  
     else if (sport === "Bitcoin") {
       var prop_type = selectorValue("prop_bitcoin_type");
-      json_obj.sub_category = "BITCOINPROPS";
+      json_obj.sub_category = "BITCOINS";
       
       if (!prop_type) {
         show_simple_modal("Please select a prop type");
         submit_error.error = true;
       }
       if (prop_type === "Over/Under") {
-        var prop_data = { prop_type: "HIGHER_LOWER"};
+        var prop_data = { prop_type: "OVER_UNDER_BTC"};
         var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
       }
         
