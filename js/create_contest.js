@@ -10,7 +10,6 @@ var prop_golf_type_selector = id("prop_golf_type");
 var prop_baseball_type_selector = id("prop_baseball_type");
 var prop_golf_match_multistat_overall = id("prop_golf_multistat_overall");
 var prop_golf_over_multistat_overall = id("prop_golf_multistat_over_overall");
-var prop_bitcoin_type_selector = id("prop_bitcoin_type");
 
 var checkboxes = $("*[class$='_checkbox']");
 var inputs = $("*[class$='checkbox_input']");
@@ -400,7 +399,7 @@ prop_sport_selector.onchange = function()
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
   var prop_golf_type_selector = document.getElementById("prop_golf_type");
-  var prop_bitcoin_type = document.getElementsByClassName("prop_bitcoin_type");
+  var prop_bitcoin_over_under = document.getElementsByClassName("prop_bitcoin_over_under");
 
   available_sports = get_available_sports();
 
@@ -411,7 +410,6 @@ prop_sport_selector.onchange = function()
   document.getElementById("prop_hockey_type").selectedIndex = "0";
   document.getElementById("prop_golf_type").selectedIndex = "0";
   document.getElementById("prop_baseball_type").selectedIndex = "0";
-  document.getElementById("prop_bitcoin_type").selectedIndex = "0";
    
 if(available_sports.GOLF_1) {   
     var option = document.createElement("option");
@@ -455,7 +453,7 @@ if(available_sports.GOLF_1) {
   {
     case "Bitcoin":
       show(bitcoin_title);
-      show(prop_bitcoin_type[0]);
+      show(prop_bitcoin_over_under[0]);
       hide(prop_golf_type[0]);
       hide(golf_title);
       hide(baseball_title);
@@ -475,7 +473,7 @@ if(available_sports.GOLF_1) {
       hide(hockey_title);
       hide(prop_hockey_type[0]);
       hide(bitcoin_title);
-      hide(prop_bitcoin_type[0]);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Hockey":
       show(hockey_title);
@@ -487,7 +485,7 @@ if(available_sports.GOLF_1) {
       hide(basketball_title);
       hide(prop_basketball_type[0]);
       hide(bitcoin_title);
-      hide(prop_bitcoin_type[0]);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Golf":
       show(golf_title);
@@ -499,7 +497,7 @@ if(available_sports.GOLF_1) {
       hide(hockey_title);
       hide(prop_hockey_type[0]);
       hide(bitcoin_title);
-      hide(prop_bitcoin_type[0]);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Baseball":
       show(baseball_title)
@@ -511,7 +509,7 @@ if(available_sports.GOLF_1) {
       hide(hockey_title);
       hide(prop_hockey_type[0]);
       hide(bitcoin_title);
-      hide(prop_bitcoin_type[0]);
+      hide(prop_bitcoin_over_under[0]);
       break;
   }
  };
@@ -792,18 +790,6 @@ prop_golf_type_selector.onchange = function()
         break;
     }
  };
-
-prop_bitcoin_type_selector.onchange = function()
-{
-    var prop_bitcoin_over_under = document.getElementsByClassName("prop_bitcoin_over_under");
-    switch (selectorHTML(prop_bitcoin_type_selector))
-    {
-      case "Over/Under":
-        show(prop_bitcoin_over_under[0]);
-      break;
-    }
-    
-};
 
 prop_golf_match_multistat_overall.onchange = function()
  {
@@ -1502,49 +1488,40 @@ function create_new_contest()
     // BITCOIN PROP  
     else if (sport === "Bitcoin") {
       scoring_required.required = false;
-      var prop_type = selectorValue("prop_bitcoin_type");
       json_obj.sub_category = "BITCOINS";
       
-      if (!prop_type) {
-        show_simple_modal("Please select a prop type");
+      var prop_data = { prop_type: "OVER_UNDER_BTC"};
+      var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
+      var resolve_time_value = document.getElementById("prop_bitcoin_over_under_resolve_time").value;
+      var resolve_time_array = resolve_time_value.split(":")
+      var resolve_time = Number(resolve_time_array[0]) * 60 + Number(resolve_time_array[1]);
+      
+      if(!resolve_time || isNaN(resolve_time) || Math.round(Number(resolve_time)) < 80){
+        show_simple_modal("Please ensure that the resolve time is valid", "bad", null);
         submit_error.error = true;
       }
-      if (prop_type === "Over/Under") {
-        var prop_data = { prop_type: "OVER_UNDER_BTC"};
-        var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
-        var resolve_time_value = document.getElementById("prop_bitcoin_over_under_resolve_time").value;
-        var resolve_time_array = resolve_time_value.split(":")
-        var resolve_time = Number(resolve_time_array[0]) * 60 + Number(resolve_time_array[1]);
-        
-        if(!resolve_time || isNaN(resolve_time) || Math.round(Number(resolve_time)) < 80){
-          show_simple_modal("Please ensure that the resolve time is valid", "bad", null);
-          submit_error.error = true;
-        }
-        
+      
 
-        prop_data.over_under_value = Number(over_under_value);
-        prop_data['resolve_time'] = Math.round(Number(resolve_time));
+      prop_data.over_under_value = Number(over_under_value);
+      prop_data['resolve_time'] = Math.round(Number(resolve_time));
 
-        
-        // fixed odds  
-        if(id("bitcoin_over_fixed_odds").checked){
-            over = id("prop_bitcoin_over_odds").value;
-            under = id("prop_bitcoin_under_odds").value;
-            risk = id("bitcoin_over_under_risk").value;
-            if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
-                show_simple_modal("Please ensure that the risk is valid", "bad", null);
-            if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
-                show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
-                submit_error.error = true;
-            }
-            else{
-                over = Number(over);
-                under = Number(under);
-                prop_data['over_odds'] = over;
-                prop_data['under_odds'] = under;
-                prop_data['risk'] = Number(risk);
-            }
-        } 
+      
+      // fixed odds  
+      over = id("prop_bitcoin_over_odds").value;
+      under = id("prop_bitcoin_under_odds").value;
+      risk = id("bitcoin_over_under_risk").value;
+      if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+        show_simple_modal("Please ensure that the risk is valid", "bad", null);
+      if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+        show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+        submit_error.error = true;
+      }
+      else{
+        over = Number(over);
+        under = Number(under);
+        prop_data['over_odds'] = over;
+        prop_data['under_odds'] = under;
+        prop_data['risk'] = Number(risk);
       }
         
       json_obj.prop_data = prop_data;
