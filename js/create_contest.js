@@ -1517,7 +1517,7 @@ function create_new_contest()
             add_error("bitcoin_settlement_deadline");
             show_simple_modal("Please set a valid settlement deadline")
             submit_error.error = true;
-        } else if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+        } else if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0) {
             show_simple_modal("Please ensure that the risk is valid", "bad", null);
             submit_error.error = true;
         } else if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
