@@ -1513,14 +1513,15 @@ function create_new_contest()
         var prop_data = { prop_type: "OVER_UNDER_BTC"};
         var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
         var resolve_time_value = document.getElementById("prop_bitcoin_over_under_resolve_time").value;
+        var resolve_time_array = resolve_time_value.split(":")
+        var resolve_time = Number(resolve_time_array[0]) * 60 + Number(resolve_time_array[1]);
         
-        if(!resolve_time_value || isNaN(resolve_time_value) || Math.round(Number(resolve_time_value)) < 80){
+        if(!resolve_time || isNaN(resolve_time) || Math.round(Number(resolve_time)) < 80){
           show_simple_modal("Please ensure that the resolve time is valid", "bad", null);
           submit_error.error = true;
         }
         
-        var resolve_time_array = resolve_time_value.split(":")
-        var resolve_time = Number(resolve_time_array[0]) * 60 + Number(resolve_time_array[1]);
+
         prop_data.over_under_value = Number(over_under_value);
         prop_data['resolve_time'] = Math.round(Number(resolve_time));
 
