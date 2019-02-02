@@ -1498,7 +1498,7 @@ function create_new_contest()
         var over = id("prop_bitcoin_over_odds").value;
         var under = id("prop_bitcoin_under_odds").value;
         var risk = id("bitcoin_over_under_risk").value;
-        var over_under_value = id("prop_bitcoin_over_under_value");
+        var over_under_value = id("prop_bitcoin_over_under_value").value;
         
         var hour = 3600000;
         reg_deadline_time *= 60 * 60 * 1000;
@@ -1537,7 +1537,7 @@ function create_new_contest()
         prop_data['over_odds'] = Number(over);
         prop_data['under_odds'] = Number(under);
         prop_data['risk'] = Number(risk);
-        prop_data['over_under_value'] = Number(over_under_value);
+        prop_data['over_under_value'] = Number(over_under_value).toFixed(2);
         
         json_obj.prop_data = prop_data;
         json_obj.scoring_rules = scoring;
