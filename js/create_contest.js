@@ -1487,45 +1487,60 @@ function create_new_contest()
     } 
     // BITCOIN PROP  
     else if (sport === "Bitcoin") {
-      scoring_required.required = false;
-      json_obj.sub_category = "BITCOINS";
+        scoring_required.required = false;
+        json_obj.sub_category = "BITCOINS";
       
-      var prop_data = { prop_type: "OVER_UNDER_BTC"};
-      var over_under_value = document.getElementById("prop_bitcoin_over_under_value").value;
-      var resolve_time_value = document.getElementById("prop_bitcoin_over_under_resolve_time").value;
-      var resolve_time_array = resolve_time_value.split(":")
-      var resolve_time = Number(resolve_time_array[0]) * 60 + Number(resolve_time_array[1]);
-      
-      if(!resolve_time || isNaN(resolve_time) || Math.round(Number(resolve_time)) < 80){
-        show_simple_modal("Please ensure that the resolve time is valid", "bad", null);
-        submit_error.error = true;
-      }
-      
-
-      prop_data.over_under_value = Number(over_under_value);
-      prop_data['resolve_time'] = Math.round(Number(resolve_time));
-
-      
-      // fixed odds  
-      over = id("prop_bitcoin_over_odds").value;
-      under = id("prop_bitcoin_under_odds").value;
-      risk = id("bitcoin_over_under_risk").value;
-      if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
-        show_simple_modal("Please ensure that the risk is valid", "bad", null);
-      if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
-        show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
-        submit_error.error = true;
-      }
-      else{
+        var prop_data = { prop_type: "OVER_UNDER_BTC"};
+        var reg_deadline = id("bitcoin_registration_deadline").value;
+        var reg_deadline_time = id("bitcoin_registration_deadline_time_selector").value;
+        var set_deadline = id("bitcoin_settlement_deadline").value;
+        var set_deadline_time = id("bitcoin_settlement_deadline_time_selector").value;
+        var over = id("prop_bitcoin_over_odds").value;
+        var under = id("prop_bitcoin_under_odds").value;
+        var risk = id("bitcoin_over_under_risk").value;
+        var over_under_value = id("prop_bitcoin_over_under_value");
+        
+        var hour = 3600000;
+        reg_deadline_time *= 60 * 60 * 1000;
+        set_deadline_time *= 60 * 60 * 1000;
+    
+        //validate inputs.
+        if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
+            add_error("bitcoin_registration_deadline");
+            show_simple_modal("Please set a valid registration deadline");
+            submit_error.error = true;
+        } else if (
+            !set_deadline || 
+            Date.parse(set_deadline) + set_deadline_time < Date.now() || 
+            Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
+        ) {
+            add_error("bitcoin_settlement_deadline");
+            show_simple_modal("Please set a valid settlement deadline")
+            submit_error.error = true;
+        } else if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0)
+            show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            submit_error.error = true;
+        } else if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+            show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+            submit_error.error = true;
+        }
+        var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
+        var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
+        registration_deadline += reg_deadline_time;
+        settlement_deadline += set_deadline_time;
+        
         over = Number(over);
         under = Number(under);
-        prop_data['over_odds'] = over;
-        prop_data['under_odds'] = under;
-        prop_data['risk'] = Number(risk);
-      }
         
-      json_obj.prop_data = prop_data;
-      json_obj.scoring_rules = scoring;
+        prop_data['registration_deadline'] = registration_deadline;
+        prop_data['settlement_deadline'] = settlement_deadline;
+        prop_data['over_odds'] = Number(over);
+        prop_data['under_odds'] = Number(under);
+        prop_data['risk'] = Number(risk);
+        prop_data['over_under_value'] = Number(over_under_value);
+        
+        json_obj.prop_data = prop_data;
+        json_obj.scoring_rules = scoring;
     }     
     // HOCKEY PROP  
     else if (sport === "Hockey") {
