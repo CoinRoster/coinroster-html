@@ -1500,14 +1500,15 @@ function create_new_contest()
         var risk = id("bitcoin_over_under_risk").value;
         var over_under_value = id("prop_bitcoin_over_under_value").value;
         
+        var nine_minutes = 540000;
         var hour = 3600000;
         reg_deadline_time *= 60 * 60 * 1000;
         set_deadline_time *= 60 * 60 * 1000;
     
         //validate inputs.
-        if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + hour) {
+        if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + nine_minutes) {
             add_error("bitcoin_registration_deadline");
-            show_simple_modal("Please set a valid registration deadline");
+            show_simple_modal("Please give at least 9 minutes for registration");
             submit_error.error = true;
         } else if (
             !set_deadline || 
@@ -1515,7 +1516,7 @@ function create_new_contest()
             Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
         ) {
             add_error("bitcoin_settlement_deadline");
-            show_simple_modal("Please set a valid settlement deadline")
+            show_simple_modal("Please give at least an hour for settlement")
             submit_error.error = true;
         } else if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0) {
             show_simple_modal("Please ensure that the risk is valid", "bad", null);
