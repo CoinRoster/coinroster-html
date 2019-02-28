@@ -177,6 +177,14 @@
     width: 45% !important;
 }
 
+#bitcoin_registration_deadline, #bitcoin_registration_deadline_time_selector {
+    width: 45% !important;
+}
+
+#bitcoin_settlement_deadline, #bitcoin_settlement_deadline_time_selector {
+    width: 45% !important;
+}
+
 #pari_mutuel_table_element {
     margin-top: 5px;
     width: calc(100% - 40px) !important;

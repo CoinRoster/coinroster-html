@@ -137,6 +137,7 @@ function toggle_match_odds(sport){
     hide(document.getElementsByClassName("roster_hockey_title")[0]);  
     hide(document.getElementsByClassName("roster_golf_title")[0]);
     hide(document.getElementsByClassName("roster_baseball_title")[0]);
+    hide(document.getElementsByClassName("prop_bitcoin_over_under")[0]);
   };
 
 contest_type_selector.onchange = function()
@@ -155,6 +156,7 @@ contest_type_selector.onchange = function()
       var golf = available_sports.GOLF_4;
       var baseball = available_sports.BASEBALL;
       var hockey = available_sports.HOCKEY;
+      var bitcoin = available_sports.BITCOIN;
 
       roster_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
       prop_sport_selector.innerHTML = "<option value=\"\" selected disabled hidden>Select</option>";
@@ -213,6 +215,12 @@ contest_type_selector.onchange = function()
         var option = document.createElement("option");
         option.text = "Hockey";
         option.value = "Hockey";
+        prop_sport_selector.add(option);
+        } 
+      if (bitcoin) {
+        var option = document.createElement("option");
+        option.text = "Bitcoin";
+        option.value = "Bitcoin";
         prop_sport_selector.add(option);
         } 
     }
@@ -391,13 +399,13 @@ prop_sport_selector.onchange = function()
   var prop_golf_type = document.getElementsByClassName("prop_golf_type");
   var prop_baseball_type = document.getElementsByClassName("prop_baseball_type");
   var prop_golf_type_selector = document.getElementById("prop_golf_type");
+  var prop_bitcoin_over_under = document.getElementsByClassName("prop_bitcoin_over_under");
 
   available_sports = get_available_sports();
 
   $('#prop_golf_type option[value="Make the Cut"]').remove();
   
   reset_elements();
-  
   document.getElementById("prop_basketball_type").selectedIndex = "0";
   document.getElementById("prop_hockey_type").selectedIndex = "0";
   document.getElementById("prop_golf_type").selectedIndex = "0";
@@ -414,6 +422,7 @@ if(available_sports.GOLF_1) {
   var hockey_title = document.getElementById("prop_hockey_title");  
   var golf_title = document.getElementById("prop_golf_title");
   var baseball_title = document.getElementById("prop_baseball_title");
+  var bitcoin_title = document.getElementById("prop_bitcoin_title");
 
   // Set titles
   if (available_sports.BASKETBALL) {
@@ -435,9 +444,25 @@ if(available_sports.GOLF_1) {
     var title = available_sports.baseball_contest;
     baseball_title.innerHTML = title;
   }
+  if (available_sports.BITCOIN) {
+    var title = available_sports.bitcoin_contest;
+    bitcoin_title.innerHTML = title;
+  }
 
-  switch (selectorHTML(prop_sport_selector))
+ switch (selectorHTML(prop_sport_selector))
   {
+    case "Bitcoin":
+      show(bitcoin_title);
+      show(prop_bitcoin_over_under[0]);
+      hide(prop_golf_type[0]);
+      hide(golf_title);
+      hide(baseball_title);
+      hide(prop_baseball_type[0]);
+      hide(hockey_title);
+      hide(prop_hockey_type[0]);
+      hide(basketball_title);
+      hide(prop_basketball_type[0]);
+      break;
     case "Basketball":
       show(basketball_title);
       show(prop_basketball_type[0]);
@@ -447,6 +472,8 @@ if(available_sports.GOLF_1) {
       hide(prop_baseball_type[0]);
       hide(hockey_title);
       hide(prop_hockey_type[0]);
+      hide(bitcoin_title);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Hockey":
       show(hockey_title);
@@ -457,6 +484,8 @@ if(available_sports.GOLF_1) {
       hide(prop_baseball_type[0]);
       hide(basketball_title);
       hide(prop_basketball_type[0]);
+      hide(bitcoin_title);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Golf":
       show(golf_title);
@@ -467,6 +496,8 @@ if(available_sports.GOLF_1) {
       hide(prop_baseball_type[0]);
       hide(hockey_title);
       hide(prop_hockey_type[0]);
+      hide(bitcoin_title);
+      hide(prop_bitcoin_over_under[0]);
       break;
     case "Baseball":
       show(baseball_title)
@@ -477,6 +508,8 @@ if(available_sports.GOLF_1) {
       hide(prop_golf_type[0]);
       hide(hockey_title);
       hide(prop_hockey_type[0]);
+      hide(bitcoin_title);
+      hide(prop_bitcoin_over_under[0]);
       break;
   }
  };
@@ -1410,7 +1443,8 @@ function create_new_contest()
         }
 
         // Collect and validate scores
-       get_score_value("props_basketball_over_points", "pts", scoring, submit_error);
+        get_score_value("props_basketball_over_points", "pts", scoring, submit_error);
+
         get_score_value("props_basketball_over_rebounds", "reb", scoring, submit_error);
         get_score_value("props_basketball_over_assists", "ast", scoring, submit_error);
         get_score_value("props_basketball_over_steals", "stl", scoring, submit_error);
@@ -1451,7 +1485,63 @@ function create_new_contest()
         json_obj.scoring_rules = scoring;
       }
     } 
+    // BITCOIN PROP  
+    else if (sport === "Bitcoin") {
+        scoring_required.required = false;
+        json_obj.sub_category = "BITCOINS";
       
+        var prop_data = { prop_type: "OVER_UNDER_BTC"};
+        var reg_deadline = id("bitcoin_registration_deadline").value;
+        var reg_deadline_time = id("bitcoin_registration_deadline_time_selector").value;
+        var set_deadline = id("bitcoin_settlement_deadline").value;
+        var set_deadline_time = id("bitcoin_settlement_deadline_time_selector").value;
+        var over = id("prop_bitcoin_over_odds").value;
+        var under = id("prop_bitcoin_under_odds").value;
+        var risk = id("bitcoin_over_under_risk").value;
+        var over_under_value = id("prop_bitcoin_over_under_value").value;
+        
+        var nine_minutes = 540000;
+        var hour = 3600000;
+        reg_deadline_time *= 60 * 60 * 1000;
+        set_deadline_time *= 60 * 60 * 1000;
+    
+        //validate inputs.
+        if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + nine_minutes) {
+            add_error("bitcoin_registration_deadline");
+            show_simple_modal("Please give at least 9 minutes for registration");
+            submit_error.error = true;
+        } else if (
+            !set_deadline || 
+            Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
+        ) {
+            add_error("bitcoin_settlement_deadline");
+            show_simple_modal("Please give at least an hour for settlement")
+            submit_error.error = true;
+        } else if (!risk || isNaN(risk) || Number(risk).toFixed(8) <= 0) {
+            show_simple_modal("Please ensure that the risk is valid", "bad", null);
+            submit_error.error = true;
+        } else if(isNaN(over) || Number(over) < 1 || isNaN(under) || Number(under) < 1 ){
+            show_simple_modal("Please ensure that the odds for OVER and UNDER are valid", "bad", null);
+            submit_error.error = true;
+        }
+        var registration_deadline = dateconv_date_start_time(Date.parse(reg_deadline));
+        var settlement_deadline = dateconv_date_start_time(Date.parse(set_deadline));
+        registration_deadline += reg_deadline_time;
+        settlement_deadline += set_deadline_time;
+        
+        over = Number(over);
+        under = Number(under);
+        
+        prop_data['registration_deadline'] = registration_deadline;
+        prop_data['settlement_deadline'] = settlement_deadline;
+        prop_data['over_odds'] = Number(over);
+        prop_data['under_odds'] = Number(under);
+        prop_data['risk'] = Number(risk);
+        prop_data['over_under_value'] = Number(over_under_value).toFixed(2);
+        
+        json_obj.prop_data = prop_data;
+        json_obj.scoring_rules = scoring;
+    }     
     // HOCKEY PROP  
     else if (sport === "Hockey") {
       var prop_type = selectorValue("prop_hockey_type");

@@ -14,6 +14,8 @@
         $( function() {
             $( "#misc_registration_deadline" ).datepicker();
             $( "#misc_settlement_deadline" ).datepicker();
+            $( "#bitcoin_registration_deadline" ).datepicker();
+            $( "#bitcoin_settlement_deadline" ).datepicker();
         } );
   </script>
 </head>
@@ -334,10 +336,18 @@
                                 <option value="" selected disabled hidden>Select</option>
                             </select>
                         </div>
+                        <div id="prop_bitcoin_title" class="hidden input_label prop_bitcoin_title"></div>
                         <div id="prop_basketball_title" class="hidden input_label prop_basketball_title"></div>
                         <div id="prop_hockey_title" class="hidden input_label prop_hockey_title"></div>
                         <div id="prop_golf_title" class="hidden input_label prop_golf_title"></div>
                         <div id="prop_baseball_title" class="hidden input_label prop_baseball_title"></div>
+                        <div class="prop_bitcoin_type hidden input_padding">
+                            <span class="input_label">Prop Type</span>
+                            <select data-placeholder="Select" id="prop_bitcoin_type" class="input_style chosen-select dropdown">
+                                <option value="" selected disabled hidden>Select</option>
+                                <option value="Over/Under">Over/Under</option>
+                            </select>
+                        </div>
                         <div class="prop_basketball_type hidden input_padding">
                             <span class="input_label">Prop Type</span>
                             <select data-placeholder="Select" id="prop_basketball_type" class="input_style chosen-select dropdown">
@@ -370,6 +380,86 @@
                                 <option value="Match Play">Match Play</option>
                                 <option value="Over/Under">Over/Under</option>
                             </select>
+                        </div>
+                        <div class="prop_bitcoin_over_under hidden input_padding">
+                            <div class="input_padding">
+                                <span class="input_label">Over/Under Value</span>
+                                <input type="text" class="input_style" placeholder="Over/Under value" id="prop_bitcoin_over_under_value"/>
+                            </div>
+                            <div id="prop_bitcoin_over_under_odds" class="prop_bitcoin_over_under_odds">
+                                <div class="input_padding">
+                                    <span id="bitcoin_over_odds_label" class="input_label">Over</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_over_odds"/>
+                                    <span style="padding-top:5px;" id="bitcoin_under_odds_label" class="input_label">Under</span>
+                                    <input type="number" class="input_style" placeholder="Odds" id="prop_bitcoin_under_odds"/>
+                                    <span style="padding-top:5px;" class="input_label">Risk</span>
+                                    <input type="number" step="0.0000001" style="font-family:FontAwesome, 'gotham_medium'; width: 200px;" placeholder="&#xf15a;" class="input_style" id="bitcoin_over_under_risk"/>
+                                </div>
+                            </div>
+                            <div class="bitcoin_reg_deadline input_padding">
+                                <span class="input_label">Registration Deadline</span>
+                                <div class="contest_registration_options">
+                                    <input type="text" id="bitcoin_registration_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                                    <select data-placeholder="Select" id="bitcoin_registration_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
+                                        <option value="0">12:00 AM</option>
+                                        <option value="1">1:00 AM</option>
+                                        <option value="2">2:00 AM</option>
+                                        <option value="3">3:00 AM</option>
+                                        <option value="4">4:00 AM</option>
+                                        <option value="5">5:00 AM</option>
+                                        <option value="6">6:00 AM</option>
+                                        <option value="7">7:00 AM</option>
+                                        <option value="8">8:00 AM</option>
+                                        <option value="9">9:00 AM</option>
+                                        <option value="10">10:00 AM</option>
+                                        <option value="11">11:00 AM</option>
+                                        <option value="12">12:00 PM</option>
+                                        <option value="13">1:00 PM</option>
+                                        <option value="14">2:00 PM</option>
+                                        <option value="15">3:00 PM</option>
+                                        <option value="16">4:00 PM</option>
+                                        <option value="17">5:00 PM</option>
+                                        <option value="18" selected>6:00 PM</option>
+                                        <option value="19">7:00 PM</option>
+                                        <option value="20">8:00 PM</option>
+                                        <option value="21">9:00 PM</option>
+                                        <option value="22">10:00 PM</option>
+                                        <option value="23">11:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="bitcoin_set_deadline input_padding">
+                                <span class="input_label">Settlement Deadline</span>
+                                <div class="contest_registration_options">
+                                    <input type="text" id="bitcoin_settlement_deadline" class="input_style chosen-select" style="width:95px" placeholder="mm/dd/yyyy" readonly="true">
+                                    <select data-placeholder="Select" id="bitcoin_settlement_deadline_time_selector" class="input_style chosen-select dropdown" style="width:100px">
+                                        <option value="0">12:00 AM</option>
+                                        <option value="1">1:00 AM</option>
+                                        <option value="2">2:00 AM</option>
+                                        <option value="3">3:00 AM</option>
+                                        <option value="4">4:00 AM</option>
+                                        <option value="5">5:00 AM</option>
+                                        <option value="6">6:00 AM</option>
+                                        <option value="7">7:00 AM</option>
+                                        <option value="8">8:00 AM</option>
+                                        <option value="9">9:00 AM</option>
+                                        <option value="10">10:00 AM</option>
+                                        <option value="11">11:00 AM</option>
+                                        <option value="12">12:00 PM</option>
+                                        <option value="13">1:00 PM</option>
+                                        <option value="14">2:00 PM</option>
+                                        <option value="15">3:00 PM</option>
+                                        <option value="16">4:00 PM</option>
+                                        <option value="17">5:00 PM</option>
+                                        <option value="18" selected>6:00 PM</option>
+                                        <option value="19">7:00 PM</option>
+                                        <option value="20">8:00 PM</option>
+                                        <option value="21">9:00 PM</option>
+                                        <option value="22">10:00 PM</option>
+                                        <option value="23">11:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="prop_basketball_match_play hidden input_padding">
                             <div class="prop_basketball_scoring checkboxes input_padding">
