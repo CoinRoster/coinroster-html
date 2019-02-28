@@ -1506,14 +1506,13 @@ function create_new_contest()
         set_deadline_time *= 60 * 60 * 1000;
     
         //validate inputs.
-        if (!reg_deadline || Date.parse(reg_deadline) + reg_deadline_time < Date.now() + nine_minutes) {
+        if (!reg_deadline || Date.parse(reg_deadline) < Date.now() + nine_minutes) {
             add_error("bitcoin_registration_deadline");
             show_simple_modal("Please give at least 9 minutes for registration");
             submit_error.error = true;
         } else if (
             !set_deadline || 
-            Date.parse(set_deadline) + set_deadline_time < Date.now() || 
-            Date.parse(set_deadline) + set_deadline_time < Date.parse(reg_deadline) + reg_deadline_time + hour
+            Date.parse(set_deadline) < Date.parse(reg_deadline) + hour
         ) {
             add_error("bitcoin_settlement_deadline");
             show_simple_modal("Please give at least an hour for settlement")
