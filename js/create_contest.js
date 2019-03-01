@@ -1490,7 +1490,7 @@ function create_new_contest()
         scoring_required.required = false;
         json_obj.sub_category = "BITCOINS";
       
-        var prop_data = { prop_type: "OVER_UNDER_BTC"};
+        var prop_data = { prop_type: "OVER_UNDER_CRYPTO"};
         var reg_deadline = id("bitcoin_registration_deadline").value;
         var reg_deadline_time = id("bitcoin_registration_deadline_time_selector").value;
         var set_deadline = id("bitcoin_settlement_deadline").value;
