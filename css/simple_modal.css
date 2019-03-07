@@ -90,9 +90,7 @@
         overflow: hidden;
         background-color: rgba(0,0,0,0.4);
     }
-     #simple_modal_shade_big.open {
-        display: table;
-     }
+
     .simple_modal_landing_center_big {
         position:fixed;
         border-collapse:collapse;
@@ -125,7 +123,9 @@
         display: none;
         z-index: 2;
     }
-
+    #simple_modal_centering_container_big.open {
+       display: table;
+    }
     #simple_modal_window_big {
         border-style: solid;
         border-width: 1px;
