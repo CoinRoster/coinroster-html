@@ -47,113 +47,136 @@
             <h3 id="contest_title" class="section_header">
                 <!-- POPULATED BY JAVASCRIPT -->
             </h3>
-            <div id="valid_contest_container" class="hidden">
-                <div id="contest_description"></div>
-                <hr noshade size="1"/>
-                <div style="margin: 10px 0;">
-                    <table class="contest_detail_table add_right_padding">
-                        <tr>
-                            <td>
-                                Category:
-                            </td>
-                            <td>
-                                <span id="category" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Sub-category:
-                            </td>
-                            <td>
-                                <span id="sub_category" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Game type:
-                            </td>
-                            <td>
-                                <span id="settlement_type" class="orange"></span>
-                                <span id="payout_info" class="payout_info_link teal">Payout info</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="cost_per_entry_label">
-                                Entry fee:
-                            </td>
-                            <td>
-                                <span id="cost_per_entry" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="entries_label">
-                                Entries:
-                            </td>
-                            <td>
-                                <span id="entries_per_user" class="orange"></span>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="contest_detail_table">
-                        <tr>
-                            <td>
-                                Rake:
-                            </td>
-                            <td>
-                                <span id="rake" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Prize pool:
-                            </td>
-                            <td>
-                                <span id="prize_pool" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span id="progressive_payout_info" class="payout_info_link teal" style="display:none;padding-left:0 !important;">Progressive:</span>
-                                <span id="progressive_inactive">Progressive:</span>
-                            </td>
-                            <td>
-                                <span id="progressive_balance" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td id="registration_deadline_label">
-                                Deadline:
-                            </td>
-                            <td>
-                                <span id="registration_deadline" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr id="registration_countdown_row">
-                            <td>
-                                Countdown:
-                            </td>
-                            <td>
-                                <span id="registration_countdown" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr id="status_row" class="hidden">
-                            <td>
-                                Status:
-                            </td>
-                            <td>
-                                <span id="status" class="orange"></span>
-                            </td>
-                        </tr>
-                        <tr id="pari_mutuel_table_label" class="hidden">
-                            <td colspan="2">
-                                Outcomes ...
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <hr id="contest_second_hr" noshade size="1"/>
-                <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
-            </div>
+
+            <table style="margin-top: -5px;">
+                <tbody>
+                    <tr>
+                        <td style="padding: 0px 10px 20px 0px;">
+                            <span class="styled__links" id="open_big_modal" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;">Open Info</span>
+                        </td>
+                    </tr>
+                </tbody>
+             </table>
+
+            <!-- Start Big Modal -->
+            <table id="simple_modal_centering_container_big" class="simple_modal_landing_center_big">
+                <tr>
+                    <td>
+                        <div id="simple_modal_window_big">
+                            <div id="valid_contest_container" class="hidden">
+                                <div id="contest_description"></div>
+                                <hr noshade size="1"/>
+                                <div style="margin: 10px 0;">
+                                    <table class="contest_detail_table add_right_padding" style="vertical-align: top;">
+                                        <tr>
+                                            <td>
+                                                Category:
+                                            </td>
+                                            <td>
+                                                <span id="category" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Sub-category:
+                                            </td>
+                                            <td>
+                                                <span id="sub_category" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="hidden">
+                                            <td>
+                                                Game type:
+                                            </td>
+                                            <td>
+                                                <span id="settlement_type" class="orange"></span>
+                                                <span id="payout_info" class="payout_info_link teal">Payout info</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="cost_per_entry_label">
+                                                Entry fee:
+                                            </td>
+                                            <td>
+                                                <span id="cost_per_entry" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="entries_label">
+                                                Entries:
+                                            </td>
+                                            <td>
+                                                <span id="entries_per_user" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="contest_detail_table">
+                                        <tr>
+                                            <td>
+                                                Rake:
+                                            </td>
+                                            <td>
+                                                <span id="rake" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Prize pool:
+                                            </td>
+                                            <td>
+                                                <span id="prize_pool" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span id="progressive_payout_info" class="payout_info_link teal" style="display:none;padding-left:0 !important;">Progressive:</span>
+                                                <span id="progressive_inactive">Progressive:</span>
+                                            </td>
+                                            <td>
+                                                <span id="progressive_balance" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="registration_deadline_label">
+                                                Deadline:
+                                            </td>
+                                            <td>
+                                                <span id="registration_deadline" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr id="registration_countdown_row">
+                                            <td>
+                                                Countdown:
+                                            </td>
+                                            <td>
+                                                <span id="registration_countdown" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr id="status_row" class="hidden">
+                                            <td>
+                                                Status:
+                                            </td>
+                                            <td>
+                                                <span id="status" class="orange"></span>
+                                            </td>
+                                        </tr>
+                                        <tr id="pari_mutuel_table_label" class="hidden">
+                                            <td colspan="2">
+                                                Outcomes ...
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <hr id="contest_second_hr" noshade size="1"/>
+                                <hr id="pari_mutuel_second_hr" noshade size="1" class="hidden"/>
+                            </div>
+                            <div id="simple_modal_close_big">Ok</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- End Big Modal -->
+            
         </div>
         <div class="body_container header">
             <div id="no_data_message" class="low_grade_alert hidden"></div>
@@ -923,6 +946,8 @@ function open_dashboard(span){
         displayHockeyDashboard(rtn.data);
     }
 }
+var eltmp = document.getElementById("open_big_modal");
+eltmp.addEventListener("click", show_simple_modal_big("", "good", false);
 </script>
 <script type="text/javascript" src="/js/nav.js"></script>
 
