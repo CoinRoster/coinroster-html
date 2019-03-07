@@ -599,8 +599,6 @@
                                 date_string = dateconv_ms_to_time(settled_date) + " on " + dateconv_ms_to_string(settled_date);
                                 if (contest_type === "PARI-MUTUEL")
                                     {
-                                        var categoryBlockTable = document.querySelector("#simple_modal_window_big");
-                                        categoryBlockTable.classList.add("PARI-MUTUEL-TEST");
                                     for (var i=0; i<option_table.length; i++)
                                         {
                                         var option_item = option_table[i];
@@ -722,6 +720,9 @@
         var contest_open = contest_status === 1;
         
         var pari_mutuel_fields = document.getElementsByClassName("pari_mutuel_field");
+
+        var categoryBlockTable = document.querySelector("#simple_modal_window_big");
+        categoryBlockTable.classList.add("PARI-MUTUEL-TEST");
         
         for (var i=0; i<pari_mutuel_fields.length; i++)
             {
