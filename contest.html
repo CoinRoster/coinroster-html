@@ -50,8 +50,8 @@
             <table style="margin-top: -5px;">
                 <tbody>
                     <tr>
-                        <td style="padding: 0px 10px 20px 0px;">
-                            <span onclick="show_simple_modal_big();" class="styled__links" id="open_big_modal" style="cursor: pointer; font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;">Contest Details</span>
+                        <td style="padding: 5px 10px 30px 0px;">
+                            <span onclick="show_simple_modal_big();" class="styled__links" id="open_big_modal" style="cursor: pointer;font-size: 14px;  color: rgb(255,229,171) !important; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;">Contest Details</span>
                         </td>
                     </tr>
                 </tbody>
@@ -83,7 +83,7 @@
                                                 <span id="sub_category" class="orange"></span>
                                             </td>
                                         </tr>
-                                        <tr class="hidden">
+                                        <tr>
                                             <td>
                                                 Game type:
                                             </td>
@@ -440,7 +440,9 @@
                         destroy("contest_second_hr");
                         show("pari_mutuel_second_hr");
                         
-                        
+                        var categoryBlockTable = document.querySelector("#simple_modal_window_big");
+                        categoryBlockTable.classList.add("PARI-MUTUEL-TEST");
+
                         if(amount_left < 0)
                             id("entries_label").innerHTML = "Wagers:";
                         else
