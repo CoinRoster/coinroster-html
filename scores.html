@@ -26,10 +26,10 @@
                 <tbody>
                     <tr>
                         <td style="padding: 0px 10px 20px 0px;">
-                            <a class="styled__links" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;" href="/contest.html">Contest</a>
+                            <a class="styled__links" id="contest__top_link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;" href="/contest.html">Contest</a>
                         </td>
                         <td style="padding: 0px 10px 20px 10px;">
-                            <a class="styled__links" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;" href="/rosters.html">Rosters</a>
+                            <a class="styled__links"  id="rosters__top_link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;" href="/rosters.html">Rosters</a>
                         </td>
                     </tr>
                 </tbody>
@@ -102,6 +102,13 @@
                     scores_updated_ms = call.scores_updated;
             
                     id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
+
+                    var contest__top_link = document.querySelector("#contest__top_link"); 
+                    contest__top_link.setAttribute("href", "/contest.html?contest_id=" + contest_id);
+
+                    var rosters__top_link = document.querySelector("#rosters__top_link"); 
+                    rosters__top_link.setAttribute("href", "/rosters.html/?contest_id=" + contest_id);
+
                     
                     document.title = "CoinRoster | " + title + " | Leaderboard";
             
