@@ -51,7 +51,7 @@
                 <tbody>
                     <tr>
                         <td style="padding: 0px 10px 20px 0px;">
-                            <span class="styled__links" id="open_big_modal" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;">Open Info</span>
+                            <span onclick="show_simple_modal_big();" class="styled__links" id="open_big_modal" style="font-size: 13px; color: #ffffff; text-decoration: none; font-family: 'section_header', 'section_header_2', sans-serif;">Open Info</span>
                         </td>
                     </tr>
                 </tbody>
@@ -949,10 +949,6 @@ function open_dashboard(span){
 
 <script type="text/javascript" src="/js/nav.js"></script>
 <script type="text/javascript" src="/js/simple_modal_big.js"></script>
-<script>
-    var eltmp = document.getElementById("open_big_modal");
-    eltmp.addEventListener("click", show_simple_modal_big(), false);
-</script>
 
 <!--#include virtual="/ssi/google_analytics.html" -->
 </body>
