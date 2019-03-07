@@ -579,3 +579,8 @@
 #player_contest_link {
     font-size: 14px;
 }
+@media screen and (max-width: 499px) {
+    #pari_mutuel_table .wagers_and_odds li.li_left {
+        display: none !important;
+    }
+}
