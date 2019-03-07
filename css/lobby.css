@@ -562,3 +562,7 @@
         padding-bottom: 15px;
         font-size: 14px;
     }
+
+.PARI-MUTUEL tbody tr td:nth-child(2) {
+    display: none;
+}
