@@ -602,9 +602,9 @@
                                 main_line = "This contest was settled at ";
                                 date_string = dateconv_ms_to_time(settled_date) + " on " + dateconv_ms_to_string(settled_date);
                                 if (contest_type === "PARI-MUTUEL")
-                                    var categoryBlockTable = document.querySelector("#simple_modal_window_big");
-                                    categoryBlockTable.classList.add("PARI-MUTUEL-TEST");
                                     {
+                                        var categoryBlockTable = document.querySelector("#simple_modal_window_big");
+                                        categoryBlockTable.classList.add("PARI-MUTUEL-TEST");
                                     for (var i=0; i<option_table.length; i++)
                                         {
                                         var option_item = option_table[i];
