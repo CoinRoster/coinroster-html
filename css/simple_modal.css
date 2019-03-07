@@ -121,7 +121,7 @@
 
     #simple_modal_centering_container_big {
         display: none;
-        z-index: 2;
+        z-index: 1;
     }
     #simple_modal_centering_container_big.open {
      display: table;
