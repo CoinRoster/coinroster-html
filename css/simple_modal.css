@@ -90,13 +90,17 @@
         overflow: hidden;
         background-color: rgba(0,0,0,0.4);
     }
-    
+     #simple_modal_shade_big.open {
+        display: table;
+     }
     .simple_modal_landing_center_big {
         position:fixed;
         border-collapse:collapse;
         top:0;
+        left: 0;
         width:100%;
         height:100%;
+        background-color: rgba(0,0,0,0.4);
     }
 
     .simple_modal_landing_center_big td {
@@ -129,6 +133,7 @@
         margin: 0 auto;
         padding: 30px;
         width: 660px;
+        max-width: 100%;
         border-radius: 8px;
     }
 
