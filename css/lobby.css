@@ -576,6 +576,6 @@
     display: inline-block;
     margin-right: 20px;
 }
-.player_contest_link {
+#player_contest_link {
     font-size: 14px;
 }
