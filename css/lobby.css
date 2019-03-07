@@ -569,3 +569,6 @@
 .PARI-MUTUEL-TEST .add_right_padding tbody tr:nth-child(3) {
     display: none;
 }
+#pari_mutuel_table .li_left {
+    display: none;
+}
