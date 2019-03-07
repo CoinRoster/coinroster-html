@@ -104,10 +104,10 @@
                     id("contest_title").innerHTML += "&nbsp;&nbsp;&bull;&nbsp;&nbsp;" + title;
 
                     var contest__top_link = document.querySelector("#contest__top_link"); 
-                    contest__top_link.setAttribute("href", "/contest.html?contest_id=" + contest_id);
+                    contest__top_link.setAttribute("href", "/contest.html?id=" + contest_id);
 
                     var rosters__top_link = document.querySelector("#rosters__top_link"); 
-                    rosters__top_link.setAttribute("href", "/rosters.html/?contest_id=" + contest_id);
+                    rosters__top_link.setAttribute("href", "/rosters.html?contest_id=" + contest_id);
 
                     
                     document.title = "CoinRoster | " + title + " | Leaderboard";
