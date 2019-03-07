@@ -572,3 +572,10 @@
 #pari_mutuel_table .li_left {
     display: none;
 }
+.custom-styles {
+    display: inline-block;
+    margin-right: 20px;
+}
+.player_contest_link {
+    font-size: 14px;
+}
