@@ -15,7 +15,6 @@
 <!--#include virtual="/ssi/basketball_dashboard.html" -->
 <!--#include virtual="/ssi/hockey_dashboard.html" -->
 
-
 <div id="page_body">
     <div id="centering_container">
         <!--#include virtual="/ssi-java/nav" -->
@@ -946,9 +945,14 @@ function open_dashboard(span){
         displayHockeyDashboard(rtn.data);
     }
 }
-var eltmp = document.getElementById("open_big_modal");
-eltmp.addEventListener("click", show_simple_modal_big("", "good", false));
 </script>
+
+<script>
+    var eltmp = document.getElementById("open_big_modal");
+    eltmp.addEventListener("click", show_simple_modal_big("", "good", false));
+</script>
+<script type="text/javascript" src="/js/simple_modal_big.js"></script>
+
 <script type="text/javascript" src="/js/nav.js"></script>
 
 <!--#include virtual="/ssi/google_analytics.html" -->
