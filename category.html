@@ -198,7 +198,7 @@
                     break;
 
                 case "PARI-MUTUEL" :
-                    button_text = "";
+                    button_text = "Bet!";
                     break;
                 }
 
@@ -212,7 +212,7 @@
             if (contest_item.contest_type ===  "PARI-MUTUEL")
             {
                 row = new_row(table, -1, [
-                    "<ul><li>" + title_link + "</li></ul>",
+                    "<ul><li>" + title_link + "</li><li class='draft_button' onclick='redirect_to_contest(" + contest_id + ")'>" + button_text + "</li></ul>",
                     "<div class='field_label'>Goes live:</div>" + registration_deadline_string + game_type_empty
                 ]);
             }
