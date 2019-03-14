@@ -1412,14 +1412,14 @@ function create_new_contest()
                   prop_data['risk'] = Number(risk);
               }
               
-              tie_odds = id("basketball_match_tie").value;
-              if (!tie_odds || isNaN(tie_odds) ){
-                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-                submit_error.error = true;
-              }
-              else{
-                  prop_data['tie_odds'] = Number(tie_odds);
-              }
+//              tie_odds = id("basketball_match_tie").value;
+//              if (!tie_odds || isNaN(tie_odds) ){
+//                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+//                submit_error.error = true;
+//              }
+//              else{
+//                  prop_data['tie_odds'] = Number(tie_odds);
+//              }
           }
             
           prop_data['prop_type'] = "MATCH_PLAY";
@@ -1601,14 +1601,14 @@ function create_new_contest()
                   prop_data['risk'] = Number(risk);
               }
               
-              tie_odds = id("hockey_match_tie").value;
-              if (!tie_odds || isNaN(tie_odds) ){
-                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-                submit_error.error = true;
-              }
-              else{
-                  prop_data['tie_odds'] = Number(tie_odds);
-              }
+//              tie_odds = id("hockey_match_tie").value;
+//              if (!tie_odds || isNaN(tie_odds) ){
+//                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+//                submit_error.error = true;
+//              }
+//              else{
+//                  prop_data['tie_odds'] = Number(tie_odds);
+//              }
           }
             
           prop_data['prop_type'] = "MATCH_PLAY";
@@ -1823,14 +1823,14 @@ function create_new_contest()
                   prop_data['risk'] = Number(risk);
               }
               
-              tie_odds = id("golf_match_tie").value;
-              if (!tie_odds || isNaN(tie_odds) ){
-                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-                submit_error.error = true;
-              }
-              else{
-                  prop_data['tie_odds'] = Number(tie_odds);
-              }
+//              tie_odds = id("golf_match_tie").value;
+//              if (!tie_odds || isNaN(tie_odds) ){
+//                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+//                submit_error.error = true;
+//              }
+//              else{
+//                  prop_data['tie_odds'] = Number(tie_odds);
+//              }
           }
           prop_data.players = players;
             
@@ -1964,14 +1964,14 @@ function create_new_contest()
                 prop_data['risk'] = Number(risk);
             }
        
-            tie_odds = id("baseball_match_tie").value;
-            if (!tie_odds || isNaN(tie_odds) ){
-                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
-                submit_error.error = true;
-            }
-            else{
-                prop_data['tie_odds'] = Number(tie_odds);
-            }
+//            tie_odds = id("baseball_match_tie").value;
+//            if (!tie_odds || isNaN(tie_odds) ){
+//                show_simple_modal("Please ensure that the odds for a TIE is valid", "bad", null);
+//                submit_error.error = true;
+//            }
+//            else{
+//                prop_data['tie_odds'] = Number(tie_odds);
+//            }
         }
         
         json_obj.scoring_rules = scoring;
