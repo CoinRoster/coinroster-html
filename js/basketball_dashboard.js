@@ -23,7 +23,7 @@ function displayBasketballDashboard(data){
     }
     document.getElementById('basketball_headshot').addEventListener("error", onImageLoadError);     
     
-    document.getElementById('basketball_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/' +data.team_abr +'.png&w=110&h=110&transparent=true';
+    document.getElementById('basketball_logo').src = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/' +data.team_abr +'.png&w=110&h=110';
            
     document.getElementById("basketball_team_list").innerHTML = 'Team: ' + data.team_abr;
     document.getElementById("basketball_pos_list").innerHTML = 'Pos: ' + data.pos;
