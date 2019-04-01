@@ -352,12 +352,10 @@
     user_filter_selector = id("user_filter_selector"),
     
     now = new Date(),
-    now_day_of_month = now.getDate(),
     now_ms = now.getTime(),
-    
     ms_per_day = (86400 * 1000),
             
-    left_date = now_ms - ms_per_day * (now_day_of_month - 1),
+    left_date = now_ms - ms_per_day * 7,
     right_date = now_ms,
     
     min_date = null,
@@ -413,6 +411,7 @@
                 {
                 transaction_report_array = call.transaction_report;
                 number_of_transactions = transaction_report_array.length;
+                
                 populate_transaction_report_table();
                 }
             });
