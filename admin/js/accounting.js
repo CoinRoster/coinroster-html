@@ -398,7 +398,7 @@
         start_date_ms = ((start_date_ms / ms_per_day) | 0) * ms_per_day;
         end_date_ms = ((end_date_ms / ms_per_day) | 0) * ms_per_day + ms_per_day;
 
-        var include_riskescrow = id("transactions_includerisk").checked;
+        var hide_trans = id("transactions_hiderisk_reversals").checked;
             
         api({
             method: "TransactionReport",
@@ -406,7 +406,7 @@
                 start_date_ms: start_date_ms,
                 end_date_ms: end_date_ms,
                 request_source: "admin_panel",
-                include_riskescrow: include_riskescrow
+                hide_trans: hide_trans
             }
         }, function(call)
             {
